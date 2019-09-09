@@ -35,6 +35,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activity.mswitch.YaoKongDetailActivity"></activity>
+        <activity android:name=".activity.mswitch.YaoKongActivity" />
 
         <meta-data
             android:name="com.alibaba.app.appkey"
@@ -211,10 +213,9 @@
             android:theme="@style/dialog_style" /> <!-- switch -->
         <activity
             android:name=".activity.mswitch.SwitchTreeActivity"
-            android:screenOrientation="portrait" />
-        <!--<activity-->
-            <!--android:name=".activity.mswitch.SwitchTreeDialog"-->
-            <!--android:theme="@style/dialog_style" />-->
+            android:screenOrientation="portrait" /> <!-- <activity -->
+        <!-- android:name=".activity.mswitch.SwitchTreeDialog" -->
+        <!-- android:theme="@style/dialog_style" /> -->
         <activity
             android:name=".activity.mswitch.SwitchStatusActivity"
             android:screenOrientation="portrait" />
@@ -247,8 +248,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.electric.ModifyorAddEleapplianceActivity"
-            android:screenOrientation="portrait" />
-        <!--report-->
+            android:screenOrientation="portrait" /> <!-- report -->
         <activity
             android:name=".activity.report.ReportDetailActivity"
             android:screenOrientation="portrait" />
