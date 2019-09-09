@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.rejuvee.smartelectric.family">
+    <!-- wifi usage -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_SMS" /> <!-- Camera usage -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" /> <!-- file and SD Card usage -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission
+        android:name="android.permission.CHANGE_CONFIGURATION"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <application
+        android:name=".MainApplication"
+        android:fullBackupContent="@xml/backup_descriptor"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+
+        <meta-data
+            android:name="com.alibaba.app.appkey"
+            android:value="${emas_app_key}" /> <!-- alibaba- appKey -->
+        <meta-data
+            android:name="com.alibaba.app.appsecret"
+            android:value="${emas_app_secret}" /> <!-- alibaba- appSecret -->
+        <meta-data
+            android:name="APP_COMPANY_NAME"
+            android:value="${app_company_name}" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <receiver
+            android:name=".common.ForceOfflineBroadCastReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="ForceOfflineBroadCastReceiver" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".common.AppInstallReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver> <!-- ali消息接收监听器 （用户可自主扩展） -->
+        <receiver
+            android:name=".MainMessageReceiver"
+            android:exported="false">
+
+            <!-- 为保证receiver安全，建议设置不可导出，如需对其他应用开放可通过android：permission进行限制 -->
+            <intent-filter>
+                <action android:name="com.alibaba.push2.action.NOTIFICATION_OPENED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.alibaba.push2.action.NOTIFICATION_REMOVED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.alibaba.sdk.android.push.RECEIVE" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".activity.login.LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="101529590" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" /> <!-- login -->
+        <activity
+            android:name=".activity.login.ReLoginActivity"
+            android:theme="@style/dialog_style" />
+        <activity
+            android:name=".activity.login.HiddenDialogActivity"
+            android:theme="@style/dialog_style" />
+        <activity
+            android:name=".activity.login.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.login.ForgetPwdActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AddDeviceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.login.AccountBaseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".smarte.wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" /> <!-- mine -->
+        <activity
+            android:name=".activity.mine.ModifyPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mine.PerInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mine.SetInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mine.SettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mine.ThridBindActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mine.ThridPushActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainNavigationActivity"
+            android:screenOrientation="portrait" /> <!-- sceneBean -->
+        <activity
+            android:name=".activity.scene.SceneActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.scene.ChoceSceneimgActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.scene.CreateSceneActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.scene.ChoceLineActivity"
+            android:screenOrientation="portrait" /> <!-- collector -->
+        <activity
+            android:name=".activity.collector.CollectorDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.collector.CurveActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.collector.CollectorAttrActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.collector.CollectorAttrSetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.collector.UpgradeDialogActivity"
+            android:theme="@style/dialog_style" /> <!-- energy -->
+        <activity
+            android:name=".activity.energy.StatementActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.energy.EnergySavingInformationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.energy.CostCalculationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.energy.TimePriceSetActivity"
+            android:screenOrientation="portrait" /> <!-- timer -->
+        <activity
+            android:name=".activity.timer.TimerSwitchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.timer.TimerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.timer.TimerEditDialogActivity"
+            android:theme="@style/dialog_style" /> <!-- switch -->
+        <activity
+            android:name=".activity.mswitch.SwitchTreeActivity"
+            android:screenOrientation="portrait" />
+        <!--<activity-->
+            <!--android:name=".activity.mswitch.SwitchTreeDialog"-->
+            <!--android:theme="@style/dialog_style" />-->
+        <activity
+            android:name=".activity.mswitch.SwitchStatusActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mswitch.SwitchModifyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mswitch.SetSwitchNameActivity"
+            android:screenOrientation="portrait" /> <!-- logger -->
+        <activity
+            android:name=".activity.logger.LogDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.logger.SecurityInformationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mswitch.SwitchSettingActivity"
+            android:screenOrientation="portrait" /> <!-- share -->
+        <activity
+            android:name=".activity.share.ShareListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.share.AddShareMemberActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.collector.CollectorDetail2Activity"
+            android:screenOrientation="portrait" /> <!-- electric -->
+        <activity
+            android:name=".activity.electric.MyEleApplianceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.electric.ModifyorAddEleapplianceActivity"
+            android:screenOrientation="portrait" />
+        <!--report-->
+        <activity
+            android:name=".activity.report.ReportDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.report.ReportActivity"
+            android:screenOrientation="portrait" />
+    </application>
+
+</manifest>

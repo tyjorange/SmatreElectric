@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/colorPrimary"
+    android:minHeight="?attr/actionBarSize"
+    app:contentInsetLeft="0dp"
+    app:contentInsetStart="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/nav_toolbar_search_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.8"
+            android:background="@drawable/edittext_selector"
+            android:padding="@dimen/global_base_padding_10"
+            android:text=""
+            android:textColor="@color/text_base_color_666"
+            android:textColorHint="@color/text_base_color_999"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/global_base_text_size_14" />
+
+        <TextView
+            android:id="@+id/nav_toolbar_search_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:gravity="center"
+            android:padding="@dimen/global_base_padding_10"
+            android:text="@string/text_search_text"
+            android:textColor="@color/text_content_color_fff"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/global_base_text_size_16" />
+    </LinearLayout>
+
+
+</android.support.v7.widget.Toolbar>

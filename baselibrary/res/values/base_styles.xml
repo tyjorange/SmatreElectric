@@ -1,0 +1,135 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <!--toolbar-->
+        <!--状态栏-->
+        <!--设置状态栏透明-->
+        <item name="android:windowIsTranslucent">true</item>
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <!--<item name="colorAccent">@color/colorPrimary</item>-->
+        <!--navigation back arrow color-->
+        <item name="android:textColorSecondary">@color/white</item>
+        <!--设置menu 字体颜色-->
+        <item name="actionMenuTextColor">@color/white</item>
+        <item name="actionMenuTextAppearance">@style/Theme.ToolBar.Base.menu</item>
+    </style>
+
+    <!-- swipebackTheme start -->
+    <style name="Animation.Activity.Translucent.Style" parent="@android:style/Animation.Translucent">
+        <!-- <item name="android:windowAnimationStyle">@style/base_activity_animation</item> -->
+    </style>
+    <!--application theme-->
+    <style name="Framework_Theme" parent="AppTheme">
+        <item name="windowActionBarOverlay">true</item>
+        <item name="android:windowAnimationStyle">@style/Animation.Activity.Translucent.Style</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <!-- activity 切换动画 -->
+    <style name="base_activity_animation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/base_slide_right_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/base_stay_orig</item>
+        <item name="android:activityCloseEnterAnimation">@anim/base_stay_orig</item>
+        <item name="android:activityCloseExitAnimation">@anim/base_slide_right_out</item>
+        <item name="android:taskOpenEnterAnimation">@anim/base_slide_right_in</item>
+        <item name="android:taskOpenExitAnimation">@anim/base_stay_orig</item>
+        <item name="android:taskCloseEnterAnimation">@anim/base_stay_orig</item>
+        <item name="android:taskCloseExitAnimation">@anim/base_slide_right_out</item>
+        <item name="android:taskToFrontEnterAnimation">@anim/base_slide_right_in</item>
+        <item name="android:taskToFrontExitAnimation">@anim/base_stay_orig</item>
+        <item name="android:taskToBackEnterAnimation">@anim/base_stay_orig</item>
+        <item name="android:taskToBackExitAnimation">@anim/base_slide_right_out</item>
+    </style>
+
+    <style name="base_activity_bottom_animation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/popup_bottom_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/popup_bottom_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/popup_bottom_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/popup_bottom_out</item>
+
+    </style>
+    <!--full theme-->
+    <style name="Framework_FullTheme" parent="AppTheme">
+        <item name="android:windowAnimationStyle">@style/base_activity_animation</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="Framework_Bottom_FullTheme" parent="AppTheme">
+        <item name="android:windowAnimationStyle">@style/base_activity_bottom_animation</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+    <!--main theme-->
+    <style name="Framework_MainTheme" parent="AppTheme">
+        <item name="windowActionBarOverlay">true</item>
+        <item name="android:windowAnimationStyle">@style/base_activity_animation</item>
+        <item name="android:windowBackground">@color/backgroud_black_bg</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+    <!--透明-->
+    <style name="Framework_StatusBar_trans" parent="AppTheme">
+        <item name="windowActionBarOverlay">true</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:windowAnimationStyle">@style/base_activity_animation</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="Theme.ToolBar.Base.Title" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/color_toolbar_title</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="Theme.ToolBar.Base.Subtitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/color_toolbar_title</item>
+    </style>
+
+    <style name="Theme.ToolBar.Base.menu" parent="@style/TextAppearance.Widget.AppCompat.ExpandedMenu.Item">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/color_toolbar_title</item>
+    </style>
+
+    <style name="listview_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:divider">@null</item>
+        <item name="android:scrollbars">none</item>
+        <item name="android:listSelector">@android:color/transparent</item>
+    </style>
+
+    <style name="SwipeBackLayout">
+        <item name="edge_size">50dip</item>
+        <item name="shadow_left">@drawable/shadow_left</item>
+        <item name="shadow_right">@drawable/shadow_right</item>
+        <item name="shadow_bottom">@drawable/shadow_bottom</item>
+    </style>
+
+    <style name="Dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@color/backgroud_transparent_bg</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:background">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+    </style>
+
+    <!-- wheel -->
+    <style name="wheel_pop_title_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textColor">@color/while_text_color</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+
+</resources>

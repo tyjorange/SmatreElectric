@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/colorPrimary"
+    android:minHeight="?attr/actionBarSize"
+    android:paddingTop="@dimen/global_base_padding_15"
+    app:contentInsetLeft="0dp"
+    app:contentInsetStart="0dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/global_base_text_size_16"
+        android:paddingRight="@dimen/global_base_text_size_16">
+
+
+        <ViewAnimator
+            android:id="@+id/nav_toolbar_viewanim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/nav_toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:text=""
+                android:textColor="@color/text_content_color_fff"
+                android:textSize="@dimen/global_base_text_size_18" />
+
+
+            <com.framework.greendroid.viewpageindicator.SlidingTabLayout
+                android:id="@+id/sliding_tabs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary" />
+
+        </ViewAnimator>
+
+        <TextView
+            android:id="@+id/nav_toolbar_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/text_content_color_fff"
+            android:textSize="@dimen/global_base_text_size_18" />
+    </RelativeLayout>
+
+
+</android.support.v7.widget.Toolbar>

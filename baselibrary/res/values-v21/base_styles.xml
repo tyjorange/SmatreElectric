@@ -1,0 +1,61 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <!--toolbar-->
+        <!--状态栏-->
+        <!--设置状态栏透明-->
+        <!--<item name="android:windowIsTranslucent">true</item>-->
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:statusBarColor">#00ffffff</item>
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <!--<item name="colorAccent">@color/white</item>-->
+        <!--navigation back arrow color-->
+        <item name="android:textColorSecondary">@color/white</item>
+        <!--设置menu 字体颜色-->
+        <item name="actionMenuTextColor">@color/white</item>
+        <item name="actionMenuTextAppearance">@style/Theme.ToolBar.Base.menu</item>
+    </style>
+    <!--application theme-->
+    <!--<item name="android:windowAnimationStyle">@style/Animation.Activity.Translucent.Style</item>-->
+    <!--<style name="Framework_Theme" parent="AppTheme">-->
+    <!--<item name="android:windowAnimationStyle">@style/base_activity_animation</item>-->
+    <!--<item name="android:windowBackground">@android:color/white</item>-->
+    <!--<item name="android:windowIsTranslucent">true</item>-->
+    <!--<item name="android:windowTranslucentStatus">false</item>-->
+    <!--</style>-->
+    <style name="Framework_FullTheme" parent="AppTheme">
+        <item name="android:windowAnimationStyle">@style/base_activity_animation</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+    <!--main theme-->
+    <style name="Framework_MainTheme" parent="AppTheme">
+        <item name="android:windowAnimationStyle">@style/base_activity_animation</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="Framework_Bottom_FullTheme" parent="AppTheme">
+        <item name="android:windowAnimationStyle">@style/base_activity_bottom_animation</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+    <!--<item name="android:windowBackground">@color/backgroud_black_bg</item>-->
+    <!--<style name="Framework_MainTheme" parent="AppTheme">-->
+    <!--<item name="android:windowAnimationStyle">@style/base_activity_animation</item>-->
+    <!--<item name="android:windowBackground">@color/backgroud_black_bg</item>-->
+    <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
+    <!--<item name="android:windowIsTranslucent">true</item>-->
+    <!--&lt;!&ndash;<item name="android:windowDrawsSystemBarBackgrounds">true</item>&ndash;&gt;-->
+    <!--</style>-->
+    <!--@android:style/Theme.DeviceDefault.Light-->
+    <style name="Framework_StatusBar_trans" parent="AppTheme">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowAnimationStyle">@style/base_activity_animation</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+</resources>

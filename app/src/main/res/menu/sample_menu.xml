@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/add"
+        android:icon="@drawable/icon_add2"
+        android:title="添加子线路" />
+    <item
+        android:id="@+id/del"
+        android:icon="@drawable/icon_remove"
+        android:title="删除本线路" />
+
+</menu>

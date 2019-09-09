@@ -1,0 +1,9 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/gray" />
+    <size
+        android:width="800dp"
+        android:height="0.5dp" />
+    <padding android:top="@dimen/activity_horizontal_margin"></padding>
+
+</shape>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <shape android:shape="oval">
+            <size
+                android:width="16dp"
+                android:height="16dp"
+                />
+            <corners android:bottomLeftRadius="0dp" android:bottomRightRadius="5dp" android:topLeftRadius="0dp" android:topRightRadius="5dp" />
+            <solid android:color="@color/red_light" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="oval">
+            <size
+                android:width="16dp"
+                android:height="16dp"/>
+            <corners android:bottomLeftRadius="0dp" android:bottomRightRadius="5dp" android:topLeftRadius="0dp" android:topRightRadius="5dp" />
+            <solid android:color="@color/green_light" />
+        </shape>
+    </item>
+</selector>

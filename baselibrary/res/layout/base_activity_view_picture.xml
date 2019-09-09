@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/navigation_toolbar" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/global_line_height"
+        android:layout_above="@+id/avatar_main_cancel_bt"
+        android:background="@color/text_content_color_ebe" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1.0">
+
+        <LinearLayout
+            android:id="@+id/picker_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="0.91"
+            android:background="@color/white"
+            android:contentDescription="@string/app_name"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:id="@+id/viewpicker_btn_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.09"
+            android:background="@color/text_content_color_1eaf"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/viewpicker_des"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_view_picture_confirm"
+                android:textColor="@color/while_text_color"
+                android:textSize="@dimen/global_base_text_size_14" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

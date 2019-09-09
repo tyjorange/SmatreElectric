@@ -1,0 +1,523 @@
+<resources>
+    <!--<string name="app_name">ROGY</string>-->
+    <string name="tab_main">home page</string>
+    <string name="tab_message">message</string>
+    <string name="tab_mine">me</string>
+    <string name="fun_kongzhi">control</string>
+    <string name="fun_peizhi">configuration</string>
+    <string name="fun_changjing">scenario</string>
+    <string name="fun_quxian">curve</string>
+    <string name="fun_baobiao">report forms</string>
+    <string name="fun_dingshi">timing</string>
+    <string name="fun_wifi_set">wifi connect</string>
+
+    <string name="device">equipment</string>
+    <string name="add_device">add intelligent electric box</string>
+    <string name="please_wait">wait please</string>
+    <string name="scan_add">scan the code to add</string>
+    <string name="scan_results">the result of scanning</string>
+    <string name="scan_rusults_hint">scan for device number</string>
+    <string name="device_code_empty">device code is empty</string>
+    <string name="input_correct_device_code">Please enter the correct code and the length of the code is %1$s</string>
+    <string name="finish">complete</string>
+    <string name="control">control</string>
+    <string name="cur_dianliang">quantity of electric charge: %1$s%2$.1f%3$s kwh</string>
+    <string name="cur_gonglv">power: %1$s%2$.1f%3$s w</string>
+    <string name="normal">normal</string>
+    <string name="line_detail">line details</string>
+    <string name="line_modify">line modification</string>
+    <string name="line_sets_name">set the image/name</string>
+    <string name="line_sets_liuliang">set the maximum current of the line</string>
+    <string name="line_use_default_pic">use the default name and image</string>
+    <string name="line_custom_name">customize the line name</string>
+    <string name="line_custom_pic">customize line images</string>
+    <string name="line_name">Line name</string>
+    <string name="line_n">Line</string>
+    <string name="line_input_name">please enter the name of the line</string>
+    <string name="line_sets_v">overvoltage setting</string>
+    <string name="line_set_under">under voltage setting</string>
+    <string name="line_set_over">over voltage setting</string>
+    <string name="line_set_electricity">over current setting</string>
+    <string name="under_vol_value">minimum operating voltage</string>
+    <string name="set_vol_maxvalue">set_vol_maxvalue</string>
+    <string name="over_vol_value">overvoltage value</string>
+    <string name="line_set_electricity1">电量上限</string>
+    <string name="line_set_electricity2">电量下限</string>
+    <string name="save">save</string>
+    <string name="connect">connect</string>
+    <string name="set_sucess">set successfully</string>
+    <string name="statistical_1">voltage</string>
+    <string name="statistical_2">electron current</string>
+    <string name="statistical_3">active energy</string>
+    <string name="statistical_4">reactive energy</string>
+    <string name="statistical_5">active power of Current month</string>
+    <string name="statistical_6">reactive power of Current month</string>
+    <string name="statistical_7">active power</string>
+    <string name="statistical_8">reactive power</string>
+    <string name="statistical_9">power factor</string>
+    <string name="line_zhaoming">lighting</string>
+    <string name="line_keting">living room</string>
+    <string name="line_zhuwo">master bedroom</string>
+    <string name="line_woshi">bedroom</string>
+    <string name="line_shufang">study room</string>
+    <string name="line_diannao">computer</string>
+    <string name="line_chufang">kitchen</string>
+    <string name="line_weishengjian">toilet</string>
+    <string name="line_kongtiao">air conditioner</string>
+    <string name="line_chazuo">chazuo</string>
+    <string name="line_reshuiqi">reshuiqi</string>
+    <string name="line_other">else</string>
+    <string name="modify_tip">remind to modify</string>
+    <string name="cancel">cancel</string>
+    <string name="ensure">confirm</string>
+    <string name="modify_pic">are you to sure use this picture?</string>
+    <string name="input_custom_name">enter a custom name</string>
+    <string name="select_custom_pic">select custom images</string>
+    <string name="ple_set_line_name">Please set the line name and picture</string>
+    <string name="duplicated_line_name">Line name cannot be duplicated</string>
+    <string name="timed_task">timed task</string>
+    <string name="timed_task_enable">Timed tasks are enabled</string>
+    <string name="timed_task_unenable">Timed tasks are prohibited</string>
+    <string name="operator_sucess">success</string>
+    <string name="operator_failure">failed</string>
+    <string name="time">time</string>
+    <string name="repeat">repeat:</string>
+    <string name="repeat_not">no-repeat</string>
+    <string name="switch_on">turn on</string>
+    <string name="switch_off">turn off</string>
+    <string-array name="week_day">
+        <item>sun</item>
+        <item>mon</item>
+        <item>tue</item>
+        <item>wed</item>
+        <item>thu</item>
+        <item>fri</item>
+        <item>sat</item>
+        <item>-</item>
+    </string-array>
+    <string-array name="short_week_day">
+        <item>sun</item>
+        <item>mon</item>
+        <item>tue</item>
+        <item>wed</item>
+        <item>thu</item>
+        <item>fri</item>
+        <item>sat</item>
+        <item>-</item>
+    </string-array>
+
+    <string name="week"></string>
+    <string name="repeat_tip">repeat weekly</string>
+    <string name="scan_code">scan QR code</string>
+    <string name="scan_sucess">scan successfully</string>
+    <string name="scan_failure">scan failed</string>
+    <string name="cur">at present：</string>
+    <string name="custom_electric">custom maximum current:：</string>
+    <string name="custom_electric_per">please enter maximum current value</string>
+    <string name="maxelectric">0A</string>
+    <string name="more">more</string>
+    <string name="config_sucess">Configuration success</string>
+    <string name="config_failure">Configuration failure</string>
+
+    <string name="choses_device">智能设备121</string>
+    <string name="choses_room">living room</string>
+    <string name="sce_tuijian">Recommendation scenarios</string>
+    <string name="sce_alltuijian">all scenarios</string>
+    <string name="sce_wancheng">complete</string>
+    <string name="sce_name">scenario name:</string>
+    <string name="sce_miaoshu">enter the scenario name</string>
+    <string name="sce_icon">select the scenario icon</string>
+    <string name="sce_xianlu">the line of this scenario</string>
+    <string name="sce_addxianlu">add line</string>
+    <string name="sceneBean">scenario</string>
+    <string name="new_scene">create a new scenario</string>
+    <string name="choice_sceneimg">select scenario image</string>
+    <string name="edit_scene">edit scenario</string>
+    <string name="sce_choceall">select all</string>
+    <string name="sce_cancel">cancel</string>
+    <string name="choce_device">select device</string>
+    <string name="sce_getbed">get up</string>
+    <string name="sce_shuijiao">sleep</string>
+    <string name="sce_huijia">back home</string>
+    <string name="sce_lijia">leave home</string>
+    <string name="sce_zhixingsucess">execute successfully</string>
+    <string name="zhixing_sucess">execute successfully</string>
+    <string name="zhixing_fail">execute failure</string>
+    <string name="sce_issure">are you sure to delete this scenario?</string>
+    <string name="xianlu_issure">are you sure to delete this line?</string>
+    <string name="deletescen">delete scenario</string>
+    <string name="deletescene_succe">delete scenario sucess</string>
+    <string name="deletescene_fail">delete scenario failure</string>
+    <string name="deletexianlu">delete line</string>
+    <string name="deletexianlu_succe">delete line sucess</string>
+    <string name="deletexianlu_fail">delete line failure</string>
+    <string name="setelectricity">set up the maximum current of the line and protect the electrical safety of the line</string>
+    <string name="associated_lines">associated %1$s lines</string>
+    <string name="exceu_sce">execute scenario</string>
+    <string name="execute">execute</string>
+    <string name="exceu_sce_issure">are you sure to execute %1$s scenario?</string>
+
+    <string name="login_regist">sign up</string>
+    <string name="register_fail">sign up failed</string>
+    <string name="login_forget_password">forgot password？</string>
+    <string name="login_visitor_mode">guest mode</string>
+    <string name="login">login</string>
+    <string name="login_fail">login failed</string>
+    <string name="user_name">user name</string>
+    <string name="password">password</string>
+    <string name="name_password_cannot_empty">user name or password cannot be empty</string>
+    <string name="login_hint_password">enter your password</string>
+    <string name="ensure_password">confirm password</string>
+    <string name="input_password_again">enter your password again</string>
+    <string name="password_not_same">inconsistent passwords</string>
+    <string name="login_hint_username">enter username</string>
+    <string name="curve_by_month">monthly</string>
+    <string name="curve_by_day">daily</string>
+    <string name="statement_circuit_name">name of line</string>
+    <string name="statement_electric_quantity">the use of electricity（kwh）</string>
+    <string name="statement_electric_charge">electric charge（yuan）</string>
+    <string name="statement_quantity_all">a total of electricity：%1$s%2$.2f%3$s kwh</string>
+    <string name="statement_unit_electric">kwh</string>
+    <string name="statement_charge_all">electric charge：%1$s%2$.2f%3$s yuan</string>
+    <string name="statement_unit_charge">yuan</string>
+    <string name="timing_title">timed task</string>
+    <string name="loading">loading</string>
+    <string name="curve_close">close</string>
+    <string name="popup_collector">click on the switching device</string>
+    <string name="settings_title">settings</string>
+    <string name="settings_change_password">change password</string>
+    <string name="settings_suggestion">feedback</string>
+    <string name="settings_clean">clear cache</string>
+    <string name="settings_language">language switch</string>
+    <string name="settings_version">current version</string>
+    <string name="settings_exit">log out</string>
+    <string name="deletewarn">delete remind</string>
+    <string name="electricity_unit">A</string>
+    <string name="frequency">frequency</string>
+    <string name="date_unit_year">year</string>
+    <string name="date_unit_month">month</string>
+    <string name="date_unit_day">day</string>
+    <string name="local_error_message_no_data">no data</string>
+    <string name="get_data_fail">Failed to get data </string>
+    <string name="mine_subtitle_about">about</string>
+    <string name="mine_subtitle_question">frequent questions</string>
+    <string name="mine_subtitle_bind">bind</string>
+    <string name="mine_subtitle_push">push</string>
+    <string name="mine_binding_wx">bind wechat</string>
+    <string name="mine_binding_qq">bind QQ</string>
+    <string name="mine_binding_phone">bind phone</string>
+    <string name="mine_push">push</string>
+    <string name="mine_unbound">unbound</string>
+    <string name="mine_isbound">isbound</string>
+    <string name="mine_subtitle_user_info">user info</string>
+    <string name="personalcenter">personal center</string>
+    <string name="nick_name">nickname</string>
+    <string name="phone_num">telephone number</string>
+    <string name="set">set</string>
+    <string name="daily_date_format">MMM d</string>
+    <string name="monthly_date_format">MMM yyyy</string>
+
+    <string name="sets_devicename">Set the name</string>
+    <string name="sets_botelv">set baud rate</string>
+    <string name="sets_caijipl">Set the acquisition frequency</string>
+    <string name="sets_gaojingfazhi">Setting alarm threshold</string>
+    <string name="sets_guzhangma">故障码频率</string>
+    <string name="sets_miaoshu">Please enter the name of the device</string>
+    <string name="devicename">Device name</string>
+    <string name="modify_succe">Set up success</string>
+    <string name="modify_fail">Set up failure</string>
+    <string name="op_fail">Operation failed, please try again</string>
+
+    <string name="new_version">A new version has been detected</string>
+    <string name="is_upgrade_to_new_version">Do you want to install a new version?</string>
+    <string name="intall_now">Install now</string>
+    <string name="server_error_message_no_result">no data</string>
+    <string name="network_cannot_connect">The network is not accessible, plesase check your network connection</string>
+
+    <string name="network_time_out">Network connection timed out, please try again</string>
+    <string name="refresh_fail">Refresh failed</string>
+    <string name="refresh_sucess">Refresh success</string>
+    <string name="terminal_net_error">Terminal response timed out, please confirm if there is a network failure</string>
+    <string name="sets_xintiaopinglv">Setting up heartbeat interval</string>
+    <string name="time_price">Time-of-use pricing </string>
+    <string name="time_price_edit">Timeshare pricing editor</string>
+    <string name="set_time_section">Set time period</string>
+    <string name="set_price">Setting price</string>
+    <string name="ple_input_price">Please enter the price</string>
+    <string name="time_section_start">Start time</string>
+    <string name="time_section_end">deadline</string>
+    <string name="price">price</string>
+    <string name="default_price">Default price</string>
+    <string name="please_input_start_end_time">Please enter the start time and deadline</string>
+    <string name="endtime_early_starttime">The deadline cannot be earlier than the start time</string>
+    <string name="please_input_price">Please enter the price</string>
+    <string name="time_share_section">Time-sharing interval</string>
+    <string name="select_date">select date</string>
+
+
+    <string name="original_password">Original cipher：</string>
+    <string name="new_password">New password：</string>
+    <string name="confirm_password">Confirm the new password：</string>
+    <string name="hint_org_password">Please enter the correct password</string>
+    <string name="hint_null_password">The password can not be empty</string>
+    <string name="information">Personal information</string>
+    <string name="head_img">Head portrait</string>
+    <string name="chang_name">Modify the name</string>
+    <string name="chang_phonenum">Modify the number</string>
+    <string name="prompt">The input content can not be empty</string>
+    <string name="save_sucess">Save success</string>
+
+    <string name="terminal_device_error">Terminal device is faulty, please check the equipment</string>
+    <string name="mark_password_old">Original cipher：</string>
+    <string name="mark_password_new">New password：</string>
+    <string name="mark_repassword">Confirm the password：</string>
+    <string name="mark_phone_old">Original cell phone number：</string>
+    <string name="mark_phone_new">New mobile phone number：</string>
+    <string name="mark_code">Verification code</string>
+    <string name="mark_getcode">Get the code</string>
+    <string name="mark_regetcode">Recapture</string>
+    <string name="forgetpwd_success">Resetting success</string>
+    <string name="forgetpwd_fail">Reset failure, incorrect input information</string>
+    <string name="resend_time">resend after %1$d second</string>
+    <string name="phone_registed">The mobile number is already registered</string>
+    <string name="phone_unregist">The mobile number is not yet registered</string>
+    <string name="input_correct_phone">Please enter the correct phone number</string>
+
+    <string name="reg_hint_username">enter username</string>
+    <string name="reg_hint_input_phone">enter mobile number</string>
+    <string name="reg_hint_input_verify">enter SMS verification code</string>
+    <string name="reg_verify_code">verification code</string>
+    <string name="reg_get_verify_code">get SMS verification code</string>
+
+    <string name="hint_phone">Please enter the cell phone number</string>
+    <string name="hint_phone_old">Please enter the original cell phone number</string>
+    <string name="hint_phone_new">Please enter the new cell phone number</string>
+    <string name="hint_code">Please enter the verification code</string>
+    <string name="hint_password">Please input a password</string>
+    <string name="hint_password_old">Please enter the original password</string>
+    <string name="hint_password_new">Please enter a new password</string>
+    <string name="hint_repassword">Please enter the password again</string>
+    <string name="hint_imei">Please enter the last 12 bits of IMEI</string>
+    <string name="hint_imei_old">Please enter the original IMEI number</string>
+    <string name="hint_login">No cell phone number or password is entered</string>
+    <string name="hint_name">Please enter the name</string>
+    <string name="wrong_phone">The input of the phone number is incorrect</string>
+    <string name="wrong_password">Incorrect password input</string>
+    <string name="wrong_repassword">Inconsistency of ciphers</string>
+    <string name="hint_input">Please enter the complete information</string>
+    <string name="mark_sure">Determine</string>
+    <string name="mark_phone">Cell-phone number：</string>
+    <string name="mark_imei">IMEI：</string>
+    <string name="mark_address">address：</string>
+    <string name="mark_id">ID number：</string>
+    <string name="mark_forgetpwd"><u>Forget the password？</u></string>
+    <string name="mark_regist">register</string>
+    <string name="mark_login">Sign in</string>
+    <string name="mark_name">name：</string>
+    <string name="title_regist">register</string>
+    <string name="reset_password">reset password</string>
+
+    <string name="picture">picture</string>
+    <string name="getphoto">Photograph</string>
+    <string name="intophone">Input cannot be null or incorrectly formatted </string>
+    <string name="intophoneworng">The length of the input number needs to be 11 </string>
+
+    <string name="input_digits">0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ</string>
+    <string name="input_digits_id_number">0123456789xX</string>
+    <string name="max_electric_limit">Maximum current not to exceed </string>
+    <string name="open_break">Open the circuit breaker </string>
+    <string name="close_break">Turn off the circuit breaker </string>
+    <string name="open">open</string>
+    <string name="close">turn off</string>
+    <string name="break_op_tip">Are you sure you need to %1$s the %2$s?</string>
+    <string name="total_power">Accumulated electricity</string>
+    <string name="month_power">Electricity for the month</string>
+    <string name="delete">delete</string>
+    <string name="delete_device">Are you sure to delete the device?</string>
+    <string name="electric_quantity">electricity</string>
+    <string name="cur_total_power">Current total power</string>
+    <string name="device_id">Device code</string>
+    <string name="circuit_breaker_code">circuit breaker code</string>
+    <string name="refresh_off_line_error">Device is offline, unable to refresh data.</string>
+    <string name="scene_excute_sucess">The command has been sent successfully, refresh the breaker status to view the execution result.</string>
+    <string name="try_refresh">try refresh again.</string>
+
+    <string name="delete_timetask">Are you sure you need to delete the timed task?</string>
+    <string name="modify_timetask">Modify timing switch</string>
+    <string name="timetask_type">Timing type</string>
+    <string name="timetask_once">Single timing</string>
+    <string name="timetask_repeat">Cycle timing</string>
+    <string name="ple_select_line">Please choose a route</string>
+    <string name="ple_select_time">Please choose the time</string>
+    <string name="line_select">Route selection</string>
+    <string name="my_electric_box">My electric box</string>
+    <string name="add_electric_box">Add new electric box</string>
+    <string name="remote_control">Remote switch</string>
+    <string name="energy_saving_info">Energy saving information</string>
+    <string name="line_rename">Line renaming</string>
+    <string name="circular_ratio_saving">Chain saving</string>
+    <string name="year_on_year_saving">Year-on-year savings</string>
+    <string name="on_line">On-line</string>
+    <string name="off_line">Off-line</string>
+    <string name="operator_faile_off_line">The equipment is offline and cannot be operated</string>
+
+    <string name="Remote_control_switch">Remote switch</string>
+    <string name="My_ele_appliance">My appliances</string>
+    <string name="add_appliance">Add electrical appliance</string>
+    <string name="choice_appliance">Selective appliances</string>
+    <string name="modify_appliance">modify appliance</string>
+    <string name="inset_name">Input name</string>
+    <string name="inset_power">Input power</string>
+    <string name="power">500 watts</string>
+    <string name="getbreaks_fail">Route failure</string>
+    <string name="get_concentrator_fail">Acquisition circuit breaker failure</string>
+    <string name="binddevice_fail">Failed to bind device</string>
+    <string name="exceu_open_issure">Are you sure you need to close% 1 $s?？</string>
+    <string name="Retimesituation">Real time situation</string>
+    <string name="state_close">Closed</string>
+    <string name="state_open">Already opened</string>
+    <string name="state_shuoming">There is no electrical appliances added to this circuit for the time being</string>
+    <string name="state_shuoming_close">The air conditioner has been closed 0 watts.</string>
+    <string name="state_shuoming_open">Air conditioning is on.</string>
+    <string name="my_electric_meter">My watt hour meter</string>
+    <string name="content_input_name">Please enter the name of the appliance.</string>
+    <string name="content_input_power">Please input setting power</string>
+
+
+    <string-array name="switch_fault_code">
+        <item>overvoltage</item>
+        <item>undervoltage</item>
+        <item>overload</item>
+        <item>exceeding power consumption threshold</item>
+        <item>timing switching-open</item>
+        <item>remote switching-open</item>
+        <item>exceeding automatic closing cycles</item>
+        <item>instant current switching-open</item>
+        <item>manual switching-open</item>
+        <item>manual switching-close</item>
+        <item>-</item>
+        <item>Electric leakage</item>
+        <item>Overheating</item>
+    </string-array>
+    <string-array name="switch_param_code">
+        <item>设置终端与断路器IO互通</item>
+        <item>设置存储间隔</item>
+        <item>设置RTC时钟</item>
+        <item>断路器1~n地址</item>
+        <item>过压阀值1</item>
+        <item>过压阀值2</item>
+        <item>过压阀值3</item>
+        <item>过压阀值4</item>
+        <item>过压启动延时时间1</item>
+        <item>过压启动延时时间2</item>
+        <item>过压启动延时时间3</item>
+        <item>过压启动延时时间4</item>
+        <item>欠压阀值</item>
+        <item>欠压启动延时时间</item>
+        <item>欠压恢复延时时间</item>
+        <item>上电延时时间</item>
+        <item>过流阀值</item>
+        <item>过流启动延时</item>
+        <item>过流恢复延时</item>
+        <item>定时拉闸使能</item>
+        <item>定时合闸使能</item>
+        <item>定时拉闸时间</item>
+        <item>定时合闸时间</item>
+        <item>电量下限</item>
+        <item>电量上限</item>
+        <item>过流阀值2</item>
+        <item>漏电阀值</item>
+        <item>漏电自检使能</item>
+        <item>漏电自检时间设定</item>
+        <item>温度阀值</item>
+    </string-array>
+
+    <string name="last_month">Last month</string>
+    <string name="thismonth">This month</string>
+    <string name="year">year</string>
+    <string name="important_info">security information</string>
+    <string name="fault_alarm">Fault alarm</string>
+    <string name="fault_warn">warn</string>
+    <string name="electrical_state">Electrical state</string>
+    <string name="leakage_alarm">Leakage alarm</string>
+    <string name="power_outage">Power outage</string>
+    <string name="installation_demo">Installation demonstration</string>
+    <string name="access_to_network">Access to my home network</string>
+    <string name="latest_usage">Latest usage</string>
+    <string name="password_modification">Password modification</string>
+    <string name="version_update">Version update</string>
+    <string name="function_wizard">Function Wizard</string>
+    <string name="add_eleappliances">Add electrical appliance</string>
+    <string name="add_eleappliances_sucess">Successful addition and modification of electrical information</string>
+    <string name="delete_eleappliances_sucess">Successful deletion of electrical information</string>
+    <string name="line">line</string>
+    <string name="errmsg">*Starting with letters, 6-18 in length, containing only letters, numbers and underscores</string>
+
+    <string name="wrong_oldrepassword">The original password is inconsistent</string>
+    <string name="wrong_newrepassword">New password does not match.</string>
+    <string name="yyyy_mm_dd">2018-11-22</string>
+    <string name="hh_ff_ss">10:21:32</string>
+    <string name="forget_password">Forget password</string>
+    <string name="set_err_password">Password settings do not conform to specifications</string>
+    <string name="power_failure">Power outage</string>
+
+    <string name="infor_state_close">close</string>
+    <string name="infor_state_open">open</string>
+    <string name="input_share_username">Please enter the sharer\'s username</string>
+    <string name="permission_error">Sorry, you don\'t have permission to operate</string>
+    <string name="cancel_share">Are you sure to cancel the sharing of this user?</string>
+    <string name="quick_login">Quick Login</string>
+    <string name="without_weixin_client">You haven\'t installed the Wechat client yet</string>
+    <string name="alarm">alarm</string>
+    <string name="line_alarm">line alarm</string>
+    <string name="use_alerm">electrical safety</string>
+    <string name="log">log</string>
+    <string name="restart">restart</string>
+    <string name="restore_factory_set">restore factory settings</string>
+    <string name="manual">manual</string>
+    <string name="sucess">sucess</string>
+    <string name="failure">failure</string>
+    <string name="temperature">temperature</string>
+    <string name="upload_to_collect">Resident concentrator</string>
+    <string name="upload_tips">Resident concentrator
+　　Timed operations set by the user are usually saved on the cloud server. At the time of arrival, the cloud server automatically sends the corresponding circuit breaker switch operation to the concentrator over the network. If the network fails at the time, the operation will fail.
+　　In order to prevent the scheduled operation failure by network failure, the user can select the "Resident Concentrator" option. In this way, The contents of timed operations will be saved directly on the corresponding concentrator and triggered directly when the set time is reached.
+　　Due to hardware resource constraints, a concentrator of current version resides up to 24 timed operations, and only repeated scheduled operations are allowed to reside.</string>
+    <string name="tip_know">got it</string>
+
+    <string name="line_set_leakage_current">Leakage current setting</string>
+    <string name="fun_share">share</string>
+    <string name="shared_user">Shared user</string>
+    <string name="add_share">Adding Sharers</string>
+    <string name="option_prompt">Allow the Shared to Control</string>
+    <string name="set_maxvol_tips">max 340</string>
+    <string name="push_tip">关注公众号：睿据科技</string>
+    <string name="opt_100">系统通知</string>
+    <string name="opt_101">更新通知</string>
+    <string name="opt_200">线路告警</string>
+    <string name="opt_201">集中器告警</string>
+    <string name="opt_300">用电量</string>
+    <!--    <string name="signal_type_tab_title_0">有功电量</string>
+        <string name="signal_type_tab_title_1">当前月有功电量</string>
+        <string name="signal_type_tab_title_2">无功电量</string>
+        <string name="signal_type_tab_title_3">当前月无功电量</string>
+        <string name="signal_type_tab_title_4">电压</string>
+        <string name="signal_type_tab_title_5">电流</string>
+        <string name="signal_type_tab_title_6">有功功率</string>
+        <string name="signal_type_tab_title_7">无功功率</string>
+        <string name="signal_type_tab_title_8">功率因数</string>
+        <string name="signal_type_tab_title_9">频率</string>-->
+    <string name="upgrade_tip">1、网络连接正常情况下，集中器软件升级将持续20分钟左右。\n
+2、集中器软件升级过程中，该集中器采集和控制功能将停止，直至升级完成。但各线路功能不会受影响。\n
+3、集中器软件升级将在用户指定时段中的某一时刻自动开始，但不一定会在指定时段内完成。</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main_navigation">MainNavigationActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+</resources>

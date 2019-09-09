@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".activity.electric.ModifyorAddEleapplianceActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp">
+
+        <ImageView
+            android:id="@+id/img_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:padding="16dp"
+            android:src="@drawable/main_fanhui" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:id="@+id/ele_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="添加电器"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <!--<android.support.v7.widget.Toolbar-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="?attr/actionBarSize"-->
+    <!--android:background="?attr/colorPrimary"-->
+    <!--android:minHeight="?attr/actionBarSize"-->
+    <!--app:contentInsetLeft="0dp"-->
+    <!--app:contentInsetStart="0dp">-->
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
+
+    <!--<android.support.design.widget.TabLayout-->
+    <!--android:id="@+id/main_tabLayout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--app:tabGravity="center"-->
+    <!--app:tabMode="scrollable"-->
+    <!--app:tabTextAppearance="@style/TabLayoutTextStyle" />-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/txt_cancel"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentStart="true"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--android:layout_alignParentTop="true"-->
+    <!--android:padding="16dp"-->
+    <!--android:src="@drawable/base_nav_back_icon" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/text_title"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:padding="16dp"-->
+    <!--android:text="@string/add_eleappliances"-->
+    <!--android:textColor="@color/white"-->
+    <!--android:textSize="16sp" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/img_wancheng"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentTop="true"-->
+    <!--android:layout_alignParentEnd="true"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:padding="16dp"-->
+    <!--android:text="@string/sce_wancheng"-->
+    <!--android:textColor="@color/white"-->
+    <!--android:textSize="16sp"-->
+    <!--android:visibility="gone" />-->
+    <!--</RelativeLayout>-->
+    <!--</android.support.v7.widget.Toolbar>-->
+
+
+    <LinearLayout
+        android:id="@+id/re_addappliance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:gravity="center"
+        android:padding="@dimen/activity_horizontal_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/line_select"
+            android:textColor="@color/backgroud_black_bg"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/appliance_line_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="@integer/tag_1"
+            android:gravity="end"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/jinru"
+            android:textColor="@color/homepage_gray"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="25dp"
+        android:background="@drawable/slices"
+        android:contentDescription="slices" />
+
+    <LinearLayout
+        android:id="@+id/re_insetname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:gravity="center"
+        android:padding="@dimen/activity_horizontal_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/inset_name"
+            android:textColor="@color/backgroud_black_bg"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/txt_appliance_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:background="@null"
+            android:hint="@string/content_input_name"
+            android:textColor="@color/homepage_gray"
+            android:textCursorDrawable="@null"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="25dp"
+        android:background="@drawable/slices"
+        android:contentDescription="slices" />
+
+    <LinearLayout
+        android:id="@+id/re_insetpower"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:gravity="center"
+        android:padding="@dimen/activity_horizontal_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/inset_power"
+            android:textColor="@color/backgroud_black_bg"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/txt_appliance_power"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:background="@null"
+            android:digits="0123456789."
+            android:hint="@string/content_input_power"
+            android:inputType="numberDecimal"
+            android:textColor="@color/homepage_gray"
+            android:textCursorDrawable="@null"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="25dp"
+        android:background="@drawable/slices"
+        android:contentDescription="slices" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/save_appliance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:background="@drawable/qd1"
+        android:text="@string/save"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_content" />
+
+</LinearLayout>

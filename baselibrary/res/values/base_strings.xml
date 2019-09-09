@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">BaseLibrary</string>
+    <string name="text_view_picture_title">选择图片</string>
+    <string name="text_view_picture_confirm">完成</string>
+    <string name="text_search_text">搜索</string>
+    <string name="connect_conflict">同一帐号已在其他设备登录</string>
+    <string name="token_error">登录态异常，请重新登录</string>
+</resources>

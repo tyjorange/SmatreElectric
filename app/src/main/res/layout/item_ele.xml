@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_item_bg"
+    android:gravity="center_vertical"
+    android:padding="@dimen/activity_horizontal_margin">
+
+    <ImageView
+        android:id="@+id/img_shanchu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="TODO"
+        android:padding="8dp"
+        android:src="@drawable/timer_del_one" />
+
+    <ImageView
+        android:id="@+id/img_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="TODO"
+        android:padding="10dp"
+        android:src="@drawable/linepic02" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:paddingEnd="0dp"
+        android:text="线路:"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/txt_linename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/line_chufang"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/txt_elename"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="@integer/tag_1"
+        android:gravity="end"
+        android:padding="10dp"
+        android:text="电视"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="占个位子"
+        android:padding="10dp"
+        android:src="@drawable/timer_del_one"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/txt_gonglv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:padding="10dp"
+        android:text="5.5" />
+
+</LinearLayout>

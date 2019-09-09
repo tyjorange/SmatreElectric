@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/me_disanfang"
+            android:icon="@drawable/me_disanfang"
+            android:title="第三方绑定" />
+        <item
+            android:id="@+id/me_jisuanqi"
+            android:icon="@drawable/me_jisuanqi"
+            android:title="分时计价" />
+        <item
+            android:id="@+id/me_kefu"
+            android:icon="@drawable/me_kefu"
+            android:title="客服" />
+        <item
+            android:id="@+id/me_wenti"
+            android:icon="@drawable/me_wenti"
+            android:title="常见问题" />
+        <item
+            android:id="@+id/me_guanyu"
+            android:icon="@drawable/me_guanyu"
+            android:title="关于" />
+        <item
+            android:id="@+id/me_shezhi"
+            android:icon="@drawable/me_shezhishezhi"
+            android:title="设置" />
+    </group>
+</menu>

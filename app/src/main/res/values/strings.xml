@@ -1,0 +1,525 @@
+<resources>
+    <!--<string name="app_name">永继电气应用版</string>-->
+    <string name="tab_main">电箱</string>
+    <string name="tab_message">智能</string>
+    <string name="tab_mine">我的</string>
+    <string name="fun_peizhi">配置</string>
+    <string name="fun_changjing">场景</string>
+    <string name="fun_kongzhi">控制</string>
+    <string name="fun_quxian">曲线</string>
+    <string name="fun_baobiao">周月报表</string>
+    <string name="fun_dingshi">定时</string>
+    <string name="fun_wifi_set">Wifi连接</string>
+
+    <string name="device">设备</string>
+    <string name="add_device">添加智能电箱</string>
+    <string name="please_wait">请等待</string>
+    <string name="scan_add">扫码添加</string>
+    <string name="scan_results">扫描结果</string>
+    <string name="scan_rusults_hint">请扫描获取设备编号</string>
+    <string name="device_code_empty">设备编码为空</string>
+    <string name="input_correct_device_code">请输入正确的%1$s位编码</string>
+    <string name="finish">完成</string>
+    <string name="control">控制</string>
+    <string name="cur_dianliang">电量: %1$s%2$.1f%3$s 度</string>
+    <string name="cur_gonglv">功率: %1$s%2$.1f%3$s 瓦</string>
+    <string name="normal">正常</string>
+    <string name="line_detail">线路详情</string>
+    <string name="line_modify">线路修改</string>
+    <string name="line_sets_name">设置图片/名称</string>
+    <string name="line_sets_liuliang">设置线路最大电流</string>
+    <string name="line_use_default_pic">使用预设名称和图片</string>
+    <string name="line_custom_name">自定义线路名称</string>
+    <string name="line_custom_pic">自定义线路图片</string>
+    <string name="line_name">线路名称</string>
+    <string name="line_n">线路</string>
+    <string name="line_input_name">请输入线路名称</string>
+    <string name="line_sets_v">过欠压设置</string>
+    <string name="line_set_under">欠压设置(V)</string>
+    <string name="line_set_over">过压设置(V)</string>
+    <string name="line_set_electricity">过流设置(A)</string>
+    <string name="line_set_leakage_current">漏电流设置</string>
+    <string name="under_vol_value">欠压值</string>
+    <string name="set_vol_maxvalue">设置最大欠压值</string>
+    <string name="over_vol_value">过压值</string>
+    <string name="line_set_electricity1">电量上限(KWH)</string>
+    <string name="line_set_electricity2">电量下限(KWH)</string>
+    <string name="save">保存</string>
+    <string name="connect">连接</string>
+    <string name="set_sucess">设置成功</string>
+    <string name="statistical_1">电压</string>
+    <string name="statistical_2">电流</string>
+    <string name="statistical_3">有功电量</string>
+    <string name="statistical_4">无功电量</string>
+    <string name="statistical_5">当前月有功电量</string>
+    <string name="statistical_6">当前月无功电量</string>
+    <string name="statistical_7">有功功率</string>
+    <string name="statistical_8">无功功率</string>
+    <string name="statistical_9">功率因素</string>
+    <string name="line_zhaoming">照明</string>
+    <string name="line_keting">客厅</string>
+    <string name="line_zhuwo">主卧</string>
+    <string name="line_woshi">卧室</string>
+    <string name="line_shufang">书房</string>
+    <string name="line_diannao">电脑</string>
+    <string name="line_chufang">厨房</string>
+    <string name="line_weishengjian">卫生间</string>
+    <string name="line_kongtiao">空调</string>
+    <string name="line_chazuo">插座</string>
+    <string name="line_reshuiqi">热水器</string>
+    <string name="line_other">其它</string>
+    <string name="modify_tip">修改提醒</string>
+    <string name="cancel">取消</string>
+    <string name="ensure">确定</string>
+    <string name="modify_pic">确定修改为此图片吗?</string>
+    <string name="input_custom_name">请输入自定义名称</string>
+    <string name="select_custom_pic">请选择自定义图片</string>
+    <string name="ple_set_line_name">请设置线路名称和图片</string>
+    <string name="duplicated_line_name">线路名称不能重复</string>
+    <string name="timed_task">定时开关</string>
+    <string name="timed_task_enable">定时任务被使能</string>
+    <string name="timed_task_unenable">定时任务被禁止</string>
+    <string name="operator_sucess">操作成功</string>
+    <string name="operator_failure">操作失败</string>
+    <string name="time">时间</string>
+    <string name="repeat">重复</string>
+    <string name="repeat_not">不重复</string>
+    <string name="switch_on">开</string>
+    <string name="switch_off">关</string>
+    <string-array name="week_day">
+        <item>周一</item>
+        <item>周二</item>
+        <item>周三</item>
+        <item>周四</item>
+        <item>周五</item>
+        <item>周六</item>
+        <item>周日</item>
+        <item>-</item>
+    </string-array>
+    <string-array name="short_week_day">
+        <item>一</item>
+        <item>二</item>
+        <item>三</item>
+        <item>四</item>
+        <item>五</item>
+        <item>六</item>
+        <item>日</item>
+        <item>-</item>
+    </string-array>
+
+    <string name="week">周</string>
+    <string name="repeat_tip">重复|每周</string>
+    <string name="scan_code">扫描二维码</string>
+    <string name="scan_sucess">扫描成功</string>
+    <string name="scan_failure">扫描失败</string>
+    <string name="cur">当前：</string>
+    <string name="custom_electric">自定义最大电流量：</string>
+    <string name="custom_electric_per">请输入最大电流值</string>
+    <string name="maxelectric">0A</string>
+    <string name="more">更多</string>
+    <string name="config_sucess">配置成功</string>
+    <string name="config_failure">配置失败</string>
+
+
+    <string name="choses_device">智能设备121</string>
+    <string name="choses_room">客厅</string>
+    <string name="sce_tuijian">推荐图标</string>
+    <string name="sce_alltuijian">全部图标</string>
+    <string name="sce_wancheng">完成</string>
+    <string name="sce_name">场景名称:</string>
+    <string name="sce_miaoshu">请输入场景名称</string>
+    <string name="sce_icon">请选择场景图标:</string>
+    <string name="sce_xianlu">该场景下管理的线路</string>
+    <string name="sce_addxianlu">添加线路</string>
+    <string name="sceneBean">场景</string>
+    <string name="new_scene">创建新场景</string>
+    <string name="choice_sceneimg">选择场景图片</string>
+    <string name="edit_scene">编辑场景</string>
+    <string name="sce_choceall">全选</string>
+    <string name="sce_cancel">取消</string>
+    <string name="choce_device">选择设备</string>
+    <string name="sce_getbed">起床</string>
+    <string name="sce_shuijiao">睡觉</string>
+    <string name="sce_huijia">回家</string>
+    <string name="sce_lijia">离家</string>
+    <string name="sce_zhixingsucess">执行成功</string>
+    <string name="sce_issure">确定需要删除此场景吗？</string>
+    <string name="xianlu_issure">确定需要删除此线路吗？</string>
+    <string name="deletescen">删除场景</string>
+    <string name="deletescene_succe">删除场景成功</string>
+    <string name="deletescene_fail">删除场景失败</string>
+    <string name="deletexianlu">删除线路</string>
+    <string name="deletexianlu_succe">删除线路成功</string>
+    <string name="deletexianlu_fail">删除线路失败</string>
+    <string name="zhixing_sucess">执行成功</string>
+    <string name="zhixing_fail">执行失败</string>
+    <string name="setelectricity">设置线路的最大承受电流，保护线路用电安全</string>
+    <string name="associated_lines">关联%1$s条线路</string>
+    <string name="exceu_sce">执行场景</string>
+    <string name="execute">执行</string>
+    <string name="exceu_sce_issure">确定需要执行%1$s场景吗？</string>
+
+    <string name="login_regist">立即注册</string>
+    <string name="register_fail">注册失败</string>
+    <string name="login_forget_password">忘记密码</string>
+    <string name="login_visitor_mode">游客模式</string>
+    <string name="login">登录</string>
+    <string name="login_fail">登录失败</string>
+    <string name="user_name">用户名</string>
+    <string name="password">密码</string>
+    <string name="name_password_cannot_empty">用户名或密码不能为空</string>
+    <string name="login_hint_password">请输入密码</string>
+    <string name="ensure_password">确认密码</string>
+    <string name="input_password_again">请再次输入密码</string>
+    <string name="password_not_same">前后密码不一致</string>
+    <string name="login_hint_username">请输入用户名或手机号码</string>
+    <string name="reg_hint_username">请输入用户名</string>
+    <string name="reg_hint_input_phone">请输入手机号码</string>
+    <string name="input_correct_phone">请输入正确的手机号码</string>
+    <string name="reg_hint_input_verify">请输入短信验证码</string>
+
+    <string name="reg_verify_code">验证码</string>
+    <string name="reg_get_verify_code">获取验证码</string>
+    <string name="curve_by_month">按月</string>
+    <string name="curve_by_day">按日</string>
+    <string name="statement_circuit_name">线路名</string>
+    <string name="statement_electric_quantity">用电量（度）</string>
+    <string name="statement_electric_charge">电费（元）</string>
+
+    <string name="statement_quantity_all">共计用电：%1$s%2$.1f%3$s 度</string>
+    <string name="statement_unit_electric">度</string>
+    <string name="statement_charge_all">电费：%1$s%2$.1f%3$s 元</string>
+    <string name="statement_unit_charge">元</string>
+    <string name="timing_title">定时任务</string>
+    <string name="loading">正在加载</string>
+    <string name="curve_close">关闭</string>
+    <string name="popup_collector">点击切换设备</string>
+    <string name="settings_title">设置</string>
+    <string name="settings_change_password">修改密码</string>
+    <string name="settings_suggestion">意见反馈</string>
+    <string name="settings_clean">清除缓存</string>
+    <string name="settings_language">语言切换</string>
+    <string name="settings_version">当前版本号</string>
+    <string name="settings_exit">退出登录</string>
+    <string name="deletewarn">删除提醒</string>
+    <string name="electricity_unit">A</string>
+    <string name="server_error_message_no_result">无结果</string>
+    <string name="date_unit_year">年</string>
+    <string name="date_unit_month">月</string>
+    <string name="date_unit_day">日</string>
+    <string name="local_error_message_no_data">暂无数据</string>
+    <string name="get_data_fail">获取数据失败</string>
+    <string name="mine_subtitle_about">关于</string>
+    <string name="mine_subtitle_question">常见问题</string>
+    <string name="mine_subtitle_bind">第三方绑定</string>
+    <string name="mine_subtitle_push">推送设置</string>
+    <string name="mine_binding_wx">绑定微信</string>
+    <string name="mine_binding_qq">绑定QQ</string>
+    <string name="mine_binding_phone">绑定手机</string>
+    <string name="mine_push">推送内容</string>
+    <string name="mine_unbound">未绑定</string>
+    <string name="mine_isbound">已绑定</string>
+    <string name="mine_subtitle_user_info">用户信息</string>
+    <string name="frequency">频率</string>
+    <string name="personalcenter">个人中心</string>
+    <string name="nick_name">昵称</string>
+    <string name="phone_num">手机号码</string>
+    <string name="set">设置</string>
+    <string name="daily_date_format">MM月dd日</string>
+    <string name="monthly_date_format">yyyy年MM月</string>
+
+    <string name="sets_devicename">电箱名称</string>
+    <string name="sets_botelv">波特率</string>
+    <string name="sets_caijipl">采集频率</string>
+    <string name="sets_gaojingfazhi">告警阀值</string>
+    <string name="sets_guzhangma">故障码频率</string>
+    <string name="sets_xintiaopinglv">心跳间隔</string>
+    <string name="sets_miaoshu">请输入设备名称</string>
+    <string name="devicename">设备名称</string>
+    <string name="modify_succe">设置成功</string>
+    <string name="modify_fail">设置失败</string>
+    <string name="op_fail">操作失败,请重试</string>
+
+    <string name="new_version">检测到有新的版本</string>
+    <string name="is_upgrade_to_new_version">是否安装新的版本?</string>
+    <string name="intall_now">立即安装</string>
+    <string name="network_cannot_connect">网络无法访问,请检查网络连接</string>
+    <string name="network_time_out">网络连接超时,请重试</string>
+    <string name="refresh_fail">刷新失败</string>
+    <string name="refresh_sucess">刷新成功</string>
+    <string name="terminal_net_error">终端响应超时,请确认是否有网络故障</string>
+
+
+    <string name="mark_password_old">原密码：</string>
+    <string name="mark_password_new">新密码：</string>
+    <string name="mark_repassword">确认密码：</string>
+    <string name="mark_phone_old">原手机号：</string>
+    <string name="mark_phone_new">新手机号：</string>
+    <string name="mark_code">验证码：</string>
+    <string name="mark_getcode">获取验证码</string>
+    <string name="mark_regetcode">重新获取</string>
+    <string name="forgetpwd_success">重置成功</string>
+    <string name="forgetpwd_fail">重置失败,输入信息不正确</string>
+    <string name="resend_time"> %1$ds后重发</string>
+    <string name="phone_registed">该手机号码已经注册</string>
+    <string name="phone_unregist">该手机号码尚未注册</string>
+    <string name="hint_phone">请输入手机号</string>
+    <string name="hint_phone_old">请输入原手机号</string>
+    <string name="hint_phone_new">请输入新手机号</string>
+    <string name="hint_code">请输入验证码</string>
+    <string name="hint_password">请输入密码</string>
+    <string name="hint_password_old">请输入原密码</string>
+    <string name="hint_password_new">请输入新密码</string>
+    <string name="hint_repassword">请再次输入密码</string>
+    <string name="hint_imei">请输入IMEI号的后12位</string>
+    <string name="hint_imei_old">请输入原IMEI号</string>
+    <string name="hint_login">没有输入手机号或密码</string>
+    <string name="hint_name">请输入姓名</string>
+    <string name="wrong_phone">手机号码输入不正确</string>
+    <string name="wrong_password">密码输入不正确</string>
+    <string name="wrong_repassword">密码不一致</string>
+    <string name="hint_input">请输入完整信息</string>
+    <string name="mark_sure">确定</string>
+    <string name="mark_phone">手机号：</string>
+    <string name="mark_imei">IMEI：</string>
+    <string name="mark_address">地址：</string>
+    <string name="mark_id">身份证号：</string>
+    <string name="mark_forgetpwd">忘记密码?</string>
+    <string name="mark_regist">注册</string>
+    <string name="mark_login">登录</string>
+    <string name="mark_name">姓名：</string>
+    <string name="title_regist">注册</string>
+    <string name="reset_password">重置密码</string>
+
+    <string name="original_password">原始密码：</string>
+    <string name="new_password">新密码：</string>
+    <string name="confirm_password">确认新密码：</string>
+    <string name="hint_org_password">请输入正确密码</string>
+    <string name="hint_null_password">密码不能为空</string>
+    <string name="information">个人信息</string>
+    <string name="head_img">头像</string>
+    <string name="chang_name">修改名字</string>
+    <string name="chang_phonenum">修改号码</string>
+    <string name="prompt">输入内容不能为空</string>
+    <string name="save_sucess">保存成功</string>
+
+    <string name="input_digits">0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ</string>
+    <string name="input_digits_id_number">0123456789xX</string>
+    <string name="terminal_device_error">终端设备故障,请检查设备</string>
+    <string name="time_price">分时计价</string>
+    <string name="time_price_edit">分时计价编辑</string>
+    <string name="set_time_section">设置时间段</string>
+    <string name="set_price">设置价钱</string>
+    <string name="ple_input_price">请输入价钱</string>
+    <string name="time_section_start">起始时间</string>
+    <string name="time_section_end">截止时间</string>
+    <string name="price">价钱</string>
+    <string name="default_price">默认价格</string>
+    <string name="please_input_start_end_time">请输入起始时间和截止时间</string>
+    <string name="endtime_early_starttime">截止时间不得早于起始时间</string>
+    <string name="select_date">选择日期</string>
+    <string name="please_input_price">请输入价格</string>
+    <string name="time_share_section">分时区间段</string>
+
+    <string name="picture">图片</string>
+    <string name="getphoto">拍照</string>
+    <string name="intophone">输入内容不能为空或格式不对</string>
+    <string name="intophoneworng">输入号码必须为11位数</string>
+
+    <string name="max_electric_limit">最大电流不能超过</string>
+    <string name="open_break">打开线路</string>
+    <string name="close_break">关闭线路</string>
+    <string name="open">打开</string>
+    <string name="close">关闭</string>
+    <string name="break_op_tip">您确定需要%1$s线路%2$s吗?</string>
+    <string name="total_power">累计用电</string>
+    <string name="month_power">当月用电</string>
+    <string name="delete">删除</string>
+    <string name="delete_device">您确认删除该设备?</string>
+    <string name="electric_quantity">电量</string>
+    <string name="cur_total_power">当前总功率</string>
+    <string name="device_id">电箱编码</string>
+    <string name="circuit_breaker_code">线路编码</string>
+    <string name="refresh_off_line_error">设备处于离线状态，无法刷新数据</string>
+    <string name="scene_excute_sucess">命令发送成功，可刷新线路状态查看执行结果</string>
+    <string name="try_refresh">请尝试刷新再试</string>
+    <string name="delete_timetask">您确定需要删除该定时任务吗?</string>
+    <string name="modify_timetask">修改定时开关</string>
+    <string name="timetask_type">定时类型</string>
+    <string name="timetask_once">单次定时</string>
+    <string name="timetask_repeat">循环定时</string>
+    <string name="ple_select_line">请输入有效数据，数据不能为空</string>
+    <string name="ple_select_time">请选择时间</string>
+    <string name="line_select">线路选择:</string>
+    <string name="my_electric_box">我的电箱</string>
+    <string name="add_electric_box">添加新电箱</string>
+    <string name="remote_control">遥控开关</string>
+    <string name="energy_saving_info">节能信息</string>
+    <string name="line_rename">线路重命名</string>
+    <string name="circular_ratio_saving">环比节省</string>
+    <string name="year_on_year_saving">同比节省</string>
+    <string name="on_line">在线</string>
+    <string name="off_line">离线</string>
+    <string name="operator_faile_off_line">设备处于离线状态,无法操作</string>
+
+    <string name="Remote_control_switch">遥控开关</string>
+    <string name="My_ele_appliance">我的电器</string>
+    <string name="add_appliance">添加电器</string>
+    <string name="modify_appliance">修改电器</string>
+    <string name="choice_appliance">选择电器</string>
+    <string name="inset_name">输入名称:</string>
+    <string name="inset_power">输入功率:</string>
+    <string name="power">500瓦</string>
+    <string name="getbreaks_fail">获取线路失败</string>
+    <string name="get_concentrator_fail">获取线路失败</string>
+    <string name="binddevice_fail">绑定设备失败</string>
+    <string name="exceu_open_issure">确定需要关闭%1$s吗？</string>
+    <string name="Retimesituation">实时情况</string>
+    <string name="state_close">已关闭</string>
+    <string name="state_open">已开启</string>
+    <string name="state_shuoming">这条电路暂时没有添加电器</string>
+    <string name="state_shuoming_close">空调已关闭0瓦</string>
+    <string name="state_shuoming_open">已开启</string>
+    <string name="my_electric_meter">我的电表</string>
+    <string name="content_input_name">请输入电器名称</string>
+    <string name="content_input_power">请输入电器功率</string>
+
+    <string-array name="switch_fault_code">
+        <item>过压</item>
+        <item>欠压</item>
+        <item>过载</item>
+        <item>用电量超额</item>
+        <item>定时拉闸</item>
+        <item>远程拉闸</item>
+        <item>超规定自动合闸次数</item>
+        <item>快速电流拉闸</item>
+        <item>手动合闸</item>
+        <item>手动拉闸</item>
+        <item>-</item>
+        <item>漏电</item>
+        <item>过温</item>
+    </string-array>
+    <string-array name="switch_param_code">
+        <item>设置终端与断路器IO互通</item>
+        <item>设置存储间隔</item>
+        <item>设置RTC时钟</item>
+        <item>断路器1~n地址</item>
+        <item>过压阀值1</item>
+        <item>过压阀值2</item>
+        <item>过压阀值3</item>
+        <item>过压阀值4</item>
+        <item>过压启动延时时间1</item>
+        <item>过压启动延时时间2</item>
+        <item>过压启动延时时间3</item>
+        <item>过压启动延时时间4</item>
+        <item>欠压阀值</item>
+        <item>欠压启动延时时间</item>
+        <item>欠压恢复延时时间</item>
+        <item>上电延时时间</item>
+        <item>过流阀值</item>
+        <item>过流启动延时</item>
+        <item>过流恢复延时</item>
+        <item>定时拉闸使能</item>
+        <item>定时合闸使能</item>
+        <item>定时拉闸时间</item>
+        <item>定时合闸时间</item>
+        <item>电量下限</item>
+        <item>电量上限</item>
+        <item>过流阀值2</item>
+        <item>漏电阀值</item>
+        <item>漏电自检使能</item>
+        <item>漏电自检时间设定</item>
+        <item>温度阀值</item>
+    </string-array>
+
+    <string name="last_month">上月</string>
+    <string name="thismonth">本月</string>
+    <string name="year">年度</string>
+    <string name="important_info">安全信息</string>
+    <string name="fault_alarm">告警</string>
+    <string name="fault_warn">预警</string>
+    <string name="electrical_state">电器状态</string>
+    <string name="leakage_alarm">漏电告警</string>
+    <string name="power_outage">已断电</string>
+    <string name="installation_demo">安装演示</string>
+    <string name="access_to_network">接入我的家庭网络</string>
+    <string name="latest_usage">最新用法</string>
+    <string name="password_modification">密码修改</string>
+    <string name="version_update">版本更新</string>
+    <string name="function_wizard">功能向导</string>
+    <string name="add_eleappliances">添加电器</string>
+    <string name="add_eleappliances_sucess">添加修改电器信息成功</string>
+    <string name="delete_eleappliances_sucess">删除电器信息成功</string>
+    <string name="line">线路</string>
+    <string name="errmsg">*以字母开头，长度在6-18之间，只能包含字母、数字和下划线</string>
+
+    <string name="wrong_oldrepassword">原始密码不一致</string>
+    <string name="wrong_newrepassword">新密码不一致</string>
+    <string name="yyyy_mm_dd">2018-11-22</string>
+    <string name="hh_ff_ss">10:21:32</string>
+    <string name="forget_password">忘记密码</string>
+    <string name="set_err_password">密码设置不符合规范</string>
+    <string name="power_failure">已断电</string>
+
+    <string name="infor_state_close">关</string>
+    <string name="infor_state_open">开</string>
+    <string name="fun_share">共享</string>
+    <string name="input_share_username">请输入分享用户名</string>
+    <string name="shared_user">共享用户</string>
+    <string name="add_share">添加分享者</string>
+    <string name="permission_error">抱歉，您没有操作权限</string>
+    <string name="cancel_share">您确认取消对该用户的分享?</string>
+    <string name="quick_login">快速登录</string>
+    <string name="without_weixin_client">您还未安装微信客户端</string>
+    <string name="alarm">告警</string>
+    <string name="line_alarm">线路告警</string>
+    <string name="use_alerm">用电安全</string>
+    <string name="log">日志</string>
+    <string name="restart">重启</string>
+    <string name="restore_factory_set">恢复出厂设置</string>
+    <string name="manual">手动</string>
+    <string name="sucess">成功</string>
+    <string name="failure">失败</string>
+    <string name="temperature">温度</string>
+    <string name="upload_to_collect">驻留集中器</string>
+    <string name="upload_tips">1、定时操作通常是保存在云服务器的，在到达设定的时刻，云服务器会自动通过网络向电箱发送对应的线路开关操作。如果当时网络故障，那么这次操作将失败。\n
+2、为防止网络故障而引起的定时操作失败，用户可以选择“驻留电箱”选项。这样定时操作的内容将直接保存到对应的电箱上，并在到达设定的时刻时直接触发。\n
+3、由于电箱硬件资源限制，一个电箱最多驻留24个定时操作，并且重复运行的定时操作才允许驻留！</string>
+    <string name="tip_know">知道了</string>
+    <string name="option_prompt">允许被分享者控制</string>
+    <string name="set_maxvol_tips">允许最大欠压值为340</string>
+    <string name="push_tip">关注公众号：睿据科技</string>
+    <string name="opt_100">系统通知</string>
+    <string name="opt_101">更新通知</string>
+    <string name="opt_200">线路告警</string>
+    <string name="opt_201">集中器告警</string>
+    <string name="opt_300">用电量</string>
+
+
+    <!-- <string name="default_name">李小</string>
+    <string name="default_numbers">15377880069</string>-->
+
+    <!-- <string name="signal_type_tab_title_0">有功电量</string>
+        <string name="signal_type_tab_title_1">当前月有功电量</string>
+        <string name="signal_type_tab_title_2">无功电量</string>
+        <string name="signal_type_tab_title_3">当前月无功电量</string>
+        <string name="signal_type_tab_title_4">电压</string>
+        <string name="signal_type_tab_title_5">电流</string>
+        <string name="signal_type_tab_title_6">有功功率</string>
+        <string name="signal_type_tab_title_7">无功功率</string>
+        <string name="signal_type_tab_title_8">功率因数</string>
+        <string name="signal_type_tab_title_9">频率</string>-->
+    <string name="upgrade_tip">1、网络连接正常情况下，电箱软件升级将持续20分钟左右。\n
+2、电箱软件升级过程中，电箱各项功能不会受到影响。\n
+3、电箱软件升级将在用户指定时段中的某一时刻自动开始，但不一定会在该时段内完成。</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main_navigation">MainNavigationActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+</resources>
