@@ -92,9 +92,10 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
     private String qqUnionID;
 
     private NavigationView navigationView;
+    private DrawerLayout drawer;
     //    private Toolbar toolbar;
 //    private ImageView ivUserQCode;
-    private PopwindowQCode popwindowQCode;
+//    private PopwindowQCode popwindowQCode;
 
     @Override
     protected int getLayoutResId() {
@@ -120,12 +121,12 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 //            }
 //        });
         ivHeadSmall = findViewById(R.id.user_headimg_small);
-//        ivHeadSmall.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                popwindowQCode.show();
-//            }
-//        });
+        ivHeadSmall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawer.openDrawer(GravityCompat.START);
+            }
+        });
 //        ivUserQCode = (ImageView) findViewById(R.id.iv_scan_code);
         navigationView.getHeaderView(0).findViewById(R.id.user_edit).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,7 +143,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         ll_add_scene = findViewById(R.id.ll_add_scene);
         initScene();
         initCollector();
-        popwindowQCode = new PopwindowQCode(mContext);
+//        popwindowQCode = new PopwindowQCode(mContext);
     }
 
     @Override
@@ -189,7 +190,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
                     Picasso.with(mContext).load(headImgurl).into(ivHeadSmall);
 //                    setSmallNavigationIcon();
                 }
-                setQCodeUserName();
+//                setQCodeUserName();
             }
 
             @Override
@@ -232,7 +233,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         Bitmap bmpUser = utils.createQRcodeImage(username, SizeUtils.dp2px(100), SizeUtils.dp2px(100));
         if (bmpUser != null) {
 //            ivUserQCode.setImageBitmap(bmpUser);
-            popwindowQCode.setQCodeImageBitmap(bmpUser);
+//            popwindowQCode.setQCodeImageBitmap(bmpUser);
         }
     }
 
@@ -241,10 +242,10 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         setSupportActionBar(toolbar);
         setTitle("");
 
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 //        CircleImageView civ = (CircleImageView) findViewById(R.id.user_headimg_s);
 //        toolbar.setNavigationIcon(new CircleDrawable(BitmapUtil.drawable2Bitmap(ivHead.getDrawable())));
-        DaliBlurDrawerToggle drawerToggle = new DaliBlurDrawerToggle(this, drawerLayout, toolbar,
+        DaliBlurDrawerToggle drawerToggle = new DaliBlurDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close, new NavigationDrawerListener() {
             @Override
             public void onDrawerClosed(View view) {
@@ -259,8 +260,8 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 //        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
 //                this, drawerLayout, toolbar,
 //                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(drawerToggle);
-        drawerToggle.syncState();
+        drawer.addDrawerListener(drawerToggle);
+//        drawerToggle.syncState();
         drawerToggle.setDrawerIndicatorEnabled(true);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -451,7 +452,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else if (mDeviceAdapter.isEditMode()) {
