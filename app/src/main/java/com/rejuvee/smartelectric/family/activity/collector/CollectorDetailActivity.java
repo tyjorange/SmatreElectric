@@ -19,6 +19,7 @@ import com.rejuvee.smartelectric.family.activity.logger.SecurityInformationActiv
 import com.rejuvee.smartelectric.family.activity.mswitch.SwitchStatusActivity;
 import com.rejuvee.smartelectric.family.activity.mswitch.SwitchTree;
 import com.rejuvee.smartelectric.family.activity.mswitch.SwitchTreeActivity;
+import com.rejuvee.smartelectric.family.activity.mswitch.YaoKongActivity;
 import com.rejuvee.smartelectric.family.activity.report.ReportActivity;
 import com.rejuvee.smartelectric.family.activity.share.ShareListActivity;
 import com.rejuvee.smartelectric.family.activity.timer.TimerActivity;
@@ -169,7 +170,8 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
                 finish();
                 break;
             case R.id.txt_kongzhi:
-                intent = new Intent(this, SwitchTreeActivity.class);
+                intent = new Intent(this, YaoKongActivity.class);
+//                intent = new Intent(this, SwitchTreeActivity.class);
                 intent.putExtra("collectorBean", collectorBean);
                 intent.putExtra("viewType", SwitchTree.YAOKONG);
                 startActivity(intent);

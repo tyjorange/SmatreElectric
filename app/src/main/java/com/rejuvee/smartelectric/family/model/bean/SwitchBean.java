@@ -9,8 +9,8 @@ import com.google.gson.annotations.SerializedName;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.NativeLine;
 
-import io.realm.RealmList;
-import io.realm.RealmModel;
+import java.util.List;
+
 import io.realm.annotations.Ignore;
 
 /**
@@ -57,7 +57,7 @@ import io.realm.annotations.Ignore;
         "switchID": "04D1F2C8EA8D4CFC88ADFF882AC2FEF8"
         },*/
 
-public class SwitchBean implements RealmModel, Parcelable {
+public class SwitchBean implements Parcelable {
     @SerializedName("code")
     private String serialNumber;//断路器唯一标识
     public String name;
@@ -71,7 +71,7 @@ public class SwitchBean implements RealmModel, Parcelable {
     private int icon;//本地图标RES
     @Ignore
     private String deviceName;//所属设备名
-    public RealmList<SwitchBean> child;
+    public List<SwitchBean> child;
     public String lastMonth;
     public int fault;
     public int faultState;
@@ -221,6 +221,7 @@ public class SwitchBean implements RealmModel, Parcelable {
         year = in.readString();
         tbjn = in.readString();
         hbjn = in.readString();
+        child = in.createTypedArrayList(SwitchBean.CREATOR);
     }
 
     @Override
@@ -240,6 +241,7 @@ public class SwitchBean implements RealmModel, Parcelable {
         dest.writeString(year);
         dest.writeString(tbjn);
         dest.writeString(hbjn);
+        dest.writeTypedList(child);
     }
 
     @Override
@@ -397,11 +399,11 @@ public class SwitchBean implements RealmModel, Parcelable {
         this.deviceName = deviceName;
     }
 
-    public RealmList<SwitchBean> getChild() {
+    public List<SwitchBean> getChild() {
         return child;
     }
 
-    public void setChild(RealmList<SwitchBean> child) {
+    public void setChild(List<SwitchBean> child) {
         this.child = child;
     }
 
