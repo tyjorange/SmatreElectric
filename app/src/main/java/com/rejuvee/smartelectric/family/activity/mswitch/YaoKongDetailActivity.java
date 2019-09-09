@@ -13,12 +13,12 @@ import android.widget.TextView;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
+import com.rejuvee.smartelectric.family.widget.ExpandLayout;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class YaoKongDetailActivity extends BaseActivity {
-    private SwitchBean list;
+    private SwitchBean switchBean;
 
     @Override
     protected int getLayoutResId() {
@@ -32,7 +32,7 @@ public class YaoKongDetailActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        list = getIntent().getParcelableExtra("SwitchBean");
+        switchBean = getIntent().getParcelableExtra("SwitchBean");
 //        HashMap<SwitchBean, List<SwitchBean>> datas = getIntent().getParcelableExtra("datas");
 //        System.out.println(datas);
 //        ArrayList<HashMap<String, String>> datas = new ArrayList<HashMap<String, String>>();
@@ -47,7 +47,7 @@ public class YaoKongDetailActivity extends BaseActivity {
 //        }
 
         ListView lvProduct = (ListView) findViewById(R.id.lv_products);
-        OneExpandAdapter adapter = new OneExpandAdapter(this, list.getChild());
+        OneExpandAdapter adapter = new OneExpandAdapter(this, switchBean.getChild());
         lvProduct.setAdapter(adapter);
     }
 
@@ -113,15 +113,15 @@ public class YaoKongDetailActivity extends BaseActivity {
                 holder.tv_code = (TextView) convertView.findViewById(R.id.tv_code);
                 holder.iv_time_clock = (ImageView) convertView.findViewById(R.id.iv_time_clock);
                 holder.toggle_icon = (ImageView) convertView.findViewById(R.id.toggle_icon);
-                holder.hideArea = (LinearLayout) convertView.findViewById(R.id.layout_hideArea);
+                holder.hideArea = (ExpandLayout) convertView.findViewById(R.id.layout_hideArea);
 
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-
             // 注意：我们在此给响应点击事件的区域（我的例子里是 showArea 的线性布局）添加Tag，为了记录点击的 position，我们正好用 position 设置 Tag
             holder.showArea.setTag(position);
+
             SwitchBean currentSwitchBean = getItem(position);
             holder.img_line.setImageResource(currentSwitchBean.getIcon());
             holder.txt_content.setText(currentSwitchBean.getName());
@@ -152,33 +152,35 @@ public class YaoKongDetailActivity extends BaseActivity {
                     holder.hideArea.addView(inflate1);
                 }
             }
-
-            //根据 currentItem 记录的点击位置来设置"对应Item"的可见性（在list依次加载列表数据时，每加载一个时都看一下是不是需改变可见性的那一条）
-            if (currentItem == position) {
-                holder.hideArea.setVisibility(View.VISIBLE);
-            } else {
-                holder.hideArea.setVisibility(View.GONE);
-            }
-
             if (child == null) {
                 holder.toggle_icon.setVisibility(View.INVISIBLE);
-            } else {
-                holder.toggle_icon.setImageResource(holder.active ? R.drawable.toggle_up : R.drawable.toggle_down);
-                holder.active = !holder.active;
             }
+            //切换收缩按钮
+            if (currentItem != position) {
+                // 其他node 如果展开就收起
+                if (holder.hideArea.isExpand()) {
+                    holder.hideArea.collapse();
+                    holder.toggle_icon.setImageResource(R.drawable.toggle_down);
+                }
+            } else {
+                // 当前点击的node 根据情况变化
+                if (holder.hideArea.isExpand()) {
+                    holder.toggle_icon.setImageResource(R.drawable.toggle_up);
+                } else {
+                    holder.toggle_icon.setImageResource(R.drawable.toggle_down);
+                }
+            }
+            ViewHolder finalHolder = holder;
+            // 点击事件
             holder.showArea.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View view) {
                     //用 currentItem 记录点击位置
-                    int tag = (Integer) view.getTag();
-                    if (tag == currentItem) { //再次点击
-                        currentItem = -1; //给 currentItem 一个无效值
-                    } else {
-                        currentItem = tag;
-                    }
-                    //通知adapter数据改变需要重新加载
-                    notifyDataSetChanged(); //必须有的一步
+                    currentItem = (int) (Integer) view.getTag();
+                    finalHolder.hideArea.toggleExpand();
+                    //通知adapter数据改变需要重新加载 必须有的一步
+                    notifyDataSetChanged();
                 }
             });
             return convertView;
@@ -194,9 +196,7 @@ public class YaoKongDetailActivity extends BaseActivity {
             private ImageView iv_time_clock;
             private ImageView toggle_icon;
 
-            private LinearLayout hideArea;
-
-            boolean active;
+            private ExpandLayout hideArea;
         }
     }
 }

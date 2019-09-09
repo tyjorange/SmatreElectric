@@ -139,38 +139,39 @@
             android:src="@drawable/dx_unchose_slices"
             android:visibility="gone" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center">
 
-            <ImageView
-                android:id="@+id/toggle_icon"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:src="@drawable/toggle_down"
-                tools:ignore="RtlSymmetry" />
-        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <com.rejuvee.smartelectric.family.widget.ExpandLayout
         android:id="@+id/layout_hideArea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <!--<include-->
-            <!--layout="@layout/item_test2"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent" />-->
+        <!--layout="@layout/item_test2"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
 
         <!--<include-->
-            <!--layout="@layout/item_test2"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent" />-->
+        <!--layout="@layout/item_test2"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
 
+    </com.rejuvee.smartelectric.family.widget.ExpandLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/toggle_icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:src="@drawable/toggle_down"
+            tools:ignore="RtlSymmetry" />
     </LinearLayout>
-
 </LinearLayout>
