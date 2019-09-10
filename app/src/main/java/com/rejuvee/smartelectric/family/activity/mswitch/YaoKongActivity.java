@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,9 +19,7 @@ import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.widget.LoadingDlg;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class YaoKongActivity extends BaseActivity {
@@ -49,7 +46,12 @@ public class YaoKongActivity extends BaseActivity {
     protected void initView() {
         mCollectorBean = getIntent().getParcelableExtra("collectorBean");
         waitDialog = new LoadingDlg(this, -1);
-
+        findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         ListView lvProduct = (ListView) findViewById(R.id.lv_products);
         adapter = new MyAdapter(this, mListData);
         lvProduct.setAdapter(adapter);

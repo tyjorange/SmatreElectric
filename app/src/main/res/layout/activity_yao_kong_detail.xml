@@ -1,12 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="com.rejuvee.smartelectric.family.activity.mswitch.YaoKongDetailActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp">
+
+        <ImageView
+            android:id="@+id/img_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:padding="16dp"
+            android:src="@drawable/main_fanhui" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="线路：卧室"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/lv_products"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</android.support.constraint.ConstraintLayout>
+        android:layout_height="match_parent"
+        android:divider="@color/transparent"
+        android:dividerHeight="0dp"
+        android:padding="20dp" />
+</LinearLayout>

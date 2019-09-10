@@ -35,9 +35,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.mswitch.YaoKongDetailActivity"></activity>
-        <activity android:name=".activity.mswitch.YaoKongActivity" />
+        <activity
+            android:name=".activity.login.LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <meta-data
             android:name="com.alibaba.app.appkey"
             android:value="${emas_app_key}" /> <!-- alibaba- appKey -->
@@ -86,16 +93,6 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name=".activity.login.LoginActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
@@ -213,9 +210,13 @@
             android:theme="@style/dialog_style" /> <!-- switch -->
         <activity
             android:name=".activity.mswitch.SwitchTreeActivity"
-            android:screenOrientation="portrait" /> <!-- <activity -->
-        <!-- android:name=".activity.mswitch.SwitchTreeDialog" -->
-        <!-- android:theme="@style/dialog_style" /> -->
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mswitch.YaoKongDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mswitch.YaoKongActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.mswitch.SwitchStatusActivity"
             android:screenOrientation="portrait" />

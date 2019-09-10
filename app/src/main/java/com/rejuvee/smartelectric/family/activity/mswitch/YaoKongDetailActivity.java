@@ -33,18 +33,12 @@ public class YaoKongDetailActivity extends BaseActivity {
     @Override
     protected void initView() {
         switchBean = getIntent().getParcelableExtra("SwitchBean");
-//        HashMap<SwitchBean, List<SwitchBean>> datas = getIntent().getParcelableExtra("datas");
-//        System.out.println(datas);
-//        ArrayList<HashMap<String, String>> datas = new ArrayList<HashMap<String, String>>();
-//        for (int i = 1; i <= 10; i++) {
-//            HashMap<String, String> item = new HashMap<String, String>();
-//            item.put("phoneType", "HTC-M" + i + "");
-//            item.put("discount", "9");
-//            item.put("price", (2000 + i) + "");
-//            item.put("time", "2016020" + i);
-//            item.put("num", (300 - i) + "");
-//            datas.add(item);
-//        }
+        findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         ListView lvProduct = (ListView) findViewById(R.id.lv_products);
         OneExpandAdapter adapter = new OneExpandAdapter(this, switchBean.getChild());
