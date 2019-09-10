@@ -154,6 +154,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <ListView
+            android:id="@+id/sub_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@color/transparent" />
         <!--<include-->
         <!--layout="@layout/item_test2"-->
         <!--android:layout_width="match_parent"-->
@@ -167,6 +172,7 @@
     </com.rejuvee.smartelectric.family.widget.ExpandLayout>
 
     <LinearLayout
+        android:id="@+id/toggle_ll"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center">

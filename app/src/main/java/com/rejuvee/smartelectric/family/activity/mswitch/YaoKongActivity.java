@@ -13,22 +13,28 @@ import android.widget.TextView;
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
+import com.rejuvee.smartelectric.family.activity.AddDeviceActivity;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
+import com.rejuvee.smartelectric.family.common.CommonRequestCode;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
+import com.rejuvee.smartelectric.family.widget.DialogTip;
 import com.rejuvee.smartelectric.family.widget.LoadingDlg;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class YaoKongActivity extends BaseActivity implements SwitchTree {
+    private Context mContext;
     // 集中器 collector
     private CollectorBean mCollectorBean;
     private LoadingDlg waitDialog;
     private List<SwitchBean> mListData = new ArrayList<>();
     private MyAdapter adapter;
     private int viewType;
+
+    private DialogTip mDialogTip;
 
     @Override
     protected int getLayoutResId() {
@@ -42,6 +48,7 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
 
     @Override
     protected void initView() {
+        mContext = this;
         mCollectorBean = getIntent().getParcelableExtra("collectorBean");
         viewType = getIntent().getIntExtra("viewType", -1);
         waitDialog = new LoadingDlg(this, -1);
@@ -62,7 +69,7 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
                 iv_switch_add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        addSwitch(null);//添加至集中器
                     }
                 });
                 iv_switch_add.setVisibility(View.VISIBLE);
@@ -70,14 +77,19 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
                 iv_switch_remove.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        toggleDelIcon();
                     }
                 });
                 iv_switch_remove.setVisibility(View.VISIBLE);
                 break;
         }
         ListView lvProduct = (ListView) findViewById(R.id.lv_products);
-        adapter = new MyAdapter(this, mListData);
+        adapter = new MyAdapter(this, mCollectorBean, viewType, mListData, new MyAdapter.ISwitchCheckListen() {
+            @Override
+            public void onDelete(SwitchBean s) {
+                deleteSwitch(s.getSwitchID());
+            }
+        });
         lvProduct.setAdapter(adapter);
     }
 
@@ -87,6 +99,20 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
         getSwitchByCollector();
     }
 
+    /**
+     * 切换删除按钮
+     */
+    private void toggleDelIcon() {
+        // 线路
+        for (SwitchBean taskBean : mListData) {
+            if (taskBean.showDelIcon == View.GONE) {
+                taskBean.showDelIcon = View.VISIBLE;
+            } else {
+                taskBean.showDelIcon = View.GONE;
+            }
+        }
+        adapter.notifyDataSetChanged();
+    }
     /**
      * 获取集中器下的线路(switch)
      */
@@ -141,18 +167,93 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
 //        });
     }
 
+    /**
+     * 删除断路器(switch)
+     */
+    private void deleteSwitch(String switchId) {
+        mDialogTip = new DialogTip(mContext);
+        mDialogTip.setTitle(getString(R.string.deletexianlu));
+        mDialogTip.setContent(getString(R.string.xianlu_issure));
+        mDialogTip.setDialogListener(new DialogTip.onEnsureDialogListener() {
+            @Override
+            public void onCancel() {
+                mDialogTip.dismiss();
+            }
+
+            @Override
+            public void onEnsure() {
+                mDialogTip.dismiss();
+                waitDialog.show();
+                Core.instance(mContext).deleteBreak(switchId, new ActionCallbackListener<Void>() {
+                    @Override
+                    public void onSuccess(Void data) {
+//                mListData.remove(position);
+//                mAdapter.notifyDataSetChanged();
+                        getSwitchByCollector();
+                        CustomToast.showCustomToast(YaoKongActivity.this, getString(R.string.operator_sucess));
+                        waitDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(int errorEvent, String message) {
+                        CustomToast.showCustomToast(YaoKongActivity.this, message);
+                        waitDialog.dismiss();
+                    }
+                });
+            }
+        });
+        mDialogTip.show();
+
+    }
+
+    /**
+     * 跳转添加断路器(switch)界面
+     *
+     * @param mSwitch null 添加至电箱
+     *                notNull 添加至mSwitch
+     */
+    private void addSwitch(SwitchBean mSwitch) {
+        Intent intent = new Intent(mContext, AddDeviceActivity.class);
+        intent.setExtrasClassLoader(getClass().getClassLoader());
+        intent.putExtra("collectorBean", mCollectorBean);
+        intent.putExtra("switch", mSwitch);
+        intent.putExtra("add_type", AddDeviceActivity.BREAK_ADD);
+        startActivityForResult(intent, CommonRequestCode.REQUEST_ADD_COLLECTOR);
+    }
+
     @Override
     protected void dealloc() {
 
     }
 
-    public class MyAdapter extends BaseAdapter {
-        private Context context;
-        private List<SwitchBean> list;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+//            if (requestCode == CommonRequestCode.REQUEST_ADD_LINE) {
+//                //添加后 刷新数据
+//                getSwitchByCollector();
+//            } else if (requestCode == CommonRequestCode.REQUEST_MODIFY_LINE) {
+//                //修改后 刷新数据
+//                getSwitchByCollector();
+//            }
+            getSwitchByCollector();
+        }
+    }
 
-        MyAdapter(Context context, List<SwitchBean> list) {
+    public static class MyAdapter extends BaseAdapter {
+        private Context context;
+        private CollectorBean collectorBean;
+        private List<SwitchBean> list;
+        private int viewType;
+        private ISwitchCheckListen iSwitchCheckListen;
+
+        MyAdapter(Context context, CollectorBean collectorBean, int viewType, List<SwitchBean> list, ISwitchCheckListen iSwitchCheckListen) {
             super();
             this.context = context;
+            this.collectorBean = collectorBean;
+            this.viewType = viewType;
+            this.iSwitchCheckListen = iSwitchCheckListen;
             this.list = list;
         }
 
@@ -183,7 +284,7 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
                 holder.tv_code = (TextView) convertView.findViewById(R.id.tv_code);
                 holder.iv_time_clock = (ImageView) convertView.findViewById(R.id.iv_time_clock);
                 holder.img_right = (ImageView) convertView.findViewById(R.id.img_right);
-
+                holder.iv_del_switch = (ImageView) convertView.findViewById(R.id.iv_del_switch);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
@@ -195,6 +296,7 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
             holder.tv_state.setText(SwitchBean.getSwitchFaultState(convertView.getContext(), switchBean.fault));// 更新状态文字
             holder.tv_code.setText(switchBean.getSerialNumber());
             holder.iv_time_clock.setVisibility(switchBean.timerCount > 0 ? View.VISIBLE : View.INVISIBLE);
+            holder.iv_del_switch.setVisibility(switchBean.showDelIcon);
 
             if (switchBean.getChild() != null) {
                 holder.img_right.setVisibility(View.VISIBLE);
@@ -206,14 +308,20 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
 //                        HashMap<SwitchBean, List<SwitchBean>> datas = new HashMap<SwitchBean, List<SwitchBean>>();
 //                        datas.put(switchBean, switchBean.getChild());
 
-                        intent.putExtra("collectorBean", mCollectorBean);
+                        intent.putExtra("collectorBean", collectorBean);
                         intent.putExtra("SwitchBean", switchBean);
                         intent.putExtra("viewType", viewType);
 //                        intent.putExtra("datas", datas);
-                        startActivity(intent);
+                        context.startActivity(intent);
                     }
                 });
             }
+            holder.iv_del_switch.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    iSwitchCheckListen.onDelete(switchBean);
+                }
+            });
             return convertView;
         }
 
@@ -224,6 +332,13 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
             private TextView tv_code;
             private ImageView iv_time_clock;
             private ImageView img_right;
+            private ImageView iv_del_switch;
+        }
+
+        public interface ISwitchCheckListen {
+
+            void onDelete(SwitchBean cb);
+
         }
     }
 }
