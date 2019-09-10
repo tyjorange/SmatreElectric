@@ -28,9 +28,6 @@ public class YaoKongActivity extends BaseActivity {
     private LoadingDlg waitDialog;
     private List<SwitchBean> mListData = new ArrayList<>();
     private MyAdapter adapter;
-    //线路
-    private List<SwitchBean> xianluListData = new ArrayList<>();
-
 
     @Override
     protected int getLayoutResId() {
@@ -116,12 +113,6 @@ public class YaoKongActivity extends BaseActivity {
 //        });
     }
 
-    private void doS() {
-        for (SwitchBean c : mListData) {
-
-        }
-    }
-
     @Override
     protected void dealloc() {
 
@@ -172,10 +163,10 @@ public class YaoKongActivity extends BaseActivity {
             SwitchBean switchBean = getItem(position);
             holder.img_line.setImageResource(switchBean.getIcon());
             holder.txt_content.setText(switchBean.getName());
-            holder.tv_state.setVisibility(switchBean.getSwitchState() == 0 ? View.VISIBLE : View.GONE);// 更新状态文字
+            holder.tv_state.setVisibility(switchBean.getSwitchState() == 0 ? View.VISIBLE : View.INVISIBLE);// 更新状态文字
             holder.tv_state.setText(SwitchBean.getSwitchFaultState(convertView.getContext(), switchBean.fault));// 更新状态文字
             holder.tv_code.setText(switchBean.getSerialNumber());
-            holder.iv_time_clock.setVisibility(switchBean.timerCount > 0 ? View.VISIBLE : View.GONE);
+            holder.iv_time_clock.setVisibility(switchBean.timerCount > 0 ? View.VISIBLE : View.INVISIBLE);
 
             if (switchBean.getChild() != null) {
                 holder.img_right.setVisibility(View.VISIBLE);
@@ -187,6 +178,7 @@ public class YaoKongActivity extends BaseActivity {
 //                        HashMap<SwitchBean, List<SwitchBean>> datas = new HashMap<SwitchBean, List<SwitchBean>>();
 //                        datas.put(switchBean, switchBean.getChild());
 
+                        intent.putExtra("collectorBean", mCollectorBean);
                         intent.putExtra("SwitchBean", switchBean);
 //                        intent.putExtra("datas", datas);
                         startActivity(intent);

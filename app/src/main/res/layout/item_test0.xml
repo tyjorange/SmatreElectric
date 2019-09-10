@@ -74,18 +74,6 @@
                     android:src="@drawable/time_clock" />
             </LinearLayout>
 
-
-            <TextView
-                android:id="@+id/tv_state"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:paddingTop="4dp"
-                android:text="错误状态"
-                android:textColor="@color/text_base_color_999"
-                android:textSize="9sp" />
-
             <TextView
                 android:id="@+id/tv_code"
                 android:layout_width="match_parent"
@@ -97,6 +85,16 @@
                 android:textColor="@color/text_base_color_999"
                 android:textSize="9sp" />
 
+            <TextView
+                android:id="@+id/tv_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingTop="4dp"
+                android:text="错误状态"
+                android:textColor="@color/text_base_color_999"
+                android:textSize="9sp" />
         </LinearLayout>
 
         <ImageView
