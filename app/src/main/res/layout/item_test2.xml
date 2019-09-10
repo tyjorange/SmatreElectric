@@ -95,7 +95,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/iv_add_switch"
+            android:id="@+id/iv_add_sub_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -115,14 +115,14 @@
             android:src="@drawable/yk_kaizha"
             android:visibility="gone" />
 
-        <ImageView
-            android:id="@+id/img_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="16dp"
-            android:src="@drawable/arrow_right_icon"
-            android:visibility="gone" />
+        <!--        <ImageView-->
+        <!--            android:id="@+id/img_right"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="center"-->
+        <!--            android:padding="16dp"-->
+        <!--            android:src="@drawable/arrow_right_icon"-->
+        <!--            android:visibility="gone" />-->
 
         <ImageView
             android:id="@+id/img_node_chose"

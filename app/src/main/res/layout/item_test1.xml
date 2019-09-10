@@ -99,7 +99,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/iv_add_switch"
+            android:id="@+id/iv_add_sub_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

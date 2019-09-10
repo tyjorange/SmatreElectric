@@ -22,12 +22,13 @@ import com.rejuvee.smartelectric.family.widget.LoadingDlg;
 import java.util.ArrayList;
 import java.util.List;
 
-public class YaoKongActivity extends BaseActivity {
+public class YaoKongActivity extends BaseActivity implements SwitchTree {
     // 集中器 collector
     private CollectorBean mCollectorBean;
     private LoadingDlg waitDialog;
     private List<SwitchBean> mListData = new ArrayList<>();
     private MyAdapter adapter;
+    private int viewType;
 
     @Override
     protected int getLayoutResId() {
@@ -42,6 +43,7 @@ public class YaoKongActivity extends BaseActivity {
     @Override
     protected void initView() {
         mCollectorBean = getIntent().getParcelableExtra("collectorBean");
+        viewType = getIntent().getIntExtra("viewType", -1);
         waitDialog = new LoadingDlg(this, -1);
         findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,10 +51,36 @@ public class YaoKongActivity extends BaseActivity {
                 finish();
             }
         });
+        TextView tv_title = findViewById(R.id.tv_title);
+        switch (viewType) {
+            case YaoKongActivity.YAOKONG:
+                tv_title.setText("遥控开关");
+                break;
+            case YaoKongActivity.XIANLU_WEIHU:
+                tv_title.setText("线路维护");
+                View iv_switch_add = findViewById(R.id.iv_add_child_switch);
+                iv_switch_add.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+                iv_switch_add.setVisibility(View.VISIBLE);
+                View iv_switch_remove = findViewById(R.id.iv_switch_remove_toggle);
+                iv_switch_remove.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+                iv_switch_remove.setVisibility(View.VISIBLE);
+                break;
+        }
         ListView lvProduct = (ListView) findViewById(R.id.lv_products);
         adapter = new MyAdapter(this, mListData);
         lvProduct.setAdapter(adapter);
     }
+
 
     @Override
     protected void initData() {
@@ -180,6 +208,7 @@ public class YaoKongActivity extends BaseActivity {
 
                         intent.putExtra("collectorBean", mCollectorBean);
                         intent.putExtra("SwitchBean", switchBean);
+                        intent.putExtra("viewType", viewType);
 //                        intent.putExtra("datas", datas);
                         startActivity(intent);
                     }

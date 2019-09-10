@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.View;
 
 import com.google.gson.annotations.SerializedName;
 import com.rejuvee.smartelectric.family.R;
@@ -89,6 +90,8 @@ public class SwitchBean implements Parcelable {
     private String tbjn;
     private String hbjn;
 
+    @Ignore
+    public int showDelIcon = View.GONE;
     /**
      * 获取开关断开原因
      *

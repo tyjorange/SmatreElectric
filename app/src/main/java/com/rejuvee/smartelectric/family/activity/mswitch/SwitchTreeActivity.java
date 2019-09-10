@@ -45,6 +45,7 @@ import java.util.TimerTask;
 /**
  * 线路 树状图
  */
+@Deprecated
 public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
     private String TAG = "SwitchTreeActivity";
     private int viewType;// 1 遥控开关 2 实时情况 3 定时开关 4 节能信息 5 线路修改（名称图标）6 曲线 7 安全设置 8 线路维护

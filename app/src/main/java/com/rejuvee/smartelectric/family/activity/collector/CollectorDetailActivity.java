@@ -173,7 +173,7 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
                 intent = new Intent(this, YaoKongActivity.class);
 //                intent = new Intent(this, SwitchTreeActivity.class);
                 intent.putExtra("collectorBean", collectorBean);
-                intent.putExtra("viewType", SwitchTree.YAOKONG);
+                intent.putExtra("viewType", YaoKongActivity.YAOKONG);
                 startActivity(intent);
                 break;
             case R.id.txt_shishi:

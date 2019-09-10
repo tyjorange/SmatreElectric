@@ -25,7 +25,7 @@ import com.unnamed.b.atv.model.TreeNode;
  */
 public class MyNodeViewHolder extends TreeNode.BaseNodeViewHolder<SwitchBean> {
     private int viewType;// 1 遥控开关 2 实时情况 3 定时开关 4 节能信息 5 线路修改（名称图标）6 曲线 7 安全设置 8 线路维护
-    private final int sideMarginLeft = 20;// 子节点缩进
+    private final int sideMarginLeft = 0;// 子节点缩进
     private Context mContext;
     private SwitchBean currentSwitch;
     private CollectorBean collectorBean;// 集中器 collector
@@ -39,6 +39,10 @@ public class MyNodeViewHolder extends TreeNode.BaseNodeViewHolder<SwitchBean> {
         this.collectorBean = collectorBean;
         iSwitchCheckListen = listener;
         viewType = type;
+    }
+
+    public int getSideMarginLeft() {
+        return sideMarginLeft;
     }
 
     @Override

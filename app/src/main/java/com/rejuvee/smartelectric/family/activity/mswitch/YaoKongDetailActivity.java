@@ -33,10 +33,12 @@ import java.util.List;
 
 public class YaoKongDetailActivity extends BaseActivity {
     private String TAG = "YaoKongDetailActivity";
+    private int viewType;
     // 集中器 collector
     private CollectorBean mCollectorBean;
     private SwitchBean switchBean;
     private SwitchBean currentSwitchBean;
+    private OneExpandAdapter adapter;
     private String controllerId;
 
     private static int currentSearchCount;//重试计数
@@ -67,6 +69,7 @@ public class YaoKongDetailActivity extends BaseActivity {
         mContext = this;
         mCollectorBean = getIntent().getParcelableExtra("collectorBean");
         switchBean = getIntent().getParcelableExtra("SwitchBean");
+        viewType = getIntent().getIntExtra("viewType", -1);
         mWaitDialog = new LoadingDlg(this, -1);
         findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,16 +77,43 @@ public class YaoKongDetailActivity extends BaseActivity {
                 finish();
             }
         });
-        findViewById(R.id.iv_switch_root).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switchBreak(switchBean);
-            }
-        });
+        switch (viewType) {
+            case SwitchTree.YAOKONG:
+                ImageView iv_switch_root = findViewById(R.id.iv_switch_root);
+                iv_switch_root.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        switchBreak(switchBean);
+                        iv_switch_root.setImageResource(NativeLine.DrawableToggle[switchBean.getSwitchState() == -1 ? 2 : switchBean.getSwitchState()]);//TODO
+                    }
+                });
+                iv_switch_root.setImageResource(NativeLine.DrawableToggle[switchBean.getSwitchState() == -1 ? 2 : switchBean.getSwitchState()]);//TODO
+                iv_switch_root.setVisibility(View.VISIBLE);
+                break;
+            case SwitchTree.XIANLU_WEIHU:
+                ImageView iv_switch_add = findViewById(R.id.iv_add_child_switch);
+                iv_switch_add.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {//TODO
+
+                    }
+                });
+                iv_switch_add.setVisibility(View.VISIBLE);
+                ImageView iv_switch_remove_toggle = findViewById(R.id.iv_switch_remove_toggle);
+                iv_switch_remove_toggle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        System.out.println("toggleDelIcon");
+                        toggleDelIcon();
+                    }
+                });
+                iv_switch_remove_toggle.setVisibility(View.VISIBLE);
+                break;
+        }
         TextView tv_root_name = findViewById(R.id.tv_root_name);
         tv_root_name.setText("线路：" + switchBean.getName());
         lvProduct = (ListView) findViewById(R.id.lv_products);
-        OneExpandAdapter adapter = new OneExpandAdapter(this, mCollectorBean, switchBean, new OneExpandAdapter.ISwitchCheckListen() {
+        adapter = new OneExpandAdapter(this, mCollectorBean, switchBean, viewType, new OneExpandAdapter.ISwitchCheckListen() {
             @Override
             public void onSwitch(SwitchBean cb) {
                 switchBreak(cb);
@@ -132,6 +162,16 @@ public class YaoKongDetailActivity extends BaseActivity {
         };
     }
 
+    private void toggleDelIcon() {
+        for (SwitchBean taskBean : switchBean.getChild()) {
+            if (taskBean.showDelIcon == View.GONE) {
+                taskBean.showDelIcon = View.VISIBLE;
+            } else {
+                taskBean.showDelIcon = View.GONE;
+            }
+        }
+        adapter.notifyDataSetChanged();
+    }
     /**
      * 手动操作断路器[开、关]
      *
@@ -307,19 +347,22 @@ public class YaoKongDetailActivity extends BaseActivity {
         private List<SwitchBean> list;
         private int currentItem = -1; //用于记录点击的 Item 的 position，是控制 item 展开的核心
         private ISwitchCheckListen iSwitchCheckListen;
+        private int viewType;
 
         /**
          * @param context
          * @param collectorBean
          * @param switchBean
+         * @param viewType
          */
-        OneExpandAdapter(Context context, CollectorBean collectorBean, SwitchBean switchBean, ISwitchCheckListen iSwitchCheckListen) {
+        OneExpandAdapter(Context context, CollectorBean collectorBean, SwitchBean switchBean, int viewType, ISwitchCheckListen iSwitchCheckListen) {
             super();
             this.context = context;
             this.collectorBean = collectorBean;
             this.switchBean = switchBean;
             this.list = switchBean.getChild();
             this.iSwitchCheckListen = iSwitchCheckListen;
+            this.viewType = viewType;
         }
 
         @Override
@@ -340,6 +383,7 @@ public class YaoKongDetailActivity extends BaseActivity {
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             ViewHolder holder = null;
+            // 分线
             if (convertView == null) {
                 convertView = LayoutInflater.from(context).inflate(R.layout.item_test1, parent, false);
                 holder = new ViewHolder();
@@ -353,6 +397,8 @@ public class YaoKongDetailActivity extends BaseActivity {
                 holder.toggle_icon = (ImageView) convertView.findViewById(R.id.toggle_icon);
                 holder.sp_line = (ImageView) convertView.findViewById(R.id.sp_line);
                 holder.hideArea = (ExpandLayout) convertView.findViewById(R.id.layout_hideArea);
+                holder.iv_del_switch = (ImageView) convertView.findViewById(R.id.iv_del_switch);
+                holder.iv_add_sub_switch = (ImageView) convertView.findViewById(R.id.iv_add_sub_switch);
 
                 convertView.setTag(holder);
             } else {
@@ -368,20 +414,41 @@ public class YaoKongDetailActivity extends BaseActivity {
             holder.tv_state.setText(SwitchBean.getSwitchFaultState(convertView.getContext(), currentSwitchBean.fault));// 更新状态文字
             holder.tv_code.setText(currentSwitchBean.getSerialNumber());
             holder.iv_time_clock.setVisibility(currentSwitchBean.timerCount > 0 ? View.VISIBLE : View.INVISIBLE);
-            holder.iv_switch.setVisibility(View.VISIBLE);
-            if (collectorBean.beShared == 0 || collectorBean.enable == 1) {// 不是被分享的 或 有集中器操作权限
-                holder.iv_switch.setImageResource(NativeLine.DrawableToggle[switchBean.getSwitchState() == -1 ? 2 : switchBean.getSwitchState()]);
-                holder.iv_switch.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (iSwitchCheckListen != null) {
+
+            switch (viewType) {
+                case YaoKongActivity.YAOKONG:
+                    holder.iv_switch.setVisibility(View.VISIBLE);
+                    if (collectorBean.beShared == 0 || collectorBean.enable == 1) {// 不是被分享的 或 有集中器操作权限
+                        holder.iv_switch.setImageResource(NativeLine.DrawableToggle[switchBean.getSwitchState() == -1 ? 2 : switchBean.getSwitchState()]);
+                        holder.iv_switch.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (iSwitchCheckListen != null) {
 //                        holder.ivSwitch.setImageResource(NativeLine.DrawableToggle[2]);
-                            iSwitchCheckListen.onSwitch(switchBean);
-                        }
+                                    iSwitchCheckListen.onSwitch(switchBean);
+                                }
+                            }
+                        });
                     }
-                });
+                    break;
+                case YaoKongActivity.XIANLU_WEIHU:
+                    holder.iv_add_sub_switch.setVisibility(View.VISIBLE);
+                    holder.iv_add_sub_switch.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
+                    holder.iv_del_switch.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
+                    break;
             }
 
+            // 支线
             List<SwitchBean> child = currentSwitchBean.getChild();
             if (child != null) {
                 holder.hideArea.removeAllViews();//清除重绘
@@ -394,27 +461,48 @@ public class YaoKongDetailActivity extends BaseActivity {
                     holder1.tv_code = (TextView) inflate1.findViewById(R.id.tv_code);
                     holder1.iv_switch = (ImageView) inflate1.findViewById(R.id.iv_switch);
                     holder1.iv_time_clock = (ImageView) inflate1.findViewById(R.id.iv_time_clock);
+                    holder1.iv_del_switch = (ImageView) inflate1.findViewById(R.id.iv_del_switch);
+//                    holder1.iv_add_sub_switch = (ImageView) inflate1.findViewById(R.id.iv_add_sub_switch);
 
                     holder1.img_line.setImageResource(s.getIcon());
                     holder1.txt_content.setText("支线：" + s.getName());
                     holder1.tv_state.setVisibility(s.getSwitchState() == 0 ? View.VISIBLE : View.INVISIBLE);// 更新状态文字
                     holder1.tv_state.setText(SwitchBean.getSwitchFaultState(convertView.getContext(), s.fault));// 更新状态文字
                     holder1.tv_code.setText(s.getSerialNumber());
-                    holder1.iv_switch.setVisibility(View.VISIBLE);
-                    if (collectorBean.beShared == 0 || collectorBean.enable == 1) {// 不是被分享的 或 有集中器操作权限
-                        holder1.iv_switch.setImageResource(NativeLine.DrawableToggle[switchBean.getSwitchState() == -1 ? 2 : switchBean.getSwitchState()]);
-                        holder1.iv_switch.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (iSwitchCheckListen != null) {
-//                        holder.ivSwitch.setImageResource(NativeLine.DrawableToggle[2]);
-                                    iSwitchCheckListen.onSwitch(switchBean);
-                                }
-                            }
-                        });
-                    }
                     holder1.iv_time_clock.setVisibility(s.timerCount > 0 ? View.VISIBLE : View.INVISIBLE);
 
+                    switch (viewType) {
+                        case YaoKongActivity.YAOKONG:
+                            holder1.iv_switch.setVisibility(View.VISIBLE);
+                            if (collectorBean.beShared == 0 || collectorBean.enable == 1) {// 不是被分享的 或 有集中器操作权限
+                                holder1.iv_switch.setImageResource(NativeLine.DrawableToggle[switchBean.getSwitchState() == -1 ? 2 : switchBean.getSwitchState()]);
+                                holder1.iv_switch.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if (iSwitchCheckListen != null) {
+//                        holder.ivSwitch.setImageResource(NativeLine.DrawableToggle[2]);
+                                            iSwitchCheckListen.onSwitch(switchBean);
+                                        }
+                                    }
+                                });
+                            }
+                            break;
+                        case YaoKongActivity.XIANLU_WEIHU:
+//                            holder1.iv_add_sub_switch.setVisibility(View.VISIBLE);
+//                            holder1.iv_add_sub_switch.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//
+//                                }
+//                            });
+                            holder1.iv_del_switch.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                }
+                            });
+                            break;
+                    }
                     holder.hideArea.addView(inflate1);
                 }
             }
@@ -458,6 +546,7 @@ public class YaoKongDetailActivity extends BaseActivity {
         private class ViewHolder {
             private LinearLayout showArea;
 
+            private ImageView iv_del_switch;
             private ImageView img_line;
             private TextView txt_content;
             private TextView tv_state;
@@ -466,6 +555,7 @@ public class YaoKongDetailActivity extends BaseActivity {
             private ImageView iv_switch;
             private ImageView toggle_icon;
             private ImageView sp_line;
+            private ImageView iv_add_sub_switch;
 
             private ExpandLayout hideArea;
         }

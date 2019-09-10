@@ -50,7 +50,27 @@
             android:layout_gravity="center"
             android:layout_marginEnd="10dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/yk_kaizha" />
+            android:src="@drawable/yk_kaizha"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_add_child_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/timer_add"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_switch_remove_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:src="@drawable/timer_del"
+            android:visibility="gone" />
     </LinearLayout>
 
     <ListView
