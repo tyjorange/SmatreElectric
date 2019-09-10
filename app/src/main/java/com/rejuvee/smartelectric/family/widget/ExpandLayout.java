@@ -67,6 +67,11 @@ public class ExpandLayout extends LinearLayout {
         });
     }
 
+//    @Override
+//    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+//        int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST);
+//        super.onMeasure(widthMeasureSpec, expandSpec);
+//    }
 
     public static void setViewHeight(View view, int height) {
         final ViewGroup.LayoutParams params = view.getLayoutParams();

@@ -164,7 +164,6 @@ public class YaoKongDetailActivity extends BaseActivity {
 //                    fillData();
                 } else if (msg.what == MSG_SWTCH_REFRESH) {
 //                    getSwitchState();
-                    adapter.notifyDataSetChanged();
                 }
             }
         };
@@ -215,8 +214,8 @@ public class YaoKongDetailActivity extends BaseActivity {
 //                linearLayout.setVisibility(View.VISIBLE);
 
 //                mHandler.sendEmptyMessageDelayed(MSG_FILLDATA, 10);
-                mHandler.sendEmptyMessageDelayed(MSG_SWTCH_REFRESH, 1000);
-//                adapter.notifyDataSetChanged();
+//                mHandler.sendEmptyMessageDelayed(MSG_SWTCH_REFRESH, 1000);
+                adapter.notifyDataSetChanged();
                 mWaitDialog.dismiss();
             }
 
