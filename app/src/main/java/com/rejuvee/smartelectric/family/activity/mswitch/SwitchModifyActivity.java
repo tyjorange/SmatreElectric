@@ -29,7 +29,7 @@ import java.util.List;
 public class SwitchModifyActivity extends BaseActivity {
     //    private SwitchBean switchBean;
     private CollectorBean collectorBean;
-    private SwitchBean curBreaker;
+    private SwitchBean currentSwitchBean;
     //    private float dianliang, gonglv;
     private TextView txtLineName;//线路名称
 //    private ImageView imgLine;
@@ -83,6 +83,7 @@ public class SwitchModifyActivity extends BaseActivity {
                 }
             }
         });
+        //切换线路
         LinearLayout img_change = findViewById(R.id.img_change);
         if (collectorBean != null) {//修改
             img_change.setOnClickListener(new View.OnClickListener() {
@@ -92,12 +93,12 @@ public class SwitchModifyActivity extends BaseActivity {
 
                         @Override
                         public void onChose(SwitchBean s) {
-                            curBreaker = s;
+                            currentSwitchBean = s;
 //                        getData(switchBean);
-                            txtLineName.setText("线路：" + curBreaker.getName());
-                            editLineName.setText(curBreaker.getName());
+                            txtLineName.setText("线路：" + currentSwitchBean.getName());
+                            editLineName.setText(currentSwitchBean.getName());
                             customLineAdapter.reset();
-                            customLineAdapter.setCurrentSelected(curBreaker.getIconType());
+                            customLineAdapter.setCurrentSelected(currentSwitchBean.getIconType());
                         }
                     });
                     switchTreeDialog.show();
@@ -130,10 +131,10 @@ public class SwitchModifyActivity extends BaseActivity {
             }
         });
         // 修改
-        if (curBreaker != null) {
-            editLineName.setText(curBreaker.getName());
+        if (currentSwitchBean != null) {
+            editLineName.setText(currentSwitchBean.getName());
             customLineAdapter.reset();
-            customLineAdapter.setCurrentSelected(curBreaker.getIconType());
+            customLineAdapter.setCurrentSelected(currentSwitchBean.getIconType());
         }
 //        horizontalListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
@@ -176,11 +177,11 @@ public class SwitchModifyActivity extends BaseActivity {
         Core.instance(this).getSwitchByCollector(collectorBean.getCode(), "nohierarchy", new ActionCallbackListener<List<SwitchBean>>() {
             @Override
             public void onSuccess(List<SwitchBean> data) {
-                curBreaker = data.get(0);//init bean
-                txtLineName.setText("线路：" + curBreaker.getName());
-                editLineName.setText(curBreaker.getName());
+                currentSwitchBean = data.get(0);//init bean
+                txtLineName.setText("线路：" + currentSwitchBean.getName());
+                editLineName.setText(currentSwitchBean.getName());
                 customLineAdapter.reset();
-                customLineAdapter.setCurrentSelected(curBreaker.getIconType());
+                customLineAdapter.setCurrentSelected(currentSwitchBean.getIconType());
 //                getBreakSignalValue(curBreaker);
 //                judgSwitchstate(curBreaker);
             }
@@ -244,8 +245,8 @@ public class SwitchModifyActivity extends BaseActivity {
 //            CustomToast.showCustomErrorToast(this, getResources().getString(R.string.select_custom_pic));
 //            return;
 //        }
-        curBreaker.setName(customName);
-        curBreaker.setIconType(customLineAdapter.getSelectedPosition());
+        currentSwitchBean.setName(customName);
+        currentSwitchBean.setIconType(customLineAdapter.getSelectedPosition());
         finishModify();
     }
 
@@ -259,12 +260,12 @@ public class SwitchModifyActivity extends BaseActivity {
                 }
             }
         }*/
-        Core.instance(this).updateBreak(curBreaker.getSwitchID(), curBreaker.getIconType(),
-                curBreaker.getName(), new ActionCallbackListener<Void>() {
+        Core.instance(this).updateBreak(currentSwitchBean.getSwitchID(), currentSwitchBean.getIconType(),
+                currentSwitchBean.getName(), new ActionCallbackListener<Void>() {
                     @Override
                     public void onSuccess(Void data) {
                         Intent intent = getIntent();
-                        intent.putExtra("break", curBreaker);
+                        intent.putExtra("break", currentSwitchBean);
                         setResult(RESULT_OK, intent);
                         CustomToast.showCustomToast(mContext, "修改成功");
                         finish();

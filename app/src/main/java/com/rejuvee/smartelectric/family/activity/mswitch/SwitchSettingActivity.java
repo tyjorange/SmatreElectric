@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
@@ -21,6 +24,7 @@ import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.custom.AmountView;
 import com.rejuvee.smartelectric.family.custom.MyTextWatcher;
+import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.model.bean.VoltageValue;
 import com.rejuvee.smartelectric.family.widget.LoadingDlg;
@@ -53,10 +57,13 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
     //    private ArrayAdapter<Item> adapter;
 //    private BreakEVSetHttpCall mHttpCall;
     private Handler mHandler;
-    private SwitchBean switchBean;
+    private CollectorBean collectorBean;
+    private SwitchBean currentSwitchBean;
     private DecimalFormat formater = new DecimalFormat("000000.00");
     private LoadingDlg waitDialog;
     private Context mContext;
+    private TextView txtLineName;//线路名称
+    private ScrollView scrollView;
 
     @Override
     protected int getLayoutResId() {
@@ -70,27 +77,37 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
 
     @Override
     protected void initView() {
+        mContext = this;
         findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        mContext = this;
         waitDialog = new LoadingDlg(this, -1);
-        listPopupWindow = new ListPopupWindow(this);
-//        items.add(new Item("1A", 1.0f));
-//        items.add(new Item("6A", 6.0f));
-//        items.add(new Item("10A", 10.0f));
-//        items.add(new Item("16A", 16.0f));
-//        items.add(new Item("20A", 20.0f));
-//        items.add(new Item("25A", 25.0f));
-//        items.add(new Item("32A", 32.0f));
-//        items.add(new Item("40A", 40.0f));
-//        items.add(new Item("50A", 50.0f));
-//        items.add(new Item("63A", 63.0f));
+        scrollView = (ScrollView) findViewById(R.id.sv_values);
+        //切换线路
+        txtLineName = (TextView) findViewById(R.id.txt_line_name);
+        LinearLayout img_change = findViewById(R.id.img_change);
+        img_change.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(mContext, SwitchTree.DINGSHI, collectorBean, new SwitchTreeDialog.ChoseCallBack() {
+
+                    @Override
+                    public void onChose(SwitchBean s) {
+                        currentSwitchBean = s;
+//                        getData(switchBean);
+                        txtLineName.setText("线路：" + currentSwitchBean.getName());
+                        mHandler.sendEmptyMessageDelayed(sendGetThreadValueCommand, 1000);
+                    }
+                });
+                switchTreeDialog.show();
+            }
+        });
+
         // 过流
-//        spinnerGL = findViewById(R.id.spinner_gl);
+        listPopupWindow = new ListPopupWindow(this);
         et_GL = findViewById(R.id.et_sp1);
         et_GL.setOnFocusChangeListener(this);
 //        adapter = new ArrayAdapter<Item>(this, android.R.layout.simple_spinner_dropdown_item, items);
@@ -233,7 +250,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                 System.out.println(values);
                 amountGY.setAmount(b1.floatValue());
                 amountQY.setAmount(b2.floatValue());
-                Core.instance(mContext).sendSetThreadValueCommand(switchBean.getSerialNumber(), values, new ActionCallbackListener<Void>() {
+                Core.instance(mContext).sendSetThreadValueCommand(currentSwitchBean.getSerialNumber(), values, new ActionCallbackListener<Void>() {
                     @Override
                     public void onSuccess(Void data) {
                         CustomToast.showCustomToast(mContext, "设置成功");
@@ -267,7 +284,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
     @SuppressLint("HandlerLeak")
     @Override
     protected void initData() {
-        switchBean = getIntent().getParcelableExtra("switchBean");
+        collectorBean = getIntent().getParcelableExtra("collectorBean");
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -280,22 +297,51 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
             }
         };
 //        getData();
+        getSwitchByCollector();
         mHandler.sendEmptyMessageDelayed(sendGetThreadValueCommand, 100);
     }
 
+    /**
+     * 获取集中器下的线路 第一个作为默认显示
+     */
+    private void getSwitchByCollector() {
+        waitDialog.show();
+        Core.instance(this).getSwitchByCollector(collectorBean.getCode(), "nohierarchy", new ActionCallbackListener<List<SwitchBean>>() {
+            @Override
+            public void onSuccess(List<SwitchBean> data) {
+                currentSwitchBean = data.get(0);//init bean
+                txtLineName.setText("线路：" + currentSwitchBean.getName());
+                mHandler.sendEmptyMessageDelayed(sendGetThreadValueCommand, 1000);
+//                getBreakSignalValue(curBreaker);
+//                judgSwitchstate(curBreaker);
+            }
+
+            @Override
+            public void onFailure(int errorEvent, String message) {
+                if (errorEvent == 12) {
+                    CustomToast.showCustomErrorToast(SwitchSettingActivity.this, "请先添加线路");
+                } else {
+                    CustomToast.showCustomErrorToast(SwitchSettingActivity.this, message);
+                }
+                finish();
+            }
+        });
+    }
     /**
      * 发送刷新命令
      */
     private void getData1() {
         listPopupWindow.dismiss();
-        Core.instance(this).sendGetThreadValueCommand(switchBean.getSerialNumber(), "00000011,00000005,0000000D,00000018,00000019,0000001B,0000001C,0000001D,0000001E",
+        waitDialog.show();
+        Core.instance(this).sendGetThreadValueCommand(currentSwitchBean.getSerialNumber(), "00000011,00000005,0000000D,00000018,00000019,0000001B,0000001C,0000001D,0000001E",
                 new ActionCallbackListener<Void>() {
                     @Override
                     public void onSuccess(Void data) {
                         Log.d(TAG, "发送刷新命令成功, threadId = " + Thread.currentThread().getId());
                         currentSearchCount = 0;
-                        waitDialog.show();
                         mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitch, 1000);
+                        scrollView.setVisibility(View.VISIBLE);
+                        superTextView.setVisibility(View.VISIBLE);
                     }
 
                     @Override
@@ -303,6 +349,8 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                         Log.e(TAG, "发送刷新命令失败");
                         waitDialog.dismiss();
                         CustomToast.showCustomErrorToast(mContext, message);
+                        scrollView.setVisibility(View.INVISIBLE);
+                        superTextView.setVisibility(View.INVISIBLE);
                     }
                 });
     }
@@ -311,7 +359,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
      * 获取法师刷新命令后的值
      */
     private void getData2() {
-        Core.instance(this).findSwitchParamBySwitch(switchBean.getSwitchID(), "00000011,00000005,0000000D,00000018,00000019,0000001B,0000001C,0000001D,0000001E",
+        Core.instance(this).findSwitchParamBySwitch(currentSwitchBean.getSwitchID(), "00000011,00000005,0000000D,00000018,00000019,0000001B,0000001C,0000001D,0000001E",
                 new ActionCallbackListener<List<VoltageValue>>() {
 
                     @Override
@@ -357,11 +405,15 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                             }
                         }
                         waitDialog.dismiss();
+                        scrollView.setVisibility(View.VISIBLE);
+                        superTextView.setVisibility(View.VISIBLE);
                     }
 
                     @Override
                     public void onFailure(int errorEvent, String message) {
                         CustomToast.showCustomErrorToast(mContext, message);
+                        scrollView.setVisibility(View.INVISIBLE);
+                        superTextView.setVisibility(View.INVISIBLE);
                         waitDialog.dismiss();
                     }
                 });

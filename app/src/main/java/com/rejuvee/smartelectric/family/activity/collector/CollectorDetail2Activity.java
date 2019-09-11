@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rejuvee.smartelectric.family.R;
-import com.rejuvee.smartelectric.family.activity.mswitch.SwitchTreeActivity;
+import com.rejuvee.smartelectric.family.activity.mswitch.SwitchSettingActivity;
 import com.rejuvee.smartelectric.family.activity.mswitch.YaoKongActivity;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
@@ -62,9 +62,9 @@ public class CollectorDetail2Activity extends BaseActivity implements View.OnCli
                 startActivity(intent);
                 break;
             case R.id.txt_anquan_sz:
-                intent = new Intent(this, SwitchTreeActivity.class);
+                intent = new Intent(this, SwitchSettingActivity.class);
                 intent.putExtra("collectorBean", collectorBean);
-                intent.putExtra("viewType", SwitchTreeActivity.ANQUAN_SHEZHI);
+//                intent.putExtra("viewType", YaoKongActivity.ANQUAN_SHEZHI);
                 startActivity(intent);
                 break;
             case R.id.txt_dianxiang_sz:

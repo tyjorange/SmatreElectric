@@ -18,7 +18,6 @@ import com.rejuvee.smartelectric.family.activity.energy.StatementActivity;
 import com.rejuvee.smartelectric.family.activity.logger.SecurityInformationActivity;
 import com.rejuvee.smartelectric.family.activity.mswitch.SwitchModifyActivity;
 import com.rejuvee.smartelectric.family.activity.mswitch.SwitchStatusActivity;
-import com.rejuvee.smartelectric.family.activity.mswitch.SwitchTree;
 import com.rejuvee.smartelectric.family.activity.mswitch.YaoKongActivity;
 import com.rejuvee.smartelectric.family.activity.report.ReportActivity;
 import com.rejuvee.smartelectric.family.activity.share.ShareListActivity;
@@ -219,7 +218,7 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
             case R.id.txt_dianlu:
                 intent = new Intent(this, SwitchModifyActivity.class);
                 intent.putExtra("collectorBean", collectorBean);
-                intent.putExtra("viewType", SwitchTree.XIANLU_XIUGAI);
+//                intent.putExtra("viewType", SwitchTree.XIANLU_XIUGAI);
                 startActivity(intent);
                 break;
             case R.id.txt_dianbiao:

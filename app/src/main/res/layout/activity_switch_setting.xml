@@ -44,7 +44,33 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/img_change"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="30dp"
+        android:paddingEnd="20dp">
+
+        <TextView
+            android:id="@+id/txt_line_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="@integer/tag_1"
+            android:gravity="center_vertical"
+            android:text="线路: "
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:src="@drawable/jinru" />
+    </LinearLayout>
+
     <ScrollView
+        android:id="@+id/sv_values"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
