@@ -64,6 +64,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
     private Context mContext;
     private TextView txtLineName;//线路名称
     private ScrollView scrollView;
+    private LinearLayout empty_layout;
 
     @Override
     protected int getLayoutResId() {
@@ -86,6 +87,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         });
         waitDialog = new LoadingDlg(this, -1);
         scrollView = (ScrollView) findViewById(R.id.sv_values);
+        empty_layout = (LinearLayout) findViewById(R.id.empty_layout);
         //切换线路
         txtLineName = (TextView) findViewById(R.id.txt_line_name);
         LinearLayout img_change = findViewById(R.id.img_change);
@@ -99,7 +101,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                         currentSwitchBean = s;
 //                        getData(switchBean);
                         txtLineName.setText("线路：" + currentSwitchBean.getName());
-                        mHandler.sendEmptyMessageDelayed(sendGetThreadValueCommand, 1000);
+                        mHandler.sendEmptyMessageDelayed(sendGetThreadValueCommand, 100);
                     }
                 });
                 switchTreeDialog.show();
@@ -250,10 +252,14 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                 System.out.println(values);
                 amountGY.setAmount(b1.floatValue());
                 amountQY.setAmount(b2.floatValue());
+                if (currentSwitchBean == null) {
+                    return;
+                }
                 Core.instance(mContext).sendSetThreadValueCommand(currentSwitchBean.getSerialNumber(), values, new ActionCallbackListener<Void>() {
                     @Override
                     public void onSuccess(Void data) {
                         CustomToast.showCustomToast(mContext, "设置成功");
+                        finish();
                     }
 
                     @Override
@@ -331,6 +337,9 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
      * 发送刷新命令
      */
     private void getData1() {
+        if (currentSwitchBean == null) {
+            return;
+        }
         listPopupWindow.dismiss();
         waitDialog.show();
         Core.instance(this).sendGetThreadValueCommand(currentSwitchBean.getSerialNumber(), "00000011,00000005,0000000D,00000018,00000019,0000001B,0000001C,0000001D,0000001E",
@@ -342,6 +351,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                         mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitch, 1000);
                         scrollView.setVisibility(View.VISIBLE);
                         superTextView.setVisibility(View.VISIBLE);
+                        empty_layout.setVisibility(View.GONE);
                     }
 
                     @Override
@@ -351,6 +361,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                         CustomToast.showCustomErrorToast(mContext, message);
                         scrollView.setVisibility(View.INVISIBLE);
                         superTextView.setVisibility(View.INVISIBLE);
+                        empty_layout.setVisibility(View.VISIBLE);
                     }
                 });
     }
@@ -359,6 +370,9 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
      * 获取法师刷新命令后的值
      */
     private void getData2() {
+        if (currentSwitchBean == null) {
+            return;
+        }
         Core.instance(this).findSwitchParamBySwitch(currentSwitchBean.getSwitchID(), "00000011,00000005,0000000D,00000018,00000019,0000001B,0000001C,0000001D,0000001E",
                 new ActionCallbackListener<List<VoltageValue>>() {
 
@@ -407,6 +421,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                         waitDialog.dismiss();
                         scrollView.setVisibility(View.VISIBLE);
                         superTextView.setVisibility(View.VISIBLE);
+                        empty_layout.setVisibility(View.GONE);
                     }
 
                     @Override
@@ -414,6 +429,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                         CustomToast.showCustomErrorToast(mContext, message);
                         scrollView.setVisibility(View.INVISIBLE);
                         superTextView.setVisibility(View.INVISIBLE);
+                        empty_layout.setVisibility(View.VISIBLE);
                         waitDialog.dismiss();
                     }
                 });
