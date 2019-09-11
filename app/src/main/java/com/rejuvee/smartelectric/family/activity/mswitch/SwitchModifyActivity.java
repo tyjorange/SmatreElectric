@@ -7,6 +7,8 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
@@ -15,16 +17,21 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.adapter.CustomLineAdapter;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
+import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
+
+import java.util.List;
 
 
 /**
  * 线路修改
  */
 public class SwitchModifyActivity extends BaseActivity {
-    private SwitchBean switchBean;
+    //    private SwitchBean switchBean;
+    private CollectorBean collectorBean;
+    private SwitchBean curBreaker;
     //    private float dianliang, gonglv;
-//    private TextView txtLineName;//线路名称
+    private TextView txtLineName;//线路名称
 //    private ImageView imgLine;
     private EditText editLineName;
     //    private String collectId;
@@ -51,7 +58,8 @@ public class SwitchModifyActivity extends BaseActivity {
     @Override
     protected void initView() {
         mContext = this;
-        switchBean = getIntent().getParcelableExtra("switchBean");
+        collectorBean = getIntent().getParcelableExtra("collectorBean");
+//        switchBean = getIntent().getParcelableExtra("switchBean");
 //        dianliang = getIntent().getFloatExtra("dianliang", 0);
 //        gonglv = getIntent().getFloatExtra("gonglv", 0);
 //        if (switchBean == null) {
@@ -68,16 +76,39 @@ public class SwitchModifyActivity extends BaseActivity {
         superTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (switchBean != null) {
+                if (collectorBean != null) {//修改
                     modify();
-                } else {
+                } else {//添加
                     add();
                 }
             }
         });
+        LinearLayout img_change = findViewById(R.id.img_change);
+        if (collectorBean != null) {//修改
+            img_change.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(mContext, SwitchTree.DINGSHI, collectorBean, new SwitchTreeDialog.ChoseCallBack() {
+
+                        @Override
+                        public void onChose(SwitchBean s) {
+                            curBreaker = s;
+//                        getData(switchBean);
+                            txtLineName.setText("线路：" + curBreaker.getName());
+                            editLineName.setText(curBreaker.getName());
+                            customLineAdapter.reset();
+                            customLineAdapter.setCurrentSelected(curBreaker.getIconType());
+                        }
+                    });
+                    switchTreeDialog.show();
+                }
+            });
+        } else {//添加
+            img_change.setVisibility(View.GONE);
+        }
 //        txtCurDianliang = (TextView) findViewById(R.id.txt_dianliang);
 //        txtCurGonglv = (TextView) findViewById(R.id.txt_gonglv);
-//        txtLineName = (TextView) findViewById(R.id.txt_line_name);
+        txtLineName = (TextView) findViewById(R.id.txt_line_name);
         editLineName = (EditText) findViewById(R.id.edit_line_name);
 //        imgLine = (ImageView) findViewById(R.id.img_line);
         //    private TextView txtCurDianliang;//当前电量
@@ -99,9 +130,10 @@ public class SwitchModifyActivity extends BaseActivity {
             }
         });
         // 修改
-        if (switchBean != null) {
-            editLineName.setText(switchBean.getName());
-            customLineAdapter.setCurrentSelected(switchBean.getIconType());
+        if (curBreaker != null) {
+            editLineName.setText(curBreaker.getName());
+            customLineAdapter.reset();
+            customLineAdapter.setCurrentSelected(curBreaker.getIconType());
         }
 //        horizontalListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
@@ -113,10 +145,13 @@ public class SwitchModifyActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        if (collectorBean != null) {
+            getSwitchByCollector();
+        }
 //        if (switchBean == null) {
 //            return;
 //        }
-//        txtLineName.setText(switchBean.getName());
+//        txtLineName.setText("线路：" + curBreaker.getName());
 //        imgLine.setImageResource(switchBean.getIcon());
 
 //        String strDianliang = String.format(getResources().getString(R.string.cur_dianliang),
@@ -134,6 +169,33 @@ public class SwitchModifyActivity extends BaseActivity {
 //        collectId = getIntent().getStringExtra("collect_id");
     }
 
+    /**
+     * 获取集中器下的线路 第一个作为默认显示
+     */
+    private void getSwitchByCollector() {
+        Core.instance(this).getSwitchByCollector(collectorBean.getCode(), "nohierarchy", new ActionCallbackListener<List<SwitchBean>>() {
+            @Override
+            public void onSuccess(List<SwitchBean> data) {
+                curBreaker = data.get(0);//init bean
+                txtLineName.setText("线路：" + curBreaker.getName());
+                editLineName.setText(curBreaker.getName());
+                customLineAdapter.reset();
+                customLineAdapter.setCurrentSelected(curBreaker.getIconType());
+//                getBreakSignalValue(curBreaker);
+//                judgSwitchstate(curBreaker);
+            }
+
+            @Override
+            public void onFailure(int errorEvent, String message) {
+                if (errorEvent == 12) {
+                    CustomToast.showCustomErrorToast(SwitchModifyActivity.this, "请先添加线路");
+                } else {
+                    CustomToast.showCustomErrorToast(SwitchModifyActivity.this, message);
+                }
+                finish();
+            }
+        });
+    }
 //    @Override
 //    protected String getToolbarTitle() {
 //        return getResources().getString(R.string.line_modify);
@@ -182,8 +244,8 @@ public class SwitchModifyActivity extends BaseActivity {
 //            CustomToast.showCustomErrorToast(this, getResources().getString(R.string.select_custom_pic));
 //            return;
 //        }
-        switchBean.setName(customName);
-        switchBean.setIconType(customLineAdapter.getSelectedPosition());
+        curBreaker.setName(customName);
+        curBreaker.setIconType(customLineAdapter.getSelectedPosition());
         finishModify();
     }
 
@@ -197,12 +259,12 @@ public class SwitchModifyActivity extends BaseActivity {
                 }
             }
         }*/
-        Core.instance(this).updateBreak(switchBean.getSwitchID(), switchBean.getIconType(),
-                switchBean.getName(), new ActionCallbackListener<Void>() {
+        Core.instance(this).updateBreak(curBreaker.getSwitchID(), curBreaker.getIconType(),
+                curBreaker.getName(), new ActionCallbackListener<Void>() {
                     @Override
                     public void onSuccess(Void data) {
                         Intent intent = getIntent();
-                        intent.putExtra("break", switchBean);
+                        intent.putExtra("break", curBreaker);
                         setResult(RESULT_OK, intent);
                         CustomToast.showCustomToast(mContext, "修改成功");
                         finish();

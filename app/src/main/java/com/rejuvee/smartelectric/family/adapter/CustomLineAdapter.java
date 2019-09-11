@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.NativeLine;
@@ -32,6 +33,7 @@ public class CustomLineAdapter extends BaseAdapter {
             Item line = new Item();
             line.chose = 0;
             line.img = NativeLine.LinePictures[i];
+            line.name = NativeLine.LineNames[i];
             mListData.add(line);
         }
     }
@@ -96,7 +98,7 @@ public class CustomLineAdapter extends BaseAdapter {
             convertView = View.inflate(mContext, R.layout.item_gv_breaker, null);
             viewHolder.ivPicture = (ImageView) convertView.findViewById(R.id.iv_picture);
             viewHolder.imgChose = (ImageView) convertView.findViewById(R.id.img_chose);
-//            viewHolder.tvName = (TextView) convertView.findViewById(R.id.tv_name);
+            viewHolder.tvName = (TextView) convertView.findViewById(R.id.tv_name);
 //            viewHolder.llBreaker = (LinearLayout) convertView.findViewById(R.id.ll_breaker);
             convertView.setTag(viewHolder);
         } else {
@@ -105,7 +107,7 @@ public class CustomLineAdapter extends BaseAdapter {
 
         viewHolder.ivPicture.setImageResource(line.img);
         viewHolder.imgChose.setImageResource(mListData.get(position).chose == 1 ? R.drawable.img_chose : R.drawable.img_unchose);
-//        viewHolder.tvName.setText(line.name);
+        viewHolder.tvName.setText(line.name);
 //        if (currentSelected == position) {
 //            viewHolder.llBreaker.setBackgroundResource(R.drawable.fuxuankuang);
 //        } else {
@@ -119,13 +121,14 @@ public class CustomLineAdapter extends BaseAdapter {
     class ViewHolder {
         ImageView ivPicture;
         ImageView imgChose;
-//        TextView tvName;
+        TextView tvName;
 //        LinearLayout llBreaker;
     }
 
     public class Item {
         int img;
-        public int chose;// 1 选中 0 未选中
+        int chose;// 1 选中 0 未选中
+        String name;
 
 //        Item(int img, int chose) {
 //            this.img = img;

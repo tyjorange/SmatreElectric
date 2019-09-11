@@ -84,7 +84,8 @@
                 android:paddingTop="4dp"
                 android:text="错误状态"
                 android:textColor="@color/text_base_color_999"
-                android:textSize="9sp" />
+                android:textSize="9sp"
+                tools:ignore="SmallSp" />
 
             <TextView
                 android:id="@+id/tv_code"
@@ -96,7 +97,8 @@
                 android:visibility="gone"
                 android:text="编码"
                 android:textColor="@color/text_base_color_999"
-                android:textSize="9sp" />
+                android:textSize="9sp"
+                tools:ignore="SmallSp" />
 
         </LinearLayout>
 
