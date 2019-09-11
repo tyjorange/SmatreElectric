@@ -8,13 +8,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.base.frame.net.ActionCallbackListener;
-import com.base.library.utils.ScreenUtils;
-import com.base.library.utils.SizeUtils;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
@@ -76,12 +73,12 @@ public class TimerEditDialogActivity extends BaseActivity implements View.OnClic
         mListDataCheckButton.add((CheckBox) findViewById(R.id.cb_day6));
         mListDataCheckButton.add((CheckBox) findViewById(R.id.cb_day7));
 
-        int width = (ScreenUtils.getScreenWidth() - SizeUtils.dp2px(32 + 28)) / mListDataCheckButton.size();
+//        int width = (ScreenUtils.getScreenWidth() - SizeUtils.dp2px(32 + 28)) / mListDataCheckButton.size();
         for (int i = 0; i < mListDataCheckButton.size(); i++) {
             CheckBox checkBox = mListDataCheckButton.get(i);
-            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) checkBox.getLayoutParams();
-            params.width = width;
-            params.height = width;
+//            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) checkBox.getLayoutParams();
+//            params.width = width;
+//            params.height = width;
             checkBox.setText(getResources().getStringArray(R.array.week_day)[i]);
         }
 

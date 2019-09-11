@@ -288,7 +288,7 @@ public class YaoKongDetailActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(int errorEvent, String message) {
-                        CustomToast.showCustomToast(YaoKongDetailActivity.this, message);
+                        CustomToast.showCustomErrorToast(YaoKongDetailActivity.this, message);
                         mWaitDialog.dismiss();
                     }
                 });
@@ -548,7 +548,7 @@ public class YaoKongDetailActivity extends BaseActivity {
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             ViewHolder holder = null;
-            // ##分线
+            // ##分线##
             if (convertView == null) {
                 convertView = LayoutInflater.from(context).inflate(R.layout.item_test1, parent, false);
                 holder = new ViewHolder();
@@ -583,12 +583,12 @@ public class YaoKongDetailActivity extends BaseActivity {
             holder.tv_state.setText(currentSwitchBean.getChild().size() + "条支线");
             holder.tv_code.setText(currentSwitchBean.getSerialNumber());
             holder.iv_time_clock.setVisibility(currentSwitchBean.timerCount > 0 ? View.VISIBLE : View.INVISIBLE);
+            // ##支线##
             List<SwitchBean> child = currentSwitchBean.getChild();
-            // ##支线
             SubAdapter sa = new SubAdapter(context, collectorBean, viewType, child, new SubAdapter.ISwitchCheckListen() {
                 @Override
                 public void onSwitch(SwitchBean cb) {
-
+                    iSwitchCheckListen.onSwitch(cb);
                 }
 
                 @Override

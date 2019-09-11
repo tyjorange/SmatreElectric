@@ -333,7 +333,7 @@
     <string name="total_power">累计用电</string>
     <string name="month_power">当月用电</string>
     <string name="delete">删除</string>
-    <string name="delete_device">您确认删除该设备?</string>
+    <string name="delete_device">您确认删除这个电箱?</string>
     <string name="electric_quantity">电量</string>
     <string name="cur_total_power">当前总功率</string>
     <string name="device_id">电箱编码</string>
