@@ -10,6 +10,7 @@ public class CommonRequestCode {
     public static final int REQUEST_MODIFY_LINE = 2022;//修改线路
     public static final int REQUEST_SET_LINE_NAME = 2023;//设置线路名
     public static final int REQUEST_ADD_LINE = 2024;//添加线路
+    public static final int REQUEST_ADD_LINE_ROOT = 2025;//添加线路
 
     public static final int REQUEST_ADD_COLLECTOR = 2034;//添加集中器（电箱）
     public static final int REQUEST_COLLECTOR_UPGRADE = 2035;//集中器升级

@@ -276,9 +276,11 @@ public class YaoKongDetailActivity extends BaseActivity {
                     public void onSuccess(Void data) {
 //                mListData.remove(position);
 //                mAdapter.notifyDataSetChanged();
-                        getSwitchByCollector();
+//                        getSwitchByCollector();
                         CustomToast.showCustomToast(YaoKongDetailActivity.this, getString(R.string.operator_sucess));
                         mWaitDialog.dismiss();
+                        setResult(RESULT_OK);
+                        finish();
                     }
 
                     @Override
@@ -305,7 +307,7 @@ public class YaoKongDetailActivity extends BaseActivity {
         intent.putExtra("collectorBean", mCollectorBean);
         intent.putExtra("switch", mSwitch);
         intent.putExtra("add_type", AddDeviceActivity.BREAK_ADD);
-        startActivityForResult(intent, CommonRequestCode.REQUEST_ADD_COLLECTOR);
+        startActivityForResult(intent, CommonRequestCode.REQUEST_ADD_LINE);
     }
 
     /**
@@ -475,14 +477,15 @@ public class YaoKongDetailActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-//            if (requestCode == CommonRequestCode.REQUEST_ADD_LINE) {
-//                //添加后 刷新数据
+            if (requestCode == CommonRequestCode.REQUEST_ADD_LINE) {
+                //添加后 刷新数据
 //                getSwitchByCollector();
-//            } else if (requestCode == CommonRequestCode.REQUEST_MODIFY_LINE) {
-//                //修改后 刷新数据
-//                getSwitchByCollector();
-//            }
-            getSwitchByCollector();
+                setResult(RESULT_OK);
+                finish();//TODO 添加/删除完分线支线直接结束界面
+            } else if (requestCode == CommonRequestCode.REQUEST_MODIFY_LINE) {
+                //修改后 刷新数据
+                getSwitchByCollector();
+            }
         }
     }
     /**
@@ -599,6 +602,7 @@ public class YaoKongDetailActivity extends BaseActivity {
             });
             holder.sub_list.setAdapter(sa);
             utils.setListViewHeightBasedOnChildren(holder.sub_list);
+//            holder.hideArea.setViewHeight(holder.sub_list.getMeasuredHeight());
 
             System.out.println(currentSwitchBean.getName() + "------------------");
             System.out.println("hideArea " + holder.hideArea.getMeasuredHeight());
@@ -609,8 +613,6 @@ public class YaoKongDetailActivity extends BaseActivity {
 //            lp.width=400;
 //            lp.height=200;
 //            mLinearLayout.setLayoutParams(lp);
-
-//            ExpandLayout.setViewHeight(holder.hideArea, holder.sub_list.getMeasuredHeight());
 
 //            switchSubBeanList.clear();
 //            switchSubBeanList.addAll(currentSwitchBean.getChild());

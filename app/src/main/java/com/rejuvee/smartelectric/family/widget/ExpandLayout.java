@@ -79,6 +79,11 @@ public class ExpandLayout extends LinearLayout {
         view.requestLayout();
     }
 
+    public void setViewHeight(int height) {
+        final ViewGroup.LayoutParams params = this.getLayoutParams();
+        params.height = height;
+        this.requestLayout();
+    }
     /**
      * 切换动画实现
      */

@@ -1,5 +1,6 @@
 package com.rejuvee.smartelectric.family.activity.mswitch;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -218,7 +219,7 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
         intent.putExtra("collectorBean", mCollectorBean);
         intent.putExtra("switch", mSwitch);
         intent.putExtra("add_type", AddDeviceActivity.BREAK_ADD);
-        startActivityForResult(intent, CommonRequestCode.REQUEST_ADD_COLLECTOR);
+        startActivityForResult(intent, CommonRequestCode.REQUEST_ADD_LINE_ROOT);
     }
 
     @Override
@@ -230,14 +231,13 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-//            if (requestCode == CommonRequestCode.REQUEST_ADD_LINE) {
-//                //添加后 刷新数据
+            if (requestCode == CommonRequestCode.REQUEST_ADD_LINE) {
+                //添加后 刷新数据
 //                getSwitchByCollector();
-//            } else if (requestCode == CommonRequestCode.REQUEST_MODIFY_LINE) {
-//                //修改后 刷新数据
-//                getSwitchByCollector();
-//            }
-            getSwitchByCollector();
+                finish();//TODO 添加/删除完分线支线直接结束界面
+            } else if (requestCode == CommonRequestCode.REQUEST_ADD_LINE_ROOT) {
+                getSwitchByCollector();
+            }
         }
     }
 
@@ -304,15 +304,11 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(context, YaoKongDetailActivity.class);
-//                        ArrayList<SwitchBean> arrayList = new ArrayList<>(switchBean.getChild());
-//                        HashMap<SwitchBean, List<SwitchBean>> datas = new HashMap<SwitchBean, List<SwitchBean>>();
-//                        datas.put(switchBean, switchBean.getChild());
-
                         intent.putExtra("collectorBean", collectorBean);
                         intent.putExtra("SwitchBean", switchBean);
                         intent.putExtra("viewType", viewType);
 //                        intent.putExtra("datas", datas);
-                        context.startActivity(intent);
+                        ((Activity) context).startActivityForResult(intent, CommonRequestCode.REQUEST_ADD_LINE);
                     }
                 });
             }
