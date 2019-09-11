@@ -3,6 +3,7 @@ package com.rejuvee.smartelectric.family.activity.mswitch;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -24,7 +25,9 @@ import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.CommonRequestCode;
 import com.rejuvee.smartelectric.family.common.NativeLine;
+import com.rejuvee.smartelectric.family.custom.FlushTimeTask;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
+import com.rejuvee.smartelectric.family.model.bean.CollectorState;
 import com.rejuvee.smartelectric.family.model.bean.ControllerId;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.utils.utils;
@@ -34,7 +37,11 @@ import com.rejuvee.smartelectric.family.widget.LoadingDlg;
 import com.rejuvee.smartelectric.family.widget.SnackbarMessageShow;
 
 import java.util.List;
+import java.util.TimerTask;
 
+/**
+ * 1 分线 -> n 支线
+ */
 public class YaoKongDetailActivity extends BaseActivity {
     private String TAG = "YaoKongDetailActivity";
     private int viewType;
@@ -162,7 +169,7 @@ public class YaoKongDetailActivity extends BaseActivity {
                 if (msg.what == MSG_CMD_RESULT) {
                     getResultOfController();
                 } else if (msg.what == MSG_TIMER) {
-//                    getAllSwitchState(1);
+                    getAllSwitchState();
                 } else if (msg.what == MSG_FILLDATA) {
 //                    fillData();
                 } else if (msg.what == MSG_SWTCH_REFRESH) {
@@ -171,6 +178,58 @@ public class YaoKongDetailActivity extends BaseActivity {
             }
         };
         getSwitchByCollector();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        startTimer();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopTimer();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        runTask = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        runTask = false;
+    }
+
+    private FlushTimeTask flushTimeTask;
+    private boolean runTask = true;
+
+    /**
+     * 开始定时任务
+     */
+    private void startTimer() {
+        //刷新间隔
+        int flushTimeMill = 3000;
+        flushTimeTask = new FlushTimeTask(flushTimeMill, new TimerTask() {
+            @Override
+            public void run() {
+                if (runTask && viewType == SwitchTree.YAOKONG) {
+                    Log.d(TAG, "FlushTimeTask run");
+                    mHandler.sendEmptyMessage(MSG_TIMER);
+                }
+            }
+        });
+        flushTimeTask.start();
+    }
+
+    /**
+     * 停止定时任务
+     */
+    private void stopTimer() {
+        flushTimeTask.stop();
     }
 
     /**
@@ -416,9 +475,24 @@ public class YaoKongDetailActivity extends BaseActivity {
                         Log.i(TAG, cb.getSwitchState() + "-flush_success");
 //                        findChild(rootNode, currentSwitchBean.getSerialNumber(), cb.getSwitchState(), cb.getFault(), 1);
                         if (isRootSwitch) {
+                            //线路
                             iv_switch_root.setImageResource(NativeLine.DrawableToggle[cb.getSwitchState() == -1 ? 2 : cb.getSwitchState()]);// 更新开关图片
                         } else {
-
+                            //分线
+                            for (SwitchBean cc : childList) {
+                                if (cc.getSerialNumber().equals(currentSwitchBean.getSerialNumber())) {
+                                    cc.setSwitchState(cb.getSwitchState());
+                                    break;
+                                }
+                                //支线
+                                for (SwitchBean ccc : cc.getChild()) {
+                                    if (ccc.getSerialNumber().equals(currentSwitchBean.getSerialNumber())) {
+                                        ccc.setSwitchState(cb.getSwitchState());
+                                        break;
+                                    }
+                                }
+                            }
+                            adapter.notifyDataSetChanged();
                         }
                         mWaitDialog.dismiss();
                         CustomToast.showCustomToast(YaoKongDetailActivity.this, "操作成功");
@@ -427,6 +501,43 @@ public class YaoKongDetailActivity extends BaseActivity {
                     CustomToast.showCustomErrorToast(YaoKongDetailActivity.this, "查询操作超时，请刷新");
                     mWaitDialog.dismiss();
                 }
+            }
+
+            @Override
+            public void onFailure(int errorEvent, String message) {
+                CustomToast.showCustomErrorToast(YaoKongDetailActivity.this, message);
+                mWaitDialog.dismiss();
+            }
+        });
+    }
+
+    /**
+     * 刷新集中器下的所有线路状态
+     */
+    private void getAllSwitchState() {
+        Core.instance(mContext).getAllSwitchState(mCollectorBean.getCode(), new ActionCallbackListener<CollectorState>() {
+            @Override
+            public void onSuccess(CollectorState data) {
+                List<SwitchBean> switchState = data.getSwitchState();
+                //线路
+                for (SwitchBean s : switchState) {
+                    if (s.getSerialNumber().equals(rootSwitchBean.getSerialNumber())) {
+                        iv_switch_root.setImageResource(NativeLine.DrawableToggle[s.getSwitchState() == -1 ? 2 : s.getSwitchState()]);// 更新开关图片
+                    }
+                    //分线
+                    for (SwitchBean cc : childList) {
+                        if (s.getSerialNumber().equals(cc.getSerialNumber())) {
+                            cc.setSwitchState(s.getSwitchState());
+                        }
+                        // 支线
+                        for (SwitchBean ccc : cc.getChild()) {
+                            if (s.getSerialNumber().equals(ccc.getSerialNumber())) {
+                                ccc.setSwitchState(s.getSwitchState());
+                            }
+                        }
+                    }
+                }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -497,6 +608,7 @@ public class YaoKongDetailActivity extends BaseActivity {
             }
         }
     }
+
     /**
      * 分线 数据适配器
      *
@@ -718,6 +830,7 @@ public class YaoKongDetailActivity extends BaseActivity {
             private ExpandLayout hideArea;
             private ListView sub_list;
         }
+
         public interface ISwitchCheckListen {
             void onSwitch(SwitchBean cb);
 

@@ -26,6 +26,9 @@ import com.rejuvee.smartelectric.family.widget.LoadingDlg;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 线路
+ */
 public class YaoKongActivity extends BaseActivity implements SwitchTree {
     private Context mContext;
     // 集中器 collector
@@ -115,6 +118,7 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
         }
         adapter.notifyDataSetChanged();
     }
+
     /**
      * 获取集中器下的线路(switch)
      */
