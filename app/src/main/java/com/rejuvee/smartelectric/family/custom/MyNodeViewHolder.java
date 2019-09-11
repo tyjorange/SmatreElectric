@@ -138,7 +138,7 @@ public class MyNodeViewHolder extends TreeNode.BaseNodeViewHolder<SwitchBean> {
 //                    ((Activity) mContext).finish();
 //                }
 //            });
-            holder.tvState.setVisibility(View.GONE);
+//            holder.tvState.setVisibility(View.GONE);
         } else if (viewType == SwitchTree.DINGSHI) {
             holder.imgNodeChose.setVisibility(View.VISIBLE);
             holder.imgNodeChose.setOnClickListener(new View.OnClickListener() {
@@ -161,7 +161,7 @@ public class MyNodeViewHolder extends TreeNode.BaseNodeViewHolder<SwitchBean> {
 //                    ((Activity) mContext).finish();
 //                }
 //            });
-            holder.tvState.setVisibility(View.GONE);
+//            holder.tvState.setVisibility(View.GONE);
         } else if (viewType == SwitchTree.JIENENG) {
             holder.imgNodeChose.setVisibility(View.VISIBLE);
             holder.imgNodeChose.setOnClickListener(new View.OnClickListener() {
@@ -184,7 +184,7 @@ public class MyNodeViewHolder extends TreeNode.BaseNodeViewHolder<SwitchBean> {
 //                    ((Activity) mContext).finish();
 //                }
 //            });
-            holder.tvState.setVisibility(View.GONE);
+//            holder.tvState.setVisibility(View.GONE);
         } else if (viewType == SwitchTree.XIANLU_XIUGAI) {
             holder.imgRight.setVisibility(View.VISIBLE);
             holder.imgRight.setOnClickListener(new View.OnClickListener() {
@@ -218,7 +218,7 @@ public class MyNodeViewHolder extends TreeNode.BaseNodeViewHolder<SwitchBean> {
 //                    ((Activity) mContext).finish();
 //                }
 //            });
-            holder.tvState.setVisibility(View.GONE);
+//            holder.tvState.setVisibility(View.GONE);
         } else if (viewType == SwitchTree.ANQUAN_SHEZHI) {
             holder.imgRight.setVisibility(View.VISIBLE);
             holder.imgRight.setOnClickListener(new View.OnClickListener() {
