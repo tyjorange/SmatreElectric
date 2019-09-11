@@ -60,6 +60,7 @@ public class YaoKongDetailActivity extends BaseActivity {
     private LoadingDlg mWaitDialog;
     private ListView lvProduct;
     private DialogTip mDialogTip;
+    private ImageView iv_switch_root;
 
     @Override
     protected int getLayoutResId() {
@@ -86,16 +87,16 @@ public class YaoKongDetailActivity extends BaseActivity {
         });
         switch (viewType) {
             case SwitchTree.YAOKONG:
-                ImageView iv_switch_root = findViewById(R.id.iv_switch_root);
+                iv_switch_root = findViewById(R.id.iv_switch_root);
+                iv_switch_root.setImageResource(NativeLine.DrawableToggle[rootSwitchBean.getSwitchState() == -1 ? 2 : rootSwitchBean.getSwitchState()]);
+                iv_switch_root.setVisibility(View.VISIBLE);
                 iv_switch_root.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        isRootSwitch = true;
                         switchBreak(rootSwitchBean);
-                        iv_switch_root.setImageResource(NativeLine.DrawableToggle[rootSwitchBean.getSwitchState() == -1 ? 2 : rootSwitchBean.getSwitchState()]);//TODO
                     }
                 });
-                iv_switch_root.setImageResource(NativeLine.DrawableToggle[rootSwitchBean.getSwitchState() == -1 ? 2 : rootSwitchBean.getSwitchState()]);//TODO
-                iv_switch_root.setVisibility(View.VISIBLE);
                 break;
             case SwitchTree.XIANLU_WEIHU:
                 ImageView iv_switch_add = findViewById(R.id.iv_add_child_switch);
@@ -119,10 +120,12 @@ public class YaoKongDetailActivity extends BaseActivity {
         TextView tv_root_name = findViewById(R.id.tv_root_name);
         tv_root_name.setText("线路：" + rootSwitchBean.getName());
         lvProduct = (ListView) findViewById(R.id.lv_products);
+        lvProduct.setEmptyView(findViewById(R.id.empty_layout));
         childList = rootSwitchBean.getChild();
         adapter = new OneExpandAdapter(this, mCollectorBean, viewType, childList, new OneExpandAdapter.ISwitchCheckListen() {
             @Override
             public void onSwitch(SwitchBean cb) {
+                isRootSwitch = false;
                 switchBreak(cb);
             }
 
@@ -163,7 +166,7 @@ public class YaoKongDetailActivity extends BaseActivity {
                 } else if (msg.what == MSG_FILLDATA) {
 //                    fillData();
                 } else if (msg.what == MSG_SWTCH_REFRESH) {
-//                    getSwitchState();
+                    getSwitchStateOne();
                 }
             }
         };
@@ -202,7 +205,7 @@ public class YaoKongDetailActivity extends BaseActivity {
             @Override
             public void onSuccess(List<SwitchBean> data) {
                 for (SwitchBean ss : data) {
-                    // 取当前分线部分
+                    // 取当前线路的支线
                     if (ss.getSwitchID().equals(rootSwitchBean.getSwitchID())) {
                         childList.clear();
                         childList.addAll(ss.getChild());
@@ -323,14 +326,16 @@ public class YaoKongDetailActivity extends BaseActivity {
         }
         currentSwitchBean = cb;
         int _isSwitch = cb.getSwitchState() == -1 ? 2 : cb.getSwitchState();
-        targetState = _isSwitch == 1;
+        targetState = (_isSwitch == 1);
         if (_isSwitch == 2) {
             CustomToast.showCustomErrorToast(YaoKongDetailActivity.this, "请刷当前线路状态再操作");
         } else {
-            String title = _isSwitch == 0 ? getString(R.string.open_break) : getString(R.string.close_break);
-            String desc = _isSwitch == 0 ?
-                    String.format(getString(R.string.break_op_tip), getString(R.string.open), currentSwitchBean.getName())
-                    : String.format(getString(R.string.break_op_tip), getString(R.string.close), currentSwitchBean.getName());
+            String title = !targetState ?
+                    getString(R.string.open_break) :
+                    getString(R.string.close_break);
+            String desc = !targetState ?
+                    String.format(getString(R.string.break_op_tip), getString(R.string.open), currentSwitchBean.getName()) :
+                    String.format(getString(R.string.break_op_tip), getString(R.string.close), currentSwitchBean.getName());
             mDialogSwitch.setTitle(title);
             mDialogSwitch.setContent(desc);
             mDialogSwitch.setDialogListener(new DialogTip.onEnsureDialogListener() {
@@ -393,6 +398,45 @@ public class YaoKongDetailActivity extends BaseActivity {
         });
     }
 
+    private boolean isRootSwitch;// 是否操作的分线
+
+    /**
+     * 刷新单条线路状态
+     */
+    private void getSwitchStateOne() {
+        Core.instance(this).getSwitchState(currentSwitchBean.getSerialNumber(), new ActionCallbackListener<SwitchBean>() {
+
+            @Override
+            public void onSuccess(SwitchBean cb) {
+                Log.i(TAG, currentSearchCount + "-flush_count");
+                if (currentSearchCount <= MAX_REFRESH_COUNT) {
+                    if ((cb.getSwitchState() == 1) == targetState) {// 如果还没有变成开关操作的目标状态 继续查询
+                        mHandler.sendEmptyMessageDelayed(MSG_SWTCH_REFRESH, 1000);
+                    } else {
+                        Log.i(TAG, cb.getSwitchState() + "-flush_success");
+//                        findChild(rootNode, currentSwitchBean.getSerialNumber(), cb.getSwitchState(), cb.getFault(), 1);
+                        if (isRootSwitch) {
+                            iv_switch_root.setImageResource(NativeLine.DrawableToggle[cb.getSwitchState() == -1 ? 2 : cb.getSwitchState()]);// 更新开关图片
+                        } else {
+
+                        }
+                        mWaitDialog.dismiss();
+                        CustomToast.showCustomToast(YaoKongDetailActivity.this, "操作成功");
+                    }
+                } else {
+                    CustomToast.showCustomErrorToast(YaoKongDetailActivity.this, "查询操作超时，请刷新");
+                    mWaitDialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onFailure(int errorEvent, String message) {
+                CustomToast.showCustomErrorToast(YaoKongDetailActivity.this, message);
+                mWaitDialog.dismiss();
+            }
+        });
+    }
+
     /**
      * 查询控制操作状态 根据结果进行提示
      *
@@ -416,7 +460,7 @@ public class YaoKongDetailActivity extends BaseActivity {
                 switch (cb.getRunResult()) {
                     case "0":
                         currentSearchCount = 0;
-                        getSwitchState();
+                        getSwitchStateOne();
                         break;
                     case "34":
                         SnackbarMessageShow.getInstance().showError(lvProduct, getString(R.string.terminal_net_error));
@@ -425,7 +469,7 @@ public class YaoKongDetailActivity extends BaseActivity {
                     default:
                         SnackbarMessageShow.getInstance().showError(lvProduct, getString(R.string.operator_failure) + cb.getRunResult());
                         currentSearchCount = 0;
-                        getSwitchState();
+                        getSwitchStateOne();
                         break;
                 }
                 break;
@@ -434,38 +478,6 @@ public class YaoKongDetailActivity extends BaseActivity {
                 mWaitDialog.dismiss();
                 break;
         }
-    }
-
-    /**
-     * 刷新单条线路状态
-     */
-    private void getSwitchState() {
-        Core.instance(this).getSwitchState(currentSwitchBean.getSerialNumber(), new ActionCallbackListener<SwitchBean>() {
-
-            @Override
-            public void onSuccess(SwitchBean cb) {
-                Log.i(TAG, currentSearchCount + "-flush_count");
-                if (currentSearchCount <= MAX_REFRESH_COUNT) {
-                    if ((cb.getSwitchState() == 1) == targetState) {// 如果还没有变成开关操作的目标状态 继续查询
-                        mHandler.sendEmptyMessageDelayed(MSG_SWTCH_REFRESH, 1000);
-                    } else {
-                        Log.i(TAG, cb.getSwitchState() + "-flush_success");
-//                        findChild(rootNode, currentSwitchBean.getSerialNumber(), cb.getSwitchState(), cb.getFault(), 1);
-                        mWaitDialog.dismiss();
-                        CustomToast.showCustomToast(YaoKongDetailActivity.this, "操作成功");
-                    }
-                } else {
-                    CustomToast.showCustomErrorToast(YaoKongDetailActivity.this, "查询操作超时，请刷新");
-                    mWaitDialog.dismiss();
-                }
-            }
-
-            @Override
-            public void onFailure(int errorEvent, String message) {
-                CustomToast.showCustomErrorToast(YaoKongDetailActivity.this, message);
-                mWaitDialog.dismiss();
-            }
-        });
     }
 
     @Override
@@ -482,9 +494,6 @@ public class YaoKongDetailActivity extends BaseActivity {
 //                getSwitchByCollector();
                 setResult(RESULT_OK);
                 finish();//TODO 添加/删除完分线支线直接结束界面
-            } else if (requestCode == CommonRequestCode.REQUEST_MODIFY_LINE) {
-                //修改后 刷新数据
-                getSwitchByCollector();
             }
         }
     }
@@ -564,12 +573,14 @@ public class YaoKongDetailActivity extends BaseActivity {
             }
             // 注意：我们在此给响应点击事件的区域（我的例子里是 showArea 的线性布局）添加Tag，为了记录点击的 position，我们正好用 position 设置 Tag
             holder.showArea.setTag(position);
+            holder.toggle_ll.setTag(position);
 
             SwitchBean currentSwitchBean = getItem(position);
             holder.img_line.setImageResource(currentSwitchBean.getIcon());
             holder.txt_content.setText("分线：" + currentSwitchBean.getName());
-            holder.tv_state.setVisibility(currentSwitchBean.getSwitchState() == 0 ? View.VISIBLE : View.INVISIBLE);// 更新状态文字
-            holder.tv_state.setText(SwitchBean.getSwitchFaultState(context, currentSwitchBean.fault));// 更新状态文字
+//            holder.tv_state.setVisibility(currentSwitchBean.getSwitchState() == 0 ? View.VISIBLE : View.INVISIBLE);// 更新状态文字
+//            holder.tv_state.setText(SwitchBean.getSwitchFaultState(context, currentSwitchBean.fault));// 更新状态文字
+            holder.tv_state.setText(currentSwitchBean.getChild().size() + "条支线");
             holder.tv_code.setText(currentSwitchBean.getSerialNumber());
             holder.iv_time_clock.setVisibility(currentSwitchBean.timerCount > 0 ? View.VISIBLE : View.INVISIBLE);
             List<SwitchBean> child = currentSwitchBean.getChild();
@@ -603,20 +614,6 @@ public class YaoKongDetailActivity extends BaseActivity {
             holder.sub_list.setAdapter(sa);
             utils.setListViewHeightBasedOnChildren(holder.sub_list);
 //            holder.hideArea.setViewHeight(holder.sub_list.getMeasuredHeight());
-
-            System.out.println(currentSwitchBean.getName() + "------------------");
-            System.out.println("hideArea " + holder.hideArea.getMeasuredHeight());
-            System.out.println("sub_list " + holder.sub_list.getMeasuredHeight());
-            //TODO 重置高度
-//            ViewGroup.LayoutParams lp;
-//            lp= mLinearLayout.getLayoutParams();
-//            lp.width=400;
-//            lp.height=200;
-//            mLinearLayout.setLayoutParams(lp);
-
-//            switchSubBeanList.clear();
-//            switchSubBeanList.addAll(currentSwitchBean.getChild());
-//            subAdapter.notifyDataSetChanged();
 
             switch (viewType) {
                 case YaoKongActivity.YAOKONG:
@@ -677,6 +674,18 @@ public class YaoKongDetailActivity extends BaseActivity {
                 ViewHolder finalHolder = holder;
                 // 点击事件
                 holder.showArea.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                        //用 currentItem 记录点击位置
+                        currentItem = (int) (Integer) view.getTag();
+                        finalHolder.hideArea.toggleExpand();
+                        //通知adapter数据改变需要重新加载 必须有的一步
+                        notifyDataSetChanged();
+                    }
+                });
+                // 点击事件
+                holder.toggle_ll.setOnClickListener(new View.OnClickListener() {
 
                     @Override
                     public void onClick(View view) {
@@ -777,8 +786,8 @@ public class YaoKongDetailActivity extends BaseActivity {
             SwitchBean currentSubSwitchBean = getItem(position);
             holder1.img_line.setImageResource(currentSubSwitchBean.getIcon());
             holder1.txt_content.setText("支线：" + currentSubSwitchBean.getName());
-            holder1.tv_state.setVisibility(currentSubSwitchBean.getSwitchState() == 0 ? View.VISIBLE : View.INVISIBLE);// 更新状态文字
-            holder1.tv_state.setText(SwitchBean.getSwitchFaultState(context, currentSubSwitchBean.fault));// 更新状态文字
+//            holder1.tv_state.setVisibility(currentSubSwitchBean.getSwitchState() == 0 ? View.VISIBLE : View.INVISIBLE);// 更新状态文字
+//            holder1.tv_state.setText(SwitchBean.getSwitchFaultState(context, currentSubSwitchBean.fault));// 更新状态文字
             holder1.tv_code.setText(currentSubSwitchBean.getSerialNumber());
             holder1.iv_time_clock.setVisibility(currentSubSwitchBean.timerCount > 0 ? View.VISIBLE : View.INVISIBLE);
 

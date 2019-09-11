@@ -85,6 +85,7 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
                 break;
         }
         ListView lvProduct = (ListView) findViewById(R.id.lv_products);
+        lvProduct.setEmptyView(findViewById(R.id.empty_layout));
         adapter = new MyAdapter(this, mCollectorBean, viewType, mListData, new MyAdapter.ISwitchCheckListen() {
             @Override
             public void onDelete(SwitchBean s) {
@@ -228,6 +229,12 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        getSwitchByCollector();
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
@@ -291,9 +298,10 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
             }
             SwitchBean switchBean = getItem(position);
             holder.img_line.setImageResource(switchBean.getIcon());
-            holder.txt_content.setText(switchBean.getName());
-            holder.tv_state.setVisibility(switchBean.getSwitchState() == 0 ? View.VISIBLE : View.INVISIBLE);// 更新状态文字
-            holder.tv_state.setText(SwitchBean.getSwitchFaultState(convertView.getContext(), switchBean.fault));// 更新状态文字
+            holder.txt_content.setText("线路：" + switchBean.getName());
+//            holder.tv_state.setVisibility(switchBean.getSwitchState() == 0 ? View.VISIBLE : View.INVISIBLE);// 更新状态文字
+//            holder.tv_state.setText(SwitchBean.getSwitchFaultState(convertView.getContext(), switchBean.fault));// 更新状态文字
+            holder.tv_state.setText(switchBean.getChild().size() + "条分线");
             holder.tv_code.setText(switchBean.getSerialNumber());
             holder.iv_time_clock.setVisibility(switchBean.timerCount > 0 ? View.VISIBLE : View.INVISIBLE);
             holder.iv_del_switch.setVisibility(switchBean.showDelIcon);
