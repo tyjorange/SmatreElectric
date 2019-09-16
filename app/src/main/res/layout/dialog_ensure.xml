@@ -37,13 +37,13 @@
         <TextView
             android:id="@+id/txt_cancel"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="48dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:background="@drawable/btn_white"
             android:gravity="center"
-            android:padding="16dp"
+            android:padding="10dp"
             android:text="@string/cancel"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -51,14 +51,13 @@
         <TextView
             android:id="@+id/txt_ok"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="46dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="1dp"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
             android:background="@drawable/btn_red"
             android:gravity="center"
-            android:padding="16dp"
+            android:padding="10dp"
             android:text="@string/ensure"
             android:textColor="@color/white"
             android:textSize="16sp" />
