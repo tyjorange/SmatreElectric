@@ -45,6 +45,7 @@ import java.util.Date;
  *
  * @author shaxiaoning
  */
+@Deprecated
 public class SelectWheeelDate extends PopupWindow implements OnClickListener {
     private static final String LOGTAG = LogUtil
             .makeLogTag(SelectWheeelDate.class);

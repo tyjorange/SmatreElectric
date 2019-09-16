@@ -10,8 +10,7 @@ import java.util.List;
  *
  * 三级行政区域 省  市  区县
  */
-
-
+@Deprecated
 public class GovernmentArea {
     @SerializedName("name")
     private String provinceName;

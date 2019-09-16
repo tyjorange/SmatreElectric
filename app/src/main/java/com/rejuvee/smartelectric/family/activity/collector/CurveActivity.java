@@ -477,7 +477,7 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
             //date = iyear + getResources().getString(DATE_UNITS[0]) + imonth + getResources().getString(DATE_UNITS[1]);
         }
         tvDate.setText(date);
-        tvDate.setText(date);
+//        tvDate.setText(date);
     }
 
     @Override

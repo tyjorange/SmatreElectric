@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Created by liuchengran on 2017/6/8.
  */
-
+@Deprecated
 public class SelectWheelArea extends PopupWindow implements View.OnClickListener {
     private static final String LOGTAG = LogUtil
             .makeLogTag(SelectWheelArea.class);
