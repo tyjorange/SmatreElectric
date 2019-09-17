@@ -196,7 +196,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="110dp"
-        android:background="@drawable/dianbiao_bg_slices"
+        android:background="@drawable/grid_bg"
         android:orientation="horizontal">
 
         <LinearLayout

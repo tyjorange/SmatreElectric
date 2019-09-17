@@ -16,7 +16,7 @@ import java.util.List;
 public class LogDetailActivity extends BaseActivity {
     private ListView listView;
     private LineOperateRecordAdapter mAdapter;
-    private List<RecordBean> mListData;
+//    private List<RecordBean> mListData;
 
     @Override
     protected int getLayoutResId() {
