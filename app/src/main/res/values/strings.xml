@@ -430,6 +430,10 @@
         <item>漏电自检使能</item>
         <item>漏电自检时间设定</item>
         <item>温度阀值</item>
+        <item>上电配置0：拉闸；1：合闸，2：掉电前开关状态</item>
+        <item>三相不平衡阀值</item>
+        <item>故障电弧阀值</item>
+        <item>防雷阀值</item>
     </string-array>
 
     <string name="last_month">上月</string>

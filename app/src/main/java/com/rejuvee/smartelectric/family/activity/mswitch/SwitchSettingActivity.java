@@ -196,7 +196,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         MyTextWatcher myTextWatcher2 = new MyTextWatcher(dl_xiaxian);
         dl_xiaxian.addTextChangedListener(myTextWatcher2);
         dl_xiaxian.setOnFocusChangeListener(myTextWatcher2);
-        // 漏电流
+        // 漏电流阀值
         amountLDL = findViewById(R.id.amount_view_ldl);
         amountLDL.setVal_min(50);
         amountLDL.setVal_max(180);
@@ -233,50 +233,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         superTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BigDecimal b1 = BigDecimal.valueOf(rangeSeekBarGY.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
-                BigDecimal b2 = BigDecimal.valueOf(rangeSeekBarQY.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
-//                BigDecimal b3 = BigDecimal.valueOf(rangeSeekBarDL.getLeftSeekBar().getProgress()).setScale(0, BigDecimal.ROUND_HALF_UP);
-//                BigDecimal b4 = BigDecimal.valueOf(rangeSeekBarDL.getRightSeekBar().getProgress()).setScale(0, BigDecimal.ROUND_HALF_UP);
-                String b3 = dl_shangxian.getEditableText().toString();
-                String b4 = dl_xiaxian.getEditableText().toString();
-//                System.out.println(valueGL);
-//                System.out.println(b1);
-//                System.out.println(b2);
-//                System.out.println(b3);
-//                System.out.println(b4);
-                if (b3.isEmpty() || b4.isEmpty()) {
-                    CustomToast.showCustomToast(mContext, "请设置电量");
-                    return;
-                }
-                String values = "00000011:" + et_GL.getEditableText().toString() + ",00000005:" + b1 + ",0000000D:" + b2 + ",00000018:" + b4 + ",00000019:" + b3;
-                System.out.println(values);
-                amountGY.setAmount(b1.floatValue());
-                amountQY.setAmount(b2.floatValue());
-                if (currentSwitchBean == null) {
-                    return;
-                }
-                Core.instance(mContext).sendSetThreadValueCommand(currentSwitchBean.getSerialNumber(), values, new ActionCallbackListener<Void>() {
-                    @Override
-                    public void onSuccess(Void data) {
-                        CustomToast.showCustomToast(mContext, "设置成功");
-                        finish();
-                    }
-
-                    @Override
-                    public void onFailure(int errorEvent, String message) {
-                        CustomToast.showCustomToast(mContext, "设置失败");
-                    }
-                });
-//                mHttpCall.setLimitValue(switchBean.getSerialNumber(), values, new BreakEVSetHttpCall.IBreakSetCallback() {
-//                    @Override
-//                    public void setCallback(boolean isSuccess) {
-//                        if (isSuccess) {
-//                            CustomToast.showCustomToast(this, "设置成功");
-//                        } else {
-//                            CustomToast.showCustomToast(this, "设置失败");
-//                        }
-//                    }
-//                });
+                setValues();
             }
         });
 //        mHttpCall = new BreakEVSetHttpCall(this);
@@ -296,9 +253,9 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
             public void handleMessage(Message msg) {
                 currentSearchCount++;
                 if (msg.what == sendGetThreadValueCommand) {
-                    getData1();
+                    flushValues();
                 } else if (msg.what == findSwitchParamBySwitch) {
-                    getData2();
+                    getValues();
                 }
             }
         };
@@ -333,10 +290,11 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
             }
         });
     }
+
     /**
-     * 发送刷新命令
+     * 发送阀值刷新命令
      */
-    private void getData1() {
+    private void flushValues() {
         if (currentSwitchBean == null) {
             return;
         }
@@ -367,9 +325,9 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
     }
 
     /**
-     * 获取法师刷新命令后的值
+     * 获取刷新命令后的阀值
      */
-    private void getData2() {
+    private void getValues() {
         if (currentSwitchBean == null) {
             return;
         }
@@ -435,6 +393,59 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                 });
     }
 
+    /**
+     * 设置阀值
+     */
+    private void setValues() {
+        BigDecimal b1 = BigDecimal.valueOf(rangeSeekBarGY.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
+        BigDecimal b2 = BigDecimal.valueOf(rangeSeekBarQY.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
+//                BigDecimal b3 = BigDecimal.valueOf(rangeSeekBarDL.getLeftSeekBar().getProgress()).setScale(0, BigDecimal.ROUND_HALF_UP);
+//                BigDecimal b4 = BigDecimal.valueOf(rangeSeekBarDL.getRightSeekBar().getProgress()).setScale(0, BigDecimal.ROUND_HALF_UP);
+        String b3 = dl_shangxian.getEditableText().toString();
+        String b4 = dl_xiaxian.getEditableText().toString();
+//                System.out.println(valueGL);
+//                System.out.println(b1);
+//                System.out.println(b2);
+//                System.out.println(b3);
+//                System.out.println(b4);
+        if (b3.isEmpty() || b4.isEmpty()) {
+            CustomToast.showCustomToast(mContext, "请设置电量");
+            return;
+        }
+        String values = "00000011:" + et_GL.getEditableText().toString() +
+                ",00000005:" + b1 +
+                ",0000000D:" + b2 +
+                ",00000018:" + b4 +
+                ",00000019:" + b3;
+        System.out.println(values);
+        amountGY.setAmount(b1.floatValue());
+        amountQY.setAmount(b2.floatValue());
+        if (currentSwitchBean == null) {
+            return;
+        }
+        Core.instance(mContext).sendSetThreadValueCommand(currentSwitchBean.getSerialNumber(), values, new ActionCallbackListener<Void>() {
+            @Override
+            public void onSuccess(Void data) {
+                CustomToast.showCustomToast(mContext, "设置成功");
+                finish();
+            }
+
+            @Override
+            public void onFailure(int errorEvent, String message) {
+                CustomToast.showCustomToast(mContext, "设置失败");
+            }
+        });
+//                mHttpCall.setLimitValue(switchBean.getSerialNumber(), values, new BreakEVSetHttpCall.IBreakSetCallback() {
+//                    @Override
+//                    public void setCallback(boolean isSuccess) {
+//                        if (isSuccess) {
+//                            CustomToast.showCustomToast(this, "设置成功");
+//                        } else {
+//                            CustomToast.showCustomToast(this, "设置失败");
+//                        }
+//                    }
+//                });
+    }
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         if (hasFocus) {

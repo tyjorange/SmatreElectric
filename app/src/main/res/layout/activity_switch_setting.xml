@@ -126,6 +126,12 @@
                         android:textColor="#000000"
                         android:textSize="12sp" />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="x1.3"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <ImageView
@@ -394,12 +400,12 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="@integer/tag_1"
-                        android:text="漏电自检"
+                        android:text="漏电自检使能"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
 
                     <ImageView
-                        android:id="@+id/iv_switch_ld"
+                        android:id="@+id/iv_switch_ldsn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -430,7 +436,7 @@
                         android:textSize="12sp" />
 
                     <ImageView
-                        android:id="@+id/iv_switch"
+                        android:id="@+id/iv_ldzjsj"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -473,6 +479,38 @@
                         android:singleLine="true"
                         android:textColor="#000000"
                         android:textSize="12sp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="25dp"
+                    android:background="@drawable/slices"
+                    android:contentDescription="slices" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="@integer/tag_1"
+                        android:text="上电配置"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_switch_sdpz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="8dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/yk_hezha" />
                 </LinearLayout>
 
                 <ImageView
@@ -602,6 +640,65 @@
                     android:background="@drawable/slices"
                     android:contentDescription="slices" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="@integer/tag_1"
+                            android:text="防雷阀值"
+                            android:textColor="@color/black"
+                            android:textSize="12sp" />
+
+                        <com.rejuvee.smartelectric.family.custom.AmountView
+                            android:id="@+id/amount_view_fl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_vertical"
+                            app:btnTextSize="14sp"
+                            app:btnWidth="36dp"
+                            app:tvWidth="50dp" />
+                    </LinearLayout>
+
+                    <com.jaygoo.widget.RangeSeekBar
+                        android:id="@+id/seek_bar_fl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="0dp"
+                        app:rsb_gravity="center"
+                        app:rsb_indicator_arrow_size="5dp"
+                        app:rsb_indicator_background_color="#6C7298"
+                        app:rsb_indicator_height="20dp"
+                        app:rsb_indicator_radius="2dp"
+                        app:rsb_indicator_show_mode="alwaysShow"
+                        app:rsb_indicator_text_size="10sp"
+                        app:rsb_indicator_width="30dp"
+                        app:rsb_mode="single"
+                        app:rsb_progress_color="#6C7298"
+                        app:rsb_tick_mark_layout_gravity="bottom"
+                        app:rsb_tick_mark_mode="number" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="25dp"
+                    android:background="@drawable/slices"
+                    android:contentDescription="slices" />
             </LinearLayout>
 
         </ScrollView>

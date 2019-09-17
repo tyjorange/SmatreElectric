@@ -204,6 +204,14 @@ public class SwitchBean implements Parcelable {
                 return context.getResources().getStringArray(R.array.switch_param_code)[28];
             case 0x0000001E:
                 return context.getResources().getStringArray(R.array.switch_param_code)[29];
+            case 0x0000001F:
+                return context.getResources().getStringArray(R.array.switch_param_code)[31];
+            case 0x00000020:
+                return context.getResources().getStringArray(R.array.switch_param_code)[32];
+            case 0x00000021:
+                return context.getResources().getStringArray(R.array.switch_param_code)[33];
+            case 0x00000022:
+                return context.getResources().getStringArray(R.array.switch_param_code)[34];
         }
         return "";
     }
