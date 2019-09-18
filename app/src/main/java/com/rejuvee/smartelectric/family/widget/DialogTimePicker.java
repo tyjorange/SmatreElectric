@@ -3,7 +3,6 @@ package com.rejuvee.smartelectric.family.widget;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
@@ -32,7 +31,7 @@ public class DialogTimePicker implements View.OnClickListener {
     private Context mContext;
     private int mType = 0;
     private int currentHour, currentMiniute;
-    private Handler mHandler = new Handler();
+//    private Handler mHandler = new Handler();
 
     public interface TimeSelectedListen {
         void onTimeSelected(int hour, int miniute, int type);
@@ -74,17 +73,16 @@ public class DialogTimePicker implements View.OnClickListener {
     private void init(Context context) {
         View contentView = View.inflate(context, R.layout.dialog_time_picker, null);
         mDialog.setContentView(contentView);
-
         mDialog.setCanceledOnTouchOutside(true);
 
         Window dialogWindow = mDialog.getWindow();
+        dialogWindow.setBackgroundDrawableResource(R.color.transparent);// 设置背景透明
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
         DisplayMetrics d = context.getResources().getDisplayMetrics(); // 获取屏幕宽、高用
         lp.width = (d.widthPixels);
         dialogWindow.setAttributes(lp);
         txtCancel = (TextView) contentView.findViewById(R.id.txt_cancel);
         txtOk = (TextView) contentView.findViewById(R.id.txt_ok);
-
 
         txtOk.setOnClickListener(this);
         txtCancel.setOnClickListener(this);
@@ -144,7 +142,7 @@ public class DialogTimePicker implements View.OnClickListener {
                 pf.setAccessible(true);
                 try {
                     //设置分割线的颜色值
-                    pf.set(number, new ColorDrawable(ContextCompat.getColor(mContext, R.color.colorPrimary)));
+                    pf.set(number, new ColorDrawable(ContextCompat.getColor(mContext, R.color.def_color)));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

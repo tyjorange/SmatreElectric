@@ -30,5 +30,6 @@
     <color name="master">#15b0ea</color>
     <color name="master_press">#00a1db</color>
     <color name="line">#C3C3C3</color>
+    <color name="def_color">#5A6187</color>
 
 </resources>

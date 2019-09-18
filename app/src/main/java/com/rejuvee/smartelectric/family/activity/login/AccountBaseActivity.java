@@ -171,6 +171,7 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
 
     private void baseInit() {
 
+        ImageView iv_back = findViewById(R.id.iv_back);
         mEtImei = findViewById(R.id.edit_imei);
         mEtPhone = findViewById(R.id.edit_phone);
         mEtNewPhone = findViewById(R.id.edit_phone_new);
@@ -196,11 +197,11 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
         mIvOrgPwd = findViewById(R.id.img_org_pwd);
 
         mBtCode = findViewById(R.id.txt_code);
-        mBtCode.setOnClickListener(this);
         mTvSure = findViewById(R.id.txt_sure);
+
+        iv_back.setOnClickListener(this);
+        mBtCode.setOnClickListener(this);
         mTvSure.setOnClickListener(this);
-
-
         mEtImei.setOnCheckListener(this);
         mEtPhone.setOnCheckListener(this);
         mEtNewPhone.setOnCheckListener(this);
@@ -208,6 +209,7 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
         mEtPwd.setOnCheckListener(this);
         mEtRePwd.setOnCheckListener(this);
         mEtOrgPwd.setOnCheckListener(this);
+
 
     }
 

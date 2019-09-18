@@ -1,73 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/login_beijing"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".activity.login.AccountBaseActivity">
 
-    <!--   &lt;!&ndash; 标题 &ndash;&gt;
-       <RelativeLayout
-           android:layout_width="match_parent"
-           android:layout_height="@dimen/height_line"
-           android:background="@color/blue">
-   
-           <ImageView
-               android:id="@+id/img_back"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_alignParentLeft="true"
-               android:layout_centerVertical="true"
-               android:paddingBottom="@dimen/padding_inside"
-               android:paddingLeft="@dimen/padding_max"
-               android:paddingRight="@dimen/padding_max"
-               android:paddingTop="@dimen/padding_inside"
-               android:src="@drawable/back" />
-   
-           <TextView
-               android:id="@+id/txt_title"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_centerInParent="true"
-               android:text="@string/title_regist"
-               android:textColor="@color/white"
-               android:textSize="@dimen/size_title" />
-       </RelativeLayout>-->
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        tools:ignore="UselessLeaf" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:contentInsetLeft="0dp"
-        app:contentInsetStart="0dp">
+        android:gravity="center">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:src="@drawable/main_fanhui_w" />
 
-            <ImageView
-                android:id="@+id/iv_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="16dp"
-                android:onClick="onClick"
-                android:padding="4dp"
-                android:src="@drawable/main_fanhui" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="0dp"
+            android:paddingEnd="64dp"
+            android:text="@string/settings_change_password"
+            android:textColor="@color/text_content"
+            android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/settings_change_password"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-        </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
-
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@drawable/login_logo"
+            android:visibility="invisible" />
+    </LinearLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -111,7 +85,7 @@
                                 android:paddingStart="@dimen/padding_inside"
                                 android:paddingEnd="0dp"
                                 android:text="@string/mark_name"
-                                android:textColor="@color/black"
+                                android:textColor="@color/text_content"
 
                                 android:textSize="@dimen/size_content" />
 
@@ -125,7 +99,7 @@
                                 android:paddingLeft="@dimen/padding_inside"
                                 android:paddingRight="@dimen/padding_inside"
                                 android:textColor="@color/skin_edt"
-                                android:textColorHint="@color/black"
+                                android:textColorHint="@color/text_content"
                                 android:textSize="@dimen/size_content"
                                 tools:ignore="NestedWeights" />
                         </LinearLayout>
@@ -178,7 +152,7 @@
                                 android:paddingStart="@dimen/padding_inside"
                                 android:paddingEnd="0dp"
                                 android:text="@string/mark_id"
-                                android:textColor="@color/black"
+                                android:textColor="@color/text_content"
 
                                 android:textSize="@dimen/size_content" />
 
@@ -194,7 +168,7 @@
                                 android:paddingLeft="@dimen/padding_inside"
                                 android:paddingRight="@dimen/padding_inside"
                                 android:textColor="@color/skin_edt"
-                                android:textColorHint="@color/black"
+                                android:textColorHint="@color/text_content"
                                 android:textSize="@dimen/size_content"
                                 tools:ignore="NestedWeights" />
                         </LinearLayout>
@@ -247,7 +221,7 @@
                                 android:paddingStart="@dimen/padding_inside"
                                 android:paddingEnd="0dp"
                                 android:text="@string/mark_address"
-                                android:textColor="@color/black"
+                                android:textColor="@color/text_content"
 
                                 android:textSize="@dimen/size_content" />
 
@@ -261,7 +235,7 @@
                                 android:paddingLeft="@dimen/padding_inside"
                                 android:paddingRight="@dimen/padding_inside"
                                 android:textColor="@color/skin_edt"
-                                android:textColorHint="@color/black"
+                                android:textColorHint="@color/text_content"
                                 android:textSize="@dimen/size_content"
                                 tools:ignore="NestedWeights" />
                         </LinearLayout>
@@ -314,7 +288,7 @@
                                 android:paddingStart="@dimen/padding_inside"
                                 android:paddingEnd="0dp"
                                 android:text="@string/mark_address"
-                                android:textColor="@color/black"
+                                android:textColor="@color/text_content"
 
                                 android:textSize="@dimen/size_content" />
 
@@ -328,7 +302,7 @@
                                 android:paddingLeft="@dimen/padding_inside"
                                 android:paddingRight="@dimen/padding_inside"
                                 android:textColor="@color/skin_edt"
-                                android:textColorHint="@color/black"
+                                android:textColorHint="@color/text_content"
                                 android:textSize="@dimen/size_content"
                                 tools:ignore="NestedWeights" />
                         </LinearLayout>
@@ -374,6 +348,8 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="@dimen/height_line"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/skin_line_bk">
 
@@ -385,7 +361,7 @@
                             android:paddingStart="@dimen/padding_inside"
                             android:paddingEnd="0dp"
                             android:text="@string/mark_imei"
-                            android:textColor="@color/black"
+                            android:textColor="@color/text_content"
                             android:textSize="@dimen/size_content" />
 
                         <com.rejuvee.smartelectric.family.widget.ClearEditText
@@ -400,8 +376,8 @@
                             android:maxLines="1"
                             android:paddingLeft="@dimen/padding_inside"
                             android:paddingRight="@dimen/padding_inside"
-                            android:textColor="@color/black"
-                            android:textColorHint="@color/black"
+                            android:textColor="@color/text_content"
+                            android:textColorHint="@color/text_content"
                             android:textSize="@dimen/size_content"
                             tools:ignore="NestedWeights" />
                     </LinearLayout>
@@ -445,6 +421,8 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="@dimen/height_line"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/skin_line_bk">
 
@@ -456,7 +434,7 @@
                             android:paddingStart="@dimen/padding_inside"
                             android:paddingEnd="0dp"
                             android:text="@string/mark_phone"
-                            android:textColor="@color/black"
+                            android:textColor="@color/text_content"
                             android:textSize="@dimen/size_content" />
 
                         <com.rejuvee.smartelectric.family.widget.ClearEditText
@@ -471,7 +449,7 @@
                             android:paddingLeft="@dimen/padding_inside"
                             android:paddingRight="@dimen/padding_inside"
                             android:textColor="@color/skin_edt"
-                            android:textColorHint="@color/black"
+                            android:textColorHint="@color/text_content"
                             android:textSize="@dimen/size_content"
                             tools:ignore="NestedWeights" />
                     </LinearLayout>
@@ -515,6 +493,8 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="@dimen/height_line"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/skin_line_bk">
 
@@ -525,7 +505,7 @@
                             android:paddingStart="@dimen/padding_inside"
                             android:paddingEnd="0dp"
                             android:text="@string/mark_phone_new"
-                            android:textColor="@color/black"
+                            android:textColor="@color/text_content"
 
                             android:textSize="@dimen/size_content" />
 
@@ -541,7 +521,7 @@
                             android:paddingLeft="@dimen/padding_inside"
                             android:paddingRight="@dimen/padding_inside"
                             android:textColor="@color/skin_edt"
-                            android:textColorHint="@color/black"
+                            android:textColorHint="@color/text_content"
                             android:textSize="@dimen/size_content"
                             tools:ignore="NestedWeights" />
                     </LinearLayout>
@@ -587,6 +567,8 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/skin_line_bk">
 
@@ -597,7 +579,7 @@
                             android:paddingStart="@dimen/padding_inside"
                             android:paddingEnd="0dp"
                             android:text="@string/mark_code"
-                            android:textColor="@color/black"
+                            android:textColor="@color/text_content"
                             android:textSize="@dimen/size_content" />
 
                         <com.rejuvee.smartelectric.family.widget.ClearEditText
@@ -612,7 +594,7 @@
                             android:paddingLeft="@dimen/padding_inside"
                             android:paddingRight="@dimen/padding_inside"
                             android:textColor="@color/skin_edt"
-                            android:textColorHint="@color/black"
+                            android:textColorHint="@color/text_content"
                             android:textSize="@dimen/size_content"
                             tools:ignore="NestedWeights" />
                     </LinearLayout>
@@ -672,6 +654,8 @@
                         android:layout_width="0dp"
                         android:layout_height="@dimen/height_line"
                         android:layout_weight="1"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
                         android:background="@drawable/skin_line_bk">
 
                         <TextView
@@ -682,7 +666,7 @@
                             android:paddingStart="@dimen/padding_inside"
                             android:paddingEnd="0dp"
                             android:text="@string/original_password"
-                            android:textColor="@color/black"
+                            android:textColor="@color/text_content"
                             android:textSize="@dimen/size_content" />
 
                         <com.rejuvee.smartelectric.family.widget.ClearEditText
@@ -698,7 +682,7 @@
                             android:paddingLeft="@dimen/padding_inside"
                             android:paddingRight="@dimen/padding_inside"
                             android:textColor="@color/skin_edt"
-                            android:textColorHint="@color/black"
+                            android:textColorHint="@color/text_content"
                             android:textSize="@dimen/size_content"
                             tools:ignore="NestedWeights" />
                     </LinearLayout>
@@ -742,6 +726,8 @@
                         android:layout_width="0dp"
                         android:layout_height="@dimen/height_line"
                         android:layout_weight="1"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
                         android:background="@drawable/skin_line_bk">
 
                         <TextView
@@ -752,7 +738,7 @@
                             android:paddingStart="@dimen/padding_inside"
                             android:paddingEnd="0dp"
                             android:text="@string/new_password"
-                            android:textColor="@color/black"
+                            android:textColor="@color/text_content"
                             android:textSize="@dimen/size_content" />
 
                         <com.rejuvee.smartelectric.family.widget.ClearEditText
@@ -768,7 +754,7 @@
                             android:paddingLeft="@dimen/padding_inside"
                             android:paddingRight="@dimen/padding_inside"
                             android:textColor="@color/skin_edt"
-                            android:textColorHint="@color/black"
+                            android:textColorHint="@color/text_content"
                             android:textSize="@dimen/size_content"
                             tools:ignore="NestedWeights" />
                     </LinearLayout>
@@ -813,6 +799,8 @@
                         android:layout_width="0dp"
                         android:layout_height="@dimen/height_line"
                         android:layout_weight="1"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
                         android:background="@drawable/skin_line_bk">
 
                         <TextView
@@ -822,7 +810,7 @@
                             android:paddingStart="@dimen/padding_inside"
                             android:paddingEnd="0dp"
                             android:text="@string/mark_repassword"
-                            android:textColor="@color/black"
+                            android:textColor="@color/text_content"
 
                             android:textSize="@dimen/size_content" />
 
@@ -839,7 +827,7 @@
                             android:paddingLeft="@dimen/padding_inside"
                             android:paddingRight="@dimen/padding_inside"
                             android:textColor="@color/skin_edt"
-                            android:textColorHint="@color/black"
+                            android:textColorHint="@color/text_content"
                             android:textSize="@dimen/size_content"
                             tools:ignore="NestedWeights" />
 
@@ -876,7 +864,7 @@
                 android:layout_height="@dimen/height_line"
                 android:layout_marginTop="@dimen/margin_line_outside"
                 android:layout_marginBottom="@dimen/margin_fringe"
-                android:background="@drawable/qd1"
+                android:background="@drawable/login_btn"
                 android:gravity="center"
                 android:text="@string/mark_sure"
                 android:textColor="@color/white"
