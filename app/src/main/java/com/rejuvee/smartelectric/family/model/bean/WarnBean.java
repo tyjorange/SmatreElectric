@@ -22,6 +22,7 @@ public class WarnBean {
     private int id;
     private int switchID;
     private String name;
+    private String code;
     private int paramID;
     private double paramValue;
     private String time;
@@ -81,5 +82,13 @@ public class WarnBean {
 
     public void setWarningValue(double warningValue) {
         this.warningValue = warningValue;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

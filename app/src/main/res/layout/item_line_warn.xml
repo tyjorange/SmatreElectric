@@ -18,7 +18,7 @@
             android:id="@+id/tv_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.8"
             android:ellipsize="middle"
             android:text="照明"
             android:textColor="@color/text_base_color_333"
@@ -30,7 +30,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ellipsize="middle"
-            android:gravity="end"
             android:text="类型"
             android:textSize="12sp" />
 

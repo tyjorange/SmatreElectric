@@ -59,11 +59,11 @@ public class LineOperateRecordAdapter extends BaseAdapter {
         }
 
         RecordBean recordBean = mListData.get(position);
-        holder.tvTitle.setText(recordBean.name);
-        holder.tvCode.setText(recordBean.type == 1 ? mContext.getString(R.string.fun_changjing) : recordBean.code);
+        holder.tvTitle.setText("线路:" + recordBean.name);
+        holder.tvCode.setText(recordBean.type == 1 ? mContext.getString(R.string.fun_changjing) : "ID:" + recordBean.code);
 
         if (recordBean.type == -1) {//场景里面的开关
-            String cmdState = recordBean.cmdData == 1 ? mContext.getString(R.string.switch_on) : mContext.getString(R.string.switch_off) + " ";
+            String cmdState = (recordBean.cmdData == 1 ? mContext.getString(R.string.switch_on) : mContext.getString(R.string.switch_off));
             holder.tvState.setText(cmdState);
         } else {
             String source = "";//来源
@@ -113,7 +113,13 @@ public class LineOperateRecordAdapter extends BaseAdapter {
         }
 
         holder.tvState.setVisibility(recordBean.type == 1 ? View.GONE : View.VISIBLE);
-        holder.tvDate.setText(recordBean.time);
+//        String s = recordBean.username + recordBean.nickName;
+        String s = recordBean.username;
+        if (s != null) {
+            holder.tvDate.setText("用户:" + s + " | " + recordBean.time);
+        } else {
+            holder.tvDate.setText(recordBean.time);
+        }
         holder.ivRight.setVisibility(recordBean.type == 1 ? View.VISIBLE : View.GONE);
         return convertView;
     }

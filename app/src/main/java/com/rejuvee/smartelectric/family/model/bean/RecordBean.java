@@ -20,6 +20,8 @@ public class RecordBean implements Parcelable {
     public int runCode;//2:执行成功 1：执行失败  0：命令未发送
     public int runResult; //0:成功  其它失败，表示错误码
     public List<RecordBean> switchs;//type=1 时有该字段
+    public String username;
+    public String nickName;
 
     public RecordBean() {
 

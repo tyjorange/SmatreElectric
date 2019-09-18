@@ -7,7 +7,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.rejuvee.smartelectric.family.R;
-import com.rejuvee.smartelectric.family.model.bean.RecordBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.model.bean.WarnBean;
 
@@ -57,10 +56,10 @@ public class LineWarnAdapter extends BaseAdapter {
         }
 
         WarnBean warnBean = mListData.get(position);
-        holder.tvTitle.setText(warnBean.getName());
-        holder.tvCode.setText(String.valueOf(warnBean.getSwitchID()));
+        holder.tvTitle.setText("线路:" + warnBean.getName());
+        holder.tvCode.setText("ID:" + (warnBean.getCode()));
         holder.tvType.setText(SwitchBean.getParamName(mContext, warnBean.getParamID()));
-        holder.tvState.setText(warnBean.getWarningValue() + "/" + warnBean.getParamValue());
+        holder.tvState.setText("值:" + warnBean.getWarningValue() + "/阀值:" + warnBean.getParamValue());
         holder.tvDate.setText(warnBean.getTime());
         return convertView;
     }

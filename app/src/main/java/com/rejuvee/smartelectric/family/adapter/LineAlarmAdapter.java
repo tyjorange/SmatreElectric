@@ -54,8 +54,8 @@ public class LineAlarmAdapter extends BaseAdapter {
         }
 
         RecordBean recordBean = mListData.get(position);
-        holder.tvTitle.setText(recordBean.name);
-        holder.tvCode.setText(recordBean.code);
+        holder.tvTitle.setText("线路:" + recordBean.name);
+        holder.tvCode.setText("ID:" + recordBean.code);
 //        holder.tvState.setText(SwitchBean.getSwitchFaultState(mContext, recordBean.state));
         holder.tvState.setText(recordBean.desc);
         holder.tvDate.setText(recordBean.time);
