@@ -48,7 +48,7 @@
         android:id="@+id/ll_wx"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="16dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -68,7 +68,7 @@
             android:layout_weight="1"
             android:text="@string/mine_binding_wx"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tv_wx"
@@ -79,7 +79,7 @@
             android:gravity="end"
             android:text="@string/mine_unbound"
             android:textColor="@color/text_content"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -100,7 +100,7 @@
         android:id="@+id/ll_qq"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="30dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -119,7 +119,7 @@
             android:layout_weight="1"
             android:text="@string/mine_binding_qq"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tv_qq"
@@ -130,7 +130,7 @@
             android:gravity="end"
             android:text="@string/mine_unbound"
             android:textColor="@color/text_content"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
 
         <ImageView
             android:layout_width="wrap_content"

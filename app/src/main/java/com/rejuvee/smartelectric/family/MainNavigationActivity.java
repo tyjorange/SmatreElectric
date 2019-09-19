@@ -14,6 +14,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,7 +50,6 @@ import com.rejuvee.smartelectric.family.model.bean.UserMsg;
 import com.rejuvee.smartelectric.family.utils.utils;
 import com.rejuvee.smartelectric.family.widget.CircleImageView;
 import com.rejuvee.smartelectric.family.widget.DialogTip;
-import com.rejuvee.smartelectric.family.widget.PopwindowQCode;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 import com.squareup.picasso.Target;
@@ -107,8 +107,23 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         return 0;
     }
 
+    private void getDensity() {
+        Log.w(TAG, utils.getSystemLanguage());
+        Log.w(TAG, utils.getSystemVersion());
+        Log.w(TAG, utils.getDeviceBrand());
+        Log.w(TAG, utils.getSystemModel());
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getRealMetrics(outMetrics);
+        int widthPixel = outMetrics.widthPixels;
+        int heightPixel = outMetrics.heightPixels;
+        float densityDpi = outMetrics.densityDpi;
+        Log.w(TAG, outMetrics.toString());
+        Log.w(TAG, "widthPixel = " + widthPixel + ",heightPixel = " + heightPixel);
+        Log.w(TAG, "densityDpi = " + densityDpi);
+    }
     @Override
     protected void initView() {
+        getDensity();
         mContext = this;
         navigationView = findViewById(R.id.nav_view);
         tv_collector_count = findViewById(R.id.tv_collector_count);

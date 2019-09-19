@@ -1,9 +1,3 @@
-/**
- * All rights Reserved, Designed By solarstem 
- * @Description: 	TODO(用一句话描述该文件做什么) 
- * @author:	Liuchengran  
- * @date:	2016-2-19 上午9:51:51  
- */
 package com.rejuvee.smartelectric.family.api;
 
 import android.content.Context;

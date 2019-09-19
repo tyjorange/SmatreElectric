@@ -31,6 +31,7 @@ public class EnergySavingInformationActivity extends BaseActivity implements Vie
     private CollectorBean collectorBean;
     private SwitchBean switchBean;
     private TextView collector_name;
+    private TextView dianxiang_code;
     private TextView line_name;
     private TextView hbjs_val;
     private TextView tbjs_val;
@@ -50,10 +51,12 @@ public class EnergySavingInformationActivity extends BaseActivity implements Vie
     protected void initView() {
         collectorBean = getIntent().getParcelableExtra("collectorBean");
         collector_name = findViewById(R.id.collector_name);
+        dianxiang_code = findViewById(R.id.dianxiang_code);
         line_name = findViewById(R.id.line_name);
         hbjs_val = findViewById(R.id.hbjs_val);
         tbjs_val = findViewById(R.id.tbjs_val);
         ydl_val = findViewById(R.id.ydl_val);
+        dianxiang_code.setText(collectorBean.getCode());
         LinearLayout img_change = findViewById(R.id.img_change);
         img_change.setOnClickListener(this);
         ImageView backBtn = findViewById(R.id.img_cancel);

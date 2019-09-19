@@ -13,7 +13,7 @@
         android:layout_marginTop="16dp"
         android:text="修改提醒"
         android:textColor="@color/text_base_color_333"
-        android:textSize="18sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/txt_tip_desc"
@@ -26,7 +26,7 @@
         android:paddingRight="16dp"
         android:text="确定修改为此图片吗？"
         android:textColor="@color/text_base_color_666"
-        android:textSize="16sp" />
+        android:textSize="15sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -46,7 +46,7 @@
             android:padding="10dp"
             android:text="@string/cancel"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/txt_ok"
@@ -60,7 +60,7 @@
             android:padding="10dp"
             android:text="@string/ensure"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
     </LinearLayout>
 
 </LinearLayout>
