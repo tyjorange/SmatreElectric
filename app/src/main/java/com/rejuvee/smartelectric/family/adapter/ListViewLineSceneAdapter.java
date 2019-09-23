@@ -61,8 +61,8 @@ public class ListViewLineSceneAdapter extends BaseAdapter {
             holder = (Holder) convertView.getTag();
         }
         holder.img_device.setImageResource(NativeLine.LinePictures[result.get(position).getIconType() % NativeLine.LinePictures.length]);
-        holder.txt_room.setText(result.get(position).getName());
-        holder.txt_device.setText(result.get(position).getCollector().getDeviceName());
+        holder.txt_device.setText("电箱:" + result.get(position).getCollector().getDeviceName());
+        holder.txt_room.setText("线路:" + result.get(position).getName());
         if (result.get(position).getState() == 1) {
             holder.img_kaiguang.setImageResource(R.drawable.yk_hezha);
         } else

@@ -389,13 +389,13 @@
         <item>undervoltage</item>
         <item>overload</item>
         <item>exceeding power consumption threshold</item>
-        <item>timing switching-open</item>
-        <item>remote switching-open</item>
+        <item>timing switching-close</item>
+        <item>remote switching-close</item>
         <item>exceeding automatic closing cycles</item>
         <item>instant current switching-open</item>
         <item>manual switching-open</item>
         <item>manual switching-close</item>
-        <item>-</item>
+        <item>remote switching-open</item>
         <item>Electric leakage</item>
         <item>Overheating</item>
     </string-array>

@@ -42,14 +42,14 @@ public class SwitchBean implements Parcelable {
     private String runCode;
     private String runResult;
 
-    //节能信息
+    // 节能信息
     private String today;
     private String month;
     private String year;
     private String tbjn;
     private String hbjn;
 
-    // 断路器版本
+    // 断路器版本 103 104 105
     private int modelMajor;
     private int modelMinor;
     @Ignore
@@ -92,7 +92,7 @@ public class SwitchBean implements Parcelable {
             // 第9位:手动拉闸
             return context.getResources().getStringArray(R.array.switch_fault_code)[9];
         } else if ((faultCode & (0x01 << 10)) > 0) {
-            // 第10位:-
+            // 第10位:远程合闸
             return context.getResources().getStringArray(R.array.switch_fault_code)[10];
         } else if ((faultCode & (0x01 << 11)) > 0) {
             // 第11位:漏电
@@ -194,6 +194,8 @@ public class SwitchBean implements Parcelable {
         year = in.readString();
         tbjn = in.readString();
         hbjn = in.readString();
+        modelMajor = in.readInt();
+        modelMinor = in.readInt();
         child = in.createTypedArrayList(SwitchBean.CREATOR);
     }
 
@@ -214,6 +216,8 @@ public class SwitchBean implements Parcelable {
         dest.writeString(year);
         dest.writeString(tbjn);
         dest.writeString(hbjn);
+        dest.writeInt(modelMajor);
+        dest.writeInt(modelMinor);
         dest.writeTypedList(child);
     }
 

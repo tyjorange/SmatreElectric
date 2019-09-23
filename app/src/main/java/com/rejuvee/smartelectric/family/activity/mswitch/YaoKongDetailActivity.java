@@ -438,6 +438,7 @@ public class YaoKongDetailActivity extends BaseActivity {
             @Override
             public void onSuccess(SwitchBean data) {
                 currentSearchCount = 0;
+//                currentSwitchBean = data;
 //                waitLastResultAfterSwitch();
                 checkSwitchSuccess(data);
             }
@@ -477,6 +478,7 @@ public class YaoKongDetailActivity extends BaseActivity {
                         if (isRootSwitch) {
                             //线路
                             iv_switch_root.setImageResource(NativeLine.DrawableToggle[cb.getSwitchState() == -1 ? 2 : cb.getSwitchState()]);// 更新开关图片
+                            currentSwitchBean.setSwitchState(cb.getSwitchState());
                         } else {
                             //分线
                             for (SwitchBean cc : childList) {

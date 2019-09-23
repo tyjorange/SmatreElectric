@@ -11,13 +11,18 @@ import java.text.DecimalFormat;
  * 限制输入格式为 ######.## 不足位数补0
  */
 public class MyTextWatcher implements TextWatcher, View.OnFocusChangeListener {
-    private DecimalFormat formater = new DecimalFormat("000000.00");
+    private DecimalFormat decimalFormat;
     private boolean deleteLastChar;// 是否需要删除末尾
     private boolean deleteStartChar;// 是否需要删除其起始
     private EditText editText;
 
-    public MyTextWatcher(EditText editText) {
+    public MyTextWatcher(EditText editText, String patten) {
         this.editText = editText;
+        this.decimalFormat = new DecimalFormat(patten);
+    }
+
+    public DecimalFormat getDecimalFormat() {
+        return decimalFormat;
     }
 
     @Override
@@ -67,7 +72,7 @@ public class MyTextWatcher implements TextWatcher, View.OnFocusChangeListener {
     public void onFocusChange(View v, boolean hasFocus) {
         if (!hasFocus) {
             String s = editText.getEditableText().toString();
-            String formatted = formater.format(Double.valueOf(s.isEmpty() ? "0" : s));
+            String formatted = decimalFormat.format(Double.valueOf(s.isEmpty() ? "0" : s));
             editText.setText(formatted);
         }
     }

@@ -43,6 +43,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
     private ListPopupWindow listPopupWindow;
     //    private Spinner spinnerGL;
     private EditText et_GL;
+    private EditText et_GWFZ;
     //    private Float valueGL;
     private RangeSeekBar rangeSeekBarGY;
     private AmountView amountGY;
@@ -50,6 +51,8 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
     private AmountView amountQY;
     private RangeSeekBar rangeSeekBarLDL;
     private AmountView amountLDL;
+    private RangeSeekBar rangeSeekBarSXBPH;
+    private AmountView amountSXBPH;
     //    private RangeSeekBar rangeSeekBarDL;
     private EditText dl_shangxian;
     private EditText dl_xiaxian;
@@ -59,7 +62,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
     private Handler mHandler;
     private CollectorBean collectorBean;
     private SwitchBean currentSwitchBean;
-    private DecimalFormat formater = new DecimalFormat("000000.00");
+    //    private DecimalFormat formater = new DecimalFormat("000000.00");
     private LoadingDlg waitDialog;
     private Context mContext;
     private TextView txtLineName;//线路名称
@@ -187,16 +190,23 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
 
             }
         });
-        // 电量上下限
+        // 电量上限
         dl_shangxian = findViewById(R.id.et_dl1);
-        MyTextWatcher myTextWatcher1 = new MyTextWatcher(dl_shangxian);
+        MyTextWatcher myTextWatcher1 = new MyTextWatcher(dl_shangxian, "000000.00");
         dl_shangxian.addTextChangedListener(myTextWatcher1);
         dl_shangxian.setOnFocusChangeListener(myTextWatcher1);
+        // 电量下限
         dl_xiaxian = findViewById(R.id.et_dl2);
-        MyTextWatcher myTextWatcher2 = new MyTextWatcher(dl_xiaxian);
+        MyTextWatcher myTextWatcher2 = new MyTextWatcher(dl_xiaxian, "000000.00");
         dl_xiaxian.addTextChangedListener(myTextWatcher2);
         dl_xiaxian.setOnFocusChangeListener(myTextWatcher2);
+        // 高温阀值
+        et_GWFZ = findViewById(R.id.et_gwfz);
+        MyTextWatcher myTextWatcher3 = new MyTextWatcher(et_GWFZ, "000.0");
+        et_GWFZ.addTextChangedListener(myTextWatcher3);
+        et_GWFZ.setOnFocusChangeListener(myTextWatcher3);
         // 漏电流阀值
+        findViewById(R.id.ll_ldl).setVisibility(View.VISIBLE);
         amountLDL = findViewById(R.id.amount_view_ldl);
         amountLDL.setVal_min(50);
         amountLDL.setVal_max(180);
@@ -216,6 +226,39 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
             public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser) {
                 float v1 = BigDecimal.valueOf(leftValue).setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
                 amountLDL.setAmount(v1);
+            }
+
+            @Override
+            public void onStartTrackingTouch(RangeSeekBar view, boolean isLeft) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(RangeSeekBar view, boolean isLeft) {
+
+            }
+        });
+        //三项不平衡
+        findViewById(R.id.ll_sxbph).setVisibility(View.VISIBLE);
+        amountSXBPH = findViewById(R.id.amount_view_sxbph);
+        amountSXBPH.setVal_min(10);
+        amountSXBPH.setVal_max(100);
+        amountSXBPH.setAmount(50);
+        amountSXBPH.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
+            @Override
+            public void onAmountChange(View view, float amount) {
+                rangeSeekBarSXBPH.setProgress(amount);
+            }
+        });
+        rangeSeekBarSXBPH = findViewById(R.id.seek_bar_sxbph);
+        rangeSeekBarSXBPH.setRange(10, 100);//范围
+        rangeSeekBarSXBPH.setTickMarkTextArray(new String[]{"10", "100"});//刻度
+        rangeSeekBarSXBPH.setIndicatorTextDecimalFormat("000.0");//格式化小数位数
+        rangeSeekBarSXBPH.setOnRangeChangedListener(new OnRangeChangedListener() {
+            @Override
+            public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser) {
+                float v1 = BigDecimal.valueOf(leftValue).setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
+                amountSXBPH.setAmount(v1);
             }
 
             @Override
@@ -248,6 +291,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
     @Override
     protected void initData() {
         collectorBean = getIntent().getParcelableExtra("collectorBean");
+        getSwitchByCollector();
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -260,7 +304,6 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
             }
         };
 //        getData();
-        getSwitchByCollector();
         mHandler.sendEmptyMessageDelayed(sendGetThreadValueCommand, 100);
     }
 
@@ -275,6 +318,19 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                 currentSwitchBean = data.get(0);//init bean
                 txtLineName.setText("线路：" + currentSwitchBean.getName());
                 mHandler.sendEmptyMessageDelayed(sendGetThreadValueCommand, 1000);
+                // 漏电流阀值
+                if (currentSwitchBean.getModelMajor() == 1 && currentSwitchBean.getModelMinor() == 5) {
+                    findViewById(R.id.ll_ldl).setVisibility(View.VISIBLE);
+                } else {
+                    findViewById(R.id.ll_ldl).setVisibility(View.GONE);
+                }
+                //三项不平衡
+                if (currentSwitchBean.getModelMajor() == 2 && currentSwitchBean.getModelMinor() == 1) {
+                    findViewById(R.id.ll_sxbph).setVisibility(View.VISIBLE);
+                } else {
+                    findViewById(R.id.ll_sxbph).setVisibility(View.GONE);
+                }
+
 //                getBreakSignalValue(curBreaker);
 //                judgSwitchstate(curBreaker);
             }
@@ -365,14 +421,16 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                                     break;
                                 case "17":// 过流
                                     BigDecimal s = BigDecimal.valueOf(Float.valueOf(paramValue)).setScale(0, BigDecimal.ROUND_HALF_UP);
-//                            spinnerGL.setSelection(items.indexOf(getSelect(s.floatValue())));
                                     et_GL.setText(s.toString());
                                     break;
                                 case "24":// 下限
-                                    dl_xiaxian.setText(formater.format(Double.valueOf(paramValue.isEmpty() ? "0" : paramValue)));
+                                    dl_xiaxian.setText(new DecimalFormat("000000.00").format(Double.valueOf(paramValue.isEmpty() ? "0" : paramValue)));
                                     break;
                                 case "25":// 上限
-                                    dl_shangxian.setText(formater.format(Double.valueOf(paramValue.isEmpty() ? "0" : paramValue)));
+                                    dl_shangxian.setText(new DecimalFormat("000000.00").format(Double.valueOf(paramValue.isEmpty() ? "0" : paramValue)));
+                                    break;
+                                case "30":// 温度阀值
+                                    et_GWFZ.setText(new DecimalFormat("000.0").format(Double.valueOf(paramValue.isEmpty() ? "0" : paramValue)));
                                     break;
                             }
                         }
@@ -380,6 +438,18 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                         scrollView.setVisibility(View.VISIBLE);
                         superTextView.setVisibility(View.VISIBLE);
                         empty_layout.setVisibility(View.GONE);
+                        // 漏电流阀值
+                        if (currentSwitchBean.getModelMajor() == 1 && currentSwitchBean.getModelMinor() == 5) {
+                            findViewById(R.id.ll_ldl).setVisibility(View.VISIBLE);
+                        } else {
+                            findViewById(R.id.ll_ldl).setVisibility(View.GONE);
+                        }
+                        // 三项不平衡
+                        if (currentSwitchBean.getModelMajor() == 2 && currentSwitchBean.getModelMinor() == 1) {
+                            findViewById(R.id.ll_sxbph).setVisibility(View.VISIBLE);
+                        } else {
+                            findViewById(R.id.ll_sxbph).setVisibility(View.GONE);
+                        }
                     }
 
                     @Override
@@ -403,6 +473,8 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
 //                BigDecimal b4 = BigDecimal.valueOf(rangeSeekBarDL.getRightSeekBar().getProgress()).setScale(0, BigDecimal.ROUND_HALF_UP);
         String b3 = dl_shangxian.getEditableText().toString();
         String b4 = dl_xiaxian.getEditableText().toString();
+        String b5 = et_GWFZ.getEditableText().toString();
+        String b6 = et_GL.getEditableText().toString();
 //                System.out.println(valueGL);
 //                System.out.println(b1);
 //                System.out.println(b2);
@@ -412,11 +484,12 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
             CustomToast.showCustomToast(mContext, "请设置电量");
             return;
         }
-        String values = "00000011:" + et_GL.getEditableText().toString() +
+        String values = "00000011:" + b6 +
                 ",00000005:" + b1 +
                 ",0000000D:" + b2 +
                 ",00000018:" + b4 +
-                ",00000019:" + b3;
+                ",00000019:" + b3 +
+                ",0000001E:" + b5;
         System.out.println(values);
         amountGY.setAmount(b1.floatValue());
         amountQY.setAmount(b2.floatValue());

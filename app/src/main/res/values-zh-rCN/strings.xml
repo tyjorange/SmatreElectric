@@ -393,7 +393,7 @@
         <item>快速电流拉闸</item>
         <item>手动合闸</item>
         <item>手动拉闸</item>
-        <item>-</item>
+        <item>远程合闸</item>
         <item>漏电</item>
         <item>过温</item>
     </string-array>
