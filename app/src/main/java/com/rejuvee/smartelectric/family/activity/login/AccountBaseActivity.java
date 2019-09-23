@@ -1,6 +1,5 @@
 package com.rejuvee.smartelectric.family.activity.login;
 
-import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -21,6 +20,7 @@ import com.rejuvee.smartelectric.family.utils.utils;
 import com.rejuvee.smartelectric.family.widget.ClearEditText;
 import com.rejuvee.smartelectric.family.widget.LoadingDlg;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -127,28 +127,36 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
         return 0;
     }
 
-    @SuppressLint("HandlerLeak")
+    //    @SuppressLint("HandlerLeak")
     @Override
     protected void initView() {
         mCore = Core.instance(this);
         mCustomToast = new CustomToast();
         mLoadingDlg = new LoadingDlg(this, -1);
         // 计时重新获取验证码
-        mHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                mBtCode.setText(msg.what + "s");
-                if (msg.what == 0) {
-                    closeTimer();
-                    mBtCode.setText(R.string.mark_regetcode);
-                    mBtCode.setEnabled(true);
-                }
-            }
-        };
+        mHandler = new MyHandler(this);
         baseInit();
         init();
     }
 
+    private static class MyHandler extends Handler {
+        WeakReference<AccountBaseActivity> activityWeakReference;
+
+        MyHandler(AccountBaseActivity activity) {
+            activityWeakReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            AccountBaseActivity activity = activityWeakReference.get();
+            activity.mBtCode.setText(msg.what + "s");
+            if (msg.what == 0) {
+                activity.closeTimer();
+                activity.mBtCode.setText(R.string.mark_regetcode);
+                activity.mBtCode.setEnabled(true);
+            }
+        }
+    }
     @Override
     protected void initData() {
 

@@ -1,6 +1,5 @@
 package com.rejuvee.smartelectric.family.activity.mswitch;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,6 +35,7 @@ import com.rejuvee.smartelectric.family.widget.ExpandLayout;
 import com.rejuvee.smartelectric.family.widget.LoadingDlg;
 import com.rejuvee.smartelectric.family.widget.SnackbarMessageShow;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.TimerTask;
 
@@ -159,27 +159,35 @@ public class YaoKongDetailActivity extends BaseActivity {
         lvProduct.setAdapter(adapter);
     }
 
-    @SuppressLint("HandlerLeak")
+    //    @SuppressLint("HandlerLeak")
     @Override
     protected void initData() {
-        mHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                currentSearchCount++;
-                if (msg.what == MSG_CMD_RESULT) {
-                    getResultOfController();
-                } else if (msg.what == MSG_TIMER) {
-                    getAllSwitchState();
-                } else if (msg.what == MSG_FILLDATA) {
-//                    fillData();
-                } else if (msg.what == MSG_SWTCH_REFRESH) {
-                    getSwitchStateOne();
-                }
-            }
-        };
+        mHandler = new MyHandler(this);
         getSwitchByCollector();
     }
 
+    private static class MyHandler extends Handler {
+        WeakReference<YaoKongDetailActivity> activityWeakReference;
+
+        MyHandler(YaoKongDetailActivity activity) {
+            activityWeakReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            YaoKongDetailActivity activity = activityWeakReference.get();
+            currentSearchCount++;
+            if (msg.what == MSG_CMD_RESULT) {
+                activity.getResultOfController();
+            } else if (msg.what == MSG_TIMER) {
+                activity.getAllSwitchState();
+            } else if (msg.what == MSG_FILLDATA) {
+//                 activity.fillData();
+            } else if (msg.what == MSG_SWTCH_REFRESH) {
+                activity.getSwitchStateOne();
+            }
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -405,6 +413,7 @@ public class YaoKongDetailActivity extends BaseActivity {
                 @Override
                 public void onEnsure() {
                     mWaitDialog.show();
+                    runTask = false; //暂停定时刷新任务
                     Core.instance(mContext).controlBreak(currentSwitchBean.getSwitchID(), targetState, new ActionCallbackListener<ControllerId>() {
                         @Override
                         public void onSuccess(ControllerId data) {
@@ -498,10 +507,12 @@ public class YaoKongDetailActivity extends BaseActivity {
                         }
                         mWaitDialog.dismiss();
                         CustomToast.showCustomToast(YaoKongDetailActivity.this, "操作成功");
+                        runTask = true;// 恢复定时刷新任务
                     }
                 } else {
-                    CustomToast.showCustomErrorToast(YaoKongDetailActivity.this, "查询操作超时，请刷新");
                     mWaitDialog.dismiss();
+                    CustomToast.showCustomErrorToast(YaoKongDetailActivity.this, "查询操作超时，请刷新");
+                    runTask = true;// 恢复定时刷新任务
                 }
             }
 

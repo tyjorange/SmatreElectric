@@ -1,6 +1,5 @@
 package com.rejuvee.smartelectric.family.activity.mswitch;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -38,6 +37,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TimerTask;
@@ -191,28 +191,36 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
     private static final int MSG_SWTCH_REFRESH = 5;// 刷新单个线路
     private boolean targetState;//开关操作的目标状态
 
-    @SuppressLint("HandlerLeak")
+    //    @SuppressLint("HandlerLeak")
     @Override
     protected void initData() {
         NativeLine.init(this);
-        mHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                currentSearchCount++;
-                if (msg.what == MSG_CMD_RESULT) {
-                    getResultOfController();
-                } else if (msg.what == MSG_TIMER) {
-                    getAllSwitchState(1);
-                } else if (msg.what == MSG_FILLDATA) {
-                    fillData();
-                } else if (msg.what == MSG_SWTCH_REFRESH) {
-                    getSwitchState();
-                }
-            }
-        };
+        mHandler = new MyHandler(this);
         getSwitchByCollector();
     }
 
+    private static class MyHandler extends Handler {
+        WeakReference<SwitchTreeActivity> activityWeakReference;
+
+        MyHandler(SwitchTreeActivity activity) {
+            activityWeakReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            SwitchTreeActivity settingActivity = activityWeakReference.get();
+            currentSearchCount++;
+            if (msg.what == MSG_CMD_RESULT) {
+                settingActivity.getResultOfController();
+            } else if (msg.what == MSG_TIMER) {
+                settingActivity.getAllSwitchState(1);
+            } else if (msg.what == MSG_FILLDATA) {
+                settingActivity.fillData();
+            } else if (msg.what == MSG_SWTCH_REFRESH) {
+                settingActivity.getSwitchState();
+            }
+        }
+    }
     private String getViewTitle() {
         switch (viewType) {
             case SwitchTree.YAOKONG:

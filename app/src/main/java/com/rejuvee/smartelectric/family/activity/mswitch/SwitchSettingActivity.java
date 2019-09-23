@@ -1,6 +1,5 @@
 package com.rejuvee.smartelectric.family.activity.mswitch;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
@@ -29,6 +28,7 @@ import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.model.bean.VoltageValue;
 import com.rejuvee.smartelectric.family.widget.LoadingDlg;
 
+import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.List;
@@ -287,26 +287,34 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
     private static final int findSwitchParamBySwitch = 0;//findParam
     private static final int sendGetThreadValueCommand = 1;//sendGetParam
 
-    @SuppressLint("HandlerLeak")
+    //    @SuppressLint("HandlerLeak")
     @Override
     protected void initData() {
         collectorBean = getIntent().getParcelableExtra("collectorBean");
         getSwitchByCollector();
-        mHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                currentSearchCount++;
-                if (msg.what == sendGetThreadValueCommand) {
-                    flushValues();
-                } else if (msg.what == findSwitchParamBySwitch) {
-                    getValues();
-                }
-            }
-        };
+        mHandler = new MyHandler(this);
 //        getData();
         mHandler.sendEmptyMessageDelayed(sendGetThreadValueCommand, 100);
     }
 
+    private static class MyHandler extends Handler {
+        WeakReference<SwitchSettingActivity> activityWeakReference;
+
+        MyHandler(SwitchSettingActivity activity) {
+            activityWeakReference = new WeakReference<SwitchSettingActivity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            final SwitchSettingActivity theActivity = activityWeakReference.get();
+            currentSearchCount++;
+            if (msg.what == sendGetThreadValueCommand) {
+                theActivity.flushValues();
+            } else if (msg.what == findSwitchParamBySwitch) {
+                theActivity.getValues();
+            }
+        }
+    }
     /**
      * 获取集中器下的线路 第一个作为默认显示
      */
@@ -543,7 +551,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
 
     @Override
     protected void dealloc() {
-
+        mHandler.removeMessages(findSwitchParamBySwitch);
     }
 
     class Item {

@@ -1,6 +1,5 @@
 package com.rejuvee.smartelectric.family.activity.energy;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -23,6 +22,7 @@ import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.model.bean.TimePrice;
 import com.rejuvee.smartelectric.family.widget.LoadingDlg;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
@@ -39,7 +39,7 @@ public class CostCalculationActivity extends BaseActivity {
     private List<ListSetingItem> mListData = new ArrayList<>();
     private static Handler mHandler;
 
-    private int MESSAGE_UPDATE_PRICE = 100;
+    private static int MESSAGE_UPDATE_PRICE = 100;
     private String[] timeOfUsePrice = null;
     private String currencySymbol;
     private String defaultPrice;
@@ -56,7 +56,7 @@ public class CostCalculationActivity extends BaseActivity {
         return 0;
     }
 
-    @SuppressLint("HandlerLeak")
+    //    @SuppressLint("HandlerLeak")
     @Override
     protected void initView() {
         findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {
@@ -82,18 +82,26 @@ public class CostCalculationActivity extends BaseActivity {
                 startActivityForResult(new Intent(CostCalculationActivity.this, TimePriceSetActivity.class), 1000);
             }
         });
-        mHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                if (msg.what == MESSAGE_UPDATE_PRICE) {
-                    updatePrice(0, 23, mEditText.getText().toString());
-                }
-            }
-        };
+        mHandler = new MyHandler(this);
 
         mWaitDialog = new LoadingDlg(this, -1);
         getPrice();//读取服务器的数据
+    }
+
+    private static class MyHandler extends Handler {
+        WeakReference<CostCalculationActivity> activityWeakReference;
+
+        MyHandler(CostCalculationActivity activity) {
+            activityWeakReference = new WeakReference<CostCalculationActivity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            CostCalculationActivity theActivity = activityWeakReference.get();
+            if (msg.what == MESSAGE_UPDATE_PRICE) {
+                theActivity.updatePrice(0, 23, theActivity.mEditText.getText().toString());
+            }
+        }
     }
 
     private void updatePrice(int start, int end, String price) {
@@ -174,12 +182,12 @@ public class CostCalculationActivity extends BaseActivity {
 
     private void savePriceToShared() {
         SharedPreferences sharedPreferences = getSharedPreferences("time-of-use pricing", MODE_PRIVATE);
-        String price = "";
-        for (int i = 0; i < timeOfUsePrice.length; i++) {
-            price += timeOfUsePrice[i] + ",";
+        StringBuilder price = new StringBuilder();
+        for (String s : timeOfUsePrice) {
+            price.append(s).append(",");
         }
-        sharedPreferences.edit().putString("prices", price).commit();
-        sharedPreferences.edit().putString("default", mEditText.getText().toString()).commit();
+        sharedPreferences.edit().putString("prices", price.toString()).apply();
+        sharedPreferences.edit().putString("default", mEditText.getText().toString()).apply();
     }
 
     private void readPriceFromShared() {
@@ -213,13 +221,13 @@ public class CostCalculationActivity extends BaseActivity {
     }
 
     private void uploadPrice() {
-        String price = "";
+        StringBuilder price = new StringBuilder();
         for (int i = 0; i < 24; i++) {
-            price += i + "," + timeOfUsePrice[i] + ";";
+            price.append(i).append(",").append(timeOfUsePrice[i]).append(";");
         }
         Log.d(TAG, "upload price = " + price);
         mWaitDialog.show();
-        Core.instance(this).addTimeOfUsePrice(price, new ActionCallbackListener<Void>() {
+        Core.instance(this).addTimeOfUsePrice(price.toString(), new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 mWaitDialog.dismiss();
