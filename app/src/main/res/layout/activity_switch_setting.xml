@@ -134,12 +134,12 @@
                         android:textSize="12sp" />
                 </LinearLayout>
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="25dp"
-                    android:background="@drawable/slices"
-                    android:contentDescription="slices" />
+                <!--                <ImageView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="1dp"-->
+                <!--                    android:layout_marginStart="25dp"-->
+                <!--                    android:background="@drawable/slices"-->
+                <!--                    android:contentDescription="slices" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -194,12 +194,12 @@
 
                 </LinearLayout>
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="25dp"
-                    android:background="@drawable/slices"
-                    android:contentDescription="slices" />
+                <!--                <ImageView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="1dp"-->
+                <!--                    android:layout_marginStart="25dp"-->
+                <!--                    android:background="@drawable/slices"-->
+                <!--                    android:contentDescription="slices" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -253,12 +253,12 @@
 
                 </LinearLayout>
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="25dp"
-                    android:background="@drawable/slices"
-                    android:contentDescription="slices" />
+                <!--                <ImageView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="1dp"-->
+                <!--                    android:layout_marginStart="25dp"-->
+                <!--                    android:background="@drawable/slices"-->
+                <!--                    android:contentDescription="slices" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -289,12 +289,12 @@
                         android:textSize="12sp" />
                 </LinearLayout>
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="25dp"
-                    android:background="@drawable/slices"
-                    android:contentDescription="slices" />
+                <!--                <ImageView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="1dp"-->
+                <!--                    android:layout_marginStart="25dp"-->
+                <!--                    android:background="@drawable/slices"-->
+                <!--                    android:contentDescription="slices" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -324,12 +324,12 @@
                         android:textSize="12sp" />
                 </LinearLayout>
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="25dp"
-                    android:background="@drawable/slices"
-                    android:contentDescription="slices" />
+                <!--                <ImageView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="1dp"-->
+                <!--                    android:layout_marginStart="25dp"-->
+                <!--                    android:background="@drawable/slices"-->
+                <!--                    android:contentDescription="slices" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -425,12 +425,12 @@
                         android:textSize="12sp" />
                 </LinearLayout>
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="25dp"
-                    android:background="@drawable/slices"
-                    android:contentDescription="slices" />
+                <!--                <ImageView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="1dp"-->
+                <!--                    android:layout_marginStart="25dp"-->
+                <!--                    android:background="@drawable/slices"-->
+                <!--                    android:contentDescription="slices" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -457,12 +457,12 @@
                         android:src="@drawable/jinru" />
                 </LinearLayout>
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="25dp"
-                    android:background="@drawable/slices"
-                    android:contentDescription="slices" />
+                <!--                <ImageView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="1dp"-->
+                <!--                    android:layout_marginStart="25dp"-->
+                <!--                    android:background="@drawable/slices"-->
+                <!--                    android:contentDescription="slices" />-->
 
                 <LinearLayout
                     android:id="@+id/ll_ldl"
@@ -517,12 +517,12 @@
 
                 </LinearLayout>
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="25dp"
-                    android:background="@drawable/slices"
-                    android:contentDescription="slices" />
+                <!--                <ImageView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="1dp"-->
+                <!--                    android:layout_marginStart="25dp"-->
+                <!--                    android:background="@drawable/slices"-->
+                <!--                    android:contentDescription="slices" />-->
 
                 <LinearLayout
                     android:id="@+id/ll_sxbph"
@@ -578,12 +578,12 @@
 
                 </LinearLayout>
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="25dp"
-                    android:background="@drawable/slices"
-                    android:contentDescription="slices" />
+                <!--                <ImageView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="1dp"-->
+                <!--                    android:layout_marginStart="25dp"-->
+                <!--                    android:background="@drawable/slices"-->
+                <!--                    android:contentDescription="slices" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -638,12 +638,12 @@
 
                 </LinearLayout>
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="25dp"
-                    android:background="@drawable/slices"
-                    android:contentDescription="slices" />
+                <!--                <ImageView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="1dp"-->
+                <!--                    android:layout_marginStart="25dp"-->
+                <!--                    android:background="@drawable/slices"-->
+                <!--                    android:contentDescription="slices" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -698,19 +698,17 @@
 
                 </LinearLayout>
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="25dp"
-                    android:background="@drawable/slices"
-                    android:contentDescription="slices" />
+                <!--                <ImageView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="1dp"-->
+                <!--                    android:layout_marginStart="25dp"-->
+                <!--                    android:background="@drawable/slices"-->
+                <!--                    android:contentDescription="slices" />-->
             </LinearLayout>
 
         </ScrollView>
 
-
     </LinearLayout>
-
 
     <com.base.library.widget.SuperTextView
         android:id="@+id/stv_commit"
@@ -725,5 +723,3 @@
         android:textSize="18sp"
         app:corner="8dp" />
 </LinearLayout>
-
-
