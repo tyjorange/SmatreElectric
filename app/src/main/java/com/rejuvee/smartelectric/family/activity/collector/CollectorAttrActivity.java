@@ -96,15 +96,14 @@ public class CollectorAttrActivity extends BaseActivity implements View.OnClickL
                 Baud = data.getBaud() + "";
                 Freq = data.getFreq() + "";
                 Ranges = data.getRanges() + "";
-                guzhangma = "";
+                guzhangma = data.getFaultFreq() + "";
                 heartrate = data.getHeartrate() + "";
                 text_devicename.setText(data.getDeviceName() + "");
                 text_botelv.setText(data.getBaud() + "bps");
                 text_caijilv.setText(data.getFreq() + "min");
                 text_gaojin.setText(data.getRanges() + "%");
-                text_guzhangma.setText(data.getFault() + "sec");
+                text_guzhangma.setText(data.getFaultFreq() + "sec");
                 text_xintiao.setText(data.getHeartrate() + "s");
-                Log.i("xintiao", data.getHeartrate() + "------");
             }
 
             @Override

@@ -10,6 +10,7 @@ import com.rejuvee.smartelectric.family.model.bean.ControllerId;
 import com.rejuvee.smartelectric.family.model.bean.EleBean;
 import com.rejuvee.smartelectric.family.model.bean.ElequantityBean;
 import com.rejuvee.smartelectric.family.model.bean.Headimg;
+import com.rejuvee.smartelectric.family.model.bean.MyEleBean;
 import com.rejuvee.smartelectric.family.model.bean.RecordBean;
 import com.rejuvee.smartelectric.family.model.bean.ReportBean;
 import com.rejuvee.smartelectric.family.model.bean.ReportDetailBean;
@@ -28,7 +29,6 @@ import com.rejuvee.smartelectric.family.model.bean.UserMsg;
 import com.rejuvee.smartelectric.family.model.bean.UserPushSetting;
 import com.rejuvee.smartelectric.family.model.bean.VoltageValue;
 import com.rejuvee.smartelectric.family.model.bean.WXAccessTokenRet;
-import com.rejuvee.smartelectric.family.model.bean.MyEleBean;
 import com.rejuvee.smartelectric.family.model.bean.WarnBean;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfo;
 
@@ -239,10 +239,10 @@ public interface Api {
     );
 
 
-    @POST("PowerManager/AppClientAction_getCollector.do")
-    Observable<ApiResponse<List<CollectorBean>>> rxGetCollector(
-            @Header("Cookie") String session
-    );
+//    @POST("PowerManager/AppClientAction_getCollector.do")
+//    Observable<ApiResponse<List<CollectorBean>>> rxGetCollector(
+//            @Header("Cookie") String session
+//    );
 
     /**
      * 获取断路器

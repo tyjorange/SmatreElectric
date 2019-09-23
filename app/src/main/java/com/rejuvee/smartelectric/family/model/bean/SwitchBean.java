@@ -17,47 +17,6 @@ import io.realm.annotations.Ignore;
 /**
  * Created by liuchengran on 2018/10/31.
  */
-/*"switchs": [{
-        "addTime": "2018-11-22 11:33:25",
-        "code": "201809130001",
-        "fault": 0,
-        "faultState": 2,
-        "faultTime": "2018-11-29 10:21:51",
-        "frequency": 0,
-        "iconType": 8,
-        "isLocked": 0,
-        "lockedPwd": "",
-        "lockedUser": null,
-        "name": "空调",
-        "sequence": 6,
-        "state": 1,
-        "switchID": "089D875AF6EF47B78A9FA65534702E52",
-        "today": 0,
-        "month": 0,
-        "lastMonth": 0,
-        "year": 0,
-        "tbjn": 0,
-        "hbjn": 0
-        },*/
-
-
-/*"switchs": [{
-        "addTime": "2018-12-03 13:52:19",
-        "code": "201809130006",
-        "fault": 32,
-        "faultState": 2,
-        "faultTime": "2019-01-10 09:21:13",
-        "frequency": 0,
-        "iconType": 0,
-        "isLocked": 0,
-        "lockedPwd": "",
-        "lockedUser": null,
-        "name": "照明6",
-        "sequence": 4,
-        "state": 0,
-        "switchID": "04D1F2C8EA8D4CFC88ADFF882AC2FEF8"
-        },*/
-
 public class SwitchBean implements Parcelable {
     @SerializedName("code")
     private String serialNumber;//断路器唯一标识
@@ -72,11 +31,11 @@ public class SwitchBean implements Parcelable {
     private int icon;//本地图标RES
     @Ignore
     private String deviceName;//所属设备名
-    public List<SwitchBean> child;
-    public String lastMonth;
+    private List<SwitchBean> child;
+    private String lastMonth;
     public int fault;
-    public int faultState;
-    public String temperature;//温度
+    private int faultState;
+    private String temperature;//温度
     public int timerCount;
 
     // switch 控制执行结果
@@ -90,6 +49,9 @@ public class SwitchBean implements Parcelable {
     private String tbjn;
     private String hbjn;
 
+    // 断路器版本
+    private int modelMajor;
+    private int modelMinor;
     @Ignore
     public int showDelIcon = View.GONE;
     /**
@@ -464,5 +426,21 @@ public class SwitchBean implements Parcelable {
 
     public void setTimerCount(int timerCount) {
         this.timerCount = timerCount;
+    }
+
+    public int getModelMajor() {
+        return modelMajor;
+    }
+
+    public void setModelMajor(int modelMajor) {
+        this.modelMajor = modelMajor;
+    }
+
+    public int getModelMinor() {
+        return modelMinor;
+    }
+
+    public void setModelMinor(int modelMinor) {
+        this.modelMinor = modelMinor;
     }
 }

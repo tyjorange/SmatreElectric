@@ -59,7 +59,7 @@ public class LineWarnAdapter extends BaseAdapter {
         holder.tvTitle.setText("线路:" + warnBean.getName());
         holder.tvCode.setText("ID:" + (warnBean.getCode()));
         holder.tvType.setText(SwitchBean.getParamName(mContext, warnBean.getParamID()));
-        holder.tvState.setText("值:" + warnBean.getWarningValue() + "/阀值:" + warnBean.getParamValue());
+        holder.tvState.setText("当前值:" + warnBean.getWarningValue() + "/安全阀值:" + warnBean.getParamValue());
         holder.tvDate.setText(warnBean.getTime());
         return convertView;
     }

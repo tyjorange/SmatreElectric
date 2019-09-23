@@ -164,8 +164,8 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
     @Override
     protected void initData() {
         getUserMsg();
-        getScene();
-        getCollector();
+//        getScene();
+//        getCollector();
         initToolBar();
         AutoUpgrade.getInstacne(this).start();
         EventBus.getDefault().register(this);

@@ -22,6 +22,7 @@ import com.rejuvee.smartelectric.family.model.bean.ControllerId;
 import com.rejuvee.smartelectric.family.model.bean.EleBean;
 import com.rejuvee.smartelectric.family.model.bean.ElequantityBean;
 import com.rejuvee.smartelectric.family.model.bean.Headimg;
+import com.rejuvee.smartelectric.family.model.bean.MyEleBean;
 import com.rejuvee.smartelectric.family.model.bean.RecordBean;
 import com.rejuvee.smartelectric.family.model.bean.ReportBean;
 import com.rejuvee.smartelectric.family.model.bean.ReportDetailBean;
@@ -41,7 +42,6 @@ import com.rejuvee.smartelectric.family.model.bean.UserMsg;
 import com.rejuvee.smartelectric.family.model.bean.UserPushSetting;
 import com.rejuvee.smartelectric.family.model.bean.VoltageValue;
 import com.rejuvee.smartelectric.family.model.bean.WXAccessTokenRet;
-import com.rejuvee.smartelectric.family.model.bean.MyEleBean;
 import com.rejuvee.smartelectric.family.model.bean.WarnBean;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfo;
 
@@ -311,14 +311,14 @@ public class Core {
      * @param
      * @return
      */
-    public Observable<ApiResponse<List<CollectorBean>>> rxGetCollector() {
-        try {
-            return api.rxGetCollector(mJSessionId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+//    public Observable<ApiResponse<List<CollectorBean>>> rxGetCollector() {
+//        try {
+//            return api.rxGetCollector(mJSessionId);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
     /**
      * 获取断路器
@@ -747,6 +747,7 @@ public class Core {
                                         String baud,
                                         String freq,
                                         String ranges,
+                                        String faultFreq,
                                         String HBFreq,
                                         ActionCallbackListener<Void> listener) {
         Param param = new Param();
@@ -755,6 +756,7 @@ public class Core {
         param.setBaud(baud);
         param.setFreq(freq);
         param.setRanges(ranges);
+        param.setFaultFreq(faultFreq);
         param.setHBFreq(HBFreq);
         Call<ApiResponse<Void>> call = api.updateCollectorParam(mJSessionId, param);
         enqueue(call, listener);

@@ -185,30 +185,30 @@ public class CollectorAttrSetActivity extends BaseActivity implements View.OnCli
                             CustomToast.showCustomErrorToast(this, "电箱名称1-12个字符");
                             break;
                         }
-                        changeCollector(collectorID, settext, null, null, null, null);
+                        changeCollector(collectorID, settext, null, null, null, null, null);
                         break;
                     case 1:
-                        changeCollector(collectorID, null, settext, null, null, null);
+                        changeCollector(collectorID, null, settext, null, null, null, null);
                         break;
                     case 2:
-                        changeCollector(collectorID, null, null, settext, null, null);
+                        changeCollector(collectorID, null, null, settext, null, null, null);
                         break;
                     case 3:
-                        changeCollector(collectorID, null, null, null, settext, null);
+                        changeCollector(collectorID, null, null, null, settext, null, null);
                         break;
                     case 4:
-//                        changeCollector(collectorID, null, null, null, settext, null);
+                        changeCollector(collectorID, null, null, null, null, settext, null);
                         break;
                     case 5:
-                        changeCollector(collectorID, null, null, null, null, settext);
+                        changeCollector(collectorID, null, null, null, null, null, settext);
                         break;
                 }
                 break;
         }
     }
 
-    public void changeCollector(String collectorID, String name, String baud, String freq, String ranges, String HBFreq) {
-        Core.instance(this).updateCollectorParam(collectorID, name, baud, freq, ranges, HBFreq, new ActionCallbackListener<Void>() {
+    public void changeCollector(String collectorID, String name, String baud, String freq, String ranges, String faultFreq, String HBFreq) {
+        Core.instance(this).updateCollectorParam(collectorID, name, baud, freq, ranges, faultFreq, HBFreq, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 Toast.makeText(CollectorAttrSetActivity.this, R.string.modify_succe, Toast.LENGTH_LONG).show();

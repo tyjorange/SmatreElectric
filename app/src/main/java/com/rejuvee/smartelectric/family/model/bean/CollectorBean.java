@@ -83,6 +83,7 @@ public class CollectorBean implements Parcelable {
 
     private int fault;
     private int faultState;
+    private int faultFreq;// 故障码频率
     public int beShared;// 1:别人分享给我的  0： 自己绑定的
     public int share;//beShare为0时，表示分享给多少个人
     public int enable;//集中器操作权限 0 没有 1 有
@@ -344,6 +345,14 @@ public class CollectorBean implements Parcelable {
 
     public void setFileID(int fileID) {
         this.fileID = fileID;
+    }
+
+    public int getFaultFreq() {
+        return faultFreq;
+    }
+
+    public void setFaultFreq(int faultFreq) {
+        this.faultFreq = faultFreq;
     }
 
     public static String getDeviceType(int ioType) {

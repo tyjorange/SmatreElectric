@@ -51,12 +51,13 @@ public class Param {
     private String scenes;
     private String sceneID;
     private String sceneSwitchID;
-    //
+    // 电箱参数设置项
     private String controllerID;
     private String collectorShareID;
     private String baud;
     private String freq;
     private String ranges;
+    private String faultFreq;
     private String HBFreq;
     //
     private String pid;
@@ -541,5 +542,13 @@ public class Param {
 
     public void setUnionid(String unionid) {
         this.unionid = unionid;
+    }
+
+    public String getFaultFreq() {
+        return faultFreq;
+    }
+
+    public void setFaultFreq(String faultFreq) {
+        this.faultFreq = faultFreq;
     }
 }

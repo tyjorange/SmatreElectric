@@ -101,7 +101,7 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
 
     @Override
     protected void initData() {
-        getSwitchByCollector();
+//        getSwitchByCollector();
     }
 
     /**
