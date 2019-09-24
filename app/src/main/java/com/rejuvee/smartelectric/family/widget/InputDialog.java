@@ -72,6 +72,11 @@ public class InputDialog extends Dialog implements View.OnClickListener {
         init(context);
     }
 
+    /**
+     * 上电配置 设置值
+     *
+     * @param val
+     */
     public void setVal(String val) {
         switch (val) {
             case "0":

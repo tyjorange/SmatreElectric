@@ -342,6 +342,24 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
     }
 
     /**
+     * 根据线路型号改变显示
+     */
+    private void changeView() {
+        // 漏电流阀值
+        if (currentSwitchBean.getModelMajor() == 1 && currentSwitchBean.getModelMinor() == 5) {
+            findViewById(R.id.ll_ldl).setVisibility(View.VISIBLE);
+        } else {
+            findViewById(R.id.ll_ldl).setVisibility(View.GONE);
+        }
+        // 三项不平衡
+        if (currentSwitchBean.getModelMajor() == 2 && currentSwitchBean.getModelMinor() == 1) {
+            findViewById(R.id.ll_sxbph).setVisibility(View.VISIBLE);
+        } else {
+            findViewById(R.id.ll_sxbph).setVisibility(View.GONE);
+        }
+    }
+
+    /**
      * 获取集中器下的线路 第一个作为默认显示
      */
     private void getSwitchByCollector() {
@@ -352,19 +370,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                 currentSwitchBean = data.get(0);//init bean
                 txtLineName.setText("线路：" + currentSwitchBean.getName());
                 mHandler.sendEmptyMessageDelayed(sendGetThreadValueCommand, 1000);
-                // 漏电流阀值
-                if (currentSwitchBean.getModelMajor() == 1 && currentSwitchBean.getModelMinor() == 5) {
-                    findViewById(R.id.ll_ldl).setVisibility(View.VISIBLE);
-                } else {
-                    findViewById(R.id.ll_ldl).setVisibility(View.GONE);
-                }
-                // 三项不平衡
-                if (currentSwitchBean.getModelMajor() == 2 && currentSwitchBean.getModelMinor() == 1) {
-                    findViewById(R.id.ll_sxbph).setVisibility(View.VISIBLE);
-                } else {
-                    findViewById(R.id.ll_sxbph).setVisibility(View.GONE);
-                }
-
+                changeView();
 //                getBreakSignalValue(curBreaker);
 //                judgSwitchstate(curBreaker);
             }
@@ -426,13 +432,14 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
 
                     @Override
                     public void onSuccess(List<VoltageValue> valueList) {
+                        Log.i(TAG, "findSwitchParamBySwitc=" + currentSearchCount);
                         if (valueList == null) {
                             CustomToast.showCustomToast(mContext, "获取配置失败");
                             waitDialog.dismiss();
                             return;
                         }
 //                        if (valueList.size() != 5) {
-                        if (currentSearchCount != MAX_REQUEST_COUNT) {
+                        if (currentSearchCount <= MAX_REQUEST_COUNT) {
                             mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitch, 1000);
                             return;
                         }
@@ -489,18 +496,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                         scrollView.setVisibility(View.VISIBLE);
                         superTextView.setVisibility(View.VISIBLE);
                         empty_layout.setVisibility(View.GONE);
-                        // 漏电流阀值
-                        if (currentSwitchBean.getModelMajor() == 1 && currentSwitchBean.getModelMinor() == 5) {
-                            findViewById(R.id.ll_ldl).setVisibility(View.VISIBLE);
-                        } else {
-                            findViewById(R.id.ll_ldl).setVisibility(View.GONE);
-                        }
-                        // 三项不平衡
-                        if (currentSwitchBean.getModelMajor() == 2 && currentSwitchBean.getModelMinor() == 1) {
-                            findViewById(R.id.ll_sxbph).setVisibility(View.VISIBLE);
-                        } else {
-                            findViewById(R.id.ll_sxbph).setVisibility(View.GONE);
-                        }
+                        changeView();
                     }
 
                     @Override
@@ -563,7 +559,6 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                 ",00000019:" + b3 +
                 ",0000001E:" + b5 +
                 ",0000001F:" + sdpz_val;
-        System.out.println(values);
 //        amountGY.setAmount(b1.floatValue());
 //        amountQY.setAmount(b2.floatValue());
         if (currentSwitchBean == null) {
@@ -617,7 +612,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
 
     @Override
     protected void dealloc() {
-        mHandler.removeMessages(findSwitchParamBySwitch);
+//        mHandler.removeMessages(findSwitchParamBySwitch);
     }
 
     class Item {
