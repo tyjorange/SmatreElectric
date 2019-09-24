@@ -22,6 +22,7 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.custom.AmountView;
+import com.rejuvee.smartelectric.family.custom.AmountViewInt;
 import com.rejuvee.smartelectric.family.custom.MyTextWatcher;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
@@ -50,7 +51,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
     private RangeSeekBar rangeSeekBarQY;
     private AmountView amountQY;
     private RangeSeekBar rangeSeekBarLDL;
-    private AmountView amountLDL;
+    private AmountViewInt amountLDL;
     private RangeSeekBar rangeSeekBarSXBPH;
     private AmountView amountSXBPH;
     //    private RangeSeekBar rangeSeekBarDL;
@@ -141,7 +142,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         rangeSeekBarGY = findViewById(R.id.seek_bar_gy);
         rangeSeekBarGY.setRange(50, 380);//范围
         rangeSeekBarGY.setTickMarkTextArray(new String[]{"50", "380"});//刻度
-        rangeSeekBarGY.setIndicatorTextDecimalFormat("000.0");//格式化小数位数
+        rangeSeekBarGY.setIndicatorTextDecimalFormat("###.0");//格式化小数位数
         rangeSeekBarGY.setOnRangeChangedListener(new OnRangeChangedListener() {
             @Override
             public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser) {
@@ -172,7 +173,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         rangeSeekBarQY = findViewById(R.id.seek_bar_qy);
         rangeSeekBarQY.setRange(50, 180);//范围
         rangeSeekBarQY.setTickMarkTextArray(new String[]{"50", "180"});//刻度
-        rangeSeekBarQY.setIndicatorTextDecimalFormat("000.0");//格式化小数位数
+        rangeSeekBarQY.setIndicatorTextDecimalFormat("###.0");//格式化小数位数
         rangeSeekBarQY.setOnRangeChangedListener(new OnRangeChangedListener() {
             @Override
             public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser) {
@@ -208,24 +209,25 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         // 漏电流阀值
         findViewById(R.id.ll_ldl).setVisibility(View.VISIBLE);
         amountLDL = findViewById(R.id.amount_view_ldl);
-        amountLDL.setVal_min(50);
-        amountLDL.setVal_max(180);
-        amountLDL.setAmount(50);
-        amountLDL.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
+        amountLDL.setVal_min(0);
+        amountLDL.setVal_max(999);
+        amountLDL.setAmount(0);
+        amountLDL.setOnAmountChangeListener(new AmountViewInt.OnAmountChangeListener() {
             @Override
             public void onAmountChange(View view, float amount) {
-                rangeSeekBarLDL.setProgress(amount);
+                rangeSeekBarLDL.setProgress((int) amount);
             }
         });
         rangeSeekBarLDL = findViewById(R.id.seek_bar_ldl);
-        rangeSeekBarLDL.setRange(50, 180);//范围
-        rangeSeekBarLDL.setTickMarkTextArray(new String[]{"50", "180"});//刻度
-        rangeSeekBarLDL.setIndicatorTextDecimalFormat("000.0");//格式化小数位数
+        rangeSeekBarLDL.setRange(0, 999);//范围
+        rangeSeekBarLDL.setTickMarkTextArray(new String[]{"0", "999"});//刻度
+        rangeSeekBarLDL.setIndicatorTextDecimalFormat("###");//格式化小数位数
         rangeSeekBarLDL.setOnRangeChangedListener(new OnRangeChangedListener() {
             @Override
             public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser) {
-                float v1 = BigDecimal.valueOf(leftValue).setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
-                amountLDL.setAmount(v1);
+                float v1 = BigDecimal.valueOf(leftValue).setScale(0, BigDecimal.ROUND_HALF_UP).floatValue();
+                amountLDL.setAmount((int) v1);
+                System.out.println(leftValue + " " + v1);
             }
 
             @Override
@@ -253,7 +255,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         rangeSeekBarSXBPH = findViewById(R.id.seek_bar_sxbph);
         rangeSeekBarSXBPH.setRange(10, 100);//范围
         rangeSeekBarSXBPH.setTickMarkTextArray(new String[]{"10", "100"});//刻度
-        rangeSeekBarSXBPH.setIndicatorTextDecimalFormat("000.0");//格式化小数位数
+        rangeSeekBarSXBPH.setIndicatorTextDecimalFormat("###.0");//格式化小数位数
         rangeSeekBarSXBPH.setOnRangeChangedListener(new OnRangeChangedListener() {
             @Override
             public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser) {
@@ -332,7 +334,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                 } else {
                     findViewById(R.id.ll_ldl).setVisibility(View.GONE);
                 }
-                //三项不平衡
+                // 三项不平衡
                 if (currentSwitchBean.getModelMajor() == 2 && currentSwitchBean.getModelMinor() == 1) {
                     findViewById(R.id.ll_sxbph).setVisibility(View.VISIBLE);
                 } else {
@@ -431,14 +433,28 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                                     BigDecimal s = BigDecimal.valueOf(Float.valueOf(paramValue)).setScale(0, BigDecimal.ROUND_HALF_UP);
                                     et_GL.setText(s.toString());
                                     break;
-                                case "24":// 下限
+                                case "24":// 电量下限
                                     dl_xiaxian.setText(new DecimalFormat("000000.00").format(Double.valueOf(paramValue.isEmpty() ? "0" : paramValue)));
                                     break;
-                                case "25":// 上限
+                                case "25":// 电量上限
                                     dl_shangxian.setText(new DecimalFormat("000000.00").format(Double.valueOf(paramValue.isEmpty() ? "0" : paramValue)));
+                                    break;
+                                case "27":// 漏电阀值
+                                    rangeSeekBarLDL.setProgress(Integer.valueOf(paramValue));
+                                    amountLDL.setAmount(Integer.valueOf(paramValue));
                                     break;
                                 case "30":// 温度阀值
                                     et_GWFZ.setText(new DecimalFormat("000.0").format(Double.valueOf(paramValue.isEmpty() ? "0" : paramValue)));
+                                    break;
+                                case "32":// 三相不平衡
+                                    rangeSeekBarSXBPH.setProgress(Float.valueOf(paramValue));
+                                    amountSXBPH.setAmount(Float.valueOf(paramValue));
+                                    break;
+                                case "33":// 故障电弧
+                                    //暂无断路器支持电弧类设置，所以不显示。
+                                    break;
+                                case "34":// 防雷阀值
+                                    //暂无断路器支持雷击类设置，所以不显示。
                                     break;
                             }
                         }
@@ -499,8 +515,8 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                 ",00000019:" + b3 +
                 ",0000001E:" + b5;
         System.out.println(values);
-        amountGY.setAmount(b1.floatValue());
-        amountQY.setAmount(b2.floatValue());
+//        amountGY.setAmount(b1.floatValue());
+//        amountQY.setAmount(b2.floatValue());
         if (currentSwitchBean == null) {
             return;
         }
