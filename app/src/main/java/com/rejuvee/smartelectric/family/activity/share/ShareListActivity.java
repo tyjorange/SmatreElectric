@@ -16,7 +16,6 @@ import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.UserMsg;
 import com.rejuvee.smartelectric.family.widget.DialogTip;
-import com.rejuvee.smartelectric.family.widget.InputDialog;
 import com.rejuvee.smartelectric.family.widget.WaitDialog;
 
 import java.util.ArrayList;
@@ -31,7 +30,6 @@ public class ShareListActivity extends BaseActivity {
     private UserMsg currentUser;
     private SetingAdapter setingAdapter;
 
-    private InputDialog inputDialog;
     private DialogTip mDialogSwitchEnable;
     private WaitDialog waitDialog;
     private CollectorBean collectorBean;
@@ -105,20 +103,6 @@ public class ShareListActivity extends BaseActivity {
 
         listView.setAdapter(setingAdapter);
         listView.setEmptyView(findViewById(R.id.empty_layout));
-        inputDialog = new InputDialog(this);
-        inputDialog.setTitle(getString(R.string.fun_share));
-        inputDialog.setHint(getString(R.string.input_share_username));
-        inputDialog.setDialogListener(new InputDialog.onInputDialogListener() {
-            @Override
-            public void onCancel() {
-
-            }
-
-            @Override
-            public void onEnsure(String content) {
-                addShareUser(content);
-            }
-        });
 
         waitDialog = new WaitDialog(this);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

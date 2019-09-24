@@ -3,49 +3,64 @@ package com.rejuvee.smartelectric.family.widget;
 import android.app.Dialog;
 import android.content.Context;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ImageView;
 
 import com.rejuvee.smartelectric.family.R;
 
 
 /**
- * Created by liuchengran on 2017/8/31.
+ * 单选弹窗
  */
-
 public class InputDialog extends Dialog implements View.OnClickListener {
-    private TextView txtTitle, txtCancel, txtOk;
-    private EditText editContent;
+    //    private EditText editContent;
+    private ImageView iv_item0;
+    private ImageView iv_item1;
+    private ImageView iv_item2;
+    private String sdpz_val = "-1";//上电配置值
     private onInputDialogListener mListener;
 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.txt_cancel) {
-            if (mListener != null)
-                mListener.onCancel();
+            dismiss();
         } else if (view.getId() == R.id.txt_ok) {
-            String content = editContent.getEditableText().toString();
-            if (content == null || content.isEmpty()) {
-                Toast.makeText(getContext(), getContext().getString(R.string.prompt), Toast.LENGTH_SHORT).show();
-                return;
+            if (mListener != null) {
+                mListener.onEnsure(sdpz_val);
             }
-            if (mListener != null)
-                mListener.onEnsure(content);
+            dismiss();
+        } else if (view.getId() == R.id.ll_item0) {
+            setV0();
+        } else if (view.getId() == R.id.ll_item1) {
+            setV1();
+        } else if (view.getId() == R.id.ll_item2) {
+            setV2();
         }
-
-        dismiss();
     }
 
-    public interface onInputDialogListener {
-        void onCancel();
-
-        void onEnsure(String content);
+    private void setV0() {
+        iv_item0.setImageDrawable(getContext().getResources().getDrawable(R.drawable.dx_chose_slices));
+        iv_item1.setImageDrawable(getContext().getResources().getDrawable(R.drawable.dx_unchose_slices));
+        iv_item2.setImageDrawable(getContext().getResources().getDrawable(R.drawable.dx_unchose_slices));
+        sdpz_val = "0";
     }
 
+    private void setV1() {
+        iv_item0.setImageDrawable(getContext().getResources().getDrawable(R.drawable.dx_unchose_slices));
+        iv_item1.setImageDrawable(getContext().getResources().getDrawable(R.drawable.dx_chose_slices));
+        iv_item2.setImageDrawable(getContext().getResources().getDrawable(R.drawable.dx_unchose_slices));
+        sdpz_val = "1";
+    }
+
+    private void setV2() {
+        iv_item0.setImageDrawable(getContext().getResources().getDrawable(R.drawable.dx_unchose_slices));
+        iv_item1.setImageDrawable(getContext().getResources().getDrawable(R.drawable.dx_unchose_slices));
+        iv_item2.setImageDrawable(getContext().getResources().getDrawable(R.drawable.dx_chose_slices));
+        sdpz_val = "2";
+    }
     public InputDialog(Context context) {
         super(context, com.base.library.R.style.Dialog);
         init(context);
@@ -57,45 +72,49 @@ public class InputDialog extends Dialog implements View.OnClickListener {
         init(context);
     }
 
+    public void setVal(String val) {
+        switch (val) {
+            case "0":
+                setV0();
+                break;
+            case "1":
+                setV1();
+                break;
+            case "2":
+                setV2();
+                break;
+        }
+        this.sdpz_val = val;
+    }
+
     public void setDialogListener(onInputDialogListener listener) {
         mListener = listener;
     }
 
     private void init(Context context) {
         setContentView(R.layout.dialog_input);
-        txtTitle = (TextView) findViewById(R.id.txt_title);
-        txtCancel = (TextView) findViewById(R.id.txt_cancel);
-        txtOk = (TextView) findViewById(R.id.txt_ok);
-
-        editContent = (EditText) findViewById(R.id.edit_content);
-
         setCanceledOnTouchOutside(true);
 
         Window dialogWindow = getWindow();
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
         DisplayMetrics d = context.getResources().getDisplayMetrics(); // 获取屏幕宽、高用
-        lp.width = (int) (d.widthPixels * 0.8); // 高度设置为屏幕的0.6
+        lp.width = d.widthPixels;
         dialogWindow.setAttributes(lp);
+        dialogWindow.setGravity(Gravity.BOTTOM);
 
-        txtOk.setOnClickListener(this);
-        txtCancel.setOnClickListener(this);
+        findViewById(R.id.txt_cancel).setOnClickListener(this);
+        findViewById(R.id.txt_ok).setOnClickListener(this);
+
+        findViewById(R.id.ll_item0).setOnClickListener(this);
+        findViewById(R.id.ll_item1).setOnClickListener(this);
+        findViewById(R.id.ll_item2).setOnClickListener(this);
+        iv_item0 = findViewById(R.id.iv_item0);
+        iv_item1 = findViewById(R.id.iv_item1);
+        iv_item2 = findViewById(R.id.iv_item2);
 
     }
 
-    public void setInputType(int inputType) {
-        editContent.setInputType(inputType);
+    public interface onInputDialogListener {
+        void onEnsure(String content);
     }
-
-    public void setHint(String hint) {
-        editContent.setHint(hint);
-    }
-
-    public void setTitle(String title) {
-        txtTitle.setText(title);
-    }
-
-    public void setContent(String content) {
-        editContent.setText(content);
-    }
-
 }

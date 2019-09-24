@@ -27,6 +27,7 @@ import com.rejuvee.smartelectric.family.custom.MyTextWatcher;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.model.bean.VoltageValue;
+import com.rejuvee.smartelectric.family.widget.InputDialog;
 import com.rejuvee.smartelectric.family.widget.LoadingDlg;
 
 import java.lang.ref.WeakReference;
@@ -57,9 +58,11 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
     //    private RangeSeekBar rangeSeekBarDL;
     private EditText dl_shangxian;
     private EditText dl_xiaxian;
+    // 上电配置
+    private TextView tv_sdpz;
     private SuperTextView superTextView;
     //    private ArrayAdapter<Item> adapter;
-//    private BreakEVSetHttpCall mHttpCall;
+    //    private BreakEVSetHttpCall mHttpCall;
     private Handler mHandler;
     private CollectorBean collectorBean;
     private SwitchBean currentSwitchBean;
@@ -69,6 +72,8 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
     private TextView txtLineName;//线路名称
     private ScrollView scrollView;
     private LinearLayout empty_layout;
+    private InputDialog inputDialog;
+    private String sdpz_val;//上电配置值
 
     @Override
     protected int getLayoutResId() {
@@ -87,6 +92,16 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        inputDialog = new InputDialog(this);
+//        inputDialog.setTitle(getString(R.string.fun_share));
+//        inputDialog.setHint(getString(R.string.input_share_username));
+        inputDialog.setDialogListener(new InputDialog.onInputDialogListener() {
+
+            @Override
+            public void onEnsure(String val) {
+                setSDPZ(val);
             }
         });
         waitDialog = new LoadingDlg(this, -1);
@@ -227,7 +242,6 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
             public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser) {
                 float v1 = BigDecimal.valueOf(leftValue).setScale(0, BigDecimal.ROUND_HALF_UP).floatValue();
                 amountLDL.setAmount((int) v1);
-                System.out.println(leftValue + " " + v1);
             }
 
             @Override
@@ -273,6 +287,15 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
 
             }
         });
+        // 上电配置
+        tv_sdpz = findViewById(R.id.tv_sdpz);
+        findViewById(R.id.ll_sdpz).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inputDialog.setVal(sdpz_val);
+                inputDialog.show();
+            }
+        });
         // 提交按钮
         superTextView = findViewById(R.id.stv_commit);
         superTextView.setOnClickListener(new View.OnClickListener() {
@@ -286,8 +309,8 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
 
     private static int currentSearchCount;//重试计数
     private static final int MAX_REQUEST_COUNT = 10;// 最大重新请求次数
-    private static final int findSwitchParamBySwitch = 0;//findParam
-    private static final int sendGetThreadValueCommand = 1;//sendGetParam
+    private static final int findSwitchParamBySwitch = 1221;//findParam
+    private static final int sendGetThreadValueCommand = 1223;//sendGetParam
 
     //    @SuppressLint("HandlerLeak")
     @Override
@@ -317,6 +340,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
             }
         }
     }
+
     /**
      * 获取集中器下的线路 第一个作为默认显示
      */
@@ -366,7 +390,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         }
         listPopupWindow.dismiss();
         waitDialog.show();
-        Core.instance(this).sendGetThreadValueCommand(currentSwitchBean.getSerialNumber(), "00000011,00000005,0000000D,00000018,00000019,0000001B,0000001C,0000001D,0000001E",
+        Core.instance(this).sendGetThreadValueCommand(currentSwitchBean.getSerialNumber(), "00000011,00000005,0000000D,00000018,00000019,0000001B,0000001C,0000001D,0000001E,0000001F",
                 new ActionCallbackListener<Void>() {
                     @Override
                     public void onSuccess(Void data) {
@@ -397,7 +421,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         if (currentSwitchBean == null) {
             return;
         }
-        Core.instance(this).findSwitchParamBySwitch(currentSwitchBean.getSwitchID(), "00000011,00000005,0000000D,00000018,00000019,0000001B,0000001C,0000001D,0000001E",
+        Core.instance(this).findSwitchParamBySwitch(currentSwitchBean.getSwitchID(), "00000011,00000005,0000000D,00000018,00000019,0000001B,0000001C,0000001D,0000001E,0000001F",
                 new ActionCallbackListener<List<VoltageValue>>() {
 
                     @Override
@@ -407,12 +431,12 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                             waitDialog.dismiss();
                             return;
                         }
-                        if (valueList.size() != 5) {
-                            if (currentSearchCount != MAX_REQUEST_COUNT) {
-                                mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitch, 1000);
-                                return;
-                            }
+//                        if (valueList.size() != 5) {
+                        if (currentSearchCount != MAX_REQUEST_COUNT) {
+                            mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitch, 1000);
+                            return;
                         }
+//                        }
                         // 设置值
                         for (VoltageValue vv : valueList) {
                             String paramValue = vv.getParamValue();
@@ -445,6 +469,9 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                                     break;
                                 case "30":// 温度阀值
                                     et_GWFZ.setText(new DecimalFormat("000.0").format(Double.valueOf(paramValue.isEmpty() ? "0" : paramValue)));
+                                    break;
+                                case "31":// 上电配置
+                                    setSDPZ(paramValue);
                                     break;
                                 case "32":// 三相不平衡
                                     rangeSeekBarSXBPH.setProgress(Float.valueOf(paramValue));
@@ -488,7 +515,28 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
     }
 
     /**
-     * 设置阀值
+     * 上电配置 设置值
+     *
+     * @param paramValue
+     */
+    private void setSDPZ(String paramValue) {
+        switch (paramValue) {
+            case "0":
+                tv_sdpz.setText("拉闸");
+                sdpz_val = "0";
+                break;
+            case "1":
+                tv_sdpz.setText("合闸");
+                sdpz_val = "1";
+                break;
+            case "2":
+                tv_sdpz.setText("不动作");
+                sdpz_val = "2";
+                break;
+        }
+    }
+    /**
+     * 设置阀值 批量提交
      */
     private void setValues() {
         BigDecimal b1 = BigDecimal.valueOf(rangeSeekBarGY.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
@@ -513,7 +561,8 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                 ",0000000D:" + b2 +
                 ",00000018:" + b4 +
                 ",00000019:" + b3 +
-                ",0000001E:" + b5;
+                ",0000001E:" + b5 +
+                ",0000001F:" + sdpz_val;
         System.out.println(values);
 //        amountGY.setAmount(b1.floatValue());
 //        amountQY.setAmount(b2.floatValue());
@@ -543,6 +592,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
 //                    }
 //                });
     }
+
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         if (hasFocus) {
