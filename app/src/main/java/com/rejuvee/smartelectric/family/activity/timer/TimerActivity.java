@@ -88,11 +88,11 @@ public class TimerActivity extends BaseActivity implements View.OnClickListener,
     }
 
     private void getData(SwitchBean switchBean) {
+        tv_line_name.setText("线路:" + switchBean.getName());
         mWaitDialog.show();
         Core.instance(this).findTimeControllerBySwitch(switchBean.getSwitchID(), new ActionCallbackListener<List<TimeTaskBean.TimeTask>>() {
             @Override
             public void onSuccess(List<TimeTaskBean.TimeTask> data) {
-                tv_line_name.setText("线路:" + switchBean.getName());
                 mListTaskData.clear();
                 mListTaskData.addAll(data);
                 mListTimerAdapter.notifyDataSetChanged();
@@ -101,7 +101,6 @@ public class TimerActivity extends BaseActivity implements View.OnClickListener,
 
             @Override
             public void onFailure(int errorEvent, String message) {
-                tv_line_name.setText("线路:" + switchBean.getName());
                 if (errorEvent == 12) {//无数据
                     mListTaskData.clear();
                     mListTimerAdapter.notifyDataSetChanged();
