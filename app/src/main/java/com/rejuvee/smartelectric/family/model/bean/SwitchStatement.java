@@ -8,15 +8,14 @@ import java.math.BigDecimal;
  */
 
 public class SwitchStatement {
-
     private String value;//电量
-    private String code;//时间
-    private String collector;//时间
-    private String frequency;//时间
-    private int iconType;//时间
-    private String name;//时间
-    private String time;//时间
-    private String price;
+    private String code;//
+    private String collector;//
+    private String frequency;//
+    private int iconType;//
+    private String name;//
+    private String time;//
+    private String price;//电费
 
     public String getCode() {
         return code;

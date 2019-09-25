@@ -13,7 +13,7 @@ import com.rejuvee.smartelectric.family.R;
 
 
 /**
- * 单选弹窗
+ * 单选弹窗 （上电配置0：拉闸；1：合闸，2：不动作）
  */
 public class InputDialog extends Dialog implements View.OnClickListener {
     //    private EditText editContent;

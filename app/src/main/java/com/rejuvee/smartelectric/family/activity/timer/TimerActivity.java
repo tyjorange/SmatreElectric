@@ -101,6 +101,7 @@ public class TimerActivity extends BaseActivity implements View.OnClickListener,
 
             @Override
             public void onFailure(int errorEvent, String message) {
+                tv_line_name.setText("线路:" + switchBean.getName());
                 if (errorEvent == 12) {//无数据
                     mListTaskData.clear();
                     mListTimerAdapter.notifyDataSetChanged();

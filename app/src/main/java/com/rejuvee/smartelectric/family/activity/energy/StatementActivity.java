@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.base.frame.greenandroid.wheel.view.WheelDateTime;
@@ -310,6 +309,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
         double totalQuantity = 0;
         double totalCharge = 0;
 
+        // 计算电量电费和
         for (SwitchStatement switchStatement : switchStatementList) {
             totalQuantity += switchStatement.getShowValue();
             totalCharge += switchStatement.getShowPrice();

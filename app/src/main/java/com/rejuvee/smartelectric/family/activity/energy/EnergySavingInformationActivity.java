@@ -92,7 +92,7 @@ public class EnergySavingInformationActivity extends BaseActivity implements Vie
      * 获取集中器下的线路 第一个作为默认显示
      */
     private void getSwitchByCollector() {
-        Core.instance(this).getSwitchByCollector(collectorBean.getCode(), "hierarchy", new ActionCallbackListener<List<SwitchBean>>() {
+        Core.instance(this).getSwitchByCollector(collectorBean.getCode(), "nohierarchy", new ActionCallbackListener<List<SwitchBean>>() {
             @Override
             public void onSuccess(List<SwitchBean> data) {
                 switchBean = data.get(0);//init bean

@@ -259,7 +259,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         amountSXBPH = findViewById(R.id.amount_view_sxbph);
         amountSXBPH.setVal_min(10);
         amountSXBPH.setVal_max(100);
-        amountSXBPH.setAmount(50);
+        amountSXBPH.setAmount(10);
         amountSXBPH.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
             @Override
             public void onAmountChange(View view, float amount) {
@@ -396,7 +396,8 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         }
         listPopupWindow.dismiss();
         waitDialog.show();
-        Core.instance(this).sendGetThreadValueCommand(currentSwitchBean.getSerialNumber(), "00000011,00000005,0000000D,00000018,00000019,0000001B,0000001C,0000001D,0000001E,0000001F",
+        Core.instance(this).sendGetThreadValueCommand(currentSwitchBean.getSerialNumber(),
+                "00000011,00000005,0000000D,00000018,00000019,0000001B,0000001C,0000001D,0000001E,0000001F,00000020",
                 new ActionCallbackListener<Void>() {
                     @Override
                     public void onSuccess(Void data) {
@@ -427,7 +428,8 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         if (currentSwitchBean == null) {
             return;
         }
-        Core.instance(this).findSwitchParamBySwitch(currentSwitchBean.getSwitchID(), "00000011,00000005,0000000D,00000018,00000019,0000001B,0000001C,0000001D,0000001E,0000001F",
+        Core.instance(this).findSwitchParamBySwitch(currentSwitchBean.getSwitchID(),
+                "00000011,00000005,0000000D,00000018,00000019,0000001B,0000001C,0000001D,0000001E,0000001F,00000020",
                 new ActionCallbackListener<List<VoltageValue>>() {
 
                     @Override
@@ -543,6 +545,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         String b4 = dl_xiaxian.getEditableText().toString();
         String b5 = et_GWFZ.getEditableText().toString();
         String b6 = et_GL.getEditableText().toString();
+        BigDecimal b7 = BigDecimal.valueOf(rangeSeekBarSXBPH.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
 //                System.out.println(valueGL);
 //                System.out.println(b1);
 //                System.out.println(b2);
@@ -558,7 +561,8 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                 ",00000018:" + b4 +
                 ",00000019:" + b3 +
                 ",0000001E:" + b5 +
-                ",0000001F:" + sdpz_val;
+                ",0000001F:" + sdpz_val +
+                ",00000020" + b7;
 //        amountGY.setAmount(b1.floatValue());
 //        amountQY.setAmount(b2.floatValue());
         if (currentSwitchBean == null) {
