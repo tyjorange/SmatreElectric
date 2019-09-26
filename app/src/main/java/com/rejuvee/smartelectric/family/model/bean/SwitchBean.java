@@ -49,9 +49,11 @@ public class SwitchBean implements Parcelable {
     private String tbjn;
     private String hbjn;
 
-    // 断路器版本 103 104 105
+    // 断路器版本型号
     private int modelMajor;
     private int modelMinor;
+    private int verMajor;
+    private int verMinor;
     @Ignore
     public int showDelIcon = View.GONE;
     /**
@@ -196,6 +198,8 @@ public class SwitchBean implements Parcelable {
         hbjn = in.readString();
         modelMajor = in.readInt();
         modelMinor = in.readInt();
+        verMajor = in.readInt();
+        verMinor = in.readInt();
         child = in.createTypedArrayList(SwitchBean.CREATOR);
     }
 
@@ -218,6 +222,8 @@ public class SwitchBean implements Parcelable {
         dest.writeString(hbjn);
         dest.writeInt(modelMajor);
         dest.writeInt(modelMinor);
+        dest.writeInt(verMajor);
+        dest.writeInt(verMinor);
         dest.writeTypedList(child);
     }
 
@@ -446,5 +452,21 @@ public class SwitchBean implements Parcelable {
 
     public void setModelMinor(int modelMinor) {
         this.modelMinor = modelMinor;
+    }
+
+    public int getVerMajor() {
+        return verMajor;
+    }
+
+    public void setVerMajor(int verMajor) {
+        this.verMajor = verMajor;
+    }
+
+    public int getVerMinor() {
+        return verMinor;
+    }
+
+    public void setVerMinor(int verMinor) {
+        this.verMinor = verMinor;
     }
 }

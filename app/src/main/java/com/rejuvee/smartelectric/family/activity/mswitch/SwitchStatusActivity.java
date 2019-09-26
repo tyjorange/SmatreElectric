@@ -16,6 +16,7 @@ import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchSignalItem;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -32,6 +33,7 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
     private TextView ldl_val;
     private TextView wd_val;
     private TextView ygdy_val;
+    private TextView switch_ver;
 
     @Override
     protected int getLayoutResId() {
@@ -56,6 +58,7 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
         ldl_val = findViewById(R.id.ldl_val);
         wd_val = findViewById(R.id.wd_val);
         ygdy_val = findViewById(R.id.ygdy_val);
+        switch_ver = findViewById(R.id.switch_ver);
         backBtn.setOnClickListener(this);
         change.setOnClickListener(this);
     }
@@ -65,6 +68,7 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
         getSwitchByCollector();
     }
 
+    private DecimalFormat df = new DecimalFormat("00");
     /**
      * 获取信号值
      *
@@ -72,6 +76,11 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
      */
     public void getBreakSignalValue(SwitchBean switchBean) {
         line_name.setText("线路:" + switchBean.getName());
+        String s = df.format(switchBean.getModelMajor()) +
+                df.format(switchBean.getModelMinor()) +
+                df.format(switchBean.getVerMajor()) +
+                df.format(switchBean.getVerMinor());
+        switch_ver.setText(s);
         Core.instance(this).getSignals(switchBean.getSwitchID(), new ActionCallbackListener<List<SwitchSignalItem>>() {
             @Override
             public void onSuccess(List<SwitchSignalItem> data) {
@@ -117,6 +126,7 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
                 wd_val.setText("-");
                 ldl_val.setText("-");
                 ygdy_val.setText("-");
+                switch_ver.setText("-");
                 CustomToast.showCustomErrorToast(SwitchStatusActivity.this, message);
             }
         });
