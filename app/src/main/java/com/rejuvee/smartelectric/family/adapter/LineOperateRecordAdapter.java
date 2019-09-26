@@ -90,7 +90,7 @@ public class LineOperateRecordAdapter extends BaseAdapter {
                     cmdResult = mContext.getString(R.string.sucess);
                 } else if (recordBean.runResult == 34) {
                     resultColor = mContext.getResources().getColor(R.color.blue);
-                    cmdResult = "查询操作结果超时";
+                    cmdResult = "结果超时";
                 } else {
                     resultColor = mContext.getResources().getColor(R.color.red_light);
                     cmdResult = (mContext.getString(R.string.failure) + "(" + recordBean.runResult + ")");
