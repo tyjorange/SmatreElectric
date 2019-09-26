@@ -640,7 +640,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
 
             @Override
             public void onFailure(int errorEvent, String message) {
-                CustomToast.showCustomToast(mContext, "设置失败");
+                CustomToast.showCustomErrorToast(mContext, message);
             }
         });
 //                mHttpCall.setLimitValue(switchBean.getSerialNumber(), values, new BreakEVSetHttpCall.IBreakSetCallback() {

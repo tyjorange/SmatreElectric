@@ -183,7 +183,7 @@ public class SwitchTreeDialog extends Dialog implements SwitchTree {
      */
     private void getSwitchByCollector() {
         waitDialog.show();
-        Core.instance(getContext()).getSwitchByCollector(mCollectorBean.getCode(), "nohierarchy", new ActionCallbackListener<List<SwitchBean>>() {
+        Core.instance(getContext()).getSwitchByCollector(mCollectorBean.getCode(), "hierarchy", new ActionCallbackListener<List<SwitchBean>>() {
             @Override
             public void onSuccess(List<SwitchBean> data) {
                 mListData.clear();

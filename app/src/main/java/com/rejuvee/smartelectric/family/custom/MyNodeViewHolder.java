@@ -72,7 +72,19 @@ public class MyNodeViewHolder extends TreeNode.BaseNodeViewHolder<SwitchBean> {
 
             view.setTag(holder);
         }
-        holder.txtContent.setText(switchBean.getName());
+        switch (treeNode.getLevel()) {
+            case 1:
+                holder.txtContent.setText("线路：" + switchBean.getName());
+                break;
+            case 2:
+                holder.txtContent.setText("分线：" + switchBean.getName());
+                break;
+            case 3:
+                holder.txtContent.setText("支线：" + switchBean.getName());
+                break;
+            default:
+                holder.txtContent.setText(switchBean.getName());
+        }
         holder.imgLine.setImageResource(switchBean.getIcon());
         holder.tvState.setVisibility(switchBean.getSwitchState() == 0 ? View.VISIBLE : View.GONE);// 更新状态文字
         holder.tvState.setText(SwitchBean.getSwitchFaultState(view.getContext(), switchBean.fault));// 更新状态文字
