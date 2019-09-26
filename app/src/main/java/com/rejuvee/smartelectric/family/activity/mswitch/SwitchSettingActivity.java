@@ -78,7 +78,6 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
     private Context mContext;
     private TextView txtLineName;//线路名称
     private ObservableScrollView scrollView;
-    private SeekBar seekBar;
     private LinearLayout empty_layout;
     private InputDialog inputDialog;
     private String sdpz_val;//上电配置值
@@ -115,9 +114,9 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         });
         waitDialog = new LoadingDlg(this, -1);
 
-        seekBar = findViewById(R.id.vrsBar);
+        SeekBar seekBar = findViewById(R.id.vrsBar);
         scrollView = (ObservableScrollView) findViewById(R.id.sv_values);
-        // 禁止用户手动竖向滚动
+        // 禁止用户手动垂直滚动
         scrollView.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
@@ -401,19 +400,19 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
      * 根据线路型号改变显示
      */
     private void changeView() {
-        // 漏电流阀值
+        // 漏电流阀值显示
         if (currentSwitchBean.getModelMajor() == 1 && currentSwitchBean.getModelMinor() == 5) {
             findViewById(R.id.ll_ldl).setVisibility(View.VISIBLE);
         } else {
             findViewById(R.id.ll_ldl).setVisibility(View.GONE);
         }
-        // 三项不平衡
+        // 三项不平衡显示
         if (currentSwitchBean.getModelMajor() == 2 && currentSwitchBean.getModelMinor() == 1) {
             findViewById(R.id.ll_sxbph).setVisibility(View.VISIBLE);
         } else {
             findViewById(R.id.ll_sxbph).setVisibility(View.GONE);
         }
-        // 这里刷新滑块显示状态
+        // 这里刷新滑块显示
         ScrollBindHelper.resetThumb();
     }
 

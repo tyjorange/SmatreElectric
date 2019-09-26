@@ -39,7 +39,6 @@ public class ReportWarnFragment extends BaseFragment {
             ReportDetailBean parcelable = arguments.getParcelable("reportDetailBean");
             if (parcelable != null) {
                 List<ReportDetailBean.Warn> list = parcelable.getWarn();
-                System.out.println("ReportWarnFragment " + list);
                 if (list != null) {
                     mListData.addAll(list);
                     adapter.notifyDataSetChanged();

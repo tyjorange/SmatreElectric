@@ -20,7 +20,7 @@ import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.NativeLine;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
-import com.rejuvee.smartelectric.family.model.bean.SwitchStatement;
+import com.rejuvee.smartelectric.family.model.bean.SwitchStatementBean;
 import com.rejuvee.smartelectric.family.widget.LoadingDlg;
 
 import java.math.BigDecimal;
@@ -40,7 +40,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
     //    private RadioGroup rgDate;
     private ListView lvStatement;
     private BaseAdapter adapter;
-    private List<SwitchStatement> switchStatementList;
+    private List<SwitchStatementBean> switchStatementBeanList;
     private WheelDateTime dateSelector;
     private TextView tvDate;
     private boolean isDay;
@@ -49,7 +49,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
     private int iyear;
     private int imonth;
     private int iday;
-    private List<CollectorBean> collectorBeanList;
+    //    private List<CollectorBean> collectorBeanList;
     private CollectorBean currentCollectorBean;
     private TabLayout mTabLayout;
     //    private ListView lvCollector;
@@ -310,9 +310,9 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
         double totalCharge = 0;
 
         // 计算电量电费和
-        for (SwitchStatement switchStatement : switchStatementList) {
-            totalQuantity += switchStatement.getShowValue();
-            totalCharge += switchStatement.getShowPrice();
+        for (SwitchStatementBean switchStatementBean : switchStatementBeanList) {
+            totalQuantity += switchStatementBean.getShowValue();
+            totalCharge += switchStatementBean.getShowPrice();
         }
 
         totalQuantity = new BigDecimal(totalQuantity).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
@@ -329,12 +329,12 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
         }
         waitDialog.show();
 
-        Core.instance(this).getTotalPowerByDay(currentCollectorBean.getCode(), time, new ActionCallbackListener<List<SwitchStatement>>() {
+        Core.instance(this).getTotalPowerByDay(currentCollectorBean.getCode(), time, new ActionCallbackListener<List<SwitchStatementBean>>() {
             @Override
-            public void onSuccess(List<SwitchStatement> data) {
+            public void onSuccess(List<SwitchStatementBean> data) {
                 waitDialog.dismiss();
-                switchStatementList.clear();
-                switchStatementList.addAll(data);
+                switchStatementBeanList.clear();
+                switchStatementBeanList.addAll(data);
                 adapter.notifyDataSetChanged();
                 changeTotal();
             }
@@ -342,16 +342,16 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void onFailure(int errorEvent, String message) {
                 waitDialog.dismiss();
-                if (switchStatementList != null) {
-                    switchStatementList.clear();
+                if (switchStatementBeanList != null) {
+                    switchStatementBeanList.clear();
                     adapter.notifyDataSetChanged();
                 }
 
                 if (errorEvent == 12) {
-                    message = getString(R.string.local_error_message_no_data);
+//                    message = getString(R.string.local_error_message_no_data);
                     CustomToast.showCustomErrorToast(StatementActivity.this, message);
                 } else {
-                    message = getString(R.string.get_data_fail);
+//                    message = getString(R.string.get_data_fail);
                     CustomToast.showCustomErrorToast(StatementActivity.this, message);
                 }
 
@@ -364,12 +364,12 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
             return;
         }
         waitDialog.show();
-        Core.instance(this).getTotalPowerByMonth(currentCollectorBean.getCode(), time, new ActionCallbackListener<List<SwitchStatement>>() {
+        Core.instance(this).getTotalPowerByMonth(currentCollectorBean.getCode(), time, new ActionCallbackListener<List<SwitchStatementBean>>() {
             @Override
-            public void onSuccess(List<SwitchStatement> data) {
+            public void onSuccess(List<SwitchStatementBean> data) {
                 waitDialog.dismiss();
-                switchStatementList.clear();
-                switchStatementList.addAll(data);
+                switchStatementBeanList.clear();
+                switchStatementBeanList.addAll(data);
                 adapter.notifyDataSetChanged();
                 changeTotal();
             }
@@ -377,15 +377,15 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void onFailure(int errorEvent, String message) {
                 waitDialog.dismiss();
-                if (switchStatementList != null) {
-                    switchStatementList.clear();
+                if (switchStatementBeanList != null) {
+                    switchStatementBeanList.clear();
                     adapter.notifyDataSetChanged();
                 }
 
                 if (errorEvent == 12) {
-                    message = getString(R.string.local_error_message_no_data);
+//                    message = getString(R.string.local_error_message_no_data);
                 } else {
-                    message = getString(R.string.get_data_fail);
+//                    message = getString(R.string.get_data_fail);
                 }
                 CustomToast.showCustomErrorToast(StatementActivity.this, message);
 
@@ -396,7 +396,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     protected void initData() {
-        switchStatementList = new ArrayList<>();
+        switchStatementBeanList = new ArrayList<>();
         initTimeSelect();
         currentCollectorBean = getIntent().getParcelableExtra("collectorBean");
 //        tvDevice.setText(currentCollectorBean.getDeviceName());
@@ -406,16 +406,16 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void initAdapter() {
-        switchStatementList = new ArrayList<>();
+        switchStatementBeanList = new ArrayList<>();
         adapter = new BaseAdapter() {
             @Override
             public int getCount() {
-                return switchStatementList.size();
+                return switchStatementBeanList.size();
             }
 
             @Override
             public Object getItem(int position) {
-                return switchStatementList.get(position);
+                return switchStatementBeanList.get(position);
             }
 
             @Override
@@ -426,7 +426,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
 
-                SwitchStatement switchStatement = switchStatementList.get(position);
+                SwitchStatementBean switchStatementBean = switchStatementBeanList.get(position);
 
                 ViewHolder viewHolder;
                 if (convertView == null) {
@@ -441,11 +441,11 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                 } else {
                     viewHolder = (ViewHolder) convertView.getTag();
                 }
-                viewHolder.ivPicture.setImageResource(NativeLine.LinePictures[switchStatement.getIconType() % NativeLine.LinePictures.length]);
-                viewHolder.tvName.setText(switchStatement.getName());
+                viewHolder.ivPicture.setImageResource(NativeLine.LinePictures[switchStatementBean.getIconType() % NativeLine.LinePictures.length]);
+                viewHolder.tvName.setText(switchStatementBean.getName());
 
-                viewHolder.tvQuantity.setText(String.valueOf(switchStatement.getShowValue()));
-                viewHolder.tvCharge.setText(String.valueOf(switchStatement.getShowPrice() + ""));
+                viewHolder.tvQuantity.setText(String.valueOf(switchStatementBean.getShowValue()));
+                viewHolder.tvCharge.setText(String.valueOf(switchStatementBean.getShowPrice() + ""));
 
                 return convertView;
             }

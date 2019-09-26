@@ -39,7 +39,6 @@ public class ReportAlarmFragment extends BaseFragment {
             ReportDetailBean parcelable = arguments.getParcelable("reportDetailBean");
             if (parcelable != null) {
                 List<ReportDetailBean.Alarm> list = parcelable.getAlarm();
-                System.out.println("ReportAlarmFragment " + list);
                 if (list != null) {
                     mListData.addAll(list);
                     adapter.notifyDataSetChanged();

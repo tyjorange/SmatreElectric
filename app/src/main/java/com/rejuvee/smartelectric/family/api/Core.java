@@ -34,7 +34,7 @@ import com.rejuvee.smartelectric.family.model.bean.SignalValue;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchInfoBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchSignalItem;
-import com.rejuvee.smartelectric.family.model.bean.SwitchStatement;
+import com.rejuvee.smartelectric.family.model.bean.SwitchStatementBean;
 import com.rejuvee.smartelectric.family.model.bean.ThirdPartyInfo;
 import com.rejuvee.smartelectric.family.model.bean.TimePrice;
 import com.rejuvee.smartelectric.family.model.bean.TimeTaskBean;
@@ -502,11 +502,11 @@ public class Core {
      * @param time          yyyy-MM-dd
      * @return
      */
-    public Call<?> getTotalPowerByDay(String collectorCode, String time, ActionCallbackListener<List<SwitchStatement>> listener) {
+    public Call<?> getTotalPowerByDay(String collectorCode, String time, ActionCallbackListener<List<SwitchStatementBean>> listener) {
         Param param = new Param();
         param.setCollectorCode(collectorCode);
         param.setTime(time);
-        Call<ApiResponse<List<SwitchStatement>>> call = api.getTotalPowerByDay(mJSessionId, param);
+        Call<ApiResponse<List<SwitchStatementBean>>> call = api.getTotalPowerByDay(mJSessionId, param);
         enqueue(call, listener);
         return call;
     }
@@ -536,11 +536,11 @@ public class Core {
      * @param time          yyyy-MM-dd
      * @return
      */
-    public Call<?> getTotalPowerByMonth(String collectorCode, String time, ActionCallbackListener<List<SwitchStatement>> listener) {
+    public Call<?> getTotalPowerByMonth(String collectorCode, String time, ActionCallbackListener<List<SwitchStatementBean>> listener) {
         Param param = new Param();
         param.setCollectorCode(collectorCode);
         param.setTime(time);
-        Call<ApiResponse<List<SwitchStatement>>> call = api.getTotalPowerByMonth(mJSessionId, param);
+        Call<ApiResponse<List<SwitchStatementBean>>> call = api.getTotalPowerByMonth(mJSessionId, param);
         enqueue(call, listener);
         return call;
     }

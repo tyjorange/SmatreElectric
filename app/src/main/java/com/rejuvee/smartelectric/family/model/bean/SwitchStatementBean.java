@@ -3,19 +3,22 @@ package com.rejuvee.smartelectric.family.model.bean;
 import java.math.BigDecimal;
 
 /**
- * Created by SH on 2017/12/19.
  * 断路器统计数据
+ * 我的电表
+ * 电量+电费
  */
-
-public class SwitchStatement {
+public class SwitchStatementBean {
     private String value;//电量
-    private String code;//
-    private String collector;//
-    private String frequency;//
-    private int iconType;//
-    private String name;//
-    private String time;//
     private String price;//电费
+    private int switchID;
+    private int pid;
+    private String code;//线路编码
+    private String name;//线路名称
+    private int iconType;//线路图标
+
+    //    private String collector;//
+    //    private String frequency;//
+//    private String time;//
 
     public String getCode() {
         return code;
@@ -23,22 +26,6 @@ public class SwitchStatement {
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public String getCollector() {
-        return collector;
-    }
-
-    public void setCollector(String collector) {
-        this.collector = collector;
-    }
-
-    public String getFrequency() {
-        return frequency;
-    }
-
-    public void setFrequency(String frequency) {
-        this.frequency = frequency;
     }
 
     public int getIconType() {
@@ -78,19 +65,27 @@ public class SwitchStatement {
         this.value = value;
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
     public String getPrice() {
         return price;
     }
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public int getSwitchID() {
+        return switchID;
+    }
+
+    public void setSwitchID(int switchID) {
+        this.switchID = switchID;
+    }
+
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
     }
 }

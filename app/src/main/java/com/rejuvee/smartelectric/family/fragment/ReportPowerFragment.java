@@ -39,7 +39,6 @@ public class ReportPowerFragment extends BaseFragment {
             ReportDetailBean parcelable = arguments.getParcelable("reportDetailBean");
             if (parcelable != null) {
                 List<ReportDetailBean.Power> list = parcelable.getPower();
-                System.out.println("ReportPowerFragment " + list);
                 if (list != null) {
                     mListData.addAll(list);
                     adapter.notifyDataSetChanged();

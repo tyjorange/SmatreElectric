@@ -22,7 +22,7 @@ import com.rejuvee.smartelectric.family.model.bean.SignalValue;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchInfoBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchSignalItem;
-import com.rejuvee.smartelectric.family.model.bean.SwitchStatement;
+import com.rejuvee.smartelectric.family.model.bean.SwitchStatementBean;
 import com.rejuvee.smartelectric.family.model.bean.TimePrice;
 import com.rejuvee.smartelectric.family.model.bean.TimeTaskBean;
 import com.rejuvee.smartelectric.family.model.bean.UserMsg;
@@ -367,7 +367,7 @@ public interface Api {
      * @return
      */
     @POST("PowerManager/AppClientAction_getTotalPowerByDay_v1.do")
-    Call<ApiResponse<List<SwitchStatement>>> getTotalPowerByDay(
+    Call<ApiResponse<List<SwitchStatementBean>>> getTotalPowerByDay(
             @Header("Cookie") String session,
             @Body Param param
     );
@@ -378,7 +378,7 @@ public interface Api {
      * @return
      */
     @POST("PowerManager/AppClientAction_getTotalPowerByMonth_v1.do")
-    Call<ApiResponse<List<SwitchStatement>>> getTotalPowerByMonth(
+    Call<ApiResponse<List<SwitchStatementBean>>> getTotalPowerByMonth(
             @Header("Cookie") String session,
             @Body Param param
     );
