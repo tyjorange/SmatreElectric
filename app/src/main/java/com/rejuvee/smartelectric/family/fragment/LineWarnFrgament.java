@@ -105,6 +105,4 @@ public class LineWarnFrgament extends BaseFragment {
             }
         });
     }
-
-
 }

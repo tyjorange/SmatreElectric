@@ -1,5 +1,6 @@
 package com.rejuvee.smartelectric.family.activity.mswitch;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
@@ -89,6 +90,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         return 0;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void initView() {
         mContext = this;
@@ -109,8 +111,9 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
             }
         });
         waitDialog = new LoadingDlg(this, -1);
+
         scrollView = (ObservableScrollView) findViewById(R.id.sv_values);
-        // 禁止竖向滚动
+        // 禁止用户手动竖向滚动
         scrollView.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
@@ -118,8 +121,9 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                 return true;
             }
         });
-        SeekBar viewById = findViewById(R.id.vrsBar);
-        ScrollBindHelper.bind(viewById, scrollView);
+        SeekBar seekBar = findViewById(R.id.vrsBar);
+        // scrollView绑定滚动条seekBar
+        ScrollBindHelper.bind(seekBar, scrollView);
 
         empty_layout = (LinearLayout) findViewById(R.id.empty_layout);
         //切换线路

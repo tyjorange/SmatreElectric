@@ -53,8 +53,7 @@ public class ScrollBindHelper implements SeekBar.OnSeekBarChangeListener, Observ
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        showScroll();
-        System.out.println(progress);
+//        showScroll();
         if (!isUserSeeking) {
             handler.reset();
         }
@@ -83,7 +82,7 @@ public class ScrollBindHelper implements SeekBar.OnSeekBarChangeListener, Observ
     }
 
     /*动画*/
-    public static final long DEFAULT_TIME_OUT = 1000L;
+    private static final long DEFAULT_TIME_OUT = 1000L;
 
     @Override
     public void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy) {
@@ -102,11 +101,11 @@ public class ScrollBindHelper implements SeekBar.OnSeekBarChangeListener, Observ
 
         private ScrollBindHelper helper;
 
-        public VisibleHandler(ScrollBindHelper helper) {
+        VisibleHandler(ScrollBindHelper helper) {
             this.helper = helper;
         }
 
-        public void reset() {
+        void reset() {
             sendMsgDelayed(DEFAULT_TIME_OUT);
         }
 

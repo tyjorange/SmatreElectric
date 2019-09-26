@@ -4,6 +4,9 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ScrollView;
 
+/**
+ * 配合VerticalSeekBar
+ */
 public class ObservableScrollView extends ScrollView {
     public ScrollViewListener scrollViewListener = null;
 

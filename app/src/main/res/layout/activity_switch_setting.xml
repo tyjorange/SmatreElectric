@@ -761,7 +761,11 @@
 
         <com.rejuvee.smartelectric.family.widget.VerticalSeekBar
             android:id="@+id/vrsBar"
-            android:layout_width="30dp"
+            android:layout_width="25dp"
+            android:maxHeight="2dp"
+            android:minHeight="2dp"
+            android:progressDrawable="@drawable/seekbar_shape"
+            android:thumb="@drawable/huakuai"
             android:layout_height="match_parent" />
     </LinearLayout>
 
