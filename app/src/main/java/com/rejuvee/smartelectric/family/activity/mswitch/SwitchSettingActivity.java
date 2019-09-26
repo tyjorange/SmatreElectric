@@ -50,7 +50,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
     private ListPopupWindow listPopupWindow;
     //    private Spinner spinnerGL;
     private EditText et_GL;
-    private EditText et_GWFZ;
+    //    private EditText et_GWFZ;
     //    private Float valueGL;
     private RangeSeekBar rangeSeekBarGY;
     private AmountView amountGY;
@@ -58,6 +58,8 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
     private AmountView amountQY;
     private RangeSeekBar rangeSeekBarLDL;
     private AmountViewInt amountLDL;
+    private RangeSeekBar rangeSeekBarGWFZ;
+    private AmountView amountGWFZ;
     private RangeSeekBar rangeSeekBarSXBPH;
     private AmountView amountSXBPH;
     //    private RangeSeekBar rangeSeekBarDL;
@@ -238,11 +240,42 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         dl_xiaxian.setOnFocusChangeListener(myTextWatcher2);
         dl_xiaxian.setFilters(new InputFilter[]{new InputFilter.LengthFilter(9)});
         // 高温阀值
-        et_GWFZ = findViewById(R.id.et_gwfz);
-        MyTextWatcher myTextWatcher3 = new MyTextWatcher(et_GWFZ, "000.0");
-        et_GWFZ.addTextChangedListener(myTextWatcher3);
-        et_GWFZ.setOnFocusChangeListener(myTextWatcher3);
-        et_GWFZ.setFilters(new InputFilter[]{new InputFilter.LengthFilter(5)});
+//        et_GWFZ = findViewById(R.id.et_gwfz);
+//        MyTextWatcher myTextWatcher3 = new MyTextWatcher(et_GWFZ, "000.0");
+//        et_GWFZ.addTextChangedListener(myTextWatcher3);
+//        et_GWFZ.setOnFocusChangeListener(myTextWatcher3);
+//        et_GWFZ.setFilters(new InputFilter[]{new InputFilter.LengthFilter(5)});
+        amountGWFZ = findViewById(R.id.amount_view_gwfz);
+        amountGWFZ.setVal_min(0);
+        amountGWFZ.setVal_max(85);
+//        amountGWFZ.setAmount(0);
+        amountGWFZ.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
+            @Override
+            public void onAmountChange(View view, float amount) {
+                rangeSeekBarGWFZ.setProgress(amount);
+            }
+        });
+        rangeSeekBarGWFZ = findViewById(R.id.seek_bar_gwfz);
+        rangeSeekBarGWFZ.setRange(0, 85);//范围
+        rangeSeekBarGWFZ.setTickMarkTextArray(new String[]{"0", "85"});//刻度
+        rangeSeekBarGWFZ.setIndicatorTextDecimalFormat("000.0");//格式化小数位数
+        rangeSeekBarGWFZ.setOnRangeChangedListener(new OnRangeChangedListener() {
+            @Override
+            public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser) {
+                float v1 = BigDecimal.valueOf(leftValue).setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
+                amountGWFZ.setAmount(v1);
+            }
+
+            @Override
+            public void onStartTrackingTouch(RangeSeekBar view, boolean isLeft) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(RangeSeekBar view, boolean isLeft) {
+
+            }
+        });
         // 漏电流阀值
         findViewById(R.id.ll_ldl).setVisibility(View.VISIBLE);
         amountLDL = findViewById(R.id.amount_view_ldl);
@@ -475,6 +508,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                                 CustomToast.showCustomToast(mContext, "读取配置失败");
                                 continue;
                             }
+                            resetValue();
                             switch (vv.getParamID()) {
                                 case "5": // 过压
                                     rangeSeekBarGY.setProgress(Float.valueOf(paramValue));
@@ -499,7 +533,9 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                                     amountLDL.setAmount(Integer.valueOf(paramValue));
                                     break;
                                 case "30":// 温度阀值
-                                    et_GWFZ.setText(new DecimalFormat("000.0").format(Double.valueOf(paramValue.isEmpty() ? "0" : paramValue)));
+                                    rangeSeekBarGWFZ.setProgress(Float.valueOf(paramValue));
+                                    amountGWFZ.setAmount(Float.valueOf(paramValue));
+//                                    et_GWFZ.setText(new DecimalFormat("000.0").format(Double.valueOf(paramValue.isEmpty() ? "0" : paramValue)));
                                     break;
                                 case "31":// 上电配置
                                     setSDPZ(paramValue);
@@ -534,6 +570,10 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                 });
     }
 
+    private void resetValue() {
+        rangeSeekBarGWFZ.setProgress(0);
+        amountGWFZ.setAmount(0);
+    }
     /**
      * 上电配置 设置值
      *
@@ -565,7 +605,8 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
 //                BigDecimal b4 = BigDecimal.valueOf(rangeSeekBarDL.getRightSeekBar().getProgress()).setScale(0, BigDecimal.ROUND_HALF_UP);
         String b3 = dl_shangxian.getEditableText().toString();
         String b4 = dl_xiaxian.getEditableText().toString();
-        String b5 = et_GWFZ.getEditableText().toString();
+//        String b5 = et_GWFZ.getEditableText().toString();
+        BigDecimal b5 = BigDecimal.valueOf(rangeSeekBarGWFZ.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
         String b6 = et_GL.getEditableText().toString();
         BigDecimal b7 = BigDecimal.valueOf(rangeSeekBarSXBPH.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
 //                System.out.println(valueGL);
