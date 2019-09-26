@@ -78,6 +78,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
     private Context mContext;
     private TextView txtLineName;//线路名称
     private ObservableScrollView scrollView;
+    private SeekBar seekBar;
     private LinearLayout empty_layout;
     private InputDialog inputDialog;
     private String sdpz_val;//上电配置值
@@ -114,6 +115,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         });
         waitDialog = new LoadingDlg(this, -1);
 
+        seekBar = findViewById(R.id.vrsBar);
         scrollView = (ObservableScrollView) findViewById(R.id.sv_values);
         // 禁止用户手动竖向滚动
         scrollView.setOnTouchListener(new View.OnTouchListener() {
@@ -123,7 +125,6 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                 return true;
             }
         });
-        SeekBar seekBar = findViewById(R.id.vrsBar);
         // scrollView绑定滚动条seekBar
         ScrollBindHelper.bind(seekBar, scrollView);
 
@@ -412,6 +413,8 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         } else {
             findViewById(R.id.ll_sxbph).setVisibility(View.GONE);
         }
+        // 这里刷新滑块显示状态
+        ScrollBindHelper.resetThumb();
     }
 
     /**

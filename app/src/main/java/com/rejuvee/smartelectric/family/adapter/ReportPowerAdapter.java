@@ -50,7 +50,7 @@ public class ReportPowerAdapter extends BaseAdapter {
         }
         holder.tv_line_name.setText("线路:" + getItem(position).getSwitchName());
         holder.tv_power_count.setText(getItem(position).getCount() + "度");
-        holder.tv_line_id.setText("ID:" + getItem(position).getSwitchID());
+        holder.tv_line_id.setText("ID:" + getItem(position).getSwitchCode());
         return convertView;
     }
 

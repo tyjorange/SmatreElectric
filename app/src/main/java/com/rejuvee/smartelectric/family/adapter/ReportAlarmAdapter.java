@@ -53,7 +53,7 @@ public class ReportAlarmAdapter extends BaseAdapter {
         holder.tv_line_name.setText("线路:" + getItem(position).getSwitchName());
         holder.tv_alarm_type.setText(SwitchBean.getSwitchFaultState(mContext, getItem(position).getErrType()));
         holder.tv_alarm_count.setText(getItem(position).getCount() + "次");
-        holder.tv_line_id.setText("ID:" + getItem(position).getSwitchID());
+        holder.tv_line_id.setText("ID:" + getItem(position).getSwitchCode());
         return convertView;
     }
 

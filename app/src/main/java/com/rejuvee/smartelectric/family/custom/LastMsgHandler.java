@@ -14,7 +14,7 @@ public abstract class LastMsgHandler extends Handler {
     /**
      * 增加Count数。
      */
-    public synchronized final void increaseCount() {
+    private synchronized void increaseCount() {
         count++;
     }
 
@@ -25,7 +25,7 @@ public abstract class LastMsgHandler extends Handler {
 
     //增加count数后发送延时消息
     //如果延时小于或者等于0则直接发送。
-    public final void sendMsgDelayed(long delay) {
+    protected final void sendMsgDelayed(long delay) {
         increaseCount();
         if (delay <= 0) {
             sendEmptyMessage(0);

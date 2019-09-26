@@ -39,7 +39,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:gravity="center"
@@ -51,8 +50,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="123123"
-            android:textColor="@color/text_base_color_333"
-            android:textSize="12sp" />
+            android:textColor="@color/text_base_color_666"
+            android:textSize="9sp" />
 
         <TextView
             android:id="@+id/tv_time"
