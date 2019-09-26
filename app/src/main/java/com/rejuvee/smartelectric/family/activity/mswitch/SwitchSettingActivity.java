@@ -4,13 +4,15 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.ListPopupWindow;
+import android.text.InputFilter;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.base.frame.net.ActionCallbackListener;
@@ -27,8 +29,10 @@ import com.rejuvee.smartelectric.family.custom.MyTextWatcher;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.model.bean.VoltageValue;
+import com.rejuvee.smartelectric.family.utils.ScrollBindHelper;
 import com.rejuvee.smartelectric.family.widget.InputDialog;
 import com.rejuvee.smartelectric.family.widget.LoadingDlg;
+import com.rejuvee.smartelectric.family.widget.ObservableScrollView;
 
 import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
@@ -70,7 +74,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
     private LoadingDlg waitDialog;
     private Context mContext;
     private TextView txtLineName;//线路名称
-    private ScrollView scrollView;
+    private ObservableScrollView scrollView;
     private LinearLayout empty_layout;
     private InputDialog inputDialog;
     private String sdpz_val;//上电配置值
@@ -105,7 +109,18 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
             }
         });
         waitDialog = new LoadingDlg(this, -1);
-        scrollView = (ScrollView) findViewById(R.id.sv_values);
+        scrollView = (ObservableScrollView) findViewById(R.id.sv_values);
+        // 禁止竖向滚动
+        scrollView.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+        SeekBar viewById = findViewById(R.id.vrsBar);
+        ScrollBindHelper.bind(viewById, scrollView);
+
         empty_layout = (LinearLayout) findViewById(R.id.empty_layout);
         //切换线路
         txtLineName = (TextView) findViewById(R.id.txt_line_name);
@@ -211,16 +226,19 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         MyTextWatcher myTextWatcher1 = new MyTextWatcher(dl_shangxian, "000000.00");
         dl_shangxian.addTextChangedListener(myTextWatcher1);
         dl_shangxian.setOnFocusChangeListener(myTextWatcher1);
+        dl_shangxian.setFilters(new InputFilter[]{new InputFilter.LengthFilter(9)});
         // 电量下限
         dl_xiaxian = findViewById(R.id.et_dl2);
         MyTextWatcher myTextWatcher2 = new MyTextWatcher(dl_xiaxian, "000000.00");
         dl_xiaxian.addTextChangedListener(myTextWatcher2);
         dl_xiaxian.setOnFocusChangeListener(myTextWatcher2);
+        dl_xiaxian.setFilters(new InputFilter[]{new InputFilter.LengthFilter(9)});
         // 高温阀值
         et_GWFZ = findViewById(R.id.et_gwfz);
         MyTextWatcher myTextWatcher3 = new MyTextWatcher(et_GWFZ, "000.0");
         et_GWFZ.addTextChangedListener(myTextWatcher3);
         et_GWFZ.setOnFocusChangeListener(myTextWatcher3);
+        et_GWFZ.setFilters(new InputFilter[]{new InputFilter.LengthFilter(5)});
         // 漏电流阀值
         findViewById(R.id.ll_ldl).setVisibility(View.VISIBLE);
         amountLDL = findViewById(R.id.amount_view_ldl);

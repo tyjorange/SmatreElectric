@@ -372,8 +372,11 @@ public class CollectorBean implements Parcelable {
             return "4G";
         } else if (ioType == 7) {
             return "Mesh";
+        } else if (ioType == 8) {
+            return "4G.A";
+        } else {
+            return "未知";
         }
-        return "Unknow";
     }
 
     //        0 -- 未知
@@ -401,7 +404,10 @@ public class CollectorBean implements Parcelable {
             return R.drawable.io_4g;
         } else if (ioType == 7) {
             return R.drawable.io_mesh;
+        } else if (ioType == 8) {
+            return R.drawable.io_4g_a;
+        } else {
+            return R.drawable.io_weizhi;
         }
-        return 0;
     }
 }

@@ -104,6 +104,11 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
             tvUpgrade.setTextColor(getResources().getColor(R.color.gray));
             Drawable top3 = getResources().getDrawable(R.drawable.collector_upgrade_gray);
             tvUpgrade.setCompoundDrawablesWithIntrinsicBounds(null, top3, null, null);
+
+            tvZhuanye.setEnabled(false);
+            tvZhuanye.setTextColor(getResources().getColor(R.color.gray));
+            Drawable top4 = getResources().getDrawable(R.drawable.collector_zhuanye_gray);
+            tvZhuanye.setCompoundDrawablesWithIntrinsicBounds(null, top4, null, null);
         }
 //        tvWifi.setEnabled(collectorBean.beShared != 1);
 

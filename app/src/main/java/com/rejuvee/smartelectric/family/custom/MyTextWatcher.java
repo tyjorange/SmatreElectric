@@ -16,9 +16,15 @@ public class MyTextWatcher implements TextWatcher, View.OnFocusChangeListener {
     private boolean deleteStartChar;// 是否需要删除其起始
     private EditText editText;
 
+    private int a;// 小数点前的位数
+    private int b;// 小数点后的位数
+
     public MyTextWatcher(EditText editText, String patten) {
         this.editText = editText;
         this.decimalFormat = new DecimalFormat(patten);
+        String[] split = patten.split("\\.");
+        a = split[0].length();
+        b = split[1].length();
     }
 
     public DecimalFormat getDecimalFormat() {
@@ -42,10 +48,12 @@ public class MyTextWatcher implements TextWatcher, View.OnFocusChangeListener {
             // 如果点后面有超过三位数值,则删掉最后一位
             int length = charSequence.length() - charSequence.toString().lastIndexOf(".");
             // 说明后面有3位数值
-            deleteLastChar = length >= 4;
+//            deleteLastChar = length >= 4;
+            deleteLastChar = (length >= (b + 2));
         } else {
             // 说明前面有6位数值
-            deleteStartChar = charSequence.length() == 7;
+//            deleteStartChar = charSequence.length() == 7;
+            deleteStartChar = (charSequence.length() == (a + 1));
         }
     }
 
@@ -63,8 +71,9 @@ public class MyTextWatcher implements TextWatcher, View.OnFocusChangeListener {
         if (editable.toString().startsWith(".")) {// 以小数点开头，前面自动加上 "0"
             editText.setText("0" + editable);
             editText.setSelection(editText.getText().length());
-        } else if (editable.toString().endsWith(".")) {
-
+        } else if (editable.toString().endsWith(".")) {// 以小数点结尾，后面自动加上 "0"
+//            editText.setText(editable + "0");
+//            editText.setSelection(editText.getText().length());
         }
     }
 

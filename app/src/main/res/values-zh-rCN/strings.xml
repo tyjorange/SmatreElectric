@@ -35,9 +35,9 @@
     <string name="line_n">线路</string>
     <string name="line_input_name">请输入线路名称</string>
     <string name="line_sets_v">过欠压设置</string>
-    <string name="line_set_under">欠压设置(V)</string>
-    <string name="line_set_over">过压设置(V)</string>
-    <string name="line_set_electricity">过流设置(A)</string>
+    <string name="line_set_under">欠压阀值(V)</string>
+    <string name="line_set_over">过压阀值(V)</string>
+    <string name="line_set_electricity">过流阀值(A)</string>
     <string name="line_set_electricity1">电量上限(KWH)</string>
     <string name="line_set_electricity2">电量下限(KWH)</string>
     <string name="under_vol_value">欠压值</string>
