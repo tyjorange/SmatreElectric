@@ -1,12 +1,11 @@
 package com.rejuvee.smartelectric.family.activity.energy;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.text.Html;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,6 +15,7 @@ import com.base.frame.net.ActionCallbackListener;
 import com.base.library.utils.LanguageUtil;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
+import com.rejuvee.smartelectric.family.adapter.SimpleTreeAdapter;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.NativeLine;
@@ -38,9 +38,10 @@ import java.util.Locale;
  */
 public class StatementActivity extends BaseActivity implements View.OnClickListener {
     //    private RadioGroup rgDate;
+    private Context mContext;
     private ListView lvStatement;
-    private BaseAdapter adapter;
-    private List<SwitchStatementBean> switchStatementBeanList;
+    private SimpleTreeAdapter mAdapter;
+    private List<SwitchStatementBean> switchStatementBeanList = new ArrayList<>();
     private WheelDateTime dateSelector;
     private TextView tvDate;
     private boolean isDay;
@@ -71,6 +72,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     protected void initView() {
+        mContext = this;
         waitDialog = new LoadingDlg(this, -1);
         NativeLine.init(this);
         ImageView img_cancel = (ImageView) findViewById(R.id.img_cancel);
@@ -136,8 +138,9 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
 //        tvDevice = (TextView) findViewById(R.id.tv_device);
         //initDialog();
 
-        initAdapter();
-        lvStatement.setAdapter(adapter);
+//        initAdapter();
+        mAdapter = new SimpleTreeAdapter<>(lvStatement, this, switchStatementBeanList, 0);
+        lvStatement.setAdapter(mAdapter);
         findViewById(R.id.img_price).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -335,7 +338,9 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                 waitDialog.dismiss();
                 switchStatementBeanList.clear();
                 switchStatementBeanList.addAll(data);
-                adapter.notifyDataSetChanged();
+//                mAdapter.notifyDataSetChanged();
+                mAdapter = new SimpleTreeAdapter<SwitchStatementBean>(lvStatement, mContext, switchStatementBeanList, 0);
+                lvStatement.setAdapter(mAdapter);
                 changeTotal();
             }
 
@@ -344,7 +349,9 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                 waitDialog.dismiss();
                 if (switchStatementBeanList != null) {
                     switchStatementBeanList.clear();
-                    adapter.notifyDataSetChanged();
+//                    mAdapter.notifyDataSetChanged();
+                    mAdapter = new SimpleTreeAdapter<SwitchStatementBean>(lvStatement, mContext, switchStatementBeanList, 0);
+                    lvStatement.setAdapter(mAdapter);
                 }
 
                 if (errorEvent == 12) {
@@ -370,7 +377,9 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                 waitDialog.dismiss();
                 switchStatementBeanList.clear();
                 switchStatementBeanList.addAll(data);
-                adapter.notifyDataSetChanged();
+                mAdapter.notifyDataSetChanged();
+                mAdapter = new SimpleTreeAdapter<SwitchStatementBean>(lvStatement, mContext, switchStatementBeanList, 0);
+                lvStatement.setAdapter(mAdapter);
                 changeTotal();
             }
 
@@ -379,14 +388,16 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                 waitDialog.dismiss();
                 if (switchStatementBeanList != null) {
                     switchStatementBeanList.clear();
-                    adapter.notifyDataSetChanged();
+                    mAdapter.notifyDataSetChanged();
+                    mAdapter = new SimpleTreeAdapter<SwitchStatementBean>(lvStatement, mContext, switchStatementBeanList, 0);
+                    lvStatement.setAdapter(mAdapter);
                 }
 
-                if (errorEvent == 12) {
-//                    message = getString(R.string.local_error_message_no_data);
-                } else {
-//                    message = getString(R.string.get_data_fail);
-                }
+//                if (errorEvent == 12) {
+////                    message = getString(R.string.local_error_message_no_data);
+//                } else {
+////                    message = getString(R.string.get_data_fail);
+//                }
                 CustomToast.showCustomErrorToast(StatementActivity.this, message);
 
             }
@@ -405,59 +416,58 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
         //getCollector();
     }
 
-    private void initAdapter() {
-        switchStatementBeanList = new ArrayList<>();
-        adapter = new BaseAdapter() {
-            @Override
-            public int getCount() {
-                return switchStatementBeanList.size();
-            }
-
-            @Override
-            public Object getItem(int position) {
-                return switchStatementBeanList.get(position);
-            }
-
-            @Override
-            public long getItemId(int position) {
-                return position;
-            }
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-
-                SwitchStatementBean switchStatementBean = switchStatementBeanList.get(position);
-
-                ViewHolder viewHolder;
-                if (convertView == null) {
-                    viewHolder = new ViewHolder();
-                    convertView = View.inflate(StatementActivity.this, R.layout.item_lv_statement, null);
-                    viewHolder.tvName = convertView.findViewById(R.id.tv_name);
-                    viewHolder.tvQuantity = convertView.findViewById(R.id.tv_quantity);
-                    viewHolder.tvCharge = convertView.findViewById(R.id.tv_charge);
-                    viewHolder.ivPicture = convertView.findViewById(R.id.iv_picture);
-
-                    convertView.setTag(viewHolder);
-                } else {
-                    viewHolder = (ViewHolder) convertView.getTag();
-                }
-                viewHolder.ivPicture.setImageResource(NativeLine.LinePictures[switchStatementBean.getIconType() % NativeLine.LinePictures.length]);
-                viewHolder.tvName.setText(switchStatementBean.getName());
-
-                viewHolder.tvQuantity.setText(String.valueOf(switchStatementBean.getShowValue()));
-                viewHolder.tvCharge.setText(String.valueOf(switchStatementBean.getShowPrice() + ""));
-
-                return convertView;
-            }
-
-            class ViewHolder {
-                TextView tvName;
-                TextView tvQuantity;
-                TextView tvCharge;
-                ImageView ivPicture;
-            }
-        };
-    }
+//    private void initAdapter() {
+////        switchStatementBeanList = new ArrayList<>();
+//        adapter = new BaseAdapter() {
+//            @Override
+//            public int getCount() {
+//                return switchStatementBeanList.size();
+//            }
+//
+//            @Override
+//            public Object getItem(int position) {
+//                return switchStatementBeanList.get(position);
+//            }
+//
+//            @Override
+//            public long getItemId(int position) {
+//                return position;
+//            }
+//
+//            @Override
+//            public View getView(int position, View convertView, ViewGroup parent) {
+//
+//                SwitchStatementBean switchStatementBean = switchStatementBeanList.get(position);
+//
+//                ViewHolder viewHolder;
+//                if (convertView == null) {
+//                    viewHolder = new ViewHolder();
+//                    convertView = View.inflate(StatementActivity.this, R.layout.item_lv_statement, null);
+//                    viewHolder.tvName = convertView.findViewById(R.id.tv_name);
+//                    viewHolder.tvQuantity = convertView.findViewById(R.id.tv_quantity);
+//                    viewHolder.tvCharge = convertView.findViewById(R.id.tv_charge);
+//                    viewHolder.ivPicture = convertView.findViewById(R.id.iv_picture);
+//
+//                    convertView.setTag(viewHolder);
+//                } else {
+//                    viewHolder = (ViewHolder) convertView.getTag();
+//                }
+//                viewHolder.ivPicture.setImageResource(NativeLine.LinePictures[switchStatementBean.getIconType() % NativeLine.LinePictures.length]);
+//                viewHolder.tvName.setText(switchStatementBean.getName());
+//                viewHolder.tvQuantity.setText(String.valueOf(switchStatementBean.getShowValue()));
+//                viewHolder.tvCharge.setText(String.valueOf(switchStatementBean.getShowPrice() + ""));
+//
+//                return convertView;
+//            }
+//
+//            class ViewHolder {
+//                TextView tvName;
+//                TextView tvQuantity;
+//                TextView tvCharge;
+//                ImageView ivPicture;
+//            }
+//        };
+//    }
 
 //    @Override
 //    protected String getToolbarTitle() {

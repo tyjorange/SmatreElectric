@@ -1,5 +1,9 @@
 package com.rejuvee.smartelectric.family.model.bean;
 
+import com.rejuvee.smartelectric.family.annotation.TreeNodeBean;
+import com.rejuvee.smartelectric.family.annotation.TreeNodeId;
+import com.rejuvee.smartelectric.family.annotation.TreeNodePid;
+
 import java.math.BigDecimal;
 
 /**
@@ -8,10 +12,14 @@ import java.math.BigDecimal;
  * 电量+电费
  */
 public class SwitchStatementBean {
+    @TreeNodeId
+    private int switchID;
+    @TreeNodePid
+    private int pid;
+    @TreeNodeBean
+    private SwitchStatementBean self = this;
     private String value;//电量
     private String price;//电费
-    private int switchID;
-    private int pid;
     private String code;//线路编码
     private String name;//线路名称
     private int iconType;//线路图标
@@ -44,19 +52,24 @@ public class SwitchStatementBean {
         this.name = name;
     }
 
-    public String getCharge() {
-        return value;
-    }
-
-
     public String getValue() {
         return value;
     }
 
+    /**
+     * 获取电量
+     *
+     * @return
+     */
     public double getShowValue() {
         return new BigDecimal(Double.parseDouble(value)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
+    /**
+     * 获取电费
+     *
+     * @return
+     */
     public double getShowPrice() {
         return new BigDecimal(Double.parseDouble(price)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
