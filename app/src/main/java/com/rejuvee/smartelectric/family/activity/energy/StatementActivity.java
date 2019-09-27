@@ -314,8 +314,10 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
 
         // 计算电量电费和
         for (SwitchStatementBean switchStatementBean : switchStatementBeanList) {
-            totalQuantity += switchStatementBean.getShowValue();
-            totalCharge += switchStatementBean.getShowPrice();
+            if (switchStatementBean.getPid() == 0) {// 只计算根节点
+                totalQuantity += switchStatementBean.getShowValue();
+                totalCharge += switchStatementBean.getShowPrice();
+            }
         }
 
         totalQuantity = new BigDecimal(totalQuantity).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();

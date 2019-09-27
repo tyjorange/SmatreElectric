@@ -5,18 +5,12 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.base.frame.net.ActionCallbackListener;
-import com.base.library.utils.ScreenUtils;
-import com.base.library.utils.SizeUtils;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
@@ -153,10 +147,10 @@ public class UpgradeDialogActivity extends BaseActivity implements View.OnClickL
                     for (int i = 0; i < mListDataCheckButton.size(); i++) {
                         if (mListDataCheckButton.get(i).isChecked()) {
                             setCollectorUpgrade(1, items.get(i).getValue());
-                            break;
+                            return;
                         }
                     }
-
+                    CustomToast.showCustomErrorToast(UpgradeDialogActivity.this, "请选择升级时间段");
                 }
             });
             btnCancel.setOnClickListener(new View.OnClickListener() {
