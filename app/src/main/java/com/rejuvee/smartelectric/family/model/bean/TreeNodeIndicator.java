@@ -18,7 +18,6 @@ public class TreeNodeIndicator extends RelativeLayout {
     public static final int STATE_COLLAPSE = 0x02;
 
     // 左侧线
-//    private RelativeLayout mRlytNavi;
     private View mTopLine, mBottomLine;
     private ImageView mIvMiddle;
 
@@ -62,7 +61,7 @@ public class TreeNodeIndicator extends RelativeLayout {
 
         mTopLine = findViewById(R.id.top_line);
         mBottomLine = findViewById(R.id.bottom_line);
-        mIvMiddle = (ImageView) findViewById(R.id.middle_img);
+        mIvMiddle = findViewById(R.id.middle_img);
 
 //        tvName = findViewById(R.id.tv_name);
 //        tvQuantity = findViewById(R.id.tv_quantity);
@@ -80,9 +79,8 @@ public class TreeNodeIndicator extends RelativeLayout {
         mLevel = -1;
         mState = 0;
         isLast = false;
-//        mTopLine.setVisibility(View.VISIBLE);
-//        mBottomLine.setVisibility(View.VISIBLE);
-
+        mTopLine.setVisibility(View.VISIBLE);
+        mBottomLine.setVisibility(View.VISIBLE);
     }
 
     public void setLevel(Node node) {
@@ -102,9 +100,13 @@ public class TreeNodeIndicator extends RelativeLayout {
             case 2:
                 mIvMiddle.setImageDrawable(mDrawableLeaf);
                 break;
+            default:
+                System.out.println();
+                mIvMiddle.setImageDrawable(mDrawableLeaf);
         }
     }
 
+    // 设置展开关闭状态
     public void setState(Node node) {
         int state = node.isExpand() ? TreeNodeIndicator.STATE_EXPAND : TreeNodeIndicator.STATE_COLLAPSE;
         mState = state;

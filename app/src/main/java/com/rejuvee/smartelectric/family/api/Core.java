@@ -502,8 +502,9 @@ public class Core {
      * @param time          yyyy-MM-dd
      * @return
      */
-    public Call<?> getTotalPowerByDay(String collectorCode, String time, ActionCallbackListener<List<SwitchStatementBean>> listener) {
+    public Call<?> getTotalPowerByDay(String type, String collectorCode, String time, ActionCallbackListener<List<SwitchStatementBean>> listener) {
         Param param = new Param();
+        param.setType(type);
         param.setCollectorCode(collectorCode);
         param.setTime(time);
         Call<ApiResponse<List<SwitchStatementBean>>> call = api.getTotalPowerByDay(mJSessionId, param);
@@ -536,8 +537,9 @@ public class Core {
      * @param time          yyyy-MM-dd
      * @return
      */
-    public Call<?> getTotalPowerByMonth(String collectorCode, String time, ActionCallbackListener<List<SwitchStatementBean>> listener) {
+    public Call<?> getTotalPowerByMonth(String type, String collectorCode, String time, ActionCallbackListener<List<SwitchStatementBean>> listener) {
         Param param = new Param();
+        param.setType(type);
         param.setCollectorCode(collectorCode);
         param.setTime(time);
         Call<ApiResponse<List<SwitchStatementBean>>> call = api.getTotalPowerByMonth(mJSessionId, param);

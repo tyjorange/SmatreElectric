@@ -332,7 +332,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
         }
         waitDialog.show();
 
-        Core.instance(this).getTotalPowerByDay(currentCollectorBean.getCode(), time, new ActionCallbackListener<List<SwitchStatementBean>>() {
+        Core.instance(this).getTotalPowerByDay("nohierarchy", currentCollectorBean.getCode(), time, new ActionCallbackListener<List<SwitchStatementBean>>() {
             @Override
             public void onSuccess(List<SwitchStatementBean> data) {
                 waitDialog.dismiss();
@@ -371,7 +371,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
             return;
         }
         waitDialog.show();
-        Core.instance(this).getTotalPowerByMonth(currentCollectorBean.getCode(), time, new ActionCallbackListener<List<SwitchStatementBean>>() {
+        Core.instance(this).getTotalPowerByMonth("nohierarchy", currentCollectorBean.getCode(), time, new ActionCallbackListener<List<SwitchStatementBean>>() {
             @Override
             public void onSuccess(List<SwitchStatementBean> data) {
                 waitDialog.dismiss();

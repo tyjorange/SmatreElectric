@@ -45,8 +45,20 @@ public class SimpleTreeAdapter<T> extends TreeListViewAdapter<T> {
         viewHolder.tni_indicator.setState(node);
         viewHolder.tni_indicator.isStart(node.isStart());
         // set data
+        switch (node.getLevel()) {
+            case 0:
+                viewHolder.tvName.setText("线路：" + node.getMoneyBean().getName());
+                break;
+            case 1:
+                viewHolder.tvName.setText("分线：" + node.getMoneyBean().getName());
+                break;
+            case 2:
+                viewHolder.tvName.setText("支线：" + node.getMoneyBean().getName());
+                break;
+            default:
+                viewHolder.tvName.setText(node.getMoneyBean().getName());
+        }
         viewHolder.ivPicture.setImageResource(NativeLine.LinePictures[node.getMoneyBean().getIconType() % NativeLine.LinePictures.length]);
-        viewHolder.tvName.setText(node.getMoneyBean().getName());
         viewHolder.tvQuantity.setText(String.valueOf(node.getMoneyBean().getShowValue()));
         viewHolder.tvCharge.setText(String.valueOf(node.getMoneyBean().getShowPrice()));
 
