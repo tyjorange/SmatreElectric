@@ -1,6 +1,5 @@
 package com.rejuvee.smartelectric.family.common;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -104,7 +103,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         setContentView(getLayoutResId());
         //每创建一个活动，就加入到活动管理器中
-        ActivityFragmentCollector.addActivity(this);
+        ActivityFragmentManager.addActivity(this);
         initView();
         initData();
     }
@@ -113,7 +112,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         //每销毁一个活动，就从活动管理器中移除
-        ActivityFragmentCollector.removeActivity(this);
+        ActivityFragmentManager.removeActivity(this);
         dealloc();
     }
 

@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -276,6 +277,10 @@ public class SwitchTreeDialog extends Dialog implements SwitchTree {
      * 重置所有node为未选择状态
      */
     private void resetChose() {
+        if (switchState == null) {
+            Log.e(TAG, "List<SwitchBean> switchState = null");
+            return;
+        }
         for (SwitchBean cb : switchState) {
             findChild(rootNode, cb.getSerialNumber());
         }

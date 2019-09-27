@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author tyj
  */
-public class ActivityFragmentCollector {
+public class ActivityFragmentManager {
 
     public static List<Activity> activities = new ArrayList<>();
     public static List<Fragment> fragments = new ArrayList<>();

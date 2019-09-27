@@ -15,14 +15,14 @@ public class BaseFragment extends AbstractBaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //每创建一个活动，就加入到活动管理器中
-        ActivityFragmentCollector.addFragment(this);
+        ActivityFragmentManager.addFragment(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         //每销毁一个活动，就从活动管理器中移除
-        ActivityFragmentCollector.removeFragment(this);
+        ActivityFragmentManager.removeFragment(this);
     }
 
     @Override

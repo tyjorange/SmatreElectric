@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.view.View;
 
 import com.rejuvee.smartelectric.family.R;
-import com.rejuvee.smartelectric.family.common.ActivityFragmentCollector;
+import com.rejuvee.smartelectric.family.common.ActivityFragmentManager;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 
 public class ReLoginActivity extends BaseActivity {
@@ -44,8 +44,8 @@ public class ReLoginActivity extends BaseActivity {
 
     private void restartApp(Context context) {
         //销毁所有活动
-        ActivityFragmentCollector.removeAll();
-        ActivityFragmentCollector.finishAll();
+        ActivityFragmentManager.removeAll();
+        ActivityFragmentManager.finishAll();
         //启动登陆活动
         Intent intent = new Intent(context, LoginActivity.class);
         //在广播中启动活动，需要添加如下代码

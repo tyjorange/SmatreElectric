@@ -1,6 +1,11 @@
 package com.rejuvee.smartelectric.family.activity.mswitch;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -12,17 +17,20 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.CommonRequestCode;
+import com.rejuvee.smartelectric.family.custom.FlushTimeTask;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchSignalItem;
 
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.TimerTask;
 
 /**
  * 实时情况
  */
 public class SwitchStatusActivity extends BaseActivity implements View.OnClickListener {
+    private static final String TAG = "SwitchStatusActivity";
     private CollectorBean collectorBean;
     private SwitchBean curBreaker;
     private TextView line_name;
@@ -34,6 +42,7 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
     private TextView wd_val;
     private TextView ygdy_val;
     private TextView switch_ver;
+    private Handler mHandler;
 
     @Override
     protected int getLayoutResId() {
@@ -63,12 +72,74 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
         change.setOnClickListener(this);
     }
 
+    @SuppressLint("HandlerLeak")
     @Override
     protected void initData() {
+        mHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                if (msg.what == MSG_SWTCH_REFRESH_TASK) {
+                    getSwitchState();
+                }
+            }
+        };
         getSwitchByCollector();
     }
 
+    private static final int MSG_SWTCH_REFRESH_TASK = 5123;// 刷新单个线路 定时任务id
+    private FlushTimeTask flushTimeTask;
+    private final int flushTimeMill = 3000;//刷新间隔
+    private boolean runTask = true;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        startTimer();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopTimer();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        runTask = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        runTask = false;
+    }
+
+    /**
+     * 开始定时任务
+     */
+    private void startTimer() {
+        flushTimeTask = new FlushTimeTask(flushTimeMill, new TimerTask() {
+            @Override
+            public void run() {
+                if (runTask) {
+                    Log.d(TAG, "FlushTimeTask run");
+                    mHandler.sendEmptyMessage(MSG_SWTCH_REFRESH_TASK);
+                }
+            }
+        });
+        flushTimeTask.start();
+    }
+
+    /**
+     * 停止定时任务
+     */
+    private void stopTimer() {
+        flushTimeTask.stop();
+    }
+
     private DecimalFormat df = new DecimalFormat("00");
+
     /**
      * 获取信号值
      *
@@ -140,22 +211,23 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
     /**
      * 刷新单条线路状态
      */
-//    private void getSwitchState() {
-//        Core.instance(this).getSwitchState(curBreaker.getSerialNumber(), new ActionCallbackListener<SwitchBean>() {
-//
-//            @Override
-//            public void onSuccess(SwitchBean cb) {
+    private void getSwitchState() {
+        Core.instance(this).getSwitchState(curBreaker.getSerialNumber(), new ActionCallbackListener<SwitchBean>() {
+
+            @Override
+            public void onSuccess(SwitchBean cb) {
+//                curBreaker = cb;
 //                curBreaker.setFault(cb.getFault()); //fault
 //                curBreaker.setSwitchState(cb.getSwitchState());//state
-//                judgSwitchstate(cb);
-//            }
-//
-//            @Override
-//            public void onFailure(int errorEvent, String message) {
-//                CustomToast.showCustomErrorToast(SwitchStatusActivity.this, message);
-//            }
-//        });
-//    }
+                judgSwitchstate(cb);
+            }
+
+            @Override
+            public void onFailure(int errorEvent, String message) {
+                CustomToast.showCustomErrorToast(SwitchStatusActivity.this, message);
+            }
+        });
+    }
 
     /**
      * 设置线路状态
@@ -219,8 +291,9 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
 
                     @Override
                     public void onChose(SwitchBean s) {
-                        getBreakSignalValue(s);
-                        judgSwitchstate(s);
+                        curBreaker = s;
+                        getBreakSignalValue(curBreaker);
+                        judgSwitchstate(curBreaker);
                     }
                 });
                 switchTreeDialog.show();
@@ -233,9 +306,9 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == CommonRequestCode.REQUEST_CHOSE_LINE) { //添加后 刷新数据 Deprecated
-                SwitchBean s = data.getParcelableExtra("switchBean");
-                getBreakSignalValue(s);
-                judgSwitchstate(s);
+                curBreaker = data.getParcelableExtra("switchBean");
+                getBreakSignalValue(curBreaker);
+                judgSwitchstate(curBreaker);
             }
         }
     }

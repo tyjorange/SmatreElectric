@@ -79,6 +79,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
     private Context mContext;
     private TextView txtLineName;//线路名称
     private ObservableScrollView scrollView;
+    private SeekBar seekBar;
     private LinearLayout empty_layout;
     private InputDialog inputDialog;
     private int sdpz_val;//上电配置值
@@ -115,7 +116,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         });
         waitDialog = new LoadingDlg(this, -1);
 
-        SeekBar seekBar = findViewById(R.id.vrsBar);
+        seekBar = findViewById(R.id.vrsBar);
         scrollView = (ObservableScrollView) findViewById(R.id.sv_values);
         // 禁止用户手动垂直滚动
         scrollView.setOnTouchListener(new View.OnTouchListener() {
@@ -415,7 +416,8 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
             findViewById(R.id.ll_sxbph).setVisibility(View.GONE);
         }
         // 这里刷新滑块显示
-        ScrollBindHelper.resetThumb();
+//        ScrollBindHelper.resetThumb();
+        ScrollBindHelper.bind(seekBar, scrollView);
     }
 
     /**
@@ -536,7 +538,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                                 case 0x00000019:// 电量上限
                                     dl_shangxian.setText(new DecimalFormat("000000.00").format(paramValue));
                                     break;
-                                case 0x0000001A://瞬时过流阀值
+                                case 0x0000001A:// 瞬时过流阀值
                                     BigDecimal s2 = BigDecimal.valueOf(Float.valueOf(paramValue)).setScale(0, BigDecimal.ROUND_HALF_UP);
                                     et_GL2.setText(s2.toString());
                                     break;

@@ -27,18 +27,20 @@ public class ScrollBindHelper implements SeekBar.OnSeekBarChangeListener, Observ
         //封装好的获取屏幕工具类  进行初始化
         ViewUtil.init(seekBar.getContext().getApplicationContext());
 
-        if (helper == null) {
+//        if (helper == null) {
             helper = new ScrollBindHelper(seekBar, scrollView);
             seekBar.setOnSeekBarChangeListener(helper);
             scrollView.setScrollViewListener(helper);
-        }
+//        }
+        resetThumb();
     }
 
-    public static void resetThumb() {
+    private static void resetThumb() {
         handler.reset();
     }
 
     private static void flushThumb() {
+        System.out.println(helper.getScrollRange());
         if (helper.getScrollRange() < 0) {// 内容高度小于屏幕高度
             helper.hideScroll();
         } else {

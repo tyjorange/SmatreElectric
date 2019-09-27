@@ -39,6 +39,7 @@ import com.rejuvee.smartelectric.family.activity.scene.SceneActivity;
 import com.rejuvee.smartelectric.family.adapter.GridDeviceAdapter;
 import com.rejuvee.smartelectric.family.adapter.HorizontalListSceneAdapter;
 import com.rejuvee.smartelectric.family.api.Core;
+import com.rejuvee.smartelectric.family.common.ActivityFragmentManager;
 import com.rejuvee.smartelectric.family.common.AutoUpgrade;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.CommonRequestCode;
@@ -488,6 +489,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
     }
 
     private void quit() {
+        ActivityFragmentManager.finishAll();
         super.onBackPressed();
     }
 

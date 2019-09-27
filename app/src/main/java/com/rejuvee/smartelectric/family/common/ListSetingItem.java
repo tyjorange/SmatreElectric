@@ -1,9 +1,9 @@
 package com.rejuvee.smartelectric.family.common;
 
 /**
+ * 什么玩意
  * Created by liuchengran on 2017/8/30.
  */
-
 public class ListSetingItem {
     public static final int ITEM_VIEW_TYPE_NORMAL = 0;
     public static final int ITEM_VIEW_TYPE_SELECT_1 = 1;

@@ -46,7 +46,8 @@ public class LineWarnAdapter extends BaseAdapter {
             convertView = View.inflate(mContext, R.layout.item_line_warn, null);
             holder = new ViewHolder();
             holder.tvTitle = (TextView) convertView.findViewById(R.id.tv_title);
-            holder.tvState = (TextView) convertView.findViewById(R.id.tv_state);
+            holder.tvState1 = (TextView) convertView.findViewById(R.id.tv_state1);
+            holder.tvState2 = (TextView) convertView.findViewById(R.id.tv_state2);
             holder.tvType = (TextView) convertView.findViewById(R.id.tv_type);
             holder.tvCode = (TextView) convertView.findViewById(R.id.tv_code);
             holder.tvDate = (TextView) convertView.findViewById(R.id.tv_time);
@@ -59,7 +60,8 @@ public class LineWarnAdapter extends BaseAdapter {
         holder.tvTitle.setText("线路:" + warnBean.getName());
         holder.tvCode.setText("ID:" + (warnBean.getCode()));
         holder.tvType.setText(SwitchBean.getParamName(mContext, warnBean.getParamID()));
-        holder.tvState.setText("当前值:" + warnBean.getWarningValue() + "/安全阀值:" + warnBean.getParamValue());
+        holder.tvState1.setText("安全阀值:" + warnBean.getParamValue());
+        holder.tvState2.setText("当前值:" + warnBean.getWarningValue());
         holder.tvDate.setText(warnBean.getTime());
         return convertView;
     }
@@ -68,7 +70,8 @@ public class LineWarnAdapter extends BaseAdapter {
         TextView tvTitle;
         TextView tvCode;
         TextView tvType;
-        TextView tvState;
+        TextView tvState1;
+        TextView tvState2;
         TextView tvDate;
     }
 }
