@@ -121,6 +121,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         Log.w(TAG, "widthPixel = " + widthPixel + ",heightPixel = " + heightPixel);
         Log.w(TAG, "densityDpi = " + densityDpi);
     }
+
     @Override
     protected void initView() {
         getDensity();
@@ -196,16 +197,13 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
                     headImgurl = null;
                     ivHead.setImageResource(R.drawable.icon_user_default);
                     ivHeadSmall.setImageResource(R.drawable.icon_user_default);
-//                    toolbar.setNavigationIcon(new CircleDrawable(BitmapUtil.drawable2Bitmap(ivHead.getDrawable())));
                 } else {
                     if (!headImgurl.startsWith("https://")) {
                         headImgurl = "https://" + headImgurl;
                     }
-                    Picasso.with(mContext).load(headImgurl).into(ivHead);
-                    Picasso.with(mContext).load(headImgurl).into(ivHeadSmall);
-//                    setSmallNavigationIcon();
+                    RequestCreator load = Picasso.with(mContext).load(headImgurl);
+                    setHeaderIcon(load);
                 }
-//                setQCodeUserName();
             }
 
             @Override
@@ -217,26 +215,24 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 
 
     /**
-     * 小头像
+     * 设置头像
      */
-    @Deprecated
-    private void setSmallNavigationIcon() {
-        RequestCreator load = Picasso.with(mContext).load(headImgurl);
+    private void setHeaderIcon(RequestCreator load) {
         load.into(new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-//                toolbar.setNavigationIcon(new CircleDrawable(bitmap));
+                ivHead.setImageBitmap(bitmap);
+                ivHeadSmall.setImageBitmap(bitmap);
             }
 
             @Override
             public void onBitmapFailed(Drawable errorDrawable) {
                 ivHead.setImageResource(R.drawable.icon_user_default);
-//                toolbar.setNavigationIcon(new CircleDrawable(BitmapUtil.drawable2Bitmap(ivHead.getDrawable())));
+                ivHeadSmall.setImageResource(R.drawable.icon_user_default);
             }
 
             @Override
             public void onPrepareLoad(Drawable placeHolderDrawable) {
-//                toolbar.setNavigationIcon(new CircleDrawable(BitmapUtil.drawable2Bitmap(placeHolderDrawable)));
             }
         });
     }

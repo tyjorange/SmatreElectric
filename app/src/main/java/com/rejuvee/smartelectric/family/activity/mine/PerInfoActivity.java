@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
@@ -32,6 +33,8 @@ import com.rejuvee.smartelectric.family.utils.GetPhotoUtil;
 import com.rejuvee.smartelectric.family.utils.ImageUtil;
 import com.rejuvee.smartelectric.family.utils.utils;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
+import com.squareup.picasso.Target;
 
 import java.io.File;
 import java.util.List;
@@ -87,7 +90,6 @@ public class PerInfoActivity extends BaseActivity implements View.OnClickListene
         findViewById(R.id.ll_headimg).setOnClickListener(this);
         findViewById(R.id.ll_getphone).setOnClickListener(this);
         findViewById(R.id.ll_nickname).setOnClickListener(this);
-//        findViewById(R.id.ll_username).setOnClickListener(this);
     }
 
     @Override
@@ -103,7 +105,8 @@ public class PerInfoActivity extends BaseActivity implements View.OnClickListene
         if (headImgurl == null) {
             img_head.setImageResource(R.drawable.icon_user_default);
         } else {
-            Picasso.with(getContext()).load(headImgurl).into(img_head);
+            RequestCreator load = Picasso.with(this).load(headImgurl);
+            setHeaderIcon(load);
         }
         getUserMsg();
         getCacheAccount();
@@ -112,6 +115,27 @@ public class PerInfoActivity extends BaseActivity implements View.OnClickListene
         Bitmap bmpUser = utils.createQRcodeImage(username, SizeUtils.dp2px(100), SizeUtils.dp2px(100));
         ImageView ivQcode = findViewById(R.id.iv_qcode);
         ivQcode.setImageBitmap(bmpUser);
+    }
+
+    /**
+     * 设置头像
+     */
+    private void setHeaderIcon(RequestCreator load) {
+        load.into(new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                img_head.setImageBitmap(bitmap);
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+                img_head.setImageResource(R.drawable.icon_user_default);
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+            }
+        });
     }
 
     private void getCacheAccount() {
