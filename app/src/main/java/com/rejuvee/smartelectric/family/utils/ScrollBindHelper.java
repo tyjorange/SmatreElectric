@@ -98,8 +98,8 @@ public class ScrollBindHelper implements SeekBar.OnSeekBarChangeListener, Observ
         handler.reset();
     }
 
-    // 延迟发送时长
-    private static final long DEFAULT_TIME_OUT = 100L;
+    // 延迟刷新Thumb 否则会计算view高度错误
+    private static final long DEFAULT_TIME_OUT = 500L;
 
     @Override
     public void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy) {

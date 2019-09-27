@@ -20,7 +20,7 @@ public class InputDialog extends Dialog implements View.OnClickListener {
     private ImageView iv_item0;
     private ImageView iv_item1;
     private ImageView iv_item2;
-    private String sdpz_val = "-1";//上电配置值
+    private int sdpz_val = -1;//上电配置值
     private onInputDialogListener mListener;
 
     @Override
@@ -45,21 +45,21 @@ public class InputDialog extends Dialog implements View.OnClickListener {
         iv_item0.setImageDrawable(getContext().getResources().getDrawable(R.drawable.dx_chose_slices));
         iv_item1.setImageDrawable(getContext().getResources().getDrawable(R.drawable.dx_unchose_slices));
         iv_item2.setImageDrawable(getContext().getResources().getDrawable(R.drawable.dx_unchose_slices));
-        sdpz_val = "0";
+        sdpz_val = 0;
     }
 
     private void setV1() {
         iv_item0.setImageDrawable(getContext().getResources().getDrawable(R.drawable.dx_unchose_slices));
         iv_item1.setImageDrawable(getContext().getResources().getDrawable(R.drawable.dx_chose_slices));
         iv_item2.setImageDrawable(getContext().getResources().getDrawable(R.drawable.dx_unchose_slices));
-        sdpz_val = "1";
+        sdpz_val = 1;
     }
 
     private void setV2() {
         iv_item0.setImageDrawable(getContext().getResources().getDrawable(R.drawable.dx_unchose_slices));
         iv_item1.setImageDrawable(getContext().getResources().getDrawable(R.drawable.dx_unchose_slices));
         iv_item2.setImageDrawable(getContext().getResources().getDrawable(R.drawable.dx_chose_slices));
-        sdpz_val = "2";
+        sdpz_val = 2;
     }
     public InputDialog(Context context) {
         super(context, com.base.library.R.style.Dialog);
@@ -77,15 +77,15 @@ public class InputDialog extends Dialog implements View.OnClickListener {
      *
      * @param val
      */
-    public void setVal(String val) {
+    public void setVal(int val) {
         switch (val) {
-            case "0":
+            case 0:
                 setV0();
                 break;
-            case "1":
+            case 1:
                 setV1();
                 break;
-            case "2":
+            case 2:
                 setV2();
                 break;
         }
@@ -120,6 +120,6 @@ public class InputDialog extends Dialog implements View.OnClickListener {
     }
 
     public interface onInputDialogListener {
-        void onEnsure(String content);
+        void onEnsure(int content);
     }
 }

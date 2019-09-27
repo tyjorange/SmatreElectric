@@ -50,6 +50,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
     private ListPopupWindow listPopupWindow;
     //    private Spinner spinnerGL;
     private EditText et_GL;
+    private EditText et_GL2;
     //    private EditText et_GWFZ;
     //    private Float valueGL;
     private RangeSeekBar rangeSeekBarGY;
@@ -80,7 +81,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
     private ObservableScrollView scrollView;
     private LinearLayout empty_layout;
     private InputDialog inputDialog;
-    private String sdpz_val;//上电配置值
+    private int sdpz_val;//上电配置值
 
     @Override
     protected int getLayoutResId() {
@@ -108,7 +109,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         inputDialog.setDialogListener(new InputDialog.onInputDialogListener() {
 
             @Override
-            public void onEnsure(String val) {
+            public void onEnsure(int val) {
                 setSDPZ(val);
             }
         });
@@ -152,6 +153,8 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         listPopupWindow = new ListPopupWindow(this);
         et_GL = findViewById(R.id.et_sp1);
         et_GL.setOnFocusChangeListener(this);
+        et_GL2 = findViewById(R.id.et_sp2);
+//        et_GL2.setOnFocusChangeListener(this);
 //        adapter = new ArrayAdapter<Item>(this, android.R.layout.simple_spinner_dropdown_item, items);
 //        spinnerGL.setAdapter(adapter);
 //        spinnerGL.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -373,7 +376,6 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         collectorBean = getIntent().getParcelableExtra("collectorBean");
         getSwitchByCollector();
         mHandler = new MyHandler(this);
-//        getData();
         mHandler.sendEmptyMessageDelayed(sendGetThreadValueCommand, 100);
     }
 
@@ -428,8 +430,6 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                 txtLineName.setText("线路：" + currentSwitchBean.getName());
                 mHandler.sendEmptyMessageDelayed(sendGetThreadValueCommand, 1000);
                 changeView();
-//                getBreakSignalValue(curBreaker);
-//                judgSwitchstate(curBreaker);
             }
 
             @Override
@@ -453,9 +453,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         }
         listPopupWindow.dismiss();
         waitDialog.show();
-        Core.instance(this).sendGetThreadValueCommand(currentSwitchBean.getSerialNumber(),
-                "00000011,00000005,0000000D,00000018,00000019,0000001B,0000001C,0000001D,0000001E,0000001F,00000020",
-                new ActionCallbackListener<Void>() {
+        Core.instance(this).sendGetThreadValueCommand(currentSwitchBean.getSerialNumber(), paramID, new ActionCallbackListener<Void>() {
                     @Override
                     public void onSuccess(Void data) {
                         Log.d(TAG, "发送刷新命令成功, threadId = " + Thread.currentThread().getId());
@@ -478,6 +476,18 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                 });
     }
 
+    private String paramID = "00000011," + // 过流阀值
+            "00000005," + // 过压阀值
+            "0000000D," + // 欠压阀值
+            "00000018," + // 电量下限
+            "00000019," + // 电量上限
+            "0000001A," + // （瞬时）过流阀值2
+            "0000001B," + // 漏电阀值
+            "0000001C," + // 漏电自检使能
+            "0000001D," + // 漏电自检时间 xxxx(ddhh)
+            "0000001E," + // 温度阀值
+            "0000001F," + // （上电配置0：拉闸；1：合闸，2：不动作）
+            "00000020,"; // 三相不平衡阀值
     /**
      * 获取刷新命令后的阀值
      */
@@ -485,71 +495,70 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         if (currentSwitchBean == null) {
             return;
         }
-        Core.instance(this).findSwitchParamBySwitch(currentSwitchBean.getSwitchID(),
-                "00000011,00000005,0000000D,00000018,00000019,0000001B,0000001C,0000001D,0000001E,0000001F,00000020",
-                new ActionCallbackListener<List<VoltageValue>>() {
+        Core.instance(this).findSwitchParamBySwitch(currentSwitchBean.getSwitchID(), paramID, new ActionCallbackListener<List<VoltageValue>>() {
 
                     @Override
                     public void onSuccess(List<VoltageValue> valueList) {
-                        Log.i(TAG, "findSwitchParamBySwitc=" + currentSearchCount);
+                        Log.i(TAG, "findSwitchParamBySwitch=" + currentSearchCount);
                         if (valueList == null) {
                             CustomToast.showCustomToast(mContext, "获取配置失败");
                             waitDialog.dismiss();
                             return;
                         }
-//                        if (valueList.size() != 5) {
                         if (currentSearchCount <= MAX_REQUEST_COUNT) {
                             mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitch, 1000);
                             return;
                         }
-//                        }
                         // 设置值
                         for (VoltageValue vv : valueList) {
-                            String paramValue = vv.getParamValue();
-                            if (paramValue == null) {
-                                CustomToast.showCustomToast(mContext, "读取配置失败");
-                                continue;
-                            }
+                            float paramValue = vv.getParamValue();
+//                            if (paramValue == null) {
+//                                CustomToast.showCustomToast(mContext, "读取配置失败");
+//                                continue;
+//                            }
                             resetValue();
                             switch (vv.getParamID()) {
-                                case "5": // 过压
+                                case 0x00000005: // 过压阀值
                                     rangeSeekBarGY.setProgress(Float.valueOf(paramValue));
                                     amountGY.setAmount(Float.valueOf(paramValue));
                                     break;
-                                case "13":// 欠压
+                                case 0x0000000D:// 欠压阀值
                                     rangeSeekBarQY.setProgress(Float.valueOf(paramValue));
                                     amountQY.setAmount(Float.valueOf(paramValue));
                                     break;
-                                case "17":// 过流
+                                case 0x00000011:// 过流阀值
                                     BigDecimal s = BigDecimal.valueOf(Float.valueOf(paramValue)).setScale(0, BigDecimal.ROUND_HALF_UP);
                                     et_GL.setText(s.toString());
                                     break;
-                                case "24":// 电量下限
-                                    dl_xiaxian.setText(new DecimalFormat("000000.00").format(Double.valueOf(paramValue.isEmpty() ? "0" : paramValue)));
+                                case 0x00000018:// 电量下限
+                                    dl_xiaxian.setText(new DecimalFormat("000000.00").format(paramValue));
                                     break;
-                                case "25":// 电量上限
-                                    dl_shangxian.setText(new DecimalFormat("000000.00").format(Double.valueOf(paramValue.isEmpty() ? "0" : paramValue)));
+                                case 0x00000019:// 电量上限
+                                    dl_shangxian.setText(new DecimalFormat("000000.00").format(paramValue));
                                     break;
-                                case "27":// 漏电阀值
-                                    rangeSeekBarLDL.setProgress(Integer.valueOf(paramValue));
-                                    amountLDL.setAmount(Integer.valueOf(paramValue));
+                                case 0x0000001A://瞬时过流阀值
+                                    BigDecimal s2 = BigDecimal.valueOf(Float.valueOf(paramValue)).setScale(0, BigDecimal.ROUND_HALF_UP);
+                                    et_GL2.setText(s2.toString());
                                     break;
-                                case "30":// 温度阀值
+                                case 0x0000001B:// 漏电阀值
+                                    rangeSeekBarLDL.setProgress(paramValue);
+                                    amountLDL.setAmount((int) paramValue);
+                                    break;
+                                case 0x0000001E:// 温度阀值
                                     rangeSeekBarGWFZ.setProgress(Float.valueOf(paramValue));
                                     amountGWFZ.setAmount(Float.valueOf(paramValue));
-//                                    et_GWFZ.setText(new DecimalFormat("000.0").format(Double.valueOf(paramValue.isEmpty() ? "0" : paramValue)));
                                     break;
-                                case "31":// 上电配置
-                                    setSDPZ(paramValue);
+                                case 0x0000001F:// 上电配置
+                                    setSDPZ((int) paramValue);
                                     break;
-                                case "32":// 三相不平衡
+                                case 0x00000020:// 三相不平衡
                                     rangeSeekBarSXBPH.setProgress(Float.valueOf(paramValue));
                                     amountSXBPH.setAmount(Float.valueOf(paramValue));
                                     break;
-                                case "33":// 故障电弧
+                                case 0x00000021:// 故障电弧
                                     //暂无断路器支持电弧类设置，所以不显示。
                                     break;
-                                case "34":// 防雷阀值
+                                case 0x00000022:// 防雷阀值
                                     //暂无断路器支持雷击类设置，所以不显示。
                                     break;
                             }
@@ -572,6 +581,9 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                 });
     }
 
+    /**
+     * 温度有时查不到
+     */
     private void resetValue() {
         rangeSeekBarGWFZ.setProgress(0);
         amountGWFZ.setAmount(0);
@@ -581,19 +593,19 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
      *
      * @param paramValue
      */
-    private void setSDPZ(String paramValue) {
+    private void setSDPZ(int paramValue) {
         switch (paramValue) {
-            case "0":
+            case 0:
                 tv_sdpz.setText("拉闸");
-                sdpz_val = "0";
+                sdpz_val = 0;
                 break;
-            case "1":
+            case 1:
                 tv_sdpz.setText("合闸");
-                sdpz_val = "1";
+                sdpz_val = 1;
                 break;
-            case "2":
+            case 2:
                 tv_sdpz.setText("不动作");
-                sdpz_val = "2";
+                sdpz_val = 2;
                 break;
         }
     }
@@ -611,6 +623,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         BigDecimal b5 = BigDecimal.valueOf(rangeSeekBarGWFZ.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
         String b6 = et_GL.getEditableText().toString();
         BigDecimal b7 = BigDecimal.valueOf(rangeSeekBarSXBPH.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
+        String b8 = et_GL2.getEditableText().toString();
 //                System.out.println(valueGL);
 //                System.out.println(b1);
 //                System.out.println(b2);
@@ -620,14 +633,15 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
             CustomToast.showCustomToast(mContext, "请设置电量");
             return;
         }
-        String values = "00000011:" + b6 +
-                ",00000005:" + b1 +
-                ",0000000D:" + b2 +
-                ",00000018:" + b4 +
-                ",00000019:" + b3 +
-                ",0000001E:" + b5 +
-                ",0000001F:" + sdpz_val +
-                ",00000020" + b7;
+        String values = "00000011:" + b6 + // 过流阀值
+                ",0000001A:" + b8 + // 过流阀值2
+                ",00000005:" + b1 + // 过压阀值
+                ",0000000D:" + b2 + // 欠压阀值
+                ",00000018:" + b4 + // 电量下限
+                ",00000019:" + b3 + // 电量上限
+                ",0000001E:" + b5 + // 温度阀值
+                ",0000001F:" + sdpz_val + // 上电配置
+                ",00000020" + b7; // 三项不平衡
 //        amountGY.setAmount(b1.floatValue());
 //        amountQY.setAmount(b2.floatValue());
         if (currentSwitchBean == null) {
