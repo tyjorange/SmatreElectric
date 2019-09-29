@@ -75,7 +75,8 @@ android {
     //自定义打包时apk名字
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "${variant.productFlavors.name}_${variant.buildType.name}.apk"
+//            outputFileName = "${variant.productFlavors.name}_${variant.buildType.name}.apk"
+            outputFileName = "smarte_family_release.apk"
         }
     }
     lintOptions {
