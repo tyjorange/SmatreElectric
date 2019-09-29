@@ -131,7 +131,8 @@ public class SwitchModifyActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 customLineAdapter.reset();
-                customLineAdapter.setCurrentSelected(position);
+                CustomLineAdapter.Item item = customLineAdapter.setCurrentSelected(position);
+                editLineName.setText(item.name);
             }
         });
         // 修改
@@ -197,7 +198,9 @@ public class SwitchModifyActivity extends BaseActivity {
                 } else {
                     CustomToast.showCustomErrorToast(SwitchModifyActivity.this, message);
                 }
-                finish();
+//                finish();
+                findViewById(R.id.csv).setVisibility(View.INVISIBLE);
+                findViewById(R.id.st_finish).setVisibility(View.INVISIBLE);
             }
         });
     }

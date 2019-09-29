@@ -48,10 +48,12 @@ public class CustomLineAdapter extends BaseAdapter {
 //        notifyDataSetChanged();
     }
 
-    public void setCurrentSelected(int position) {
+    public Item setCurrentSelected(int position) {
         currentSelected = position;
-        mListData.get(currentSelected).chose = 1;
+        Item item = mListData.get(currentSelected);
+        item.chose = 1;
         notifyDataSetChanged();
+        return item;
     }
 
 //    public int getCurrentSelected() {
@@ -128,7 +130,7 @@ public class CustomLineAdapter extends BaseAdapter {
     public class Item {
         int img;
         int chose;// 1 选中 0 未选中
-        String name;
+        public String name;
 
 //        Item(int img, int chose) {
 //            this.img = img;

@@ -441,7 +441,10 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                 } else {
                     CustomToast.showCustomErrorToast(SwitchSettingActivity.this, message);
                 }
-                finish();
+//                finish();
+                scrollView.setVisibility(View.INVISIBLE);
+                superTextView.setVisibility(View.INVISIBLE);
+                waitDialog.dismiss();
             }
         });
     }

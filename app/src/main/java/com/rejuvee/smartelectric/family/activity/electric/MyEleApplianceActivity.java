@@ -123,7 +123,9 @@ public class MyEleApplianceActivity extends BaseActivity implements Eleappliance
 
             @Override
             public void onFailure(int errorEvent, String message) {
-                postResult(DeviceEventMsg.EVENT_GET_ALLELES, errorEvent, message, false);
+//                postResult(DeviceEventMsg.EVENT_GET_ALLELES, errorEvent, message, false);
+                CustomToast.showCustomErrorToast(MyEleApplianceActivity.this, message);
+                mWaitDialog.dismiss();
             }
         });
     }
@@ -138,8 +140,9 @@ public class MyEleApplianceActivity extends BaseActivity implements Eleappliance
 
             @Override
             public void onFailure(int errorEvent, String message) {
-                postResult(DeviceEventMsg.EVENT_DELET_ELES, null, message, false);
-
+//                postResult(DeviceEventMsg.EVENT_DELET_ELES, null, message, false);
+                CustomToast.showCustomErrorToast(MyEleApplianceActivity.this, message);
+                mWaitDialog.dismiss();
             }
         });
     }

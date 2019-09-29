@@ -62,7 +62,7 @@
             android:layout_height="match_parent"
             android:layout_weight="@integer/tag_1"
             android:gravity="center_vertical"
-            android:text="线路: "
+            android:text="线路: --"
             android:textColor="@color/black"
             android:textSize="12sp" />
 

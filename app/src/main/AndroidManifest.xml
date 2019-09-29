@@ -35,15 +35,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".activity.login.LoginActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait">
+        <activity android:name=".activity.LunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.login.LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -53,6 +55,7 @@
                 <data android:scheme="e1kmyq" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.alibaba.app.appkey"
             android:value="${emas_app_key}" /> <!-- alibaba- appKey -->

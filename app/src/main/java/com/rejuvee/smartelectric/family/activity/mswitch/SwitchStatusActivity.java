@@ -212,6 +212,9 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
      * 刷新单条线路状态
      */
     private void getSwitchState() {
+        if (curBreaker == null) {
+            return;
+        }
         Core.instance(this).getSwitchState(curBreaker.getSerialNumber(), new ActionCallbackListener<SwitchBean>() {
 
             @Override
@@ -266,7 +269,9 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
                     dl_val.setText("-");
                     dy_val.setText("-");
                     wd_val.setText("-");
+                    ldl_val.setText("-");
                     ygdy_val.setText("-");
+                    switch_ver.setText("-");
                     CustomToast.showCustomErrorToast(SwitchStatusActivity.this, "请先添加线路");
                 } else {
                     CustomToast.showCustomErrorToast(SwitchStatusActivity.this, message);

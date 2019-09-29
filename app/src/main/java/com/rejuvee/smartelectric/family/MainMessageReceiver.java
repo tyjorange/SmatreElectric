@@ -8,6 +8,9 @@ import com.alibaba.sdk.android.push.notification.CPushMessage;
 
 import java.util.Map;
 
+/**
+ * 阿里推送
+ */
 public class MainMessageReceiver extends MessageReceiver {
     // 消息接收部分的LOG_TAG
     public static final String REC_TAG = "MainMessageReceiver";

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_beijing"
+    android:fitsSystemWindows="true"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.rejuvee.smartelectric.family.activity.LunchActivity">
+
+    <Button
+        android:id="@+id/btn_skip"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/lunch_btn_bg"
+        android:text="跳过"
+        android:textColor="@color/text_base_color_fff" />
+
+    <ImageView
+        android:layout_width="108dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="70dp"
+        android:src="@drawable/logo_dm"
+        android:visibility="visible" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="138dp"
+        android:paddingEnd="138dp"
+        android:src="@drawable/logo" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="35dp"
+        android:gravity="center|bottom"
+        android:text="智能电箱云平台"
+        android:textColor="#6028BCEA"
+        android:textSize="12sp"
+        android:visibility="visible" />
+</LinearLayout>
