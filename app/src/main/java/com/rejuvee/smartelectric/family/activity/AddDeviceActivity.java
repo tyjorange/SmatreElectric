@@ -119,10 +119,9 @@ public class AddDeviceActivity extends BaseActivity {
             }
 //            getToolbarTextView().setText(getResources().getString(R.string.sce_addxianlu));
             collectorBean = getIntent().getParcelableExtra("collectorBean");
+            txtLineName = (TextView) findViewById(R.id.txt_line_name);
             llSetLineName = (LinearLayout) findViewById(R.id.ll_set_line_name);
             llSetLineName.setVisibility(View.VISIBLE);
-            txtLineName = (TextView) findViewById(R.id.txt_line_name);
-
             llSetLineName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -135,6 +134,7 @@ public class AddDeviceActivity extends BaseActivity {
             add_title.setText("添加电箱");
             findViewById(R.id.type_dianxiang).setVisibility(View.VISIBLE);
             findViewById(R.id.type_xianlu).setVisibility(View.GONE);
+            parent_tip.setVisibility(View.INVISIBLE);
             edtScan.setFilters(new InputFilter[]{new InputFilter.LengthFilter(19)});
         }
     }

@@ -25,12 +25,41 @@
             android:padding="16dp"
             android:src="@drawable/main_fanhui" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="首页 / 智能电箱 / 我的分享"
+            android:textSize="12sp" />
     </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/ll_tree_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="25dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="0dp"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:id="@+id/add_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="@integer/tag_1"
+            android:text="添加分享"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/rl_scan_add"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
 
         <TextView
             android:id="@+id/txt_scan"
@@ -42,29 +71,31 @@
             android:gravity="center_vertical"
             android:padding="16dp"
             android:text="@string/scan_add"
-            android:textSize="16sp" />
+            android:textColor="@color/black"
+            android:textSize="12sp" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:padding="16dp"
+            android:padding="10dp"
             android:src="@drawable/sao" />
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp">
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:text="@string/scan_results"
-            android:textColor="@color/text_base_color_333"
-            android:textSize="14sp" />
+            android:textColor="@color/black"
+            android:textSize="12sp" />
 
         <EditText
             android:id="@+id/edt_input_device"
@@ -77,6 +108,10 @@
             android:textSize="12sp" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="@integer/tag_1" />
     <!--<LinearLayout-->
     <!--android:id="@+id/ll_set_line_name"-->
     <!--android:layout_width="match_parent"-->

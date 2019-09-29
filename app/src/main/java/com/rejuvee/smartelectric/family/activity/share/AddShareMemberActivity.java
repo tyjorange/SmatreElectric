@@ -17,7 +17,9 @@ import com.rejuvee.smartelectric.family.common.PermisionManage;
 import com.rejuvee.smartelectric.family.widget.dialog.WaitDialog;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 
-
+/**
+ * 添加分享用户
+ */
 public class AddShareMemberActivity extends BaseActivity {
 
     private EditText edtScan;

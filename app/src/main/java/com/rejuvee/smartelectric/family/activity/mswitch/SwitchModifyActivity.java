@@ -104,8 +104,12 @@ public class SwitchModifyActivity extends BaseActivity {
                     switchTreeDialog.show();
                 }
             });
+            findViewById(R.id.type_rename_switch).setVisibility(View.VISIBLE);
+            findViewById(R.id.type_add_switch).setVisibility(View.GONE);
         } else {//添加
             img_change.setVisibility(View.GONE);
+            findViewById(R.id.type_rename_switch).setVisibility(View.GONE);
+            findViewById(R.id.type_add_switch).setVisibility(View.VISIBLE);
         }
 //        txtCurDianliang = (TextView) findViewById(R.id.txt_dianliang);
 //        txtCurGonglv = (TextView) findViewById(R.id.txt_gonglv);
