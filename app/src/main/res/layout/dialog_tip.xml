@@ -15,6 +15,14 @@
         android:textColor="@color/black"
         android:textSize="18sp" />
 
+    <ImageView
+        android:id="@+id/iv_kaifazhong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/kaifazhong"
+        android:visibility="gone" />
+
     <TextView
         android:id="@+id/txt_tip_desc"
         android:layout_width="wrap_content"
@@ -27,11 +35,6 @@
         android:text="确定修改为此图片吗？"
         android:textColor="@color/text_base_color_666"
         android:textSize="16sp" />
-
-    <!--<ImageView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="1dp"-->
-    <!--android:background="@color/grey" />-->
 
     <TextView
         android:id="@+id/tv_know"

@@ -28,7 +28,7 @@ import com.rejuvee.smartelectric.family.model.nativedb.AccountInfoRealm;
 import com.rejuvee.smartelectric.family.utils.AccountHelper;
 import com.rejuvee.smartelectric.family.widget.CheckableImageView;
 import com.rejuvee.smartelectric.family.widget.ClearEditText;
-import com.rejuvee.smartelectric.family.widget.LoadingDlg;
+import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 import com.rejuvee.smartelectric.family.wxapi.QQLoginHelper;
 import com.rejuvee.smartelectric.family.wxapi.WXHelper;
 

@@ -21,8 +21,8 @@ import com.rejuvee.smartelectric.family.common.CommonRequestCode;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.model.bean.TimeTaskBean;
-import com.rejuvee.smartelectric.family.widget.DialogTip;
-import com.rejuvee.smartelectric.family.widget.LoadingDlg;
+import com.rejuvee.smartelectric.family.widget.dialog.DialogTip;
+import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
 import java.util.ArrayList;
 import java.util.List;

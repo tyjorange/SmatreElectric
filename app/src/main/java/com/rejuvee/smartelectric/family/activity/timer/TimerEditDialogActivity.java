@@ -19,8 +19,8 @@ import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.model.bean.TimeTaskBean;
 import com.rejuvee.smartelectric.family.utils.TimePickerUIUtil;
-import com.rejuvee.smartelectric.family.widget.DialogTipWithoutOkCancel;
-import com.rejuvee.smartelectric.family.widget.LoadingDlg;
+import com.rejuvee.smartelectric.family.widget.dialog.DialogTipWithoutOkCancel;
+import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
 import java.util.ArrayList;
 import java.util.List;

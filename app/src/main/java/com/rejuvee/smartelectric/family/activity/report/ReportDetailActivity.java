@@ -21,7 +21,7 @@ import com.rejuvee.smartelectric.family.fragment.ReportWarnFragment;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.ReportBean;
 import com.rejuvee.smartelectric.family.model.bean.ReportDetailBean;
-import com.rejuvee.smartelectric.family.widget.LoadingDlg;
+import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
 import java.util.ArrayList;
 import java.util.List;

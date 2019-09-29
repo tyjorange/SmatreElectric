@@ -30,10 +30,10 @@ import com.rejuvee.smartelectric.family.model.bean.CollectorState;
 import com.rejuvee.smartelectric.family.model.bean.ControllerId;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.utils.utils;
-import com.rejuvee.smartelectric.family.widget.DialogTip;
 import com.rejuvee.smartelectric.family.widget.ExpandLayout;
-import com.rejuvee.smartelectric.family.widget.LoadingDlg;
 import com.rejuvee.smartelectric.family.widget.SnackbarMessageShow;
+import com.rejuvee.smartelectric.family.widget.dialog.DialogTip;
+import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
 import java.lang.ref.WeakReference;
 import java.util.List;

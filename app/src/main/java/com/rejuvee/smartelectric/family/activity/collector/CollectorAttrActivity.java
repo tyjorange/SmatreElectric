@@ -12,8 +12,9 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
-import com.rejuvee.smartelectric.family.widget.DialogTip;
-import com.rejuvee.smartelectric.family.widget.LoadingDlg;
+import com.rejuvee.smartelectric.family.widget.dialog.DialogTip;
+import com.rejuvee.smartelectric.family.widget.dialog.DialogTipWithoutOkCancel;
+import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
 /**
  * 集中器参数
@@ -73,6 +74,11 @@ public class CollectorAttrActivity extends BaseActivity implements View.OnClickL
         findViewById(R.id.re_setxintiao).setOnClickListener(this);
         findViewById(R.id.tv_reboot).setOnClickListener(this);
         findViewById(R.id.tv_restore).setOnClickListener(this);
+        findViewById(R.id.iv_tips_btl).setOnClickListener(this);
+        findViewById(R.id.iv_tips_cjpl).setOnClickListener(this);
+        findViewById(R.id.iv_tips_cjfz).setOnClickListener(this);
+        findViewById(R.id.iv_tips_gzmpl).setOnClickListener(this);
+        findViewById(R.id.iv_tips_xtjg).setOnClickListener(this);
         text_devicename = (TextView) findViewById(R.id.text_devicename);
         text_botelv = (TextView) findViewById(R.id.text_botelv);
         text_caijilv = (TextView) findViewById(R.id.text_caijilv);
@@ -142,6 +148,21 @@ public class CollectorAttrActivity extends BaseActivity implements View.OnClickL
                 break;
             case R.id.tv_restore:
                 collectSet(1);
+                break;
+            case R.id.iv_tips_btl:
+                new DialogTipWithoutOkCancel(this).setTitle("波特率").setContent(getString(R.string.tips_btl)).show();
+                break;
+            case R.id.iv_tips_cjpl:
+                new DialogTipWithoutOkCancel(this).setTitle("采集频率").setContent(getString(R.string.tips_cjpl)).show();
+                break;
+            case R.id.iv_tips_cjfz:
+                new DialogTipWithoutOkCancel(this).setTitle("采集阀值").setContent(getString(R.string.tips_cjfz)).show();
+                break;
+            case R.id.iv_tips_gzmpl:
+                new DialogTipWithoutOkCancel(this).setTitle("故障码频率").setContent(getString(R.string.tips_gzmpl)).show();
+                break;
+            case R.id.iv_tips_xtjg:
+                new DialogTipWithoutOkCancel(this).setTitle("心跳间隔").setContent(getString(R.string.tips_xtjg)).show();
                 break;
         }
     }

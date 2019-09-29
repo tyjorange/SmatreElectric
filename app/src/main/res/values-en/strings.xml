@@ -487,8 +487,12 @@
 　　Timed operations set by the user are usually saved on the cloud server. At the time of arrival, the cloud server automatically sends the corresponding circuit breaker switch operation to the concentrator over the network. If the network fails at the time, the operation will fail.
 　　In order to prevent the scheduled operation failure by network failure, the user can select the "Resident Concentrator" option. In this way, The contents of timed operations will be saved directly on the corresponding concentrator and triggered directly when the set time is reached.
 　　Due to hardware resource constraints, a concentrator of current version resides up to 24 timed operations, and only repeated scheduled operations are allowed to reside.</string>
+    <string name="tips_btl">电箱和线路设备之间的通讯波特率。</string>
+    <string name="tips_cjpl">通常情况下，线路采集数据的上报频率。</string>
+    <string name="tips_cjfz">电压或电流变化幅度如果超过该阀值，则立即上报。</string>
+    <string name="tips_gzmpl">线路故障码在未变化时的上报频率，如果变化则立即上报。</string>
+    <string name="tips_xtjg">电箱和服务器之间通讯是否畅通的检测频率，建议不要修改。</string>
     <string name="tip_know">got it</string>
-
     <string name="line_set_leakage_current">Leakage current setting</string>
     <string name="fun_share">share</string>
     <string name="shared_user">Shared user</string>

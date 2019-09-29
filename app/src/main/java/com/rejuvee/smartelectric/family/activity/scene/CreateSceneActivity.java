@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +23,7 @@ import com.rejuvee.smartelectric.family.common.NativeLine;
 import com.rejuvee.smartelectric.family.model.bean.SceneBean;
 import com.rejuvee.smartelectric.family.model.bean.SceneItemBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchInfoBean;
-import com.rejuvee.smartelectric.family.widget.DialogTip;
+import com.rejuvee.smartelectric.family.widget.dialog.DialogTip;
 
 import org.json.JSONArray;
 import org.json.JSONException;

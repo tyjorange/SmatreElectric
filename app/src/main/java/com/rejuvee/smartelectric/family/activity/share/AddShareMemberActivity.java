@@ -14,7 +14,7 @@ import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.CommonRequestCode;
 import com.rejuvee.smartelectric.family.common.PermisionManage;
-import com.rejuvee.smartelectric.family.widget.WaitDialog;
+import com.rejuvee.smartelectric.family.widget.dialog.WaitDialog;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 
 

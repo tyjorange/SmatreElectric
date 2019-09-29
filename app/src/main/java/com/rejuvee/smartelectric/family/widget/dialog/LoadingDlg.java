@@ -1,4 +1,4 @@
-package com.rejuvee.smartelectric.family.widget;
+package com.rejuvee.smartelectric.family.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;

@@ -50,7 +50,7 @@ import com.rejuvee.smartelectric.family.model.bean.SceneBean;
 import com.rejuvee.smartelectric.family.model.bean.UserMsg;
 import com.rejuvee.smartelectric.family.utils.utils;
 import com.rejuvee.smartelectric.family.widget.CircleImageView;
-import com.rejuvee.smartelectric.family.widget.DialogTip;
+import com.rejuvee.smartelectric.family.widget.dialog.DialogTip;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 import com.squareup.picasso.Target;

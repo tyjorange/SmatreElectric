@@ -25,7 +25,7 @@ import com.rejuvee.smartelectric.family.fragment.CurveFragment;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SignalType;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
-import com.rejuvee.smartelectric.family.widget.LoadingDlg;
+import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

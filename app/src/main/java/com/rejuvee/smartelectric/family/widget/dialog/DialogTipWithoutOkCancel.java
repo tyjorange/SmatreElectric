@@ -1,4 +1,4 @@
-package com.rejuvee.smartelectric.family.widget;
+package com.rejuvee.smartelectric.family.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -61,9 +61,16 @@ public class DialogTipWithoutOkCancel extends Dialog {
         return this;
     }
 
+    public void hiddenTitle() {
+        txtTitle.setVisibility(View.GONE);
+    }
+
     public DialogTipWithoutOkCancel setContent(String content) {
         txtContent.setText(content);
         return this;
     }
 
+    public void showImg() {
+        findViewById(R.id.iv_kaifazhong).setVisibility(View.VISIBLE);
+    }
 }

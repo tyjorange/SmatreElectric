@@ -20,8 +20,9 @@ import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.CommonRequestCode;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
-import com.rejuvee.smartelectric.family.widget.DialogTip;
-import com.rejuvee.smartelectric.family.widget.LoadingDlg;
+import com.rejuvee.smartelectric.family.widget.dialog.DialogTip;
+import com.rejuvee.smartelectric.family.widget.dialog.DialogTipWithoutOkCancel;
+import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,7 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
     private List<SwitchBean> mListData = new ArrayList<>();
     private MyAdapter adapter;
     private int viewType;
+    private DialogTipWithoutOkCancel d;
 
     private DialogTip mDialogTip;
 
@@ -56,6 +58,7 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
         mCollectorBean = getIntent().getParcelableExtra("collectorBean");
         viewType = getIntent().getIntExtra("viewType", -1);
         waitDialog = new LoadingDlg(this, -1);
+        d = new DialogTipWithoutOkCancel(this);
         findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,6 +69,7 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
         switch (viewType) {
             case YaoKongActivity.YAOKONG:
                 tv_title.setText("遥控开关");
+                findViewById(R.id.ll_xianlu_paizhao).setVisibility(View.GONE);
                 break;
             case YaoKongActivity.XIANLU_WEIHU:
                 tv_title.setText("线路维护");
@@ -85,6 +89,16 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
                     }
                 });
                 iv_switch_remove.setVisibility(View.VISIBLE);
+                findViewById(R.id.ll_xianlu_paizhao).setVisibility(View.VISIBLE);
+                findViewById(R.id.ll_xianlu_paizhao).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        d.hiddenTitle();
+                        d.showImg();
+                        d.setContent("正在努力开发中...");
+                        d.show();
+                    }
+                });
                 break;
         }
         ListView lvProduct = (ListView) findViewById(R.id.lv_products);

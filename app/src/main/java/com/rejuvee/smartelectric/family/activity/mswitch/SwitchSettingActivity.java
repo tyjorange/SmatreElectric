@@ -31,9 +31,9 @@ import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.model.bean.VoltageValue;
 import com.rejuvee.smartelectric.family.utils.ScrollBindHelper;
-import com.rejuvee.smartelectric.family.widget.InputDialog;
-import com.rejuvee.smartelectric.family.widget.LoadingDlg;
 import com.rejuvee.smartelectric.family.widget.ObservableScrollView;
+import com.rejuvee.smartelectric.family.widget.dialog.InputDialog;
+import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
 import java.lang.ref.WeakReference;
 import java.math.BigDecimal;

@@ -13,8 +13,8 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.model.bean.ThirdPartyInfo;
-import com.rejuvee.smartelectric.family.widget.DialogTip;
-import com.rejuvee.smartelectric.family.widget.LoadingDlg;
+import com.rejuvee.smartelectric.family.widget.dialog.DialogTip;
+import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 import com.rejuvee.smartelectric.family.wxapi.QQLoginHelper;
 import com.rejuvee.smartelectric.family.wxapi.WXHelper;
 

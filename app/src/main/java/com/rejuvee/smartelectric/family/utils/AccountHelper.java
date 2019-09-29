@@ -14,7 +14,7 @@ import com.rejuvee.smartelectric.family.custom.AccountEventMsg;
 import com.rejuvee.smartelectric.family.custom.DeviceEventMsg;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfo;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfoRealm;
-import com.rejuvee.smartelectric.family.widget.LoadingDlg;
+import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
 import org.greenrobot.eventbus.EventBus;
 

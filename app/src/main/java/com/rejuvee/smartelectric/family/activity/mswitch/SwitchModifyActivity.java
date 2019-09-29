@@ -24,7 +24,7 @@ import java.util.List;
 
 
 /**
- * 线路修改
+ * 线路修改 （名称图片）
  */
 public class SwitchModifyActivity extends BaseActivity {
     //    private SwitchBean switchBean;
@@ -83,7 +83,7 @@ public class SwitchModifyActivity extends BaseActivity {
                 }
             }
         });
-        //切换线路
+        // dialog切换线路
         LinearLayout img_change = findViewById(R.id.img_change);
         if (collectorBean != null) {//修改
             img_change.setOnClickListener(new View.OnClickListener() {

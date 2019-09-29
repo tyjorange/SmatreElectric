@@ -484,8 +484,12 @@
     <string name="upload_tips">1、定时操作通常是保存在云服务器的，在到达设定的时刻，云服务器会自动通过网络向电箱发送对应的线路开关操作。如果当时网络故障，那么这次操作将失败。\n
 2、为防止网络故障而引起的定时操作失败，用户可以选择“驻留电箱”选项。这样定时操作的内容将直接保存到对应的电箱上，并在到达设定的时刻时直接触发。\n
 3、由于电箱硬件资源限制，一个电箱最多驻留24个定时操作，并且重复运行的定时操作才允许驻留！</string>
+    <string name="tips_btl">电箱和线路设备之间的通讯波特率。</string>
+    <string name="tips_cjpl">通常情况下，线路采集数据的上报频率。</string>
+    <string name="tips_cjfz">电压或电流变化幅度如果超过该阀值，则立即上报。</string>
+    <string name="tips_gzmpl">线路故障码在未变化时的上报频率，如果变化则立即上报。</string>
+    <string name="tips_xtjg">电箱和服务器之间通讯是否畅通的检测频率，建议不要修改。</string>
     <string name="tip_know">知道了</string>
-
     <string name="fun_share">共享</string>
     <string name="shared_user">共享用户</string>
     <string name="add_share">添加分享者</string>

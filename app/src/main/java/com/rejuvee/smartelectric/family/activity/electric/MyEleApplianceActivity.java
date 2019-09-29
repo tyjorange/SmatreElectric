@@ -20,9 +20,8 @@ import com.rejuvee.smartelectric.family.custom.DeviceEventMsg;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.EleBean;
 import com.rejuvee.smartelectric.family.model.bean.MyEleApplianceBean;
-import com.rejuvee.smartelectric.family.model.bean.MyEleBean;
-import com.rejuvee.smartelectric.family.widget.DialogTip;
-import com.rejuvee.smartelectric.family.widget.LoadingDlg;
+import com.rejuvee.smartelectric.family.widget.dialog.DialogTip;
+import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

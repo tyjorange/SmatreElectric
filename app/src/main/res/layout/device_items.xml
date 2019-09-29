@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ln_chose"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_centerInParent="true">
 
     <LinearLayout
         android:id="@+id/ln_device"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center"
@@ -34,9 +34,12 @@
 
         <TextView
             android:id="@+id/text_room"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
             android:gravity="center"
+            android:maxLength="10"
+            android:maxLines="1"
             android:text="@string/choses_room"
             android:textColor="@color/black"
             android:textSize="9sp"
@@ -47,8 +50,7 @@
         android:id="@+id/img_xuanzhe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_toEndOf="@+id/ln_device"
-        android:paddingTop="5dp"
+        android:layout_alignParentEnd="true"
+        android:padding="5dp"
         android:src="@drawable/img_chose" />
 </RelativeLayout>

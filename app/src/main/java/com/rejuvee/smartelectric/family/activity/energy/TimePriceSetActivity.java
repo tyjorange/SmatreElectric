@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
-import com.rejuvee.smartelectric.family.widget.DialogTimePicker;
+import com.rejuvee.smartelectric.family.widget.dialog.DialogTimePicker;
 
 import java.util.Calendar;
 import java.util.Currency;
