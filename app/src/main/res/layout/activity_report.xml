@@ -23,6 +23,11 @@
             android:padding="16dp"
             android:src="@drawable/main_fanhui" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="智能电箱"
+            android:textSize="12sp" />
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
@@ -37,7 +42,7 @@
             android:layout_weight="1"
             android:paddingStart="10dp"
             android:paddingEnd="0dp"
-            android:text="报表"
+            android:text="周月报表"
             android:textColor="@color/black"
             android:textSize="18sp" />
 

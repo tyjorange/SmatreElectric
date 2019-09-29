@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 线路
+ * 主线路
  */
 public class YaoKongActivity extends BaseActivity implements SwitchTree {
     private Context mContext;
@@ -70,9 +70,13 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
             case YaoKongActivity.YAOKONG:
                 tv_title.setText("遥控开关");
                 findViewById(R.id.ll_xianlu_paizhao).setVisibility(View.GONE);
+                findViewById(R.id.type_yaokong).setVisibility(View.VISIBLE);
+                findViewById(R.id.type_xianluweihu).setVisibility(View.GONE);
                 break;
             case YaoKongActivity.XIANLU_WEIHU:
                 tv_title.setText("线路维护");
+                findViewById(R.id.type_yaokong).setVisibility(View.GONE);
+                findViewById(R.id.type_xianluweihu).setVisibility(View.VISIBLE);
                 View iv_switch_add = findViewById(R.id.iv_add_child_switch);
                 iv_switch_add.setOnClickListener(new View.OnClickListener() {
                     @Override

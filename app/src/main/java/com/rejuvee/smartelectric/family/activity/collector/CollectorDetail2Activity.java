@@ -11,6 +11,9 @@ import com.rejuvee.smartelectric.family.activity.mswitch.YaoKongActivity;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 
+/**
+ * 专业功能
+ */
 public class CollectorDetail2Activity extends BaseActivity implements View.OnClickListener {
     private CollectorBean collectorBean;
 

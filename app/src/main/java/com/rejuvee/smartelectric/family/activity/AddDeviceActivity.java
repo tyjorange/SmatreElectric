@@ -106,8 +106,17 @@ public class AddDeviceActivity extends BaseActivity {
         addType = intent.getIntExtra("add_type", 0);
         mSwitch = intent.getParcelableExtra("switch");
         add_title = (TextView) findViewById(R.id.add_title);
+        TextView parent_tip = (TextView) findViewById(R.id.txt_parent_tip);
         if (addType == BREAK_ADD) {
             add_title.setText("添加线路");
+            findViewById(R.id.type_dianxiang).setVisibility(View.GONE);
+            findViewById(R.id.type_xianlu).setVisibility(View.VISIBLE);
+            if (mSwitch != null) {
+                parent_tip.setText("上级线路：" + mSwitch.getName());
+                parent_tip.setVisibility(View.VISIBLE);
+            } else {
+                parent_tip.setVisibility(View.INVISIBLE);
+            }
 //            getToolbarTextView().setText(getResources().getString(R.string.sce_addxianlu));
             collectorBean = getIntent().getParcelableExtra("collectorBean");
             llSetLineName = (LinearLayout) findViewById(R.id.ll_set_line_name);
@@ -124,6 +133,8 @@ public class AddDeviceActivity extends BaseActivity {
             edtScan.setFilters(new InputFilter[]{new InputFilter.LengthFilter(12)});
         } else {
             add_title.setText("添加电箱");
+            findViewById(R.id.type_dianxiang).setVisibility(View.VISIBLE);
+            findViewById(R.id.type_xianlu).setVisibility(View.GONE);
             edtScan.setFilters(new InputFilter[]{new InputFilter.LengthFilter(19)});
         }
     }

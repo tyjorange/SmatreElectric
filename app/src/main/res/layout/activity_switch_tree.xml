@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/shape_bg_dialog_tip"
     android:layout_height="match_parent"
+    android:background="@drawable/shape_bg_dialog_tip"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".activity.mswitch.SwitchTreeActivity">
@@ -35,6 +35,7 @@
         android:id="@+id/ll_tree_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal"
         android:paddingStart="20dp"
         android:paddingTop="20dp"

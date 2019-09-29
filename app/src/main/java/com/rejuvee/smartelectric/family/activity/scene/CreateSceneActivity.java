@@ -77,7 +77,7 @@ public class CreateSceneActivity extends BaseActivity implements View.OnClickLis
         edit_name = (EditText) findViewById(R.id.edit_name);
         list_line = (ListView) findViewById(R.id.list_line);
         choseimg = (ImageView) findViewById(R.id.choseimg);
-        text_title = (TextView) findViewById(R.id.text_title);
+//        text_title = (TextView) findViewById(R.id.text_title);
 
         Intent intent = getIntent();
         mSscene = intent.getParcelableExtra("scene");
@@ -90,7 +90,7 @@ public class CreateSceneActivity extends BaseActivity implements View.OnClickLis
             edit_name.setText(mSscene.getSceneName());
             choseimg.setImageResource(NativeLine.imageId[mSscene.getSceneIconRes()]);
             scenimg = mSscene.getSceneIconRes();
-            text_title.setText(R.string.edit_scene);
+//            text_title.setText(R.string.edit_scene);
         }
 
         dialogTip = new DialogTip(this);

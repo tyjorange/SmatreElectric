@@ -28,6 +28,12 @@
                 android:padding="16dp"
                 android:src="@drawable/main_fanhui" />
 
+            <TextView
+                android:id="@+id/type_yaokong"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="首页 / 场景管理"
+                android:textSize="12sp" />
         </android.support.v7.widget.Toolbar>
 
         <LinearLayout
@@ -44,7 +50,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/new_scene"
+                android:text="添加与修改"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
         </LinearLayout>

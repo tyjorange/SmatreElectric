@@ -23,6 +23,20 @@
             android:padding="16dp"
             android:src="@drawable/main_fanhui" />
 
+        <TextView
+            android:id="@+id/type_yaokong"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="智能电箱"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/type_xianluweihu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="智能电箱 / 专业功能"
+            android:textSize="12sp"
+            android:visibility="gone" />
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout

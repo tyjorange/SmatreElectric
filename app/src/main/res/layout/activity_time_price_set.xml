@@ -23,6 +23,11 @@
             android:padding="16dp"
             android:src="@drawable/main_fanhui" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="首页 / 分时计价"
+            android:textSize="12sp" />
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout

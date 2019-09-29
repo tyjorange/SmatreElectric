@@ -104,6 +104,8 @@ public class YaoKongDetailActivity extends BaseActivity {
                         switchBreak(rootSwitchBean);
                     }
                 });
+                findViewById(R.id.type_yaokong).setVisibility(View.VISIBLE);
+                findViewById(R.id.type_xianluweihu).setVisibility(View.GONE);
                 break;
             case SwitchTree.XIANLU_WEIHU:
                 ImageView iv_switch_add = findViewById(R.id.iv_add_child_switch);
@@ -122,6 +124,8 @@ public class YaoKongDetailActivity extends BaseActivity {
                     }
                 });
                 iv_switch_remove_toggle.setVisibility(View.VISIBLE);
+                findViewById(R.id.type_yaokong).setVisibility(View.GONE);
+                findViewById(R.id.type_xianluweihu).setVisibility(View.VISIBLE);
                 break;
         }
         TextView tv_root_name = findViewById(R.id.tv_root_name);
