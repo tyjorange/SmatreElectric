@@ -12,7 +12,7 @@ import com.rejuvee.smartelectric.family.common.BaseActivity;
 
 public class LunchActivity extends BaseActivity {
     private Button mBtnSkip;
-    private int count = 50;
+    private int count = 5;
 
     @Override
     protected int getLayoutResId() {
