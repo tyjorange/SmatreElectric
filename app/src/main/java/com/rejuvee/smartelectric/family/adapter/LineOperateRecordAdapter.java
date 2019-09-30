@@ -117,7 +117,7 @@ public class LineOperateRecordAdapter extends BaseAdapter {
 //        String s = recordBean.username + recordBean.nickName;
         String sName = recordBean.username;
         if (sName != null) {
-            holder.tvDate.setText(String.format("%s%s%s%s", mContext.getString(R.string.vs7), sName, mContext.getString(R.string.vs8), recordBean.time));
+            holder.tvDate.setText(String.format("%s%s|%s", mContext.getString(R.string.vs7), sName, recordBean.time));
         } else {
             holder.tvDate.setText(recordBean.time);
         }

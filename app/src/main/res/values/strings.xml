@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">电母</string>
+    <!--    <string name="app_name">电母</string>-->
     <string name="tab_main">电箱</string>
     <string name="tab_message">智能</string>
     <string name="tab_mine">我的</string>
@@ -530,7 +530,7 @@
     <string name="vs5">电箱:</string>
     <string name="vs6">ID:</string>
     <string name="vs7">用户:</string>
-    <string name="vs8">|</string>
+    <string name="vs8"></string>
     <string name="vs9">安全阀值:</string>
     <string name="vs10">当前值:</string>
     <string name="vs11">跳过</string>
@@ -552,7 +552,7 @@
     <string name="vs27">确认</string>
     <string name="vs28">条分线</string>
     <string name="vs29">请先添加线路</string>
-    <string name="vs30">正在努力开发中...</string>
+    <string name="vs30">正在努力开发中&#8230;&#8230;&#8230;</string>
     <string name="vs31">驻留定时</string>
     <string name="vs32">结果超时</string>
     <string name="vs33">冲突</string>

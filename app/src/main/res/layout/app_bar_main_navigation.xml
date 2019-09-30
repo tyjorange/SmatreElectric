@@ -25,7 +25,6 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:contentDescription="@string/nav_header_desc"
                 android:src="@drawable/icon_user_default">
 
             </com.rejuvee.smartelectric.family.widget.CircleImageView>

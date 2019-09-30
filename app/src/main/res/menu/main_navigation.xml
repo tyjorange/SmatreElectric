@@ -5,6 +5,6 @@
         android:id="@+id/action_settings"
         android:icon="@drawable/main_tongzhi"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="ring"
         app:showAsAction="always" />
 </menu>
