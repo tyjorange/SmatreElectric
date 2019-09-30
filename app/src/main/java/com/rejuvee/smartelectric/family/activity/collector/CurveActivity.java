@@ -183,7 +183,7 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
                 switchBeanList.clear();
                 switchBeanList.addAll(data);
                 currentSwitchBean = switchBeanList.get(0);
-                cur_line.setText("线路:" + currentSwitchBean.getName());
+                cur_line.setText(String.format("%s%s", getString(R.string.vs4), currentSwitchBean.getName()));
 //                gvAdapter.notifyDataSetChanged();
                 notifyFpAdapter();
             }
@@ -191,11 +191,12 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
             @Override
             public void onFailure(int errorEvent, String message) {
                 waitDialog.dismiss();
-                if (errorEvent == 12) {
+//                if (errorEvent == 12) {
 //                    CustomToast.showCustomErrorToast(CurveActivity.this, getString(R.string.local_error_message_no_data));
-                } else {
-                    CustomToast.showCustomErrorToast(CurveActivity.this, getString(R.string.get_data_fail));
-                }
+//                } else {
+//                    CustomToast.showCustomErrorToast(CurveActivity.this, getString(R.string.get_data_fail));
+//                }
+                CustomToast.showCustomErrorToast(CurveActivity.this, getString(R.string.get_data_fail));
 
             }
         });
@@ -244,11 +245,12 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
             @Override
             public void onFailure(int errorEvent, String message) {
                 waitDialog.dismiss();
-                if (errorEvent == 12) {
-//                    CustomToast.showCustomErrorToast(CurveActivity.this, getString(R.string.local_error_message_no_data));
-                } else {
-                    CustomToast.showCustomErrorToast(CurveActivity.this, getString(R.string.get_data_fail));
-                }
+//                if (errorEvent == 12) {
+////                    CustomToast.showCustomErrorToast(CurveActivity.this, getString(R.string.local_error_message_no_data));
+//                } else {
+//                    CustomToast.showCustomErrorToast(CurveActivity.this, getString(R.string.get_data_fail));
+//                }
+                CustomToast.showCustomErrorToast(CurveActivity.this, getString(R.string.get_data_fail));
             }
         });
     }
@@ -510,7 +512,7 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
                     public void onChose(SwitchBean s) {
                         //添加后 刷新数据
                         currentSwitchBean = s;
-                        cur_line.setText("线路:" + currentSwitchBean.getName());
+                        cur_line.setText(String.format("%s%s", getString(R.string.vs4), currentSwitchBean.getName()));
 //                gvAdapter.notifyDataSetChanged();
                         notifyFpAdapter();
                     }
@@ -527,10 +529,9 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
     @Override
     public void onShowing(CurveFragment curveFragment) {
         Log.e("VpAdapter", "onShowing");
-        CurveFragment currentCurveFragment = curveFragment;
         List<SignalType> signalTypeList = isDay ? signalDayTypeList : signalMonthTypeList;
         currentSignalType = signalTypeList.get(curveFragment.getPosition());
-        currentCurveFragment.change(getBundle());
+        curveFragment.change(getBundle());
     }
 
     @Override
@@ -539,7 +540,7 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
         if (resultCode == RESULT_OK) {
             if (requestCode == CommonRequestCode.REQUEST_CHOSE_LINE) {//添加后 刷新数据 Deprecated
                 currentSwitchBean = data.getParcelableExtra("switchBean");
-                cur_line.setText("线路:" + currentSwitchBean.getName());
+                cur_line.setText(String.format("%s%s", getString(R.string.vs4), currentSwitchBean.getName()));
 //                gvAdapter.notifyDataSetChanged();
                 notifyFpAdapter();
             }

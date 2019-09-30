@@ -112,7 +112,7 @@ public class AddDeviceActivity extends BaseActivity {
             findViewById(R.id.type_dianxiang).setVisibility(View.GONE);
             findViewById(R.id.type_xianlu).setVisibility(View.VISIBLE);
             if (mSwitch != null) {
-                parent_tip.setText("上级线路：" + mSwitch.getName());
+                parent_tip.setText(String.format("%s%s", getString(R.string.vs1), mSwitch.getName()));
                 parent_tip.setVisibility(View.VISIBLE);
             } else {
                 parent_tip.setVisibility(View.INVISIBLE);

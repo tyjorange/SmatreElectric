@@ -41,10 +41,10 @@ public class MyMarkerView extends MarkerView {
 
             CandleEntry ce = (CandleEntry) e;
 
-            tvValue.setText("" + Utils.formatNumber(ce.getHigh(), 0, true));
+            tvValue.setText(String.format("%s", Utils.formatNumber(ce.getHigh(), 0, true)));
         } else {
-            tvValue.setText("" + e.getY());
-            tvTime.setText("" + listData.get((int) e.getX()).getTime());
+            tvValue.setText(String.format("%s", e.getY()));
+            tvTime.setText(String.format("%s", listData.get((int) e.getX()).getTime()));
         }
 
         super.refreshContent(e, highlight);
@@ -56,6 +56,7 @@ public class MyMarkerView extends MarkerView {
 
     @Override
     public MPPointF getOffset() {
-        return new MPPointF(-(getWidth() / 2), -getHeight());
+//        return new MPPointF(-(getWidth() / 2), -getHeight());
+        return new MPPointF(-(getWidth() >> 1), -getHeight());
     }
 }

@@ -31,7 +31,6 @@ public class EnergySavingInformationActivity extends BaseActivity implements Vie
     private CollectorBean collectorBean;
     private SwitchBean switchBean;
     private TextView collector_name;
-    private TextView dianxiang_code;
     private TextView line_name;
     private TextView hbjs_val;
     private TextView tbjs_val;
@@ -51,7 +50,7 @@ public class EnergySavingInformationActivity extends BaseActivity implements Vie
     protected void initView() {
         collectorBean = getIntent().getParcelableExtra("collectorBean");
         collector_name = findViewById(R.id.collector_name);
-        dianxiang_code = findViewById(R.id.dianxiang_code);
+        TextView dianxiang_code = findViewById(R.id.dianxiang_code);
         line_name = findViewById(R.id.line_name);
         hbjs_val = findViewById(R.id.hbjs_val);
         tbjs_val = findViewById(R.id.tbjs_val);
@@ -123,8 +122,8 @@ public class EnergySavingInformationActivity extends BaseActivity implements Vie
     }
 
     private void setData(SwitchBean switchBean, CollectorBean collectorBean) {
-        collector_name.setText("电箱:" + collectorBean.getDeviceName());
-        line_name.setText("线路:" + switchBean.getName());
+        collector_name.setText(String.format("%s%s", getString(R.string.vs5), collectorBean.getDeviceName()));
+        line_name.setText(String.format("%s%s", getString(R.string.vs4), switchBean.getName()));
         hbjs_val.setText(switchBean.getHbjn());
         tbjs_val.setText(switchBean.getTbjn());
         ydl_val.setText(switchBean.getToday());

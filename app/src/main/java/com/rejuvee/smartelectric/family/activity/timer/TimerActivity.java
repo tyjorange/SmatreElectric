@@ -88,7 +88,7 @@ public class TimerActivity extends BaseActivity implements View.OnClickListener,
     }
 
     private void getData(SwitchBean switchBean) {
-        tv_line_name.setText("线路:" + switchBean.getName());
+        tv_line_name.setText(String.format("%s%s", getString(R.string.vs4), switchBean.getName()));
         mWaitDialog.show();
         Core.instance(this).findTimeControllerBySwitch(switchBean.getSwitchID(), new ActionCallbackListener<List<TimeTaskBean.TimeTask>>() {
             @Override

@@ -80,7 +80,7 @@ public class AmountView extends LinearLayout implements View.OnClickListener, Vi
 
     public void setAmount(float amount) {
         this.amount = amount;
-        etAmount.setText(amount + "");
+        etAmount.setText(String.format("%s", amount));
     }
 
     @Override
@@ -89,12 +89,12 @@ public class AmountView extends LinearLayout implements View.OnClickListener, Vi
         if (i == R.id.btnDecrease) {
             if (amount > val_min) {
                 amount--;
-                etAmount.setText(amount + "");
+                etAmount.setText(String.format("%s", amount));
             }
         } else if (i == R.id.btnIncrease) {
             if (amount < val_max) {
                 amount++;
-                etAmount.setText(amount + "");
+                etAmount.setText(String.format("%s", amount));
             }
         }
         v.setFocusable(true);
@@ -110,17 +110,17 @@ public class AmountView extends LinearLayout implements View.OnClickListener, Vi
             return;
         String s = etAmount.getEditableText().toString();
         if (s.trim().isEmpty() || s.equals(".")) {
-            etAmount.setText(amount + "");
+            etAmount.setText(String.format("%s", amount));
             return;
         }
         amount = Float.valueOf(s);
         if (amount > val_max) {
             amount = val_max;
-            etAmount.setText(val_max + "");
+            etAmount.setText(String.format("%s", val_max));
         }
         if (amount < val_min) {
             amount = val_min;
-            etAmount.setText(val_min + "");
+            etAmount.setText(String.format("%s", val_min));
         }
         etAmount.clearFocus();
         if (mListener != null) {

@@ -26,6 +26,7 @@ import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * 主线路
@@ -99,7 +100,7 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
                     public void onClick(View v) {
                         d.hiddenTitle();
                         d.showImg();
-                        d.setContent("正在努力开发中...");
+                        d.setContent(getString(R.string.vs30));
                         d.show();
                     }
                 });
@@ -165,7 +166,7 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
 //                    messageTip = getString(R.string.operator_failure);
 //                }
                 if (errorEvent == 12) {
-                    CustomToast.showCustomErrorToast(YaoKongActivity.this, "请先添加线路");
+                    CustomToast.showCustomErrorToast(YaoKongActivity.this, getString(R.string.vs29));
                 } else {
                     CustomToast.showCustomErrorToast(YaoKongActivity.this, message);
                 }
@@ -320,10 +321,10 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
             }
             SwitchBean switchBean = getItem(position);
             holder.img_line.setImageResource(switchBean.getIcon());
-            holder.txt_content.setText("线路：" + switchBean.getName());
+            holder.txt_content.setText(String.format("%s%s", context.getString(R.string.vs14), switchBean.getName()));
 //            holder.tv_state.setVisibility(switchBean.getSwitchState() == 0 ? View.VISIBLE : View.INVISIBLE);// 更新状态文字
 //            holder.tv_state.setText(SwitchBean.getSwitchFaultState(convertView.getContext(), switchBean.fault));// 更新状态文字
-            holder.tv_state.setText(switchBean.getChild().size() + "条分线");
+            holder.tv_state.setText(String.format(Locale.getDefault(), "%d%s", switchBean.getChild().size(), context.getString(R.string.vs28)));
             holder.tv_code.setText(switchBean.getSerialNumber());
             holder.iv_time_clock.setVisibility(switchBean.timerCount > 0 ? View.VISIBLE : View.INVISIBLE);
             holder.iv_del_switch.setVisibility(switchBean.showDelIcon);

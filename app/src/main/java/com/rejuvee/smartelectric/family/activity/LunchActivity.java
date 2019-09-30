@@ -10,6 +10,8 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.activity.login.LoginActivity;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 
+import java.util.Locale;
+
 public class LunchActivity extends BaseActivity {
     private Button mBtnSkip;
     private int count = 5;
@@ -28,7 +30,7 @@ public class LunchActivity extends BaseActivity {
     private Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             if (msg.what == 0) {
-                mBtnSkip.setText("跳过 (" + getCount() + ")");
+                mBtnSkip.setText(String.format(Locale.getDefault(), "%s%d%s", getString(R.string.vs11), getCount(), getString(R.string.vs12)));
                 handler.sendEmptyMessageDelayed(0, 1000);
             }
         }

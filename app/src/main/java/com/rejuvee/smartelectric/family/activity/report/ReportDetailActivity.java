@@ -65,7 +65,7 @@ public class ReportDetailActivity extends BaseActivity {
         viewPager = (ViewPager) findViewById(R.id.vp_report);
         textViewTitle = (TextView) findViewById(R.id.tv_report_title);
         String a = reportBean.timeType == 1 ? "周报" : "月报";
-        textViewTitle.setText(a + " " + reportBean.startDay + " - " + reportBean.endDay);
+        textViewTitle.setText(String.format("%s %s - %s", a, reportBean.startDay, reportBean.endDay));
     }
 
     @Override

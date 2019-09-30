@@ -16,6 +16,8 @@ import com.rejuvee.smartelectric.family.widget.dialog.DialogTip;
 import com.rejuvee.smartelectric.family.widget.dialog.DialogTipWithoutOkCancel;
 import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
+import java.util.Locale;
+
 /**
  * 集中器参数
  * Created by Administrator on 2018/1/2.
@@ -86,7 +88,7 @@ public class CollectorAttrActivity extends BaseActivity implements View.OnClickL
         text_guzhangma = (TextView) findViewById(R.id.text_guzhangma);
         text_xintiao = (TextView) findViewById(R.id.text_xintiao);
         tvDeviceId = (TextView) findViewById(R.id.tv_collect_id);
-        tvDeviceId.setText(collectorBean.getCode() + "");
+        tvDeviceId.setText(String.format("%s", collectorBean.getCode()));
         getCollectorByCollectorID(collectorBean.getCollectorID());
 
         loadingDlg = new LoadingDlg(this, -1);
@@ -104,12 +106,12 @@ public class CollectorAttrActivity extends BaseActivity implements View.OnClickL
                 Ranges = data.getRanges() + "";
                 guzhangma = data.getFaultFreq() + "";
                 heartrate = data.getHeartrate() + "";
-                text_devicename.setText(data.getDeviceName() + "");
-                text_botelv.setText(data.getBaud() + "bps");
-                text_caijilv.setText(data.getFreq() + "min");
-                text_gaojin.setText(data.getRanges() + "%");
-                text_guzhangma.setText(data.getFaultFreq() + "sec");
-                text_xintiao.setText(data.getHeartrate() + "s");
+                text_devicename.setText(String.format("%s", data.getDeviceName()));
+                text_botelv.setText(String.format(Locale.getDefault(), "%dbps", data.getBaud()));
+                text_caijilv.setText(String.format(Locale.getDefault(), "%dmin", data.getFreq()));
+                text_gaojin.setText(String.format(Locale.getDefault(), "%d%%", data.getRanges()));
+                text_guzhangma.setText(String.format(Locale.getDefault(), "%dsec", data.getFaultFreq()));
+                text_xintiao.setText(String.format(Locale.getDefault(), "%ds", data.getHeartrate()));
             }
 
             @Override

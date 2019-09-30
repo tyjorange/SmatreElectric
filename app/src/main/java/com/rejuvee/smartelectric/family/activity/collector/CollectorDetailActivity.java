@@ -118,12 +118,12 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
 //        } else {
 //            tvUpgrade.setEnabled(false);
 //        }
-        collectorName.setText("编号:" + collectorBean.getCode());
+        collectorName.setText(String.format("%s%s", getString(R.string.vs2), collectorBean.getCode()));
         if (collectorBean.ownerUser != null) {
             if (collectorBean.ownerUser.getNickName() == null) {
-                txtShareTip.setText(collectorBean.ownerUser.getUsername() + " 的分享");
+                txtShareTip.setText(String.format("%s%s", collectorBean.ownerUser.getUsername(), getString(R.string.vs3)));
             } else {
-                txtShareTip.setText(collectorBean.ownerUser.getNickName() + " 的分享");
+                txtShareTip.setText(String.format("%s%s", collectorBean.ownerUser.getNickName(), getString(R.string.vs3)));
             }
         } else {
             txtShareTip.setVisibility(View.INVISIBLE);

@@ -268,19 +268,19 @@ public class CollectorAttrSetActivity extends BaseActivity implements View.OnCli
             }
             switch (Acposition) {
                 case 1:
-                    holder.text_counts.setText(counts[position] + "bps");
+                    holder.text_counts.setText(String.format("%sbps", counts[position]));
                     break;
                 case 2:
-                    holder.text_counts.setText(counts[position] + "min");
+                    holder.text_counts.setText(String.format("%smin", counts[position]));
                     break;
                 case 3:
-                    holder.text_counts.setText(counts[position] + "%");
+                    holder.text_counts.setText(String.format("%s%%", counts[position]));
                     break;
                 case 4:
-                    holder.text_counts.setText(counts[position] + "sec");
+                    holder.text_counts.setText(String.format("%ssec", counts[position]));
                     break;
                 case 5:
-                    holder.text_counts.setText(counts[position] + "s");
+                    holder.text_counts.setText(String.format("%ss", counts[position]));
                     break;
             }
 //            holder.img_slecte.setVisibility(curposition != position ? View.INVISIBLE : View.VISIBLE);

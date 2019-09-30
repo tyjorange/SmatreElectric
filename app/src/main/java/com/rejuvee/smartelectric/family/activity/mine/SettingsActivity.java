@@ -43,7 +43,7 @@ public class SettingsActivity extends BaseActivity {
 
 //        setToolbarHide(true);
 //        tvClean = (TextView) findViewById(R.id.tv_clean);
-        ((TextView) findViewById(R.id.txt_current_vision)).setText("v" + packageCode(this));
+        ((TextView) findViewById(R.id.txt_current_vision)).setText(String.format("v%s", packageCode(this)));
     }
 
     private String packageCode(Context context) {

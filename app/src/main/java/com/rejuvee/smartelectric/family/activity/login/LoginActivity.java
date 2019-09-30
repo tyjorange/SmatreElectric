@@ -1,5 +1,6 @@
 package com.rejuvee.smartelectric.family.activity.login;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -149,6 +150,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void autoLogin() {
         cacheAccount = AccountHelper.getCacheAccount();
         if (cacheAccount != null) {

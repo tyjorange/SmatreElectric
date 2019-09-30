@@ -1,5 +1,6 @@
 package com.rejuvee.smartelectric.family.activity.login;
 
+import android.annotation.SuppressLint;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,6 +44,7 @@ public class HiddenDialogActivity extends BaseActivity {
         btnCancel = (Button) findViewById(R.id.btn_cancel);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void initData() {
         etIP.setText("192.168.1.182");

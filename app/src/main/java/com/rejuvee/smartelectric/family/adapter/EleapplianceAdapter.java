@@ -73,7 +73,7 @@ public class EleapplianceAdapter extends BaseAdapter implements View.OnClickList
 //        seletpositon = position;
         myHolder.txt_linename.setText(myEleApplianceBean.getLinename());
         myHolder.txt_elename.setText(myEleApplianceBean.getElename());
-        myHolder.txt_gonglv.setText(myEleApplianceBean.getGonglv() + "");
+        myHolder.txt_gonglv.setText(String.format("%s", myEleApplianceBean.getGonglv()));
         myHolder.img_shanchu.setVisibility(myEleApplianceBean.showDelIcon);
         myHolder.img_shanchu.setOnClickListener(this);
         myHolder.img_shanchu.setTag(myEleApplianceBean);

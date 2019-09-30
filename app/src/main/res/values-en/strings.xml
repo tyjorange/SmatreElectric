@@ -518,14 +518,36 @@
     <string name="upgrade_tip">1、网络连接正常情况下，集中器软件升级将持续20分钟左右。\n
 2、集中器软件升级过程中，该集中器采集和控制功能将停止，直至升级完成。但各线路功能不会受影响。\n
 3、集中器软件升级将在用户指定时段中的某一时刻自动开始，但不一定会在指定时段内完成。</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_main_navigation">MainNavigationActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="vs1">上级线路：</string>
+    <string name="vs2">编号:</string>
+    <string name="vs3">的分享</string>
+    <string name="vs4">线路:</string>
+    <string name="vs5">电箱:</string>
+    <string name="vs6">ID:</string>
+    <string name="vs7">用户:</string>
+    <string name="vs8">|</string>
+    <string name="vs9">安全阀值:</string>
+    <string name="vs10">当前值:</string>
+    <string name="vs11">跳过 (</string>
+    <string name="vs12">)</string>
+    <string name="vs13">总电箱数量：</string>
+    <string name="vs14">线路：</string>
+    <string name="vs15">分线：</string>
+    <string name="vs16">支线：</string>
+    <string name="vs17">次</string>
+    <string name="vs18">度</string>
+    <string name="vs19">设置价钱</string>
+    <string name="vs20">当前版本:</string>
+    <string name="vs21">新版本:</string>
+    <string name="vs22">电箱升级介绍</string>
+    <string name="vs23">已同意升级</string>
+    <string name="vs24">已忽略此版本</string>
+    <string name="vs25">请选择升级时间段</string>
+    <string name="vs26">升级</string>
+    <string name="vs27">确认</string>
+    <string name="vs28">条分线</string>
+    <string name="vs29">请先添加线路</string>
+    <string name="vs30">正在努力开发中...</string>
 </resources>

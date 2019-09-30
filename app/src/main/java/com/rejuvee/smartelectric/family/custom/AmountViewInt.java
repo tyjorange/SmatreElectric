@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 
 import com.rejuvee.smartelectric.family.R;
 
+import java.util.Locale;
+
 /**
  * 自定义组件：购买数量，带减少增加按钮
  */
@@ -80,7 +82,7 @@ public class AmountViewInt extends LinearLayout implements View.OnClickListener,
 
     public void setAmount(int amount) {
         this.amount = amount;
-        etAmount.setText(amount + "");
+        etAmount.setText(String.format(Locale.getDefault(), "%d", amount));
     }
 
     @Override
@@ -89,12 +91,12 @@ public class AmountViewInt extends LinearLayout implements View.OnClickListener,
         if (i == R.id.btnDecrease) {
             if (amount > val_min) {
                 amount--;
-                etAmount.setText(amount + "");
+                etAmount.setText(String.format(Locale.getDefault(), "%d", amount));
             }
         } else if (i == R.id.btnIncrease) {
             if (amount < val_max) {
                 amount++;
-                etAmount.setText(amount + "");
+                etAmount.setText(String.format(Locale.getDefault(), "%d", amount));
             }
         }
         v.setFocusable(true);
@@ -110,17 +112,17 @@ public class AmountViewInt extends LinearLayout implements View.OnClickListener,
             return;
         String s = etAmount.getEditableText().toString();
         if (s.trim().isEmpty() || s.equals(".")) {
-            etAmount.setText(amount + "");
+            etAmount.setText(String.format(Locale.getDefault(), "%d", amount));
             return;
         }
         amount = Integer.valueOf(s);
         if (amount > val_max) {
             amount = val_max;
-            etAmount.setText(val_max + "");
+            etAmount.setText(String.format(Locale.getDefault(), "%d", val_max));
         }
         if (amount < val_min) {
             amount = val_min;
-            etAmount.setText(val_min + "");
+            etAmount.setText(String.format(Locale.getDefault(), "%d", val_min));
         }
         etAmount.clearFocus();
         if (mListener != null) {

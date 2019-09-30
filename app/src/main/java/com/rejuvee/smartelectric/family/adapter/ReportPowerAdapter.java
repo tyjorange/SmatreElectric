@@ -10,6 +10,7 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.model.bean.ReportDetailBean;
 
 import java.util.List;
+import java.util.Locale;
 
 public class ReportPowerAdapter extends BaseAdapter {
     private Context mContext;
@@ -48,9 +49,9 @@ public class ReportPowerAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.tv_line_name.setText("线路:" + getItem(position).getSwitchName());
-        holder.tv_power_count.setText(getItem(position).getCount() + "度");
-        holder.tv_line_id.setText("ID:" + getItem(position).getSwitchCode());
+        holder.tv_line_name.setText(String.format("%s%s", mContext.getString(R.string.vs4), getItem(position).getSwitchName()));
+        holder.tv_power_count.setText(String.format(Locale.getDefault(), "%d%s", getItem(position).getCount(), mContext.getString(R.string.vs18)));
+        holder.tv_line_id.setText(String.format("%s%s", mContext.getString(R.string.vs6), getItem(position).getSwitchCode()));
         return convertView;
     }
 

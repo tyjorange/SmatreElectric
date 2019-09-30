@@ -66,7 +66,7 @@ public class TimePriceSetActivity extends BaseActivity implements View.OnClickLi
 
         Currency currency = Currency.getInstance(Locale.getDefault());
         TextView txtSymbol = (TextView) findViewById(R.id.txt_symbol);
-        txtSymbol.setText("设置价钱 " + currency.getSymbol());
+        txtSymbol.setText(String.format("%s%s", getString(R.string.vs19), currency.getSymbol()));
 
     }
 

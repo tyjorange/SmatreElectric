@@ -146,7 +146,7 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
      * @param switchBean
      */
     public void getBreakSignalValue(SwitchBean switchBean) {
-        line_name.setText("线路:" + switchBean.getName());
+        line_name.setText(String.format("%s%s", getString(R.string.vs4), switchBean.getName()));
         String s = df.format(switchBean.getModelMajor()) +
                 df.format(switchBean.getModelMinor()) +
                 df.format(switchBean.getVerMajor()) +
@@ -158,20 +158,20 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
                 for (SwitchSignalItem item : data) {
                     switch (Integer.valueOf(item.getSignalsTypeID())) {
                         case 1://电流
-                            dl_val.setText(item.getValue() + item.getUnit());
+                            dl_val.setText(String.format("%s%s", item.getValue(), item.getUnit()));
                             break;
                         case 3://当前月有功电量
-                            ygdy_val.setText(item.getValue() + item.getUnit());
+                            ygdy_val.setText(String.format("%s%s", item.getValue(), item.getUnit()));
                             break;
                         case 4://电压
-                            dy_val.setText(item.getValue() + item.getUnit());
+                            dy_val.setText(String.format("%s%s", item.getValue(), item.getUnit()));
                             break;
                         case 5://功率因数
                             break;
                         case 6://频率
                             break;
                         case 7://温度
-                            wd_val.setText(item.getValue() + item.getUnit());
+                            wd_val.setText(String.format("%s%s", item.getValue(), item.getUnit()));
                             break;
                         case 8://无功电量
                             break;
@@ -182,7 +182,7 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
                         case 11://有功功率
                             break;
                         case 12://漏电流
-                            ldl_val.setText(item.getValue() + item.getUnit());
+                            ldl_val.setText(String.format("%s%s", item.getValue(), item.getUnit()));
                             break;
                     }
                 }

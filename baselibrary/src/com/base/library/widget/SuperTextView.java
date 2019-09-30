@@ -33,12 +33,11 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.TextView;
 
 import com.base.library.R;
 
 
-public class SuperTextView extends TextView {
+public class SuperTextView extends android.support.v7.widget.AppCompatTextView {
 
   // Some Property Default Value
   private static final float DEFAULT_CORNER = 0f;
@@ -118,7 +117,7 @@ public class SuperTextView extends TextView {
   @TargetApi(Build.VERSION_CODES.LOLLIPOP)
   public SuperTextView(Context context, AttributeSet attrs, int defStyleAttr,
       int defStyleRes) {
-    super(context, attrs, defStyleAttr, defStyleRes);
+      super(context, attrs);
     init(attrs);
   }
 

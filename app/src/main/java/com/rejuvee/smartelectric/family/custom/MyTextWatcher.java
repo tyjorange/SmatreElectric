@@ -27,9 +27,9 @@ public class MyTextWatcher implements TextWatcher, View.OnFocusChangeListener {
         b = split[1].length();
     }
 
-    public DecimalFormat getDecimalFormat() {
-        return decimalFormat;
-    }
+//    public DecimalFormat getDecimalFormat() {
+//        return decimalFormat;
+//    }
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -69,11 +69,12 @@ public class MyTextWatcher implements TextWatcher, View.OnFocusChangeListener {
             editText.setSelection(editText.getText().length());
         }
         if (editable.toString().startsWith(".")) {// 以小数点开头，前面自动加上 "0"
-            editText.setText("0" + editable);
+            editText.setText(String.format("0%s", editable));
             editText.setSelection(editText.getText().length());
         } else if (editable.toString().endsWith(".")) {// 以小数点结尾，后面自动加上 "0"
 //            editText.setText(editable + "0");
 //            editText.setSelection(editText.getText().length());
+            System.out.println();
         }
     }
 

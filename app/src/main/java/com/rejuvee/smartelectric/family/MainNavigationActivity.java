@@ -61,6 +61,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import at.favre.lib.dali.builder.nav.DaliBlurDrawerToggle;
 import at.favre.lib.dali.builder.nav.NavigationDrawerListener;
@@ -395,7 +396,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         Core.instance(this).getCollector(new ActionCallbackListener<List<CollectorBean>>() {
             @Override
             public void onSuccess(List<CollectorBean> data) {
-                tv_collector_count.setText("总电箱数量：" + data.size());
+                tv_collector_count.setText(String.format("%s%d", getString(R.string.vs13), data.size()));
                 listDeviceData.clear();
                 listDeviceData.addAll(data);
                 mDeviceAdapter.notifyDataSetChanged();
@@ -448,7 +449,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
                                 listDeviceData.remove(position);
                                 mDeviceAdapter.notifyDataSetChanged();
                                 mDeviceAdapter.setEditMode(false);
-                                tv_collector_count.setText("总电箱数量：" + listDeviceData.size());
+                                tv_collector_count.setText(String.format(Locale.getDefault(), "%s%d", getString(R.string.vs13), listDeviceData.size()));
                                 CustomToast.showCustomToast(mContext, "解除绑定成功");
                             }
 

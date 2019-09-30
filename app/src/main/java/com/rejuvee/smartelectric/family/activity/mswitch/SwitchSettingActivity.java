@@ -142,7 +142,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                     public void onChose(SwitchBean s) {
                         currentSwitchBean = s;
 //                        getData(switchBean);
-                        txtLineName.setText("线路：" + currentSwitchBean.getName());
+                        txtLineName.setText(String.format("%s%s", mContext.getString(R.string.vs14), currentSwitchBean.getName()));
                         mHandler.sendEmptyMessageDelayed(sendGetThreadValueCommand, 100);
                     }
                 });
@@ -429,7 +429,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
             @Override
             public void onSuccess(List<SwitchBean> data) {
                 currentSwitchBean = data.get(0);//init bean
-                txtLineName.setText("线路：" + currentSwitchBean.getName());
+                txtLineName.setText(String.format("%s%s", mContext.getString(R.string.vs14), currentSwitchBean.getName()));
                 mHandler.sendEmptyMessageDelayed(sendGetThreadValueCommand, 1000);
                 changeView();
             }
@@ -524,15 +524,15 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                             resetValue();
                             switch (vv.getParamID()) {
                                 case 0x00000005: // 过压阀值
-                                    rangeSeekBarGY.setProgress(Float.valueOf(paramValue));
-                                    amountGY.setAmount(Float.valueOf(paramValue));
+                                    rangeSeekBarGY.setProgress(paramValue);
+                                    amountGY.setAmount(paramValue);
                                     break;
                                 case 0x0000000D:// 欠压阀值
-                                    rangeSeekBarQY.setProgress(Float.valueOf(paramValue));
-                                    amountQY.setAmount(Float.valueOf(paramValue));
+                                    rangeSeekBarQY.setProgress(paramValue);
+                                    amountQY.setAmount(paramValue);
                                     break;
                                 case 0x00000011:// 过流阀值
-                                    BigDecimal s = BigDecimal.valueOf(Float.valueOf(paramValue)).setScale(0, BigDecimal.ROUND_HALF_UP);
+                                    BigDecimal s = BigDecimal.valueOf(paramValue).setScale(0, BigDecimal.ROUND_HALF_UP);
                                     et_GL.setText(s.toString());
                                     break;
                                 case 0x00000018:// 电量下限
@@ -542,7 +542,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                                     dl_shangxian.setText(new DecimalFormat("000000.00").format(paramValue));
                                     break;
                                 case 0x0000001A:// 瞬时过流阀值
-                                    BigDecimal s2 = BigDecimal.valueOf(Float.valueOf(paramValue)).setScale(0, BigDecimal.ROUND_HALF_UP);
+                                    BigDecimal s2 = BigDecimal.valueOf(paramValue).setScale(0, BigDecimal.ROUND_HALF_UP);
                                     et_GL2.setText(s2.toString());
                                     break;
                                 case 0x0000001B:// 漏电阀值
@@ -550,15 +550,15 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                                     amountLDL.setAmount((int) paramValue);
                                     break;
                                 case 0x0000001E:// 温度阀值
-                                    rangeSeekBarGWFZ.setProgress(Float.valueOf(paramValue));
-                                    amountGWFZ.setAmount(Float.valueOf(paramValue));
+                                    rangeSeekBarGWFZ.setProgress(paramValue);
+                                    amountGWFZ.setAmount(paramValue);
                                     break;
                                 case 0x0000001F:// 上电配置
                                     setSDPZ((int) paramValue);
                                     break;
                                 case 0x00000020:// 三相不平衡
-                                    rangeSeekBarSXBPH.setProgress(Float.valueOf(paramValue));
-                                    amountSXBPH.setAmount(Float.valueOf(paramValue));
+                                    rangeSeekBarSXBPH.setProgress(paramValue);
+                                    amountSXBPH.setAmount(paramValue);
                                     break;
                                 case 0x00000021:// 故障电弧
                                     //暂无断路器支持电弧类设置，所以不显示。

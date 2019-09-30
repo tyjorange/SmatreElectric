@@ -37,6 +37,7 @@ import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimerTask;
 
 /**
@@ -129,7 +130,7 @@ public class YaoKongDetailActivity extends BaseActivity {
                 break;
         }
         TextView tv_root_name = findViewById(R.id.tv_root_name);
-        tv_root_name.setText("线路：" + rootSwitchBean.getName());
+        tv_root_name.setText(String.format("%s%s", mContext.getString(R.string.vs14), rootSwitchBean.getName()));
         lvProduct = (ListView) findViewById(R.id.lv_products);
         lvProduct.setEmptyView(findViewById(R.id.empty_layout));
         childList = rootSwitchBean.getChild();
@@ -706,10 +707,10 @@ public class YaoKongDetailActivity extends BaseActivity {
 
             SwitchBean currentSwitchBean = getItem(position);
             holder.img_line.setImageResource(currentSwitchBean.getIcon());
-            holder.txt_content.setText("分线：" + currentSwitchBean.getName());
+            holder.txt_content.setText(String.format("%s%s", context.getString(R.string.vs15), currentSwitchBean.getName()));
 //            holder.tv_state.setVisibility(currentSwitchBean.getSwitchState() == 0 ? View.VISIBLE : View.INVISIBLE);// 更新状态文字
 //            holder.tv_state.setText(SwitchBean.getSwitchFaultState(context, currentSwitchBean.fault));// 更新状态文字
-            holder.tv_state.setText(currentSwitchBean.getChild().size() + "条支线");
+            holder.tv_state.setText(String.format(Locale.getDefault(), "%d%s", currentSwitchBean.getChild().size(), context.getString(R.string.vs28)));
             holder.tv_code.setText(currentSwitchBean.getSerialNumber());
             holder.iv_time_clock.setVisibility(currentSwitchBean.timerCount > 0 ? View.VISIBLE : View.INVISIBLE);
             // ##支线##
@@ -915,7 +916,7 @@ public class YaoKongDetailActivity extends BaseActivity {
             }
             SwitchBean currentSubSwitchBean = getItem(position);
             holder1.img_line.setImageResource(currentSubSwitchBean.getIcon());
-            holder1.txt_content.setText("支线：" + currentSubSwitchBean.getName());
+            holder1.txt_content.setText(String.format("%s%s", context.getString(R.string.vs16), currentSubSwitchBean.getName()));
 //            holder1.tv_state.setVisibility(currentSubSwitchBean.getSwitchState() == 0 ? View.VISIBLE : View.INVISIBLE);// 更新状态文字
 //            holder1.tv_state.setText(SwitchBean.getSwitchFaultState(context, currentSubSwitchBean.fault));// 更新状态文字
             holder1.tv_code.setText(currentSubSwitchBean.getSerialNumber());

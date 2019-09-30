@@ -95,7 +95,7 @@ public class SwitchModifyActivity extends BaseActivity {
                         public void onChose(SwitchBean s) {
                             currentSwitchBean = s;
 //                        getData(switchBean);
-                            txtLineName.setText("线路：" + currentSwitchBean.getName());
+                            txtLineName.setText(String.format("%s%s", mContext.getString(R.string.vs14), currentSwitchBean.getName()));
                             editLineName.setText(currentSwitchBean.getName());
                             customLineAdapter.reset();
                             customLineAdapter.setCurrentSelected(currentSwitchBean.getIconType());
@@ -183,7 +183,7 @@ public class SwitchModifyActivity extends BaseActivity {
             @Override
             public void onSuccess(List<SwitchBean> data) {
                 currentSwitchBean = data.get(0);//init bean
-                txtLineName.setText("线路：" + currentSwitchBean.getName());
+                txtLineName.setText(String.format("%s%s", mContext.getString(R.string.vs14), currentSwitchBean.getName()));
                 editLineName.setText(currentSwitchBean.getName());
                 customLineAdapter.reset();
                 customLineAdapter.setCurrentSelected(currentSwitchBean.getIconType());

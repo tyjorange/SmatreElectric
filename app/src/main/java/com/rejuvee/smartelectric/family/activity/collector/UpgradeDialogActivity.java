@@ -21,6 +21,7 @@ import com.rejuvee.smartelectric.family.widget.dialog.DialogTipWithoutOkCancel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * 透明DialogActivity
@@ -109,14 +110,14 @@ public class UpgradeDialogActivity extends BaseActivity implements View.OnClickL
         tvWenHao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DialogTipWithoutOkCancel(UpgradeDialogActivity.this).setTitle("电箱升级介绍").setContent(getString(R.string.upgrade_tip)).show();
+                new DialogTipWithoutOkCancel(UpgradeDialogActivity.this).setTitle(getString(R.string.vs22)).setContent(getString(R.string.upgrade_tip)).show();
             }
         });
 //        ArrayAdapter<Item> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
 //        spinner.setAdapter(adapter);//事件段选择
         if (collectorUpgradeInfo != null) {// 以前确认过
-            tvTime.setText("当前版本:" + collectorBean.getVerMajor() + "." + collectorBean.getVerMinor() + " 新版本:" + collectorBean.getVerMajorNew() + "." + collectorBean.getVerMinorNew());
-            tvTip.setText(collectorUpgradeInfo.getTime() + (collectorUpgradeInfo.getOk() == 1 ? " 已同意升级" : " 已忽略此版本"));
+            tvTime.setText(String.format(Locale.getDefault(), "%s%d.%d%s%d.%d", getString(R.string.vs20), collectorBean.getVerMajor(), collectorBean.getVerMinor(), getString(R.string.vs21), collectorBean.getVerMajorNew(), collectorBean.getVerMinorNew()));
+            tvTip.setText(String.format("%s%s", collectorUpgradeInfo.getTime(), collectorUpgradeInfo.getOk() == 1 ? getString(R.string.vs23) : getString(R.string.vs24)));
 //            spinner.setVisibility(collectorUpgradeInfo.getOk() == 1 ? View.VISIBLE : View.INVISIBLE);
 //            spinner.setSelection(collectorUpgradeInfo.getDoTime() - 1);// array [index-1]
 //            spinner.setEnabled(collectorUpgradeInfo.getOk() != 1);
@@ -128,7 +129,7 @@ public class UpgradeDialogActivity extends BaseActivity implements View.OnClickL
                 c.setEnabled(false);
             }
             btnCancel.setVisibility(View.INVISIBLE);
-            btnSave.setText("确认");
+            btnSave.setText(getString(R.string.vs27));
             btnSave.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -137,10 +138,12 @@ public class UpgradeDialogActivity extends BaseActivity implements View.OnClickL
                 }
             });
         } else {// 让用户选择：同意升级/忽略此版本
-            tvTime.setText("当前版本:" + collectorBean.getVerMajor() + "." + collectorBean.getVerMinor() + " 新版本:" + collectorBean.getVerMajorNew() + "." + collectorBean.getVerMinorNew());
-            tvTip.setText("请选择升级时间段");
+            tvTime.setText(String.format(Locale.getDefault(), "%s%d.%d%s%d.%d",
+                    getString(R.string.vs20), collectorBean.getVerMajor(), collectorBean.getVerMinor(),
+                    getString(R.string.vs21), collectorBean.getVerMajorNew(), collectorBean.getVerMinorNew()));
+            tvTip.setText(getString(R.string.vs25));
             btnCancel.setVisibility(View.VISIBLE);
-            btnSave.setText("升级");
+            btnSave.setText(getString(R.string.vs26));
             btnSave.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -150,7 +153,7 @@ public class UpgradeDialogActivity extends BaseActivity implements View.OnClickL
                             return;
                         }
                     }
-                    CustomToast.showCustomErrorToast(UpgradeDialogActivity.this, "请选择升级时间段");
+                    CustomToast.showCustomErrorToast(UpgradeDialogActivity.this, getString(R.string.vs25));
                 }
             });
             btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -183,7 +186,7 @@ public class UpgradeDialogActivity extends BaseActivity implements View.OnClickL
 
                     @Override
                     public void onSuccess(Void data) {
-                        CustomToast.showCustomToast(UpgradeDialogActivity.this, ok == 1 ? "已同意升级" : "已忽略此版本");
+                        CustomToast.showCustomToast(UpgradeDialogActivity.this, ok == 1 ? getString(R.string.vs23) : getString(R.string.vs24));
                         setResult(RESULT_OK);
                         finish();
                     }

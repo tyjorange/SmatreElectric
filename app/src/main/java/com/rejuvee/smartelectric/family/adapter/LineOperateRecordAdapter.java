@@ -59,7 +59,7 @@ public class LineOperateRecordAdapter extends BaseAdapter {
         }
 
         RecordBean recordBean = mListData.get(position);
-        holder.tvTitle.setText("线路:" + recordBean.name);
+        holder.tvTitle.setText(String.format("%s%s", mContext.getString(R.string.vs4), recordBean.name));
         holder.tvCode.setText(recordBean.type == 1 ? mContext.getString(R.string.fun_changjing) : "ID:" + recordBean.code);
 
         if (recordBean.type == -1) {//场景里面的开关
@@ -116,7 +116,7 @@ public class LineOperateRecordAdapter extends BaseAdapter {
 //        String s = recordBean.username + recordBean.nickName;
         String s = recordBean.username;
         if (s != null) {
-            holder.tvDate.setText("用户:" + s + " | " + recordBean.time);
+            holder.tvDate.setText(String.format("%s%s%s%s", mContext.getString(R.string.vs7), s, mContext.getString(R.string.vs8), recordBean.time));
         } else {
             holder.tvDate.setText(recordBean.time);
         }

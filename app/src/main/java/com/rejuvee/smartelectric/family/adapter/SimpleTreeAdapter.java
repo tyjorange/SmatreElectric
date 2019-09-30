@@ -47,13 +47,13 @@ public class SimpleTreeAdapter<T> extends TreeListViewAdapter<T> {
         // set data
         switch (node.getLevel()) {
             case 0:
-                viewHolder.tvName.setText("线路：" + node.getMoneyBean().getName());
+                viewHolder.tvName.setText(String.format("%s%s", mContext.getString(R.string.vs14), node.getMoneyBean().getName()));
                 break;
             case 1:
-                viewHolder.tvName.setText("分线：" + node.getMoneyBean().getName());
+                viewHolder.tvName.setText(String.format("%s%s", mContext.getString(R.string.vs15), node.getMoneyBean().getName()));
                 break;
             case 2:
-                viewHolder.tvName.setText("支线：" + node.getMoneyBean().getName());
+                viewHolder.tvName.setText(String.format("%s%s", mContext.getString(R.string.vs16), node.getMoneyBean().getName()));
                 break;
             default:
                 viewHolder.tvName.setText(node.getMoneyBean().getName());
