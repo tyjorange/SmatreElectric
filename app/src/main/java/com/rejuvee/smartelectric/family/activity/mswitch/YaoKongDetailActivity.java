@@ -303,7 +303,7 @@ public class YaoKongDetailActivity extends BaseActivity {
 //                    messageTip = getString(R.string.operator_failure);
 //                }
                 if (errorEvent == 12) {
-                    CustomToast.showCustomErrorToast(YaoKongDetailActivity.this, "请先添加线路");
+                    CustomToast.showCustomErrorToast(YaoKongDetailActivity.this, getString(R.string.vs29));
                 } else {
                     CustomToast.showCustomErrorToast(YaoKongDetailActivity.this, message);
                 }
@@ -393,14 +393,14 @@ public class YaoKongDetailActivity extends BaseActivity {
     private void switchBreak(SwitchBean cb) {
         DialogTip mDialogSwitch = new DialogTip(this);
         if (mCollectorBean.getOnline() == 0) {// 集中器不在线
-            CustomToast.showCustomErrorToast(YaoKongDetailActivity.this, "集中器不在线，请刷新集中器");
+            CustomToast.showCustomErrorToast(YaoKongDetailActivity.this, getString(R.string.vs159));
             return;
         }
         currentSwitchBean = cb;
         int _isSwitch = cb.getSwitchState() == -1 ? 2 : cb.getSwitchState();
         targetState = (_isSwitch == 1);
         if (_isSwitch == 2) {
-            CustomToast.showCustomErrorToast(YaoKongDetailActivity.this, "请刷当前线路状态再操作");
+            CustomToast.showCustomErrorToast(YaoKongDetailActivity.this, getString(R.string.vs160));
         } else {
             String title = !targetState ?
                     getString(R.string.open_break) :
@@ -463,7 +463,7 @@ public class YaoKongDetailActivity extends BaseActivity {
                 if (currentSearchCount >= MAX_REQUEST_COUNT) {
                     currentSearchCount = 0;
 //                    CustomToast.showCustomToast(SwitchTreeActivity.this, getString(R.string.op_fail));
-                    SnackbarMessageShow.getInstance().showError(lvProduct, "请求超时，请稍后尝试");
+                    SnackbarMessageShow.getInstance().showError(lvProduct, getString(R.string.vs156));
                     mWaitDialog.dismiss();
                 } else {
                     mHandler.sendEmptyMessageDelayed(MSG_CMD_RESULT, 1000);
@@ -511,12 +511,12 @@ public class YaoKongDetailActivity extends BaseActivity {
                             adapter.notifyDataSetChanged();
                         }
                         mWaitDialog.dismiss();
-                        CustomToast.showCustomToast(YaoKongDetailActivity.this, "操作成功");
+                        CustomToast.showCustomToast(YaoKongDetailActivity.this, getString(R.string.operator_sucess));
                         runTask = true;// 恢复定时刷新任务
                     }
                 } else {
                     mWaitDialog.dismiss();
-                    CustomToast.showCustomErrorToast(YaoKongDetailActivity.this, "查询操作超时，请刷新");
+                    CustomToast.showCustomErrorToast(YaoKongDetailActivity.this, getString(R.string.vs155));
                     runTask = true;// 恢复定时刷新任务
                 }
             }
@@ -577,12 +577,12 @@ public class YaoKongDetailActivity extends BaseActivity {
                 if (currentSearchCount <= MAX_REQUEST_COUNT) {
                     mHandler.sendEmptyMessageDelayed(MSG_CMD_RESULT, 2000);
                 } else {
-                    SnackbarMessageShow.getInstance().showError(lvProduct, "请求超时，请稍后尝试");
+                    SnackbarMessageShow.getInstance().showError(lvProduct, getString(R.string.vs156));
                     mWaitDialog.dismiss();
                 }
                 break;
             case "1":
-                SnackbarMessageShow.getInstance().showError(lvProduct, "发送操作失败，请确认设备是否在线");
+                SnackbarMessageShow.getInstance().showError(lvProduct, getString(R.string.vs157));
                 mWaitDialog.dismiss();
                 break;
             case "2":
@@ -603,7 +603,7 @@ public class YaoKongDetailActivity extends BaseActivity {
                 }
                 break;
             case "3":
-                SnackbarMessageShow.getInstance().showError(lvProduct, "请求失败，多人同时操作冲突");
+                SnackbarMessageShow.getInstance().showError(lvProduct, getString(R.string.vs158));
                 mWaitDialog.dismiss();
                 break;
         }

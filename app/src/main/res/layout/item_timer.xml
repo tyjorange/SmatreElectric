@@ -62,7 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="拉闸"
+                    android:text="@string/vs75"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -74,7 +74,7 @@
                 android:layout_marginStart="12dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="周一 周二 周三"
+                android:text="1 2 3 4 5 6 7"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
         </LinearLayout>

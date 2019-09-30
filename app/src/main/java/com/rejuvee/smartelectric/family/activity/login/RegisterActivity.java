@@ -29,7 +29,7 @@ public class RegisterActivity extends BaseActivity {
     private CountDownUtil countDownUtil;
     private AccountHelper accountHelper;
     private boolean usernameFlag = true;
-    private String uMessage = "请输入注册信息";
+    private String uMessage = getString(R.string.vs143);
 
     @Override
     protected int getLayoutResId() {
@@ -170,12 +170,12 @@ public class RegisterActivity extends BaseActivity {
             return;
         }
         if (password1.length() < 6 || password1.length() > 12) {
-            CustomToast.showCustomErrorToast(this, "请输入6-12位密码");
+            CustomToast.showCustomErrorToast(this, getString(R.string.vs146));
             return;
         }
 
         if (password2.length() < 6 || password2.length() > 12) {
-            CustomToast.showCustomErrorToast(this, "请输入6-12位密码");
+            CustomToast.showCustomErrorToast(this, getString(R.string.vs146));
             return;
         }
         if (!password1.equals(password2)) {

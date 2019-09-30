@@ -152,26 +152,27 @@ public class CollectorAttrActivity extends BaseActivity implements View.OnClickL
                 collectSet(1);
                 break;
             case R.id.iv_tips_btl:
-                new DialogTipWithoutOkCancel(this).setTitle("波特率").setContent(getString(R.string.tips_btl)).show();
+                new DialogTipWithoutOkCancel(this).setTitle(getString(R.string.sets_botelv)).setContent(getString(R.string.tips_btl)).show();
                 break;
             case R.id.iv_tips_cjpl:
-                new DialogTipWithoutOkCancel(this).setTitle("采集频率").setContent(getString(R.string.tips_cjpl)).show();
+                new DialogTipWithoutOkCancel(this).setTitle(getString(R.string.sets_caijipl)).setContent(getString(R.string.tips_cjpl)).show();
                 break;
             case R.id.iv_tips_cjfz:
-                new DialogTipWithoutOkCancel(this).setTitle("采集阀值").setContent(getString(R.string.tips_cjfz)).show();
+                new DialogTipWithoutOkCancel(this).setTitle(getString(R.string.vs87)).setContent(getString(R.string.tips_cjfz)).show();
                 break;
             case R.id.iv_tips_gzmpl:
-                new DialogTipWithoutOkCancel(this).setTitle("故障码频率").setContent(getString(R.string.tips_gzmpl)).show();
+                new DialogTipWithoutOkCancel(this).setTitle(getString(R.string.sets_guzhangma)).setContent(getString(R.string.tips_gzmpl)).show();
                 break;
             case R.id.iv_tips_xtjg:
-                new DialogTipWithoutOkCancel(this).setTitle("心跳间隔").setContent(getString(R.string.tips_xtjg)).show();
+                new DialogTipWithoutOkCancel(this).setTitle(getString(R.string.sets_xintiaopinglv)).setContent(getString(R.string.tips_xtjg)).show();
                 break;
         }
     }
 
+    @Deprecated
     private void collectSet(int type) {
-        mDialogSwitch.setTitle(type == 1 ? "恢复出厂设置" : "重启集中器");
-        mDialogSwitch.setContent(type == 1 ? "确认恢复出厂设置?" : "确认重启集中器?");
+        mDialogSwitch.setTitle(type == 1 ? getString(R.string.vs180) : getString(R.string.vs181));
+        mDialogSwitch.setContent(type == 1 ? getString(R.string.vs182) : getString(R.string.vs183));
         mDialogSwitch.setDialogListener(new DialogTip.onEnsureDialogListener() {
             @Override
             public void onCancel() {

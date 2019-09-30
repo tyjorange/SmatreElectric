@@ -182,7 +182,7 @@ public class CollectorAttrSetActivity extends BaseActivity implements View.OnCli
                     case 0:
                         settext = edit_devicename.getText().toString();
                         if (settext.isEmpty() | settext.length() > 12) {
-                            CustomToast.showCustomErrorToast(this, "电箱名称1-12个字符");
+                            CustomToast.showCustomErrorToast(this, getString(R.string.vs179));
                             break;
                         }
                         changeCollector(collectorID, settext, null, null, null, null, null);

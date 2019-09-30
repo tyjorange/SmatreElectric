@@ -199,7 +199,7 @@ public class SwitchTreeDialog extends Dialog implements SwitchTree {
             @Override
             public void onFailure(int errorEvent, String message) {
                 if (errorEvent == 12) {//无结果
-                    CustomToast.showCustomErrorToast(getContext(), "请先添加线路");
+                    CustomToast.showCustomErrorToast(getContext(), getContext().getString(R.string.vs29));
 //                    finish();
                 } else {
                     CustomToast.showCustomErrorToast(getContext(), message);

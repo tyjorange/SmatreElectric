@@ -305,7 +305,7 @@ public class PerInfoActivity extends BaseActivity implements View.OnClickListene
         Core.instance(this).updateUserMsg(userName, nickName, headImg, phone, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
-                CustomToast.showCustomToast(PerInfoActivity.this, "更新用户信息成功。");
+                CustomToast.showCustomToast(PerInfoActivity.this, getString(R.string.vs187));
                 if (nickName != null) {
                     txt_nickname.setText(nickname);
                 } else if (phone != null) {
@@ -317,7 +317,7 @@ public class PerInfoActivity extends BaseActivity implements View.OnClickListene
 
             @Override
             public void onFailure(int errorEvent, String message) {
-                CustomToast.showCustomErrorToast(PerInfoActivity.this, "更新用户信息失败 " + message);
+                CustomToast.showCustomErrorToast(PerInfoActivity.this, getString(R.string.vs188) + message);
             }
         });
     }
@@ -341,7 +341,7 @@ public class PerInfoActivity extends BaseActivity implements View.OnClickListene
             public void onSuccess(Headimg data) {
 //                String oldheadImgurl = data.getHeadImg();
                 img_head.setImageBitmap(imgUrl);
-                CustomToast.showCustomToast(PerInfoActivity.this, "添加成功");
+                CustomToast.showCustomToast(PerInfoActivity.this, getString(R.string.vs138));
                 Log.i("imgurl2", data.getHeadImg());
                 updateUserMes(null, null, data.getHeadImg(), null);
                 /*  if (headImgurl.equals("")) {
@@ -354,7 +354,7 @@ public class PerInfoActivity extends BaseActivity implements View.OnClickListene
 
             @Override
             public void onFailure(int errorEvent, String message) {
-                CustomToast.showCustomErrorToast(PerInfoActivity.this, "添加失败");
+                CustomToast.showCustomErrorToast(PerInfoActivity.this, getString(R.string.vs144));
             }
         });
         MineFragment.NEED_REFRESH = true;

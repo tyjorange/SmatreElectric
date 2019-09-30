@@ -64,7 +64,7 @@ public class ReportDetailActivity extends BaseActivity {
         mTabLayout = (TabLayout) findViewById(R.id.tab_report);
         viewPager = (ViewPager) findViewById(R.id.vp_report);
         textViewTitle = (TextView) findViewById(R.id.tv_report_title);
-        String a = reportBean.timeType == 1 ? "周报" : "月报";
+        String a = reportBean.timeType == 1 ? getString(R.string.vs88) : getString(R.string.vs137);
         textViewTitle.setText(String.format("%s %s - %s", a, reportBean.startDay, reportBean.endDay));
     }
 
@@ -134,11 +134,11 @@ public class ReportDetailActivity extends BaseActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             if (position == 0) {
-                return "告警";
+                return getString(R.string.fault_alarm);
             } else if (position == 1) {
-                return "预警";
+                return getString(R.string.fault_warn);
             } else if (position == 2) {
-                return "电量";
+                return getString(R.string.electric_quantity);
             }
             return super.getPageTitle(position);
         }

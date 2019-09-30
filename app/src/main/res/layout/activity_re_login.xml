@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:gravity="center"
-            android:text="警告"
+            android:text="@string/vs125"
             android:textColor="#000000"
             android:textSize="20sp" />
     </LinearLayout>
@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:gravity="center"
-            android:text="登录已过期，请重新登陆。"
+            android:text="@string/vs94"
             android:textColor="#000000"
             android:textSize="15sp" />
     </LinearLayout>
@@ -55,7 +55,7 @@
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:background="@drawable/qd1"
-            android:text="确认"
+            android:text="@string/ensure"
             android:textColor="#ffffff"
             android:textSize="15sp" />
     </LinearLayout>

@@ -30,7 +30,7 @@ public class LunchActivity extends BaseActivity {
     private Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             if (msg.what == 0) {
-                mBtnSkip.setText(String.format(Locale.getDefault(), "%s%d%s", getString(R.string.vs11), getCount(), getString(R.string.vs12)));
+                mBtnSkip.setText(String.format(Locale.getDefault(), "%s(%d)", getString(R.string.vs11), getCount()));
                 handler.sendEmptyMessageDelayed(0, 1000);
             }
         }

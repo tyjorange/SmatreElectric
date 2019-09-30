@@ -28,7 +28,7 @@
             android:id="@+id/type_yaokong"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="首页"
+            android:text="@string/vs43"
             android:textSize="12sp" />
     </android.support.v7.widget.Toolbar>
 
@@ -45,7 +45,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="智能电箱"
+            android:text="@string/vs56"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="编号: "
+            android:text="@string/vs57"
             android:textColor="#5A6187"
             android:textSize="12sp" />
 
@@ -73,7 +73,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
-            android:text=" 的分享"
+            android:text="@string/vs3"
             android:textColor="#757575"
             android:textSize="12sp" />
     </LinearLayout>
@@ -96,7 +96,7 @@
             android:drawablePadding="4dp"
             android:gravity="center"
             android:padding="16dp"
-            android:text="遥控开关"
+            android:text="@string/remote_control"
             android:textColor="#5A6187"
             android:textSize="10sp"
             tools:ignore="SmallSp" />
@@ -110,7 +110,7 @@
             android:drawablePadding="4dp"
             android:gravity="center"
             android:padding="16dp"
-            android:text="实时情况"
+            android:text="@string/Retimesituation"
             android:textColor="#5A6187"
             android:textSize="10sp"
             tools:ignore="SmallSp" />
@@ -138,7 +138,7 @@
             android:drawablePadding="4dp"
             android:gravity="center"
             android:padding="16dp"
-            android:text="定时开关"
+            android:text="@string/timed_task"
             android:textColor="#5A6187"
             android:textSize="10sp"
             tools:ignore="SmallSp" />
@@ -179,7 +179,7 @@
             android:drawablePadding="4dp"
             android:gravity="center"
             android:padding="16dp"
-            android:text="节能信息"
+            android:text="@string/energy_saving_info"
             android:textColor="#5A6187"
             android:textSize="10sp"
             tools:ignore="SmallSp" />
@@ -193,7 +193,7 @@
             android:drawablePadding="4dp"
             android:gravity="center"
             android:padding="16dp"
-            android:text="安全信息"
+            android:text="@string/important_info"
             android:textColor="#5A6187"
             android:textSize="10sp"
             tools:ignore="SmallSp" />
@@ -207,7 +207,7 @@
             android:drawablePadding="4dp"
             android:gravity="center"
             android:padding="16dp"
-            android:text="电箱升级"
+            android:text="@string/vs58"
             android:textColor="#5A6187"
             android:textSize="10sp"
             tools:ignore="SmallSp" />
@@ -221,7 +221,7 @@
             android:drawablePadding="4dp"
             android:gravity="center"
             android:padding="16dp"
-            android:text="专业功能"
+            android:text="@string/vs59"
             android:textColor="#5A6187"
             android:textSize="10sp"
             tools:ignore="SmallSp" />
@@ -257,7 +257,7 @@
             android:drawablePadding="4dp"
             android:gravity="center"
             android:padding="16dp"
-            android:text="电箱线路"
+            android:text="@string/line_modify"
             android:textColor="#5A6187"
             android:textSize="10sp"
             tools:ignore="SmallSp" />
@@ -271,7 +271,7 @@
             android:drawablePadding="4dp"
             android:gravity="center"
             android:padding="16dp"
-            android:text="我的电表"
+            android:text="@string/my_electric_meter"
             android:textColor="#5A6187"
             android:textSize="10sp"
             tools:ignore="SmallSp" />
@@ -285,7 +285,7 @@
             android:drawablePadding="4dp"
             android:gravity="center"
             android:padding="16dp"
-            android:text="我的电器"
+            android:text="@string/My_ele_appliance"
             android:textColor="#5A6187"
             android:textSize="10sp"
             tools:ignore="SmallSp" />
@@ -299,7 +299,7 @@
             android:drawablePadding="4dp"
             android:gravity="center"
             android:padding="16dp"
-            android:text="我的分享"
+            android:text="@string/vs60"
             android:textColor="#5A6187"
             android:textSize="10sp"
             tools:ignore="SmallSp" />

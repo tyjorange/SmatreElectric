@@ -27,7 +27,7 @@
             android:id="@+id/type_yaokong"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="首页"
+            android:text="@string/vs43"
             android:textSize="12sp" />
     </android.support.v7.widget.Toolbar>
 
@@ -47,7 +47,7 @@
             android:layout_weight="1"
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
-            android:text="场景管理"
+            android:text="@string/vs113"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -79,7 +79,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="已添加场景"
+            android:text="@string/vs116"
             android:textColor="@color/black"
             android:textSize="12sp" />
     </LinearLayout>

@@ -10,7 +10,6 @@
         android:id="@+id/img_shanchu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="TODO"
         android:padding="8dp"
         android:src="@drawable/timer_del_one" />
 
@@ -18,7 +17,6 @@
         android:id="@+id/img_line"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="TODO"
         android:padding="10dp"
         android:src="@drawable/linepic02" />
 
@@ -27,7 +25,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="10dp"
         android:paddingEnd="0dp"
-        android:text="线路:"
+        android:text="@string/vs4"
         android:textColor="@color/black"
         android:textSize="12sp" />
 
@@ -45,13 +43,13 @@
         android:layout_weight="@integer/tag_1"
         android:gravity="end"
         android:padding="10dp"
-        android:text="电视"
+        android:text="@string/line_diannao"
         android:textSize="12sp" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="占个位子"
+        android:contentDescription="占位置"
         android:padding="10dp"
         android:src="@drawable/timer_del_one"
         android:visibility="invisible" />

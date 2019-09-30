@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="0dp"
             android:paddingEnd="64dp"
-            android:text="注册"
+            android:text="@string/mark_regist"
             android:textColor="@color/text_content"
             android:textSize="20sp" />
 

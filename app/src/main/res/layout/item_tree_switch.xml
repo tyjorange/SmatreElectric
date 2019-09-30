@@ -53,14 +53,14 @@
 
                 <TextView
                     android:id="@+id/txt_content"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawablePadding="10dp"
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:maxLines="1"
-                    android:text="断路器设置"
+                    android:text="@string/vs51"
                     android:textColor="@color/set_content"
                     android:textSize="12sp" />
 
@@ -69,8 +69,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:contentDescription="定时任务标志"
                     android:paddingStart="10dp"
+                    android:paddingEnd="0dp"
                     android:src="@drawable/time_clock" />
             </LinearLayout>
 
@@ -82,7 +82,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:paddingTop="4dp"
-                android:text="错误状态"
+                android:text="@string/vs52"
                 android:textColor="@color/text_base_color_999"
                 android:textSize="9sp"
                 tools:ignore="SmallSp" />
@@ -95,7 +95,7 @@
                 android:maxLines="1"
                 android:paddingTop="4dp"
                 android:visibility="gone"
-                android:text="编码"
+                android:text="@string/vs53"
                 android:textColor="@color/text_base_color_999"
                 android:textSize="9sp"
                 tools:ignore="SmallSp" />

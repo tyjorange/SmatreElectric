@@ -153,7 +153,7 @@ public class TimerActivity extends BaseActivity implements View.OnClickListener,
             public void onSuccess(Void data) {
                 mWaitDialog.dismiss();
                 getData(switchBean);
-                CustomToast.showCustomToast(TimerActivity.this, "删除成功");
+                CustomToast.showCustomToast(TimerActivity.this, getString(R.string.vs161));
             }
 
             @Override
@@ -178,8 +178,8 @@ public class TimerActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void onDelItem(String timerId) {
         dialogTip = new DialogTip(this);
-        dialogTip.setTitle("删除定时任务");
-        dialogTip.setContent("确定需要删除此定时任务吗？");
+        dialogTip.setTitle(getString(R.string.vs162));
+        dialogTip.setContent(getString(R.string.vs163));
         dialogTip.setDialogListener(new DialogTip.onEnsureDialogListener() {
             @Override
             public void onCancel() {
@@ -210,7 +210,7 @@ public class TimerActivity extends BaseActivity implements View.OnClickListener,
             @Override
             public void onFailure(int errorEvent, String message) {
                 if (errorEvent == 12) {
-                    CustomToast.showCustomErrorToast(TimerActivity.this, "请先添加线路");
+                    CustomToast.showCustomErrorToast(TimerActivity.this, getString(R.string.vs29));
                 } else {
                     CustomToast.showCustomErrorToast(TimerActivity.this, message);
                 }

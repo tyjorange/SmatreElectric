@@ -24,6 +24,7 @@ import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * 定时开关 编辑
@@ -126,7 +127,7 @@ public class TimerEditDialogActivity extends BaseActivity implements View.OnClic
     private void updateSwicthState(boolean isSwicthOn) {
         this.isSwicthOn = isSwicthOn;
         imgCaozuo.setImageResource(isSwicthOn ? R.drawable.yk_hezha : R.drawable.yk_kaizha);
-        txtCaozuo.setText(isSwicthOn ? "合闸" : "拉闸");
+        txtCaozuo.setText(isSwicthOn ? getString(R.string.vs74) : getString(R.string.vs75));
 //        imgSwithOn.setImageResource(isSwicthOn ? R.drawable.timer_check : R.drawable.timer_uncheck);
 //        imgSwitchOff.setImageResource(!isSwicthOn ? R.drawable.timer_check : R.drawable.timer_uncheck);
         txtSwitchState.setText(isSwicthOn ? getString(R.string.switch_on) : getString(R.string.switch_off));
@@ -217,9 +218,9 @@ public class TimerEditDialogActivity extends BaseActivity implements View.OnClic
         mWaitDialog.show();
         String runTime = null;// hourOfDay + ":" + minute;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            runTime = String.format("%1$02d:%2$02d", mTimePicker.getHour(), mTimePicker.getMinute());
+            runTime = String.format(Locale.getDefault(), "%1$02d:%2$02d", mTimePicker.getHour(), mTimePicker.getMinute());
         } else {
-            runTime = String.format("%1$02d:%2$02d", mTimePicker.getCurrentHour(), mTimePicker.getCurrentMinute());
+            runTime = String.format(Locale.getDefault(), "%1$02d:%2$02d", mTimePicker.getCurrentHour(), mTimePicker.getCurrentMinute());
         }
         if (mTask == null) {
             //for New
@@ -229,7 +230,7 @@ public class TimerEditDialogActivity extends BaseActivity implements View.OnClic
                     Intent intent = new Intent();
                     intent.putExtra("switchBean", switchBean);
                     setResult(RESULT_OK, intent);
-                    CustomToast.showCustomToast(TimerEditDialogActivity.this, "添加成功");
+                    CustomToast.showCustomToast(TimerEditDialogActivity.this, getString(R.string.vs138));
                     finish();
                     mWaitDialog.dismiss();
                 }
@@ -248,7 +249,7 @@ public class TimerEditDialogActivity extends BaseActivity implements View.OnClic
                     Intent intent = new Intent();
                     intent.putExtra("switchBean", switchBean);
                     setResult(RESULT_OK, intent);
-                    CustomToast.showCustomToast(TimerEditDialogActivity.this, "修改成功");
+                    CustomToast.showCustomToast(TimerEditDialogActivity.this, getString(R.string.vs139));
                     finish();
                     mWaitDialog.dismiss();
                 }
@@ -282,7 +283,7 @@ public class TimerEditDialogActivity extends BaseActivity implements View.OnClic
             uploadToCollect = uploadToCollect == 1 ? 0 : 1;
             imgUpload.setImageResource(uploadToCollect == 1 ? R.drawable.timer_check : R.drawable.timer_uncheck);
         } else if (v.getId() == R.id.iv_tips) {
-            new DialogTipWithoutOkCancel(TimerEditDialogActivity.this).setTitle("驻留电箱介绍").setContent(getString(R.string.upload_tips)).show();
+            new DialogTipWithoutOkCancel(TimerEditDialogActivity.this).setTitle(getString(R.string.vs140)).setContent(getString(R.string.upload_tips)).show();
         } else if (v.getId() == R.id.iv_check) {
             updateSwicthState(!isSwicthOn);
         }

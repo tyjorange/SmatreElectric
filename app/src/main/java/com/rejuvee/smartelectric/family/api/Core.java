@@ -1244,7 +1244,7 @@ public class Core {
                             listener.onSuccess(resp.body().getData());
                         } else if (resp.body().isAccessDenied()) {
                             Log.e(TAG, "resp.body() isAccessDenied");
-                            CustomToast.showCustomToast(context, "登录过期，重新登录");
+                            CustomToast.showCustomToast(context, context.getString(R.string.vs94));
 //                            if (oFlag) {
                             Intent intent = new Intent("ForceOfflineBroadCastReceiver");
                             //发送广播--权限错误 强制重新登录

@@ -212,7 +212,7 @@ public class MineFragment extends AbstractBaseFragment implements View.OnClickLi
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CommonRequestCode.REQUEST_THIRD_BIND || requestCode == CommonRequestCode.REQUEST_USER_INFO) {
-            Log.i(TAG, "返回");
+            Log.i(TAG, getString(R.string.vs166));
             getUserMsg();
         }
     }

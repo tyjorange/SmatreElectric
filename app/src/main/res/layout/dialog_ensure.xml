@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
-        android:text="修改提醒"
+        android:text="@string/modify_tip"
         android:textColor="@color/text_base_color_333"
         android:textSize="15sp" />
 
@@ -24,7 +24,7 @@
         android:layout_marginBottom="16dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:text="确定修改为此图片吗？"
+        android:text="@string/modify_pic"
         android:textColor="@color/text_base_color_666"
         android:textSize="15sp" />
 

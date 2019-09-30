@@ -47,7 +47,7 @@ public class ReportAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.tv_type.setText(getItem(position).timeType == 1 ? "周报" : "月报");
+        holder.tv_type.setText(getItem(position).timeType == 1 ? mContext.getString(R.string.vs88) : mContext.getString(R.string.vs137));
         holder.tv_time.setText(String.format("%s - %s", getItem(position).startDay, getItem(position).endDay));
         return convertView;
     }

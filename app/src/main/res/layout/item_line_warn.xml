@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:ellipsize="middle"
-            android:text="照明"
+            android:text="@string/line_zhaoming"
             android:textColor="@color/text_base_color_333"
             android:textSize="12sp" />
 
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:ellipsize="end"
-            android:text="类型"
+            android:text="@string/vs80"
             android:textSize="12sp" />
 
         <TextView
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:ellipsize="middle"
-            android:text="照明"
+            android:text="@string/line_zhaoming"
             android:textColor="@color/text_base_color_333"
             android:textSize="12sp"
             android:visibility="invisible" />
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:ellipsize="end"
-            android:text="类型"
+            android:text="@string/vs80"
             android:textSize="12sp"
             android:visibility="invisible" />
 

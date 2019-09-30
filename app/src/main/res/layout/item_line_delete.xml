@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginTop="1dp"
-        android:contentDescription="占个位子"
+        android:contentDescription="占位置"
         android:padding="16dp"
         android:src="@drawable/timer_del_one"
         android:visibility="invisible" />

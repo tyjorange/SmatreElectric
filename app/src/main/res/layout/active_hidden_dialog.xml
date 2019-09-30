@@ -16,7 +16,7 @@
         android:layout_height="30dp"
         android:layout_marginBottom="10dp"
         android:gravity="center"
-        android:text="服务器地址设置"
+        android:text="@string/vs131"
         android:textColor="#000000"
         android:textSize="20sp" />
 
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:background="@color/white"
-            android:hint="请输入"
+            android:hint="@string/vs96"
             android:inputType="phone"
             android:lines="1"
             android:paddingStart="10dp"
@@ -54,7 +54,7 @@
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:background="@color/green_light"
-            android:text="还原"
+            android:text="@string/vs132"
             android:textColor="#ffffff"
             android:textSize="15sp" />
 
@@ -65,7 +65,7 @@
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:background="@color/master"
-            android:text="修改"
+            android:text="@string/vs133"
             android:textColor="#ffffff"
             android:textSize="15sp" />
 
@@ -76,7 +76,7 @@
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:background="@color/master_red"
-            android:text="关闭"
+            android:text="@string/curve_close"
             android:textColor="#ffffff"
             android:textSize="15sp" />
     </LinearLayout>

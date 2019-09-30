@@ -437,7 +437,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
             @Override
             public void onFailure(int errorEvent, String message) {
                 if (errorEvent == 12) {
-                    CustomToast.showCustomErrorToast(SwitchSettingActivity.this, "请先添加线路");
+                    CustomToast.showCustomErrorToast(SwitchSettingActivity.this, getString(R.string.vs29));
                 } else {
                     CustomToast.showCustomErrorToast(SwitchSettingActivity.this, message);
                 }
@@ -461,7 +461,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         Core.instance(this).sendGetThreadValueCommand(currentSwitchBean.getSerialNumber(), paramID, new ActionCallbackListener<Void>() {
                     @Override
                     public void onSuccess(Void data) {
-                        Log.d(TAG, "发送刷新命令成功, threadId = " + Thread.currentThread().getId());
+                        Log.d(TAG, getString(R.string.vs153) + " threadId = " + Thread.currentThread().getId());
                         currentSearchCount = 0;
                         mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitch, 1000);
                         scrollView.setVisibility(View.VISIBLE);
@@ -471,7 +471,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
 
                     @Override
                     public void onFailure(int errorEvent, String message) {
-                        Log.e(TAG, "发送刷新命令失败");
+                        Log.e(TAG, getString(R.string.vs152));
                         waitDialog.dismiss();
                         CustomToast.showCustomErrorToast(mContext, message);
                         scrollView.setVisibility(View.INVISIBLE);
@@ -506,7 +506,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                     public void onSuccess(List<VoltageValue> valueList) {
                         Log.i(TAG, "findSwitchParamBySwitch=" + currentSearchCount);
                         if (valueList == null) {
-                            CustomToast.showCustomToast(mContext, "获取配置失败");
+                            CustomToast.showCustomToast(mContext, getString(R.string.vs142));
                             waitDialog.dismiss();
                             return;
                         }
@@ -601,15 +601,15 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
     private void setSDPZ(int paramValue) {
         switch (paramValue) {
             case 0:
-                tv_sdpz.setText("拉闸");
+                tv_sdpz.setText(getString(R.string.vs75));
                 sdpz_val = 0;
                 break;
             case 1:
-                tv_sdpz.setText("合闸");
+                tv_sdpz.setText(getString(R.string.vs74));
                 sdpz_val = 1;
                 break;
             case 2:
-                tv_sdpz.setText("不动作");
+                tv_sdpz.setText(getString(R.string.vs84));
                 sdpz_val = 2;
                 break;
         }
@@ -635,7 +635,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
 //                System.out.println(b3);
 //                System.out.println(b4);
         if (b3.isEmpty() || b4.isEmpty()) {
-            CustomToast.showCustomToast(mContext, "请设置电量");
+            CustomToast.showCustomToast(mContext, getString(R.string.vs151));
             return;
         }
         String values = "00000011:" + b6 + // 过流阀值
@@ -655,7 +655,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         Core.instance(mContext).sendSetThreadValueCommand(currentSwitchBean.getSerialNumber(), values, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
-                CustomToast.showCustomToast(mContext, "设置成功");
+                CustomToast.showCustomToast(mContext, getString(R.string.modify_succe));
                 finish();
             }
 

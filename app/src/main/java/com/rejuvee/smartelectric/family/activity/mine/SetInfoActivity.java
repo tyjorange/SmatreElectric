@@ -54,13 +54,13 @@ public class SetInfoActivity extends BaseActivity implements View.OnClickListene
 
         edit_changname = (EditText) findViewById(R.id.edit_changname);
         if (position == 0) {
-            txt_title.setText("修改手机号码");
+            txt_title.setText(getString(R.string.vs165));
             edit_changname.setText(phone_num);
         } else if (position == 1) {
-            txt_title.setText("修改昵称");
+            txt_title.setText(getString(R.string.vs164));
             edit_changname.setText(nickname);
         } else if (position == 2) {
-            txt_title.setText("修改用户名");
+            txt_title.setText(getString(R.string.vs127));
             edit_changname.setText(username);
         }
     }

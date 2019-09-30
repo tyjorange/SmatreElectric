@@ -194,7 +194,7 @@ public class SwitchModifyActivity extends BaseActivity {
             @Override
             public void onFailure(int errorEvent, String message) {
                 if (errorEvent == 12) {
-                    CustomToast.showCustomErrorToast(SwitchModifyActivity.this, "请先添加线路");
+                    CustomToast.showCustomErrorToast(SwitchModifyActivity.this, getString(R.string.vs29));
                 } else {
                     CustomToast.showCustomErrorToast(SwitchModifyActivity.this, message);
                 }
@@ -274,7 +274,7 @@ public class SwitchModifyActivity extends BaseActivity {
                         Intent intent = getIntent();
                         intent.putExtra("break", currentSwitchBean);
                         setResult(RESULT_OK, intent);
-                        CustomToast.showCustomToast(mContext, "修改成功");
+                        CustomToast.showCustomToast(mContext, getString(R.string.vs139));
                         finish();
                     }
 

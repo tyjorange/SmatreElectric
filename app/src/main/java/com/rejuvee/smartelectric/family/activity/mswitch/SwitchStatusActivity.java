@@ -238,13 +238,13 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
     public void judgSwitchstate(SwitchBean ss) {
         online_icon.setVisibility(View.VISIBLE);
         if (ss.getSwitchState() == 1) {
-            online_text.setText("合闸");
+            online_text.setText(getString(R.string.vs74));
             online_icon.setBackgroundResource(R.drawable.hezha_p);
         } else if (ss.getSwitchState() == 0) {
-            online_text.setText("拉闸");
+            online_text.setText(getString(R.string.vs75));
             online_icon.setBackgroundResource(R.drawable.kaizha_p);
         } else {
-            online_text.setText("错误");
+            online_text.setText(getString(R.string.vs141));
             online_icon.setBackgroundResource(R.drawable.cuowu_p);
         }
     }
@@ -272,7 +272,7 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
                     ldl_val.setText("-");
                     ygdy_val.setText("-");
                     switch_ver.setText("-");
-                    CustomToast.showCustomErrorToast(SwitchStatusActivity.this, "请先添加线路");
+                    CustomToast.showCustomErrorToast(SwitchStatusActivity.this, getString(R.string.vs29));
                 } else {
                     CustomToast.showCustomErrorToast(SwitchStatusActivity.this, message);
                 }

@@ -32,7 +32,7 @@
                 android:id="@+id/type_yaokong"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="首页 / 场景管理"
+                android:text="@string/vs108"
                 android:textSize="12sp" />
         </android.support.v7.widget.Toolbar>
 
@@ -50,7 +50,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="添加与修改"
+                android:text="@string/vs109"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -145,7 +145,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:padding="15dp"
-                android:text="请添加线路："
+                android:text="@string/vs110"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
 
@@ -173,7 +173,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:padding="10dp"
-            android:text="该场景下管理的线路"
+            android:text="@string/sce_xianlu"
             android:textColor="@color/black"
             android:textSize="12sp" />
 

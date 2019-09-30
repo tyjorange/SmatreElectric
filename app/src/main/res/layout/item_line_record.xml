@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -7,7 +8,7 @@
         android:id="@+id/ll_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/iv_right"
+        android:layout_toStartOf="@+id/iv_right"
         android:orientation="horizontal"
         android:paddingLeft="16dp"
         android:paddingTop="8dp"
@@ -20,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ellipsize="middle"
-            android:text="照明"
+            android:text="@string/line_zhaoming"
             android:textColor="@color/text_base_color_333"
             android:textSize="12sp" />
 
@@ -30,8 +31,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ellipsize="middle"
-            android:gravity="right"
-            android:text="手动拉闸"
+            android:gravity="end"
+            android:text="@string/vs34"
             android:textColor="@color/text_base_color_333"
             android:textSize="12sp" />
     </LinearLayout>
@@ -41,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_top"
-        android:layout_toLeftOf="@+id/iv_right"
+        android:layout_toStartOf="@+id/iv_right"
         android:orientation="horizontal"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
@@ -55,7 +56,8 @@
             android:ellipsize="middle"
             android:text="2018009116"
             android:textColor="@color/text_base_color_666"
-            android:textSize="9sp" />
+            android:textSize="9sp"
+            tools:ignore="SmallSp" />
 
         <TextView
             android:id="@+id/tv_time"
@@ -63,19 +65,20 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ellipsize="middle"
-            android:gravity="right"
+            android:gravity="end"
             android:text="2018-12-4"
             android:textColor="@color/text_base_color_666"
-            android:textSize="9sp" />
+            android:textSize="9sp"
+            tools:ignore="SmallSp" />
     </LinearLayout>
 
     <ImageView
         android:id="@+id/iv_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
         android:src="@drawable/jinru" />
 </RelativeLayout>

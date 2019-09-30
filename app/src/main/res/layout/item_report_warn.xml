@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="线路:xxx"
+            android:text="@string/vs14"
             android:textColor="@color/text_base_color_333"
             android:textSize="12sp" />
 
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="end"
-            android:text="过流"
+            android:text="@string/vs118"
             android:textColor="@color/red_light"
             android:textSize="12sp" />
 
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="end"
-            android:text="10次"
+            android:text="10"
             android:textColor="@color/text_base_color_333"
             android:textSize="12sp" />
 

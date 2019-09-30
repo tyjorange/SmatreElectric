@@ -101,7 +101,7 @@ public class EnergySavingInformationActivity extends BaseActivity implements Vie
             @Override
             public void onFailure(int errorEvent, String message) {
                 if (errorEvent == 12) {
-                    CustomToast.showCustomErrorToast(EnergySavingInformationActivity.this, "请先添加线路");
+                    CustomToast.showCustomErrorToast(EnergySavingInformationActivity.this, getString(R.string.vs29));
                 } else {
                     CustomToast.showCustomErrorToast(EnergySavingInformationActivity.this, message);
                 }

@@ -26,7 +26,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="首页 / 智能电箱"
+            android:text="@string/vs89"
             android:textSize="12sp" />
     </android.support.v7.widget.Toolbar>
 
@@ -44,7 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="我的分享"
+            android:text="@string/vs60"
             android:textColor="@color/black"
             android:textSize="18sp" />
 

@@ -92,8 +92,8 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
         tvDevice = (TextView) findViewById(R.id.tv_device);
 
         mTabLayout = (TabLayout) findViewById(R.id.tab_day_month);
-        mTabLayout.addTab(mTabLayout.newTab().setText("按日"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("按月"));
+        mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.curve_by_day)));
+        mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.curve_by_month)));
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

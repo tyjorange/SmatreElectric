@@ -125,7 +125,7 @@ public class SettingsActivity extends BaseActivity {
     private void logOut() {
         mDialogSwitch = new DialogTip(this);
         String title = "";
-        String desc = "确定要退出么？";
+        String desc = getString(R.string.vs186);
         mDialogSwitch.setTitle(title);
         mDialogSwitch.setContent(desc);
         mDialogSwitch.setRedBtn();

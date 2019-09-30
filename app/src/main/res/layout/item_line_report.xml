@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="middle"
-            android:text="周报"
+            android:text="@string/vs88"
             android:textColor="@color/text_base_color_333"
             android:textSize="12sp" />
 

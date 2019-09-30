@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="首页 / 智能电箱 / 专业功能"
+            android:text="@string/vs85"
             android:textSize="12sp" />
     </android.support.v7.widget.Toolbar>
 
@@ -44,7 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="电箱设置"
+            android:text="@string/vs86"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -86,7 +86,6 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:src="@drawable/jinru"
             android:visibility="invisible" />
     </LinearLayout>
@@ -136,7 +135,6 @@
             android:id="@+id/img_right1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:src="@drawable/jinru" />
 
     </LinearLayout>
@@ -186,7 +184,6 @@
             android:id="@+id/img_right2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:src="@drawable/jinru" />
 
     </LinearLayout>
@@ -259,7 +256,7 @@
             android:id="@+id/set_gaojingcount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="采集阀值"
+            android:text="@string/vs87"
             android:textColor="@color/black"
             android:textSize="12sp" />
 
@@ -308,7 +305,7 @@
             android:id="@+id/set_guzhangma"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="故障码频率"
+            android:text="@string/sets_guzhangma"
             android:textColor="@color/black"
             android:textSize="12sp" />
 

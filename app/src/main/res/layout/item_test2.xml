@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="编码"
+                android:text="@string/vs53"
                 android:textColor="@color/text_base_color_999"
                 android:textSize="9sp"
                 android:visibility="invisible"
@@ -69,7 +69,7 @@
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:maxLines="1"
-                    android:text="断路器设置"
+                    android:text="@string/vs51"
                     android:textColor="@color/set_content"
                     android:textSize="12sp" />
 
@@ -78,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:contentDescription="定时任务标志"
+                    android:contentDescription="@string/vs63"
                     android:paddingStart="10dp"
                     android:paddingEnd="0dp"
                     android:src="@drawable/time_clock" />
@@ -91,7 +91,7 @@
                 android:textSize="9sp"
                 android:visibility="invisible"
                 android:maxLines="1"
-                android:text="错误状态"
+                android:text="@string/vs52"
                 android:textColor="@color/text_base_color_999"
                 tools:ignore="SmallSp" />
 

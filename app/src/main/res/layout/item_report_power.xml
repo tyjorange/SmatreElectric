@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -18,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="线路:xxx"
+            android:text="@string/vs4"
             android:textColor="@color/text_base_color_333"
             android:textSize="12sp" />
 
@@ -29,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="end"
-            android:text="151度"
+            android:text="151"
             android:textColor="@color/text_base_color_333"
             android:textSize="12sp" />
 
@@ -51,7 +52,8 @@
             android:layout_weight="1"
             android:text="123123"
             android:textColor="@color/text_base_color_666"
-            android:textSize="9sp" />
+            android:textSize="9sp"
+            tools:ignore="SmallSp" />
 
         <TextView
             android:id="@+id/tv_time"

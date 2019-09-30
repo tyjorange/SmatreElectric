@@ -94,8 +94,8 @@ public class CreateSceneActivity extends BaseActivity implements View.OnClickLis
         }
 
         dialogTip = new DialogTip(this);
-        dialogTip.setTitle("场景编辑");
-        dialogTip.setContent("移除这条线路吗？");
+        dialogTip.setTitle(getString(R.string.vs149));
+        dialogTip.setContent(getString(R.string.vs150));
         dialogTip.setDialogListener(new DialogTip.onEnsureDialogListener() {
             @Override
             public void onCancel() {
@@ -175,7 +175,7 @@ public class CreateSceneActivity extends BaseActivity implements View.OnClickLis
             case R.id.st_wancheng:
                 Editable text = edit_name.getEditableText();
                 if (text.length() == 0) {
-                    CustomToast.showCustomErrorToast(this, "请输入场景名称");
+                    CustomToast.showCustomErrorToast(this, getString(R.string.sce_miaoshu));
                     break;
                 }
                 if (mSscene == null) {//新建场景

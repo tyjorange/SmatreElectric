@@ -13,6 +13,7 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.model.bean.RecordBean;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by liuchengran on 2018/12/4.
@@ -60,7 +61,7 @@ public class LineOperateRecordAdapter extends BaseAdapter {
 
         RecordBean recordBean = mListData.get(position);
         holder.tvTitle.setText(String.format("%s%s", mContext.getString(R.string.vs4), recordBean.name));
-        holder.tvCode.setText(recordBean.type == 1 ? mContext.getString(R.string.fun_changjing) : "ID:" + recordBean.code);
+        holder.tvCode.setText(recordBean.type == 1 ? mContext.getString(R.string.fun_changjing) : mContext.getString(R.string.vs6) + recordBean.code);
 
         if (recordBean.type == -1) {//场景里面的开关
             String cmdState = (recordBean.cmdData == 1 ? mContext.getString(R.string.switch_on) : mContext.getString(R.string.switch_off));
@@ -72,9 +73,9 @@ public class LineOperateRecordAdapter extends BaseAdapter {
             } else if (recordBean.source == 1) {
                 source = mContext.getString(R.string.fun_dingshi);
             } else if (recordBean.source == 2) {
-                source = "驻留定时";
+                source = mContext.getString(R.string.vs31);
             }
-            String cmdState = (recordBean.cmdData == 1 ? mContext.getString(R.string.switch_on) : mContext.getString(R.string.switch_off)) + " ";
+            String cmdState = String.format("%s ", recordBean.cmdData == 1 ? mContext.getString(R.string.switch_on) : mContext.getString(R.string.switch_off));
 
             String cmdResult = "";
             int resultColor = 0;
@@ -82,7 +83,7 @@ public class LineOperateRecordAdapter extends BaseAdapter {
                 cmdResult = "";
                 resultColor = mContext.getResources().getColor(R.color.text_base_color_333);
             } else if (recordBean.runCode == 1) {
-                cmdResult = mContext.getString(R.string.failure) + "(" + mContext.getString(R.string.off_line) + ")";
+                cmdResult = String.format("%s(%s)", mContext.getString(R.string.failure), mContext.getString(R.string.off_line));
                 resultColor = mContext.getResources().getColor(R.color.red_light);
             } else if (recordBean.runCode == 2) {
                 resultColor = mContext.getResources().getColor(R.color.green_light);
@@ -90,14 +91,14 @@ public class LineOperateRecordAdapter extends BaseAdapter {
                     cmdResult = mContext.getString(R.string.sucess);
                 } else if (recordBean.runResult == 34) {
                     resultColor = mContext.getResources().getColor(R.color.blue);
-                    cmdResult = "结果超时";
+                    cmdResult = mContext.getString(R.string.vs32);
                 } else {
                     resultColor = mContext.getResources().getColor(R.color.red_light);
-                    cmdResult = (mContext.getString(R.string.failure) + "(" + recordBean.runResult + ")");
+                    cmdResult = (String.format(Locale.getDefault(), "%s(%d)", mContext.getString(R.string.failure), recordBean.runResult));
                 }
             } else if (recordBean.runCode == 3) {
                 resultColor = mContext.getResources().getColor(R.color.red_light);
-                cmdResult = mContext.getString(R.string.failure) + "(" + "冲突" + ")";
+                cmdResult = String.format("%s(%s)", mContext.getString(R.string.failure), mContext.getString(R.string.vs33));
             } else {
                 resultColor = mContext.getResources().getColor(R.color.red_light);
             }
@@ -114,9 +115,9 @@ public class LineOperateRecordAdapter extends BaseAdapter {
 
         holder.tvState.setVisibility(recordBean.type == 1 ? View.GONE : View.VISIBLE);
 //        String s = recordBean.username + recordBean.nickName;
-        String s = recordBean.username;
-        if (s != null) {
-            holder.tvDate.setText(String.format("%s%s%s%s", mContext.getString(R.string.vs7), s, mContext.getString(R.string.vs8), recordBean.time));
+        String sName = recordBean.username;
+        if (sName != null) {
+            holder.tvDate.setText(String.format("%s%s%s%s", mContext.getString(R.string.vs7), sName, mContext.getString(R.string.vs8), recordBean.time));
         } else {
             holder.tvDate.setText(recordBean.time);
         }

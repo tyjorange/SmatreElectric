@@ -140,12 +140,12 @@ public class ForgetPwdActivity extends BaseActivity {
             return;
         }
         if (password1.length() < 6 || password1.length() > 12) {
-            CustomToast.showCustomErrorToast(this, "请输入6-12位密码");
+            CustomToast.showCustomErrorToast(this, getString(R.string.vs146));
             return;
         }
 
         if (password2.length() < 6 || password2.length() > 12) {
-            CustomToast.showCustomErrorToast(this, "请输入6-12位密码");
+            CustomToast.showCustomErrorToast(this, getString(R.string.vs146));
             return;
         }
 //        if (!(Utils.isValidPassword(password1))) {

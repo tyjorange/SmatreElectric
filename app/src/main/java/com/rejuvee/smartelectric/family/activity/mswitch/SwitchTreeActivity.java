@@ -224,13 +224,13 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
     private String getViewTitle() {
         switch (viewType) {
             case SwitchTree.YAOKONG:
-                return "遥控开关";
+                return getString(R.string.remote_control);
             case SwitchTree.XIANLU_XIUGAI:
-                return "修改线路名";
+                return getString(R.string.vs145);
             case SwitchTree.ANQUAN_SHEZHI:
-                return "安全设置";
+                return getString(R.string.vs95);
             case SwitchTree.XIANLU_WEIHU:
-                return "线路维护";
+                return getString(R.string.vs117);
         }
         return "";
     }
@@ -366,14 +366,14 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
      */
     private void switchBreak(SwitchBean cb) {
         if (mCollectorBean.getOnline() == 0) {// 集中器不在线
-            CustomToast.showCustomErrorToast(SwitchTreeActivity.this, "集中器不在线，请刷新集中器");
+            CustomToast.showCustomErrorToast(SwitchTreeActivity.this, getString(R.string.vs159));
             return;
         }
         currentSwitchBean = cb;
         int _isSwitch = cb.getSwitchState() == -1 ? 2 : cb.getSwitchState();
         targetState = _isSwitch == 1;
         if (_isSwitch == 2) {
-            CustomToast.showCustomErrorToast(SwitchTreeActivity.this, "请刷当前线路状态再操作");
+            CustomToast.showCustomErrorToast(SwitchTreeActivity.this, getString(R.string.vs160));
         } else {
             String title = _isSwitch == 0 ? getString(R.string.open_break) : getString(R.string.close_break);
             String desc = _isSwitch == 0 ?
@@ -432,7 +432,7 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
                 if (currentSearchCount >= MAX_REQUEST_COUNT) {
                     currentSearchCount = 0;
 //                    CustomToast.showCustomToast(SwitchTreeActivity.this, getString(R.string.op_fail));
-                    SnackbarMessageShow.getInstance().showError(linearLayout, "请求超时，请稍后尝试");
+                    SnackbarMessageShow.getInstance().showError(linearLayout, getString(R.string.vs156));
                     waitDialog.dismiss();
                 } else {
                     mHandler.sendEmptyMessageDelayed(MSG_CMD_RESULT, 1000);
@@ -452,12 +452,12 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
                 if (currentSearchCount <= MAX_REQUEST_COUNT) {
                     mHandler.sendEmptyMessageDelayed(MSG_CMD_RESULT, 2000);
                 } else {
-                    SnackbarMessageShow.getInstance().showError(linearLayout, "请求超时，请稍后尝试");
+                    SnackbarMessageShow.getInstance().showError(linearLayout, getString(R.string.vs156));
                     waitDialog.dismiss();
                 }
                 break;
             case "1":
-                SnackbarMessageShow.getInstance().showError(linearLayout, "发送操作失败，请确认设备是否在线");
+                SnackbarMessageShow.getInstance().showError(linearLayout, getString(R.string.vs157));
                 waitDialog.dismiss();
                 break;
             case "2":
@@ -478,7 +478,7 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
                 }
                 break;
             case "3":
-                SnackbarMessageShow.getInstance().showError(linearLayout, "请求失败，多人同时操作冲突");
+                SnackbarMessageShow.getInstance().showError(linearLayout, getString(R.string.vs158));
                 waitDialog.dismiss();
                 break;
         }
@@ -500,10 +500,10 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
                         Log.i(TAG, cb.getSwitchState() + "-flush_success");
                         findChild(rootNode, currentSwitchBean.getSerialNumber(), cb.getSwitchState(), cb.getFault(), 1);
                         waitDialog.dismiss();
-                        CustomToast.showCustomToast(SwitchTreeActivity.this, "操作成功");
+                        CustomToast.showCustomToast(SwitchTreeActivity.this, getString(R.string.operator_sucess));
                     }
                 } else {
-                    CustomToast.showCustomErrorToast(SwitchTreeActivity.this, "查询操作超时，请刷新");
+                    CustomToast.showCustomErrorToast(SwitchTreeActivity.this, getString(R.string.vs155));
                     waitDialog.dismiss();
                 }
             }
@@ -576,7 +576,7 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
 //                    messageTip = getString(R.string.operator_failure);
 //                }
                 if (errorEvent == 12) {
-                    CustomToast.showCustomErrorToast(SwitchTreeActivity.this, "请先添加线路");
+                    CustomToast.showCustomErrorToast(SwitchTreeActivity.this, getString(R.string.vs29));
                 } else {
                     CustomToast.showCustomErrorToast(SwitchTreeActivity.this, message);
                 }

@@ -56,7 +56,7 @@ public class MonitorDataChartView extends FrameLayout {
         mChart.setScaleEnabled(true);
         mChart.setScaleXEnabled(true);
         mChart.setScaleYEnabled(true);
-        mChart.setNoDataText("暂无数据");
+        mChart.setNoDataText(getContext().getString(R.string.local_error_message_no_data));
         mChart.setNoDataTextColor(R.color.black);
         // if disabled, scaling can be done on x- and y-axis separately
         mChart.setPinchZoom(true);

@@ -115,7 +115,7 @@ public class ShareListActivity extends BaseActivity {
 
     // 改变用户控制权限
     private void changeEnable(final int isEnable) {
-        String title = isEnable == 1 ? "打开控制权限" : "关闭控制权限";
+        String title = isEnable == 1 ? getString(R.string.vs147) : getString(R.string.vs148);
         mDialogSwitchEnable.setTitle(title);
         mDialogSwitchEnable.setContent(currentUser.getUsername());
         mDialogSwitchEnable.setDialogListener(new DialogTip.onEnsureDialogListener() {
@@ -130,7 +130,7 @@ public class ShareListActivity extends BaseActivity {
                 Core.instance(ShareListActivity.this).updateShareCollector(currentUser.getCollectorShareID(), isEnable, new ActionCallbackListener<Void>() {
                     @Override
                     public void onSuccess(Void data) {
-                        CustomToast.showCustomToast(ShareListActivity.this, "操作成功");
+                        CustomToast.showCustomToast(ShareListActivity.this, getString(R.string.operator_sucess));
                         doRequest(false);
                     }
 

@@ -26,7 +26,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="首页 / 智能电箱 / 专业功能"
+            android:text="@string/vs61"
             android:textSize="12sp" />
     </android.support.v7.widget.Toolbar>
 
@@ -43,7 +43,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="安全设置"
+            android:text="@string/vs95"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -62,7 +62,7 @@
             android:layout_height="match_parent"
             android:layout_weight="@integer/tag_1"
             android:gravity="center_vertical"
-            android:text="线路: --"
+            android:text="@string/vs14"
             android:textColor="@color/black"
             android:textSize="12sp" />
 
@@ -127,7 +127,7 @@
                         android:background="@drawable/input_edit_bg"
                         android:digits="0123456789"
                         android:gravity="end"
-                        android:hint="请输入"
+                        android:hint="@string/vs96"
                         android:inputType="numberDecimal"
                         android:maxLength="3"
                         android:paddingStart="10dp"
@@ -151,7 +151,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="瞬时过流阀值(A)"
+                        android:text="@string/vs97"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
 
@@ -163,7 +163,7 @@
                         android:background="@drawable/input_edit_bg"
                         android:digits="0123456789"
                         android:gravity="end"
-                        android:hint="请输入"
+                        android:hint="@string/vs96"
                         android:inputType="numberDecimal"
                         android:maxLength="3"
                         android:paddingStart="10dp"
@@ -325,7 +325,7 @@
                         android:background="@drawable/input_edit_bg"
                         android:digits="0123456789."
                         android:gravity="end"
-                        android:hint="请输入"
+                        android:hint="@string/vs96"
                         android:inputType="numberDecimal"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
@@ -364,7 +364,7 @@
                         android:background="@drawable/input_edit_bg"
                         android:digits="0123456789."
                         android:gravity="end"
-                        android:hint="请输入"
+                        android:hint="@string/vs96"
                         android:inputType="numberDecimal"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
@@ -394,7 +394,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="@integer/tag_1"
-                        android:text="漏电自检使能"
+                        android:text="@string/vs98"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
 
@@ -429,7 +429,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="@integer/tag_1"
-                        android:text="漏电自检时间"
+                        android:text="@string/vs99"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
 
@@ -507,7 +507,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="@integer/tag_1"
-                        android:text="上电配置"
+                        android:text="@string/vs100"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
 
@@ -550,7 +550,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="@integer/tag_1"
-                            android:text="高温阀值(℃)"
+                            android:text="@string/vs101"
                             android:textColor="@color/black"
                             android:textSize="12sp" />
 
@@ -614,7 +614,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="@integer/tag_1"
-                            android:text="漏电自检使能"
+                            android:text="@string/vs102"
                             android:textColor="@color/black"
                             android:textSize="12sp" />
 
@@ -636,7 +636,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="@integer/tag_1"
-                            android:text="漏电自检时间(ddhh)"
+                            android:text="@string/vs103"
                             android:textColor="@color/black"
                             android:textSize="12sp" />
 
@@ -667,7 +667,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="@integer/tag_1"
-                            android:text="漏电阀值(mA)"
+                            android:text="@string/vs104"
                             android:textColor="@color/black"
                             android:textSize="12sp" />
 
@@ -732,7 +732,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="@integer/tag_1"
-                            android:text="三相不平衡"
+                            android:text="@string/vs105"
                             android:textColor="@color/black"
                             android:textSize="12sp" />
 
@@ -796,7 +796,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="@integer/tag_1"
-                            android:text="故障电弧"
+                            android:text="@string/vs106"
                             android:textColor="@color/black"
                             android:textSize="12sp" />
 
@@ -860,7 +860,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="@integer/tag_1"
-                            android:text="防雷阀值"
+                            android:text="@string/vs107"
                             android:textColor="@color/black"
                             android:textSize="12sp" />
 

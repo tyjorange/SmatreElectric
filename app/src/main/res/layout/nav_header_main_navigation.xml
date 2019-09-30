@@ -22,7 +22,6 @@
         android:id="@+id/user_headimg"
         android:layout_width="66dp"
         android:layout_height="66dp"
-        android:contentDescription="@string/nav_header_desc"
         android:src="@drawable/icon_user_default" />
 
 
@@ -48,7 +47,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="编辑个人资料"
+            android:text="@string/vs134"
             android:textColor="@color/white"
             android:textSize="9sp" />
 
@@ -58,6 +57,5 @@
         android:id="@+id/rows"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="me_jinru"
         app:srcCompat="@drawable/me_jinru" />
 </LinearLayout>

@@ -116,14 +116,14 @@ public class ThridPushActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 //                checkBox1.toggle();
-                CustomToast.showCustomErrorToast(ThridPushActivity.this, "系统通知必选");
+//                CustomToast.showCustomErrorToast(ThridPushActivity.this, "系统通知必选");
             }
         });
         ll_cb2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                checkBox2.toggle();
-                CustomToast.showCustomErrorToast(ThridPushActivity.this, "更新通知必选");
+//                CustomToast.showCustomErrorToast(ThridPushActivity.this, "更新通知必选");
             }
         });
         ll_cb3.setOnClickListener(new View.OnClickListener() {

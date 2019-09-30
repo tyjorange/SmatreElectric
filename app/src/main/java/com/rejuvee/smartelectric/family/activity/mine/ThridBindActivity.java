@@ -88,7 +88,7 @@ public class ThridBindActivity extends BaseActivity {
                 public void onClick(View v) {
 //                    Snackbar.make(v, wechatUnionID, Snackbar.LENGTH_SHORT).show();
                     //TODO 提示解绑
-                    popDialog("解绑", "是否解绑微信?", "WX");
+                    popDialog(getString(R.string.vs167), getString(R.string.vs168), "WX");
                 }
             });
         }
@@ -113,7 +113,7 @@ public class ThridBindActivity extends BaseActivity {
                 public void onClick(View v) {
 //                    Snackbar.make(v, qqOpenID, Snackbar.LENGTH_SHORT).show();
                     //TODO 提示解绑
-                    popDialog("解绑", "是否解绑QQ?", "QQ");
+                    popDialog(getString(R.string.vs167), getString(R.string.vs169), "QQ");
                 }
             });
         }
@@ -126,10 +126,10 @@ public class ThridBindActivity extends BaseActivity {
                 @Override
                 public void onSuccess(Void data) {
                     if (thirdPartyBind.bindType == ThirdPartyInfo.BIND_WEIXIN) {
-                        CustomToast.showCustomToast(ThridBindActivity.this, "绑定微信成功");
+                        CustomToast.showCustomToast(ThridBindActivity.this, getString(R.string.vs170));
                         finish();
                     } else if (thirdPartyBind.bindType == ThirdPartyInfo.BIND_QQ) {
-                        CustomToast.showCustomToast(ThridBindActivity.this, "绑定QQ成功");
+                        CustomToast.showCustomToast(ThridBindActivity.this, getString(R.string.vs171));
                         finish();
                     }
                 }
@@ -158,14 +158,14 @@ public class ThridBindActivity extends BaseActivity {
 
                         @Override
                         public void onSuccess(Void data) {
-                            CustomToast.showCustomToast(ThridBindActivity.this, "解绑微信成功");
+                            CustomToast.showCustomToast(ThridBindActivity.this, getString(R.string.vs172));
                             waitDialog.dismiss();
                             finish();
                         }
 
                         @Override
                         public void onFailure(int errorEvent, String message) {
-                            CustomToast.showCustomErrorToast(ThridBindActivity.this, "解绑微信失败");
+                            CustomToast.showCustomErrorToast(ThridBindActivity.this, getString(R.string.vs173));
                             waitDialog.dismiss();
                         }
                     });
@@ -174,14 +174,14 @@ public class ThridBindActivity extends BaseActivity {
 
                         @Override
                         public void onSuccess(Void data) {
-                            CustomToast.showCustomToast(ThridBindActivity.this, "解绑QQ成功");
+                            CustomToast.showCustomToast(ThridBindActivity.this, getString(R.string.vs174));
                             waitDialog.dismiss();
                             finish();
                         }
 
                         @Override
                         public void onFailure(int errorEvent, String message) {
-                            CustomToast.showCustomErrorToast(ThridBindActivity.this, "解绑QQ失败");
+                            CustomToast.showCustomErrorToast(ThridBindActivity.this, getString(R.string.vs175));
                             waitDialog.dismiss();
                         }
                     });

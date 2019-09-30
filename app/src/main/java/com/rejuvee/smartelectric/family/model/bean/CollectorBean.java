@@ -357,7 +357,7 @@ public class CollectorBean implements Parcelable {
 
     public static String getDeviceType(int ioType) {
         if (ioType == 0) {
-            return "未知";
+            return "UNKONW";
         } else if (ioType == 1) {
             return "GPRS";
         } else if (ioType == 2) {
@@ -375,7 +375,7 @@ public class CollectorBean implements Parcelable {
         } else if (ioType == 8) {
             return "4G.A";
         } else {
-            return "未知";
+            return "UNKONW";
         }
     }
 

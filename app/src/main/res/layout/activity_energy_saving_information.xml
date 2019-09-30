@@ -26,7 +26,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="首页 / 智能电箱"
+            android:text="@string/vs50"
             android:textSize="12sp" />
     </android.support.v7.widget.Toolbar>
 
@@ -43,7 +43,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="节能信息"
+            android:text="@string/energy_saving_info"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -86,7 +86,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="电箱编码"
+                    android:text="@string/device_id"
                     android:textColor="@color/black"
                     android:textSize="12sp" />
 
@@ -119,7 +119,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="总环比(月)"
+                    android:text="@string/vs120"
                     android:textColor="@color/black"
                     android:textSize="12sp" />
 
@@ -152,7 +152,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="总同比(月)"
+                    android:text="@string/vs121"
                     android:textColor="@color/black"
                     android:textSize="12sp" />
 
@@ -188,7 +188,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="电箱: "
+                    android:text="@string/vs5"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
@@ -215,7 +215,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="线路: --"
+                    android:text="@string/vs14"
                     android:textColor="@color/black"
                     android:textSize="12sp" />
 
@@ -247,7 +247,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="环比(月)"
+                    android:text="@string/vs122"
                     android:textColor="@color/black"
                     android:textSize="12sp" />
 
@@ -280,7 +280,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="同比(月)"
+                    android:text="@string/vs123"
                     android:textColor="@color/black"
                     android:textSize="12sp" />
 
@@ -313,7 +313,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="用电量（度）"
+                    android:text="@string/vs124"
                     android:textColor="@color/black"
                     android:textSize="12sp" />
 

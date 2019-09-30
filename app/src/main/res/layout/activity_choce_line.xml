@@ -27,7 +27,7 @@
             android:id="@+id/type_yaokong"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="首页 / 场景管理 / 添加与修改"
+            android:text="@string/vs81"
             android:textSize="12sp" />
     </android.support.v7.widget.Toolbar>
 
@@ -44,7 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="选择线路"
+            android:text="@string/vs82"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -61,7 +61,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="@integer/tag_1"
-            android:text="选择线路"
+            android:text="@string/vs82"
             android:textColor="@color/black" />
 
         <TextView

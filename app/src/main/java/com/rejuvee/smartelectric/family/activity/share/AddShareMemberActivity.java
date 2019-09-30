@@ -61,7 +61,7 @@ public class AddShareMemberActivity extends BaseActivity {
 
                         @Override
                         public void onPermissionDenied(String[] deniedPermissions) {
-                            CustomToast.showCustomErrorToast(AddShareMemberActivity.this, "请打开相机权限");
+                            CustomToast.showCustomErrorToast(AddShareMemberActivity.this, getString(R.string.vs46));
                         }
                     });
                 } else {

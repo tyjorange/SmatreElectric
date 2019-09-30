@@ -8,6 +8,7 @@ import android.util.Log;
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.MainApplication;
+import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.LogoVersionManage;
 import com.rejuvee.smartelectric.family.model.bean.ThirdPartyInfo;
@@ -49,15 +50,15 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         switch (baseResp.errCode) {
             case BaseResp.ErrCode.ERR_AUTH_DENIED:
                 //用户拒绝授权
-                CustomToast.showCustomErrorToast(this, "拒绝授权微信登录");
+                CustomToast.showCustomErrorToast(this, getString(R.string.vs176));
                 postWXLoginEvent(null);
             case BaseResp.ErrCode.ERR_USER_CANCEL:
                 //用户取消
                 String message = "";
                 if (type == RETURN_MSG_TYPE_LOGIN) {
-                    message = "取消了微信登录";
+                    message = getString(R.string.vs177);
                 } else if (type == RETURN_MSG_TYPE_SHARE) {
-                    message = "取消了微信分享";
+                    message = getString(R.string.vs178);
                 }
                 postWXLoginEvent(null);
                 CustomToast.showCustomErrorToast(this, message);

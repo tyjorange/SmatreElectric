@@ -76,7 +76,7 @@ public class AddDeviceActivity extends BaseActivity {
 
                         @Override
                         public void onPermissionDenied(String[] deniedPermissions) {
-                            CustomToast.showCustomErrorToast(AddDeviceActivity.this, "请打开相机权限");
+                            CustomToast.showCustomErrorToast(AddDeviceActivity.this, getString(R.string.vs46));
                         }
                     });
                 } else {
@@ -108,7 +108,7 @@ public class AddDeviceActivity extends BaseActivity {
         add_title = (TextView) findViewById(R.id.add_title);
         TextView parent_tip = (TextView) findViewById(R.id.txt_parent_tip);
         if (addType == BREAK_ADD) {
-            add_title.setText("添加线路");
+            add_title.setText(getString(R.string.sce_addxianlu));
             findViewById(R.id.type_dianxiang).setVisibility(View.GONE);
             findViewById(R.id.type_xianlu).setVisibility(View.VISIBLE);
             if (mSwitch != null) {
@@ -131,7 +131,7 @@ public class AddDeviceActivity extends BaseActivity {
             });
             edtScan.setFilters(new InputFilter[]{new InputFilter.LengthFilter(12)});
         } else {
-            add_title.setText("添加电箱");
+            add_title.setText(getString(R.string.vs49));
             findViewById(R.id.type_dianxiang).setVisibility(View.VISIBLE);
             findViewById(R.id.type_xianlu).setVisibility(View.GONE);
             parent_tip.setVisibility(View.INVISIBLE);

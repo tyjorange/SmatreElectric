@@ -17,7 +17,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:background="@drawable/lunch_btn_bg"
-        android:text="跳过"
+        android:text="@string/vs11"
         android:textColor="@color/text_base_color_fff" />
 
     <ImageView
@@ -40,7 +40,7 @@
         android:layout_marginTop="120dp"
         android:layout_marginBottom="35dp"
         android:gravity="center|bottom"
-        android:text="智能电箱云平台"
+        android:text="@string/lunchTip"
         android:textColor="#6028BCEA"
         android:textSize="12sp"
         android:visibility="visible" />

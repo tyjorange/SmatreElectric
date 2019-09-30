@@ -81,7 +81,7 @@ public class ListTimerAdapter extends BaseAdapter {
                 mListener.onEnable(position, timeTask.enable == 0);
             }
         });
-        holder.tv_state.setText(timeTask.switchState == 1 ? "合闸" : "拉闸");
+        holder.tv_state.setText(timeTask.switchState == 1 ? mContext.getString(R.string.vs74) : mContext.getString(R.string.vs75));
         holder.tv_time.setText(timeTask.time);
         holder.tv_repet.setText(toRepeat(timeTask.repeatState));
 //        holder.img_line.setImageResource(switchBean.getIcon());

@@ -396,7 +396,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         Core.instance(this).getCollector(new ActionCallbackListener<List<CollectorBean>>() {
             @Override
             public void onSuccess(List<CollectorBean> data) {
-                tv_collector_count.setText(String.format("%s%d", getString(R.string.vs13), data.size()));
+                tv_collector_count.setText(String.format(Locale.getDefault(), "%s%d", getString(R.string.vs13), data.size()));
                 listDeviceData.clear();
                 listDeviceData.addAll(data);
                 mDeviceAdapter.notifyDataSetChanged();
@@ -450,7 +450,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
                                 mDeviceAdapter.notifyDataSetChanged();
                                 mDeviceAdapter.setEditMode(false);
                                 tv_collector_count.setText(String.format(Locale.getDefault(), "%s%d", getString(R.string.vs13), listDeviceData.size()));
-                                CustomToast.showCustomToast(mContext, "解除绑定成功");
+                                CustomToast.showCustomToast(mContext, getString(R.string.vs66));
                             }
 
                             @Override
@@ -472,8 +472,8 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
             mDeviceAdapter.setEditMode(false);
         } else {
             mDialogTip = new DialogTip(mContext);
-            mDialogTip.setTitle("退出");
-            mDialogTip.setContent("是否退出电母?");
+            mDialogTip.setTitle(getString(R.string.vs67));
+            mDialogTip.setContent(getString(R.string.vs68));
             mDialogTip.setDialogListener(new DialogTip.onEnsureDialogListener() {
                 @Override
                 public void onCancel() {

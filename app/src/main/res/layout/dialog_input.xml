@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="16dp"
-        android:text="上电配置"
+        android:text="@string/vs83"
         android:textColor="#4A4A4A"
         android:textSize="18sp" />
 
@@ -33,7 +33,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="@integer/tag_1"
                 android:gravity="start|center"
-                android:text="拉闸"
+                android:text="@string/vs75"
                 android:textColor="@color/black" />
 
             <ImageView
@@ -55,7 +55,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="@integer/tag_1"
                 android:gravity="start|center"
-                android:text="合闸"
+                android:text="@string/vs74"
                 android:textColor="@color/black" />
 
             <ImageView
@@ -77,7 +77,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="@integer/tag_1"
                 android:gravity="start|center"
-                android:text="不动作"
+                android:text="@string/vs84"
                 android:textColor="@color/black" />
 
             <ImageView

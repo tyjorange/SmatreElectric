@@ -26,7 +26,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="首页 / 分时计价"
+            android:text="@string/vs78"
             android:textSize="12sp" />
     </android.support.v7.widget.Toolbar>
 
@@ -43,7 +43,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="电价设置"
+            android:text="@string/vs79"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -136,7 +136,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="16dp"
-            android:text="设置价钱 $"
+            android:text="@string/vs19"
+            android:textColor="@color/black"
             android:textSize="12sp" />
 
         <EditText

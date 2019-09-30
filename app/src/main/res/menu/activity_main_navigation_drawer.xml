@@ -7,26 +7,26 @@
         <item
             android:id="@+id/me_disanfang"
             android:icon="@drawable/me_disanfang"
-            android:title="第三方绑定" />
+            android:title="@string/vs37" />
         <item
             android:id="@+id/me_jisuanqi"
             android:icon="@drawable/me_jisuanqi"
-            android:title="分时计价" />
+            android:title="@string/vs38" />
         <item
             android:id="@+id/me_kefu"
             android:icon="@drawable/me_kefu"
-            android:title="客服" />
+            android:title="@string/vs39" />
         <item
             android:id="@+id/me_wenti"
             android:icon="@drawable/me_wenti"
-            android:title="常见问题" />
+            android:title="@string/vs40" />
         <item
             android:id="@+id/me_guanyu"
             android:icon="@drawable/me_guanyu"
-            android:title="关于" />
+            android:title="@string/vs41" />
         <item
             android:id="@+id/me_shezhi"
             android:icon="@drawable/me_shezhishezhi"
-            android:title="设置" />
+            android:title="@string/vs42" />
     </group>
 </menu>

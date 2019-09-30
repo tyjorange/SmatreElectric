@@ -21,7 +21,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="电箱新版本"
+            android:text="@string/vs91"
             android:textColor="#000000"
             android:textSize="15sp" />
 
@@ -61,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start|center"
-            android:text="请选择升级时间"
+            android:text="@string/vs92"
             android:textColor="#535353"
             android:textSize="15sp" />
     </LinearLayout>
@@ -202,7 +202,7 @@
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:background="@drawable/btn_white"
-            android:text="忽略"
+            android:text="@string/vs93"
             android:textColor="#000000"
             android:textSize="12sp" />
 
@@ -214,7 +214,7 @@
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:background="@drawable/btn_def"
-            android:text="升级"
+            android:text="@string/vs26"
             android:textColor="#ffffff"
             android:textSize="12sp" />
     </LinearLayout>

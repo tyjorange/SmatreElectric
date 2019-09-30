@@ -24,20 +24,20 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:paddingLeft="16dp"
+            android:paddingStart="16dp"
             android:paddingTop="16dp"
             android:paddingBottom="16dp">
 
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:drawablePadding="10dp"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:text="断路器设置"
+                android:text="@string/vs51"
                 android:textColor="@color/set_content"
                 android:textSize="16sp" />
 
@@ -48,7 +48,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:paddingTop="4dp"
-                android:text="编码"
+                android:text="@string/vs53"
                 android:textColor="@color/text_base_color_999"
                 android:textSize="12sp" />
         </LinearLayout>

@@ -27,7 +27,7 @@
             android:id="@+id/type_yaokong"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="首页 / 场景管理 / 添加与修改"
+            android:text="@string/vs64"
             android:textSize="12sp" />
     </android.support.v7.widget.Toolbar>
 
@@ -44,7 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="选择场景图标"
+            android:text="@string/vs65"
             android:textColor="@color/black"
             android:textSize="18sp" />
     </LinearLayout>

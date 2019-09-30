@@ -32,7 +32,7 @@
                     android:drawablePadding="16dp"
                     android:paddingStart="16dp"
                     android:paddingEnd="0dp"
-                    android:text="选择时间"
+                    android:text="@string/vs71"
                     android:textSize="15sp" />
 
             </LinearLayout>
@@ -99,7 +99,7 @@
                     android:drawablePadding="16dp"
                     android:paddingStart="6dp"
                     android:paddingEnd="0dp"
-                    android:text="驻留电箱"
+                    android:text="@string/vs72"
                     android:textSize="15sp" />
 
                 <ImageView
@@ -139,14 +139,15 @@
                     android:paddingTop="10dp"
                     android:paddingEnd="16dp"
                     android:paddingBottom="10dp"
-                    android:text="操作"
-                    android:textSize="15sp" />
+                    android:text="@string/vs73"
+                    android:textSize="15sp"
+                    tools:ignore="NestedWeights" />
 
                 <TextView
                     android:id="@+id/tv_caozuo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="合闸" />
+                    android:text="@string/vs74" />
 
                 <ImageView
                     android:id="@+id/iv_check"
@@ -213,7 +214,7 @@
                 android:paddingTop="10dp"
                 android:paddingEnd="16dp"
                 android:paddingBottom="10dp"
-                android:text="重复"
+                android:text="@string/repeat"
                 android:textSize="15sp" />
 
             <LinearLayout
@@ -373,7 +374,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/btn_white"
                     android:gravity="center"
-                    android:text="取消"
+                    android:text="@string/cancel"
                     android:textColor="@color/black"
                     android:textSize="12sp" />
 
@@ -386,7 +387,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/btn_def"
                     android:gravity="center"
-                    android:text="确定"
+                    android:text="@string/ensure"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
             </LinearLayout>

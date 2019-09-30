@@ -26,15 +26,15 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="首页"
+            android:text="@string/vs43"
             android:textSize="12sp" />
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center"
+        android:orientation="horizontal"
         android:paddingStart="20dp"
         android:paddingTop="20dp"
         android:paddingEnd="20dp"
@@ -44,7 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="分时计价"
+            android:text="@string/time_price"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -63,6 +63,7 @@
         android:focusableInTouchMode="true"
         android:paddingStart="16dp"
         android:paddingTop="8dp"
+        android:paddingEnd="0dp"
         android:paddingBottom="8dp"
         android:text="@string/default_price"
         android:textColor="@color/text_base_color_999"

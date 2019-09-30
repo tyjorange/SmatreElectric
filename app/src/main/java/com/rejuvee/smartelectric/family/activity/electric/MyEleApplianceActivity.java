@@ -224,8 +224,8 @@ public class MyEleApplianceActivity extends BaseActivity implements Eleappliance
 
     @Override
     public void onDelete(final MyEleApplianceBean MyEleApplianceBean) {
-        dialogTip.setTitle("删除提醒");
-        dialogTip.setContent("确定要删除该电器吗");
+        dialogTip.setTitle(getString(R.string.deletewarn));
+        dialogTip.setContent(getString(R.string.vs154));
         dialogTip.show();
         dialogTip.setDialogListener(new DialogTip.onEnsureDialogListener() {
             @Override

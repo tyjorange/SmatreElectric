@@ -26,7 +26,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="首页 / 智能电箱 / 专业功能 / 电箱设置"
+            android:text="@string/vs112"
             android:textSize="12sp" />
     </android.support.v7.widget.Toolbar>
 
@@ -42,6 +42,7 @@
             android:layout_height="50dp"
             android:gravity="center"
             android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingEnd="0dp"
             android:text="@string/devicename"
             android:textSize="16sp" />
 
@@ -52,6 +53,7 @@
             android:background="@null"
             android:hint="@string/sets_miaoshu"
             android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingEnd="0dp"
             android:textSize="14sp" />
 
     </LinearLayout>
