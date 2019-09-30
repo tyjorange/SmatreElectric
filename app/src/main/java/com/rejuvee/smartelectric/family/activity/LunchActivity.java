@@ -14,7 +14,7 @@ import java.util.Locale;
 
 public class LunchActivity extends BaseActivity {
     private Button mBtnSkip;
-    private int count = 5;
+    private int count = 3;
 
     @Override
     protected int getLayoutResId() {
