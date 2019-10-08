@@ -520,7 +520,6 @@
                         android:textSize="12sp" />
 
                     <ImageView
-                        android:id="@+id/iv_switch_sdpz"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -649,6 +648,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/ll_zj_time"
                         android:layout_width="match_parent"
                         android:layout_height="39dp"
                         android:gravity="center"
@@ -664,9 +664,10 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv_zj_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0000"
+                            android:text="每月00日00时"
                             android:textColor="@color/text_content"
                             android:textSize="12sp" />
 

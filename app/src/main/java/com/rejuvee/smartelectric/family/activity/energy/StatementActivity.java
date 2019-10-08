@@ -90,13 +90,13 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                 switch (tab.getPosition()) {
                     case 0:
                         isDay = true;
-                        dateSelector.setDateItemVisiable(true, false, false);
+                        dateSelector.setDateItemVisiable(true, true, true, false, false);
                         changeDate(0);
                         getBreakerStatement();
                         break;
                     case 1:
                         isDay = false;
-                        dateSelector.setDateItemVisiable(false, false, false);
+                        dateSelector.setDateItemVisiable(true, true, false, false, false);
                         changeDate(0);
                         getBreakerStatement();
                         break;
@@ -169,7 +169,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                 new SimpleDateFormat("MM", Locale.getDefault()).format(new Date()),
                 new SimpleDateFormat("dd", Locale.getDefault()).format(new Date()),
                 getString(R.string.select_date), getString(R.string.cancel), getString(R.string.ensure));
-        dateSelector.setDateItemVisiable(true, false, false);
+        dateSelector.setDateItemVisiable(true, true, true, false, false);
     }
 
     private void changeDate(int c) {

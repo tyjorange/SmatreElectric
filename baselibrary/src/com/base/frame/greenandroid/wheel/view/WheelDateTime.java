@@ -31,8 +31,7 @@ import java.util.Date;
  * @author shaxiaoning
  */
 public class WheelDateTime extends PopupWindow implements OnClickListener {
-    private static final String LOGTAG = LogUtil
-            .makeLogTag(WheelDateTime.class);
+    private static final String LOGTAG = LogUtil.makeLogTag(WheelDateTime.class);
     private Context mContext;
     private View mMenuView;
     private ViewFlipper viewfipper;
@@ -204,7 +203,9 @@ public class WheelDateTime extends PopupWindow implements OnClickListener {
     }
 
 
-    public void setDateItemVisiable(boolean showDay, boolean showHour, boolean showMin) {
+    public void setDateItemVisiable(boolean showYear, boolean showMonth, boolean showDay, boolean showHour, boolean showMin) {
+        year.setVisibility(showYear ? View.VISIBLE : View.GONE);
+        month.setVisibility(showMonth ? View.VISIBLE : View.GONE);
         day.setVisibility(showDay ? View.VISIBLE : View.GONE);
         hour.setVisibility(showHour ? View.VISIBLE : View.GONE);
         minute.setVisibility(showMin ? View.VISIBLE : View.GONE);

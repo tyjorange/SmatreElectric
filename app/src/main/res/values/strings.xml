@@ -713,4 +713,6 @@
     <string name="vs186">确定要退出么？</string>
     <string name="vs187">更新用户信息成功</string>
     <string name="vs188">更新用户信息失败</string>
+    <string name="vs189">电量下限不能大于或等于上限</string>
+    <string name="vs190">每月%02d日%02d时</string>
 </resources>
