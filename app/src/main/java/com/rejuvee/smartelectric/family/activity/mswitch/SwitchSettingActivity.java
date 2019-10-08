@@ -435,7 +435,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                 new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date()),
                 new SimpleDateFormat("MM", Locale.getDefault()).format(new Date()),
                 new SimpleDateFormat("dd", Locale.getDefault()).format(new Date()),
-                getString(R.string.select_date), getString(R.string.cancel), getString(R.string.ensure));
+                getString(R.string.vs191), getString(R.string.cancel), getString(R.string.ensure));
         dateSelector.setDateItemVisiable(false, false, true, true, false);
     }
 
