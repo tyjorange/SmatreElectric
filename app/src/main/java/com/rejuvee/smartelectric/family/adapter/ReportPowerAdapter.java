@@ -50,7 +50,7 @@ public class ReportPowerAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.tv_line_name.setText(String.format("%s%s", mContext.getString(R.string.vs4), getItem(position).getSwitchName()));
-        holder.tv_power_count.setText(String.format(Locale.getDefault(), "%d%s", getItem(position).getCount(), mContext.getString(R.string.vs18)));
+        holder.tv_power_count.setText(String.format(Locale.getDefault(), "%.2f%s", getItem(position).getCount(), mContext.getString(R.string.vs18)));
         holder.tv_line_id.setText(String.format("%s%s", mContext.getString(R.string.vs6), getItem(position).getSwitchCode()));
         return convertView;
     }

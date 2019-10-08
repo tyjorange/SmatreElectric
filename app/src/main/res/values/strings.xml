@@ -625,6 +625,7 @@
     <string name="vs100">上电配置</string>
     <string name="vs101">高温阀值(℃)</string>
     <string name="vs102">漏电自检使能</string>
+    <string name="vs1022">漏电保护使能</string>
     <string name="vs103">漏电自检时间(ddhh)</string>
     <string name="vs104">漏电阀值(mA)</string>
     <string name="vs105">三相不平衡</string>

@@ -1244,9 +1244,21 @@ public class Core {
                             listener.onSuccess(resp.body().getData());
                         } else if (resp.body().isAccessDenied()) {
                             Log.e(TAG, "resp.body() isAccessDenied");
-                            CustomToast.showCustomToast(context, context.getString(R.string.vs94));
+                            CustomToast.showCustomErrorToast(context, context.getString(R.string.vs94));
 //                            if (oFlag) {
-                            Intent intent = new Intent("ForceOfflineBroadCastReceiver");
+                            Intent intent = new Intent("com.example.chencong.broadcastbestpractive.FORCE_OFFLINE");
+//                            Android8.0
+//                            即是以下两种情况静态receiver不会接收到广播：
+//                            发送的intent设置了FLAG --FLAG_RECEIVER_EXCLUDE_BACKGROUND；
+//                            以下情况的均满足时：
+//                              ①intent没有指定接收组件，也就是没有setComponent
+//                              ②intent没有执行接收的package，也就是没有setPackage
+//                              ③发送的intent没有设置FLAG-FLAG_RECEIVER_INCLUDE_BACKGROUND
+//                              ④给定的权限并不都是签名权限。
+//                            根据这两种情况，即是说静态receiver接收不了隐式广播。本来打算采用最简单的方法添加Flag来解决的。
+//                            但是奇怪的是，Android Studio里没有FLAG_RECEIVER_INCLUDE_BACKGROUND！！！！
+//                            然后，只好在发送intent的时候setPackage。
+                            intent.setPackage(context.getPackageName());
                             //发送广播--权限错误 强制重新登录
                             context.sendBroadcast(intent);
 //                            }

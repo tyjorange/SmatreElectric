@@ -1,6 +1,5 @@
 package com.rejuvee.smartelectric.family.activity.energy;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
@@ -149,7 +148,6 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
         });
     }
 
-    @SuppressLint("SimpleDateFormat")
     private void initTimeSelect() {
         isDay = true;
         changeDate(0);
@@ -167,9 +165,9 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                         changeTvDate();
                     }
                 }, true,
-                new SimpleDateFormat("yyyy").format(new Date()),
-                new SimpleDateFormat("MM").format(new Date()),
-                new SimpleDateFormat("dd").format(new Date()),
+                new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date()),
+                new SimpleDateFormat("MM", Locale.getDefault()).format(new Date()),
+                new SimpleDateFormat("dd", Locale.getDefault()).format(new Date()),
                 getString(R.string.select_date), getString(R.string.cancel), getString(R.string.ensure));
         dateSelector.setDateItemVisiable(true, false, false);
     }

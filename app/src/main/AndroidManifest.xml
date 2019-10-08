@@ -74,7 +74,7 @@
             android:name=".common.ForceOfflineBroadCastReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="ForceOfflineBroadCastReceiver" />
+                <action android:name="com.example.chencong.broadcastbestpractive.FORCE_OFFLINE" />
             </intent-filter>
         </receiver>
         <receiver

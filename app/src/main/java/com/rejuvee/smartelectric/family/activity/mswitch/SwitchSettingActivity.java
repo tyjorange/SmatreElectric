@@ -415,7 +415,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         } else {
             findViewById(R.id.ll_sxbph).setVisibility(View.GONE);
         }
-        // 这里刷新滑块显示
+        // 这里刷新右侧滑块显示
 //        ScrollBindHelper.resetThumb();
         ScrollBindHelper.bind(seekBar, scrollView);
     }
@@ -459,40 +459,28 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         listPopupWindow.dismiss();
         waitDialog.show();
         Core.instance(this).sendGetThreadValueCommand(currentSwitchBean.getSerialNumber(), paramID, new ActionCallbackListener<Void>() {
-                    @Override
-                    public void onSuccess(Void data) {
-                        Log.d(TAG, getString(R.string.vs153) + " threadId = " + Thread.currentThread().getId());
-                        currentSearchCount = 0;
-                        mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitch, 1000);
-                        scrollView.setVisibility(View.VISIBLE);
-                        superTextView.setVisibility(View.VISIBLE);
-                        empty_layout.setVisibility(View.GONE);
-                    }
+            @Override
+            public void onSuccess(Void data) {
+                Log.d(TAG, getString(R.string.vs153) + " threadId = " + Thread.currentThread().getId());
+                currentSearchCount = 0;
+                mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitch, 1000);
+                scrollView.setVisibility(View.VISIBLE);
+                superTextView.setVisibility(View.VISIBLE);
+                empty_layout.setVisibility(View.GONE);
+            }
 
-                    @Override
-                    public void onFailure(int errorEvent, String message) {
-                        Log.e(TAG, getString(R.string.vs152));
-                        waitDialog.dismiss();
-                        CustomToast.showCustomErrorToast(mContext, message);
-                        scrollView.setVisibility(View.INVISIBLE);
-                        superTextView.setVisibility(View.INVISIBLE);
-                        empty_layout.setVisibility(View.VISIBLE);
-                    }
-                });
+            @Override
+            public void onFailure(int errorEvent, String message) {
+                Log.e(TAG, getString(R.string.vs152));
+                waitDialog.dismiss();
+                CustomToast.showCustomErrorToast(mContext, message);
+                scrollView.setVisibility(View.INVISIBLE);
+                superTextView.setVisibility(View.INVISIBLE);
+                empty_layout.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
-    private String paramID = "00000011," + // 过流阀值
-            "00000005," + // 过压阀值
-            "0000000D," + // 欠压阀值
-            "00000018," + // 电量下限
-            "00000019," + // 电量上限
-            "0000001A," + // （瞬时）过流阀值2
-            "0000001B," + // 漏电阀值
-            "0000001C," + // 漏电自检使能
-            "0000001D," + // 漏电自检时间 xxxx(ddhh)
-            "0000001E," + // 温度阀值
-            "0000001F," + // （上电配置0：拉闸；1：合闸，2：不动作）
-            "00000020,"; // 三相不平衡阀值
     /**
      * 获取刷新命令后的阀值
      */
@@ -502,88 +490,88 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         }
         Core.instance(this).findSwitchParamBySwitch(currentSwitchBean.getSwitchID(), paramID, new ActionCallbackListener<List<VoltageValue>>() {
 
-                    @Override
-                    public void onSuccess(List<VoltageValue> valueList) {
-                        Log.i(TAG, "findSwitchParamBySwitch=" + currentSearchCount);
-                        if (valueList == null) {
-                            CustomToast.showCustomToast(mContext, getString(R.string.vs142));
-                            waitDialog.dismiss();
-                            return;
-                        }
-                        if (currentSearchCount <= MAX_REQUEST_COUNT) {
-                            mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitch, 1000);
-                            return;
-                        }
-                        // 设置值
-                        for (VoltageValue vv : valueList) {
-                            float paramValue = vv.getParamValue();
+            @Override
+            public void onSuccess(List<VoltageValue> valueList) {
+                Log.i(TAG, "findSwitchParamBySwitch=" + currentSearchCount);
+                if (valueList == null) {
+                    CustomToast.showCustomToast(mContext, getString(R.string.vs142));
+                    waitDialog.dismiss();
+                    return;
+                }
+                if (currentSearchCount <= MAX_REQUEST_COUNT) {
+                    mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitch, 1000);
+                    return;
+                }
+                // 设置值
+                for (VoltageValue vv : valueList) {
+                    float paramValue = vv.getParamValue();
 //                            if (paramValue == null) {
 //                                CustomToast.showCustomToast(mContext, "读取配置失败");
 //                                continue;
 //                            }
-                            resetValue();
-                            switch (vv.getParamID()) {
-                                case 0x00000005: // 过压阀值
-                                    rangeSeekBarGY.setProgress(paramValue);
-                                    amountGY.setAmount(paramValue);
-                                    break;
-                                case 0x0000000D:// 欠压阀值
-                                    rangeSeekBarQY.setProgress(paramValue);
-                                    amountQY.setAmount(paramValue);
-                                    break;
-                                case 0x00000011:// 过流阀值
-                                    BigDecimal s = BigDecimal.valueOf(paramValue).setScale(0, BigDecimal.ROUND_HALF_UP);
-                                    et_GL.setText(s.toString());
-                                    break;
-                                case 0x00000018:// 电量下限
-                                    dl_xiaxian.setText(new DecimalFormat("000000.00").format(paramValue));
-                                    break;
-                                case 0x00000019:// 电量上限
-                                    dl_shangxian.setText(new DecimalFormat("000000.00").format(paramValue));
-                                    break;
-                                case 0x0000001A:// 瞬时过流阀值
-                                    BigDecimal s2 = BigDecimal.valueOf(paramValue).setScale(0, BigDecimal.ROUND_HALF_UP);
-                                    et_GL2.setText(s2.toString());
-                                    break;
-                                case 0x0000001B:// 漏电阀值
-                                    rangeSeekBarLDL.setProgress(paramValue);
-                                    amountLDL.setAmount((int) paramValue);
-                                    break;
-                                case 0x0000001E:// 温度阀值
-                                    rangeSeekBarGWFZ.setProgress(paramValue);
-                                    amountGWFZ.setAmount(paramValue);
-                                    break;
-                                case 0x0000001F:// 上电配置
-                                    setSDPZ((int) paramValue);
-                                    break;
-                                case 0x00000020:// 三相不平衡
-                                    rangeSeekBarSXBPH.setProgress(paramValue);
-                                    amountSXBPH.setAmount(paramValue);
-                                    break;
-                                case 0x00000021:// 故障电弧
-                                    //暂无断路器支持电弧类设置，所以不显示。
-                                    break;
-                                case 0x00000022:// 防雷阀值
-                                    //暂无断路器支持雷击类设置，所以不显示。
-                                    break;
-                            }
-                        }
-                        waitDialog.dismiss();
-                        scrollView.setVisibility(View.VISIBLE);
-                        superTextView.setVisibility(View.VISIBLE);
-                        empty_layout.setVisibility(View.GONE);
-                        changeView();
+                    resetValue();
+                    switch (vv.getParamID()) {
+                        case 0x00000005: // 过压阀值
+                            rangeSeekBarGY.setProgress(paramValue);
+                            amountGY.setAmount(paramValue);
+                            break;
+                        case 0x0000000D:// 欠压阀值
+                            rangeSeekBarQY.setProgress(paramValue);
+                            amountQY.setAmount(paramValue);
+                            break;
+                        case 0x00000011:// 过流阀值
+                            BigDecimal s1 = BigDecimal.valueOf(paramValue).setScale(0, BigDecimal.ROUND_HALF_UP);
+                            et_GL.setText(s1.toString());
+                            break;
+                        case 0x00000018:// 电量下限
+                            dl_xiaxian.setText(new DecimalFormat("000000.00").format(paramValue));
+                            break;
+                        case 0x00000019:// 电量上限
+                            dl_shangxian.setText(new DecimalFormat("000000.00").format(paramValue));
+                            break;
+                        case 0x0000001A:// 瞬时过流阀值
+                            BigDecimal s2 = BigDecimal.valueOf(paramValue).setScale(0, BigDecimal.ROUND_HALF_UP);
+                            et_GL2.setText(s2.toString());
+                            break;
+                        case 0x0000001B:// 漏电阀值
+                            rangeSeekBarLDL.setProgress(paramValue);
+                            amountLDL.setAmount((int) paramValue);
+                            break;
+                        case 0x0000001E:// 温度阀值
+                            rangeSeekBarGWFZ.setProgress(paramValue);
+                            amountGWFZ.setAmount(paramValue);
+                            break;
+                        case 0x0000001F:// 上电配置
+                            setSDPZ((int) paramValue);
+                            break;
+                        case 0x00000020:// 三相不平衡
+                            rangeSeekBarSXBPH.setProgress(paramValue);
+                            amountSXBPH.setAmount(paramValue);
+                            break;
+                        case 0x00000021:// 故障电弧
+                            //暂无断路器支持电弧类设置，所以不显示。
+                            break;
+                        case 0x00000022:// 防雷阀值
+                            //暂无断路器支持雷击类设置，所以不显示。
+                            break;
                     }
+                }
+                waitDialog.dismiss();
+//                        scrollView.setVisibility(View.VISIBLE);
+//                        superTextView.setVisibility(View.VISIBLE);
+//                        empty_layout.setVisibility(View.GONE);
+                changeView();
+            }
 
-                    @Override
-                    public void onFailure(int errorEvent, String message) {
-                        CustomToast.showCustomErrorToast(mContext, message);
-                        scrollView.setVisibility(View.INVISIBLE);
-                        superTextView.setVisibility(View.INVISIBLE);
-                        empty_layout.setVisibility(View.VISIBLE);
-                        waitDialog.dismiss();
-                    }
-                });
+            @Override
+            public void onFailure(int errorEvent, String message) {
+                CustomToast.showCustomErrorToast(mContext, message);
+//                        scrollView.setVisibility(View.INVISIBLE);
+//                        superTextView.setVisibility(View.INVISIBLE);
+//                        empty_layout.setVisibility(View.VISIBLE);
+                waitDialog.dismiss();
+            }
+        });
     }
 
     /**
@@ -593,6 +581,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         rangeSeekBarGWFZ.setProgress(0);
         amountGWFZ.setAmount(0);
     }
+
     /**
      * 上电配置 设置值
      *
@@ -614,6 +603,20 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                 break;
         }
     }
+
+    private String paramID = "00000011," + // 过流阀值
+            "00000005," + // 过压阀值
+            "0000000D," + // 欠压阀值
+            "00000018," + // 电量下限
+            "00000019," + // 电量上限
+            "0000001A," + // （瞬时）过流阀值2
+            "0000001B," + // 漏电阀值
+            "0000001C," + // 漏电自检使能 / 保护使能
+            "0000001D," + // 漏电自检时间 xxxx(ddhh)
+            "0000001E," + // 温度阀值
+            "0000001F," + // （上电配置0：拉闸；1：合闸，2：不动作）
+            "00000020"; // 三相不平衡阀值
+
     /**
      * 设置阀值 批量提交
      */
@@ -639,11 +642,11 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
             return;
         }
         String values = "00000011:" + b6 + // 过流阀值
-                ",0000001A:" + b8 + // 过流阀值2
                 ",00000005:" + b1 + // 过压阀值
                 ",0000000D:" + b2 + // 欠压阀值
                 ",00000018:" + b4 + // 电量下限
                 ",00000019:" + b3 + // 电量上限
+                ",0000001A:" + b8 + // 过流阀值2
                 ",0000001E:" + b5 + // 温度阀值
                 ",0000001F:" + sdpz_val + // 上电配置
                 ",00000020" + b7; // 三项不平衡

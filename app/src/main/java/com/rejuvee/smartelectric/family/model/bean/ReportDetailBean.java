@@ -59,6 +59,9 @@ public class ReportDetailBean implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
     }
 
+    /**
+     * 预警
+     */
     public class Warn implements Parcelable {
         int count;
         int errType;
@@ -152,6 +155,9 @@ public class ReportDetailBean implements Parcelable {
         }
     }
 
+    /**
+     * 告警
+     */
     public class Alarm implements Parcelable {
         int count;
         int errType;
@@ -160,7 +166,7 @@ public class ReportDetailBean implements Parcelable {
         int switchID;
         String switchName;
 
-        protected Alarm(Parcel in) {
+        Alarm(Parcel in) {
             count = in.readInt();
             errType = in.readInt();
             id = in.readInt();
@@ -245,15 +251,18 @@ public class ReportDetailBean implements Parcelable {
         }
     }
 
+    /**
+     * 电量
+     */
     public class Power implements Parcelable {
-        int count;
+        float count;
         int id;
         String switchCode;
         int switchID;
         String switchName;
 
-        protected Power(Parcel in) {
-            count = in.readInt();
+        Power(Parcel in) {
+            count = in.readFloat();
             id = in.readInt();
             switchCode = in.readString();
             switchID = in.readInt();
@@ -272,11 +281,11 @@ public class ReportDetailBean implements Parcelable {
             }
         };
 
-        public int getCount() {
+        public float getCount() {
             return count;
         }
 
-        public void setCount(int count) {
+        public void setCount(float count) {
             this.count = count;
         }
 
@@ -319,7 +328,7 @@ public class ReportDetailBean implements Parcelable {
 
         @Override
         public void writeToParcel(Parcel dest, int flags) {
-            dest.writeInt(count);
+            dest.writeFloat(count);
             dest.writeInt(id);
             dest.writeString(switchCode);
             dest.writeInt(switchID);

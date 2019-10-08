@@ -1,6 +1,5 @@
 package com.rejuvee.smartelectric.family.activity.collector;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -277,7 +276,6 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
         return bundle;
     }
 
-    @SuppressLint("SimpleDateFormat")
     private void initTimeSelect() {
         isDay = true;
         changeDate(0);
@@ -298,9 +296,9 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
                         changeTvDate();
                     }
                 }, true,
-                new SimpleDateFormat("yyyy").format(new Date()),
-                new SimpleDateFormat("MM").format(new Date()),
-                new SimpleDateFormat("dd").format(new Date()),
+                new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date()),
+                new SimpleDateFormat("MM", Locale.getDefault()).format(new Date()),
+                new SimpleDateFormat("dd", Locale.getDefault()).format(new Date()),
                 getString(R.string.select_date), getString(R.string.cancel), getString(R.string.ensure));
         dateSelector.setDateItemVisiable(true, false, false);
     }

@@ -18,6 +18,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Created by Administrator on 2018/6/4.
@@ -146,12 +147,12 @@ public class IMUtils {
     public static String getTime(long time, String timeFormat) {
         Calendar calendarMsg = Calendar.getInstance();
         calendarMsg.setTimeInMillis(time);
-        SimpleDateFormat sdf = new SimpleDateFormat(timeFormat);
+        SimpleDateFormat sdf = new SimpleDateFormat(timeFormat, Locale.getDefault());
         return sdf.format(calendarMsg.getTime());
     }
 /*
-
-    @SuppressLint("SimpleDateFormat") public String getMsgTime(long time) {
+    @SuppressLint("SimpleDateFormat")
+    public String getMsgTime(long time) {
         Calendar calendarNow = Calendar.getInstance();
 
         Calendar calendarMsg = Calendar.getInstance();
