@@ -20,7 +20,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-
 public class RegisterActivity extends BaseActivity {
     private static final String TAG = "RegisterActivity";
     private EditText edtUserName, edtPhone, edtVerifyCode, edtPassword, edtEnsurePassword;
@@ -28,8 +27,8 @@ public class RegisterActivity extends BaseActivity {
     private TextView txtRegister, tvGetCode;
     private CountDownUtil countDownUtil;
     private AccountHelper accountHelper;
-    private boolean usernameFlag = true;
-    private String uMessage = getString(R.string.vs143);
+//    private boolean usernameFlag = true;
+    //    private String uMessage = getResources().getString(R.string.vs143);
 
     @Override
     protected int getLayoutResId() {
@@ -110,11 +109,11 @@ public class RegisterActivity extends BaseActivity {
                 if (errorEvent == 19) {//未注册
 //                    countDownUtil.start();
 //                    accountHelper.getPhoneCode(RegisterActivity.this, edtPhone.getEditableText().toString(), true);
-                    usernameFlag = false;
+//                    usernameFlag = false;
                 } else if (errorEvent == 13) {//已注册
                     CustomToast.showCustomErrorToast(RegisterActivity.this, message);
-                    uMessage = message;
-                    usernameFlag = true;
+//                    uMessage = message;
+//                    usernameFlag = true;
                 } else {
                     CustomToast.showCustomErrorToast(RegisterActivity.this, message);
                 }
@@ -124,7 +123,7 @@ public class RegisterActivity extends BaseActivity {
 
     private void getVerifyCode() {
         final String phone = edtPhone.getEditableText().toString();
-        if (phone.isEmpty() || phone.length() != 11) {
+        if (phone.length() != 11) {
             CustomToast.showCustomErrorToast(this, getString(R.string.input_correct_phone));
             return;
         }
@@ -161,7 +160,7 @@ public class RegisterActivity extends BaseActivity {
             return;
         }
 
-        if (phone.isEmpty() || phone.length() != 11) {
+        if (phone.length() != 11) {
             CustomToast.showCustomErrorToast(this, getString(R.string.input_correct_phone));
             return;
         }
@@ -219,7 +218,6 @@ public class RegisterActivity extends BaseActivity {
                 CustomToast.showCustomErrorToast(RegisterActivity.this, getString(R.string.register_fail));
             }
         } else if (eventMsg.eventType == AccountEventMsg.EVENT_GET_CODE) {
-
             if (eventMsg.isSucess()) {
 
             } else {
