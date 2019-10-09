@@ -32,7 +32,9 @@ public class PermisionManage {
         mapPermisionState.put(Manifest.permission.CAMERA, true);
         mapPermisionState.put(Manifest.permission.ACCESS_NETWORK_STATE, true);
         mapPermisionState.put(Manifest.permission.ACCESS_FINE_LOCATION, true);
-        mapPermisionState.put(Manifest.permission.REQUEST_INSTALL_PACKAGES, true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mapPermisionState.put(Manifest.permission.REQUEST_INSTALL_PACKAGES, true);
+        }
     }
 
     public static PermisionManage getInstance() {

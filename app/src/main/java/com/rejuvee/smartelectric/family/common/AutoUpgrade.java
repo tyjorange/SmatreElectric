@@ -34,6 +34,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -118,7 +119,7 @@ public class AutoUpgrade {
             return versionName;
         }
 
-        public void setVersionName(String versionName) {
+        void setVersionName(String versionName) {
             this.versionName = versionName;
         }
 
@@ -126,7 +127,7 @@ public class AutoUpgrade {
             return upgradeItems;
         }
 
-        public void setUpgradeItems(List<String> upgradeItems) {
+        void setUpgradeItems(List<String> upgradeItems) {
             this.upgradeItems = upgradeItems;
         }
 
@@ -134,15 +135,15 @@ public class AutoUpgrade {
             return versionCode;
         }
 
-        public void setVersionCode(String versionCode) {
+        void setVersionCode(String versionCode) {
             this.versionCode = versionCode;
         }
 
-        public String getApkName() {
+        String getApkName() {
             return apkName;
         }
 
-        public void setApkName(String apkName) {
+        void setApkName(String apkName) {
             this.apkName = apkName;
         }
     }
@@ -190,8 +191,9 @@ public class AutoUpgrade {
     private void compareVersion() {
         try {
             PackageInfo packageInfo = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);
-            Log.d(TAG, "packageInfo.versionCode = " + packageInfo.versionCode + " mVersionInfo.versionCode=" + mVersionInfo.versionCode);
-            if (packageInfo.versionCode < Integer.valueOf(mVersionInfo.versionCode)) {//版本不同，需要更新版本
+            int appVersionCode = packageInfo.versionCode;
+            Log.d(TAG, "packageInfo.versionCode = " + appVersionCode + " mVersionInfo.versionCode=" + mVersionInfo.versionCode);
+            if (appVersionCode < Integer.valueOf(mVersionInfo.versionCode)) {//版本不同，需要更新版本
                 downloadManager = (DownloadManager) mContext.getSystemService(DOWNLOAD_SERVICE);
                 long downLoadId = mContext.getSharedPreferences(AppGlobalConfig.BASIC_CONFIG, MODE_PRIVATE).getLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, -1);
                 int statues = getDownloadStatus(downLoadId);
@@ -206,7 +208,7 @@ public class AutoUpgrade {
         }
     }
 
-    public int getDownloadStatus(long downloadId) {
+    private int getDownloadStatus(long downloadId) {
         DownloadManager.Query query = new DownloadManager.Query().setFilterById(downloadId);
         Cursor c = downloadManager.query(query);
         if (c != null) {
@@ -242,9 +244,8 @@ public class AutoUpgrade {
                 mAlertDialog.dismiss();
             }
         });
-        AlertDialog dialog = builder.create();
         //dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-        return dialog;
+        return builder.create();
     }
 
     public class XMLContentHandler extends DefaultHandler {
@@ -268,14 +269,19 @@ public class AutoUpgrade {
             data = replaceBlank(data);
             if (data == null || data.length() == 0)
                 return;
-            if (elementName.equals("versionName")) {
-                mVersionInfo.setVersionName(data);
-            } else if (elementName.equals("versionCode")) {
-                mVersionInfo.setVersionCode(data);
-            } else if (elementName.equals("apkInfo")) {
-                listUpgradeItem.add(data);
-            } else if (elementName.equals("apkName")) {
-                mVersionInfo.setApkName(data);
+            switch (elementName) {
+                case "versionName":
+                    mVersionInfo.setVersionName(data);
+                    break;
+                case "versionCode":
+                    mVersionInfo.setVersionCode(data);
+                    break;
+                case "apkInfo":
+                    listUpgradeItem.add(data);
+                    break;
+                case "apkName":
+                    mVersionInfo.setApkName(data);
+                    break;
             }
         }
 
@@ -303,19 +309,17 @@ public class AutoUpgrade {
         // 设置允许使用的网络类型，这里是移动网络和wifi都可以
         down.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
         // 下载时，通知栏显示途中
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            down.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-        }
+        down.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
         // 显示下载界面
         down.setVisibleInDownloadsUi(true);
         down.setTitle(mVersionInfo.getApkName());
         // 设置下载后文件存放的位置
         String apkName = parse.getLastPathSegment();
         down.setDestinationInExternalFilesDir(mContext, Environment.DIRECTORY_DOWNLOADS, apkName);
-        String downloadPath = mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getPath() + "/" + apkName;
+        String downloadPath = String.format("%s/%s", Objects.requireNonNull(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)).getPath(), apkName);
         File file = new File(downloadPath);
         if (file.exists()) {
-            file.delete();
+            boolean delete = file.delete();
         }
         // 将下载请求放入队列
         long downloadId = downloadManager.enqueue(down);
@@ -338,29 +342,27 @@ public class AutoUpgrade {
         @Override
         public void onReceive(Context context, Intent intent) {
             //判断是否下载完成的广播
-            if (intent.getAction().equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
+            if (Objects.equals(intent.getAction(), DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
                 //获取下载的文件id
                 long downId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
                 if (downId == -1) {
                     return;
                 }
                 //自动安装apk
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    Uri uriForDownloadedFile = downloadManager.getUriForDownloadedFile(downId);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        if (isHasInstallPermissionWithO(mContext)) {
-                            AutoUpgradeEventMessage eventMessage = new AutoUpgradeEventMessage();
-                            eventMessage.upGradeUri = uriForDownloadedFile;
-                            EventBus.getDefault().post(eventMessage);
-                            return;
-                        }
-                    }
-                    if (uriForDownloadedFile == null) {
+                Uri uriForDownloadedFile = downloadManager.getUriForDownloadedFile(downId);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    if (isHasInstallPermissionWithO(mContext)) {
+                        AutoUpgradeEventMessage eventMessage = new AutoUpgradeEventMessage();
+                        eventMessage.upGradeUri = uriForDownloadedFile;
+                        EventBus.getDefault().post(eventMessage);
                         return;
                     }
-
-                    installApkNew(uriForDownloadedFile);
                 }
+                if (uriForDownloadedFile == null) {
+                    return;
+                }
+
+                installApkNew(uriForDownloadedFile);
             }
         }
     }
