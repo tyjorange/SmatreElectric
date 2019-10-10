@@ -180,8 +180,8 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
 //        });
         // 过压
         amountGY = findViewById(R.id.amount_view_gy);
-        amountGY.setVal_min(50);
-        amountGY.setVal_max(380);
+        amountGY.setVal_min(100);
+        amountGY.setVal_max(480);
         amountGY.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
             @Override
             public void onAmountChange(View view, float amount) {
@@ -189,8 +189,8 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
             }
         });
         rangeSeekBarGY = findViewById(R.id.seek_bar_gy);
-        rangeSeekBarGY.setRange(50, 380);//范围
-        rangeSeekBarGY.setTickMarkTextArray(new String[]{"50", "380"});//刻度
+        rangeSeekBarGY.setRange(100, 480);//范围
+        rangeSeekBarGY.setTickMarkTextArray(new String[]{"100", "480"});//刻度
         rangeSeekBarGY.setIndicatorTextDecimalFormat("###.0");//格式化小数位数
         rangeSeekBarGY.setOnRangeChangedListener(new OnRangeChangedListener() {
             @Override
@@ -212,7 +212,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         // 欠压
         amountQY = findViewById(R.id.amount_view_qy);
         amountQY.setVal_min(50);
-        amountQY.setVal_max(180);
+        amountQY.setVal_max(320);
         amountQY.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
             @Override
             public void onAmountChange(View view, float amount) {
@@ -220,8 +220,8 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
             }
         });
         rangeSeekBarQY = findViewById(R.id.seek_bar_qy);
-        rangeSeekBarQY.setRange(50, 180);//范围
-        rangeSeekBarQY.setTickMarkTextArray(new String[]{"50", "180"});//刻度
+        rangeSeekBarQY.setRange(50, 320);//范围
+        rangeSeekBarQY.setTickMarkTextArray(new String[]{"50", "320"});//刻度
         rangeSeekBarQY.setIndicatorTextDecimalFormat("###.0");//格式化小数位数
         rangeSeekBarQY.setOnRangeChangedListener(new OnRangeChangedListener() {
             @Override

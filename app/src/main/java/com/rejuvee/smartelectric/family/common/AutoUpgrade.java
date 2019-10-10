@@ -24,7 +24,6 @@ import com.rejuvee.smartelectric.family.model.bean.AutoUpgradeEventMessage;
 
 import org.greenrobot.eventbus.EventBus;
 import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.io.File;
@@ -190,9 +189,9 @@ public class AutoUpgrade {
 
     private void compareVersion() {
         try {
-            PackageInfo packageInfo = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);
-            int appVersionCode = packageInfo.versionCode;
-            Log.d(TAG, "packageInfo.versionCode = " + appVersionCode + " mVersionInfo.versionCode=" + mVersionInfo.versionCode);
+            PackageInfo currentPackageInfo = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);
+            int appVersionCode = currentPackageInfo.versionCode;
+            Log.d(TAG, "currentPackageInfo.versionCode = " + appVersionCode + " mVersionInfo.versionCode=" + mVersionInfo.versionCode);
             if (appVersionCode < Integer.valueOf(mVersionInfo.versionCode)) {//版本不同，需要更新版本
                 downloadManager = (DownloadManager) mContext.getSystemService(DOWNLOAD_SERVICE);
                 long downLoadId = mContext.getSharedPreferences(AppGlobalConfig.BASIC_CONFIG, MODE_PRIVATE).getLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, -1);
@@ -224,9 +223,8 @@ public class AutoUpgrade {
     }
 
     private AlertDialog createDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext,
-                R.style.Dialog);
-        builder.setTitle(mContext.getString(R.string.new_version));
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext, R.style.Dialog);
+        builder.setTitle(mContext.getString(R.string.new_version) + mVersionInfo.versionName);
         builder.setIcon(R.mipmap.ic_launcher);
         builder.setMessage(mContext.getString(R.string.is_upgrade_to_new_version));
         builder.setPositiveButton(mContext.getString(R.string.intall_now), new DialogInterface.OnClickListener() {
@@ -253,18 +251,18 @@ public class AutoUpgrade {
         private List<String> listUpgradeItem = new ArrayList<>();
 
         @Override
-        public void startDocument() throws SAXException {
+        public void startDocument() {
             mVersionInfo = new VersionInfo();
             mVersionInfo.setUpgradeItems(listUpgradeItem);
         }
 
         @Override
-        public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws SAXException {
+        public void startElement(String namespaceURI, String localName, String qName, Attributes atts) {
             elementName = localName;
         }
 
         @Override
-        public void characters(char[] ch, int start, int length) throws SAXException {
+        public void characters(char[] ch, int start, int length) {
             String data = new String(ch, start, length);
             data = replaceBlank(data);
             if (data == null || data.length() == 0)
@@ -286,7 +284,7 @@ public class AutoUpgrade {
         }
 
         @Override
-        public void endElement(String uri, String localName, String name) throws SAXException {
+        public void endElement(String uri, String localName, String name) {
         }
     }
 
