@@ -59,7 +59,6 @@ import static android.content.Context.MODE_PRIVATE;
 *isteks_apk_packeg_info.xml
 * solarstem_apk_packeg_info.xml
 * */
-
 public class AutoUpgrade {
     private String versionInfoUrl; //版本信息XML Url
     private String downloadUrl;//APK下载地址
@@ -76,7 +75,7 @@ public class AutoUpgrade {
     private AutoUpgrade(Context context) {
         mContext = context;
         mHandler = new Handler();
-        mAlertDialog = createDialog();
+
         receiver = new DownloadCompleteReceiver();
 
         IntentFilter intentFilter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
@@ -196,10 +195,10 @@ public class AutoUpgrade {
                 downloadManager = (DownloadManager) mContext.getSystemService(DOWNLOAD_SERVICE);
                 long downLoadId = mContext.getSharedPreferences(AppGlobalConfig.BASIC_CONFIG, MODE_PRIVATE).getLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, -1);
                 int statues = getDownloadStatus(downLoadId);
+                mAlertDialog = createDialog();
                 if (statues != DownloadManager.STATUS_RUNNING) {
                     mAlertDialog.show();
                 }
-
             }
 
         } catch (PackageManager.NameNotFoundException e) {
@@ -246,6 +245,9 @@ public class AutoUpgrade {
         return builder.create();
     }
 
+    /**
+     * xml解析回调
+     */
     public class XMLContentHandler extends DefaultHandler {
         private String elementName;
         private List<String> listUpgradeItem = new ArrayList<>();
@@ -286,17 +288,18 @@ public class AutoUpgrade {
         @Override
         public void endElement(String uri, String localName, String name) {
         }
+
+        private String replaceBlank(String str) {
+            String dest = "";
+            if (str != null) {
+                Pattern p = Pattern.compile("\\s*|\t|\r|\n");
+                Matcher m = p.matcher(str);
+                dest = m.replaceAll("");
+            }
+            return dest;
+        }
     }
 
-    private String replaceBlank(String str) {
-        String dest = "";
-        if (str != null) {
-            Pattern p = Pattern.compile("\\s*|\t|\r|\n");
-            Matcher m = p.matcher(str);
-            dest = m.replaceAll("");
-        }
-        return dest;
-    }
 
     private void initDownManager() {
         downloadManager = (DownloadManager) mContext.getSystemService(DOWNLOAD_SERVICE);
@@ -332,8 +335,9 @@ public class AutoUpgrade {
         return context.getPackageManager().canRequestPackageInstalls();
     }
 
-
-    // 接受下载完成后的intent
+    /**
+     * 接受下载完成后的intent
+     */
     public class DownloadCompleteReceiver extends BroadcastReceiver {
 
         @SuppressLint("NewApi")
@@ -365,7 +369,11 @@ public class AutoUpgrade {
         }
     }
 
-    //安装apk
+    /**
+     * 安装apk
+     *
+     * @param uri
+     */
     public void installApkNew(Uri uri) {
         Intent intent = new Intent();
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {//7.0以下

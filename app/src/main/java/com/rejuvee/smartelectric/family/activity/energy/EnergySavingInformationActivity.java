@@ -124,8 +124,8 @@ public class EnergySavingInformationActivity extends BaseActivity implements Vie
     private void setData(SwitchBean switchBean, CollectorBean collectorBean) {
         collector_name.setText(String.format("%s%s", getString(R.string.vs5), collectorBean.getDeviceName()));
         line_name.setText(String.format("%s%s", getString(R.string.vs4), switchBean.getName()));
-        hbjs_val.setText(switchBean.getHbjn());
-        tbjs_val.setText(switchBean.getTbjn());
+        hbjs_val.setText(switchBean.getHbjn().equals("") ? "-" : switchBean.getHbjn());
+        tbjs_val.setText(switchBean.getTbjn().equals("") ? "-" : switchBean.getTbjn());
         ydl_val.setText(switchBean.getMonth());
     }
 
