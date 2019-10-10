@@ -126,7 +126,7 @@ public class EnergySavingInformationActivity extends BaseActivity implements Vie
         line_name.setText(String.format("%s%s", getString(R.string.vs4), switchBean.getName()));
         hbjs_val.setText(switchBean.getHbjn());
         tbjs_val.setText(switchBean.getTbjn());
-        ydl_val.setText(switchBean.getToday());
+        ydl_val.setText(switchBean.getMonth());
     }
 
     @Override
