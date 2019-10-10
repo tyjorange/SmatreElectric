@@ -780,12 +780,12 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                 ",00000018:" + dlxx + // 电量下限
                 ",00000019:" + dlsx + // 电量上限
                 ",0000001A:" + ssglfz + // 过流阀值2
-                ",0000001B:" + ldfz + // 漏电阀值
+                ",0000001B:" + ldfz.intValue() + // 漏电阀值
                 ",0000001C:" + Integer.valueOf(bhsn + "" + zjsn, 2) + // 漏电自检/保护使能
                 ",0000001D:" + (dd * 256 + hh) + // 漏电自检时间
                 ",0000001E:" + wdfz + // 温度阀值
                 ",0000001F:" + sdpz_val + // 上电配置
-                ",00000020" + sxbph; // 三项不平衡
+                ",00000020:" + sxbph.intValue(); // 三项不平衡
         if (currentSwitchBean == null) {
             return;
         }
