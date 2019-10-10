@@ -53,7 +53,7 @@ public class ReportWarnAdapter extends BaseAdapter {
         }
         holder.tv_line_name.setText(String.format("%s%s", mContext.getString(R.string.vs4), getItem(position).getSwitchName()));
         holder.tv_warn_type.setText(SwitchBean.getParamName(mContext, getItem(position).getErrType()));
-        holder.tv_warn_count.setText(String.format(Locale.getDefault(), "%d%s", getItem(position).getCount(), mContext.getString(R.string.vs18)));
+        holder.tv_warn_count.setText(String.format(Locale.getDefault(), "%d%s", getItem(position).getCount(), mContext.getString(R.string.vs17)));
         holder.tv_line_id.setText(String.format("%s%s", mContext.getString(R.string.vs6), getItem(position).getSwitchCode()));
         return convertView;
     }
