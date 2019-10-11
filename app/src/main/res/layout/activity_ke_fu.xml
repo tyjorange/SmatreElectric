@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".activity.report.ReportActivity">
+    tools:context="com.rejuvee.smartelectric.family.activity.kefu.CustomerServiceActivity">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
@@ -26,42 +26,47 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/vs89"
+            android:text="@string/vs43"
             android:textSize="12sp" />
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:paddingStart="20dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="20dp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingStart="10dp"
-            android:paddingEnd="0dp"
-            android:text="@string/fun_baobiao"
+            android:text="客服"
             android:textColor="@color/black"
             android:textSize="18sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:src="@drawable/tiwen" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:orientation="vertical">
 
         <ListView
-            android:id="@+id/report_list"
+            android:id="@+id/list_tiwen"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="25dp"
-            android:divider="#fff6f7fc"
-            android:dividerHeight="1dp" />
+            android:layout_height="wrap_content" />
 
         <include
             android:id="@+id/empty_layout"
@@ -70,4 +75,5 @@
             android:layout_height="match_parent"
             android:visibility="gone" />
     </LinearLayout>
+
 </LinearLayout>

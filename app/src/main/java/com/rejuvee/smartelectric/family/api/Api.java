@@ -2,6 +2,8 @@ package com.rejuvee.smartelectric.family.api;
 
 import com.base.frame.net.ApiResponse;
 import com.rejuvee.smartelectric.family.api.converter.Param;
+import com.rejuvee.smartelectric.family.model.bean.ChartItemBean;
+import com.rejuvee.smartelectric.family.model.bean.ChartListItemBean;
 import com.rejuvee.smartelectric.family.model.bean.CmdExcuteStateBean;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.CollectorState;
@@ -789,4 +791,48 @@ public interface Api {
             @Header("Cookie") String session,
             @Body Param param
     );
+
+    /**
+     * 获取用户提问列表
+     *
+     * @param session
+     * @param param
+     * @return
+     */
+    @POST("PowerManager/AppClientAction_getUserChatList.do")
+    Call<ApiResponse<List<ChartListItemBean>>> findChatList(@Header("Cookie") String session,
+                                                            @Body Param param);
+
+    /**
+     * 添加问题主题
+     *
+     * @param session
+     * @param param
+     * @return
+     */
+    @POST("PowerManager/AppClientAction_addToUserChatList.do")
+    Call<ApiResponse<Void>> addToUserChatList(@Header("Cookie") String session,
+                                              @Body Param param);
+
+    /**
+     * 添加回复内容到主题
+     *
+     * @param session
+     * @param param
+     * @return
+     */
+    @POST("PowerManager/AppClientAction_addToUserChatContent.do")
+    Call<ApiResponse<Void>> addToUserChatContent(@Header("Cookie") String session,
+                                                 @Body Param param);
+
+    /**
+     * 获取主题下的回复内容
+     *
+     * @param session
+     * @param param
+     * @return
+     */
+    @POST("PowerManager/AppClientAction_getUserChatContent.do")
+    Call<ApiResponse<List<ChartItemBean>>> getUserChatContent(@Header("Cookie") String session,
+                                                              @Body Param param);
 }

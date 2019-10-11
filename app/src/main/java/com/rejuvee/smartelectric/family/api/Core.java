@@ -14,6 +14,8 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.converter.ConverterFactory;
 import com.rejuvee.smartelectric.family.api.converter.Param;
 import com.rejuvee.smartelectric.family.common.AppGlobalConfig;
+import com.rejuvee.smartelectric.family.model.bean.ChartItemBean;
+import com.rejuvee.smartelectric.family.model.bean.ChartListItemBean;
 import com.rejuvee.smartelectric.family.model.bean.CmdExcuteStateBean;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.CollectorState;
@@ -1216,6 +1218,37 @@ public class Core {
         param.setDateListID(dateListID);
         param.setCollectorID(collectorID);
         Call<ApiResponse<ReportDetailBean>> call = api.getReport(mJSessionId, param);
+        enqueue(call, listener);
+        return call;
+    }
+
+    /**
+     * 获取用户提问列表
+     *
+     * @return
+     */
+    public Call<?> findChatList(int start, int length,
+                                ActionCallbackListener<List<ChartListItemBean>> listener) {
+        Param param = new Param();
+        param.setStart(start);
+        param.setLength(length);
+        Call<ApiResponse<List<ChartListItemBean>>> call = api.findChatList(mJSessionId, param);
+        enqueue(call, listener);
+        return call;
+    }
+
+    /**
+     * 获取用户提问内容 包括客服回复
+     *
+     * @return
+     */
+    public Call<?> getUserChatContent(int start, int length, int id,
+                                      ActionCallbackListener<List<ChartItemBean>> listener) {
+        Param param = new Param();
+        param.setUserChatID(id);
+        param.setStart(start);
+        param.setLength(length);
+        Call<ApiResponse<List<ChartItemBean>>> call = api.getUserChatContent(mJSessionId, param);
         enqueue(call, listener);
         return call;
     }

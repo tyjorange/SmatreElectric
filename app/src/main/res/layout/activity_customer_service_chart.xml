@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".activity.report.ReportActivity">
+    tools:context="com.rejuvee.smartelectric.family.activity.kefu.CustomerServiceChartActivity">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
@@ -26,23 +26,25 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/vs89"
+            android:text="首页 / 客服"
             android:textSize="12sp" />
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:paddingStart="20dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="20dp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingStart="10dp"
-            android:paddingEnd="0dp"
-            android:text="@string/fun_baobiao"
+            android:text="聊天主题"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -50,18 +52,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_weight="@integer/tag_1"
         android:orientation="vertical">
 
         <ListView
-            android:id="@+id/report_list"
+            android:id="@+id/list_chart"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="25dp"
-            android:divider="#fff6f7fc"
-            android:dividerHeight="1dp" />
+            android:layout_height="wrap_content" />
 
         <include
             android:id="@+id/empty_layout"
@@ -69,5 +69,34 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <com.rejuvee.smartelectric.family.widget.ClearEditText
+            android:id="@+id/login_cet_username"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:gravity="center_vertical"
+            android:hint="请输入内容"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+            android:textColor="@color/text_content"
+            android:textColorHint="@color/text_content"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_def"
+            android:gravity="center"
+            android:text="发送"
+            android:textColor="@color/white" />
+
     </LinearLayout>
 </LinearLayout>

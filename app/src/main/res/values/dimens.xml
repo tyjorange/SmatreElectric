@@ -37,4 +37,9 @@
     <!-- 侧滑图标与文字间距 -->
     <dimen name="design_navigation_icon_padding" tools:override="true">0dp</dimen>
     <dimen name="design_navigation_icon_size" tools:override="true">17dp</dimen>
+
+    <!-- 客服相关 -->
+    <dimen name="default_elevation">4dp</dimen>
+    <dimen name="user_profile_size">48dp</dimen>
+    <dimen name="left_menu_icon_size">16dp</dimen>
 </resources>

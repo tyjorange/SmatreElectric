@@ -54,6 +54,7 @@ public class ReportActivity extends BaseActivity {
         listView = findViewById(R.id.report_list);
         adapter = new ReportAdapter(this, mListData);
         listView.setAdapter(adapter);
+        listView.setEmptyView(findViewById(R.id.empty_layout));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

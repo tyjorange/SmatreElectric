@@ -87,6 +87,10 @@ public class Param {
 
     // 报表ID
     private Integer dateListID;
+    //客服
+    private Integer userChatID;
+    private String title;
+    private String content;
 
     public Integer getDateListID() {
         return dateListID;
@@ -550,5 +554,29 @@ public class Param {
 
     public void setFaultFreq(String faultFreq) {
         this.faultFreq = faultFreq;
+    }
+
+    public Integer getUserChatID() {
+        return userChatID;
+    }
+
+    public void setUserChatID(Integer userChatID) {
+        this.userChatID = userChatID;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }
