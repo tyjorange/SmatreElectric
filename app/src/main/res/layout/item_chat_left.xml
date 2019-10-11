@@ -9,7 +9,7 @@
         android:id="@+id/ivAvatar"
         android:layout_width="@dimen/user_profile_size"
         android:layout_height="@dimen/user_profile_size"
-        android:src="@drawable/default_user_profile" />
+        android:src="@drawable/kefu_tx" />
 
     <TextView
         android:id="@+id/tvContent"
@@ -17,12 +17,12 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_weight="10"
-        android:background="@drawable/bg_chat_item_left"
+        android:background="@drawable/ic_bg_chat_item_left"
         android:paddingLeft="24dp"
         android:paddingTop="8dp"
         android:paddingRight="8dp"
         android:paddingBottom="8dp"
-        android:text="Hello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello World" />
+        android:text="@string/upload_tips" />
 
     <View
         android:layout_width="0dp"

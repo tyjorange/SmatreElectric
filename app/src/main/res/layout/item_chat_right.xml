@@ -10,19 +10,18 @@
         android:layout_height="match_parent"
         android:layout_weight="1" />
 
-
     <TextView
         android:id="@+id/tvContent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="8dp"
         android:layout_weight="10"
-        android:background="@drawable/bg_chat_item_right"
+        android:background="@drawable/ic_bg_chat_item_right"
         android:paddingLeft="8dp"
         android:paddingTop="8dp"
         android:paddingRight="24dp"
         android:paddingBottom="8dp"
-        android:text="Hello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello WorldHello World" />
+        android:text="@string/upgrade_tip" />
 
     <ImageView
         android:id="@+id/ivAvatar"
