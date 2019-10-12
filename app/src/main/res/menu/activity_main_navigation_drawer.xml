@@ -16,10 +16,10 @@
             android:id="@+id/me_kefu"
             android:icon="@drawable/me_kefu"
             android:title="@string/vs39" />
-        <item
-            android:id="@+id/me_wenti"
-            android:icon="@drawable/me_wenti"
-            android:title="@string/vs40" />
+        <!--        <item-->
+        <!--            android:id="@+id/me_wenti"-->
+        <!--            android:icon="@drawable/me_wenti"-->
+        <!--            android:title="@string/vs40" />-->
         <item
             android:id="@+id/me_guanyu"
             android:icon="@drawable/me_guanyu"

@@ -39,6 +39,7 @@ public class UpgradeDialogActivity extends BaseActivity implements View.OnClickL
     private TextView tvTime;
     private TextView tvTip;
     private ImageView tvWenHao;
+    private ImageView iv_version_wenhao;
     private List<CheckBox> mListDataCheckButton = new ArrayList<>();
 
     @Override
@@ -103,6 +104,7 @@ public class UpgradeDialogActivity extends BaseActivity implements View.OnClickL
         tvTime = findViewById(R.id.tv_time);
         tvTip = findViewById(R.id.tv_tip);
         tvWenHao = findViewById(R.id.iv_wenhao);
+        iv_version_wenhao = findViewById(R.id.iv_version_wenhao);
     }
 
     @Override
@@ -113,11 +115,17 @@ public class UpgradeDialogActivity extends BaseActivity implements View.OnClickL
                 new DialogTipWithoutOkCancel(UpgradeDialogActivity.this).setTitle(getString(R.string.vs22)).setContent(getString(R.string.upgrade_tip)).show();
             }
         });
+        iv_version_wenhao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DialogTipWithoutOkCancel(UpgradeDialogActivity.this).setTitle("更新内容").setContent(collectorBean.getText()).show();
+            }
+        });
 //        ArrayAdapter<Item> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
 //        spinner.setAdapter(adapter);//事件段选择
         if (collectorUpgradeInfo != null) {// 以前确认过
-            tvTime.setText(String.format(Locale.getDefault(), "%s%d.%d%s%d.%d", getString(R.string.vs20), collectorBean.getVerMajor(), collectorBean.getVerMinor(), getString(R.string.vs21), collectorBean.getVerMajorNew(), collectorBean.getVerMinorNew()));
-            tvTip.setText(String.format("%s%s", collectorUpgradeInfo.getTime(), collectorUpgradeInfo.getOk() == 1 ? getString(R.string.vs23) : getString(R.string.vs24)));
+            tvTime.setText(String.format(Locale.getDefault(), "%s%d.%d %s%d.%d", getString(R.string.vs20), collectorBean.getVerMajor(), collectorBean.getVerMinor(), getString(R.string.vs21), collectorBean.getVerMajorNew(), collectorBean.getVerMinorNew()));
+            tvTip.setText(String.format("%s%s ", collectorUpgradeInfo.getTime(), collectorUpgradeInfo.getOk() == 1 ? getString(R.string.vs23) : getString(R.string.vs24)));
 //            spinner.setVisibility(collectorUpgradeInfo.getOk() == 1 ? View.VISIBLE : View.INVISIBLE);
 //            spinner.setSelection(collectorUpgradeInfo.getDoTime() - 1);// array [index-1]
 //            spinner.setEnabled(collectorUpgradeInfo.getOk() != 1);

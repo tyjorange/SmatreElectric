@@ -93,6 +93,7 @@ public class CollectorBean implements Parcelable {
     private int fileID;
     private int verMajorNew;
     private int verMinorNew;
+    private String text;
 
     private List<UserMsg> shareUsers;
     public UserMsg ownerUser;
@@ -125,6 +126,7 @@ public class CollectorBean implements Parcelable {
         fileID = in.readInt();
         verMajorNew = in.readInt();
         verMinorNew = in.readInt();
+        text = in.readString();
     }
 
     @Override
@@ -152,6 +154,7 @@ public class CollectorBean implements Parcelable {
         dest.writeInt(fileID);
         dest.writeInt(verMajorNew);
         dest.writeInt(verMinorNew);
+        dest.writeString(text);
     }
 
     @Override
@@ -353,6 +356,14 @@ public class CollectorBean implements Parcelable {
 
     public void setFaultFreq(int faultFreq) {
         this.faultFreq = faultFreq;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public static String getDeviceType(int ioType) {

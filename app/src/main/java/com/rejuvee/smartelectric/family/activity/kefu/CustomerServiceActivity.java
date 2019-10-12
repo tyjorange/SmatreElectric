@@ -21,6 +21,9 @@ import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 客服
+ */
 public class CustomerServiceActivity extends BaseActivity {
     private Context mContext;
     private List<ChartListItemBean> mList = new ArrayList<>();
@@ -95,6 +98,7 @@ public class CustomerServiceActivity extends BaseActivity {
             }
         });
     }
+
     @Override
     protected void dealloc() {
 
@@ -107,6 +111,7 @@ public class CustomerServiceActivity extends BaseActivity {
             getData();
         }
     }
+
     class ChartListItemBeanAdapter extends BaseAdapter {
         private Context mContext;
         private List<ChartListItemBean> mListData;

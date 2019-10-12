@@ -10,6 +10,9 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 
+/**
+ * 添加问题
+ */
 public class AddTopicActivity extends BaseActivity {
     private Context mContext;
 

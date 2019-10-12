@@ -20,6 +20,9 @@ import com.rejuvee.smartelectric.family.widget.ClearEditText;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 客服聊天
+ */
 public class CustomerServiceChartActivity extends BaseActivity {
     private Context mContext;
     private List<ChartItemBean> mList = new ArrayList<>();

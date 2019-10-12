@@ -35,9 +35,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.kefu.AddTopicActivity"></activity>
-        <activity android:name=".activity.kefu.CustomerServiceChartActivity" />
-        <activity android:name=".activity.kefu.CustomerServiceActivity" />
+        <activity android:name=".activity.mine.AboutActivity"></activity>
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -270,6 +268,15 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.report.ReportActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.kefu.AddTopicActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.kefu.CustomerServiceChartActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.kefu.CustomerServiceActivity"
             android:screenOrientation="portrait" />
     </application>
 

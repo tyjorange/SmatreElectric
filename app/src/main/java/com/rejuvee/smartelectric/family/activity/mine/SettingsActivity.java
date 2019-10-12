@@ -40,7 +40,6 @@ public class SettingsActivity extends BaseActivity {
     @Override
     protected void initView() {
         mContent = this;
-
 //        setToolbarHide(true);
 //        tvClean = (TextView) findViewById(R.id.tv_clean);
         ((TextView) findViewById(R.id.txt_current_vision)).setText(String.format("v%s", packageCode(this)));

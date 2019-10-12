@@ -33,6 +33,7 @@ import com.rejuvee.smartelectric.family.activity.AddDeviceActivity;
 import com.rejuvee.smartelectric.family.activity.collector.CollectorDetailActivity;
 import com.rejuvee.smartelectric.family.activity.energy.CostCalculationActivity;
 import com.rejuvee.smartelectric.family.activity.kefu.CustomerServiceActivity;
+import com.rejuvee.smartelectric.family.activity.mine.AboutActivity;
 import com.rejuvee.smartelectric.family.activity.mine.PerInfoActivity;
 import com.rejuvee.smartelectric.family.activity.mine.SettingsActivity;
 import com.rejuvee.smartelectric.family.activity.mine.ThridBindActivity;
@@ -530,10 +531,9 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
             Intent intent = new Intent(this, CustomerServiceActivity.class);
             intent.putExtra("username", username);
             startActivity(intent);
-        } else if (id == R.id.me_wenti) {
-
+//        } else if (id == R.id.me_wenti) {
         } else if (id == R.id.me_guanyu) {
-
+            startActivity(new Intent(this, AboutActivity.class));
         } else if (id == R.id.me_shezhi) {
             startActivity(new Intent(this, SettingsActivity.class));
         }

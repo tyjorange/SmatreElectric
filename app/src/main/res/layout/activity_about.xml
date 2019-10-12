@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".activity.mine.SettingsActivity">
+    tools:context="com.rejuvee.smartelectric.family.activity.mine.AboutActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -21,8 +21,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:contentDescription="TODO"
-            android:onClick="onClick"
             android:padding="16dp"
             android:src="@drawable/main_fanhui" />
 
@@ -38,7 +36,6 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center_vertical"
-        android:onClick="onClick"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
@@ -47,129 +44,110 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/settings_title"
+            android:text="关于"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_change_password"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:layout_marginTop="1dp"
         android:gravity="center_vertical"
-        android:onClick="onClick"
         android:orientation="horizontal"
         android:paddingStart="30dp"
         android:paddingEnd="16dp">
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/settings_change_password"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/main_jinru" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_suggestion"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="1dp"
-        android:gravity="center_vertical"
-        android:onClick="onClick"
-        android:orientation="horizontal"
-        android:paddingStart="30dp"
-        android:paddingEnd="16dp"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/settings_suggestion"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/main_jinru" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_clean"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="1dp"
-        android:gravity="center_vertical"
-        android:onClick="onClick"
-        android:orientation="horizontal"
-        android:paddingStart="30dp"
-        android:paddingEnd="16dp"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/settings_clean"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/main_jinru" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="1dp"
-        android:gravity="center_vertical"
-        android:onClick="onClick"
-        android:orientation="horizontal"
-        android:paddingStart="30dp"
-        android:paddingEnd="16dp"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/settings_version"
+            android:text="版本："
             android:textColor="@color/black"
             android:textSize="12sp" />
 
         <TextView
             android:id="@+id/txt_current_vision"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
+            android:layout_weight="1"
             android:text="1.0.0" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/main_jinru" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_exit"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginTop="32dp"
-        android:gravity="center"
-        android:onClick="onClick"
-        android:text="@string/settings_exit"
-        android:textColor="@color/red_light"
-        android:textSize="12sp" />
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="30dp"
+        android:paddingEnd="16dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="公司："
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_weight="1"
+            android:text="上海睿据科技有限公司" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="30dp"
+        android:paddingEnd="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="主页："
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_weight="1"
+            android:text="https://www.rejuvee.com.cn/" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="30dp"
+        android:paddingEnd="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="公众号："
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_weight="1"
+            android:text="睿据科技" />
+
+    </LinearLayout>
 </LinearLayout>
