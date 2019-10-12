@@ -41,7 +41,7 @@ public class ScrollBindHelper implements SeekBar.OnSeekBarChangeListener, Observ
 
     private static void flushThumb() {
 //        System.out.println(helper.getScrollRange());
-        if (helper.getScrollRange() < 0) {// 内容高度小于屏幕高度
+        if (helper.getScrollRange() < 10) {// 内容高度小于屏幕高度 offset=10
             helper.hideScroll();
         } else {
             helper.showScroll();

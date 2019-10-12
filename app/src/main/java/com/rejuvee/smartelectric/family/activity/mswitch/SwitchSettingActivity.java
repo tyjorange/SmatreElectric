@@ -158,6 +158,12 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
             }
         });
 
+        findViewById(R.id.img_flush).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHandler.sendEmptyMessageDelayed(sendGetThreadValueCommand, 100);
+            }
+        });
         // 过流
         listPopupWindow = new ListPopupWindow(this);
         et_GL1 = findViewById(R.id.et_sp1);
@@ -256,7 +262,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         amountWDFZ = findViewById(R.id.amount_view_gwfz);
         amountWDFZ.setVal_min(0);
         amountWDFZ.setVal_max(85);
-//        amountGWFZ.setAmount(0);
+//        amountGWFZ.setAmountInt(0);
         amountWDFZ.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
             @Override
             public void onAmountChange(View view, float amount) {
@@ -323,7 +329,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         amountLDL = findViewById(R.id.amount_view_ldl);
         amountLDL.setVal_min(0);
         amountLDL.setVal_max(999);
-        amountLDL.setAmount(0);
+        amountLDL.setAmountInt(0);
         amountLDL.setOnAmountChangeListener(new AmountViewInt.OnAmountChangeListener() {
             @Override
             public void onAmountChange(View view, float amount) {
@@ -338,7 +344,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
             @Override
             public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser) {
                 float v1 = BigDecimal.valueOf(leftValue).setScale(0, BigDecimal.ROUND_HALF_UP).floatValue();
-                amountLDL.setAmount((int) v1);
+                amountLDL.setAmountInt((int) v1);
             }
 
             @Override
@@ -405,7 +411,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
     }
 
     private static int currentSearchCount;//重试计数
-    private static final int MAX_REQUEST_COUNT = 10;// 最大重新请求次数
+    private static final int MAX_REQUEST_COUNT = 5;// 最大重新请求次数
     private static final int findSwitchParamBySwitch = 1221;//findParam
     private static final int sendGetThreadValueCommand = 1223;//sendGetParam
 
@@ -415,7 +421,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         getSwitchByCollector();
         mHandler = new MyHandler(this);
         mHandler.sendEmptyMessageDelayed(sendGetThreadValueCommand, 100);
-        //
+        // 日期选择器
         dateSelector = new WheelDateTime(SwitchSettingActivity.this,
                 new WheelDateTime.OnWheelListener() {
 
@@ -482,6 +488,8 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
 //                finish();
                 scrollView.setVisibility(View.INVISIBLE);
                 superTextView.setVisibility(View.INVISIBLE);
+                curentSwitchHaveValue = false;
+                setDefaultValue();
                 waitDialog.dismiss();
             }
         });
@@ -573,7 +581,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                             break;
                         case 0x0000001B:// 漏电阀值
                             rangeSeekBarLDL.setProgress(paramValue);
-                            amountLDL.setAmount((int) paramValue);
+                            amountLDL.setAmountInt((int) paramValue);
                             break;
                         case 0x0000001C:// 漏电自检/保护使能
                             String s = Integer.toBinaryString((int) paramValue);
@@ -627,19 +635,23 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
 //                        superTextView.setVisibility(View.VISIBLE);
 //                        empty_layout.setVisibility(View.GONE);
 //                changeView();
+                curentSwitchHaveValue = true;
             }
 
             @Override
             public void onFailure(int errorEvent, String message) {
-                CustomToast.showCustomErrorToast(mContext, message);
+//                CustomToast.showCustomErrorToast(mContext, message); // 无结果
 //                        scrollView.setVisibility(View.INVISIBLE);
 //                        superTextView.setVisibility(View.INVISIBLE);
 //                        empty_layout.setVisibility(View.VISIBLE);
+                curentSwitchHaveValue = false;
+                setDefaultValue();
                 waitDialog.dismiss();
             }
         });
     }
 
+    boolean curentSwitchHaveValue = false;// 当前线路是否有值（防止虚假线路）
     private int bhsn = 0;//保护使能
     private int zjsn = 0;//自检使能
     private int dd = 0;
@@ -680,39 +692,41 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
      * 初始化成默认值
      */
     private void setDefaultValue() {
-//        case 0x00000005: // 过压阀值 275
-        rangeSeekBarGY.setProgress(275);
-        amountGY.setAmount(275);
+        // 无值则重置成默认值
+        if (!curentSwitchHaveValue) {
+            //        case 0x00000005: // 过压阀值 275
+            rangeSeekBarGY.setProgress(275);
+            amountGY.setAmount(275);
 //        case 0x0000000D:// 欠压阀值 160
-        rangeSeekBarQY.setProgress(160);
-        amountQY.setAmount(160);
+            rangeSeekBarQY.setProgress(160);
+            amountQY.setAmount(160);
 //        case 0x00000011:// 过流阀值 30
-        BigDecimal s1 = BigDecimal.valueOf(30).setScale(0, BigDecimal.ROUND_HALF_UP);
-        et_GL1.setText(s1.toString());
+            BigDecimal s1 = BigDecimal.valueOf(30).setScale(0, BigDecimal.ROUND_HALF_UP);
+            et_GL1.setText(s1.toString());
 //        case 0x00000018:// 电量下限 999999.99
-        dl_xiaxian.setText(new DecimalFormat("000000.00").format(999999.99));
+            dl_xiaxian.setText(new DecimalFormat("000000.00").format(999999.99));
 //        case 0x00000019:// 电量上限 999999.99
-        dl_shangxian.setText(new DecimalFormat("000000.00").format(999999.99));
+            dl_shangxian.setText(new DecimalFormat("000000.00").format(999999.99));
 //        case 0x0000001A:// 瞬时过流阀值 200
-        BigDecimal s2 = BigDecimal.valueOf(200).setScale(0, BigDecimal.ROUND_HALF_UP);
-        et_GL2.setText(s2.toString());
+            BigDecimal s2 = BigDecimal.valueOf(200).setScale(0, BigDecimal.ROUND_HALF_UP);
+            et_GL2.setText(s2.toString());
 //        case 0x0000001B:// 漏电阀值 30
-        rangeSeekBarLDL.setProgress(30);
-        amountLDL.setAmount(30);
+            rangeSeekBarLDL.setProgress(30);
+            amountLDL.setAmountInt(30);
 //        case 0x0000001C:// 漏电自检/保护使能 0 0
-        iv_zjsn.setImageDrawable(getDrawable(R.drawable.icon_switch_off));
-        iv_bhsn.setImageDrawable(getDrawable(R.drawable.icon_switch_off));
+            iv_zjsn.setImageDrawable(getDrawable(R.drawable.icon_switch_off));
+            iv_bhsn.setImageDrawable(getDrawable(R.drawable.icon_switch_off));
 //        case 0x0000001D:// 漏电自检时间 0 0
-        tv_zj_time.setText(String.format(Locale.getDefault(), getString(R.string.vs190), 0, 0));
+            tv_zj_time.setText(String.format(Locale.getDefault(), getString(R.string.vs190), 0, 0));
 //        case 0x0000001E:// 温度阀值 84
-        rangeSeekBarWDFZ.setProgress(84);
-        amountWDFZ.setAmount(84);
+            rangeSeekBarWDFZ.setProgress(84);
+            amountWDFZ.setAmount(84);
 //        case 0x0000001F:// 上电配置 2
-        setSDPZ(2);
+            setSDPZ(2);
 //        case 0x00000020:// 三相不平衡 10?
-        rangeSeekBarSXBPH.setProgress(10);
-        amountSXBPH.setAmount(10);
-
+            rangeSeekBarSXBPH.setProgress(10);
+            amountSXBPH.setAmount(10);
+        }
         changeView();
     }
 
@@ -755,14 +769,20 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
      * 设置阀值 批量提交
      */
     private void setValues() {
+        rangeSeekBarGY.setProgress(amountGY.getAmount());
         BigDecimal gyfz = BigDecimal.valueOf(rangeSeekBarGY.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
+        rangeSeekBarQY.setProgress(amountQY.getAmount());
         BigDecimal qyfz = BigDecimal.valueOf(rangeSeekBarQY.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
+        rangeSeekBarWDFZ.setProgress(amountWDFZ.getAmount());
+        BigDecimal wdfz = BigDecimal.valueOf(rangeSeekBarWDFZ.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
+        rangeSeekBarSXBPH.setProgress(amountSXBPH.getAmount());
+        BigDecimal sxbph = BigDecimal.valueOf(rangeSeekBarSXBPH.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
+        rangeSeekBarLDL.setProgress(amountLDL.getAmountInt());
+        BigDecimal ldfz = BigDecimal.valueOf(rangeSeekBarLDL.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
+        amountLDL.setAmountInt(ldfz.intValue());
         String dlsx = dl_shangxian.getEditableText().toString();
         String dlxx = dl_xiaxian.getEditableText().toString();
-        BigDecimal wdfz = BigDecimal.valueOf(rangeSeekBarWDFZ.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
         String glfz = et_GL1.getEditableText().toString();
-        BigDecimal sxbph = BigDecimal.valueOf(rangeSeekBarSXBPH.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
-        BigDecimal ldfz = BigDecimal.valueOf(rangeSeekBarLDL.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
         String ssglfz = et_GL2.getEditableText().toString();
 //        String dds = Integer.toHexString(dd);
 //        String hhs = Integer.toHexString(hh);
@@ -792,8 +812,9 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         Core.instance(mContext).sendSetThreadValueCommand(currentSwitchBean.getSerialNumber(), values, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
-                CustomToast.showCustomToast(mContext, getString(R.string.modify_succe));
+                CustomToast.showCustomToast(mContext, "设置提交成功,刷新结果可能延迟");
 //                finish();
+                mHandler.sendEmptyMessageDelayed(sendGetThreadValueCommand, 100);
             }
 
             @Override

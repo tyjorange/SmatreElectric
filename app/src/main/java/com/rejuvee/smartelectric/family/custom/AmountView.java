@@ -83,6 +83,11 @@ public class AmountView extends LinearLayout implements View.OnClickListener, Vi
         etAmount.setText(String.format("%s", amount));
     }
 
+    public float getAmount() {
+        validValue();
+        return amount;
+    }
+
     @Override
     public void onClick(View v) {
         int i = v.getId();
@@ -106,8 +111,16 @@ public class AmountView extends LinearLayout implements View.OnClickListener, Vi
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        if (hasFocus)
+        if (hasFocus) {
             return;
+        }
+        validValue();
+    }
+
+    /**
+     * 纠正错误值 防止超过最大最小值
+     */
+    private void validValue() {
         String s = etAmount.getEditableText().toString();
         if (s.trim().isEmpty() || s.equals(".")) {
             etAmount.setText(String.format("%s", amount));
@@ -127,7 +140,6 @@ public class AmountView extends LinearLayout implements View.OnClickListener, Vi
             mListener.onAmountChange(this, amount);
         }
     }
-
 
     public interface OnAmountChangeListener {
         void onAmountChange(View view, float amount);
