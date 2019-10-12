@@ -35,6 +35,7 @@ import java.util.List;
  * 电器
  * Created by Administrator on 2018/11/5.
  */
+@Deprecated
 public class MyEleApplianceActivity extends BaseActivity implements EleapplianceAdapter.OnDeletEleListener {
     private static final String TAG = "MyEleApplianceActivity";
     private ArrayList<MyEleApplianceBean> arreleappliance = new ArrayList<>();

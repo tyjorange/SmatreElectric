@@ -29,6 +29,7 @@ import org.greenrobot.eventbus.ThreadMode;
  * 电器 添加修改
  * Created by Administrator on 2018/11/15.
  */
+@Deprecated
 public class ModifyorAddEleapplianceActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "ModifyorAddEleActivity";
     private TextView txt_appliance_linename,
