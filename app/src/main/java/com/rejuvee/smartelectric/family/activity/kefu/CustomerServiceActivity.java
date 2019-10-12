@@ -82,7 +82,7 @@ public class CustomerServiceActivity extends BaseActivity {
 
     private void getData() {
         loadingDlg.show();
-        Core.instance(mContext).findChatList(0, 99, new ActionCallbackListener<List<ChartListItemBean>>() {
+        Core.instance(mContext).findChatList(0, 200, new ActionCallbackListener<List<ChartListItemBean>>() {
             @Override
             public void onSuccess(List<ChartListItemBean> data) {
                 mList.clear();

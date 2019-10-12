@@ -74,7 +74,7 @@ public class CustomerServiceChartActivity extends BaseActivity {
     }
 
     private void getData() {
-        Core.instance(mContext).getUserChatContent(0, 99, chartListItemBean.getId(), new ActionCallbackListener<List<ChartItemBean>>() {
+        Core.instance(mContext).getUserChatContent(0, 200, chartListItemBean.getId(), new ActionCallbackListener<List<ChartItemBean>>() {
             @Override
             public void onSuccess(List<ChartItemBean> data) {
                 mList.clear();
