@@ -1253,6 +1253,37 @@ public class Core {
         return call;
     }
 
+    /**
+     * 添加问题主题
+     *
+     * @return
+     */
+    public Call<?> addToUserChatList(String title, String content,
+                                     ActionCallbackListener<Void> listener) {
+        Param param = new Param();
+        param.setTitle(title);
+        param.setContent(content);
+        Call<ApiResponse<Void>> call = api.addToUserChatList(mJSessionId, param);
+        enqueue(call, listener);
+        return call;
+    }
+
+    /**
+     * 添加问题主题内容
+     *
+     * @return
+     */
+    public Call<?> addToUserChatContent(Integer userChatID, String content,
+                                        ActionCallbackListener<Void> listener) {
+        Param param = new Param();
+        param.setUserChatID(userChatID);
+        param.setContent(content);
+        Call<ApiResponse<Void>> call = api.addToUserChatContent(mJSessionId, param);
+        enqueue(call, listener);
+        return call;
+    }
+
+
 //    private boolean oFlag = true;
 
     private <T> void enqueue(Call<ApiResponse<T>> call, final ActionCallbackListener<T> listener) {

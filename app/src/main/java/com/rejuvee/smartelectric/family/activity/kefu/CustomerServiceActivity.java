@@ -14,6 +14,7 @@ import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
+import com.rejuvee.smartelectric.family.common.CommonRequestCode;
 import com.rejuvee.smartelectric.family.model.bean.ChartListItemBean;
 import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
@@ -62,10 +63,21 @@ public class CustomerServiceActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+        findViewById(R.id.iv_send_wenti).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, AddTopicActivity.class);
+                startActivityForResult(intent, CommonRequestCode.REQUEST_ADD_QA);
+            }
+        });
     }
 
     @Override
     protected void initData() {
+        getData();
+    }
+
+    private void getData() {
         loadingDlg.show();
         Core.instance(mContext).findChatList(0, 99, new ActionCallbackListener<List<ChartListItemBean>>() {
             @Override
@@ -83,12 +95,18 @@ public class CustomerServiceActivity extends BaseActivity {
             }
         });
     }
-
     @Override
     protected void dealloc() {
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CommonRequestCode.REQUEST_ADD_QA) {
+            getData();
+        }
+    }
     class ChartListItemBeanAdapter extends BaseAdapter {
         private Context mContext;
         private List<ChartListItemBean> mListData;

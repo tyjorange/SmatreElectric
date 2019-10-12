@@ -1,11 +1,11 @@
 package com.rejuvee.smartelectric.family.model.bean;
 
 public class ChartItemBean {
-    String time;
-    String userID;
-    String username;
-    String headImg;
-    String content;
+    private String time;
+    private String userID;
+    private String username;
+    private String headImg;
+    private String content;
 
     public String getTime() {
         return time;

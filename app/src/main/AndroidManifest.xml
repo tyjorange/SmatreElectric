@@ -35,7 +35,8 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.kefu.CustomerServiceChartActivity"></activity>
+        <activity android:name=".activity.kefu.AddTopicActivity"></activity>
+        <activity android:name=".activity.kefu.CustomerServiceChartActivity" />
         <activity android:name=".activity.kefu.CustomerServiceActivity" />
 
         <uses-library

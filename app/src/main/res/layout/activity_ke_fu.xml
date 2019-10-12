@@ -49,6 +49,7 @@
             android:textSize="18sp" />
 
         <ImageView
+            android:id="@+id/iv_send_wenti"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
@@ -66,7 +67,9 @@
         <ListView
             android:id="@+id/list_tiwen"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:divider="#F6F7FC"
+            android:dividerHeight="1dp" />
 
         <include
             android:id="@+id/empty_layout"

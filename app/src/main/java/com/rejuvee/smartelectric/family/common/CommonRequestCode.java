@@ -33,5 +33,5 @@ public class CommonRequestCode {
 
     public static final int REQUEST_SCAN_CODE = 2060;//扫描二维码
 
-
+    public static final int REQUEST_ADD_QA = 3000;// 添加问题到客服
 }

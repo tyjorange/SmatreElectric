@@ -2,31 +2,55 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:paddingTop="8dp">
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1" />
-
-    <TextView
-        android:id="@+id/tvContent"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
-        android:layout_weight="10"
-        android:background="@drawable/ic_bg_chat_item_right"
-        android:paddingLeft="8dp"
-        android:paddingTop="8dp"
-        android:paddingRight="24dp"
-        android:paddingBottom="8dp"
-        android:text="@string/upgrade_tip" />
+        android:gravity="center">
 
-    <ImageView
-        android:id="@+id/ivAvatar"
-        android:layout_width="@dimen/user_profile_size"
-        android:layout_height="@dimen/user_profile_size"
-        android:src="@drawable/default_user_profile" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/char_time" />
+
+        <TextView
+            android:id="@+id/tv_chat_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:text="2019-10-10 00:00:00"
+            android:textSize="9sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:gravity="end">
+
+        <TextView
+            android:id="@+id/tvContent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/ic_bg_chat_item_right"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:paddingRight="24dp"
+            android:paddingBottom="8dp"
+            android:text="@string/upgrade_tip"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/ivAvatar"
+            android:layout_width="@dimen/user_profile_size"
+            android:layout_height="@dimen/user_profile_size"
+            android:src="@drawable/default_user_profile" />
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -42,6 +42,7 @@
         android:paddingBottom="20dp">
 
         <TextView
+            android:id="@+id/tv_topic"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -49,20 +50,34 @@
             android:textColor="@color/black"
             android:textSize="18sp" />
 
+
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="聊天问题"
+        android:textColor="@color/gray"
+        android:textSize="12sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_weight="@integer/tag_1"
         android:orientation="vertical">
 
         <ListView
             android:id="@+id/list_chart"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:divider="@color/transparent"
+            android:dividerHeight="0dp"
+            android:stackFromBottom="true" />
 
         <include
             android:id="@+id/empty_layout"
@@ -78,10 +93,12 @@
         android:padding="10dp">
 
         <com.rejuvee.smartelectric.family.widget.ClearEditText
-            android:id="@+id/login_cet_username"
+            android:id="@+id/ce_context"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="@integer/tag_1"
             android:background="@color/transparent"
             android:gravity="center_vertical"
             android:hint="请输入内容"
@@ -92,7 +109,8 @@
             android:textSize="12sp" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_commit"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_def"
             android:gravity="center"
