@@ -285,7 +285,7 @@
             android:drawablePadding="4dp"
             android:gravity="center"
             android:padding="16dp"
-            android:text="@string/My_ele_appliance"
+            android:text="@string/vs209"
             android:textColor="#5A6187"
             android:textSize="10sp"
             tools:ignore="SmallSp" />

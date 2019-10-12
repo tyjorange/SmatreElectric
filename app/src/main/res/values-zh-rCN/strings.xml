@@ -644,7 +644,7 @@
     <string name="vs121">总同比(月)</string>
     <string name="vs122">环比(月)</string>
     <string name="vs123">同比(月)</string>
-    <string name="vs124">用电量（度）</string>
+    <string name="vs124">本月用电量（度）</string>
     <string name="vs125">警告</string>
     <string name="vs126">关联线路</string>
     <string name="vs127">修改用户名</string>
@@ -730,4 +730,7 @@
     <string name="vs206">聊天主题</string>
     <string name="vs207">不能发送空消息</string>
     <string name="vs208">发送失败</string>
+    <string name="vs209">智能家居</string>
+    <string name="vs211">上个月</string>
+    <string name="vs212">去年本月</string>
 </resources>

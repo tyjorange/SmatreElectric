@@ -32,6 +32,8 @@ public class EnergySavingInformationActivity extends BaseActivity implements Vie
     private SwitchBean switchBean;
     private TextView collector_name;
     private TextView line_name;
+    private TextView tv_lastMonth;
+    private TextView tv_lastYearMonth;
     private TextView hbjs_val;
     private TextView tbjs_val;
     private TextView ydl_val;
@@ -52,6 +54,8 @@ public class EnergySavingInformationActivity extends BaseActivity implements Vie
         collector_name = findViewById(R.id.collector_name);
         TextView dianxiang_code = findViewById(R.id.dianxiang_code);
         line_name = findViewById(R.id.line_name);
+        tv_lastMonth = findViewById(R.id.tv_lastMonth);
+        tv_lastYearMonth = findViewById(R.id.tv_lastYearMonth);
         hbjs_val = findViewById(R.id.hbjs_val);
         tbjs_val = findViewById(R.id.tbjs_val);
         ydl_val = findViewById(R.id.ydl_val);
@@ -124,9 +128,11 @@ public class EnergySavingInformationActivity extends BaseActivity implements Vie
     private void setData(SwitchBean switchBean, CollectorBean collectorBean) {
         collector_name.setText(String.format("%s%s", getString(R.string.vs5), collectorBean.getDeviceName()));
         line_name.setText(String.format("%s%s", getString(R.string.vs4), switchBean.getName()));
+        tv_lastMonth.setText(String.format("%s%s", switchBean.getLastMonth(), getString(R.string.statement_unit_electric)));
         hbjs_val.setText(switchBean.getHbjn().equals("") ? "-" : switchBean.getHbjn());
+        tv_lastYearMonth.setText(String.format("%s%s", switchBean.getLastYearMonth(), getString(R.string.statement_unit_electric)));
         tbjs_val.setText(switchBean.getTbjn().equals("") ? "-" : switchBean.getTbjn());
-        ydl_val.setText(switchBean.getMonth());
+        ydl_val.setText(String.format("%s%s", switchBean.getMonth(), getString(R.string.statement_unit_electric)));
     }
 
     @Override

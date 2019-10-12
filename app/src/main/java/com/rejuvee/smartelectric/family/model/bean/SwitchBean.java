@@ -32,7 +32,6 @@ public class SwitchBean implements Parcelable {
     @Ignore
     private String deviceName;//所属设备名
     private List<SwitchBean> child;
-    private String lastMonth;
     public int fault;
     private int faultState;
     private String temperature;//温度
@@ -43,9 +42,11 @@ public class SwitchBean implements Parcelable {
     private String runResult;
 
     // 节能信息
+    private String year;
     private String today;
     private String month;
-    private String year;
+    private String lastMonth;
+    private String lastYearMonth;
     private String tbjn;
     private String hbjn;
 
@@ -193,6 +194,7 @@ public class SwitchBean implements Parcelable {
         lastMonth = in.readString();
         today = in.readString();
         month = in.readString();
+        lastYearMonth = in.readString();
         year = in.readString();
         tbjn = in.readString();
         hbjn = in.readString();
@@ -217,6 +219,7 @@ public class SwitchBean implements Parcelable {
         dest.writeString(lastMonth);
         dest.writeString(today);
         dest.writeString(month);
+        dest.writeString(lastYearMonth);
         dest.writeString(year);
         dest.writeString(tbjn);
         dest.writeString(hbjn);
@@ -468,5 +471,13 @@ public class SwitchBean implements Parcelable {
 
     public void setVerMinor(int verMinor) {
         this.verMinor = verMinor;
+    }
+
+    public String getLastYearMonth() {
+        return lastYearMonth;
+    }
+
+    public void setLastYearMonth(String lastYearMonth) {
+        this.lastYearMonth = lastYearMonth;
     }
 }

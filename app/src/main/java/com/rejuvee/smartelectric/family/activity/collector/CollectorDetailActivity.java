@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
-import com.rejuvee.smartelectric.family.activity.electric.MyEleApplianceActivity;
 import com.rejuvee.smartelectric.family.activity.energy.EnergySavingInformationActivity;
 import com.rejuvee.smartelectric.family.activity.energy.StatementActivity;
 import com.rejuvee.smartelectric.family.activity.logger.SecurityInformationActivity;
@@ -27,6 +26,7 @@ import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.CommonRequestCode;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.CollectorUpgradeInfo;
+import com.rejuvee.smartelectric.family.widget.dialog.DialogTipWithoutOkCancel;
 
 /**
  * 集中器设备详情
@@ -232,9 +232,14 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
                 startActivity(intent);
                 break;
             case R.id.txt_dianqi:
-                intent = new Intent(this, MyEleApplianceActivity.class);
-                intent.putExtra("collectorBean", collectorBean);
-                startActivity(intent);
+                DialogTipWithoutOkCancel d = new DialogTipWithoutOkCancel(this);
+                d.hiddenTitle();
+                d.showImg();
+                d.setContent(getString(R.string.vs30));
+                d.show();
+//                intent = new Intent(this, MyEleApplianceActivity.class);
+//                intent.putExtra("collectorBean", collectorBean);
+//                startActivity(intent);
                 break;
             case R.id.txt_share:
                 intent = new Intent(this, ShareListActivity.class);
