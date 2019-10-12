@@ -710,7 +710,7 @@ public class YaoKongDetailActivity extends BaseActivity {
             holder.txt_content.setText(String.format("%s%s", context.getString(R.string.vs15), currentSwitchBean.getName()));
 //            holder.tv_state.setVisibility(currentSwitchBean.getSwitchState() == 0 ? View.VISIBLE : View.INVISIBLE);// 更新状态文字
 //            holder.tv_state.setText(SwitchBean.getSwitchFaultState(context, currentSwitchBean.fault));// 更新状态文字
-            holder.tv_state.setText(String.format(Locale.getDefault(), "%d%s", currentSwitchBean.getChild().size(), context.getString(R.string.vs28)));
+            holder.tv_state.setText(String.format(Locale.getDefault(), "%d%s", currentSwitchBean.getChild().size(), context.getString(R.string.vs12)));
             holder.tv_code.setText(currentSwitchBean.getSerialNumber());
             holder.iv_time_clock.setVisibility(currentSwitchBean.timerCount > 0 ? View.VISIBLE : View.INVISIBLE);
             // ##支线##
