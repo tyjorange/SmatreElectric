@@ -59,17 +59,17 @@ public class AddTopicActivity extends BaseActivity {
         String topic = et_new_topic.getEditableText().toString();
         String context = et_new_context.getEditableText().toString();
         if (topic.isEmpty()) {
-            CustomToast.showCustomErrorToast(AddTopicActivity.this, "请输入主题内容");
+            CustomToast.showCustomErrorToast(AddTopicActivity.this, getString(R.string.vs192));
             return;
         }
         if (context.isEmpty()) {
-            CustomToast.showCustomErrorToast(AddTopicActivity.this, "请输入问题描述");
+            CustomToast.showCustomErrorToast(AddTopicActivity.this, getString(R.string.vs193));
             return;
         }
         Core.instance(mContext).addToUserChatList(topic, context, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
-                CustomToast.showCustomToast(AddTopicActivity.this, "提交问题成功");
+                CustomToast.showCustomToast(AddTopicActivity.this, getString(R.string.vs194));
                 setResult(RESULT_OK, getIntent());
                 finish();
             }

@@ -55,6 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ellipsize="middle"
+            android:gravity="end"
             android:text="2018009116"
             android:textColor="@color/text_base_color_666"
             android:textSize="9sp"

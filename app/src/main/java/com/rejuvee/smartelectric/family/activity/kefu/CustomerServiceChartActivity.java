@@ -1,6 +1,8 @@
 package com.rejuvee.smartelectric.family.activity.kefu;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -53,9 +55,10 @@ public class CustomerServiceChartActivity extends BaseActivity {
         });
         TextView tv_topic = findViewById(R.id.tv_topic);
         TextView tv_content = findViewById(R.id.tv_content);
-        tv_topic.setText("聊天主题：" + chartListItemBean.getTopic());
-        tv_content.setText("问题：" + chartListItemBean.getContent());
+        tv_topic.setText(String.format(getString(R.string.vs203), chartListItemBean.getTopic()));
+        tv_content.setText(String.format(getString(R.string.vs204), chartListItemBean.getContent()));
         ListView listView = (ListView) findViewById(R.id.list_chart);
+        listView.setSelector(new ColorDrawable(Color.TRANSPARENT));//List view 点击水纹效果取消
         adapter = new ChartItemBeanAdapter(this, mList);
         listView.setAdapter(adapter);
         listView.setEmptyView(findViewById(R.id.empty_layout));
@@ -98,7 +101,7 @@ public class CustomerServiceChartActivity extends BaseActivity {
         ClearEditText ce_context = findViewById(R.id.ce_context);
         String context = ce_context.getEditableText().toString();
         if (context.isEmpty()) {
-            CustomToast.showCustomErrorToast(CustomerServiceChartActivity.this, "不能发送空消息");
+            CustomToast.showCustomErrorToast(CustomerServiceChartActivity.this, getString(R.string.vs207));
             return;
         }
         Core.instance(mContext).addToUserChatContent(chartListItemBean.getId(), context, new ActionCallbackListener<Void>() {
@@ -113,7 +116,7 @@ public class CustomerServiceChartActivity extends BaseActivity {
 
             @Override
             public void onFailure(int errorEvent, String message) {
-                CustomToast.showCustomErrorToast(CustomerServiceChartActivity.this, "发送失败");
+                CustomToast.showCustomErrorToast(CustomerServiceChartActivity.this, getString(R.string.vs208));
             }
         });
     }

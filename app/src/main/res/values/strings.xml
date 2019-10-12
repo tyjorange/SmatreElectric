@@ -669,7 +669,7 @@
     <string name="vs143">请输入注册信息</string>
     <string name="vs144">添加失败</string>
     <string name="vs145">修改线路名</string>
-    <string name="vs146">请输入6-12位密码</string>
+    <string name="vs146">请输入6&#8211;12位密码</string>
     <string name="vs147">打开控制权限</string>
     <string name="vs148">关闭控制权限</string>
     <string name="vs149">场景编辑</string>
@@ -703,7 +703,7 @@
     <string name="vs176">拒绝授权微信登录</string>
     <string name="vs177">取消了微信登录</string>
     <string name="vs178">取消了微信分享</string>
-    <string name="vs179">电箱名称1-12个字符</string>
+    <string name="vs179">电箱名称1&#8211;12个字符</string>
     <string name="vs180">恢复出厂设置</string>
     <string name="vs181">重启集中器</string>
     <string name="vs182">确认恢复出厂设置?</string>
@@ -716,4 +716,21 @@
     <string name="vs189">电量下限不能大于或等于上限</string>
     <string name="vs190">每月%02d日%02d时</string>
     <string name="vs191">选择自检时间</string>
+    <string name="vs192">请输入主题内容</string>
+    <string name="vs193">请输入问题描述</string>
+    <string name="vs194">提交问题成功</string>
+    <string name="vs195">提交</string>
+    <string name="vs196">首页 / 客服</string>
+    <string name="vs197">提问</string>
+    <string name="vs198">主题：</string>
+    <string name="vs199">内容：</string>
+    <string name="vs200">提问时间：</string>
+    <string name="vs201">更新时间：</string>
+    <string name="vs202">客服</string>
+    <string name="vs203">聊天主题：%s</string>
+    <string name="vs204">问题：%s</string>
+    <string name="vs205">发送</string>
+    <string name="vs206">聊天主题</string>
+    <string name="vs207">不能发送空消息</string>
+    <string name="vs208">发送失败</string>
 </resources>

@@ -713,4 +713,21 @@
     <string name="vs189">电量下限不能大于或等于上限</string>
     <string name="vs190">每月%02d日%02d时</string>
     <string name="vs191">选择自检时间</string>
+    <string name="vs192">请输入主题内容</string>
+    <string name="vs193">请输入问题描述</string>
+    <string name="vs194">提交问题成功</string>
+    <string name="vs195">提交</string>
+    <string name="vs196">首页 / 客服</string>
+    <string name="vs197">提问</string>
+    <string name="vs198">主题：</string>
+    <string name="vs199">内容：</string>
+    <string name="vs200">提问时间：</string>
+    <string name="vs201">更新时间：</string>
+    <string name="vs202">客服</string>
+    <string name="vs203">聊天主题：%s</string>
+    <string name="vs204">问题：%s</string>
+    <string name="vs205">发送</string>
+    <string name="vs206">聊天主题</string>
+    <string name="vs207">不能发送空消息</string>
+    <string name="vs208">发送失败</string>
 </resources>

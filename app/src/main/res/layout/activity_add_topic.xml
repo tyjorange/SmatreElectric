@@ -26,7 +26,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="首页 / 客服"
+            android:text="@string/vs196"
             android:textSize="12sp" />
     </android.support.v7.widget.Toolbar>
 
@@ -44,7 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="提问"
+            android:text="@string/vs197"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -66,7 +66,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="主题："
+                android:text="@string/vs198"
                 android:textSize="12sp" />
 
             <EditText
@@ -75,7 +75,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="@integer/tag_1"
                 android:background="@color/transparent"
-                android:hint="请输入问题"
+                android:hint="@string/vs192"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -87,7 +87,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="内容："
+                android:text="@string/vs199"
                 android:textSize="12sp" />
 
             <EditText
@@ -96,7 +96,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="@integer/tag_1"
                 android:background="@color/transparent"
-                android:hint="请输入问题描述"
+                android:hint="@string/vs193"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -110,7 +110,7 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/qd1"
         android:gravity="center"
-        android:text="提交"
+        android:text="@string/vs195"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:corner="8dp" />

@@ -149,9 +149,9 @@ public class CustomerServiceActivity extends BaseActivity {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            holder.tv_topic.setText(String.format("%s%s", "主题：", getItem(position).getTopic()));
-            holder.tv_time.setText(String.format("%s%s", "提问时间：", getItem(position).getTime()));
-            holder.tv_updateTime.setText(String.format("%s%s", "更新时间：", getItem(position).getUpdateTime()));
+            holder.tv_topic.setText(String.format("%s%s", getResources().getString(R.string.vs198), getItem(position).getTopic()));
+            holder.tv_time.setText(String.format("%s%s", getString(R.string.vs200), getItem(position).getTime()));
+            holder.tv_updateTime.setText(String.format("%s%s", getString(R.string.vs201), getItem(position).getUpdateTime()));
             return convertView;
         }
 
