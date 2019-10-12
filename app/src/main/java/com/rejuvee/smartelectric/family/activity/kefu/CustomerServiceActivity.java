@@ -150,8 +150,8 @@ public class CustomerServiceActivity extends BaseActivity {
                 holder = (ViewHolder) convertView.getTag();
             }
             holder.tv_topic.setText(String.format("%s%s", "主题：", getItem(position).getTopic()));
-            holder.tv_time.setText(String.format("%s%s", "发起时间：", getItem(position).getTime()));
-            holder.tv_updateTime.setText(String.format("%s%s", "最后更新时间：", getItem(position).getUpdateTime()));
+            holder.tv_time.setText(String.format("%s%s", "提问时间：", getItem(position).getTime()));
+            holder.tv_updateTime.setText(String.format("%s%s", "更新时间：", getItem(position).getUpdateTime()));
             return convertView;
         }
 

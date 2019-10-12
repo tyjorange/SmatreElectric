@@ -1308,7 +1308,7 @@ public class Core {
                             listener.onSuccess(resp.body().getData());
                         } else if (resp.body().isAccessDenied()) {
                             Log.e(TAG, "resp.body() isAccessDenied");
-                            CustomToast.showCustomErrorToast(context, context.getString(R.string.vs94));
+//                            CustomToast.showCustomErrorToast(context, context.getString(R.string.vs94));
 //                            if (oFlag) {
                             Intent intent = new Intent("com.example.chencong.broadcastbestpractive.FORCE_OFFLINE");
 //                            Android8.0
