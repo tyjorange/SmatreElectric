@@ -395,6 +395,12 @@
         <item>远程合闸</item>
         <item>漏电</item>
         <item>过温</item>
+        <item>漏电自检拉闸</item>
+        <item>上级保护合闸</item>
+        <item>上级保护拉闸</item>
+        <item>定时合闸</item>
+        <item>漏电自检失败</item>
+        <item>开关故障</item>
     </string-array>
     <string-array name="switch_param_code">
         <item>设置终端与断路器IO互通</item>
@@ -527,7 +533,7 @@
     <string name="vs5">电箱:</string>
     <string name="vs6">ID:</string>
     <string name="vs7">用户:</string>
-    <string name="vs8"></string>
+    <string name="vs8">88</string>
     <string name="vs9">安全阀值:</string>
     <string name="vs10">当前值:</string>
     <string name="vs11">跳过</string>
@@ -733,4 +739,5 @@
     <string name="vs209">智能家居</string>
     <string name="vs211">上个月</string>
     <string name="vs212">去年本月</string>
+    <string name="vs213">设置提交成功，刷新结果可能延迟</string>
 </resources>

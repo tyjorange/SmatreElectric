@@ -103,8 +103,26 @@ public class SwitchBean implements Parcelable {
         } else if ((faultCode & (0x01 << 12)) > 0) {
             // 第12位:过温
             return context.getResources().getStringArray(R.array.switch_fault_code)[12];
+        } else if ((faultCode & (0x01 << 13)) > 0) {
+            // 第13位:漏电自检拉闸
+            return context.getResources().getStringArray(R.array.switch_fault_code)[13];
+        } else if ((faultCode & (0x01 << 14)) > 0) {
+            // 第14位:上级保护合闸
+            return context.getResources().getStringArray(R.array.switch_fault_code)[14];
+        } else if ((faultCode & (0x01 << 15)) > 0) {
+            // 第15位:上级保护拉闸
+            return context.getResources().getStringArray(R.array.switch_fault_code)[15];
+        } else if ((faultCode & (0x01 << 16)) > 0) {
+            // 第16位:定时合闸
+            return context.getResources().getStringArray(R.array.switch_fault_code)[16];
+        } else if ((faultCode & (0x01 << 17)) > 0) {
+            // 第17位:漏电自检失败
+            return context.getResources().getStringArray(R.array.switch_fault_code)[17];
+        } else if ((faultCode & (0x01 << 18)) > 0) {
+            // 第18位:开关故障
+            return context.getResources().getStringArray(R.array.switch_fault_code)[18];
         }
-        return "";
+        return "unknow";
     }
 
     public static String getParamName(Context context, int paramID) {
@@ -178,7 +196,7 @@ public class SwitchBean implements Parcelable {
             case 0x00000022:
                 return context.getResources().getStringArray(R.array.switch_param_code)[34];
         }
-        return "";
+        return "unkonw";
     }
 
     protected SwitchBean(Parcel in) {

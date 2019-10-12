@@ -488,8 +488,8 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
 //                finish();
                 scrollView.setVisibility(View.INVISIBLE);
                 superTextView.setVisibility(View.INVISIBLE);
-                curentSwitchHaveValue = false;
-                setDefaultValue();
+//                curentSwitchHaveValue = false;
+//                setDefaultValue();
                 waitDialog.dismiss();
             }
         });
@@ -567,7 +567,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                             break;
                         case 0x00000011:// 过流阀值
                             BigDecimal s1 = BigDecimal.valueOf(paramValue).setScale(0, BigDecimal.ROUND_HALF_UP);
-                            et_GL1.setText(s1.toString());
+                            et_GL1.setText(String.format(Locale.getDefault(), "%.0f", s1));
                             break;
                         case 0x00000018:// 电量下限
                             dl_xiaxian.setText(new DecimalFormat("000000.00").format(paramValue));
@@ -577,7 +577,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
                             break;
                         case 0x0000001A:// 瞬时过流阀值
                             BigDecimal s2 = BigDecimal.valueOf(paramValue).setScale(0, BigDecimal.ROUND_HALF_UP);
-                            et_GL2.setText(s2.toString());
+                            et_GL2.setText(String.format(Locale.getDefault(), "%.0f", s2));
                             break;
                         case 0x0000001B:// 漏电阀值
                             rangeSeekBarLDL.setProgress(paramValue);
@@ -644,8 +644,8 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
 //                        scrollView.setVisibility(View.INVISIBLE);
 //                        superTextView.setVisibility(View.INVISIBLE);
 //                        empty_layout.setVisibility(View.VISIBLE);
-                curentSwitchHaveValue = false;
                 setDefaultValue();
+                curentSwitchHaveValue = false;
                 waitDialog.dismiss();
             }
         });
@@ -794,12 +794,12 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
             CustomToast.showCustomErrorToast(mContext, getString(R.string.vs189));
             return;
         }
-        String values = "00000011:" + glfz + // 过流阀值
+        String values = "00000011:" + glfz + // 过流阀值(1)
                 ",00000005:" + gyfz + // 过压阀值
                 ",0000000D:" + qyfz + // 欠压阀值
                 ",00000018:" + dlxx + // 电量下限
                 ",00000019:" + dlsx + // 电量上限
-                ",0000001A:" + ssglfz + // 过流阀值2
+                ",0000001A:" + ssglfz + // 瞬时过流阀值(2)
                 ",0000001B:" + ldfz.intValue() + // 漏电阀值
                 ",0000001C:" + Integer.valueOf(bhsn + "" + zjsn, 2) + // 漏电自检/保护使能
                 ",0000001D:" + (dd * 256 + hh) + // 漏电自检时间
@@ -812,7 +812,7 @@ public class SwitchSettingActivity extends BaseActivity implements View.OnFocusC
         Core.instance(mContext).sendSetThreadValueCommand(currentSwitchBean.getSerialNumber(), values, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
-                CustomToast.showCustomToast(mContext, "设置提交成功,刷新结果可能延迟");
+                CustomToast.showCustomToast(mContext, getString(R.string.vs213));
 //                finish();
                 mHandler.sendEmptyMessageDelayed(sendGetThreadValueCommand, 100);
             }
