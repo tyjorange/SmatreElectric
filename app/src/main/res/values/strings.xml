@@ -743,4 +743,7 @@
     <string name="vs211">上个月</string>
     <string name="vs212">去年本月</string>
     <string name="vs213">设置提交成功，刷新结果可能延迟</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -85,15 +85,43 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_weight="@integer/tag_1"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <include
-            android:id="@+id/empty_layout"
-            layout="@layout/empty_layout"
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="#E3878F"
+            app:tabIndicatorFullWidth="false"
+            app:tabIndicatorHeight="2dp"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/black"
+            app:tabTextColor="@color/text_base_color_666" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_setting"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone" />
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp" />
+    </LinearLayout>
+
+    <!--    TODO-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal">
+
+        <!--        <include-->
+        <!--            android:id="@+id/empty_layout"-->
+        <!--            layout="@layout/empty_layout"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:visibility="gone" />-->
 
         <com.rejuvee.smartelectric.family.widget.ObservableScrollView
             android:id="@+id/sv_values"
@@ -111,134 +139,133 @@
                 android:contentDescription="ScrollViewRoot"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/setting_item_bg"
-                    android:orientation="horizontal"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="0dp">
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_gravity="center"-->
+                <!--                    android:background="@drawable/setting_item_bg"-->
+                <!--                    android:orientation="horizontal"-->
+                <!--                    android:paddingStart="10dp"-->
+                <!--                    android:paddingEnd="0dp">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/line_set_electricity"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
+                <!--                    <TextView-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/line_set_electricity"-->
+                <!--                        android:textColor="@color/black"-->
+                <!--                        android:textSize="12sp" />-->
 
-                    <EditText
-                        android:id="@+id/et_sp1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/input_edit_bg"
-                        android:digits="0123456789"
-                        android:gravity="end"
-                        android:hint="@string/vs96"
-                        android:inputType="numberDecimal"
-                        android:maxLength="3"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:singleLine="true"
-                        android:text="0"
-                        android:textColor="#000000"
-                        android:textSize="12sp" />
+                <!--                    <EditText-->
+                <!--                        android:id="@+id/et_sp1"-->
+                <!--                        android:layout_width="0dp"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_weight="1"-->
+                <!--                        android:background="@drawable/input_edit_bg"-->
+                <!--                        android:digits="0123456789"-->
+                <!--                        android:gravity="end"-->
+                <!--                        android:hint="@string/vs96"-->
+                <!--                        android:inputType="numberDecimal"-->
+                <!--                        android:maxLength="3"-->
+                <!--                        android:paddingStart="10dp"-->
+                <!--                        android:paddingEnd="10dp"-->
+                <!--                        android:singleLine="true"-->
+                <!--                        android:text="0"-->
+                <!--                        android:textColor="#000000"-->
+                <!--                        android:textSize="12sp" />-->
 
-                </LinearLayout>
+                <!--                </LinearLayout>-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/setting_item_bg"
-                    android:orientation="horizontal"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="0dp">
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_gravity="center"-->
+                <!--                    android:background="@drawable/setting_item_bg"-->
+                <!--                    android:orientation="horizontal"-->
+                <!--                    android:paddingStart="10dp"-->
+                <!--                    android:paddingEnd="0dp">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/vs97"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
+                <!--                    <TextView-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/vs97"-->
+                <!--                        android:textColor="@color/black"-->
+                <!--                        android:textSize="12sp" />-->
 
-                    <EditText
-                        android:id="@+id/et_sp2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/input_edit_bg"
-                        android:digits="0123456789"
-                        android:gravity="end"
-                        android:hint="@string/vs96"
-                        android:inputType="numberDecimal"
-                        android:maxLength="3"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:singleLine="true"
-                        android:text="0"
-                        android:textColor="#000000"
-                        android:textSize="12sp" />
+                <!--                    <EditText-->
+                <!--                        android:id="@+id/et_sp2"-->
+                <!--                        android:layout_width="0dp"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_weight="1"-->
+                <!--                        android:background="@drawable/input_edit_bg"-->
+                <!--                        android:digits="0123456789"-->
+                <!--                        android:gravity="end"-->
+                <!--                        android:hint="@string/vs96"-->
+                <!--                        android:inputType="numberDecimal"-->
+                <!--                        android:maxLength="3"-->
+                <!--                        android:paddingStart="10dp"-->
+                <!--                        android:paddingEnd="10dp"-->
+                <!--                        android:singleLine="true"-->
+                <!--                        android:text="0"-->
+                <!--                        android:textColor="#000000"-->
+                <!--                        android:textSize="12sp" />-->
 
-                </LinearLayout>
+                <!--                </LinearLayout>-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/setting_item_bg"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="0dp">
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:background="@drawable/setting_item_bg"-->
+                <!--                    android:gravity="center"-->
+                <!--                    android:orientation="vertical"-->
+                <!--                    android:paddingStart="10dp"-->
+                <!--                    android:paddingEnd="0dp">-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                <!--                    <LinearLayout-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:gravity="center"-->
+                <!--                        android:orientation="horizontal">-->
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="@integer/tag_1"
-                            android:text="@string/line_set_over"
-                            android:textColor="@color/black"
-                            android:textSize="12sp" />
+                <!--                        <TextView-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_gravity="center_vertical"-->
+                <!--                            android:layout_weight="@integer/tag_1"-->
+                <!--                            android:text="@string/line_set_over"-->
+                <!--                            android:textColor="@color/black"-->
+                <!--                            android:textSize="12sp" />-->
 
+                <!--                        <com.rejuvee.smartelectric.family.custom.AmountView-->
+                <!--                            android:id="@+id/amount_view_gy"-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="30dp"-->
+                <!--                            android:layout_gravity="center_vertical"-->
+                <!--                            android:layout_marginEnd="10dp"-->
+                <!--                            app:btnTextSize="15sp"-->
+                <!--                            app:btnWidth="36dp"-->
+                <!--                            app:tvWidth="45dp" />-->
+                <!--                    </LinearLayout>-->
 
-                        <com.rejuvee.smartelectric.family.custom.AmountView
-                            android:id="@+id/amount_view_gy"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginEnd="10dp"
-                            app:btnTextSize="15sp"
-                            app:btnWidth="36dp"
-                            app:tvWidth="45dp" />
-                    </LinearLayout>
+                <!--                    <com.jaygoo.widget.RangeSeekBar-->
+                <!--                        android:id="@+id/seek_bar_gy"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:paddingStart="0dp"-->
+                <!--                        android:paddingEnd="10dp"-->
+                <!--                        app:rsb_gravity="center"-->
+                <!--                        app:rsb_indicator_arrow_size="5dp"-->
+                <!--                        app:rsb_indicator_background_color="#6C7298"-->
+                <!--                        app:rsb_indicator_height="20dp"-->
+                <!--                        app:rsb_indicator_radius="2dp"-->
+                <!--                        app:rsb_indicator_show_mode="alwaysShow"-->
+                <!--                        app:rsb_indicator_text_size="10sp"-->
+                <!--                        app:rsb_indicator_width="30dp"-->
+                <!--                        app:rsb_mode="single"-->
+                <!--                        app:rsb_progress_color="#6C7298"-->
+                <!--                        app:rsb_tick_mark_layout_gravity="bottom"-->
+                <!--                        app:rsb_tick_mark_mode="number" />-->
 
-                    <com.jaygoo.widget.RangeSeekBar
-                        android:id="@+id/seek_bar_gy"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="0dp"
-                        android:paddingEnd="10dp"
-                        app:rsb_gravity="center"
-                        app:rsb_indicator_arrow_size="5dp"
-                        app:rsb_indicator_background_color="#6C7298"
-                        app:rsb_indicator_height="20dp"
-                        app:rsb_indicator_radius="2dp"
-                        app:rsb_indicator_show_mode="alwaysShow"
-                        app:rsb_indicator_text_size="10sp"
-                        app:rsb_indicator_width="30dp"
-                        app:rsb_mode="single"
-                        app:rsb_progress_color="#6C7298"
-                        app:rsb_tick_mark_layout_gravity="bottom"
-                        app:rsb_tick_mark_mode="number" />
-
-                </LinearLayout>
+                <!--                </LinearLayout>-->
 
                 <!--                <ImageView-->
                 <!--                    android:layout_width="match_parent"-->
@@ -247,61 +274,61 @@
                 <!--                    android:background="@drawable/slices"-->
                 <!--                    android:contentDescription="slices" />-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/setting_item_bg"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="0dp">
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:background="@drawable/setting_item_bg"-->
+                <!--                    android:gravity="center"-->
+                <!--                    android:orientation="vertical"-->
+                <!--                    android:paddingStart="10dp"-->
+                <!--                    android:paddingEnd="0dp">-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                <!--                    <LinearLayout-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:gravity="center"-->
+                <!--                        android:orientation="horizontal">-->
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="@integer/tag_1"
-                            android:text="@string/line_set_under"
-                            android:textColor="@color/black"
-                            android:textSize="12sp" />
+                <!--                        <TextView-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_gravity="center_vertical"-->
+                <!--                            android:layout_weight="@integer/tag_1"-->
+                <!--                            android:text="@string/line_set_under"-->
+                <!--                            android:textColor="@color/black"-->
+                <!--                            android:textSize="12sp" />-->
 
-                        <com.rejuvee.smartelectric.family.custom.AmountView
-                            android:id="@+id/amount_view_qy"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginEnd="10dp"
-                            app:btnTextSize="15sp"
-                            app:btnWidth="36dp"
-                            app:tvWidth="45dp" />
-                    </LinearLayout>
+                <!--                        <com.rejuvee.smartelectric.family.custom.AmountView-->
+                <!--                            android:id="@+id/amount_view_qy"-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="30dp"-->
+                <!--                            android:layout_gravity="center_vertical"-->
+                <!--                            android:layout_marginEnd="10dp"-->
+                <!--                            app:btnTextSize="15sp"-->
+                <!--                            app:btnWidth="36dp"-->
+                <!--                            app:tvWidth="45dp" />-->
+                <!--                    </LinearLayout>-->
 
-                    <com.jaygoo.widget.RangeSeekBar
-                        android:id="@+id/seek_bar_qy"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="0dp"
-                        android:paddingEnd="10dp"
-                        app:rsb_gravity="center"
-                        app:rsb_indicator_arrow_size="5dp"
-                        app:rsb_indicator_background_color="#6C7298"
-                        app:rsb_indicator_height="20dp"
-                        app:rsb_indicator_radius="2dp"
-                        app:rsb_indicator_show_mode="alwaysShow"
-                        app:rsb_indicator_text_size="10sp"
-                        app:rsb_indicator_width="30dp"
-                        app:rsb_mode="single"
-                        app:rsb_progress_color="#6C7298"
-                        app:rsb_tick_mark_layout_gravity="bottom"
-                        app:rsb_tick_mark_mode="number" />
+                <!--                    <com.jaygoo.widget.RangeSeekBar-->
+                <!--                        android:id="@+id/seek_bar_qy"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:paddingStart="0dp"-->
+                <!--                        android:paddingEnd="10dp"-->
+                <!--                        app:rsb_gravity="center"-->
+                <!--                        app:rsb_indicator_arrow_size="5dp"-->
+                <!--                        app:rsb_indicator_background_color="#6C7298"-->
+                <!--                        app:rsb_indicator_height="20dp"-->
+                <!--                        app:rsb_indicator_radius="2dp"-->
+                <!--                        app:rsb_indicator_show_mode="alwaysShow"-->
+                <!--                        app:rsb_indicator_text_size="10sp"-->
+                <!--                        app:rsb_indicator_width="30dp"-->
+                <!--                        app:rsb_mode="single"-->
+                <!--                        app:rsb_progress_color="#6C7298"-->
+                <!--                        app:rsb_tick_mark_layout_gravity="bottom"-->
+                <!--                        app:rsb_tick_mark_mode="number" />-->
 
-                </LinearLayout>
+                <!--                </LinearLayout>-->
 
                 <!--                <ImageView-->
                 <!--                    android:layout_width="match_parent"-->
@@ -310,37 +337,37 @@
                 <!--                    android:background="@drawable/slices"-->
                 <!--                    android:contentDescription="slices" />-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/setting_item_bg"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="0dp">
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:background="@drawable/setting_item_bg"-->
+                <!--                    android:gravity="center"-->
+                <!--                    android:orientation="horizontal"-->
+                <!--                    android:paddingStart="10dp"-->
+                <!--                    android:paddingEnd="0dp">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/line_set_electricity1"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
+                <!--                    <TextView-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/line_set_electricity1"-->
+                <!--                        android:textColor="@color/black"-->
+                <!--                        android:textSize="12sp" />-->
 
-                    <EditText
-                        android:id="@+id/et_dl1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/input_edit_bg"
-                        android:digits="0123456789."
-                        android:gravity="end"
-                        android:hint="@string/vs96"
-                        android:inputType="numberDecimal"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:singleLine="true"
-                        android:text="0"
-                        android:textSize="12sp" />
-                </LinearLayout>
+                <!--                    <EditText-->
+                <!--                        android:id="@+id/et_dl1"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:background="@drawable/input_edit_bg"-->
+                <!--                        android:digits="0123456789."-->
+                <!--                        android:gravity="end"-->
+                <!--                        android:hint="@string/vs96"-->
+                <!--                        android:inputType="numberDecimal"-->
+                <!--                        android:paddingStart="10dp"-->
+                <!--                        android:paddingEnd="10dp"-->
+                <!--                        android:singleLine="true"-->
+                <!--                        android:text="0"-->
+                <!--                        android:textSize="12sp" />-->
+                <!--                </LinearLayout>-->
 
                 <!--                <ImageView-->
                 <!--                    android:layout_width="match_parent"-->
@@ -349,37 +376,37 @@
                 <!--                    android:background="@drawable/slices"-->
                 <!--                    android:contentDescription="slices" />-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/setting_item_bg"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="0dp">
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:background="@drawable/setting_item_bg"-->
+                <!--                    android:gravity="center"-->
+                <!--                    android:orientation="horizontal"-->
+                <!--                    android:paddingStart="10dp"-->
+                <!--                    android:paddingEnd="0dp">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/line_set_electricity2"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
+                <!--                    <TextView-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/line_set_electricity2"-->
+                <!--                        android:textColor="@color/black"-->
+                <!--                        android:textSize="12sp" />-->
 
-                    <EditText
-                        android:id="@+id/et_dl2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/input_edit_bg"
-                        android:digits="0123456789."
-                        android:gravity="end"
-                        android:hint="@string/vs96"
-                        android:inputType="numberDecimal"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:singleLine="true"
-                        android:text="0"
-                        android:textSize="12sp" />
-                </LinearLayout>
+                <!--                    <EditText-->
+                <!--                        android:id="@+id/et_dl2"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:background="@drawable/input_edit_bg"-->
+                <!--                        android:digits="0123456789."-->
+                <!--                        android:gravity="end"-->
+                <!--                        android:hint="@string/vs96"-->
+                <!--                        android:inputType="numberDecimal"-->
+                <!--                        android:paddingStart="10dp"-->
+                <!--                        android:paddingEnd="10dp"-->
+                <!--                        android:singleLine="true"-->
+                <!--                        android:text="0"-->
+                <!--                        android:textSize="12sp" />-->
+                <!--                </LinearLayout>-->
 
                 <!--                <ImageView-->
                 <!--                    android:layout_width="match_parent"-->
@@ -388,33 +415,33 @@
                 <!--                    android:background="@drawable/slices"-->
                 <!--                    android:contentDescription="slices" />-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/setting_item_bg"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="0dp"
-                    android:visibility="gone">
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:background="@drawable/setting_item_bg"-->
+                <!--                    android:gravity="center"-->
+                <!--                    android:orientation="horizontal"-->
+                <!--                    android:paddingStart="10dp"-->
+                <!--                    android:paddingEnd="0dp"-->
+                <!--                    android:visibility="gone">-->
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="@integer/tag_1"
-                        android:text="@string/vs98"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
+                <!--                    <TextView-->
+                <!--                        android:layout_width="0dp"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_weight="@integer/tag_1"-->
+                <!--                        android:text="@string/vs98"-->
+                <!--                        android:textColor="@color/black"-->
+                <!--                        android:textSize="12sp" />-->
 
-                    <ImageView
-                        android:id="@+id/iv_switch_ldsn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:padding="8dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/yk_hezha" />
-                </LinearLayout>
+                <!--                    <ImageView-->
+                <!--                        android:id="@+id/iv_switch_ldsn"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_gravity="center"-->
+                <!--                        android:padding="8dp"-->
+                <!--                        android:scaleType="centerCrop"-->
+                <!--                        android:src="@drawable/yk_hezha" />-->
+                <!--                </LinearLayout>-->
 
                 <!--                <ImageView-->
                 <!--                    android:layout_width="match_parent"-->
@@ -423,34 +450,34 @@
                 <!--                    android:background="@drawable/slices"-->
                 <!--                    android:contentDescription="slices" />-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/setting_item_bg"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="0dp"
-                    android:visibility="gone">
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:background="@drawable/setting_item_bg"-->
+                <!--                    android:gravity="center"-->
+                <!--                    android:orientation="horizontal"-->
+                <!--                    android:paddingStart="10dp"-->
+                <!--                    android:paddingEnd="0dp"-->
+                <!--                    android:visibility="gone">-->
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="@integer/tag_1"
-                        android:text="@string/vs99"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
+                <!--                    <TextView-->
+                <!--                        android:layout_width="0dp"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_weight="@integer/tag_1"-->
+                <!--                        android:text="@string/vs99"-->
+                <!--                        android:textColor="@color/black"-->
+                <!--                        android:textSize="12sp" />-->
 
-                    <ImageView
-                        android:id="@+id/iv_ldzjsj"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:padding="8dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/jinru" />
+                <!--                    <ImageView-->
+                <!--                        android:id="@+id/iv_ldzjsj"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_gravity="center"-->
+                <!--                        android:padding="8dp"-->
+                <!--                        android:scaleType="centerCrop"-->
+                <!--                        android:src="@drawable/jinru" />-->
 
-                </LinearLayout>
+                <!--                </LinearLayout>-->
 
                 <!--                <ImageView-->
                 <!--                    android:layout_width="match_parent"-->
@@ -498,100 +525,100 @@
                 <!--                    android:background="@drawable/slices"-->
                 <!--                    android:contentDescription="slices" />-->
 
-                <LinearLayout
-                    android:id="@+id/ll_sdpz"
-                    android:layout_width="match_parent"
-                    android:layout_height="39dp"
-                    android:background="@drawable/setting_item_bg"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingStart="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="0dp"
-                    android:paddingBottom="10dp"
-                    android:visibility="visible">
+                <!--                <LinearLayout-->
+                <!--                    android:id="@+id/ll_sdpz"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="39dp"-->
+                <!--                    android:background="@drawable/setting_item_bg"-->
+                <!--                    android:gravity="center"-->
+                <!--                    android:orientation="horizontal"-->
+                <!--                    android:paddingStart="10dp"-->
+                <!--                    android:paddingTop="10dp"-->
+                <!--                    android:paddingEnd="0dp"-->
+                <!--                    android:paddingBottom="10dp"-->
+                <!--                    android:visibility="visible">-->
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="@integer/tag_1"
-                        android:text="@string/vs100"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
+                <!--                    <TextView-->
+                <!--                        android:layout_width="0dp"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_weight="@integer/tag_1"-->
+                <!--                        android:text="@string/vs100"-->
+                <!--                        android:textColor="@color/black"-->
+                <!--                        android:textSize="12sp" />-->
 
-                    <TextView
-                        android:id="@+id/tv_sdpz"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="-"
-                        android:textColor="@color/text_content"
-                        android:textSize="12sp" />
+                <!--                    <TextView-->
+                <!--                        android:id="@+id/tv_sdpz"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="-"-->
+                <!--                        android:textColor="@color/text_content"-->
+                <!--                        android:textSize="12sp" />-->
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:padding="8dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/jinru" />
-                </LinearLayout>
+                <!--                    <ImageView-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_gravity="center"-->
+                <!--                        android:padding="8dp"-->
+                <!--                        android:scaleType="centerCrop"-->
+                <!--                        android:src="@drawable/jinru" />-->
+                <!--                </LinearLayout>-->
 
-                <LinearLayout
-                    android:id="@+id/ll_gwfz"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/setting_item_bg"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="0dp">
+                <!--                <LinearLayout-->
+                <!--                    android:id="@+id/ll_gwfz"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:background="@drawable/setting_item_bg"-->
+                <!--                    android:gravity="center"-->
+                <!--                    android:orientation="vertical"-->
+                <!--                    android:paddingStart="10dp"-->
+                <!--                    android:paddingEnd="0dp">-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                <!--                    <LinearLayout-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:gravity="center"-->
+                <!--                        android:orientation="horizontal">-->
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="@integer/tag_1"
-                            android:text="@string/vs101"
-                            android:textColor="@color/black"
-                            android:textSize="12sp" />
+                <!--                        <TextView-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_gravity="center_vertical"-->
+                <!--                            android:layout_weight="@integer/tag_1"-->
+                <!--                            android:text="@string/vs101"-->
+                <!--                            android:textColor="@color/black"-->
+                <!--                            android:textSize="12sp" />-->
 
-                        <com.rejuvee.smartelectric.family.custom.AmountView
-                            android:id="@+id/amount_view_gwfz"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginEnd="10dp"
-                            app:btnTextSize="15sp"
-                            app:btnWidth="36dp"
-                            app:tvWidth="45dp" />
-                    </LinearLayout>
+                <!--                        <com.rejuvee.smartelectric.family.custom.AmountView-->
+                <!--                            android:id="@+id/amount_view_gwfz"-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="30dp"-->
+                <!--                            android:layout_gravity="center_vertical"-->
+                <!--                            android:layout_marginEnd="10dp"-->
+                <!--                            app:btnTextSize="15sp"-->
+                <!--                            app:btnWidth="36dp"-->
+                <!--                            app:tvWidth="45dp" />-->
+                <!--                    </LinearLayout>-->
 
-                    <com.jaygoo.widget.RangeSeekBar
-                        android:id="@+id/seek_bar_gwfz"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="0dp"
-                        android:paddingEnd="10dp"
-                        app:rsb_gravity="center"
-                        app:rsb_indicator_arrow_size="5dp"
-                        app:rsb_indicator_background_color="#6C7298"
-                        app:rsb_indicator_height="20dp"
-                        app:rsb_indicator_radius="2dp"
-                        app:rsb_indicator_show_mode="alwaysShow"
-                        app:rsb_indicator_text_size="10sp"
-                        app:rsb_indicator_width="30dp"
-                        app:rsb_mode="single"
-                        app:rsb_progress_color="#6C7298"
-                        app:rsb_tick_mark_layout_gravity="bottom"
-                        app:rsb_tick_mark_mode="number" />
+                <!--                    <com.jaygoo.widget.RangeSeekBar-->
+                <!--                        android:id="@+id/seek_bar_gwfz"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:paddingStart="0dp"-->
+                <!--                        android:paddingEnd="10dp"-->
+                <!--                        app:rsb_gravity="center"-->
+                <!--                        app:rsb_indicator_arrow_size="5dp"-->
+                <!--                        app:rsb_indicator_background_color="#6C7298"-->
+                <!--                        app:rsb_indicator_height="20dp"-->
+                <!--                        app:rsb_indicator_radius="2dp"-->
+                <!--                        app:rsb_indicator_show_mode="alwaysShow"-->
+                <!--                        app:rsb_indicator_text_size="10sp"-->
+                <!--                        app:rsb_indicator_width="30dp"-->
+                <!--                        app:rsb_mode="single"-->
+                <!--                        app:rsb_progress_color="#6C7298"-->
+                <!--                        app:rsb_tick_mark_layout_gravity="bottom"-->
+                <!--                        app:rsb_tick_mark_mode="number" />-->
 
-                </LinearLayout>
+                <!--                </LinearLayout>-->
                 <!--                <ImageView-->
                 <!--                    android:layout_width="match_parent"-->
                 <!--                    android:layout_height="1dp"-->
@@ -599,141 +626,141 @@
                 <!--                    android:background="@drawable/slices"-->
                 <!--                    android:contentDescription="slices" />-->
 
-                <LinearLayout
-                    android:id="@+id/ll_ldl"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/setting_item_bg"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="0dp">
+                <!--                <LinearLayout-->
+                <!--                    android:id="@+id/ll_ldl"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:background="@drawable/setting_item_bg"-->
+                <!--                    android:gravity="center"-->
+                <!--                    android:orientation="vertical"-->
+                <!--                    android:paddingStart="10dp"-->
+                <!--                    android:paddingEnd="0dp">-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center">
+                <!--                    <LinearLayout-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:gravity="center">-->
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="@integer/tag_1"
-                            android:text="@string/vs1022"
-                            android:textColor="@color/black"
-                            android:textSize="12sp" />
+                <!--                        <TextView-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_gravity="center_vertical"-->
+                <!--                            android:layout_weight="@integer/tag_1"-->
+                <!--                            android:text="@string/vs1022"-->
+                <!--                            android:textColor="@color/black"-->
+                <!--                            android:textSize="12sp" />-->
 
-                        <ImageView
-                            android:id="@+id/iv_bhsn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:padding="10dp"
-                            android:src="@drawable/icon_switch_off" />
-                    </LinearLayout>
+                <!--                        <ImageView-->
+                <!--                            android:id="@+id/iv_bhsn"-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_marginEnd="10dp"-->
+                <!--                            android:padding="10dp"-->
+                <!--                            android:src="@drawable/icon_switch_off" />-->
+                <!--                    </LinearLayout>-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center">
+                <!--                    <LinearLayout-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:gravity="center">-->
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="@integer/tag_1"
-                            android:text="@string/vs102"
-                            android:textColor="@color/black"
-                            android:textSize="12sp" />
+                <!--                        <TextView-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_gravity="center_vertical"-->
+                <!--                            android:layout_weight="@integer/tag_1"-->
+                <!--                            android:text="@string/vs102"-->
+                <!--                            android:textColor="@color/black"-->
+                <!--                            android:textSize="12sp" />-->
 
-                        <ImageView
-                            android:id="@+id/iv_zjsn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:padding="10dp"
-                            android:src="@drawable/icon_switch_off" />
-                    </LinearLayout>
+                <!--                        <ImageView-->
+                <!--                            android:id="@+id/iv_zjsn"-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_marginEnd="10dp"-->
+                <!--                            android:padding="10dp"-->
+                <!--                            android:src="@drawable/icon_switch_off" />-->
+                <!--                    </LinearLayout>-->
 
-                    <LinearLayout
-                        android:id="@+id/ll_zj_time"
-                        android:layout_width="match_parent"
-                        android:layout_height="39dp"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:visibility="visible">
+                <!--                    <LinearLayout-->
+                <!--                        android:id="@+id/ll_zj_time"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="39dp"-->
+                <!--                        android:gravity="center"-->
+                <!--                        android:orientation="horizontal"-->
+                <!--                        android:visibility="visible">-->
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="@integer/tag_1"
-                            android:text="@string/vs103"
-                            android:textColor="@color/black"
-                            android:textSize="12sp" />
+                <!--                        <TextView-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="@integer/tag_1"-->
+                <!--                            android:text="@string/vs103"-->
+                <!--                            android:textColor="@color/black"-->
+                <!--                            android:textSize="12sp" />-->
 
-                        <TextView
-                            android:id="@+id/tv_zj_time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="每月00日00时"
-                            android:textColor="@color/text_content"
-                            android:textSize="12sp" />
+                <!--                        <TextView-->
+                <!--                            android:id="@+id/tv_zj_time"-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:text="每月00日00时"-->
+                <!--                            android:textColor="@color/text_content"-->
+                <!--                            android:textSize="12sp" />-->
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:padding="8dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/jinru" />
-                    </LinearLayout>
+                <!--                        <ImageView-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_gravity="center"-->
+                <!--                            android:padding="8dp"-->
+                <!--                            android:scaleType="centerCrop"-->
+                <!--                            android:src="@drawable/jinru" />-->
+                <!--                    </LinearLayout>-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                <!--                    <LinearLayout-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:gravity="center"-->
+                <!--                        android:orientation="horizontal">-->
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="@integer/tag_1"
-                            android:text="@string/vs104"
-                            android:textColor="@color/black"
-                            android:textSize="12sp" />
+                <!--                        <TextView-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_gravity="center_vertical"-->
+                <!--                            android:layout_weight="@integer/tag_1"-->
+                <!--                            android:text="@string/vs104"-->
+                <!--                            android:textColor="@color/black"-->
+                <!--                            android:textSize="12sp" />-->
 
-                        <com.rejuvee.smartelectric.family.custom.AmountViewInt
-                            android:id="@+id/amount_view_ldl"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginEnd="10dp"
-                            app:btnTextSize="15sp"
-                            app:btnWidth="36dp"
-                            app:tvWidth="45dp" />
-                    </LinearLayout>
+                <!--                        <com.rejuvee.smartelectric.family.custom.AmountViewInt-->
+                <!--                            android:id="@+id/amount_view_ldl"-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="30dp"-->
+                <!--                            android:layout_gravity="center_vertical"-->
+                <!--                            android:layout_marginEnd="10dp"-->
+                <!--                            app:btnTextSize="15sp"-->
+                <!--                            app:btnWidth="36dp"-->
+                <!--                            app:tvWidth="45dp" />-->
+                <!--                    </LinearLayout>-->
 
-                    <com.jaygoo.widget.RangeSeekBar
-                        android:id="@+id/seek_bar_ldl"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="0dp"
-                        android:paddingEnd="10dp"
-                        app:rsb_gravity="center"
-                        app:rsb_indicator_arrow_size="5dp"
-                        app:rsb_indicator_background_color="#6C7298"
-                        app:rsb_indicator_height="20dp"
-                        app:rsb_indicator_radius="2dp"
-                        app:rsb_indicator_show_mode="alwaysShow"
-                        app:rsb_indicator_text_size="10sp"
-                        app:rsb_indicator_width="30dp"
-                        app:rsb_mode="single"
-                        app:rsb_progress_color="#6C7298"
-                        app:rsb_tick_mark_layout_gravity="bottom"
-                        app:rsb_tick_mark_mode="number" />
+                <!--                    <com.jaygoo.widget.RangeSeekBar-->
+                <!--                        android:id="@+id/seek_bar_ldl"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:paddingStart="0dp"-->
+                <!--                        android:paddingEnd="10dp"-->
+                <!--                        app:rsb_gravity="center"-->
+                <!--                        app:rsb_indicator_arrow_size="5dp"-->
+                <!--                        app:rsb_indicator_background_color="#6C7298"-->
+                <!--                        app:rsb_indicator_height="20dp"-->
+                <!--                        app:rsb_indicator_radius="2dp"-->
+                <!--                        app:rsb_indicator_show_mode="alwaysShow"-->
+                <!--                        app:rsb_indicator_text_size="10sp"-->
+                <!--                        app:rsb_indicator_width="30dp"-->
+                <!--                        app:rsb_mode="single"-->
+                <!--                        app:rsb_progress_color="#6C7298"-->
+                <!--                        app:rsb_tick_mark_layout_gravity="bottom"-->
+                <!--                        app:rsb_tick_mark_mode="number" />-->
 
-                </LinearLayout>
+                <!--                </LinearLayout>-->
 
                 <!--                <ImageView-->
                 <!--                    android:layout_width="match_parent"-->
@@ -742,63 +769,63 @@
                 <!--                    android:background="@drawable/slices"-->
                 <!--                    android:contentDescription="slices" />-->
 
-                <LinearLayout
-                    android:id="@+id/ll_sxbph"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/setting_item_bg"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="0dp"
-                    android:visibility="visible">
+                <!--                <LinearLayout-->
+                <!--                    android:id="@+id/ll_sxbph"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:background="@drawable/setting_item_bg"-->
+                <!--                    android:gravity="center"-->
+                <!--                    android:orientation="vertical"-->
+                <!--                    android:paddingStart="10dp"-->
+                <!--                    android:paddingEnd="0dp"-->
+                <!--                    android:visibility="visible">-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                <!--                    <LinearLayout-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:gravity="center"-->
+                <!--                        android:orientation="horizontal">-->
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="@integer/tag_1"
-                            android:text="@string/vs105"
-                            android:textColor="@color/black"
-                            android:textSize="12sp" />
+                <!--                        <TextView-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_gravity="center_vertical"-->
+                <!--                            android:layout_weight="@integer/tag_1"-->
+                <!--                            android:text="@string/vs105"-->
+                <!--                            android:textColor="@color/black"-->
+                <!--                            android:textSize="12sp" />-->
 
-                        <com.rejuvee.smartelectric.family.custom.AmountView
-                            android:id="@+id/amount_view_sxbph"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginEnd="10dp"
-                            app:btnTextSize="14sp"
-                            app:btnWidth="36dp"
-                            app:tvWidth="45dp" />
-                    </LinearLayout>
+                <!--                        <com.rejuvee.smartelectric.family.custom.AmountView-->
+                <!--                            android:id="@+id/amount_view_sxbph"-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="30dp"-->
+                <!--                            android:layout_gravity="center_vertical"-->
+                <!--                            android:layout_marginEnd="10dp"-->
+                <!--                            app:btnTextSize="14sp"-->
+                <!--                            app:btnWidth="36dp"-->
+                <!--                            app:tvWidth="45dp" />-->
+                <!--                    </LinearLayout>-->
 
-                    <com.jaygoo.widget.RangeSeekBar
-                        android:id="@+id/seek_bar_sxbph"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="0dp"
-                        android:paddingEnd="10dp"
-                        app:rsb_gravity="center"
-                        app:rsb_indicator_arrow_size="5dp"
-                        app:rsb_indicator_background_color="#6C7298"
-                        app:rsb_indicator_height="20dp"
-                        app:rsb_indicator_radius="2dp"
-                        app:rsb_indicator_show_mode="alwaysShow"
-                        app:rsb_indicator_text_size="10sp"
-                        app:rsb_indicator_width="30dp"
-                        app:rsb_mode="single"
-                        app:rsb_progress_color="#6C7298"
-                        app:rsb_tick_mark_layout_gravity="bottom"
-                        app:rsb_tick_mark_mode="number" />
+                <!--                    <com.jaygoo.widget.RangeSeekBar-->
+                <!--                        android:id="@+id/seek_bar_sxbph"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:paddingStart="0dp"-->
+                <!--                        android:paddingEnd="10dp"-->
+                <!--                        app:rsb_gravity="center"-->
+                <!--                        app:rsb_indicator_arrow_size="5dp"-->
+                <!--                        app:rsb_indicator_background_color="#6C7298"-->
+                <!--                        app:rsb_indicator_height="20dp"-->
+                <!--                        app:rsb_indicator_radius="2dp"-->
+                <!--                        app:rsb_indicator_show_mode="alwaysShow"-->
+                <!--                        app:rsb_indicator_text_size="10sp"-->
+                <!--                        app:rsb_indicator_width="30dp"-->
+                <!--                        app:rsb_mode="single"-->
+                <!--                        app:rsb_progress_color="#6C7298"-->
+                <!--                        app:rsb_tick_mark_layout_gravity="bottom"-->
+                <!--                        app:rsb_tick_mark_mode="number" />-->
 
-                </LinearLayout>
+                <!--                </LinearLayout>-->
 
                 <!--                <ImageView-->
                 <!--                    android:layout_width="match_parent"-->

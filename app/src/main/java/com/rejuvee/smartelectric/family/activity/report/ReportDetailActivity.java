@@ -36,7 +36,6 @@ public class ReportDetailActivity extends BaseActivity {
     private LoadingDlg loadingDlg;
     private TabLayout mTabLayout;
     private ViewPager viewPager;
-    private TextView textViewTitle;
     private ReportDetailBean reportDetailBean;
 
     @Override
@@ -63,7 +62,7 @@ public class ReportDetailActivity extends BaseActivity {
         });
         mTabLayout = (TabLayout) findViewById(R.id.tab_report);
         viewPager = (ViewPager) findViewById(R.id.vp_report);
-        textViewTitle = (TextView) findViewById(R.id.tv_report_title);
+        TextView textViewTitle = (TextView) findViewById(R.id.tv_report_title);
         String a = reportBean.timeType == 1 ? getString(R.string.vs88) : getString(R.string.vs137);
         textViewTitle.setText(String.format("%s %s - %s", a, reportBean.startDay, reportBean.endDay));
     }
