@@ -152,10 +152,9 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     }
 
     /**
-     * 保存错误信息到文件中
+     * 保存错误信息到文件中 将文件传送到服务器
      *
      * @param ex
-     * @return 返回文件名称, 便于将文件传送到服务器
      */
     private void saveCrashInfo2File(Throwable ex) {
         StringBuilder sb = new StringBuilder();
@@ -212,12 +211,12 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
             @Override
             public void onSuccess(Void data) {
-                Log.i(TAG, "upload log_file onSuccess:" + path);
+                Log.i(TAG, "upload log_file onSuccess():" + path);
             }
 
             @Override
             public void onFailure(int errorEvent, String message) {
-                Log.e(TAG, "upload log_file onFailure:" + message);
+                Log.e(TAG, "upload log_file onFailure():" + message);
             }
         });
     }
@@ -232,7 +231,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         File tempFile = new File(path);
         // 创建 RequestBody，用于封装构建RequestBody
         RequestBody requestFile = RequestBody.create(MediaType.parse("text/plain"), tempFile);
-        // MultipartBody.Part  和后端约定好Key，这里的partName是用image
+        // MultipartBody.Part  和后端约定好Key，这里的partName是用log
         return MultipartBody.Part.createFormData("log", tempFile.getName(), requestFile);
     }
 }
