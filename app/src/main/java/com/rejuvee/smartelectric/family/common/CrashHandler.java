@@ -9,6 +9,9 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.base.frame.net.ActionCallbackListener;
+import com.rejuvee.smartelectric.family.api.Core;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
@@ -22,6 +25,13 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+
+/**
+ * 全局异常捕获
+ */
 public class CrashHandler implements Thread.UncaughtExceptionHandler {
     private static final String TAG = "CrashHandler";
     //系统默认的UncaughtException处理类
@@ -75,6 +85,10 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             } catch (InterruptedException e) {
                 Log.e(TAG, "error : ", e);
             }
+            // 多放查阅资料，发现App Crash之后系统会重新启动Task栈顶的Activity，具体请自行google！
+            // 解决方法是：在杀死App对应Process之前，结束掉Task栈中所有的Activity。
+            ActivityFragmentManager.removeAll();
+            ActivityFragmentManager.finishAll();
             //退出程序
             android.os.Process.killProcess(android.os.Process.myPid());
             System.exit(1);
@@ -179,11 +193,46 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
                 fos.write(sb.toString().getBytes());
                 fos.close();
                 Log.i(TAG, path + fileName);
+                upLoadFile(path + fileName);
             }
 //            return fileName;
         } catch (Exception e) {
             Log.e(TAG, "an error occured while writing file...", e);
         }
 //        return null;
+    }
+
+    /**
+     * 上传日志文件到服务器
+     *
+     * @param path
+     */
+    private void upLoadFile(String path) {
+        Core.instance(mContext).uploadLogFile(getLogPart(path), new ActionCallbackListener<Void>() {
+
+            @Override
+            public void onSuccess(Void data) {
+                Log.i(TAG, "upload log_file onSuccess:" + path);
+            }
+
+            @Override
+            public void onFailure(int errorEvent, String message) {
+                Log.e(TAG, "upload log_file onFailure:" + message);
+            }
+        });
+    }
+
+    /**
+     * 读取日志文件
+     *
+     * @param path
+     * @return
+     */
+    private MultipartBody.Part getLogPart(String path) {
+        File tempFile = new File(path);
+        // 创建 RequestBody，用于封装构建RequestBody
+        RequestBody requestFile = RequestBody.create(MediaType.parse("text/plain"), tempFile);
+        // MultipartBody.Part  和后端约定好Key，这里的partName是用image
+        return MultipartBody.Part.createFormData("log", tempFile.getName(), requestFile);
     }
 }

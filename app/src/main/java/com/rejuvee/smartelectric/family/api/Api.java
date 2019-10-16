@@ -835,4 +835,19 @@ public interface Api {
     @POST("PowerManager/AppClientAction_getUserChatContent.do")
     Call<ApiResponse<List<ChartItemBean>>> getUserChatContent(@Header("Cookie") String session,
                                                               @Body Param param);
+
+    /**
+     * 上传日志
+     *
+     * @param session
+     * @param log
+     * @return
+     */
+    @Multipart
+    @POST("PowerManager/AppClientAction_uploadLogFile.do")
+    Call<ApiResponse<Void>> AppClientAction_uploadLogFile(
+            @Header("Cookie") String session,
+            @Part MultipartBody.Part log
+    );
 }
+

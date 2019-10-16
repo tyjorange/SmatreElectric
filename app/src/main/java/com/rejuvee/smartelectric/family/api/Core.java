@@ -1283,7 +1283,18 @@ public class Core {
         return call;
     }
 
-
+    /**
+     * 上传日志
+     *
+     * @param log
+     * @param listener
+     * @return
+     */
+    public Call<?> uploadLogFile(MultipartBody.Part log, ActionCallbackListener<Void> listener) {
+        Call<ApiResponse<Void>> call = api.AppClientAction_uploadLogFile(mJSessionId, log);
+        enqueue(call, listener);
+        return call;
+    }
 //    private boolean oFlag = true;
 
     private <T> void enqueue(Call<ApiResponse<T>> call, final ActionCallbackListener<T> listener) {

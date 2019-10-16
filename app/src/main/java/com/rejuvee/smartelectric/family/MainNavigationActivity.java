@@ -504,6 +504,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
     }
 
     private void quit() {
+        ActivityFragmentManager.removeAll();
         ActivityFragmentManager.finishAll();
         super.onBackPressed();
     }
