@@ -23,9 +23,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public class CrashHandler implements Thread.UncaughtExceptionHandler {
-
     private static final String TAG = "CrashHandler";
-
     //系统默认的UncaughtException处理类
     private Thread.UncaughtExceptionHandler mDefaultHandler;
     //CrashHandler实例
@@ -34,7 +32,6 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     private Context mContext;
     //用来存储设备信息和异常信息
     private Map<String, String> infos = new HashMap<String, String>();
-
     //用于格式化日期,作为日志文件名的一部分
     private DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.getDefault());
 
@@ -147,7 +144,6 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
      * @return 返回文件名称, 便于将文件传送到服务器
      */
     private void saveCrashInfo2File(Throwable ex) {
-
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, String> entry : infos.entrySet()) {
             String key = entry.getKey();
@@ -169,12 +165,16 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         try {
             long timestamp = System.currentTimeMillis();
             String time = formatter.format(new Date());
-            String fileName = "/rejuvee.net/crash-" + time + "-" + timestamp + ".log";
+            String fileName = "/crash-" + time + "-" + timestamp + ".log";
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                String path = Environment.getExternalStorageDirectory().getPath();
+                String path = Environment.getExternalStorageDirectory().getPath() + "/rejuvee.net";
                 File dir = new File(path);
                 if (!dir.exists()) {
                     boolean mkdirs = dir.mkdirs();
+                    if (!mkdirs) {
+                        Log.e(TAG, "can not mkdir:" + dir);
+                        return;
+                    }
                 }
                 FileOutputStream fos = new FileOutputStream(path + fileName);
                 fos.write(sb.toString().getBytes());
