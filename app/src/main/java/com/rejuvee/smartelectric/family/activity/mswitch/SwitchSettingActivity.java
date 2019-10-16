@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.base.frame.greenandroid.wheel.view.WheelDateTime;
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
 import com.base.library.widget.SuperTextView;
@@ -47,51 +46,17 @@ public class SwitchSettingActivity extends BaseActivity implements
         SettingOtherFragment.OnShowingListener,
         SettingDYFragment.OnShowingListener {
     private String TAG = "SwitchSettingFragment";
-    //    private List<Item> items = new ArrayList<>();
-//    private final String[] listVal = {"1", "6", "10", "16", "20", "25", "32", "40", "50", "63"};//要填充的数据
-//    private ListPopupWindow listPopupWindow;
     private TabLayout mTabLayout;
     private ViewPager viewPager;
-
-
-    //    private Spinner spinnerGL;
-//    private EditText et_GL1;
-//    private EditText et_GL2;
-    //    private EditText et_GWFZ;
-    //    private Float valueGL;
-//    private RangeSeekBar rangeSeekBarGY;
-//    private AmountView amountGY;
-//    private RangeSeekBar rangeSeekBarQY;
-//    private AmountView amountQY;
-    //    private RangeSeekBar rangeSeekBarLDL;
-//    private AmountViewInt amountLDL;
-//    private RangeSeekBar rangeSeekBarWDFZ;
-//    private AmountView amountWDFZ;
-//    private RangeSeekBar rangeSeekBarSXBPH;
-//    private AmountView amountSXBPH;
-    //    private ImageView iv_bhsn;
-//    private ImageView iv_zjsn;
-//    private TextView tv_zj_time;
-    //    private RangeSeekBar rangeSeekBarDL;
-//    private EditText dl_shangxian;
-//    private EditText dl_xiaxian;
     private SuperTextView superTextView;
-    //    private ArrayAdapter<Item> adapter;
-    //    private BreakEVSetHttpCall mHttpCall;
     private Handler mHandler;
     private CollectorBean collectorBean;
     private SwitchBean currentSwitchBean;
-    //    private DecimalFormat formater = new DecimalFormat("000000.00");
     private LoadingDlg waitDialog;
     private Context mContext;
     private TextView txtLineName;//线路名称
     private ObservableScrollView scrollView;
     private SeekBar seekBar;
-    //    private LinearLayout empty_layout;
-//    private TextView tv_sdpz;
-    //    private int sdpz_val;//上电配置值
-//    private InputDialog inputDialog;
-    private WheelDateTime dateSelector;
 
     @Override
     protected int getLayoutResId() {
@@ -103,7 +68,6 @@ public class SwitchSettingActivity extends BaseActivity implements
         return 0;
     }
 
-    //    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void initView() {
         mContext = this;
@@ -113,16 +77,6 @@ public class SwitchSettingActivity extends BaseActivity implements
                 finish();
             }
         });
-//        inputDialog = new InputDialog(this);
-//        inputDialog.setTitle(getString(R.string.fun_share));
-//        inputDialog.setHint(getString(R.string.input_share_username));
-//        inputDialog.setDialogListener(new InputDialog.onInputDialogListener() {
-//
-//            @Override
-//            public void onEnsure(int val) {
-//                setSDPZ(val);
-//            }
-//        });
         waitDialog = new LoadingDlg(this, -1);
 
         seekBar = findViewById(R.id.vrsBar);
@@ -151,260 +105,22 @@ public class SwitchSettingActivity extends BaseActivity implements
                         currentSwitchBean = s;
 //                        getData(switchBean);
                         txtLineName.setText(String.format("%s%s", mContext.getString(R.string.vs14), currentSwitchBean.getName()));
-                        mTabLayout.getTabAt(0).select();
-                        paramID = dl1_fragment.getParamID(currentSwitchBean);
-                        mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitch, 100);
+
+                        mTabLayout.getTabAt(0).select();// 重置为第一个TAB
+                        currentParamID = dl1_fragment.getParamID(currentSwitchBean);
+                        mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitchFlag, 100);
                     }
                 });
                 switchTreeDialog.show();
             }
         });
-
+        // 刷新按钮
         findViewById(R.id.img_flush).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                mHandler.sendEmptyMessageDelayed(sendGetThreadValueCommand, 100);
+                mHandler.sendEmptyMessageDelayed(sendGetThreadValueCommandFlag, 100);
             }
         });
-
-        initV();
-    }
-
-    private void initV() {
-        // 过流
-//        listPopupWindow = new ListPopupWindow(this);
-//        et_GL1 = findViewById(R.id.et_sp1);
-//        et_GL1.setOnFocusChangeListener(this);
-//        et_GL2 = findViewById(R.id.et_sp2);
-//        et_GL2.setOnFocusChangeListener(this);
-
-//        adapter = new ArrayAdapter<Item>(this, android.R.layout.simple_spinner_dropdown_item, items);
-//        spinnerGL.setAdapter(adapter);
-//        spinnerGL.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                valueGL = ((Item) parent.getSelectedItem()).getValue();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
-//        // 过压
-//        amountGY = findViewById(R.id.amount_view_gy);
-//        amountGY.setVal_min(100);
-//        amountGY.setVal_max(480);
-//        amountGY.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
-//            @Override
-//            public void onAmountChange(View view, float amount) {
-//                rangeSeekBarGY.setProgress(amount);
-//            }
-//        });
-//        rangeSeekBarGY = findViewById(R.id.seek_bar_gy);
-//        rangeSeekBarGY.setRange(100, 480);//范围
-//        rangeSeekBarGY.setTickMarkTextArray(new String[]{"100", "480"});//刻度
-//        rangeSeekBarGY.setIndicatorTextDecimalFormat("###.0");//格式化小数位数
-//        rangeSeekBarGY.setOnRangeChangedListener(new OnRangeChangedListener() {
-//            @Override
-//            public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser) {
-//                float v1 = BigDecimal.valueOf(leftValue).setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
-//                amountGY.setAmount(v1);
-//            }
-//
-//            @Override
-//            public void onStartTrackingTouch(RangeSeekBar view, boolean isLeft) {
-//
-//            }
-//
-//            @Override
-//            public void onStopTrackingTouch(RangeSeekBar view, boolean isLeft) {
-//
-//            }
-//        });
-//        // 欠压
-//        amountQY = findViewById(R.id.amount_view_qy);
-//        amountQY.setVal_min(50);
-//        amountQY.setVal_max(320);
-//        amountQY.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
-//            @Override
-//            public void onAmountChange(View view, float amount) {
-//                rangeSeekBarQY.setProgress(amount);
-//            }
-//        });
-//        rangeSeekBarQY = findViewById(R.id.seek_bar_qy);
-//        rangeSeekBarQY.setRange(50, 320);//范围
-//        rangeSeekBarQY.setTickMarkTextArray(new String[]{"50", "320"});//刻度
-//        rangeSeekBarQY.setIndicatorTextDecimalFormat("###.0");//格式化小数位数
-//        rangeSeekBarQY.setOnRangeChangedListener(new OnRangeChangedListener() {
-//            @Override
-//            public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser) {
-//                float v1 = BigDecimal.valueOf(leftValue).setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
-//                amountQY.setAmount(v1);
-//            }
-//
-//            @Override
-//            public void onStartTrackingTouch(RangeSeekBar view, boolean isLeft) {
-//
-//            }
-//
-//            @Override
-//            public void onStopTrackingTouch(RangeSeekBar view, boolean isLeft) {
-//
-//            }
-//        });
-        // 电量上限
-//        dl_shangxian = findViewById(R.id.et_dl1);
-//        MyTextWatcher myTextWatcher1 = new MyTextWatcher(dl_shangxian, "000000.00");
-//        dl_shangxian.addTextChangedListener(myTextWatcher1);
-//        dl_shangxian.setOnFocusChangeListener(myTextWatcher1);
-//        dl_shangxian.setFilters(new InputFilter[]{new InputFilter.LengthFilter(9)});
-//        // 电量下限
-//        dl_xiaxian = findViewById(R.id.et_dl2);
-//        MyTextWatcher myTextWatcher2 = new MyTextWatcher(dl_xiaxian, "000000.00");
-//        dl_xiaxian.addTextChangedListener(myTextWatcher2);
-//        dl_xiaxian.setOnFocusChangeListener(myTextWatcher2);
-//        dl_xiaxian.setFilters(new InputFilter[]{new InputFilter.LengthFilter(9)});
-        // 温度阀值
-//        amountWDFZ = findViewById(R.id.amount_view_gwfz);
-//        amountWDFZ.setVal_min(0);
-//        amountWDFZ.setVal_max(85);
-////        amountGWFZ.setAmountInt(0);
-//        amountWDFZ.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
-//            @Override
-//            public void onAmountChange(View view, float amount) {
-//                rangeSeekBarWDFZ.setProgress(amount);
-//            }
-//        });
-//        rangeSeekBarWDFZ = findViewById(R.id.seek_bar_gwfz);
-//        rangeSeekBarWDFZ.setRange(0, 85);//范围
-//        rangeSeekBarWDFZ.setTickMarkTextArray(new String[]{"0", "85"});//刻度
-//        rangeSeekBarWDFZ.setIndicatorTextDecimalFormat("000.0");//格式化小数位数
-//        rangeSeekBarWDFZ.setOnRangeChangedListener(new OnRangeChangedListener() {
-//            @Override
-//            public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser) {
-//                float v1 = BigDecimal.valueOf(leftValue).setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
-//                amountWDFZ.setAmount(v1);
-//            }
-//
-//            @Override
-//            public void onStartTrackingTouch(RangeSeekBar view, boolean isLeft) {
-//
-//            }
-//
-//            @Override
-//            public void onStopTrackingTouch(RangeSeekBar view, boolean isLeft) {
-//
-//            }
-//        });
-//         漏电保护、自检使能
-//        iv_bhsn = findViewById(R.id.iv_bhsn);
-//        iv_bhsn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (bhsn == 0) {
-//                    bhsn = 1;
-//                } else {
-//                    bhsn = 0;
-//                }
-//                updateSwitchStatus();
-//            }
-//        });
-//        iv_zjsn = findViewById(R.id.iv_zjsn);
-//        iv_zjsn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (zjsn == 0) {
-//                    zjsn = 1;
-//                } else {
-//                    zjsn = 0;
-//                }
-//                updateSwitchStatus();
-//            }
-//        });
-//        // 漏电自检时间
-//        tv_zj_time = findViewById(R.id.tv_zj_time);
-//        findViewById(R.id.ll_zj_time).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dateSelector.show(v);
-//            }
-//        });
-//        // 漏电流阀值
-//        findViewById(R.id.ll_ldl).setVisibility(View.VISIBLE);
-//        amountLDL = findViewById(R.id.amount_view_ldl);
-//        amountLDL.setVal_min(0);
-//        amountLDL.setVal_max(999);
-//        amountLDL.setAmountInt(0);
-//        amountLDL.setOnAmountChangeListener(new AmountViewInt.OnAmountChangeListener() {
-//            @Override
-//            public void onAmountChange(View view, float amount) {
-//                rangeSeekBarLDL.setProgress((int) amount);
-//            }
-//        });
-//        rangeSeekBarLDL = findViewById(R.id.seek_bar_ldl);
-//        rangeSeekBarLDL.setRange(0, 999);//范围
-//        rangeSeekBarLDL.setTickMarkTextArray(new String[]{"0", "999"});//刻度
-//        rangeSeekBarLDL.setIndicatorTextDecimalFormat("###");//格式化小数位数
-//        rangeSeekBarLDL.setOnRangeChangedListener(new OnRangeChangedListener() {
-//            @Override
-//            public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser) {
-//                float v1 = BigDecimal.valueOf(leftValue).setScale(0, BigDecimal.ROUND_HALF_UP).floatValue();
-//                amountLDL.setAmountInt((int) v1);
-//            }
-//
-//            @Override
-//            public void onStartTrackingTouch(RangeSeekBar view, boolean isLeft) {
-//
-//            }
-//
-//            @Override
-//            public void onStopTrackingTouch(RangeSeekBar view, boolean isLeft) {
-//
-//            }
-//        });
-//        //三项不平衡
-//        findViewById(R.id.ll_sxbph).setVisibility(View.VISIBLE);
-//        amountSXBPH = findViewById(R.id.amount_view_sxbph);
-//        amountSXBPH.setVal_min(10);
-//        amountSXBPH.setVal_max(100);
-//        amountSXBPH.setAmount(10);
-//        amountSXBPH.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
-//            @Override
-//            public void onAmountChange(View view, float amount) {
-//                rangeSeekBarSXBPH.setProgress(amount);
-//            }
-//        });
-//        rangeSeekBarSXBPH = findViewById(R.id.seek_bar_sxbph);
-//        rangeSeekBarSXBPH.setRange(10, 100);//范围
-//        rangeSeekBarSXBPH.setTickMarkTextArray(new String[]{"10", "100"});//刻度
-//        rangeSeekBarSXBPH.setIndicatorTextDecimalFormat("###.0");//格式化小数位数
-//        rangeSeekBarSXBPH.setOnRangeChangedListener(new OnRangeChangedListener() {
-//            @Override
-//            public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser) {
-//                float v1 = BigDecimal.valueOf(leftValue).setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
-//                amountSXBPH.setAmount(v1);
-//            }
-//
-//            @Override
-//            public void onStartTrackingTouch(RangeSeekBar view, boolean isLeft) {
-//
-//            }
-//
-//            @Override
-//            public void onStopTrackingTouch(RangeSeekBar view, boolean isLeft) {
-//
-//            }
-//        });
-        // 上电配置
-//        tv_sdpz = findViewById(R.id.tv_sdpz);
-//        findViewById(R.id.ll_sdpz).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                inputDialog.setVal(sdpz_val);
-//                inputDialog.show();
-//            }
-//        });
         // 提交按钮
         superTextView = findViewById(R.id.stv_commit);
         superTextView.setOnClickListener(new View.OnClickListener() {
@@ -413,42 +129,13 @@ public class SwitchSettingActivity extends BaseActivity implements
                 setValues();
             }
         });
-//        mHttpCall = new BreakEVSetHttpCall(this);
     }
-
-    //    private static int currentSearchCount;//重试计数
-//    private static final int MAX_REQUEST_COUNT = 2;// 最大重新请求次数
-    private static final int findSwitchParamBySwitch = 1221;//findParam
-    private static final int sendGetThreadValueCommand = 1223;//sendGetParam
 
     @Override
     protected void initData() {
         collectorBean = getIntent().getParcelableExtra("collectorBean");
         getSwitchByCollector();
         mHandler = new MyHandler(this);
-//        mHandler.sendEmptyMessageDelayed(sendGetThreadValueCommand, 100);
-        // 日期选择器
-//        dateSelector = new WheelDateTime(SwitchSettingActivity.this,
-//                new WheelDateTime.OnWheelListener() {
-//
-//                    @Override
-//                    public void onWheel(Boolean isSubmit, String year, String month, String day, String hour, String minute) {
-////                        iyear = Integer.parseInt(year);
-////                        imonth = Integer.parseInt(month);
-////                        if (isDay) {
-////                            iday = Integer.parseInt(day);
-////                        }
-////                        changeTvDate();
-//                        dd = Integer.parseInt(day);
-//                        hh = Integer.parseInt(hour);
-//                        tv_zj_time.setText(String.format(Locale.getDefault(), getString(R.string.vs190), dd, hh));
-//                    }
-//                }, true,
-//                new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date()),
-//                new SimpleDateFormat("MM", Locale.getDefault()).format(new Date()),
-//                new SimpleDateFormat("dd", Locale.getDefault()).format(new Date()),
-//                getString(R.string.vs191), getString(R.string.cancel), getString(R.string.ensure));
-//        dateSelector.setDateItemVisiable(false, false, true, true, false);
     }
 
     private SettingDL1Fragment dl1_fragment;
@@ -457,33 +144,41 @@ public class SwitchSettingActivity extends BaseActivity implements
     private SettingOtherFragment other_fragment;
 
     @Override
-    public void onShowDL1() {
+    public void onDL1Show() {
 //        dl1_fragment = fragment;
-        paramID = dl1_fragment.getParamID(currentSwitchBean);
-        mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitch, 100);
+        currentParamID = dl1_fragment.getParamID(currentSwitchBean);
+        mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitchFlag, 100);
     }
 
     @Override
-    public void onShowDY() {
+    public void onDYShow() {
 //        dy_fragment = fragment;
-        paramID = dy_fragment.getParamID();
-        mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitch, 100);
+        currentParamID = dy_fragment.getParamID();
+        mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitchFlag, 100);
     }
 
     @Override
-    public void onShowDL2() {
+    public void onDL2Show() {
 //        dl2_fragment = fragment;
-        paramID = dl2_fragment.getParamID();
-        mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitch, 100);
+        currentParamID = dl2_fragment.getParamID();
+        mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitchFlag, 100);
     }
 
     @Override
-    public void onShowOther() {
+    public void onOtherShow() {
 //        other_fragment = fragment;
-        paramID = other_fragment.getParamID(currentSwitchBean);
-        mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitch, 100);
+        currentParamID = other_fragment.getParamID(currentSwitchBean);
+        mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitchFlag, 100);
     }
 
+    //    private static int currentSearchCount;//重试计数
+//    private static final int MAX_REQUEST_COUNT = 5;// 最大重新请求次数
+    private static final int findSwitchParamBySwitchFlag = 1221;//findParam 读取
+    private static final int sendGetThreadValueCommandFlag = 1223;//sendGetParam 刷新
+
+    /**
+     * MyHandler
+     */
     private static class MyHandler extends Handler {
         WeakReference<SwitchSettingActivity> activityWeakReference;
 
@@ -495,9 +190,9 @@ public class SwitchSettingActivity extends BaseActivity implements
         public void handleMessage(Message msg) {
             final SwitchSettingActivity theActivity = activityWeakReference.get();
 //            currentSearchCount++;
-            if (msg.what == sendGetThreadValueCommand) {
+            if (msg.what == sendGetThreadValueCommandFlag) {
                 theActivity.flushValues();
-            } else if (msg.what == findSwitchParamBySwitch) {
+            } else if (msg.what == findSwitchParamBySwitchFlag) {
                 theActivity.getValues();
             }
         }
@@ -513,8 +208,6 @@ public class SwitchSettingActivity extends BaseActivity implements
             public void onSuccess(List<SwitchBean> data) {
                 currentSwitchBean = data.get(0);//init bean
                 txtLineName.setText(String.format("%s%s", mContext.getString(R.string.vs14), currentSwitchBean.getName()));
-//                mHandler.sendEmptyMessageDelayed(sendGetThreadValueCommand, 1000);
-//                changeView();
                 initFragment();
             }
 
@@ -544,12 +237,12 @@ public class SwitchSettingActivity extends BaseActivity implements
         }
 //        listPopupWindow.dismiss();
         waitDialog.show();
-        Core.instance(this).sendGetThreadValueCommand(currentSwitchBean.getSerialNumber(), paramID, new ActionCallbackListener<Void>() {
+        Core.instance(this).sendGetThreadValueCommand(currentSwitchBean.getSerialNumber(), currentParamID, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 Log.d(TAG, getString(R.string.vs153) + " threadId = " + Thread.currentThread().getId());
 //                currentSearchCount = 0;
-//                mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitch, 1000);
+                mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitchFlag, 5000); // 等待5秒
 //                scrollView.setVisibility(View.VISIBLE);
 //                superTextView.setVisibility(View.VISIBLE);
 //                empty_layout.setVisibility(View.GONE);
@@ -574,12 +267,16 @@ public class SwitchSettingActivity extends BaseActivity implements
         if (currentSwitchBean == null) {
             return;
         }
-        waitDialog.show();
-        Core.instance(this).findSwitchParamBySwitch(currentSwitchBean.getSwitchID(), paramID, new ActionCallbackListener<List<VoltageValue>>() {
+//        if (currentSearchCount <= MAX_REQUEST_COUNT) {
+//            return;
+//        }
+        if (!waitDialog.isShowing()) {
+            waitDialog.show();
+        }
+        Core.instance(this).findSwitchParamBySwitch(currentSwitchBean.getSwitchID(), currentParamID, new ActionCallbackListener<List<VoltageValue>>() {
 
             @Override
             public void onSuccess(List<VoltageValue> valueList) {
-//                Log.i(TAG, "findSwitchParamBySwitchCount=" + currentSearchCount);
                 if (valueList == null) {
                     CustomToast.showCustomToast(mContext, getString(R.string.vs142));
                     waitDialog.dismiss();
@@ -593,10 +290,6 @@ public class SwitchSettingActivity extends BaseActivity implements
                 // 设置值
                 for (VoltageValue vv : valueList) {
                     float paramValue = vv.getParamValue();
-//                            if (paramValue == null) {
-//                                CustomToast.showCustomToast(mContext, "读取配置失败");
-//                                continue;
-//                            }
                     switch (vv.getParamID()) {
                         case 0x00000005: // 过压阀值
                             dy_fragment.setGY(paramValue);
@@ -663,28 +356,11 @@ public class SwitchSettingActivity extends BaseActivity implements
         });
     }
 
-//    boolean curentSwitchHaveValue = false;// 当前线路是否有值（防止虚假线路）
-//    private int bhsn = 0;//保护使能
-//    private int zjsn = 0;//自检使能
-//    private int dd = 0;
-//    private int hh = 0;
-
-    /**
-     * 00 01 10 11
-     * BIT0=漏电自检使能 BIT1=漏电保护使能
-     */
-//    private void updateSwitchStatus() {
-//        iv_bhsn.setImageDrawable(getDrawable(bhsn == 0 ? R.drawable.icon_switch_off : R.drawable.icon_switch_on));
-//        iv_zjsn.setImageDrawable(getDrawable(zjsn == 0 ? R.drawable.icon_switch_off : R.drawable.icon_switch_on));
-//    }
-
     /**
      * 初始化成默认值
      */
     private void setDefaultValue() {
-        // 无值则重置成默认值
-//        if (!curentSwitchHaveValue) {
-//            case 0x00000005: // 过压阀值 275
+//        case 0x00000005: // 过压阀值 275
         dy_fragment.setGY(275);
 //        case 0x0000000D:// 欠压阀值 160
         dy_fragment.setQY(160);
@@ -708,55 +384,9 @@ public class SwitchSettingActivity extends BaseActivity implements
         other_fragment.setSDPZ(2);
 //        case 0x00000020:// 三相不平衡 10?
         other_fragment.setSXBPH(10);
-//        }
-//        changeView();
     }
 
-    /**
-     * 103 104 105
-     * 根据线路型号改变显示项目
-     */
-//    private void changeView() {
-//        // 漏电流阀值显示
-//        if (currentSwitchBean.getModelMajor() == 1 && currentSwitchBean.getModelMinor() == 5) {
-//            findViewById(R.id.ll_ldl).setVisibility(View.VISIBLE);
-//        } else {
-//            findViewById(R.id.ll_ldl).setVisibility(View.GONE);
-//        }
-//        // 三项不平衡显示
-//        if (currentSwitchBean.getModelMajor() == 2 && currentSwitchBean.getModelMinor() == 1) {
-//            findViewById(R.id.ll_sxbph).setVisibility(View.VISIBLE);
-//        } else {
-//            findViewById(R.id.ll_sxbph).setVisibility(View.GONE);
-//        }
-//        // 这里刷新右侧滑块显示
-////        ScrollBindHelper.resetThumb();
-//        ScrollBindHelper.bind(seekBar, scrollView);
-//    }
-
-    /**
-     * 设置上电配置
-     *
-     * @param paramValue
-     */
-//    private void setSDPZ(int paramValue) {
-//        switch (paramValue) {
-//            case 0:
-//                tv_sdpz.setText(getString(R.string.vs75));
-//                sdpz_val = 0;
-//                break;
-//            case 1:
-//                tv_sdpz.setText(getString(R.string.vs74));
-//                sdpz_val = 1;
-//                break;
-//            case 2:
-//                tv_sdpz.setText(getString(R.string.vs84));
-//                sdpz_val = 2;
-//                break;
-//        }
-//    }
-
-    private String paramID = "00000011," + // 过流阀值(1)
+    private String currentParamID = "00000011," + // 过流阀值(1)
             "00000005," + // 过压阀值
             "0000000D," + // 欠压阀值
             "00000018," + // 电量下限
@@ -783,7 +413,6 @@ public class SwitchSettingActivity extends BaseActivity implements
 //        BigDecimal sxbph = BigDecimal.valueOf(rangeSeekBarSXBPH.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
 //        rangeSeekBarLDL.setProgress(amountLDL.getAmountInt());
 //        BigDecimal ldfz = BigDecimal.valueOf(rangeSeekBarLDL.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
-//        amountLDL.setAmountInt(ldfz.intValue());
 //        String dlsx = dl_shangxian.getEditableText().toString();
 //        String dlxx = dl_xiaxian.getEditableText().toString();
 //        String glfz = et_GL1.getEditableText().toString();
@@ -797,20 +426,36 @@ public class SwitchSettingActivity extends BaseActivity implements
 //        if (Double.valueOf(dlsx) <= Double.valueOf(dlxx)) {
 //            CustomToast.showCustomErrorToast(mContext, getString(R.string.vs189));
 //            return;
-//        }
-        String values = "";
+//
 //                "00000011:" + glfz + // 过流阀值(1)
 //                ",00000005:" + gyfz + // 过压阀值
-//                        ",0000000D:" + qyfz + // 欠压阀值
-//                        ",00000018:" + dlxx + // 电量下限
-//                        ",00000019:" + dlsx + // 电量上限
+//                ",0000000D:" + qyfz + // 欠压阀值
+//                ",00000018:" + dlxx + // 电量下限
+//                ",00000019:" + dlsx + // 电量上限
 //                ",0000001A:" + ssglfz + // 瞬时过流阀值(2)
 //                ",0000001B:" + ldfz.intValue() + // 漏电阀值
 //                ",0000001C:" + Integer.valueOf(bhsn + "" + zjsn, 2) + // 漏电自检/保护使能
 //                ",0000001D:" + (dd * 256 + hh) + // 漏电自检时间
-//                        ",0000001E:" + wdfz + // 温度阀值
-//                        ",0000001F:" + sdpz_val + // 上电配置
-//                        ",00000020:" + sxbph.intValue(); // 三项不平衡
+//                ",0000001E:" + wdfz + // 温度阀值
+//                ",0000001F:" + sdpz_val + // 上电配置
+//                ",00000020:" + sxbph.intValue(); // 三项不平衡
+        String values = "";
+        int selectedTabPosition = mTabLayout.getSelectedTabPosition();
+        switch (selectedTabPosition) {
+            case 0:
+                values = dl1_fragment.getValString();
+                break;
+            case 1:
+                values = dy_fragment.getValString();
+                break;
+            case 2:
+                values = dl2_fragment.getValString();
+                break;
+            case 3:
+                values = other_fragment.getValString();
+                break;
+        }
+
         if (currentSwitchBean == null) {
             return;
         }
@@ -818,8 +463,7 @@ public class SwitchSettingActivity extends BaseActivity implements
             @Override
             public void onSuccess(Void data) {
                 CustomToast.showCustomToast(mContext, getString(R.string.vs213));
-//                finish();
-//                mHandler.sendEmptyMessageDelayed(sendGetThreadValueCommand, 100);
+                mHandler.sendEmptyMessageDelayed(sendGetThreadValueCommandFlag, 100);
             }
 
             @Override
@@ -827,45 +471,13 @@ public class SwitchSettingActivity extends BaseActivity implements
                 CustomToast.showCustomErrorToast(mContext, message);
             }
         });
-//                mHttpCall.setLimitValue(switchBean.getSerialNumber(), values, new BreakEVSetHttpCall.IBreakSetCallback() {
-//                    @Override
-//                    public void setCallback(boolean isSuccess) {
-//                        if (isSuccess) {
-//                            CustomToast.showCustomToast(this, "设置成功");
-//                        } else {
-//                            CustomToast.showCustomToast(this, "设置失败");
-//                        }
-//                    }
-//                });
     }
 
-    //    @Override
-//    public void onFocusChange(View v, boolean hasFocus) {
-//        if (hasFocus) {
-////            showListPopulWindow(); //调用显示PopuWindow 函数
-//        }
-//    }
 
-    /**
-     * 预设值下拉选
-     */
-//    private void showListPopulWindow() {
-//        listPopupWindow.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listVal));//用android内置布局，或设计自己的样式
-//        listPopupWindow.setAnchorView(et_GL1);//以哪个控件为基准，在该处以mEditText为基准
-//        listPopupWindow.setModal(true);
-//
-//        listPopupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {//设置项点击监听
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                et_GL1.setText(listVal[i]);//把选择的选项内容展示在EditText上
-//                listPopupWindow.dismiss();//如果已经选择了，隐藏起来
-//            }
-//        });
-//        listPopupWindow.show();//把ListPopWindow展示出来
-//    }
     @Override
     protected void dealloc() {
-//        mHandler.removeMessages(findSwitchParamBySwitch);
+        mHandler.removeMessages(sendGetThreadValueCommandFlag);
+        mHandler.removeMessages(findSwitchParamBySwitchFlag);
     }
 
     private void initFragment() {
@@ -883,16 +495,10 @@ public class SwitchSettingActivity extends BaseActivity implements
 
         MyFragmentAdapter(FragmentManager fm) {
             super(fm);
-//            Bundle bundle = new Bundle();
-//            bundle.putParcelable("currentSwitchBean", currentSwitchBean);
             dl1_fragment = new SettingDL1Fragment().setOnShowingListener(SwitchSettingActivity.this);
-//            s1.setArguments(bundle);
             dy_fragment = new SettingDYFragment().setOnShowingListener(SwitchSettingActivity.this);
-//            s2.setArguments(bundle);
             dl2_fragment = new SettingDL2Fragment().setOnShowingListener(SwitchSettingActivity.this);
-//            s3.setArguments(bundle);
             other_fragment = new SettingOtherFragment().setOnShowingListener(SwitchSettingActivity.this);
-//            s4.setArguments(bundle);
             listFragments.add(dl1_fragment);
             listFragments.add(dy_fragment);
             listFragments.add(dl2_fragment);
@@ -901,11 +507,6 @@ public class SwitchSettingActivity extends BaseActivity implements
 
         @Override
         public Fragment getItem(int position) {
-//            Class fragment = listFragments.get(position);
-//            return Fragment.instantiate(SwitchSettingActivity.this, fragment.getName(), bundle);
-            //            Bundle bundle = new Bundle();
-//            bundle.putParcelable("currentSwitchBean", currentSwitchBean);
-//            baseFragment.setArguments(bundle);
             return listFragments.get(position);
         }
 
@@ -928,36 +529,4 @@ public class SwitchSettingActivity extends BaseActivity implements
             return super.getPageTitle(position);
         }
     }
-//    class Item {
-//        private String key;
-//        private Float value;
-//
-//        Item(String key, Float value) {
-//            this.key = key;
-//            this.value = value;
-//        }
-//
-//        public String getKey() {
-//            return key;
-//        }
-//
-//        public void setKey(String key) {
-//            this.key = key;
-//        }
-//
-//        public Float getValue() {
-//            return value;
-//        }
-//
-//        public void setValue(Float value) {
-//            this.value = value;
-//        }
-//
-//        //to display object as a string in spinnerGL
-//        @Override
-//        public String toString() {
-//            return key;
-//        }
-//
-//    }
 }

@@ -742,8 +742,5 @@
     <string name="vs209">智能家居</string>
     <string name="vs211">上个月</string>
     <string name="vs212">去年本月</string>
-    <string name="vs213">设置提交成功，刷新结果可能延迟</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="vs213">设置提交成功。因最新值反馈需要些许时间，如果内容未变化，请稍后尝试刷新。</string>
 </resources>

@@ -21,6 +21,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * 电流类设置
+ */
 public class SettingDL1Fragment extends BaseFragment implements View.OnFocusChangeListener {
     private View view;
     private final String[] listVal = {"1", "6", "10", "16", "20", "25", "32", "40", "50", "63"};//要填充的数据
@@ -158,7 +161,7 @@ public class SettingDL1Fragment extends BaseFragment implements View.OnFocusChan
     @Override
     protected void initData() {
         isShowing = true;
-        listener.onShowDL1();// 第一个TAB
+        listener.onDL1Show();// 第一个TAB
     }
 
     @Override
@@ -273,11 +276,30 @@ public class SettingDL1Fragment extends BaseFragment implements View.OnFocusChan
         amountLDL.setAmountInt((int) paramValue);
     }
 
+    /**
+     * @return
+     */
+    public String getValString() {
+        String res = "";
+        String glfz = et_GL1.getEditableText().toString();
+        String ssglfz = et_GL2.getEditableText().toString();
+        res += "00000011:" + glfz; // 过流阀值(1)
+        res += ",0000001A:" + ssglfz;// 瞬时过流阀值(2)
+        if (view.findViewById(R.id.ll_ldl).getVisibility() == View.VISIBLE) {
+            res += ",0000001C:" + Integer.valueOf(bhsn + "" + zjsn, 2); // 漏电自检/保护使能
+            res += ",0000001D:" + (dd * 256 + hh); // 漏电自检时间
+            rangeSeekBarLDL.setProgress(amountLDL.getAmountInt());
+            BigDecimal ldfz = BigDecimal.valueOf(rangeSeekBarLDL.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
+            res += ",0000001B:" + ldfz.intValue(); // 漏电阀值
+        }
+        return res;
+    }
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (isVisibleToUser && isShowing) {
 //            Log.e("VpAdapter", "setUserVisibleHint: " + position);
-            listener.onShowDL1();
+            listener.onDL1Show();
         }
         super.setUserVisibleHint(isVisibleToUser);
     }
@@ -290,6 +312,6 @@ public class SettingDL1Fragment extends BaseFragment implements View.OnFocusChan
     }
 
     public interface OnShowingListener {
-        void onShowDL1();
+        void onDL1Show();
     }
 }

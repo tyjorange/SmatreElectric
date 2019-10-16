@@ -13,6 +13,9 @@ import com.rejuvee.smartelectric.family.widget.dialog.InputDialog;
 
 import java.math.BigDecimal;
 
+/**
+ * 其他类设置
+ */
 public class SettingOtherFragment extends BaseFragment {
     private View view;
     private RangeSeekBar rangeSeekBarWDFZ;
@@ -189,11 +192,28 @@ public class SettingOtherFragment extends BaseFragment {
 
     }
 
+    /**
+     * @return
+     */
+    public String getValString() {
+        String res = "";
+        rangeSeekBarWDFZ.setProgress(amountWDFZ.getAmount());
+        BigDecimal wdfz = BigDecimal.valueOf(rangeSeekBarWDFZ.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
+        res += ",0000001E:" + wdfz + // 温度阀值
+                ",0000001F:" + sdpz_val; // 上电配置
+        if (view.findViewById(R.id.ll_sxbph).getVisibility() == View.VISIBLE) {
+            rangeSeekBarSXBPH.setProgress(amountSXBPH.getAmount());
+            BigDecimal sxbph = BigDecimal.valueOf(rangeSeekBarSXBPH.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
+            res += ",00000020:" + sxbph.intValue(); // 三项不平衡
+        }
+        return res;
+    }
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (isVisibleToUser && isShowing) {
 //            Log.e("VpAdapter", "setUserVisibleHint: " + position);
-            listener.onShowOther();
+            listener.onOtherShow();
         }
         super.setUserVisibleHint(isVisibleToUser);
     }
@@ -206,6 +226,6 @@ public class SettingOtherFragment extends BaseFragment {
     }
 
     public interface OnShowingListener {
-        void onShowOther();
+        void onOtherShow();
     }
 }

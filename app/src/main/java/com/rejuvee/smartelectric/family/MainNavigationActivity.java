@@ -164,6 +164,18 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         initScene();
         initCollector();
 //        popwindowQCode = new PopwindowQCode(mContext);
+        // 启动就申请读写权限
+        PermisionManage.getInstance().startRequest(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionUtils.OnPermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                Log.i(TAG, "onPermissionGranted");
+            }
+
+            @Override
+            public void onPermissionDenied(String[] deniedPermissions) {
+                Log.e(TAG, "onPermissionDenied");
+            }
+        });
     }
 
     @Override

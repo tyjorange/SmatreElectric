@@ -10,6 +10,9 @@ import com.rejuvee.smartelectric.family.custom.AmountView;
 
 import java.math.BigDecimal;
 
+/**
+ * 电量类设置
+ */
 public class SettingDYFragment extends BaseFragment {
     private RangeSeekBar rangeSeekBarGY;
     private AmountView amountGY;
@@ -118,11 +121,22 @@ public class SettingDYFragment extends BaseFragment {
         amountQY.setAmount(paramValue);
     }
 
+    public String getValString() {
+        String res = "";
+        rangeSeekBarGY.setProgress(amountGY.getAmount());
+        BigDecimal gyfz = BigDecimal.valueOf(rangeSeekBarGY.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
+        rangeSeekBarQY.setProgress(amountQY.getAmount());
+        BigDecimal qyfz = BigDecimal.valueOf(rangeSeekBarQY.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
+        res += ",00000005:" + gyfz + // 过压阀值
+                ",0000000D:" + qyfz; // 欠压阀值
+        return res;
+    }
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (isVisibleToUser && isShowing) {
 //            Log.e("VpAdapter", "setUserVisibleHint: " + position);
-            listener.onShowDY();
+            listener.onDYShow();
         }
         super.setUserVisibleHint(isVisibleToUser);
     }
@@ -135,6 +149,6 @@ public class SettingDYFragment extends BaseFragment {
     }
 
     public interface OnShowingListener {
-        void onShowDY();
+        void onDYShow();
     }
 }

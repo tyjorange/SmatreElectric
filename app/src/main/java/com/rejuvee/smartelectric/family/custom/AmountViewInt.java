@@ -117,7 +117,6 @@ public class AmountViewInt extends LinearLayout implements View.OnClickListener,
             return;
         }
         validValue();
-
     }
 
     /**

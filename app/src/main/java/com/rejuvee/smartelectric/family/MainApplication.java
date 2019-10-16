@@ -13,6 +13,7 @@ import com.alibaba.sdk.android.push.CloudPushService;
 import com.alibaba.sdk.android.push.CommonCallback;
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
 import com.base.library.utils.Utils;
+import com.rejuvee.smartelectric.family.common.CrashHandler;
 import com.rejuvee.smartelectric.family.common.LogoVersionManage;
 import com.rejuvee.smartelectric.family.common.NativeLine;
 import com.rejuvee.smartelectric.family.wxapi.QQLoginHelper;
@@ -59,6 +60,7 @@ public class MainApplication extends Application {
 //                .setDefaultFontPath("fonts/syht.otf")
 //                .setFontAttrId(R.attr.fontPath)
 //                .build());
+        CrashHandler.getInstance().init(getApplicationContext());
     }
 
     @Override

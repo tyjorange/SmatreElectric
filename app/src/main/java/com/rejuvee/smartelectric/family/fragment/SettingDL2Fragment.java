@@ -10,6 +10,9 @@ import com.rejuvee.smartelectric.family.custom.MyTextWatcher;
 
 import java.text.DecimalFormat;
 
+/**
+ * 电量类设置
+ */
 public class SettingDL2Fragment extends BaseFragment {
     private EditText dl_shangxian;
     private EditText dl_xiaxian;
@@ -54,11 +57,23 @@ public class SettingDL2Fragment extends BaseFragment {
         dl_shangxian.setText(new DecimalFormat("000000.00").format(paramValue));
     }
 
+    /**
+     * @return
+     */
+    public String getValString() {
+        String res = "";
+        String dlsx = dl_shangxian.getEditableText().toString();
+        String dlxx = dl_xiaxian.getEditableText().toString();
+        res += ",00000018:" + dlxx + // 电量下限
+                ",00000019:" + dlsx; // 电量上限
+        return res;
+    }
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (isVisibleToUser && isShowing) {
 //            Log.e("VpAdapter", "setUserVisibleHint: " + position);
-            listener.onShowDL2();
+            listener.onDL2Show();
         }
         super.setUserVisibleHint(isVisibleToUser);
     }
@@ -71,6 +86,6 @@ public class SettingDL2Fragment extends BaseFragment {
     }
 
     public interface OnShowingListener {
-        void onShowDL2();
+        void onDL2Show();
     }
 }
