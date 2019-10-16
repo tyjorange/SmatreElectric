@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.base.frame.net.ActionCallbackListener;
+import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 
 import java.io.File;
@@ -86,7 +87,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
                 Log.e(TAG, "error : ", e);
             }
             // 多放查阅资料，发现App Crash之后系统会重新启动Task栈顶的Activity，具体请自行google！
-            // 解决方法是：在杀死App对应Process之前，结束掉Task栈中所有的Activity。
+            // 解决方法是：killProcess之前，结束掉Task栈中所有的Activity。
             ActivityFragmentManager.removeAll();
             ActivityFragmentManager.finishAll();
             //退出程序
@@ -110,7 +111,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             @Override
             public void run() {
                 Looper.prepare();
-                Toast.makeText(mContext, "很抱歉,程序出现异常,即将退出.", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, mContext.getString(R.string.vs214), Toast.LENGTH_LONG).show();
                 Looper.loop();
             }
         }.start();
@@ -207,6 +208,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
      * @param path
      */
     private void upLoadFile(String path) {
+        Log.i(TAG, "upLoadFile...");
         Core.instance(mContext).uploadLogFile(getLogPart(path), new ActionCallbackListener<Void>() {
 
             @Override
@@ -228,6 +230,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
      * @return
      */
     private MultipartBody.Part getLogPart(String path) {
+        Log.i(TAG, "getLogPart...");
         File tempFile = new File(path);
         // 创建 RequestBody，用于封装构建RequestBody
         RequestBody requestFile = RequestBody.create(MediaType.parse("text/plain"), tempFile);

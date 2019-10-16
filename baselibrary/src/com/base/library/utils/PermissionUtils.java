@@ -86,8 +86,7 @@ public final class PermissionUtils {
     /**
      * 请求权限结果，对应Activity中onRequestPermissionsResult()方法。
      */
-    public static void onRequestPermissionsResult(Activity context, int requestCode, String[] permissions, int[]
-            grantResults) {
+    public static void onRequestPermissionsResult(Activity context, int requestCode, String[] permissions, int[] grantResults) {
         if (mRequestCode != -1 && requestCode == mRequestCode) {
             if (mOnPermissionListener != null) {
                 String[] deniedPermissions = getDeniedPermissions(context, permissions);

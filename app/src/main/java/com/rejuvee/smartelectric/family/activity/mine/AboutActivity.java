@@ -10,7 +10,7 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 
 public class AboutActivity extends BaseActivity {
-
+    private Context mContext;
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_about;
@@ -23,6 +23,7 @@ public class AboutActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        mContext = this;
         findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

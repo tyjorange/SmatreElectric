@@ -130,6 +130,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_check_new"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginTop="1dp"
@@ -138,13 +139,13 @@
         android:orientation="horizontal"
         android:paddingStart="30dp"
         android:paddingEnd="16dp"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/settings_version"
+            android:text="检查版本"
             android:textColor="@color/black"
             android:textSize="12sp" />
 

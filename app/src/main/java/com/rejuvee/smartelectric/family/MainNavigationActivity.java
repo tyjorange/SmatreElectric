@@ -165,17 +165,19 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         initCollector();
 //        popwindowQCode = new PopwindowQCode(mContext);
         // 启动就申请读写权限
-        PermisionManage.getInstance().startRequest(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionUtils.OnPermissionListener() {
-            @Override
-            public void onPermissionGranted() {
-                Log.i(TAG, "onPermissionGranted");
-            }
+        if (!PermisionManage.getInstance().isPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            PermisionManage.getInstance().startRequest(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionUtils.OnPermissionListener() {
+                @Override
+                public void onPermissionGranted() {
+                    Log.i(TAG, "onPermissionGranted");
+                }
 
-            @Override
-            public void onPermissionDenied(String[] deniedPermissions) {
-                Log.e(TAG, "onPermissionDenied");
-            }
-        });
+                @Override
+                public void onPermissionDenied(String[] deniedPermissions) {
+                    Log.e(TAG, "onPermissionDenied");
+                }
+            });
+        }
     }
 
     @Override
@@ -559,17 +561,21 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void autoUpgrade(final AutoUpgradeEventMessage autoUpgrade) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            PermisionManage.getInstance().startRequest(this, new String[]{Manifest.permission.REQUEST_INSTALL_PACKAGES}, new PermissionUtils.OnPermissionListener() {
-                @Override
-                public void onPermissionGranted() {
-                    AutoUpgrade.getInstacne(MainNavigationActivity.this).installApkNew(autoUpgrade.upGradeUri);
-                }
+            if (PermisionManage.getInstance().isPermissionGranted(Manifest.permission.REQUEST_INSTALL_PACKAGES)) {
+                AutoUpgrade.getInstacne(MainNavigationActivity.this).installApkNew(autoUpgrade.upGradeUri);
+            } else {
+                PermisionManage.getInstance().startRequest(this, new String[]{Manifest.permission.REQUEST_INSTALL_PACKAGES}, new PermissionUtils.OnPermissionListener() {
+                    @Override
+                    public void onPermissionGranted() {
+                        AutoUpgrade.getInstacne(MainNavigationActivity.this).installApkNew(autoUpgrade.upGradeUri);
+                    }
 
-                @Override
-                public void onPermissionDenied(String[] deniedPermissions) {
-                    Log.e(TAG, "onPermissionDenied");
-                }
-            });
+                    @Override
+                    public void onPermissionDenied(String[] deniedPermissions) {
+                        Log.e(TAG, "onPermissionDenied");
+                    }
+                });
+            }
         } else {
             AutoUpgrade.getInstacne(MainNavigationActivity.this).installApkNew(autoUpgrade.upGradeUri);
         }

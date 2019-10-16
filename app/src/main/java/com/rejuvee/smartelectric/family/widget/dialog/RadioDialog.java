@@ -15,7 +15,7 @@ import com.rejuvee.smartelectric.family.R;
 /**
  * 单选弹窗 （上电配置0：拉闸；1：合闸，2：不动作）
  */
-public class InputDialog extends Dialog implements View.OnClickListener {
+public class RadioDialog extends Dialog implements View.OnClickListener {
     //    private EditText editContent;
     private ImageView iv_item0;
     private ImageView iv_item1;
@@ -61,13 +61,14 @@ public class InputDialog extends Dialog implements View.OnClickListener {
         iv_item2.setImageDrawable(getContext().getResources().getDrawable(R.drawable.dx_chose_slices));
         sdpz_val = 2;
     }
-    public InputDialog(Context context) {
+
+    public RadioDialog(Context context) {
         super(context, com.base.library.R.style.Dialog);
         init(context);
 
     }
 
-    public InputDialog(Context context, int themeResId) {
+    public RadioDialog(Context context, int themeResId) {
         super(context, themeResId);
         init(context);
     }

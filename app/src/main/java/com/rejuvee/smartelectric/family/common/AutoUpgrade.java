@@ -1,8 +1,8 @@
 package com.rejuvee.smartelectric.family.common;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.DownloadManager;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,12 +15,16 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 
+import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.model.bean.AutoUpgradeEventMessage;
+import com.rejuvee.smartelectric.family.widget.dialog.DialogTip;
+import com.rejuvee.smartelectric.family.widget.dialog.DownloadProgressDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.xml.sax.Attributes;
@@ -60,24 +64,36 @@ import static android.content.Context.MODE_PRIVATE;
 * solarstem_apk_packeg_info.xml
 * */
 public class AutoUpgrade {
+    private final String TAG = "AutoUpgrade";
     private String versionInfoUrl; //版本信息XML Url
     private String downloadUrl;//APK下载地址
     private DownloadManager downloadManager;
     private DownloadCompleteReceiver receiver;
     private VersionInfo mVersionInfo;
-
+    private final QueryRunnable mQueryProgressRunnable = new QueryRunnable();
     private Context mContext;
-    private String TAG = "AutoUpgrade";
-    private AlertDialog mAlertDialog;
+    //    private AlertDialog mAlertDialog;
+    private DialogTip mDialogTip;
     private Handler mHandler;
     private static AutoUpgrade instacne;
+    private boolean showTip;
 
     private AutoUpgrade(Context context) {
         mContext = context;
-        mHandler = new Handler();
+        mHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                if (msg.what == 1001) {
+                    if (progressDialog != null) {
+                        progressDialog.setProgress(msg.arg1);
+                        progressDialog.setMax(msg.arg2);
+                    }
+                }
+            }
+        };
 
         receiver = new DownloadCompleteReceiver();
-
         IntentFilter intentFilter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
         intentFilter.setPriority(2147483647);
         mContext.registerReceiver(receiver, intentFilter);
@@ -89,6 +105,7 @@ public class AutoUpgrade {
         if (instacne == null) {
             instacne = new AutoUpgrade(context);
         }
+        instacne.mContext = context;
         return instacne;
     }
 
@@ -100,6 +117,12 @@ public class AutoUpgrade {
     }
 
     public void start() {
+        showTip = false;
+        new Thread(new readVersionRunable()).start();
+    }
+
+    public void startWithTip() {
+        showTip = true;
         new Thread(new readVersionRunable()).start();
     }
 
@@ -190,24 +213,27 @@ public class AutoUpgrade {
         try {
             PackageInfo currentPackageInfo = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);
             int appVersionCode = currentPackageInfo.versionCode;
-            Log.d(TAG, "currentPackageInfo.versionCode = " + appVersionCode + " mVersionInfo.versionCode=" + mVersionInfo.versionCode);
+            Log.d(TAG, "localVersionCode = " + appVersionCode + " remoteVersionCode=" + mVersionInfo.versionCode);
             if (appVersionCode < Integer.valueOf(mVersionInfo.versionCode)) {//版本不同，需要更新版本
                 downloadManager = (DownloadManager) mContext.getSystemService(DOWNLOAD_SERVICE);
-                long downLoadId = mContext.getSharedPreferences(AppGlobalConfig.BASIC_CONFIG, MODE_PRIVATE).getLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, -1);
-                int statues = getDownloadStatus(downLoadId);
-                mAlertDialog = createDialog();
-                if (statues != DownloadManager.STATUS_RUNNING) {
-                    mAlertDialog.show();
+                createDialog();
+                if (getDownloadStatus() != DownloadManager.STATUS_RUNNING) {
+//                    mAlertDialog.show();
+                    mDialogTip.show();
+                }
+            } else {
+                if (showTip) {
+                    CustomToast.showCustomToast(mContext, "已是最新版本");
                 }
             }
-
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    private int getDownloadStatus(long downloadId) {
-        DownloadManager.Query query = new DownloadManager.Query().setFilterById(downloadId);
+    private int getDownloadStatus() {
+        long downLoadId = mContext.getSharedPreferences(AppGlobalConfig.BASIC_CONFIG, MODE_PRIVATE).getLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, -1);
+        DownloadManager.Query query = new DownloadManager.Query().setFilterById(downLoadId);
         Cursor c = downloadManager.query(query);
         if (c != null) {
             try {
@@ -221,28 +247,86 @@ public class AutoUpgrade {
         return -1;
     }
 
-    private AlertDialog createDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext, R.style.Dialog);
-        builder.setTitle(mContext.getString(R.string.new_version) + mVersionInfo.versionName);
-        builder.setIcon(R.mipmap.ic_launcher);
-        builder.setMessage(mContext.getString(R.string.is_upgrade_to_new_version));
-        builder.setPositiveButton(mContext.getString(R.string.intall_now), new DialogInterface.OnClickListener() {
+    /**
+     * 查询下载进度，文件总大小多少，已经下载多少？
+     */
+    private void queryState() {
+        long downLoadId = mContext.getSharedPreferences(AppGlobalConfig.BASIC_CONFIG, MODE_PRIVATE).getLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, -1);
+        // 通过ID向下载管理查询下载情况，返回一个cursor
+        Cursor c = downloadManager.query(new DownloadManager.Query().setFilterById(downLoadId));
+        if (c != null) {
+            if (!c.moveToFirst()) {
+//                Log.e(TAG, "下载失败 !c.moveToFirst()");
+//                Toast.makeText(this, "下载失败", Toast.LENGTH_SHORT).show();
+//                mContext.finish();
+//                mHandler.removeMessages(1001);
+                if (!c.isClosed()) {
+                    c.close();
+                }
+                return;
+            }
+            int mDownload_so_far = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
+            int mDownload_all = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
+            Message msg = Message.obtain();
+            if (mDownload_all > 0) {
+                msg.what = 1001;
+                msg.arg1 = mDownload_so_far;
+                msg.arg2 = mDownload_all;
+                mHandler.sendMessage(msg);
+            }
+            if (!c.isClosed()) {
+                c.close();
+            }
+        }
+    }
 
+    private void createDialog() {
+        mDialogTip = new DialogTip(mContext, false);
+        mDialogTip.setTitle(mContext.getString(R.string.new_version) + mVersionInfo.versionName);
+        StringBuilder res = new StringBuilder();
+        for (String s : mVersionInfo.upgradeItems) {
+            res = res.append(s);
+        }
+        mDialogTip.setContent(res.toString());
+        mDialogTip.setDialogListener(new DialogTip.onEnsureDialogListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                mAlertDialog.dismiss();
+            public void onEnsure() {
                 initDownManager();
+                mDialogTip.dismiss();
             }
-        });
-        builder.setNegativeButton(mContext.getString(R.string.cancel), new DialogInterface.OnClickListener() {
 
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                mAlertDialog.dismiss();
+            public void onCancel() {
+                mDialogTip.dismiss();
             }
         });
-        //dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-        return builder.create();
+        mDialogTip.show();
+
+//        AlertDialog.Builder builder = new AlertDialog.Builder(mContext, R.style.Dialog);
+//        builder.setTitle(mContext.getString(R.string.new_version) + mVersionInfo.versionName);
+//        builder.setIcon(R.mipmap.ic_launcher);
+//        StringBuilder res = null;
+//        for (String s : mVersionInfo.upgradeItems) {
+//            res = (res == null ? new StringBuilder() : res).append(s);
+//        }
+//        builder.setMessage(res == null ? null : res.toString());
+//        builder.setPositiveButton(mContext.getString(R.string.intall_now), new DialogInterface.OnClickListener() {
+//
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                mAlertDialog.dismiss();
+//                initDownManager();
+//            }
+//        });
+//        builder.setNegativeButton(mContext.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+//
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                mAlertDialog.dismiss();
+//            }
+//        });
+//        //dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+//        return builder.create();
     }
 
     /**
@@ -306,9 +390,9 @@ public class AutoUpgrade {
 
         Uri parse = Uri.parse(downloadUrl + mVersionInfo.getApkName());
         DownloadManager.Request down = new DownloadManager.Request(parse);
-
         // 设置允许使用的网络类型，这里是移动网络和wifi都可以
-        down.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
+//        down.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
+        down.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
         // 下载时，通知栏显示途中
         down.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
         // 显示下载界面
@@ -325,6 +409,67 @@ public class AutoUpgrade {
         // 将下载请求放入队列
         long downloadId = downloadManager.enqueue(down);
         mContext.getSharedPreferences(AppGlobalConfig.BASIC_CONFIG, MODE_PRIVATE).edit().putLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, downloadId).apply();
+        startQuery();
+    }
+
+    //更新下载进度
+    private void startQuery() {
+        long downLoadId = mContext.getSharedPreferences(AppGlobalConfig.BASIC_CONFIG, MODE_PRIVATE).getLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, -1);
+        if (downLoadId > 0) {
+            displayProgressDialog();
+            mHandler.post(mQueryProgressRunnable);
+        }
+    }
+
+    //查询下载进度
+    private class QueryRunnable implements Runnable {
+        @Override
+        public void run() {
+            queryState();
+            mHandler.postDelayed(mQueryProgressRunnable, 1000);
+        }
+    }
+
+    //下载进度弹窗
+    private DownloadProgressDialog progressDialog;
+
+    //进度对话框
+    private void displayProgressDialog() {
+        if (progressDialog == null) {
+            // 创建ProgressDialog对象
+            progressDialog = new DownloadProgressDialog(mContext);
+            // 设置进度条风格，风格为长形
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            // 设置ProgressDialog 标题
+//            progressDialog.setTitle("下载提示");
+            // 设置ProgressDialog 提示信息
+            progressDialog.setMessage("下载进度:");
+            // 设置ProgressDialog 的进度条是否不明确
+            progressDialog.setIndeterminate(false);
+            // 设置ProgressDialog 是否可以按退回按键取消
+            progressDialog.setCancelable(false);
+//            progressDialog.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.btn_def));
+            progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    removeDownload();
+                    dialog.dismiss();
+//                    mContext.finish();
+                }
+            });
+        }
+        if (!progressDialog.isShowing()) {
+            // 让ProgressDialog显示
+            progressDialog.show();
+        }
+    }
+
+    //下载停止同时删除下载文件
+    private void removeDownload() {
+        if (downloadManager != null) {
+            long downLoadId = mContext.getSharedPreferences(AppGlobalConfig.BASIC_CONFIG, MODE_PRIVATE).getLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, -1);
+            downloadManager.remove(downLoadId);
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -345,6 +490,7 @@ public class AutoUpgrade {
         public void onReceive(Context context, Intent intent) {
             //判断是否下载完成的广播
             if (Objects.equals(intent.getAction(), DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
+                progressDialog.dismiss();
                 //获取下载的文件id
                 long downId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
                 if (downId == -1) {
@@ -352,19 +498,18 @@ public class AutoUpgrade {
                 }
                 //自动安装apk
                 Uri uriForDownloadedFile = downloadManager.getUriForDownloadedFile(downId);
+                if (uriForDownloadedFile == null) {
+                    return;
+                }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     if (isHasInstallPermissionWithO(mContext)) {
                         AutoUpgradeEventMessage eventMessage = new AutoUpgradeEventMessage();
                         eventMessage.upGradeUri = uriForDownloadedFile;
                         EventBus.getDefault().post(eventMessage);
-                        return;
+//                        return;
                     }
                 }
-                if (uriForDownloadedFile == null) {
-                    return;
-                }
-
-                installApkNew(uriForDownloadedFile);
+//                installApkNew(uriForDownloadedFile);
             }
         }
     }
@@ -384,7 +529,6 @@ public class AutoUpgrade {
             }
         } else {
             File file = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), mVersionInfo.getApkName());
-            //File file= mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS + "/" + mVersionInfo.getApkName());
             uri = FileProvider.getUriForFile(mContext, LogoVersionManage.getInstance().getFileAuthor(), file);//在AndroidManifest中的android:authorities值
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);//添加这一句表示对目标应用临时授权该Uri所代表的文件
             intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);//添加这一句表示对目标应用临时授权该Uri所代表的文件

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.rejuvee.smartelectric.family.MainApplication;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.activity.login.LoginActivity;
+import com.rejuvee.smartelectric.family.common.AutoUpgrade;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfoRealm;
 import com.rejuvee.smartelectric.family.widget.dialog.DialogTip;
@@ -25,7 +26,7 @@ public class SettingsActivity extends BaseActivity {
     private String[] permissions = new String[]{"android.permission.CHANGE_CONFIGURATION"};
     //    private TextView tvClean;
     private DialogTip mDialogSwitch;
-    private Context mContent;
+    private Context mContext;
 
     @Override
     protected int getLayoutResId() {
@@ -39,10 +40,16 @@ public class SettingsActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mContent = this;
+        mContext = this;
 //        setToolbarHide(true);
 //        tvClean = (TextView) findViewById(R.id.tv_clean);
         ((TextView) findViewById(R.id.txt_current_vision)).setText(String.format("v%s", packageCode(this)));
+        findViewById(R.id.ll_check_new).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AutoUpgrade.getInstacne(mContext).startWithTip();
+            }
+        });
     }
 
     private String packageCode(Context context) {
@@ -139,7 +146,7 @@ public class SettingsActivity extends BaseActivity {
                 accountInfoRealm.deleteRealm();
 //                unbindAccount();
                 MainApplication.unbindAliCloud();
-                Intent intent = new Intent(mContent, LoginActivity.class);
+                Intent intent = new Intent(mContext, LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }

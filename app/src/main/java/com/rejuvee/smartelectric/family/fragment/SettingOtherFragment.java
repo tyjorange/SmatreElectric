@@ -9,7 +9,7 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.BaseFragment;
 import com.rejuvee.smartelectric.family.custom.AmountView;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
-import com.rejuvee.smartelectric.family.widget.dialog.InputDialog;
+import com.rejuvee.smartelectric.family.widget.dialog.RadioDialog;
 
 import java.math.BigDecimal;
 
@@ -24,7 +24,7 @@ public class SettingOtherFragment extends BaseFragment {
     private AmountView amountSXBPH;
     private TextView tv_sdpz;
     private int sdpz_val;//上电配置值
-    private InputDialog inputDialog;
+    private RadioDialog radioDialog;
     private boolean isShowing = false;
 
     @Override
@@ -68,8 +68,8 @@ public class SettingOtherFragment extends BaseFragment {
             }
         });
         // 上电配置
-        inputDialog = new InputDialog(v.getContext());
-        inputDialog.setDialogListener(new InputDialog.onInputDialogListener() {
+        radioDialog = new RadioDialog(v.getContext());
+        radioDialog.setDialogListener(new RadioDialog.onInputDialogListener() {
 
             @Override
             public void onEnsure(int val) {
@@ -80,8 +80,8 @@ public class SettingOtherFragment extends BaseFragment {
         v.findViewById(R.id.ll_sdpz).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputDialog.setVal(sdpz_val);
-                inputDialog.show();
+                radioDialog.setVal(sdpz_val);
+                radioDialog.show();
             }
         });
         //三项不平衡

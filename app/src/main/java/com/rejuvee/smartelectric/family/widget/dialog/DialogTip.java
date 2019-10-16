@@ -40,13 +40,18 @@ public class DialogTip extends Dialog implements View.OnClickListener {
 
     public DialogTip(Context context) {
         super(context, com.base.library.R.style.Dialog);
-        init(context);
+        init(context, true);
 
     }
 
     public DialogTip(Context context, int themeResId) {
         super(context, themeResId);
-        init(context);
+        init(context, true);
+    }
+
+    public DialogTip(Context context, boolean isBottom) {
+        super(context);
+        init(context, isBottom);
     }
 
     public DialogTip setDialogListener(onEnsureDialogListener listener) {
@@ -54,7 +59,7 @@ public class DialogTip extends Dialog implements View.OnClickListener {
         return this;
     }
 
-    private void init(Context context) {
+    private void init(Context context, boolean isBottom) {
         setContentView(R.layout.dialog_ensure);
         txtTitle = (TextView) findViewById(R.id.txt_tip_title);
         txtCancel = (TextView) findViewById(R.id.txt_cancel);
@@ -70,11 +75,13 @@ public class DialogTip extends Dialog implements View.OnClickListener {
         DisplayMetrics d = context.getResources().getDisplayMetrics(); // 获取屏幕宽、高用
         lp.width = d.widthPixels;
         dialogWindow.setAttributes(lp);
-        dialogWindow.setGravity(Gravity.BOTTOM);
-
+        if (isBottom) {
+            dialogWindow.setGravity(Gravity.BOTTOM);
+        } else {
+            txtOk.setText(getContext().getString(R.string.intall_now));
+        }
         txtOk.setOnClickListener(this);
         txtCancel.setOnClickListener(this);
-
     }
 
     public DialogTip setTitle(String title) {
