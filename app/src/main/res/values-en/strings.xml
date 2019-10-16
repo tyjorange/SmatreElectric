@@ -485,9 +485,10 @@
     <string name="restart">restart</string>
     <string name="restore_factory_set">restore factory settings</string>
     <string name="manual">manual</string>
-    <string name="sucess">sucess</string>
+    <string name="sucess">success</string>
     <string name="failure">failure</string>
     <string name="temperature">temperature</string>
+    <string name="ldl">漏电流</string>
     <string name="upload_to_collect">Resident concentrator</string>
     <string name="upload_tips">Resident concentrator
 　　Timed operations set by the user are usually saved on the cloud server. At the time of arrival, the cloud server automatically sends the corresponding circuit breaker switch operation to the concentrator over the network. If the network fails at the time, the operation will fail.

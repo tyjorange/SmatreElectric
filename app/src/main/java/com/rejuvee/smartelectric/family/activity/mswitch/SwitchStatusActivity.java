@@ -78,7 +78,7 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                if (msg.what == MSG_SWTCH_REFRESH_TASK) {
+                if (msg.what == MSG_SWTCH_REFRESH_TASK_FLAG) {
                     getSwitchState();
                 }
             }
@@ -86,7 +86,7 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
         getSwitchByCollector();
     }
 
-    private static final int MSG_SWTCH_REFRESH_TASK = 5123;// 刷新单个线路 定时任务id
+    private static final int MSG_SWTCH_REFRESH_TASK_FLAG = 5123;// 刷新单个线路 定时任务id
     private FlushTimeTask flushTimeTask;
     private final int flushTimeMill = 3000;//刷新间隔
     private boolean runTask = true;
@@ -124,7 +124,7 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
             public void run() {
                 if (runTask) {
                     Log.d(TAG, "FlushTimeTask run");
-                    mHandler.sendEmptyMessage(MSG_SWTCH_REFRESH_TASK);
+                    mHandler.sendEmptyMessage(MSG_SWTCH_REFRESH_TASK_FLAG);
                 }
             }
         });
@@ -205,7 +205,7 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     protected void dealloc() {
-
+        mHandler.removeMessages(MSG_SWTCH_REFRESH_TASK_FLAG);
     }
 
     /**

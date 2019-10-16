@@ -87,22 +87,9 @@ public class NativeLine {
                 R.string.statistical_9,
                 R.string.frequency,
                 R.string.temperature,
+                R.string.ldl
         };
 
-      /*  TabTitleSignalType = new int[]{
-                R.string.signal_type_tab_title_0,
-                R.string.signal_type_tab_title_1,
-                R.string.signal_type_tab_title_2,
-                R.string.signal_type_tab_title_3,
-                R.string.signal_type_tab_title_4,
-                R.string.signal_type_tab_title_5,
-                R.string.signal_type_tab_title_6,
-                R.string.signal_type_tab_title_7,
-                R.string.signal_type_tab_title_8,
-                R.string.signal_type_tab_title_9
-        };*/
-
     }
-
 
 }

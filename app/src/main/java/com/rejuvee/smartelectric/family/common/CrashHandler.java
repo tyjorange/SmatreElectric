@@ -150,7 +150,6 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             String value = entry.getValue();
             sb.append(key).append("=").append(value).append("\n");
         }
-
         Writer writer = new StringWriter();
         PrintWriter printWriter = new PrintWriter(writer);
         ex.printStackTrace(printWriter);

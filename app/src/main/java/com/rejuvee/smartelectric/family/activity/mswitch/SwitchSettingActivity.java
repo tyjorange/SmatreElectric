@@ -108,7 +108,7 @@ public class SwitchSettingActivity extends BaseActivity implements
 
                         mTabLayout.getTabAt(0).select();// 重置为第一个TAB
                         currentParamID = dl1_fragment.getParamID(currentSwitchBean);
-                        mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitchFlag, 100);
+                        mHandler.sendEmptyMessageDelayed(MSG_findSwitchParamBySwitch_FLAG, 100);
                     }
                 });
                 switchTreeDialog.show();
@@ -118,7 +118,7 @@ public class SwitchSettingActivity extends BaseActivity implements
         findViewById(R.id.img_flush).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mHandler.sendEmptyMessageDelayed(sendGetThreadValueCommandFlag, 100);
+                mHandler.sendEmptyMessageDelayed(MSG_sendGetThreadValueCommand_FLAG, 100);
             }
         });
         // 提交按钮
@@ -147,34 +147,34 @@ public class SwitchSettingActivity extends BaseActivity implements
     public void onDL1Show() {
 //        dl1_fragment = fragment;
         currentParamID = dl1_fragment.getParamID(currentSwitchBean);
-        mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitchFlag, 100);
+        mHandler.sendEmptyMessageDelayed(MSG_findSwitchParamBySwitch_FLAG, 100);
     }
 
     @Override
     public void onDYShow() {
 //        dy_fragment = fragment;
         currentParamID = dy_fragment.getParamID();
-        mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitchFlag, 100);
+        mHandler.sendEmptyMessageDelayed(MSG_findSwitchParamBySwitch_FLAG, 100);
     }
 
     @Override
     public void onDL2Show() {
 //        dl2_fragment = fragment;
         currentParamID = dl2_fragment.getParamID();
-        mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitchFlag, 100);
+        mHandler.sendEmptyMessageDelayed(MSG_findSwitchParamBySwitch_FLAG, 100);
     }
 
     @Override
     public void onOtherShow() {
 //        other_fragment = fragment;
         currentParamID = other_fragment.getParamID(currentSwitchBean);
-        mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitchFlag, 100);
+        mHandler.sendEmptyMessageDelayed(MSG_findSwitchParamBySwitch_FLAG, 100);
     }
 
     //    private static int currentSearchCount;//重试计数
 //    private static final int MAX_REQUEST_COUNT = 5;// 最大重新请求次数
-    private static final int findSwitchParamBySwitchFlag = 1221;//findParam 读取
-    private static final int sendGetThreadValueCommandFlag = 1223;//sendGetParam 刷新
+    private static final int MSG_findSwitchParamBySwitch_FLAG = 1221;//findParam 读取
+    private static final int MSG_sendGetThreadValueCommand_FLAG = 1223;//sendGetParam 刷新
 
     /**
      * MyHandler
@@ -190,9 +190,9 @@ public class SwitchSettingActivity extends BaseActivity implements
         public void handleMessage(Message msg) {
             final SwitchSettingActivity theActivity = activityWeakReference.get();
 //            currentSearchCount++;
-            if (msg.what == sendGetThreadValueCommandFlag) {
+            if (msg.what == MSG_sendGetThreadValueCommand_FLAG) {
                 theActivity.flushValues();
-            } else if (msg.what == findSwitchParamBySwitchFlag) {
+            } else if (msg.what == MSG_findSwitchParamBySwitch_FLAG) {
                 theActivity.getValues();
             }
         }
@@ -242,7 +242,7 @@ public class SwitchSettingActivity extends BaseActivity implements
             public void onSuccess(Void data) {
                 Log.d(TAG, getString(R.string.vs153) + " threadId = " + Thread.currentThread().getId());
 //                currentSearchCount = 0;
-                mHandler.sendEmptyMessageDelayed(findSwitchParamBySwitchFlag, 5000); // 等待5秒
+                mHandler.sendEmptyMessageDelayed(MSG_findSwitchParamBySwitch_FLAG, 5000); // 等待5秒
 //                scrollView.setVisibility(View.VISIBLE);
 //                superTextView.setVisibility(View.VISIBLE);
 //                empty_layout.setVisibility(View.GONE);
@@ -463,7 +463,7 @@ public class SwitchSettingActivity extends BaseActivity implements
             @Override
             public void onSuccess(Void data) {
                 CustomToast.showCustomToast(mContext, getString(R.string.vs213));
-                mHandler.sendEmptyMessageDelayed(sendGetThreadValueCommandFlag, 100);
+                mHandler.sendEmptyMessageDelayed(MSG_sendGetThreadValueCommand_FLAG, 100);
             }
 
             @Override
@@ -476,8 +476,8 @@ public class SwitchSettingActivity extends BaseActivity implements
 
     @Override
     protected void dealloc() {
-        mHandler.removeMessages(sendGetThreadValueCommandFlag);
-        mHandler.removeMessages(findSwitchParamBySwitchFlag);
+        mHandler.removeMessages(MSG_sendGetThreadValueCommand_FLAG);
+        mHandler.removeMessages(MSG_findSwitchParamBySwitch_FLAG);
     }
 
     private void initFragment() {

@@ -57,10 +57,10 @@ public class YaoKongDetailActivity extends BaseActivity {
     private static int currentSearchCount;//重试计数
     private static final int MAX_REQUEST_COUNT = 4;// 最大重新请求次数
     private static final int MAX_REFRESH_COUNT = 7;// 最大刷新请求次数
-    private static final int MSG_CMD_RESULT = 0;//开关命令发送是否成功轮询
-    private static final int MSG_TIMER = 1;//定时刷新switch state
-    private static final int MSG_FILLDATA = 3;// 填充tree数据
-    private static final int MSG_SWTCH_REFRESH = 5;// 刷新单个线路
+    private static final int MSG_CMD_RESULT_FLAG = 0;//开关命令发送是否成功轮询
+    private static final int MSG_TIMER_FLAG = 1;//定时刷新switch state
+    private static final int MSG_FILLDATA_FLAG = 3;// 填充tree数据
+    private static final int MSG_SWTCH_REFRESH_FLAG = 5;// 刷新单个线路
     private boolean targetState;//开关操作的目标状态
 
     private Context mContext;
@@ -182,13 +182,13 @@ public class YaoKongDetailActivity extends BaseActivity {
         public void handleMessage(Message msg) {
             YaoKongDetailActivity activity = activityWeakReference.get();
             currentSearchCount++;
-            if (msg.what == MSG_CMD_RESULT) {
+            if (msg.what == MSG_CMD_RESULT_FLAG) {
                 activity.getResultOfController();
-            } else if (msg.what == MSG_TIMER) {
+            } else if (msg.what == MSG_TIMER_FLAG) {
                 activity.getAllSwitchState();
-            } else if (msg.what == MSG_FILLDATA) {
+            } else if (msg.what == MSG_FILLDATA_FLAG) {
 //                 activity.fillData();
-            } else if (msg.what == MSG_SWTCH_REFRESH) {
+            } else if (msg.what == MSG_SWTCH_REFRESH_FLAG) {
                 activity.getSwitchStateOne();
             }
         }
@@ -231,7 +231,7 @@ public class YaoKongDetailActivity extends BaseActivity {
             public void run() {
                 if (runTask && viewType == SwitchTree.YAOKONG) {
                     Log.d(TAG, "FlushTimeTask run");
-                    mHandler.sendEmptyMessage(MSG_TIMER);
+                    mHandler.sendEmptyMessage(MSG_TIMER_FLAG);
                 }
             }
         });
@@ -288,8 +288,8 @@ public class YaoKongDetailActivity extends BaseActivity {
 //                findViewById(R.id.ll_empty_layout).setVisibility(View.GONE);
 //                linearLayout.setVisibility(View.VISIBLE);
 
-//                mHandler.sendEmptyMessageDelayed(MSG_FILLDATA, 10);
-//                mHandler.sendEmptyMessageDelayed(MSG_SWTCH_REFRESH, 1000);
+//                mHandler.sendEmptyMessageDelayed(MSG_FILLDATA_FLAG, 10);
+//                mHandler.sendEmptyMessageDelayed(MSG_SWTCH_REFRESH_FLAG, 1000);
                 adapter.notifyDataSetChanged();
                 mWaitDialog.dismiss();
             }
@@ -424,7 +424,7 @@ public class YaoKongDetailActivity extends BaseActivity {
                         public void onSuccess(ControllerId data) {
                             controllerId = data.getControllerID();
                             currentSearchCount = 0;
-                            mHandler.sendEmptyMessageDelayed(MSG_CMD_RESULT, 1000);
+                            mHandler.sendEmptyMessageDelayed(MSG_CMD_RESULT_FLAG, 1000);
 //                                waitDialog.dismiss();
                         }
 
@@ -466,7 +466,7 @@ public class YaoKongDetailActivity extends BaseActivity {
                     SnackbarMessageShow.getInstance().showError(lvProduct, getString(R.string.vs156));
                     mWaitDialog.dismiss();
                 } else {
-                    mHandler.sendEmptyMessageDelayed(MSG_CMD_RESULT, 1000);
+                    mHandler.sendEmptyMessageDelayed(MSG_CMD_RESULT_FLAG, 1000);
                 }
             }
         });
@@ -485,7 +485,7 @@ public class YaoKongDetailActivity extends BaseActivity {
                 Log.i(TAG, currentSearchCount + "-flush_count");
                 if (currentSearchCount <= MAX_REFRESH_COUNT) {
                     if ((cb.getSwitchState() == 1) == targetState) {// 如果还没有变成开关操作的目标状态 继续查询
-                        mHandler.sendEmptyMessageDelayed(MSG_SWTCH_REFRESH, 1000);
+                        mHandler.sendEmptyMessageDelayed(MSG_SWTCH_REFRESH_FLAG, 1000);
                     } else {
                         Log.i(TAG, cb.getSwitchState() + "-flush_success");
 //                        findChild(rootNode, currentSwitchBean.getSerialNumber(), cb.getSwitchState(), cb.getFault(), 1);
@@ -575,7 +575,7 @@ public class YaoKongDetailActivity extends BaseActivity {
         switch (cb.getRunCode()) {
             case "0": // run code=0 重发
                 if (currentSearchCount <= MAX_REQUEST_COUNT) {
-                    mHandler.sendEmptyMessageDelayed(MSG_CMD_RESULT, 2000);
+                    mHandler.sendEmptyMessageDelayed(MSG_CMD_RESULT_FLAG, 2000);
                 } else {
                     SnackbarMessageShow.getInstance().showError(lvProduct, getString(R.string.vs156));
                     mWaitDialog.dismiss();
@@ -611,7 +611,10 @@ public class YaoKongDetailActivity extends BaseActivity {
 
     @Override
     protected void dealloc() {
-
+        mHandler.removeMessages(MSG_CMD_RESULT_FLAG);
+        mHandler.removeMessages(MSG_FILLDATA_FLAG);
+        mHandler.removeMessages(MSG_TIMER_FLAG);
+        mHandler.removeMessages(MSG_SWTCH_REFRESH_FLAG);
     }
 
     @Override

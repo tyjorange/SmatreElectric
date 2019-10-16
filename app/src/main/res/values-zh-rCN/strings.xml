@@ -485,6 +485,7 @@
     <string name="sucess">成功</string>
     <string name="failure">失败</string>
     <string name="temperature">温度</string>
+    <string name="ldl">漏电流</string>
     <string name="upload_to_collect">驻留集中器</string>
     <string name="upload_tips">1、定时操作通常是保存在云服务器的，在到达设定的时刻，云服务器会自动通过网络向电箱发送对应的线路开关操作。如果当时网络故障，那么这次操作将失败。\n
 2、为防止网络故障而引起的定时操作失败，用户可以选择“驻留电箱”选项。这样定时操作的内容将直接保存到对应的电箱上，并在到达设定的时刻时直接触发。\n
