@@ -16,9 +16,12 @@
     <string name="please_wait">请等待</string>
     <string name="scan_add">扫码添加</string>
     <string name="scan_results">扫描结果</string>
-    <string name="scan_rusults_hint">请扫描获取设备编号</string>
-    <string name="device_code_empty">设备编码为空</string>
-    <string name="input_correct_device_code">请输入正确的%1$s位编码</string>
+    <string name="scan_rusults_hint1">请扫描获取线路编号</string>
+    <string name="scan_rusults_hint2">请扫描获取电箱安装码</string>
+    <string name="switch_code_empty">设备编码为空</string>
+    <string name="device_code_empty">设备安装码为空</string>
+    <string name="input_correct_switch_code">请输入正确的%1$s位编码</string>
+    <string name="input_correct_device_code">请输入正确的%1$s位安装码</string>
     <string name="finish">完成</string>
     <string name="control">控制</string>
     <string name="cur_dianliang">电量: %1$s%2$.1f%3$s 度</string>

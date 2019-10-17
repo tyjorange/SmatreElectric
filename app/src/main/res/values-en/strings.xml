@@ -16,8 +16,11 @@
     <string name="please_wait">wait please</string>
     <string name="scan_add">scan the code to add</string>
     <string name="scan_results">the result of scanning</string>
-    <string name="scan_rusults_hint">scan for device number</string>
+    <string name="scan_rusults_hint1">scan for device number</string>
+    <string name="scan_rusults_hint2">scan for device number</string>
+    <string name="switch_code_empty">device code is empty</string>
     <string name="device_code_empty">device code is empty</string>
+    <string name="input_correct_switch_code">Please enter the correct code and the length of the code is %1$s</string>
     <string name="input_correct_device_code">Please enter the correct code and the length of the code is %1$s</string>
     <string name="finish">complete</string>
     <string name="control">control</string>

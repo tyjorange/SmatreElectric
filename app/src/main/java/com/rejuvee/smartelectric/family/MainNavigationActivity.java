@@ -29,7 +29,7 @@ import com.base.library.utils.PermissionUtils;
 import com.base.library.utils.SizeUtils;
 import com.base.library.widget.CustomToast;
 import com.base.library.widget.HorizontalListView;
-import com.rejuvee.smartelectric.family.activity.AddDeviceActivity;
+import com.rejuvee.smartelectric.family.activity.AddDeviceOrSwitchActivity;
 import com.rejuvee.smartelectric.family.activity.collector.CollectorDetailActivity;
 import com.rejuvee.smartelectric.family.activity.energy.CostCalculationActivity;
 import com.rejuvee.smartelectric.family.activity.kefu.CustomerServiceActivity;
@@ -374,7 +374,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
                     return;
                 }
                 if (position == listDeviceData.size()) {
-                    startActivityForResult(new Intent(mContext, AddDeviceActivity.class), CommonRequestCode.REQUEST_ADD_COLLECTOR);
+                    startActivityForResult(new Intent(mContext, AddDeviceOrSwitchActivity.class), CommonRequestCode.REQUEST_ADD_COLLECTOR);
                 } else {
                     CollectorBean collectorBean = listDeviceData.get(position);
                     Intent intent = new Intent(MainNavigationActivity.this, CollectorDetailActivity.class);
@@ -403,7 +403,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 //        findViewById(R.id.txt_add_device).setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                startActivityForResult(new Intent(mContext, AddDeviceActivity.class), requestCode_add_device);
+//                startActivityForResult(new Intent(mContext, AddDeviceOrSwitchActivity.class), requestCode_add_device);
 //            }
 //        });
     }

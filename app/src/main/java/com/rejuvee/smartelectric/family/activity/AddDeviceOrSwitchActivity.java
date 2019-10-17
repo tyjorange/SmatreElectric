@@ -31,7 +31,7 @@ import org.greenrobot.eventbus.EventBus;
 /**
  * 添加电箱 或 线路
  */
-public class AddDeviceActivity extends BaseActivity {
+public class AddDeviceOrSwitchActivity extends BaseActivity {
     private EditText edtScan;
     private LoadingDlg mWaitDialog;
 
@@ -67,20 +67,20 @@ public class AddDeviceActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    PermisionManage.getInstance().startRequest(AddDeviceActivity.this, new String[]{Manifest.permission.CAMERA}, new PermissionUtils.OnPermissionListener() {
+                    PermisionManage.getInstance().startRequest(AddDeviceOrSwitchActivity.this, new String[]{Manifest.permission.CAMERA}, new PermissionUtils.OnPermissionListener() {
                         @Override
                         public void onPermissionGranted() {
-                            Intent intent = new Intent(AddDeviceActivity.this, CaptureActivity.class);
+                            Intent intent = new Intent(AddDeviceOrSwitchActivity.this, CaptureActivity.class);
                             startActivityForResult(intent, CommonRequestCode.REQUEST_SCAN_CODE);
                         }
 
                         @Override
                         public void onPermissionDenied(String[] deniedPermissions) {
-                            CustomToast.showCustomErrorToast(AddDeviceActivity.this, getString(R.string.vs46));
+                            CustomToast.showCustomErrorToast(AddDeviceOrSwitchActivity.this, getString(R.string.vs46));
                         }
                     });
                 } else {
-                    Intent intent = new Intent(AddDeviceActivity.this, CaptureActivity.class);
+                    Intent intent = new Intent(AddDeviceOrSwitchActivity.this, CaptureActivity.class);
                     startActivityForResult(intent, CommonRequestCode.REQUEST_SCAN_CODE);
                 }
             }
@@ -125,28 +125,33 @@ public class AddDeviceActivity extends BaseActivity {
             llSetLineName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(AddDeviceActivity.this, SwitchModifyActivity.class);
+                    Intent intent = new Intent(AddDeviceOrSwitchActivity.this, SwitchModifyActivity.class);
                     startActivityForResult(intent, CommonRequestCode.REQUEST_SET_LINE_NAME);
                 }
             });
             edtScan.setFilters(new InputFilter[]{new InputFilter.LengthFilter(12)});
+            edtScan.setHint(getString(R.string.scan_rusults_hint1));
         } else {
             add_title.setText(getString(R.string.vs49));
             findViewById(R.id.type_dianxiang).setVisibility(View.VISIBLE);
             findViewById(R.id.type_xianlu).setVisibility(View.GONE);
             parent_tip.setVisibility(View.INVISIBLE);
             edtScan.setFilters(new InputFilter[]{new InputFilter.LengthFilter(19)});
+            edtScan.setHint(getString(R.string.scan_rusults_hint2));
         }
     }
 
+    /**
+     * 添加线路
+     */
     private void addBreak() {
         String switchCode = edtScan.getEditableText().toString();
         if (switchCode.isEmpty()) {
-            CustomToast.showCustomErrorToast(this, getString(R.string.device_code_empty));
+            CustomToast.showCustomErrorToast(this, getString(R.string.switch_code_empty));
             return;
         }
         if (switchCode.length() != 12) {
-            CustomToast.showCustomErrorToast(this, String.format(getString(R.string.input_correct_device_code), "12"));
+            CustomToast.showCustomErrorToast(this, String.format(getString(R.string.input_correct_switch_code), "12"));
             return;
         }
         if (lineName == null) {
@@ -157,7 +162,7 @@ public class AddDeviceActivity extends BaseActivity {
         Core.instance(this).addSwitch(collectorBean.getCollectorID(), lineName, switchCode, iconType, mSwitch == null ? "0" : mSwitch.getSwitchID(), new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
-                CustomToast.showCustomToast(AddDeviceActivity.this, getString(R.string.operator_sucess));
+                CustomToast.showCustomToast(AddDeviceOrSwitchActivity.this, getString(R.string.operator_sucess));
                 setResult(RESULT_OK);
                 mWaitDialog.dismiss();
                 finish();
@@ -166,7 +171,7 @@ public class AddDeviceActivity extends BaseActivity {
 
             @Override
             public void onFailure(int errorEvent, String message) {
-                CustomToast.showCustomErrorToast(AddDeviceActivity.this, getString(R.string.operator_failure));
+                CustomToast.showCustomErrorToast(AddDeviceOrSwitchActivity.this, getString(R.string.operator_failure));
                 mWaitDialog.dismiss();
             }
         });
@@ -177,6 +182,9 @@ public class AddDeviceActivity extends BaseActivity {
 //        startActivity(intent);
 //    }
 
+    /**
+     * 添加电箱
+     */
     private void bindDevice() {
         String setupCode = edtScan.getEditableText().toString();
         if (setupCode.isEmpty()) {
@@ -191,20 +199,20 @@ public class AddDeviceActivity extends BaseActivity {
         Core.instance(this).bindDevice(setupCode, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
-                CustomToast.showCustomToast(AddDeviceActivity.this, getString(R.string.operator_sucess));
+                CustomToast.showCustomToast(AddDeviceOrSwitchActivity.this, getString(R.string.operator_sucess));
                 setResult(RESULT_OK);
                 mWaitDialog.dismiss();
                 finish();
 
-                AccountHelper.setUserFirstUse(false, AddDeviceActivity.this);
-//                startActivity(new Intent(AddDeviceActivity.this, ConfigActivity.class));
+                AccountHelper.setUserFirstUse(false, AddDeviceOrSwitchActivity.this);
+//                startActivity(new Intent(AddDeviceOrSwitchActivity.this, ConfigActivity.class));
                 EventBus.getDefault().post(new DeviceEventMsg(DeviceEventMsg.EVENT_REFRESH_CONCENTRATOR));
             }
 
             @Override
             public void onFailure(int errorEvent, String message) {
                 mWaitDialog.dismiss();
-                CustomToast.showCustomErrorToast(AddDeviceActivity.this, getString(R.string.operator_failure));
+                CustomToast.showCustomErrorToast(AddDeviceOrSwitchActivity.this, getString(R.string.operator_failure));
             }
         });
     }

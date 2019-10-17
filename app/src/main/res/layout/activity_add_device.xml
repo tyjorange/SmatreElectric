@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".activity.AddDeviceActivity">
+    tools:context=".activity.AddDeviceOrSwitchActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/ll_img_cancel"
@@ -132,7 +132,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/divider"
             android:gravity="center_vertical"
-            android:hint="@string/scan_rusults_hint"
+            android:hint="@string/scan_rusults_hint1"
             android:maxLength="19"
             android:textSize="12sp" />
     </LinearLayout>

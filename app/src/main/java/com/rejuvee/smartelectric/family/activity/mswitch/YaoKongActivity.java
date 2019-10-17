@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
-import com.rejuvee.smartelectric.family.activity.AddDeviceActivity;
+import com.rejuvee.smartelectric.family.activity.AddDeviceOrSwitchActivity;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.CommonRequestCode;
@@ -238,11 +238,11 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
      *                notNull 添加至mSwitch
      */
     private void addSwitch(SwitchBean mSwitch) {
-        Intent intent = new Intent(mContext, AddDeviceActivity.class);
+        Intent intent = new Intent(mContext, AddDeviceOrSwitchActivity.class);
         intent.setExtrasClassLoader(getClass().getClassLoader());
         intent.putExtra("collectorBean", mCollectorBean);
         intent.putExtra("switch", mSwitch);
-        intent.putExtra("add_type", AddDeviceActivity.BREAK_ADD);
+        intent.putExtra("add_type", AddDeviceOrSwitchActivity.BREAK_ADD);
         startActivityForResult(intent, CommonRequestCode.REQUEST_ADD_LINE_ROOT);
     }
 

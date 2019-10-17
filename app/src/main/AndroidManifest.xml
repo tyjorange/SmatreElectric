@@ -149,7 +149,7 @@
             android:name=".activity.login.ForgetPwdActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.AddDeviceActivity"
+            android:name=".activity.AddDeviceOrSwitchActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.login.AccountBaseActivity"
