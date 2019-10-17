@@ -104,8 +104,9 @@ public class AutoUpgrade {
     public static AutoUpgrade getInstacne(Context context) {
         if (instacne == null) {
             instacne = new AutoUpgrade(context);
+        } else {
+            instacne.mContext = context;
         }
-        instacne.mContext = context;
         return instacne;
     }
 
@@ -282,6 +283,7 @@ public class AutoUpgrade {
 
     private void createDialog() {
         mDialogTip = new DialogTip(mContext, false);
+        mDialogTip.setCanceledOnTouchOutside(false);// 设置为点击窗口外部不可关闭
         mDialogTip.setTitle(mContext.getString(R.string.new_version) + mVersionInfo.versionName);
         StringBuilder res = new StringBuilder();
         for (String s : mVersionInfo.upgradeItems) {
@@ -435,29 +437,27 @@ public class AutoUpgrade {
 
     //进度对话框
     private void displayProgressDialog() {
-        if (progressDialog == null) {
-            // 创建ProgressDialog对象
-            progressDialog = new DownloadProgressDialog(mContext);
-            // 设置进度条风格，风格为长形
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            // 设置ProgressDialog 标题
+        // 创建ProgressDialog对象
+        progressDialog = new DownloadProgressDialog(mContext);
+        // 设置进度条风格，风格为长形
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        // 设置ProgressDialog 标题
 //            progressDialog.setTitle("下载提示");
-            // 设置ProgressDialog 提示信息
-            progressDialog.setMessage("下载进度:");
-            // 设置ProgressDialog 的进度条是否不明确
-            progressDialog.setIndeterminate(false);
-            // 设置ProgressDialog 是否可以按退回按键取消
-            progressDialog.setCancelable(false);
+        // 设置ProgressDialog 提示信息
+        progressDialog.setMessage("下载进度:");
+        // 设置ProgressDialog 的进度条是否不明确
+        progressDialog.setIndeterminate(false);
+        // 设置ProgressDialog 是否可以按退回按键取消
+        progressDialog.setCancelable(false);
 //            progressDialog.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.btn_def));
-            progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    removeDownload();
-                    dialog.dismiss();
+        progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                removeDownload();
+                dialog.dismiss();
 //                    mContext.finish();
-                }
-            });
-        }
+            }
+        });
         if (!progressDialog.isShowing()) {
             // 让ProgressDialog显示
             progressDialog.show();
@@ -496,18 +496,18 @@ public class AutoUpgrade {
                 if (downId == -1) {
                     return;
                 }
-                //自动安装apk
                 Uri uriForDownloadedFile = downloadManager.getUriForDownloadedFile(downId);
                 if (uriForDownloadedFile == null) {
                     return;
                 }
+                //自动安装apk
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    if (isHasInstallPermissionWithO(mContext)) {
-                        AutoUpgradeEventMessage eventMessage = new AutoUpgradeEventMessage();
-                        eventMessage.upGradeUri = uriForDownloadedFile;
-                        EventBus.getDefault().post(eventMessage);
+//                    if (isHasInstallPermissionWithO(mContext)) {
+                    AutoUpgradeEventMessage eventMessage = new AutoUpgradeEventMessage();
+                    eventMessage.upGradeUri = uriForDownloadedFile;
+                    EventBus.getDefault().post(eventMessage);
 //                        return;
-                    }
+//                    }
                 }
 //                installApkNew(uriForDownloadedFile);
             }

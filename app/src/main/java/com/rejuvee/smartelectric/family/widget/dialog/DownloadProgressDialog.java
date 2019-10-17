@@ -241,7 +241,7 @@ public class DownloadProgressDialog extends AlertDialog {
         }
     }
 
-    public void setProgressDrawable(Drawable d) {
+    private void setProgressDrawable(Drawable d) {
         if (mProgress != null) {
             mProgress.setProgressDrawable(d);
         } else {

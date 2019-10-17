@@ -79,6 +79,7 @@ public class DialogTip extends Dialog implements View.OnClickListener {
             dialogWindow.setGravity(Gravity.BOTTOM);
         } else {
             txtOk.setText(getContext().getString(R.string.intall_now));
+            txtCancel.setText(context.getString(R.string.vs215));
         }
         txtOk.setOnClickListener(this);
         txtCancel.setOnClickListener(this);

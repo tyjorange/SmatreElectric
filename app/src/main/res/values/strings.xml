@@ -748,4 +748,5 @@
     <string name="vs212">去年本月</string>
     <string name="vs213">设置提交成功。因最新值反馈需要些许时间，如果内容未变化，请稍后尝试刷新。</string>
     <string name="vs214">很抱歉,程序出现异常,即将退出.</string>
+    <string name="vs215">下次再说</string>
 </resources>

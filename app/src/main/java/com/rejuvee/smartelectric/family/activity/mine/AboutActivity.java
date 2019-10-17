@@ -30,7 +30,7 @@ public class AboutActivity extends BaseActivity {
                 finish();
             }
         });
-        ((TextView) findViewById(R.id.txt_current_vision)).setText(String.format("当前版本%s", packageCode(this)));
+        ((TextView) findViewById(R.id.txt_current_vision)).setText(String.format("当前版本%s", packageCode(mContext)));
     }
 
     private String packageCode(Context context) {
