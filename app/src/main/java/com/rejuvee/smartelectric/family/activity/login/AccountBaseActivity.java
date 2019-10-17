@@ -388,7 +388,7 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
             mTvOrgPwd.setVisibility(View.VISIBLE);
             mTvOrgPwd.setText(R.string.hint_null_password);
             mTvOrgPwd.setVisibility(View.GONE);
-        } else if (mPwdOrOld.length() < 6 || mPwdOrOld.length() > 12 || !EncryptUtils.encryptMD5ToString(mPwdOrOld, Core.SALT).equals(oLdpassword)) {
+        } else if (mPwdOrOld.length() < 4 || mPwdOrOld.length() > 12 || !EncryptUtils.encryptMD5ToString(mPwdOrOld, Core.SALT).equals(oLdpassword)) {
             mTvOrgPwd.setVisibility(View.VISIBLE);
             mTvOrgPwd.setText(R.string.wrong_password);
             mIvOrgPwd.setVisibility(View.GONE);
