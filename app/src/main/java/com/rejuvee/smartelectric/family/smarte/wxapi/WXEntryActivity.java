@@ -13,9 +13,11 @@ import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.LogoVersionManage;
 import com.rejuvee.smartelectric.family.model.bean.ThirdPartyInfo;
 import com.rejuvee.smartelectric.family.model.bean.WXAccessTokenRet;
-import com.rejuvee.smartelectric.family.wxapi.WXHelper;
+import com.rejuvee.smartelectric.family.utils.thrid.WXHelper;
+import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 
@@ -48,6 +50,12 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         Log.i(TAG, "onResp:------>");
         Log.i(TAG, "error_code:---->" + baseResp.errCode);
         int type = baseResp.getType(); //类型：分享还是登录
+        if (type == ConstantsAPI.COMMAND_LAUNCH_WX_MINIPROGRAM) {
+            WXLaunchMiniProgram.Resp launchMiniProResp = (WXLaunchMiniProgram.Resp) baseResp;
+            String extraData = launchMiniProResp.extMsg;
+            //对应小程序组件 <button open-type="launchApp"> 中的 app-parameter 属性
+            System.out.println(extraData);
+        }
         switch (baseResp.errCode) {
             case BaseResp.ErrCode.ERR_AUTH_DENIED:
                 //用户拒绝授权

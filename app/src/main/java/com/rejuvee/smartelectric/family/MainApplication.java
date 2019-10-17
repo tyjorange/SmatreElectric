@@ -16,7 +16,7 @@ import com.base.library.utils.Utils;
 import com.rejuvee.smartelectric.family.common.CrashHandler;
 import com.rejuvee.smartelectric.family.common.LogoVersionManage;
 import com.rejuvee.smartelectric.family.common.NativeLine;
-import com.rejuvee.smartelectric.family.wxapi.QQLoginHelper;
+import com.rejuvee.smartelectric.family.utils.thrid.QQLoginHelper;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;

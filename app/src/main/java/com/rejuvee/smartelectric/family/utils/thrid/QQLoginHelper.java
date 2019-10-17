@@ -1,4 +1,4 @@
-package com.rejuvee.smartelectric.family.wxapi;
+package com.rejuvee.smartelectric.family.utils.thrid;
 
 import android.app.Activity;
 import android.content.Context;
