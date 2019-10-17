@@ -79,13 +79,13 @@ public class LogoVersionManage {
     String getVersionInfoUrl() {
         switch (companyName) {
             case "solarstem":
-                return AppGlobalConfig.HTTP_URL_VERSION_CONTROL + "solarstem_family_release.xml";
+                return AppGlobalConfig.HTTP_URL_VERSION_CONTROL + "null1.xml";
             case "yongji":
-                return AppGlobalConfig.HTTP_URL_VERSION_CONTROL + "yongji_family_release.xml";
+                return AppGlobalConfig.HTTP_URL_VERSION_CONTROL + "null2.xml";
             case "isteks":
-                return AppGlobalConfig.HTTP_URL_VERSION_CONTROL + "isteks_family_release.xml";
+                return AppGlobalConfig.HTTP_URL_VERSION_CONTROL + "null3.xml";
             case "smarte":
-                return AppGlobalConfig.HTTP_URL_VERSION_CONTROL + "smarte_family_release.xml";
+                return AppGlobalConfig.HTTP_URL_VERSION_CONTROL + "smarte_family_index.xml";
         }
         return AppGlobalConfig.HTTP_URL_VERSION_CONTROL + "null.xml";
     }

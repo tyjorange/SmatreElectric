@@ -16,7 +16,6 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.RequiresApi;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 
@@ -70,9 +69,14 @@ public class AutoUpgrade {
     private DownloadManager downloadManager;
     private DownloadCompleteReceiver receiver;
     private VersionInfo mVersionInfo;
-    private final QueryRunnable mQueryProgressRunnable = new QueryRunnable();
+    private final Runnable mQueryProgressRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (queryState())
+                mHandler.postDelayed(mQueryProgressRunnable, 1000);
+        }
+    };
     private Context mContext;
-    //    private AlertDialog mAlertDialog;
     private DialogTip mDialogTip;
     private Handler mHandler;
     private static AutoUpgrade instacne;
@@ -218,10 +222,6 @@ public class AutoUpgrade {
             if (appVersionCode < Integer.valueOf(mVersionInfo.versionCode)) {//版本不同，需要更新版本
                 downloadManager = (DownloadManager) mContext.getSystemService(DOWNLOAD_SERVICE);
                 createDialog();
-                if (getDownloadStatus() != DownloadManager.STATUS_RUNNING) {
-//                    mAlertDialog.show();
-                    mDialogTip.show();
-                }
             } else {
                 if (showTip) {
                     CustomToast.showCustomToast(mContext, "已是最新版本");
@@ -232,55 +232,9 @@ public class AutoUpgrade {
         }
     }
 
-    private int getDownloadStatus() {
-        long downLoadId = mContext.getSharedPreferences(AppGlobalConfig.BASIC_CONFIG, MODE_PRIVATE).getLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, -1);
-        DownloadManager.Query query = new DownloadManager.Query().setFilterById(downLoadId);
-        Cursor c = downloadManager.query(query);
-        if (c != null) {
-            try {
-                if (c.moveToFirst()) {
-                    return c.getInt(c.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
-                }
-            } finally {
-                c.close();
-            }
-        }
-        return -1;
-    }
-
     /**
-     * 查询下载进度，文件总大小多少，已经下载多少？
+     * 显示更新提示
      */
-    private void queryState() {
-        long downLoadId = mContext.getSharedPreferences(AppGlobalConfig.BASIC_CONFIG, MODE_PRIVATE).getLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, -1);
-        // 通过ID向下载管理查询下载情况，返回一个cursor
-        Cursor c = downloadManager.query(new DownloadManager.Query().setFilterById(downLoadId));
-        if (c != null) {
-            if (!c.moveToFirst()) {
-//                Log.e(TAG, "下载失败 !c.moveToFirst()");
-//                Toast.makeText(this, "下载失败", Toast.LENGTH_SHORT).show();
-//                mContext.finish();
-//                mHandler.removeMessages(1001);
-                if (!c.isClosed()) {
-                    c.close();
-                }
-                return;
-            }
-            int mDownload_so_far = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
-            int mDownload_all = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
-            Message msg = Message.obtain();
-            if (mDownload_all > 0) {
-                msg.what = 1001;
-                msg.arg1 = mDownload_so_far;
-                msg.arg2 = mDownload_all;
-                mHandler.sendMessage(msg);
-            }
-            if (!c.isClosed()) {
-                c.close();
-            }
-        }
-    }
-
     private void createDialog() {
         mDialogTip = new DialogTip(mContext, false);
         mDialogTip.setCanceledOnTouchOutside(false);// 设置为点击窗口外部不可关闭
@@ -303,32 +257,94 @@ public class AutoUpgrade {
             }
         });
         mDialogTip.show();
+    }
 
-//        AlertDialog.Builder builder = new AlertDialog.Builder(mContext, R.style.Dialog);
-//        builder.setTitle(mContext.getString(R.string.new_version) + mVersionInfo.versionName);
-//        builder.setIcon(R.mipmap.ic_launcher);
-//        StringBuilder res = null;
-//        for (String s : mVersionInfo.upgradeItems) {
-//            res = (res == null ? new StringBuilder() : res).append(s);
-//        }
-//        builder.setMessage(res == null ? null : res.toString());
-//        builder.setPositiveButton(mContext.getString(R.string.intall_now), new DialogInterface.OnClickListener() {
-//
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                mAlertDialog.dismiss();
-//                initDownManager();
-//            }
-//        });
-//        builder.setNegativeButton(mContext.getString(R.string.cancel), new DialogInterface.OnClickListener() {
-//
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                mAlertDialog.dismiss();
-//            }
-//        });
-//        //dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-//        return builder.create();
+    /**
+     * 添加下载任务
+     */
+    private void initDownManager() {
+        downloadManager = (DownloadManager) mContext.getSystemService(DOWNLOAD_SERVICE);
+        Log.i(TAG, "attempt download from : " + downloadUrl + mVersionInfo.getApkName());
+        Uri parse = Uri.parse(downloadUrl + mVersionInfo.getApkName());
+        DownloadManager.Request down = new DownloadManager.Request(parse);
+        // 设置允许使用的网络类型，这里是移动网络和wifi都可以
+//        down.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
+        down.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
+        // 下载时，通知栏显示途中
+        down.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+        // 显示下载界面
+        down.setVisibleInDownloadsUi(true);
+        down.setTitle(mVersionInfo.getApkName());
+        // 设置下载后文件存放的位置
+        String apkName = parse.getLastPathSegment();
+        down.setDestinationInExternalFilesDir(mContext, Environment.DIRECTORY_DOWNLOADS, apkName);
+        String downloadPath = String.format("%s/%s", Objects.requireNonNull(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)).getPath(), apkName);
+        File file = new File(downloadPath);
+        if (file.exists()) {
+            boolean delete = file.delete();
+        }
+        // 将下载请求放入队列
+        long downloadId = downloadManager.enqueue(down);
+        mContext.getSharedPreferences(AppGlobalConfig.BASIC_CONFIG, MODE_PRIVATE).edit().putLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, downloadId).apply();
+        startQuery();
+    }
+
+    /**
+     * 查询下载进度，文件总大小多少，已经下载多少？
+     *
+     * @return 下载失败 false
+     */
+    private boolean queryState() {
+        if (getDownloadStatus() == DownloadManager.STATUS_FAILED) {
+            Log.e(TAG, "STATUS_FAILED");
+            CustomToast.showCustomErrorToast(mContext, "下载失败，请稍后再试。");
+            return false;
+        }
+        long downLoadId = mContext.getSharedPreferences(AppGlobalConfig.BASIC_CONFIG, MODE_PRIVATE).getLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, -1);
+        // 通过ID向下载管理查询下载情况，返回一个cursor
+        Cursor c = downloadManager.query(new DownloadManager.Query().setFilterById(downLoadId));
+        if (c != null) {
+            if (!c.moveToFirst()) {
+                if (!c.isClosed()) {
+                    c.close();
+                }
+                return false;
+            }
+            int mDownload_so_far = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
+            int mDownload_all = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
+            Message msg = Message.obtain();
+            if (mDownload_all > 0) {
+                msg.what = 1001;
+                msg.arg1 = mDownload_so_far;
+                msg.arg2 = mDownload_all;
+                mHandler.sendMessage(msg);
+            }
+            if (!c.isClosed()) {
+                c.close();
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 查询下载状态
+     *
+     * @return
+     */
+    private int getDownloadStatus() {
+        long downLoadId = mContext.getSharedPreferences(AppGlobalConfig.BASIC_CONFIG, MODE_PRIVATE).getLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, -1);
+        DownloadManager.Query query = new DownloadManager.Query().setFilterById(downLoadId);
+        Cursor c = downloadManager.query(query);
+        if (c != null) {
+            try {
+                if (c.moveToFirst()) {
+                    return c.getInt(c.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
+                }
+            } finally {
+                c.close();
+            }
+        }
+        return -1;
     }
 
     /**
@@ -386,49 +402,12 @@ public class AutoUpgrade {
         }
     }
 
-
-    private void initDownManager() {
-        downloadManager = (DownloadManager) mContext.getSystemService(DOWNLOAD_SERVICE);
-
-        Uri parse = Uri.parse(downloadUrl + mVersionInfo.getApkName());
-        DownloadManager.Request down = new DownloadManager.Request(parse);
-        // 设置允许使用的网络类型，这里是移动网络和wifi都可以
-//        down.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
-        down.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
-        // 下载时，通知栏显示途中
-        down.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-        // 显示下载界面
-        down.setVisibleInDownloadsUi(true);
-        down.setTitle(mVersionInfo.getApkName());
-        // 设置下载后文件存放的位置
-        String apkName = parse.getLastPathSegment();
-        down.setDestinationInExternalFilesDir(mContext, Environment.DIRECTORY_DOWNLOADS, apkName);
-        String downloadPath = String.format("%s/%s", Objects.requireNonNull(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)).getPath(), apkName);
-        File file = new File(downloadPath);
-        if (file.exists()) {
-            boolean delete = file.delete();
-        }
-        // 将下载请求放入队列
-        long downloadId = downloadManager.enqueue(down);
-        mContext.getSharedPreferences(AppGlobalConfig.BASIC_CONFIG, MODE_PRIVATE).edit().putLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, downloadId).apply();
-        startQuery();
-    }
-
     //更新下载进度
     private void startQuery() {
         long downLoadId = mContext.getSharedPreferences(AppGlobalConfig.BASIC_CONFIG, MODE_PRIVATE).getLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, -1);
         if (downLoadId > 0) {
             displayProgressDialog();
             mHandler.post(mQueryProgressRunnable);
-        }
-    }
-
-    //查询下载进度
-    private class QueryRunnable implements Runnable {
-        @Override
-        public void run() {
-            queryState();
-            mHandler.postDelayed(mQueryProgressRunnable, 1000);
         }
     }
 
@@ -459,7 +438,7 @@ public class AutoUpgrade {
             }
         });
         if (!progressDialog.isShowing()) {
-            // 让ProgressDialog显示
+            // 保持ProgressDialog显示
             progressDialog.show();
         }
     }
@@ -472,13 +451,13 @@ public class AutoUpgrade {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private boolean isHasInstallPermissionWithO(Context context) {
-        if (context == null) {
-            return false;
-        }
-        return context.getPackageManager().canRequestPackageInstalls();
-    }
+//    @RequiresApi(api = Build.VERSION_CODES.O)
+//    private boolean isHasInstallPermissionWithO(Context context) {
+//        if (context == null) {
+//            return false;
+//        }
+//        return context.getPackageManager().canRequestPackageInstalls();
+//    }
 
     /**
      * 接受下载完成后的intent

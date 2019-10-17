@@ -50,11 +50,13 @@ public class SettingDL2Fragment extends BaseFragment {
     }
 
     public void setXX(float paramValue) {
-        dl_xiaxian.setText(new DecimalFormat("000000.00").format(paramValue));
+        if (dl_xiaxian != null)
+            dl_xiaxian.setText(new DecimalFormat("000000.00").format(paramValue));
     }
 
     public void setSX(float paramValue) {
-        dl_shangxian.setText(new DecimalFormat("000000.00").format(paramValue));
+        if (dl_shangxian != null)
+            dl_shangxian.setText(new DecimalFormat("000000.00").format(paramValue));
     }
 
     /**

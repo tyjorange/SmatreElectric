@@ -107,8 +107,10 @@ public class SettingDYFragment extends BaseFragment {
      * @param paramValue
      */
     public void setGY(float paramValue) {
-        rangeSeekBarGY.setProgress(paramValue);
-        amountGY.setAmount(paramValue);
+        if (rangeSeekBarGY != null)
+            rangeSeekBarGY.setProgress(paramValue);
+        if (amountGY != null)
+            amountGY.setAmount(paramValue);
     }
 
     /**
@@ -117,8 +119,10 @@ public class SettingDYFragment extends BaseFragment {
      * @param paramValue
      */
     public void setQY(float paramValue) {
-        rangeSeekBarQY.setProgress(paramValue);
-        amountQY.setAmount(paramValue);
+        if (rangeSeekBarQY != null)
+            rangeSeekBarQY.setProgress(paramValue);
+        if (amountQY != null)
+            amountQY.setAmount(paramValue);
     }
 
     public String getValString() {
