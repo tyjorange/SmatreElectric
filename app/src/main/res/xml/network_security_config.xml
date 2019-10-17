@@ -5,5 +5,13 @@
         <domain includeSubdomains="true">192.168.1.182</domain>
         <domain includeSubdomains="true">192.168.1.162</domain>
         <domain includeSubdomains="true">192.168.1.83</domain>
+
+        <domain includeSubdomains="true">cgi.connect.qq.com</domain>
+        <domain includeSubdomains="true">pingma.qq.com</domain>
+
+        <domain includeSubdomains="true">mpush-api.aliyun.com</domain>
+        <domain includeSubdomains="true">203.119.217.116</domain>
+        <domain includeSubdomains="true">203.119.205.154</domain>
+        <domain includeSubdomains="true">140.205.163.87</domain>
     </domain-config>
 </network-security-config>
