@@ -364,13 +364,13 @@ public class SwitchSettingActivity extends BaseActivity implements
         dy_fragment.setGY(275);
 //        case 0x0000000D:// 欠压阀值 160
         dy_fragment.setQY(160);
-//        case 0x00000011:// 过流阀值 30
+//        case 0x00000011:// 过流阀值 1 30
         dl1_fragment.setGL1(30);
 //        case 0x00000018:// 电量下限 999999.99
-        dl2_fragment.setXX(999999.99f);
+        dl2_fragment.setXX(000000.00f);
 //        case 0x00000019:// 电量上限 999999.99
         dl2_fragment.setSX(999999.99f);
-//        case 0x0000001A:// 瞬时过流阀值 200
+//        case 0x0000001A:// 瞬时过流阀值 2 200
         dl1_fragment.setGL2(200);
 //        case 0x0000001B:// 漏电阀值 30
         dl1_fragment.setVal(30);
@@ -426,7 +426,7 @@ public class SwitchSettingActivity extends BaseActivity implements
 //        if (Double.valueOf(dlsx) <= Double.valueOf(dlxx)) {
 //            CustomToast.showCustomErrorToast(mContext, getString(R.string.vs189));
 //            return;
-//
+//        }
 //                "00000011:" + glfz + // 过流阀值(1)
 //                ",00000005:" + gyfz + // 过压阀值
 //                ",0000000D:" + qyfz + // 欠压阀值
@@ -457,6 +457,9 @@ public class SwitchSettingActivity extends BaseActivity implements
         }
 
         if (currentSwitchBean == null) {
+            return;
+        }
+        if (values.isEmpty()) {
             return;
         }
         Core.instance(mContext).sendSetThreadValueCommand(currentSwitchBean.getSerialNumber(), values, new ActionCallbackListener<Void>() {

@@ -39,7 +39,7 @@ public class SettingOtherFragment extends BaseFragment {
         amountWDFZ = v.findViewById(R.id.amount_view_gwfz);
         amountWDFZ.setVal_min(0);
         amountWDFZ.setVal_max(85);
-//        amountGWFZ.setAmountInt(0);
+        amountWDFZ.setAmount(84);
         amountWDFZ.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
             @Override
             public void onAmountChange(View view, float amount) {
@@ -50,6 +50,7 @@ public class SettingOtherFragment extends BaseFragment {
         rangeSeekBarWDFZ.setRange(0, 85);//范围
         rangeSeekBarWDFZ.setTickMarkTextArray(new String[]{"0", "85"});//刻度
         rangeSeekBarWDFZ.setIndicatorTextDecimalFormat("000.0");//格式化小数位数
+        rangeSeekBarWDFZ.setProgress(84);
         rangeSeekBarWDFZ.setOnRangeChangedListener(new OnRangeChangedListener() {
             @Override
             public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser) {
@@ -69,6 +70,7 @@ public class SettingOtherFragment extends BaseFragment {
         });
         // 上电配置
         radioDialog = new RadioDialog(v.getContext());
+        setSDPZ(2);
         radioDialog.setDialogListener(new RadioDialog.onInputDialogListener() {
 
             @Override
@@ -100,6 +102,7 @@ public class SettingOtherFragment extends BaseFragment {
         rangeSeekBarSXBPH.setRange(10, 100);//范围
         rangeSeekBarSXBPH.setTickMarkTextArray(new String[]{"10", "100"});//刻度
         rangeSeekBarSXBPH.setIndicatorTextDecimalFormat("###.0");//格式化小数位数
+        rangeSeekBarSXBPH.setProgress(10);
         rangeSeekBarSXBPH.setOnRangeChangedListener(new OnRangeChangedListener() {
             @Override
             public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser) {

@@ -4,6 +4,7 @@ import android.text.InputFilter;
 import android.view.View;
 import android.widget.EditText;
 
+import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.BaseFragment;
 import com.rejuvee.smartelectric.family.custom.MyTextWatcher;
@@ -66,6 +67,14 @@ public class SettingDL2Fragment extends BaseFragment {
         String res = "";
         String dlsx = dl_shangxian.getEditableText().toString();
         String dlxx = dl_xiaxian.getEditableText().toString();
+        if (dlsx.isEmpty() || dlxx.isEmpty()) {
+            CustomToast.showCustomErrorToast(getContext(), getString(R.string.vs151));
+            return res;
+        }
+        if (Double.valueOf(dlsx) <= Double.valueOf(dlxx)) {
+            CustomToast.showCustomErrorToast(getContext(), getString(R.string.vs189));
+            return res;
+        }
         res += ",00000018:" + dlxx + // 电量下限
                 ",00000019:" + dlsx; // 电量上限
         return res;

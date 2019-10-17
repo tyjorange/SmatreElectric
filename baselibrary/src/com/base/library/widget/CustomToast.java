@@ -97,8 +97,7 @@ public class CustomToast {
      * @param des
      */
     @Deprecated
-    public static void showHintTopToast(Context mContext, String des,
-                                        int duration) {
+    public static void showHintTopToast(Context mContext, String des, int duration) {
         if (mContext == null)
             return;
         Toast toast = new Toast(mContext);
@@ -136,7 +135,7 @@ public class CustomToast {
             toast.show();
 
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
@@ -148,7 +147,6 @@ public class CustomToast {
      */
     public static void showCustomErrorToast(Context mContext, String des) {
         try {
-
             Toast toast = new Toast(mContext);
             // Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER, 0, 100);
@@ -163,13 +161,12 @@ public class CustomToast {
             // DebugLog.i(LOGTAG, "toast.getDuration():"+toast.getDuration());
             toast.show();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
     public static void showLoadingToast(Context context, String des) {
         try {
-
             Toast toast = new Toast(context);
             // Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER, 0, 100);
@@ -184,7 +181,7 @@ public class CustomToast {
             // DebugLog.i(LOGTAG, "toast.getDuration():"+toast.getDuration());
             toast.show();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 }

@@ -54,9 +54,9 @@ public class SettingDL1Fragment extends BaseFragment implements View.OnFocusChan
         view = v;
         // 过流1 过流2
         listPopupWindow = new ListPopupWindow(v.getContext());
-        et_GL1 = v.findViewById(R.id.et_sp1);
+        et_GL1 = v.findViewById(R.id.et_gl1);
         et_GL1.setOnFocusChangeListener(this);
-        et_GL2 = v.findViewById(R.id.et_sp2);
+        et_GL2 = v.findViewById(R.id.et_gl2);
         // et_GL2.setOnFocusChangeListener(this);
         // 漏电保护、自检使能
         iv_bhsn = v.findViewById(R.id.iv_bhsn);
@@ -96,7 +96,7 @@ public class SettingDL1Fragment extends BaseFragment implements View.OnFocusChan
         amountLDL = v.findViewById(R.id.amount_view_ldl);
         amountLDL.setVal_min(0);
         amountLDL.setVal_max(999);
-        amountLDL.setAmountInt(0);
+        amountLDL.setAmountInt(30);
         amountLDL.setOnAmountChangeListener(new AmountViewInt.OnAmountChangeListener() {
             @Override
             public void onAmountChange(View view, float amount) {
@@ -107,6 +107,7 @@ public class SettingDL1Fragment extends BaseFragment implements View.OnFocusChan
         rangeSeekBarLDL.setRange(0, 999);//范围
         rangeSeekBarLDL.setTickMarkTextArray(new String[]{"0", "999"});//刻度
         rangeSeekBarLDL.setIndicatorTextDecimalFormat("###");//格式化小数位数
+        rangeSeekBarLDL.setProgress(30);
         rangeSeekBarLDL.setOnRangeChangedListener(new OnRangeChangedListener() {
             @Override
             public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser) {

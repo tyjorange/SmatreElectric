@@ -37,7 +37,7 @@
                     android:textSize="12sp" />
 
                 <EditText
-                    android:id="@+id/et_sp1"
+                    android:id="@+id/et_gl1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -50,7 +50,7 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:singleLine="true"
-                    android:text="0"
+                    android:text="30"
                     android:textColor="#000000"
                     android:textSize="12sp" />
 
@@ -73,7 +73,7 @@
                     android:textSize="12sp" />
 
                 <EditText
-                    android:id="@+id/et_sp2"
+                    android:id="@+id/et_gl2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -86,7 +86,7 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:singleLine="true"
-                    android:text="0"
+                    android:text="200"
                     android:textColor="#000000"
                     android:textSize="12sp" />
 

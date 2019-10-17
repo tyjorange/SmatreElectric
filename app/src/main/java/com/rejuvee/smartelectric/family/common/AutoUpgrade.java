@@ -80,7 +80,7 @@ public class AutoUpgrade {
     private DialogTip mDialogTip;
     private Handler mHandler;
     private static AutoUpgrade instacne;
-    private boolean showTip;
+    private boolean showTip = false;
 
     private AutoUpgrade(Context context) {
         mContext = context;
@@ -92,6 +92,10 @@ public class AutoUpgrade {
                     if (progressDialog != null) {
                         progressDialog.setProgress(msg.arg1);
                         progressDialog.setMax(msg.arg2);
+                    }
+                } else if (msg.what == 1002) {
+                    if (showTip) {
+                        CustomToast.showCustomErrorToast(mContext, context.getString(R.string.vs219));
                     }
                 }
             }
@@ -186,6 +190,11 @@ public class AutoUpgrade {
                     //得到输入流
                     InputStream is = urlConnection.getInputStream();
                     parseXML(is);
+                } else {
+                    Log.e(TAG, "xml ResponseCode=" + urlConnection.getResponseCode());
+                    Message msg = Message.obtain();
+                    msg.what = 1002;
+                    mHandler.sendMessage(msg);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -224,7 +233,7 @@ public class AutoUpgrade {
                 createDialog();
             } else {
                 if (showTip) {
-                    CustomToast.showCustomToast(mContext, "已是最新版本");
+                    CustomToast.showCustomToast(mContext, mContext.getString(R.string.vs216));
                 }
             }
         } catch (PackageManager.NameNotFoundException e) {
@@ -297,27 +306,23 @@ public class AutoUpgrade {
     private boolean queryState() {
         if (getDownloadStatus() == DownloadManager.STATUS_FAILED) {
             Log.e(TAG, "STATUS_FAILED");
-            CustomToast.showCustomErrorToast(mContext, "下载失败，请稍后再试。");
+            CustomToast.showCustomErrorToast(mContext, mContext.getString(R.string.vs217));
             return false;
         }
         long downLoadId = mContext.getSharedPreferences(AppGlobalConfig.BASIC_CONFIG, MODE_PRIVATE).getLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, -1);
         // 通过ID向下载管理查询下载情况，返回一个cursor
         Cursor c = downloadManager.query(new DownloadManager.Query().setFilterById(downLoadId));
         if (c != null) {
-            if (!c.moveToFirst()) {
-                if (!c.isClosed()) {
-                    c.close();
+            if (c.moveToFirst()) {
+                int mDownload_so_far = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
+                int mDownload_all = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
+                if (mDownload_all > 0) {
+                    Message msg = Message.obtain();
+                    msg.what = 1001;
+                    msg.arg1 = mDownload_so_far;
+                    msg.arg2 = mDownload_all;
+                    mHandler.sendMessage(msg);
                 }
-                return false;
-            }
-            int mDownload_so_far = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
-            int mDownload_all = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
-            Message msg = Message.obtain();
-            if (mDownload_all > 0) {
-                msg.what = 1001;
-                msg.arg1 = mDownload_so_far;
-                msg.arg2 = mDownload_all;
-                mHandler.sendMessage(msg);
             }
             if (!c.isClosed()) {
                 c.close();
@@ -423,13 +428,13 @@ public class AutoUpgrade {
         // 设置ProgressDialog 标题
 //            progressDialog.setTitle("下载提示");
         // 设置ProgressDialog 提示信息
-        progressDialog.setMessage("下载进度:");
+        progressDialog.setMessage(mContext.getString(R.string.vs218));
         // 设置ProgressDialog 的进度条是否不明确
         progressDialog.setIndeterminate(false);
         // 设置ProgressDialog 是否可以按退回按键取消
         progressDialog.setCancelable(false);
 //            progressDialog.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.btn_def));
-        progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
+        progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, mContext.getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 removeDownload();
