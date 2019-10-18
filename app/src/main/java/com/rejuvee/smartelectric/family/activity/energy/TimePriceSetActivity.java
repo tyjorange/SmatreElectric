@@ -48,10 +48,10 @@ public class TimePriceSetActivity extends BaseActivity implements View.OnClickLi
                     @Override
                     public void onTimeSelected(int hour, int miniute, int type) {
                         if (type == 0) {
-                            txtStartTime.setText(String.format("%1$02d:%2$02d", hour, miniute));
+                            txtStartTime.setText(String.format(Locale.getDefault(), "%1$02d:%2$02d", hour, miniute));
                             mStartTime = hour;
                         } else if (type == 1) {
-                            txtEndTime.setText(String.format("%1$02d:%2$02d", hour, miniute));
+                            txtEndTime.setText(String.format(Locale.getDefault(), "%1$02d:%2$02d", hour, miniute));
                             mEndTime = hour;
                         }
                     }
