@@ -51,7 +51,6 @@ import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SceneBean;
 import com.rejuvee.smartelectric.family.model.bean.UserMsg;
 import com.rejuvee.smartelectric.family.model.bean.WxSubscribed;
-import com.rejuvee.smartelectric.family.utils.thrid.WXHelper;
 import com.rejuvee.smartelectric.family.utils.utils;
 import com.rejuvee.smartelectric.family.widget.CircleImageView;
 import com.rejuvee.smartelectric.family.widget.dialog.DialogTip;
@@ -549,7 +548,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            WXHelper.toMiniProgram(this);
+//            WXHelper.toMiniProgram(this);
             return true;
         }
         return super.onOptionsItemSelected(item);

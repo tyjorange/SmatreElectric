@@ -193,7 +193,7 @@ public class QQLoginHelper {
                         JSONObject jsonObject = (JSONObject) response;
                         try {
                             thirdPartyInfo.unionid = jsonObject.getString("unionid");
-//                            Util.showResultDialog(MainActivity.this, "unionid:\n" + unionid, "onComplete");
+//                            Util.showResultDialog(AutoLinkActivity.this, "unionid:\n" + unionid, "onComplete");
 //                            Util.dismissDialog();
 //                            Toast.makeText(activity, unionid);
                             postLoginMessage(thirdPartyInfo, true);

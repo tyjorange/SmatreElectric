@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
+import com.rejuvee.smartelectric.family.activity.collector.autolink.AutoLinkActivity;
 import com.rejuvee.smartelectric.family.activity.energy.EnergySavingInformationActivity;
 import com.rejuvee.smartelectric.family.activity.energy.StatementActivity;
 import com.rejuvee.smartelectric.family.activity.logger.SecurityInformationActivity;
@@ -71,6 +72,8 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
         TextView tvDianqi = findViewById(R.id.txt_dianqi);
         TextView tvShare = findViewById(R.id.txt_share);
 
+        TextView tv_wifi = findViewById(R.id.txt_wifi_set);
+
         backBtn.setOnClickListener(this);
 
         tvKongzhi.setOnClickListener(this);
@@ -87,6 +90,8 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
         tvDianbiao.setOnClickListener(this);
         tvDianqi.setOnClickListener(this);
         tvShare.setOnClickListener(this);
+
+        tv_wifi.setOnClickListener(this);
 
 //        tvConfig.setEnabled(collectorBean.beShared != 1);
         if (collectorBean.beShared == 1) {
@@ -244,6 +249,10 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
             case R.id.txt_share:
                 intent = new Intent(this, ShareListActivity.class);
                 intent.putExtra("collectorBean", collectorBean);
+                startActivity(intent);
+                break;
+            case R.id.txt_wifi_set:
+                intent = new Intent(this, AutoLinkActivity.class);
                 startActivity(intent);
                 break;
             default:
