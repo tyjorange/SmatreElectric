@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,8 +32,8 @@ import java.util.Locale;
 /**
  * 分时计价
  */
-public class CostCalculationActivity extends BaseActivity {
-    private String TAG = "CostCalculationActivity";
+public class TimePriceActivity extends BaseActivity {
+    private String TAG = "TimePriceActivity";
     private ListView mListView;
     private SetingAdapter mAdapter;
     private EditText mEditText;
@@ -41,7 +42,7 @@ public class CostCalculationActivity extends BaseActivity {
 
     private static int MESSAGE_UPDATE_PRICE = 100;
     private String[] timeOfUsePrice = null;
-    private String currencySymbol;
+    private String currencySymbol;// 货币符号
     private String defaultPrice;
 
     private LoadingDlg mWaitDialog;
@@ -71,7 +72,19 @@ public class CostCalculationActivity extends BaseActivity {
         currencySymbol = currency.getSymbol();
         mEditText = (EditText) findViewById(R.id.edt_default_price);
         mListView = (ListView) findViewById(R.id.list_sections);
-
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(TimePriceActivity.this, TimePriceSetActivity.class);
+                intent.putExtra("s_price", timeOfUsePrice[position]);
+                String[] split = mListData.get(position).getContent().split(" - ");
+                intent.putExtra("s_start", split[0]);
+                intent.putExtra("s_end", split[1]);
+                intent.putExtra("i_start", position);
+                intent.putExtra("i_end", position + 1);
+                startActivityForResult(intent, 1000);
+            }
+        });
         readPriceFromShared();//读取本地的
         mEditText.setText(defaultPrice);
         mEditText.addTextChangedListener(textWatcher);
@@ -79,7 +92,7 @@ public class CostCalculationActivity extends BaseActivity {
         findViewById(R.id.img_edit_section).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(CostCalculationActivity.this, TimePriceSetActivity.class), 1000);
+                startActivityForResult(new Intent(TimePriceActivity.this, TimePriceSetActivity.class), 1000);
             }
         });
         mHandler = new MyHandler(this);
@@ -89,15 +102,15 @@ public class CostCalculationActivity extends BaseActivity {
     }
 
     private static class MyHandler extends Handler {
-        WeakReference<CostCalculationActivity> activityWeakReference;
+        WeakReference<TimePriceActivity> activityWeakReference;
 
-        MyHandler(CostCalculationActivity activity) {
-            activityWeakReference = new WeakReference<CostCalculationActivity>(activity);
+        MyHandler(TimePriceActivity activity) {
+            activityWeakReference = new WeakReference<TimePriceActivity>(activity);
         }
 
         @Override
         public void handleMessage(Message msg) {
-            CostCalculationActivity theActivity = activityWeakReference.get();
+            TimePriceActivity theActivity = activityWeakReference.get();
             if (msg.what == MESSAGE_UPDATE_PRICE) {
                 theActivity.updatePrice(0, 23, theActivity.mEditText.getText().toString());
             }
@@ -149,7 +162,7 @@ public class CostCalculationActivity extends BaseActivity {
         for (int i = 0; i < timeOfUsePrice.length; i++) {
             ListSetingItem listSetingItem = new ListSetingItem();
             listSetingItem.setViewType(ListSetingItem.ITEM_VIEW_TYPE_LINEDETAIL1);
-            listSetingItem.setContent(String.format("%02d", i) + ":00 - " + String.format("%02d", i + 1) + ":00");
+            listSetingItem.setContent(String.format(Locale.getDefault(), "%02d", i) + ":00 - " + String.format(Locale.getDefault(), "%02d", i + 1) + ":00");
             listSetingItem.setDesc(currencySymbol + timeOfUsePrice[i]);
             mListData.add(listSetingItem);
         }
@@ -231,13 +244,13 @@ public class CostCalculationActivity extends BaseActivity {
             @Override
             public void onSuccess(Void data) {
                 mWaitDialog.dismiss();
-                CustomToast.showCustomToast(CostCalculationActivity.this, getString(R.string.operator_sucess));
+                CustomToast.showCustomToast(TimePriceActivity.this, getString(R.string.operator_sucess));
             }
 
             @Override
             public void onFailure(int errorEvent, String message) {
                 mWaitDialog.dismiss();
-                CustomToast.showCustomErrorToast(CostCalculationActivity.this, getString(R.string.operator_failure));
+                CustomToast.showCustomErrorToast(TimePriceActivity.this, getString(R.string.operator_failure));
             }
         });
     }

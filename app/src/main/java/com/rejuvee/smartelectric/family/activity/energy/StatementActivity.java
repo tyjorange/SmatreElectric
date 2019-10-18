@@ -143,7 +143,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
         findViewById(R.id.img_price).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(StatementActivity.this, CostCalculationActivity.class));
+                startActivity(new Intent(StatementActivity.this, TimePriceActivity.class));
             }
         });
     }

@@ -31,7 +31,7 @@ import com.base.library.widget.CustomToast;
 import com.base.library.widget.HorizontalListView;
 import com.rejuvee.smartelectric.family.activity.AddDeviceOrSwitchActivity;
 import com.rejuvee.smartelectric.family.activity.collector.CollectorDetailActivity;
-import com.rejuvee.smartelectric.family.activity.energy.CostCalculationActivity;
+import com.rejuvee.smartelectric.family.activity.energy.TimePriceActivity;
 import com.rejuvee.smartelectric.family.activity.kefu.CustomerServiceActivity;
 import com.rejuvee.smartelectric.family.activity.mine.AboutActivity;
 import com.rejuvee.smartelectric.family.activity.mine.PerInfoActivity;
@@ -565,7 +565,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
             intent.putExtra("qqUnionID", qqUnionID);
             startActivityForResult(intent, CommonRequestCode.REQUEST_THIRD_BIND);
         } else if (id == R.id.me_jisuanqi) {
-            startActivity(new Intent(this, CostCalculationActivity.class));
+            startActivity(new Intent(this, TimePriceActivity.class));
         } else if (id == R.id.me_kefu) {
             Intent intent = new Intent(this, CustomerServiceActivity.class);
             intent.putExtra("username", username);

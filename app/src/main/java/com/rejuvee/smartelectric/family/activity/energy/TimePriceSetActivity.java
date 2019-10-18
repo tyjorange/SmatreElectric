@@ -60,9 +60,24 @@ public class TimePriceSetActivity extends BaseActivity implements View.OnClickLi
         txtEndTime = (TextView) findViewById(R.id.txt_end_time);
         edtPrice = (EditText) findViewById(R.id.edt_price);
 
+        String s_price = getIntent().getStringExtra("s_price");
+        String s_start = getIntent().getStringExtra("s_start");
+        String s_end = getIntent().getStringExtra("s_end");
+        int i_start = getIntent().getIntExtra("i_start", -1);
+        int i_end = getIntent().getIntExtra("i_end", -1);
+        // 如果是修改单条记录
+        if (s_start != null) {
+            txtStartTime.setText(s_start);
+            txtEndTime.setText(s_end);
+            edtPrice.setText(s_price);
+            mStartTime = i_start;
+            mEndTime = i_end;
+        } else {
+            txtStartTime.setOnClickListener(this);
+            txtEndTime.setOnClickListener(this);
+        }
+
         findViewById(R.id.st_ensure).setOnClickListener(this);
-        txtStartTime.setOnClickListener(this);
-        txtEndTime.setOnClickListener(this);
 
         Currency currency = Currency.getInstance(Locale.getDefault());
         TextView txtSymbol = (TextView) findViewById(R.id.txt_symbol);
@@ -108,7 +123,7 @@ public class TimePriceSetActivity extends BaseActivity implements View.OnClickLi
             CustomToast.showCustomErrorToast(this, getString(R.string.please_input_start_end_time));
             return;
         }
-        if (mEndTime < mStartTime) {
+        if (mEndTime <= mStartTime) {
             if (mStartTime - mEndTime < 12) {
                 CustomToast.showCustomErrorToast(this, getString(R.string.endtime_early_starttime));
                 return;

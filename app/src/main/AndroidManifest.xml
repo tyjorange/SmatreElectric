@@ -219,7 +219,7 @@
             android:name=".activity.energy.EnergySavingInformationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.energy.CostCalculationActivity"
+            android:name=".activity.energy.TimePriceActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.energy.TimePriceSetActivity"

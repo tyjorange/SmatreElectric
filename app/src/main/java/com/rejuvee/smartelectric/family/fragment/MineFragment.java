@@ -15,7 +15,7 @@ import com.base.library.core.AbstractBaseFragment;
 import com.base.library.utils.SizeUtils;
 import com.base.library.view.CircleImageView;
 import com.rejuvee.smartelectric.family.R;
-import com.rejuvee.smartelectric.family.activity.energy.CostCalculationActivity;
+import com.rejuvee.smartelectric.family.activity.energy.TimePriceActivity;
 import com.rejuvee.smartelectric.family.activity.mine.PerInfoActivity;
 import com.rejuvee.smartelectric.family.activity.mine.SettingsActivity;
 import com.rejuvee.smartelectric.family.activity.mine.ThridBindActivity;
@@ -189,7 +189,7 @@ public class MineFragment extends AbstractBaseFragment implements View.OnClickLi
                 startActivityForResult(intent, CommonRequestCode.REQUEST_USER_INFO);
                 break;
             case R.id.ll_time_price:
-                startActivity(new Intent(getContext(), CostCalculationActivity.class));
+                startActivity(new Intent(getContext(), TimePriceActivity.class));
                 break;
             case R.id.iv_scan_code:
                 if (username != null && !username.isEmpty()) {
