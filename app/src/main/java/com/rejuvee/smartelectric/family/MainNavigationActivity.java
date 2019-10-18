@@ -166,19 +166,19 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         initCollector();
 //        popwindowQCode = new PopwindowQCode(mContext);
         // 启动就申请读写权限
-        if (!PermisionManage.getInstance().isPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            PermisionManage.getInstance().startRequest(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionUtils.OnPermissionListener() {
-                @Override
-                public void onPermissionGranted() {
-                    Log.i(TAG, "onPermissionGranted");
-                }
+//        if (!PermisionManage.getInstance().isPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+        PermisionManage.getInstance().startRequest(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionUtils.OnPermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                Log.i(TAG, "onPermissionGranted");
+            }
 
-                @Override
-                public void onPermissionDenied(String[] deniedPermissions) {
-                    Log.e(TAG, "onPermissionDenied");
-                }
-            });
-        }
+            @Override
+            public void onPermissionDenied(String[] deniedPermissions) {
+                Log.e(TAG, "onPermissionDenied");
+            }
+        });
+//        }
     }
 
     @Override

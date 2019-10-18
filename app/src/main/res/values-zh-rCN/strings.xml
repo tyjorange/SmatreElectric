@@ -566,7 +566,7 @@
     <string name="vs34">手动拉闸</string>
     <string name="vs35">添加子线路</string>
     <string name="vs36">删除本线路</string>
-    <string name="vs37">第三方绑定</string>
+    <string name="vs37">微信公众号绑定</string>
     <string name="vs38">分时计价</string>
     <string name="vs39">客服</string>
     <string name="vs40">常见问题</string>
@@ -750,4 +750,9 @@
     <string name="vs217">下载失败，请稍后再试。</string>
     <string name="vs218">下载进度:</string>
     <string name="vs219">获取新版本信息失败，请稍后再试。</string>
+    <string name="vs220">使用本机微信关注以下公众号</string>
+    <string name="vs221">睿据科技</string>
+    <string name="vs222">复制公众号名称</string>
+    <string name="vs223">公众号已复制</string>
+    <string name="vs224">您手机没有安装微信，请安装后使用该功能</string>
 </resources>

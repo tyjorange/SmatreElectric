@@ -17,6 +17,9 @@ public class WXHelper {
     public static final String state_login = "smarte_wx_login";
     public static final String state_bind = "smarte_wx_bind";
 
+    /**
+     * @param context
+     */
     public static void startWxLogin(Context context) {
         //先判断是否安装微信APP,按照微信的说法，目前移动应用上微信登录只提供原生的登录方式，需要用户安装微信客户端才能配合使用。
         if (MainApplication.mWxApi == null || !MainApplication.mWxApi.isWXAppInstalled()) {
@@ -31,6 +34,9 @@ public class WXHelper {
         MainApplication.mWxApi.sendReq(req);
     }
 
+    /**
+     * @param context
+     */
     public static void startWxBind(Context context) {
         //先判断是否安装微信APP,按照微信的说法，目前移动应用上微信登录只提供原生的登录方式，需要用户安装微信客户端才能配合使用。
         if (MainApplication.mWxApi == null || !MainApplication.mWxApi.isWXAppInstalled()) {
@@ -45,6 +51,10 @@ public class WXHelper {
         MainApplication.mWxApi.sendReq(req);
     }
 
+    /**
+     *
+     * @param context
+     */
     public static void toMiniProgram(Context context) {
         //先判断是否安装微信APP,按照微信的说法，目前移动应用上微信登录只提供原生的登录方式，需要用户安装微信客户端才能配合使用。
         if (MainApplication.mWxApi == null || !MainApplication.mWxApi.isWXAppInstalled()) {
@@ -59,9 +69,19 @@ public class WXHelper {
         MainApplication.mWxApi.sendReq(req);
     }
 
-    public static void sss(Context context) {
+    /**
+     *
+     * @param context
+     */
+    public static void toGZH(Context context) {
+        //先判断是否安装微信APP,按照微信的说法，目前移动应用上微信登录只提供原生的登录方式，需要用户安装微信客户端才能配合使用。
+        if (MainApplication.mWxApi == null || !MainApplication.mWxApi.isWXAppInstalled()) {
+            CustomToast.showCustomErrorToast(context, context.getString(R.string.without_weixin_client));
+            return;
+        }
         SubscribeMessage.Req req = new SubscribeMessage.Req();
         req.scene = 1069;
+        //O4Nf1nVFV6oQ2OJ3ozFSeVJEp3-siSuRfKrknk5beIU
         req.templateID = "XghSAERrupizDfHj7gKXYQT1KIf-fm7NSs6WY-hbTtY";
         req.reserved = "";
         MainApplication.mWxApi.sendReq(req);

@@ -51,10 +51,12 @@
 
     <LinearLayout
         android:id="@+id/ll_wx"
+        android:layout_marginEnd="30dp"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="16dp"
+        android:visibility="gone"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -89,17 +91,16 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="26dp"
             android:scaleType="centerCrop"
             android:src="@drawable/jinru" />
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="25dp"
-        android:background="@drawable/slices"
-        android:contentDescription="slices" />
+    <!--    <ImageView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="1dp"-->
+    <!--        android:layout_marginStart="25dp"-->
+    <!--        android:background="@drawable/slices"-->
+    <!--        android:contentDescription="slices" />-->
 
     <LinearLayout
         android:id="@+id/ll_qq"
@@ -107,7 +108,8 @@
         android:layout_height="48dp"
         android:layout_marginStart="30dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -146,10 +148,63 @@
 
     </LinearLayout>
 
-    <ImageView
+    <!--    <ImageView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="1dp"-->
+    <!--        android:layout_marginStart="25dp"-->
+    <!--        android:background="@drawable/slices"-->
+    <!--        android:contentDescription="slices" />-->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="25dp"
-        android:background="@drawable/slices"
-        android:contentDescription="slices" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/vs220"
+            android:textSize="15sp">
+
+        </TextView>
+
+        <ImageView
+            android:id="@+id/iv_qcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:src="@mipmap/gzh" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/vs221"
+            android:textSize="15sp">
+
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="@integer/tag_1"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <com.base.library.widget.SuperTextView
+            android:id="@+id/stv_commit"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_margin="16dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/qd1"
+            android:gravity="center"
+            android:text="@string/vs222"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:corner="8dp" />
+    </LinearLayout>
 </LinearLayout>

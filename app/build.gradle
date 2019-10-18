@@ -76,8 +76,7 @@ android {
     android.applicationVariants.all { variant ->
         variant.outputs.all {
 //            outputFileName = "${variant.productFlavors.name}_${variant.buildType.name}.apk"
-//            outputFileName = "smarte_family_release.apk"
-            outputFileName = "smarte_family_alpha.apk"
+            outputFileName = "smarte_family_release.apk"
         }
     }
     lintOptions {

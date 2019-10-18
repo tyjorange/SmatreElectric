@@ -1,6 +1,9 @@
 package com.rejuvee.smartelectric.family.activity.mine;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
+import android.content.ClipboardManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
@@ -60,15 +63,43 @@ public class ThridBindActivity extends BaseActivity {
         ll_qq = findViewById(R.id.ll_qq);
         tv_wx = findViewById(R.id.tv_wx);
         tv_qq = findViewById(R.id.tv_qq);
+        findViewById(R.id.stv_commit).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 复制到剪贴板
+                ClipboardManager tvCopy = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                tvCopy.setText(getResources().getString(R.string.vs221));
+                CustomToast.showCustomToast(getBaseContext(), getString(R.string.vs223));
+                // 跳转到微信
+                try {
+                    Intent intent = new Intent(Intent.ACTION_MAIN);
+                    ComponentName cmp = new ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI");
+                    intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.setComponent(cmp);
+                    startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                    e.printStackTrace();
+                    CustomToast.showCustomErrorToast(getBaseContext(), getString(R.string.vs224));
+                }
+            }
+        });
+        // 未绑定就去微信绑定
+        String wechatUnionID = getIntent().getStringExtra("wechatUnionID");
+        if (wechatUnionID == null || wechatUnionID.isEmpty()) {
+            //TODO 拉起第三方
+            WXHelper.startWxBind(context);
+        }
         EventBus.getDefault().register(this);
     }
 
     @Override
     protected void initData() {
-        initWX();
-        initQQ();
+//        initWX();
+//        initQQ();
     }
 
+    @Deprecated
     private void initWX() {
         String wechatUnionID = getIntent().getStringExtra("wechatUnionID");
         if (wechatUnionID == null || wechatUnionID.isEmpty()) {
@@ -94,6 +125,7 @@ public class ThridBindActivity extends BaseActivity {
         }
     }
 
+    @Deprecated
     private void initQQ() {
         String qqUnionID = getIntent().getStringExtra("qqUnionID");
         if (qqUnionID == null || qqUnionID.isEmpty()) {

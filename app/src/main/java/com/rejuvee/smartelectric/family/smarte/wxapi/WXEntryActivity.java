@@ -17,6 +17,7 @@ import com.rejuvee.smartelectric.family.utils.thrid.WXHelper;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.modelbiz.SubscribeMessage;
 import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
@@ -51,10 +52,20 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         Log.i(TAG, "error_code:---->" + baseResp.errCode);
         int type = baseResp.getType(); //类型：分享还是登录
         if (type == ConstantsAPI.COMMAND_LAUNCH_WX_MINIPROGRAM) {
+            // 小程序
             WXLaunchMiniProgram.Resp launchMiniProResp = (WXLaunchMiniProgram.Resp) baseResp;
             String extraData = launchMiniProResp.extMsg;
             //对应小程序组件 <button open-type="launchApp"> 中的 app-parameter 属性
             System.out.println(extraData);
+        }
+        if (type == ConstantsAPI.COMMAND_SUBSCRIBE_MESSAGE) {
+            // 一次性订阅消息
+            SubscribeMessage.Resp sresp = (SubscribeMessage.Resp) baseResp;
+            System.out.println(sresp.openId);
+            System.out.println(sresp.templateID);
+            System.out.println(sresp.action);
+            System.out.println(sresp.reserved);
+            System.out.println(sresp.scene);
         }
         switch (baseResp.errCode) {
             case BaseResp.ErrCode.ERR_AUTH_DENIED:
