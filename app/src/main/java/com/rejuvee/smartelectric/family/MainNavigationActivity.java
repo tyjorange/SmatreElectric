@@ -180,7 +180,23 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
             }
         });
 //        }
+    }
 
+    @Override
+    protected void initData() {
+        getUserMsg();
+        testWechatPublic();
+//        getScene();
+//        getCollector();
+        initToolBar();
+        AutoUpgrade.getInstacne(this).start();
+        EventBus.getDefault().register(this);
+    }
+
+    /**
+     * 检查公众号是否关注
+     */
+    private void testWechatPublic() {
         Core.instance(this).validateWechatPublic(new ActionCallbackListener<WxSubscribed>() {
             @Override
             public void onSuccess(WxSubscribed data) {
@@ -197,17 +213,6 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
             }
         });
     }
-
-    @Override
-    protected void initData() {
-        getUserMsg();
-//        getScene();
-//        getCollector();
-        initToolBar();
-        AutoUpgrade.getInstacne(this).start();
-        EventBus.getDefault().register(this);
-    }
-
     @Override
     protected void dealloc() {
         AutoUpgrade.getInstacne(this).destroyInstance();
