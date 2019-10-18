@@ -28,8 +28,7 @@ public class SnackbarMessageShow {
     }
 
     public void showError(View view, String errorText) {
-        snackbar = TSnackbar
-                .make(view, errorText, TSnackbar.LENGTH_INDEFINITE);
+        snackbar = TSnackbar.make(view, errorText, TSnackbar.LENGTH_INDEFINITE);
         snackbar.setIconRight(R.drawable.global_delete_logo_icon, 24); //Resize to bigger dp
         snackbar.setMaxWidth(3000);
         snackbar.getView().setOnClickListener(new View.OnClickListener() {

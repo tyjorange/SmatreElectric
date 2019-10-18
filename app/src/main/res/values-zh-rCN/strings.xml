@@ -755,4 +755,5 @@
     <string name="vs222">复制公众号名称</string>
     <string name="vs223">公众号已复制</string>
     <string name="vs224">您手机没有安装微信，请安装后使用该功能</string>
+    <string name="vs225">无法接收推送的消息，请先关注微信公众号</string>
 </resources>

@@ -45,6 +45,7 @@ import com.rejuvee.smartelectric.family.model.bean.UserPushSetting;
 import com.rejuvee.smartelectric.family.model.bean.VoltageValue;
 import com.rejuvee.smartelectric.family.model.bean.WXAccessTokenRet;
 import com.rejuvee.smartelectric.family.model.bean.WarnBean;
+import com.rejuvee.smartelectric.family.model.bean.WxSubscribed;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfo;
 
 import java.io.IOException;
@@ -1279,6 +1280,18 @@ public class Core {
         param.setUserChatID(userChatID);
         param.setContent(content);
         Call<ApiResponse<Void>> call = api.addToUserChatContent(mJSessionId, param);
+        enqueue(call, listener);
+        return call;
+    }
+
+    /**
+     * 判断是否关注了公众号
+     *
+     * @return
+     */
+    public Call<?> validateWechatPublic(ActionCallbackListener<WxSubscribed> listener) {
+        Param param = new Param();
+        Call<ApiResponse<WxSubscribed>> call = api.validateWechatPublic(mJSessionId, param);
         enqueue(call, listener);
         return call;
     }

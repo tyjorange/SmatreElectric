@@ -32,6 +32,7 @@ import com.rejuvee.smartelectric.family.model.bean.UserPushSetting;
 import com.rejuvee.smartelectric.family.model.bean.VoltageValue;
 import com.rejuvee.smartelectric.family.model.bean.WXAccessTokenRet;
 import com.rejuvee.smartelectric.family.model.bean.WarnBean;
+import com.rejuvee.smartelectric.family.model.bean.WxSubscribed;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfo;
 
 import java.util.List;
@@ -837,6 +838,17 @@ public interface Api {
                                                               @Body Param param);
 
     /**
+     * 判断是否关注了公众号
+     *
+     * @param session
+     * @param param
+     * @return
+     */
+    @POST("PowerManager/AppClientAction_validateWechatPublic.do")
+    Call<ApiResponse<WxSubscribed>> validateWechatPublic(@Header("Cookie") String session,
+                                                         @Body Param param);
+
+    /**
      * 上传日志
      *
      * @param session
@@ -849,5 +861,7 @@ public interface Api {
             @Header("Cookie") String session,
             @Part MultipartBody.Part log
     );
+
+
 }
 

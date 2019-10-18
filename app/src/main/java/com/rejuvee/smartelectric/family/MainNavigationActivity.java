@@ -50,6 +50,7 @@ import com.rejuvee.smartelectric.family.model.bean.AutoUpgradeEventMessage;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SceneBean;
 import com.rejuvee.smartelectric.family.model.bean.UserMsg;
+import com.rejuvee.smartelectric.family.model.bean.WxSubscribed;
 import com.rejuvee.smartelectric.family.utils.thrid.WXHelper;
 import com.rejuvee.smartelectric.family.utils.utils;
 import com.rejuvee.smartelectric.family.widget.CircleImageView;
@@ -179,6 +180,22 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
             }
         });
 //        }
+
+        Core.instance(this).validateWechatPublic(new ActionCallbackListener<WxSubscribed>() {
+            @Override
+            public void onSuccess(WxSubscribed data) {
+                if (data.getIsSubscribed() == 0) {
+//                    CustomToast.showCustomErrorToast(getBaseContext(), getString(R.string.vs225));
+                    Snackbar.make(tvNick, R.string.vs225, Snackbar.LENGTH_INDEFINITE).setDuration(10000).show();
+//                    SnackbarMessageShow.getInstance().showError(tvNick, getResources().getString(R.string.vs225));
+                }
+            }
+
+            @Override
+            public void onFailure(int errorEvent, String message) {
+                Log.i(TAG, message);
+            }
+        });
     }
 
     @Override
