@@ -84,12 +84,6 @@ public class ThridBindActivity extends BaseActivity {
                 }
             }
         });
-        // 未绑定就去微信绑定
-        String wechatUnionID = getIntent().getStringExtra("wechatUnionID");
-        if (wechatUnionID == null || wechatUnionID.isEmpty()) {
-            //TODO 拉起第三方
-            WXHelper.startWxBind(context);
-        }
         EventBus.getDefault().register(this);
     }
 
@@ -97,6 +91,12 @@ public class ThridBindActivity extends BaseActivity {
     protected void initData() {
 //        initWX();
 //        initQQ();
+        // 未绑定就去微信绑定
+        String wechatUnionID = getIntent().getStringExtra("wechatUnionID");
+        if (wechatUnionID == null || wechatUnionID.isEmpty()) {
+            //TODO 拉起第三方
+            WXHelper.startWxBind(context);
+        }
     }
 
     @Deprecated
@@ -174,6 +174,7 @@ public class ThridBindActivity extends BaseActivity {
         }
     }
 
+    @Deprecated
     private void popDialog(String title, String desc, final String popType) {
         mDialogSwitch.setTitle(title);
         mDialogSwitch.setContent(desc);

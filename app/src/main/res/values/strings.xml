@@ -9,7 +9,7 @@
     <string name="fun_quxian">曲线</string>
     <string name="fun_baobiao">周月报表</string>
     <string name="fun_dingshi">定时</string>
-    <string name="fun_wifi_set">Wifi连接</string>
+    <string name="fun_wifi_set">WIFI设置</string>
 
     <string name="device">设备</string>
     <string name="add_device">添加智能电箱</string>
@@ -726,21 +726,21 @@
     <string name="vs189">电量下限不能大于或等于上限</string>
     <string name="vs190">每月%02d日%02d时</string>
     <string name="vs191">选择自检时间</string>
-    <string name="vs192">请输入主题内容</string>
+    <string name="vs192">请输入问题</string>
     <string name="vs193">请输入问题描述</string>
     <string name="vs194">提交问题成功</string>
     <string name="vs195">提交</string>
     <string name="vs196">首页 / 客服</string>
     <string name="vs197">提问</string>
-    <string name="vs198">主题：</string>
-    <string name="vs199">内容：</string>
+    <string name="vs198">问题：</string>
+    <string name="vs199">描述：</string>
     <string name="vs200">提问时间：</string>
     <string name="vs201">更新时间：</string>
     <string name="vs202">客服</string>
-    <string name="vs203">聊天主题：%s</string>
-    <string name="vs204">问题：%s</string>
+    <string name="vs203">问题：%s</string>
+    <string name="vs204">问题描述：%s</string>
     <string name="vs205">发送</string>
-    <string name="vs206">聊天主题</string>
+    <string name="vs206">聊天问题</string>
     <string name="vs207">不能发送空消息</string>
     <string name="vs208">发送失败</string>
     <string name="vs209">智能家居</string>
@@ -753,10 +753,10 @@
     <string name="vs217">下载失败，请稍后再试。</string>
     <string name="vs218">下载进度:</string>
     <string name="vs219">获取新版本信息失败，请稍后再试。</string>
-    <string name="vs220">使用本机微信关注以下公众号</string>
+    <string name="vs220">请使用本机微信关注以下公众号</string>
     <string name="vs221">睿据科技</string>
     <string name="vs222">复制公众号名称</string>
     <string name="vs223">公众号已复制</string>
     <string name="vs224">您手机没有安装微信，请安装后使用该功能</string>
-    <string name="vs225">无法接收推送的消息，请先关注微信公众号</string>
+    <string name="vs225">请在个人设置中绑定公众号。\n及时获取系统通知、告警预警等信息。</string>
 </resources>

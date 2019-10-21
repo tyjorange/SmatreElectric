@@ -91,7 +91,10 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
         tvDianqi.setOnClickListener(this);
         tvShare.setOnClickListener(this);
 
-        tv_wifi.setOnClickListener(this);
+        if (collectorBean.getIoType() == 2) {
+            tv_wifi.setOnClickListener(this);
+            tv_wifi.setVisibility(View.VISIBLE);
+        }
 
 //        tvConfig.setEnabled(collectorBean.beShared != 1);
         if (collectorBean.beShared == 1) {
@@ -253,6 +256,7 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
                 break;
             case R.id.txt_wifi_set:
                 intent = new Intent(this, AutoLinkActivity.class);
+                intent.putExtra("collectorBean", collectorBean);
                 startActivity(intent);
                 break;
             default:

@@ -167,7 +167,8 @@ public class UpgradeDialogActivity extends BaseActivity implements View.OnClickL
             btnCancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setCollectorUpgrade(0, "0");
+//                    setCollectorUpgrade(0, "0");
+                    finish();
                 }
             });
         }

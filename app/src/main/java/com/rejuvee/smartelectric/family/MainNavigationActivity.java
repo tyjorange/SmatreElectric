@@ -164,10 +164,13 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         ll_add_scene = findViewById(R.id.ll_add_scene);
         initScene();
         initCollector();
-//        popwindowQCode = new PopwindowQCode(mContext);
-        // 启动就申请读写权限
-//        if (!PermisionManage.getInstance().isPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-        PermisionManage.getInstance().startRequest(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionUtils.OnPermissionListener() {
+
+        // 启动就申请 读写 定位 权限
+        PermisionManage.getInstance().startRequest(this,
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.ACCESS_FINE_LOCATION},
+                new PermissionUtils.OnPermissionListener() {
             @Override
             public void onPermissionGranted() {
                 Log.i(TAG, "onPermissionGranted");
@@ -178,7 +181,6 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
                 Log.e(TAG, "onPermissionDenied");
             }
         });
-//        }
     }
 
     @Override
@@ -330,7 +332,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 
     private void initScene() {
         listViewScene = findViewById(R.id.main_scene);
-        listViewScene.setDividerWidth(SizeUtils.dp2px(45));//图标间隔
+        listViewScene.setDividerWidth(SizeUtils.dp2px(35));//图标间隔
         mSceneAdapter = new HorizontalListSceneAdapter(this, listSceneBeanData);
         listViewScene.setAdapter(mSceneAdapter);
         listViewScene.setOnItemClickListener(new AdapterView.OnItemClickListener() {
