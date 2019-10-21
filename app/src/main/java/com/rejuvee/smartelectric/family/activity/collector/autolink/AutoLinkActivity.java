@@ -60,7 +60,7 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
                     decodeData(data);
                     break;
                 case Tool.REC_WIFI:// wifi状态改变
-                    toggleBtn(msg.arg1);
+                    toggleTip(msg.arg1);
                     break;
                 default:
                     Log.w(TAG, "default");
@@ -80,7 +80,7 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
                 finish();
             }
         });
-        mDialogTip = new DialogTip(getApplicationContext());
+        mDialogTip = new DialogTip(this);
 
         btn_ok = findViewById(R.id.btn_ok);
         btn_change = findViewById(R.id.btn_change);
@@ -174,7 +174,7 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
         }
     }
 
-    private void toggleBtn(int isCon) {
+    private void toggleTip(int isCon) {
         String code = collectorBean.getCode();
         switch (isCon) {
             case 0:
@@ -217,7 +217,7 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
                     intent.putExtra("ssids", ssids);
                     startActivityForResult(intent, RESQEST_SSID_LIST);
                 } else {
-                    UIUtil.toastShow(this, "没有搜索到SSID");//TODO
+                    UIUtil.toastShow(this, "没有搜索到SSID，请重试");//TODO
                 }
                 break;
             case 0x82://  返回校验结果
