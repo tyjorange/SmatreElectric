@@ -14,7 +14,7 @@ import java.net.UnknownHostException;
 /**
  * @author 济南有人物联网    刘金启
  */
-public class SearchSSID extends Thread {
+public class SearchSSIDThread extends Thread {
     private Handler handler;
     private DatagramSocket socket;
 
@@ -30,7 +30,7 @@ public class SearchSSID extends Thread {
 
     private boolean receive = true;
 
-    public SearchSSID(Handler handler) {
+    public SearchSSIDThread(Handler handler) {
         this.handler = handler;
         init();
     }

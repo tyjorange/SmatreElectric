@@ -41,7 +41,7 @@ public class AutoLinkActivity extends Activity implements OnClickListener {
     private EditText etPort;
     private WifiUtil mWifiUtil;
     private WifiManager.MulticastLock lock;
-    private SearchSSID searchSSID;
+    private SearchSSIDThread searchSSIDThread;
     private SendMsgThread smt;
     private CollectorBean collectorBean;
     private ProgressDialog dialog;
@@ -97,10 +97,10 @@ public class AutoLinkActivity extends Activity implements OnClickListener {
         dialog = new ProgressDialog(this);
         dialog.setMessage("搜索中...");
 
-        searchSSID = new SearchSSID(handler);
-        searchSSID.start();
+        searchSSIDThread = new SearchSSIDThread(handler);
+        searchSSIDThread.start();
 
-        smt = new SendMsgThread(searchSSID);
+        smt = new SendMsgThread(searchSSIDThread);
         smt.start();
 
         changeWifi(collectorBean.getCode(), collectorBean.getCode());
@@ -147,7 +147,7 @@ public class AutoLinkActivity extends Activity implements OnClickListener {
             UIUtil.toastShow(this, "请输入正确的端口");
             return;
         }
-        searchSSID.setTargetPort(Integer.parseInt(port));
+        searchSSIDThread.setTargetPort(Integer.parseInt(port));
         if (v.getId() == R.id.btn_search) {
             dialog.show();
             // 发送收索SSID指令
@@ -164,7 +164,7 @@ public class AutoLinkActivity extends Activity implements OnClickListener {
                 UIUtil.toastShow(this, "请输入WIFI密码");
                 return;
             }
-            searchSSID.setTargetPort(Integer.parseInt(port));
+            searchSSIDThread.setTargetPort(Integer.parseInt(port));
             byte[] data = Tool.generate_02_data(ssid, pwd, 0);
             smt.putMsg(data);
         }
@@ -265,8 +265,8 @@ public class AutoLinkActivity extends Activity implements OnClickListener {
         // 退出处理
         lock.release();
         smt.setSend(false);
-        searchSSID.setReceive(false);
-        searchSSID.close();
+        searchSSIDThread.setReceive(false);
+        searchSSIDThread.close();
         if (mWifiUtil.forgetWifi(collectorBean.getCode())) {
             Log.i(TAG, "forgetWifi[" + collectorBean.getCode() + "]true");
         } else {
@@ -285,9 +285,9 @@ public class AutoLinkActivity extends Activity implements OnClickListener {
         // 是否发送消息
         private boolean send = true;
 
-        private SearchSSID ss;
+        private SearchSSIDThread ss;
 
-        SendMsgThread(SearchSSID ss) {
+        SendMsgThread(SearchSSIDThread ss) {
             this.ss = ss;
         }
 
