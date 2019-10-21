@@ -12,16 +12,20 @@ import com.rejuvee.smartelectric.family.R;
 
 import java.util.ArrayList;
 
-public class SsidListAct extends Activity {
+public class SsidListActivity extends Activity {
     private ArrayList<Item> ssids;
     private ListView lv;
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_ssid_list);
-
+        findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         ssids = (ArrayList<Item>) getIntent().getSerializableExtra("ssids");
         lv = (ListView) findViewById(R.id.lv_ssid);
         ItemAdapter adapter = new ItemAdapter(this, ssids);

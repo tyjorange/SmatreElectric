@@ -10,6 +10,7 @@
     <string name="fun_baobiao">周月报表</string>
     <string name="fun_dingshi">定时</string>
     <string name="fun_wifi_set">WIFI设置</string>
+    <string name="fun_wifi_list">WIFI列表</string>
 
     <string name="device">设备</string>
     <string name="add_device">添加智能电箱</string>
@@ -540,7 +541,7 @@
     <string name="vs5">电箱:</string>
     <string name="vs6">ID:</string>
     <string name="vs7">用户:</string>
-    <string name="vs8">88</string>
+    <string name="vs8">首页 / 智能电箱 / WIFI设置</string>
     <string name="vs9">安全阀值:</string>
     <string name="vs10">当前值:</string>
     <string name="vs11">跳过</string>

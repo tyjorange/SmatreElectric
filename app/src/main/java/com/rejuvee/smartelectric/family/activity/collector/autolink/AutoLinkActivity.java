@@ -61,8 +61,8 @@ public class AutoLinkActivity extends Activity implements OnClickListener {
                     Tool.bytesToHexString(data);
                     decodeData(data);
                     break;
-                case 2:
-                    cBtn(msg.arg1);
+                case Tool.REC_WIFI:// wifi状态改变
+                    toggleBtn(msg.arg1);
                     break;
                 default:
                     Log.w(TAG, "default");
@@ -124,10 +124,10 @@ public class AutoLinkActivity extends Activity implements OnClickListener {
                     String code = collectorBean != null ? collectorBean.getCode() : "";
                     boolean connectedWifi = mWifiUtil.isConnectedWifi(getApplicationContext(), code);
                     if (connectedWifi) {
-                        Message msg = handler.obtainMessage(2, 0, 0);
+                        Message msg = handler.obtainMessage(Tool.REC_WIFI, 0, 0);
                         handler.sendMessage(msg);
                     } else {
-                        Message msg = handler.obtainMessage(2, 1, 0);
+                        Message msg = handler.obtainMessage(Tool.REC_WIFI, 1, 0);
                         handler.sendMessage(msg);
                     }
                 }
@@ -153,22 +153,19 @@ public class AutoLinkActivity extends Activity implements OnClickListener {
             // 发送收索SSID指令
             smt.putMsg(searchCode);
             dismiss();
-//        } else if (v.getId() == R.id.btn_change) {
-//            changeWifi(collectorBean.getCode(), collectorBean.getCode());
         } else if (v.getId() == R.id.btn_ok) {
             String ssid = etSsid.getText().toString();
-            String pasd = etPasd.getText().toString();
+            String pwd = etPasd.getText().toString();
             if (TextUtils.isEmpty(ssid)) {
                 UIUtil.toastShow(this, "请输入WIFI名");
                 return;
             }
-            if (TextUtils.isEmpty(pasd)) {
-                // UIUtil.toastShow(this,"please input pasd");
-                pasd = "";
-                // return;
+            if (TextUtils.isEmpty(pwd)) {
+                UIUtil.toastShow(this, "请输入WIFI密码");
+                return;
             }
             searchSSID.setTargetPort(Integer.parseInt(port));
-            byte[] data = Tool.generate_02_data(ssid, pasd, 0);
+            byte[] data = Tool.generate_02_data(ssid, pwd, 0);
             smt.putMsg(data);
         }
     }
@@ -188,7 +185,7 @@ public class AutoLinkActivity extends Activity implements OnClickListener {
         }
     }
 
-    private void cBtn(int isCon) {
+    private void toggleBtn(int isCon) {
         switch (isCon) {
             case 0:
                 btn_change.setText("电箱[" + collectorBean.getCode() + "]连接成功");
@@ -220,7 +217,7 @@ public class AutoLinkActivity extends Activity implements OnClickListener {
                 dialog.dismiss();
                 ArrayList<Item> ssids = Tool.decode_81_data(data);
                 if (ssids.size() != 0) {
-                    Intent intent = new Intent(AutoLinkActivity.this, SsidListAct.class);
+                    Intent intent = new Intent(AutoLinkActivity.this, SsidListActivity.class);
                     intent.putExtra("ssids", ssids);
                     startActivityForResult(intent, RESQEST_SSID_LIST);
                 } else {
@@ -270,7 +267,11 @@ public class AutoLinkActivity extends Activity implements OnClickListener {
         smt.setSend(false);
         searchSSID.setReceive(false);
         searchSSID.close();
-        mWifiUtil.forgetWifi(collectorBean.getCode());
+        if (mWifiUtil.forgetWifi(collectorBean.getCode())) {
+            Log.i(TAG, "forgetWifi[" + collectorBean.getCode() + "]true");
+        } else {
+            Log.i(TAG, "forgetWifi[" + collectorBean.getCode() + "]false");
+        }
     }
 
     /**

@@ -11,6 +11,7 @@ import android.net.wifi.WifiManager;
 import android.util.Log;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * wifi设置工具类
@@ -186,7 +187,7 @@ public class WifiUtil {
         String ssid;
         WifiInfo wifiInfo = mWifiManager.getConnectionInfo();
         ssid = wifiInfo.getSSID();
-        Log.i("WifiUtil", "[" + ssid + "][" + myssid + "]");
+        Log.i("AutoLinkActivity_", "[" + ssid + "][" + myssid + "]");
         return ssid != null && ssid.contains(myssid);
     }
 
@@ -351,7 +352,7 @@ public class WifiUtil {
     public boolean forgetWifi(String SSID) {
         WifiConfiguration tempConfig = this.IsExsits(SSID);
         if (tempConfig != null) {
-            Log.d("WifiUtil", "tempConfig.networkId=" + tempConfig.networkId);
+//            Log.i("AutoLinkActivity_", "tempConfig.networkId=" + tempConfig.networkId);
             return mWifiManager.removeNetwork(tempConfig.networkId);
             //mWifiManager.saveConfiguration();
         }
@@ -375,7 +376,7 @@ public class WifiUtil {
             //删除不成功，要么这个wifi配置以前就存在过，要么是还没连接过的
             if (getExitsWifiConfig(SSID) != null) {
                 //这个wifi是连接过的，如果这个wifi在连接之后改了密码，那就只能手动去删除了
-                netId = getExitsWifiConfig(SSID).networkId;
+                netId = Objects.requireNonNull(getExitsWifiConfig(SSID)).networkId;
             } else {
                 //没连接过的，新建一个wifi配置
                 netId = mWifiManager.addNetwork(createWifiInfo(SSID, password, Type));
@@ -390,7 +391,7 @@ public class WifiUtil {
     /**
      * 获取配置过的wifiConfiguration
      */
-    public WifiConfiguration getExitsWifiConfig(String SSID) {
+    private WifiConfiguration getExitsWifiConfig(String SSID) {
         List<WifiConfiguration> wifiConfigurationList = mWifiManager.getConfiguredNetworks();
         for (WifiConfiguration wifiConfiguration : wifiConfigurationList) {
             if (wifiConfiguration.SSID.equals("\"" + SSID + "\"")) {

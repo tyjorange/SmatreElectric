@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Tool {
     public static final int REC_DATA = 0x01;
+    public static final int REC_WIFI = 0x02;
 
     /**
      * 校验数据对不对

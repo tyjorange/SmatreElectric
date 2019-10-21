@@ -299,7 +299,7 @@
             android:name=".activity.collector.autolink.AutoLinkActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.collector.autolink.SsidListAct"
+            android:name=".activity.collector.autolink.SsidListActivity"
             android:screenOrientation="portrait" />
     </application>
 

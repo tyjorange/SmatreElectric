@@ -10,6 +10,7 @@
     <string name="fun_baobiao">report forms</string>
     <string name="fun_dingshi">timing</string>
     <string name="fun_wifi_set">wifi connect</string>
+    <string name="fun_wifi_list">WIFI列表</string>
 
     <string name="device">equipment</string>
     <string name="add_device">add intelligent electric box</string>
