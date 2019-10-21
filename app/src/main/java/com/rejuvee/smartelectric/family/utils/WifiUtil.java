@@ -3,7 +3,9 @@ package com.rejuvee.smartelectric.family.utils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.DhcpInfo;
+import android.net.Network;
 import android.net.NetworkInfo;
+import android.net.NetworkRequest;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
@@ -17,32 +19,65 @@ import java.util.Objects;
  * wifi设置工具类
  */
 public class WifiUtil {
+    private final String TAG = "WifiUtil";
+    private static WifiUtil instance;
     // 定义WifiManager对象
     private WifiManager mWifiManager;
     private DhcpInfo dhcpInfo;
-    private List<WifiConfiguration> mWifiConfigurations;
-    private ConnectivityManager mConnectivityManager;
-
-    public WifiManager getmWifiManager() {
-        return mWifiManager;
-    }
-
+    private IWifi iWifi;
     // 定义WifiInfo对象
     private WifiInfo mWifiInfo;
-    Context context;
+    //    private Context context;
     // 扫描出的网络连接列表
     private List<ScanResult> mWifiList;
 
-    // 构造器
-    public WifiUtil(Context context) {
+    // 私有构造器
+    private WifiUtil(Context context) {
         // 取得WifiManager对象
         mWifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         // 取得WifiInfo对象
         mWifiInfo = mWifiManager.getConnectionInfo();
         dhcpInfo = mWifiManager.getDhcpInfo();
-        mWifiConfigurations = mWifiManager.getConfiguredNetworks();
-        mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        this.context = context;
+//        List<WifiConfiguration> mWifiConfigurations = mWifiManager.getConfiguredNetworks();
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        // 网络状态改变监听
+        NetworkRequest build = new NetworkRequest.Builder().build();
+        ConnectivityManager.NetworkCallback networkCallback = new ConnectivityManager.NetworkCallback() {
+            @Override
+            public void onLost(Network network) {
+                super.onLost(network);
+                Log.i(TAG, "onLost");
+                ///网络不可用的情况下的方法
+                if (iWifi != null)
+                    iWifi.onLost();
+            }
+
+            @Override
+            public void onAvailable(Network network) {
+                super.onAvailable(network);
+                Log.i(TAG, "onAvailable");
+                ///网络可用的情况下的方法
+                if (iWifi != null)
+                    iWifi.onAvailable();
+            }
+        };
+        mConnectivityManager.requestNetwork(build, networkCallback);
+    }
+
+    public static WifiUtil getInstance(Context context) {
+        if (instance == null) {
+            instance = new WifiUtil(context);
+        }
+        return instance;
+    }
+
+    public WifiUtil setCallback(IWifi iWifi) {
+        this.iWifi = iWifi;
+        return this;
+    }
+
+    public WifiManager getWifiManager() {
+        return mWifiManager;
     }
 
     public void startScan() {
@@ -187,7 +222,7 @@ public class WifiUtil {
         String ssid;
         WifiInfo wifiInfo = mWifiManager.getConnectionInfo();
         ssid = wifiInfo.getSSID();
-        Log.i("AutoLinkActivity_", "[" + ssid + "][" + myssid + "]");
+        Log.i(TAG, "[" + ssid + "][" + myssid + "]");
         return ssid != null && ssid.contains(myssid);
     }
 
@@ -352,7 +387,7 @@ public class WifiUtil {
     public boolean forgetWifi(String SSID) {
         WifiConfiguration tempConfig = this.IsExsits(SSID);
         if (tempConfig != null) {
-//            Log.i("AutoLinkActivity_", "tempConfig.networkId=" + tempConfig.networkId);
+//            Log.i(TAG, "tempConfig.networkId=" + tempConfig.networkId);
             return mWifiManager.removeNetwork(tempConfig.networkId);
             //mWifiManager.saveConfiguration();
         }
@@ -401,5 +436,10 @@ public class WifiUtil {
         return null;
     }
 
+    public interface IWifi {
+        void onLost();
+
+        void onAvailable();
+    }
 }
 

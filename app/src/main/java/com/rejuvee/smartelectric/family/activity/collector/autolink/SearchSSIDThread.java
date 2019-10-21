@@ -9,7 +9,6 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
-import java.net.UnknownHostException;
 
 /**
  * @author 济南有人物联网    刘金启
@@ -30,7 +29,7 @@ public class SearchSSIDThread extends Thread {
 
     private boolean receive = true;
 
-    public SearchSSIDThread(Handler handler) {
+    SearchSSIDThread(Handler handler) {
         this.handler = handler;
         init();
     }
@@ -89,16 +88,13 @@ public class SearchSSIDThread extends Thread {
      *
      * @param msg
      */
-    public void sendMsg(byte[] msg) {
+    void sendMsg(byte[] msg) {
         if (socket != null) {
             try {
                 System.out.println("targetPort------------------->" + targetPort);
                 DatagramPacket sendPacket = new DatagramPacket(msg, msg.length,
                         InetAddress.getByName(IP), targetPort);
                 socket.send(sendPacket);
-            } catch (UnknownHostException e) {
-                e.printStackTrace();
-                System.out.println("发送失败");
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println("发送失败");
@@ -107,11 +103,11 @@ public class SearchSSIDThread extends Thread {
         }
     }
 
-    public void setReceive(boolean receive) {
+    void setReceive(boolean receive) {
         this.receive = receive;
     }
 
-    public void setTargetPort(int targetPort) {
+    void setTargetPort(int targetPort) {
         this.targetPort = targetPort;
     }
 }

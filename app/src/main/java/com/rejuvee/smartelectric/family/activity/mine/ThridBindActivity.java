@@ -168,7 +168,9 @@ public class ThridBindActivity extends BaseActivity {
 
                 @Override
                 public void onFailure(int errorEvent, String message) {
-                    CustomToast.showCustomErrorToast(ThridBindActivity.this, message);
+                    if (errorEvent != 15) {
+                        CustomToast.showCustomErrorToast(ThridBindActivity.this, message);
+                    }
                 }
             });
         }

@@ -52,9 +52,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
         android:layout_weight="@integer/tag_1"
         android:orientation="vertical">
 
@@ -63,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="text"
+            android:text="连接中..."
             android:textSize="16sp" />
 
         <LinearLayout
@@ -81,23 +81,17 @@
                 android:enabled="false"
                 android:hint="WIFI名称"
                 android:singleLine="true"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <Button
                 android:id="@+id/btn_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:onClick="onClick"
-                android:text="搜索WIFI"
+                android:text="选择WIFI"
                 android:textSize="16sp" />
-            <!--            <ImageView-->
-            <!--                android:id="@+id/btn_search"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_alignRight="@id/et_ssid"-->
-            <!--                android:background="@drawable/shuaxin"-->
-            <!--                android:onClick="onClick"-->
-            <!--                android:padding="10dp" />-->
         </LinearLayout>
 
         <LinearLayout
@@ -114,6 +108,7 @@
                 android:background="@color/transparent"
                 android:hint="WIFI密码"
                 android:singleLine="true"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <EditText

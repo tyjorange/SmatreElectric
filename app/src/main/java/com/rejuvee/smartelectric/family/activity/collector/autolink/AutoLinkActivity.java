@@ -2,11 +2,7 @@ package com.rejuvee.smartelectric.family.activity.collector.autolink;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkRequest;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,6 +18,7 @@ import com.base.library.widget.SuperTextView;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.utils.WifiUtil;
+import com.rejuvee.smartelectric.family.widget.dialog.DialogTip;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -34,7 +31,7 @@ import java.util.Queue;
  *
  * @author usr_liujinqi
  */
-public class AutoLinkActivity extends Activity implements OnClickListener {
+public class AutoLinkActivity extends Activity implements OnClickListener, WifiUtil.IWifi {
     private final String TAG = "AutoLinkActivity";
     private EditText etSsid;
     private EditText etPasd;
@@ -45,6 +42,7 @@ public class AutoLinkActivity extends Activity implements OnClickListener {
     private SendMsgThread smt;
     private CollectorBean collectorBean;
     private ProgressDialog dialog;
+    private DialogTip mDialogTip;
     private TextView btn_change;
     private TextView btn_search;
     private SuperTextView btn_ok;
@@ -82,14 +80,16 @@ public class AutoLinkActivity extends Activity implements OnClickListener {
                 finish();
             }
         });
+        mDialogTip = new DialogTip(getApplicationContext());
+
         btn_ok = findViewById(R.id.btn_ok);
         btn_change = findViewById(R.id.btn_change);
         btn_search = findViewById(R.id.btn_search);
 
-        WifiManager manager = (WifiManager) this.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        mWifiUtil = WifiUtil.getInstance(this).setCallback(this);
+        WifiManager manager = mWifiUtil.getWifiManager();
         lock = manager.createMulticastLock("fa_wifi");
         lock.acquire();
-
         etSsid = (EditText) findViewById(R.id.et_ssid);
         etPasd = (EditText) findViewById(R.id.et_pasd);
         etPort = (EditText) findViewById(R.id.et_port);
@@ -105,34 +105,6 @@ public class AutoLinkActivity extends Activity implements OnClickListener {
 
         changeWifi(collectorBean.getCode(), collectorBean.getCode());
 
-        // 网络状态改变监听
-        final ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        cm.requestNetwork(new NetworkRequest.Builder().build(), new ConnectivityManager.NetworkCallback() {
-            @Override
-            public void onLost(Network network) {
-                super.onLost(network);
-                ///网络不可用的情况下的方法
-                Log.i(TAG, "onLost");
-            }
-
-            @Override
-            public void onAvailable(Network network) {
-                super.onAvailable(network);
-                ///网络可用的情况下的方法
-                Log.i(TAG, "onAvailable");
-                if (mWifiUtil != null) {
-                    String code = collectorBean != null ? collectorBean.getCode() : "";
-                    boolean connectedWifi = mWifiUtil.isConnectedWifi(getApplicationContext(), code);
-                    if (connectedWifi) {
-                        Message msg = handler.obtainMessage(Tool.REC_WIFI, 0, 0);
-                        handler.sendMessage(msg);
-                    } else {
-                        Message msg = handler.obtainMessage(Tool.REC_WIFI, 1, 0);
-                        handler.sendMessage(msg);
-                    }
-                }
-            }
-        });
     }
 
     @Override
@@ -164,38 +136,62 @@ public class AutoLinkActivity extends Activity implements OnClickListener {
                 UIUtil.toastShow(this, "请输入WIFI密码");
                 return;
             }
-            searchSSIDThread.setTargetPort(Integer.parseInt(port));
-            byte[] data = Tool.generate_02_data(ssid, pwd, 0);
-            smt.putMsg(data);
+            ensure(ssid, pwd, targetPort);
         }
+    }
+
+    private void ensure(String ssid, String pwd, int port) {
+        mDialogTip.setTitle("提示");
+        mDialogTip.setContent("确认后将失去电箱连接，请确认WIFI密码是否正确");
+        mDialogTip.setDialogListener(new DialogTip.onEnsureDialogListener() {
+            @Override
+            public void onCancel() {
+                mDialogTip.dismiss();
+            }
+
+            @Override
+            public void onEnsure() {
+                searchSSIDThread.setTargetPort(port);
+                byte[] data = Tool.generate_02_data(ssid, pwd, 0);
+                smt.putMsg(data);
+                mDialogTip.dismiss();
+            }
+        });
+        mDialogTip.show();
     }
 
     /**
      * 连接指定WIFI
      */
     private void changeWifi(String ssid, String pass) {
-        mWifiUtil = new WifiUtil(this);
         boolean b = mWifiUtil.OpenWifi();
         if (b) {
             Log.i(TAG, "OpenWifi true");
             boolean connectNet = mWifiUtil.addNetWork(ssid, pass, 3);
-            Log.i(TAG, "addNetWork " + connectNet);
+            Log.i(TAG, "addTempNetWork " + connectNet);
         } else {
             Log.i(TAG, "OpenWifi false");
         }
     }
 
     private void toggleBtn(int isCon) {
+        String code = collectorBean.getCode();
         switch (isCon) {
             case 0:
-                btn_change.setText("电箱[" + collectorBean.getCode() + "]连接成功");
+                btn_change.setText("电箱[" + code + "] 连接成功");
                 btn_change.setTextColor(getResources().getColor(R.color.green_light));
                 btn_search.setEnabled(true);
                 btn_ok.setOnClickListener(this);
                 break;
             case 1:
-                btn_change.setText("电箱[" + collectorBean.getCode() + "]未连接");
+                btn_change.setText("电箱[" + code + "] 未连接");
                 btn_change.setTextColor(getResources().getColor(R.color.red_light));
+                btn_search.setEnabled(false);
+                btn_ok.setOnClickListener(null);
+                break;
+            case 2:
+                btn_change.setText("连接中...");
+                btn_change.setTextColor(getResources().getColor(R.color.gray));
                 btn_search.setEnabled(false);
                 btn_ok.setOnClickListener(null);
                 break;
@@ -228,10 +224,12 @@ public class AutoLinkActivity extends Activity implements OnClickListener {
                 int[] values = Tool.decode_82_data(data);
                 if (values[0] == 0)
                     UIUtil.toastShow(this, "未发现此SSID");
-                else if (values[1] == 0)
+                else if (values[1] == 0) {
                     UIUtil.toastShow(this, "密码长度不正确");
-                else if (values[0] == 1 && values[1] == 1)
-                    UIUtil.toastShow(this, "发送成功，配置完成，请检查模块的状态");
+                } else if (values[0] == 1 && values[1] == 1) {
+                    UIUtil.toastShow(this, "发送成功，请检查模块的状态");
+                    finish();
+                }
                 break;
         }
     }
@@ -267,10 +265,30 @@ public class AutoLinkActivity extends Activity implements OnClickListener {
         smt.setSend(false);
         searchSSIDThread.setReceive(false);
         searchSSIDThread.close();
-        if (mWifiUtil.forgetWifi(collectorBean.getCode())) {
-            Log.i(TAG, "forgetWifi[" + collectorBean.getCode() + "]true");
+        String code = collectorBean.getCode();
+        if (mWifiUtil.forgetWifi(code)) {
+            Log.i(TAG, "forgetWifi[" + code + "] true");
         } else {
-            Log.i(TAG, "forgetWifi[" + collectorBean.getCode() + "]false");
+            Log.i(TAG, "forgetWifi[" + code + "] false");
+        }
+    }
+
+    @Override
+    public void onLost() {
+        Message msg = handler.obtainMessage(Tool.REC_WIFI, 2, 0);
+        handler.sendMessage(msg);
+    }
+
+    @Override
+    public void onAvailable() {
+//        String code = collectorBean != null ? collectorBean.getCode() : "";
+        boolean connectedWifi = mWifiUtil.isConnectedWifi(getApplicationContext(), collectorBean.getCode());
+        if (connectedWifi) {
+            Message msg = handler.obtainMessage(Tool.REC_WIFI, 0, 0);
+            handler.sendMessage(msg);
+        } else {
+            Message msg = handler.obtainMessage(Tool.REC_WIFI, 1, 0);
+            handler.sendMessage(msg);
         }
     }
 
