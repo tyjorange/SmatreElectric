@@ -10,7 +10,7 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.activity.login.LoginActivity;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 
-import java.lang.ref.WeakReference;
+import java.lang.ref.SoftReference;
 import java.util.Locale;
 
 public class LunchActivity extends BaseActivity {
@@ -28,21 +28,21 @@ public class LunchActivity extends BaseActivity {
         return 0;
     }
 
-    private Handler handler = new MyHandler(this);
+    private Handler handler;
 
     private static class MyHandler extends Handler {
-        WeakReference<LunchActivity> activityWeakReference;
+        SoftReference<LunchActivity> activitySoftReference;
 
         MyHandler(LunchActivity activity) {
-            activityWeakReference = new WeakReference<LunchActivity>(activity);
+            activitySoftReference = new SoftReference<LunchActivity>(activity);
         }
 
         @Override
         public void handleMessage(Message msg) {
-            LunchActivity theActivity = activityWeakReference.get();
-            if (msg.what == 0) {
+            LunchActivity theActivity = activitySoftReference.get();
+            if (msg.what == 101) {
                 theActivity.mBtnSkip.setText(String.format(Locale.getDefault(), "%s(%d)", theActivity.getString(R.string.vs11), theActivity.getCount()));
-                theActivity.handler.sendEmptyMessageDelayed(0, 1000);
+                theActivity.handler.sendEmptyMessageDelayed(101, 1000);
             }
         }
     }
@@ -59,16 +59,17 @@ public class LunchActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        handler = new MyHandler(this);
         mBtnSkip = findViewById(R.id.btn_skip);
         mBtnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LunchActivity.this, LoginActivity.class));
-                handler.removeMessages(0);
+                handler.removeMessages(101);
                 finish();
             }
         });
-        handler.sendEmptyMessageDelayed(0, 1000);
+        handler.sendEmptyMessageDelayed(101, 1000);
     }
 
     @Override
