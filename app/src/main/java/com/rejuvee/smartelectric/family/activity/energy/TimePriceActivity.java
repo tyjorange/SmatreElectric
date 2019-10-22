@@ -57,7 +57,6 @@ public class TimePriceActivity extends BaseActivity {
         return 0;
     }
 
-    //    @SuppressLint("HandlerLeak")
     @Override
     protected void initView() {
         findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {

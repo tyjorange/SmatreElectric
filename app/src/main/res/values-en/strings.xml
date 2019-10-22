@@ -780,4 +780,7 @@
     <string name="vs246">WIFI密码</string>
     <string name="vs247">注：如果设置错误，请长按集中器复位按钮8秒以上。</string>
     <string name="vs248"><![CDATA[去设置>>]]></string>
+    <string name="vs249">SSID</string>
+    <string name="vs250">信号强度</string>
+    <string name="vs251">-%ddBm</string>
 </resources>

@@ -1,8 +1,8 @@
 package com.rejuvee.smartelectric.family.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 
@@ -10,6 +10,7 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.activity.login.LoginActivity;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 
+import java.lang.ref.WeakReference;
 import java.util.Locale;
 
 public class LunchActivity extends BaseActivity {
@@ -27,15 +28,24 @@ public class LunchActivity extends BaseActivity {
         return 0;
     }
 
-    @SuppressLint("HandlerLeak")
-    private Handler handler = new Handler() {
-        public void handleMessage(android.os.Message msg) {
+    private Handler handler = new MyHandler(this);
+
+    private static class MyHandler extends Handler {
+        WeakReference<LunchActivity> activityWeakReference;
+
+        MyHandler(LunchActivity activity) {
+            activityWeakReference = new WeakReference<LunchActivity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            LunchActivity theActivity = activityWeakReference.get();
             if (msg.what == 0) {
-                mBtnSkip.setText(String.format(Locale.getDefault(), "%s(%d)", getString(R.string.vs11), getCount()));
-                handler.sendEmptyMessageDelayed(0, 1000);
+                theActivity.mBtnSkip.setText(String.format(Locale.getDefault(), "%s(%d)", theActivity.getString(R.string.vs11), theActivity.getCount()));
+                theActivity.handler.sendEmptyMessageDelayed(0, 1000);
             }
         }
-    };
+    }
 
     public int getCount() {
         count--;

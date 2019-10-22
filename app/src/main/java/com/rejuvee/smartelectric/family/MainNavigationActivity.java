@@ -112,6 +112,9 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         return 0;
     }
 
+    /**
+     * 获取屏幕参数
+     */
     private void getDensity() {
         Log.w(TAG, utils.getSystemLanguage());
         Log.w(TAG, utils.getSystemVersion());

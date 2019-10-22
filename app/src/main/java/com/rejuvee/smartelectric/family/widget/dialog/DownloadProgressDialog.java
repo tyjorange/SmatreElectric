@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.rejuvee.smartelectric.family.R;
 
+import java.lang.ref.WeakReference;
 import java.text.NumberFormat;
 
 import static android.app.ProgressDialog.STYLE_SPINNER;
@@ -95,34 +96,42 @@ public class DownloadProgressDialog extends AlertDialog {
         return dialog;
     }
 
+    private static class MyHandler extends Handler {
+        WeakReference<DownloadProgressDialog> activityWeakReference;
+
+        MyHandler(DownloadProgressDialog activity) {
+            activityWeakReference = new WeakReference<DownloadProgressDialog>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            DownloadProgressDialog progressDialog = activityWeakReference.get();
+            /* Update the number and percent */
+            double progress = (double) progressDialog.mProgress.getProgress() / (double) (1024 * 1024);
+            double max = (double) progressDialog.mProgress.getMax() / (double) (1024 * 1024);
+            if (progressDialog.mProgressNumberFormat != null) {
+                String format = progressDialog.mProgressNumberFormat;
+                progressDialog.mProgressNumber.setText(String.format(format, progress, max));
+            } else {
+                progressDialog.mProgressNumber.setText("");
+            }
+            if (progressDialog.mProgressPercentFormat != null) {
+                double percent = (double) progress / (double) max;
+                SpannableString tmp = new SpannableString(progressDialog.mProgressPercentFormat.format(percent));
+                tmp.setSpan(new StyleSpan(android.graphics.Typeface.BOLD),
+                        0, tmp.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                progressDialog.mProgressPercent.setText(tmp);
+            } else {
+                progressDialog.mProgressPercent.setText("");
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         if (mProgressStyle == STYLE_HORIZONTAL) {
-            mViewUpdateHandler = new Handler() {
-                @Override
-                public void handleMessage(Message msg) {
-                    super.handleMessage(msg);
-                    /* Update the number and percent */
-                    double progress = (double) mProgress.getProgress() / (double) (1024 * 1024);
-                    double max = (double) mProgress.getMax() / (double) (1024 * 1024);
-                    if (mProgressNumberFormat != null) {
-                        String format = mProgressNumberFormat;
-                        mProgressNumber.setText(String.format(format, progress, max));
-                    } else {
-                        mProgressNumber.setText("");
-                    }
-                    if (mProgressPercentFormat != null) {
-                        double percent = (double) progress / (double) max;
-                        SpannableString tmp = new SpannableString(mProgressPercentFormat.format(percent));
-                        tmp.setSpan(new StyleSpan(android.graphics.Typeface.BOLD),
-                                0, tmp.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                        mProgressPercent.setText(tmp);
-                    } else {
-                        mProgressPercent.setText("");
-                    }
-                }
-            };
+            mViewUpdateHandler = new MyHandler(this);
             View view = inflater.inflate(R.layout.alert_dialog_progress, null);
             mProgress = (ProgressBar) view.findViewById(R.id.progress);
             mProgressNumber = (TextView) view.findViewById(R.id.progress_number);

@@ -1,6 +1,5 @@
 package com.rejuvee.smartelectric.family.activity.mswitch;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,6 +21,7 @@ import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchSignalItem;
 
+import java.lang.ref.WeakReference;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.TimerTask;
@@ -72,18 +72,26 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
         change.setOnClickListener(this);
     }
 
-    @SuppressLint("HandlerLeak")
     @Override
     protected void initData() {
-        mHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                if (msg.what == MSG_SWTCH_REFRESH_TASK_FLAG) {
-                    getSwitchState();
-                }
-            }
-        };
+        mHandler = new MyHandler(this);
         getSwitchByCollector();
+    }
+
+    private static class MyHandler extends Handler {
+        WeakReference<SwitchStatusActivity> activityWeakReference;
+
+        MyHandler(SwitchStatusActivity activity) {
+            activityWeakReference = new WeakReference<SwitchStatusActivity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            SwitchStatusActivity theActivity = activityWeakReference.get();
+            if (msg.what == MSG_SWTCH_REFRESH_TASK_FLAG) {
+                theActivity.getSwitchState();
+            }
+        }
     }
 
     private static final int MSG_SWTCH_REFRESH_TASK_FLAG = 5123;// 刷新单个线路 定时任务id

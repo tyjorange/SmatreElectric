@@ -20,6 +20,7 @@ import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.utils.WifiUtil;
 import com.rejuvee.smartelectric.family.widget.dialog.DialogTip;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -56,23 +57,33 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
     // 获得ssid列表指令
     private final byte[] searchCode = new byte[]{(byte) 0xff, 0x00, 0x01, 0x01, 0x02};
 
-    private Handler handler = new Handler() {
+    private Handler handler = new MyHandler(this);
+
+    private static class MyHandler extends Handler {
+        WeakReference<AutoLinkActivity> activityWeakReference;
+
+        MyHandler(AutoLinkActivity activity) {
+            activityWeakReference = new WeakReference<AutoLinkActivity>(activity);
+        }
+
+        @Override
         public void handleMessage(Message msg) {
+            AutoLinkActivity theActivity = activityWeakReference.get();
             switch (msg.what) {
                 case Tool.REC_DATA:// 解析接收到的数据
                     byte[] data = (byte[]) msg.obj;
                     Tool.bytesToHexString(data);
-                    decodeData(data);
+                    theActivity.decodeData(data);
                     break;
                 case Tool.REC_WIFI:// wifi状态改变
-                    toggleTip(msg.arg1);
+                    theActivity.toggleTip(msg.arg1);
                     break;
                 default:
-                    Log.w(TAG, "default");
+                    Log.w(theActivity.TAG, "default");
                     break;
             }
         }
-    };
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

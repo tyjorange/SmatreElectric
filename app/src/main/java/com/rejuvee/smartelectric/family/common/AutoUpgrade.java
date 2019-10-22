@@ -32,6 +32,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -84,22 +85,7 @@ public class AutoUpgrade {
 
     private AutoUpgrade(Context context) {
         mContext = context;
-        mHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                if (msg.what == 1001) {
-                    if (progressDialog != null) {
-                        progressDialog.setProgress(msg.arg1);
-                        progressDialog.setMax(msg.arg2);
-                    }
-                } else if (msg.what == 1002) {
-                    if (showTip) {
-                        CustomToast.showCustomErrorToast(mContext, context.getString(R.string.vs219));
-                    }
-                }
-            }
-        };
+        mHandler = new MyHandler(this);
 
         receiver = new DownloadCompleteReceiver();
         IntentFilter intentFilter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
@@ -107,6 +93,29 @@ public class AutoUpgrade {
         mContext.registerReceiver(receiver, intentFilter);
         versionInfoUrl = LogoVersionManage.getInstance().getVersionInfoUrl();
         downloadUrl = AppGlobalConfig.HTTP_DOWNLOAD_NEW_VERSION_URL;
+    }
+
+    private static class MyHandler extends Handler {
+        WeakReference<AutoUpgrade> activityWeakReference;
+
+        MyHandler(AutoUpgrade autoUpgrade) {
+            activityWeakReference = new WeakReference<AutoUpgrade>(autoUpgrade);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            AutoUpgrade autoUpgrade = activityWeakReference.get();
+            if (msg.what == 1001) {
+                if (autoUpgrade.progressDialog != null) {
+                    autoUpgrade.progressDialog.setProgress(msg.arg1);
+                    autoUpgrade.progressDialog.setMax(msg.arg2);
+                }
+            } else if (msg.what == 1002) {
+                if (autoUpgrade.showTip) {
+                    CustomToast.showCustomErrorToast(autoUpgrade.mContext, autoUpgrade.mContext.getString(R.string.vs219));
+                }
+            }
+        }
     }
 
     public static AutoUpgrade getInstacne(Context context) {

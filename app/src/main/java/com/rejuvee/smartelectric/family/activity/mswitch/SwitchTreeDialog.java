@@ -1,6 +1,5 @@
 package com.rejuvee.smartelectric.family.activity.mswitch;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -30,6 +29,7 @@ import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 import com.unnamed.b.atv.model.TreeNode;
 import com.unnamed.b.atv.view.AndroidTreeView;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -164,19 +164,26 @@ public class SwitchTreeDialog extends Dialog implements SwitchTree {
 
     private static final int MSG_FILLDATA = 3;// 填充tree数据
 
-    @SuppressLint("HandlerLeak")
-//    @Override
     protected void initData() {
 //        NativeLine.init(this);
-        mHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                if (msg.what == MSG_FILLDATA) {
-                    fillData();
-                }
-            }
-        };
+        mHandler = new MyHandler(this);
         getSwitchByCollector();
+    }
+
+    private static class MyHandler extends Handler {
+        WeakReference<SwitchTreeDialog> activityWeakReference;
+
+        MyHandler(SwitchTreeDialog dialog) {
+            activityWeakReference = new WeakReference<SwitchTreeDialog>(dialog);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            SwitchTreeDialog theDialog = activityWeakReference.get();
+            if (msg.what == MSG_FILLDATA) {
+                theDialog.fillData();
+            }
+        }
     }
 
     /**
