@@ -12,6 +12,9 @@ import com.rejuvee.smartelectric.family.R;
 
 import java.util.ArrayList;
 
+/**
+ * 模块扫描到的SSID列表
+ */
 public class SsidListActivity extends Activity {
     private ArrayList<Item> ssids;
     private ListView lv;

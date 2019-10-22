@@ -27,6 +27,7 @@ import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.CommonRequestCode;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.CollectorUpgradeInfo;
+import com.rejuvee.smartelectric.family.widget.dialog.DialogTip;
 import com.rejuvee.smartelectric.family.widget.dialog.DialogTipWithoutOkCancel;
 
 /**
@@ -74,6 +75,8 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
 
         TextView tv_wifi = findViewById(R.id.txt_wifi_set);
 
+        TextView tv_del_collector = findViewById(R.id.tv_del_collector);
+
         backBtn.setOnClickListener(this);
 
         tvKongzhi.setOnClickListener(this);
@@ -95,6 +98,8 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
             tv_wifi.setOnClickListener(this);
             tv_wifi.setVisibility(View.VISIBLE);
         }
+
+        tv_del_collector.setOnClickListener(this);
 
 //        tvConfig.setEnabled(collectorBean.beShared != 1);
         if (collectorBean.beShared == 1) {
@@ -133,6 +138,7 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
             } else {
                 txtShareTip.setText(String.format("%s%s", collectorBean.ownerUser.getNickName(), getString(R.string.vs3)));
             }
+            tv_del_collector.setVisibility(View.INVISIBLE);
         } else {
             txtShareTip.setVisibility(View.INVISIBLE);
         }
@@ -259,6 +265,9 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
                 intent.putExtra("collectorBean", collectorBean);
                 startActivity(intent);
                 break;
+            case R.id.tv_del_collector:
+                onDel();
+                break;
             default:
                 break;
         }
@@ -306,4 +315,39 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
         return collectorBean.getVerMajorNew() * 256 + collectorBean.getVerMinorNew() > collectorBean.getVerMajor() * 256 + collectorBean.getVerMinor();
     }
 
+    /**
+     * 解绑电箱
+     */
+    public void onDel() {
+        DialogTip dialogTip = new DialogTip(mContext);
+        dialogTip.setTitle(mContext.getResources().getString(R.string.delete)).setRedBtn()
+                .setContent(mContext.getResources().getString(R.string.delete_device))
+                .setDialogListener(new DialogTip.onEnsureDialogListener() {
+                    @Override
+                    public void onCancel() {
+
+                    }
+
+                    @Override
+                    public void onEnsure() {
+                        Core.instance(mContext).unbindDevice(collectorBean.getCode(), new ActionCallbackListener<Void>() {
+                            @Override
+                            public void onSuccess(Void data) {
+//                                listDeviceData.remove(position);
+//                                mDeviceAdapter.notifyDataSetChanged();
+//                                mDeviceAdapter.setEditMode(false);
+//                                tv_collector_count.setText(String.format(Locale.getDefault(), "%s%d", getString(R.string.vs13), listDeviceData.size()));
+                                CustomToast.showCustomToast(mContext, getString(R.string.vs66));
+                                finish();
+                            }
+
+                            @Override
+                            public void onFailure(int errorEvent, String message) {
+                                CustomToast.showCustomErrorToast(mContext, message);
+                            }
+                        });
+
+                    }
+                }).show();
+    }
 }

@@ -95,7 +95,8 @@ public class DialogTip extends Dialog implements View.OnClickListener {
         return this;
     }
 
-    public void setRedBtn() {
+    public DialogTip setRedBtn() {
         txtOk.setBackground(getContext().getDrawable(R.drawable.btn_red));
+        return this;
     }
 }

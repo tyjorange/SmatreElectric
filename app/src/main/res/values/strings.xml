@@ -339,7 +339,7 @@
     <string name="total_power">累计用电</string>
     <string name="month_power">当月用电</string>
     <string name="delete">删除</string>
-    <string name="delete_device">您确认删除这个电箱?</string>
+    <string name="delete_device">您确认解绑这个电箱?</string>
     <string name="electric_quantity">电量</string>
     <string name="cur_total_power">当前总功率</string>
     <string name="device_id">电箱编码</string>
@@ -774,7 +774,7 @@
     <string name="vs237">未发现此SSID</string>
     <string name="vs238">WIFI密码长度不正确</string>
     <string name="vs239">发送成功，请检查模块的状态</string>
-    <string name="vs240">1、请使用手机连接电箱WiFi</string>
+    <string name="vs240">1、请使用手机连接电箱AP</string>
     <string name="vs241">等待连接...</string>
     <string name="vs242">连接电箱</string>
     <string name="vs243">2、设置该电箱上网WiFi</string>

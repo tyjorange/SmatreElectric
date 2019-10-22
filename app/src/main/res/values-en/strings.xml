@@ -771,7 +771,7 @@
     <string name="vs237">未发现此SSID</string>
     <string name="vs238">WIFI密码长度不正确</string>
     <string name="vs239">发送成功，请检查模块的状态</string>
-    <string name="vs240">1、请使用手机连接电箱WiFi</string>
+    <string name="vs240">1、请使用手机连接电箱AP</string>
     <string name="vs241">等待连接...</string>
     <string name="vs242">连接电箱</string>
     <string name="vs243">2、设置该电箱上网WiFi</string>

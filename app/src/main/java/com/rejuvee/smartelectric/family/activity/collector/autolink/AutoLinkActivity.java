@@ -25,8 +25,12 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
+ * 电箱WIFI设置
+ * <p>
  * 48899端口：C32x系列的端口，用户可以用AT指令更改
+ * <p>
  * 49000端口：除C32x系列，其他WIFI模块的端口
+ * <p>
  * 1902端口：有人掌控宝系列产品的端口
  *
  * @author usr_liujinqi
@@ -46,6 +50,7 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
     private TextView tv_change;
     private TextView btn_search;
     private SuperTextView btn_ok;
+    private boolean canSearch = true;
     public final int RESQEST_SSID_LIST = 1;
 
     // 获得ssid列表指令
@@ -124,7 +129,11 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
             smt.putMsg(searchCode);
             dismiss();
         } else if (v.getId() == R.id.btn_link) {
-            linkCollectorAP(collectorBean.getCode(), collectorBean.getCode());
+            if (canSearch) {
+                linkCollectorAP(collectorBean.getCode(), collectorBean.getCode());
+            } else {
+                Log.w(TAG, "不要点太快");
+            }
         } else if (v.getId() == R.id.btn_ok) {
             String ssid = etSsid.getText().toString();
             String pwd = etPasd.getText().toString();
@@ -172,8 +181,14 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
         } else {
             Log.i(TAG, "OpenWifi false");
         }
+        canSearch = false;
     }
 
+    /**
+     * 根据连接结果改变提示文字
+     *
+     * @param isCon
+     */
     private void toggleTip(int isCon) {
         String code = collectorBean.getCode();
         switch (isCon) {
@@ -199,6 +214,7 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
                 btn_ok.setOnClickListener(null);
                 break;
         }
+        canSearch = true;
     }
 
     /**

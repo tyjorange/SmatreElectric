@@ -151,6 +151,7 @@ public class GridDeviceAdapter extends BaseAdapter {
         LinearLayout ll_collector_item2;
     }
 
+    @Deprecated
     public interface MyListener {
         void onDel(int position);
     }

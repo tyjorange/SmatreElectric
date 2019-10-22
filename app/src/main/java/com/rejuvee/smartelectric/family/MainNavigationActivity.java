@@ -418,29 +418,23 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
                 }
             }
         });
-        //长按删除
+        //长按删除Deprecated 不再使用长按删除
         gridViewDevice.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == listDeviceData.size()) {
-                    return true;
-                }
-                if (mDeviceAdapter.isEditMode()) {
-                    mDeviceAdapter.setEditMode(false);
-                } else {
-                    mDeviceAdapter.setEditMode(true);
-                }
+//                if (position == listDeviceData.size()) {
+//                    return true;
+//                }
+//                if (mDeviceAdapter.isEditMode()) {
+//                    mDeviceAdapter.setEditMode(false);
+//                } else {
+//                    mDeviceAdapter.setEditMode(true);
+//                }
                 Vibrator vibrator = (Vibrator) mContext.getSystemService(VIBRATOR_SERVICE);
-                vibrator.vibrate(1000);
+                vibrator.vibrate(10000);
                 return true;
             }
         });
-//        findViewById(R.id.txt_add_device).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivityForResult(new Intent(mContext, AddDeviceOrSwitchActivity.class), requestCode_add_device);
-//            }
-//        });
     }
 
     private void getCollector() {
@@ -480,38 +474,44 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         });
     }
 
+    /**
+     * 不再使用长按删除
+     *
+     * @param position
+     */
     @Override
+    @Deprecated
     public void onDel(int position) {
-        DialogTip dialogTip = new DialogTip(mContext);
-        dialogTip.setTitle(mContext.getResources().getString(R.string.delete))
-                .setContent(mContext.getResources().getString(R.string.delete_device))
-                .setDialogListener(new DialogTip.onEnsureDialogListener() {
-                    @Override
-                    public void onCancel() {
-
-                    }
-
-                    @Override
-                    public void onEnsure() {
-                        CollectorBean collectorBean = listDeviceData.get(position);
-                        Core.instance(mContext).unbindDevice(collectorBean.getCode(), new ActionCallbackListener<Void>() {
-                            @Override
-                            public void onSuccess(Void data) {
-                                listDeviceData.remove(position);
-                                mDeviceAdapter.notifyDataSetChanged();
-                                mDeviceAdapter.setEditMode(false);
-                                tv_collector_count.setText(String.format(Locale.getDefault(), "%s%d", getString(R.string.vs13), listDeviceData.size()));
-                                CustomToast.showCustomToast(mContext, getString(R.string.vs66));
-                            }
-
-                            @Override
-                            public void onFailure(int errorEvent, String message) {
-                                CustomToast.showCustomErrorToast(mContext, message);
-                            }
-                        });
-
-                    }
-                }).show();
+//        DialogTip dialogTip = new DialogTip(mContext);
+//        dialogTip.setTitle(mContext.getResources().getString(R.string.delete)).setRedBtn()
+//                .setContent(mContext.getResources().getString(R.string.delete_device))
+//                .setDialogListener(new DialogTip.onEnsureDialogListener() {
+//                    @Override
+//                    public void onCancel() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onEnsure() {
+//                        CollectorBean collectorBean = listDeviceData.get(position);
+//                        Core.instance(mContext).unbindDevice(collectorBean.getCode(), new ActionCallbackListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void data) {
+//                                listDeviceData.remove(position);
+//                                mDeviceAdapter.notifyDataSetChanged();
+//                                mDeviceAdapter.setEditMode(false);
+//                                tv_collector_count.setText(String.format(Locale.getDefault(), "%s%d", getString(R.string.vs13), listDeviceData.size()));
+//                                CustomToast.showCustomToast(mContext, getString(R.string.vs66));
+//                            }
+//
+//                            @Override
+//                            public void onFailure(int errorEvent, String message) {
+//                                CustomToast.showCustomErrorToast(mContext, message);
+//                            }
+//                        });
+//
+//                    }
+//                }).show();
     }
 
     @Override
