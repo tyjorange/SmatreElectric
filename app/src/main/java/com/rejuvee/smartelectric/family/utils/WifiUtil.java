@@ -48,8 +48,9 @@ public class WifiUtil {
                 super.onLost(network);
                 Log.i(TAG, "onLost");
                 ///网络不可用的情况下的方法
-                if (iWifi != null)
+                if (iWifi != null) {
                     iWifi.onLost();
+                }
             }
 
             @Override
@@ -57,8 +58,9 @@ public class WifiUtil {
                 super.onAvailable(network);
                 Log.i(TAG, "onAvailable");
                 ///网络可用的情况下的方法
-                if (iWifi != null)
+                if (iWifi != null) {
                     iWifi.onAvailable();
+                }
             }
         };
         mConnectivityManager.requestNetwork(build, networkCallback);
@@ -216,6 +218,8 @@ public class WifiUtil {
         return bRet;
     }
 
+    private String currentSSID = "";
+
     //断判某个wifi是否是连接成功的那个wifi
     public boolean isConnectedWifi(Context context, String myssid) {
         mWifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -223,7 +227,11 @@ public class WifiUtil {
         WifiInfo wifiInfo = mWifiManager.getConnectionInfo();
         ssid = wifiInfo.getSSID();
         Log.i(TAG, "[" + ssid + "][" + myssid + "]");
-        return ssid != null && ssid.contains(myssid);
+        if (ssid != null && ssid.contains(myssid)) {
+            currentSSID = myssid;
+            return true;
+        }
+        return false;
     }
 
     // 查看以前是否也配置过这个网络
@@ -375,8 +383,19 @@ public class WifiUtil {
     }
 
     public void addNetWork(WifiConfiguration configuration) {
-
         //mWifiManager.saveConfiguration();
+    }
+
+    /**
+     * 移除wifi，因为权限，无法移除的时候，需要手动去翻wifi列表删除
+     * 注意：！！！只能移除自己应用创建的wifi。
+     * 删除掉app，再安装的，都不算自己应用，具体看removeNetwork源码
+     */
+    public String forgetWifi() {
+        if (forgetWifi(currentSSID)) {
+            return currentSSID;
+        }
+        return "";
     }
 
     /**

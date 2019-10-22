@@ -59,12 +59,45 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/btn_change"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="连接中..."
-            android:textSize="16sp" />
+            android:text="@string/vs240"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_change"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="@integer/tag_1"
+                android:text="@string/vs241"
+                android:textColor="@color/gray"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btn_link"
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                android:background="@drawable/btn_def"
+                android:onClick="onClick"
+                android:text="@string/vs242"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/vs243"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -79,19 +112,21 @@
                 android:layout_weight="@integer/tag_1"
                 android:background="@color/transparent"
                 android:enabled="false"
-                android:hint="WIFI名称"
+                android:hint="@string/vs244"
                 android:singleLine="true"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <Button
                 android:id="@+id/btn_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                android:background="@drawable/btn_def"
                 android:enabled="false"
                 android:onClick="onClick"
-                android:text="选择WIFI"
-                android:textSize="16sp" />
+                android:text="@string/vs245"
+                android:textColor="@color/grey"
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -106,25 +141,30 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/transparent"
-                android:hint="WIFI密码"
+                android:hint="@string/vs246"
                 android:singleLine="true"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/et_port"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="3"
                 android:hint="port"
                 android:inputType="number"
                 android:maxLength="5"
                 android:singleLine="true"
                 android:text="48899"
                 android:textSize="18sp"
-                android:visibility="gone" />
+                android:visibility="invisible" />
         </LinearLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:text="@string/vs247" />
     </LinearLayout>
 
     <com.base.library.widget.SuperTextView

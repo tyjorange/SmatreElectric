@@ -16,6 +16,7 @@ import com.base.library.utils.Utils;
 import com.rejuvee.smartelectric.family.common.CrashHandler;
 import com.rejuvee.smartelectric.family.common.LogoVersionManage;
 import com.rejuvee.smartelectric.family.common.NativeLine;
+import com.rejuvee.smartelectric.family.utils.WifiUtil;
 import com.rejuvee.smartelectric.family.utils.thrid.QQLoginHelper;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -60,6 +61,7 @@ public class MainApplication extends Application {
 //                .setDefaultFontPath("fonts/syht.otf")
 //                .setFontAttrId(R.attr.fontPath)
 //                .build());
+        WifiUtil.getInstance(this);
         CrashHandler.getInstance().init(getApplicationContext());
     }
 

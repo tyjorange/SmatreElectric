@@ -43,7 +43,7 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
     private CollectorBean collectorBean;
     private ProgressDialog dialog;
     private DialogTip mDialogTip;
-    private TextView btn_change;
+    private TextView tv_change;
     private TextView btn_search;
     private SuperTextView btn_ok;
     public final int RESQEST_SSID_LIST = 1;
@@ -83,11 +83,12 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
         mDialogTip = new DialogTip(this);
 
         btn_ok = findViewById(R.id.btn_ok);
-        btn_change = findViewById(R.id.btn_change);
+        tv_change = findViewById(R.id.tv_change);
         btn_search = findViewById(R.id.btn_search);
 
         mWifiUtil = WifiUtil.getInstance(this).setCallback(this);
         WifiManager manager = mWifiUtil.getWifiManager();
+
         lock = manager.createMulticastLock("fa_wifi");
         lock.acquire();
         etSsid = (EditText) findViewById(R.id.et_ssid);
@@ -95,28 +96,25 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
         etPort = (EditText) findViewById(R.id.et_port);
 
         dialog = new ProgressDialog(this);
-        dialog.setMessage("搜索中...");
+        dialog.setMessage(getString(R.string.vs226));
 
         searchSSIDThread = new SearchSSIDThread(handler);
         searchSSIDThread.start();
 
         smt = new SendMsgThread(searchSSIDThread);
         smt.start();
-
-        changeWifi(collectorBean.getCode(), collectorBean.getCode());
-
     }
 
     @Override
     public void onClick(View v) {
         String port = etPort.getText().toString();
         if (TextUtils.isEmpty(port)) {
-            UIUtil.toastShow(this, "请输入端口");
+            UIUtil.toastShow(this, R.string.vs227);
             return;
         }
         int targetPort = Integer.parseInt(port);
         if (targetPort < 0 || targetPort > 65535) {
-            UIUtil.toastShow(this, "请输入正确的端口");
+            UIUtil.toastShow(this, R.string.vs228);
             return;
         }
         searchSSIDThread.setTargetPort(Integer.parseInt(port));
@@ -125,15 +123,17 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
             // 发送收索SSID指令
             smt.putMsg(searchCode);
             dismiss();
+        } else if (v.getId() == R.id.btn_link) {
+            linkCollectorAP(collectorBean.getCode(), collectorBean.getCode());
         } else if (v.getId() == R.id.btn_ok) {
             String ssid = etSsid.getText().toString();
             String pwd = etPasd.getText().toString();
             if (TextUtils.isEmpty(ssid)) {
-                UIUtil.toastShow(this, "请输入WIFI名");
+                UIUtil.toastShow(this, R.string.vs229);
                 return;
             }
             if (TextUtils.isEmpty(pwd)) {
-                UIUtil.toastShow(this, "请输入WIFI密码");
+                UIUtil.toastShow(this, R.string.vs230);
                 return;
             }
             ensure(ssid, pwd, targetPort);
@@ -141,8 +141,8 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
     }
 
     private void ensure(String ssid, String pwd, int port) {
-        mDialogTip.setTitle("提示");
-        mDialogTip.setContent("确认后将失去电箱连接，请确认WIFI密码是否正确");
+        mDialogTip.setTitle(getString(R.string.vs231));
+        mDialogTip.setContent(getString(R.string.vs232));
         mDialogTip.setDialogListener(new DialogTip.onEnsureDialogListener() {
             @Override
             public void onCancel() {
@@ -163,7 +163,7 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
     /**
      * 连接指定WIFI
      */
-    private void changeWifi(String ssid, String pass) {
+    private void linkCollectorAP(String ssid, String pass) {
         boolean b = mWifiUtil.OpenWifi();
         if (b) {
             Log.i(TAG, "OpenWifi true");
@@ -178,21 +178,24 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
         String code = collectorBean.getCode();
         switch (isCon) {
             case 0:
-                btn_change.setText("电箱[" + code + "] 连接成功");
-                btn_change.setTextColor(getResources().getColor(R.color.green_light));
+                tv_change.setText(String.format(getString(R.string.vs233), code));
+                tv_change.setTextColor(getResources().getColor(R.color.green_light));
                 btn_search.setEnabled(true);
+                btn_search.setTextColor(getResources().getColor(R.color.white));
                 btn_ok.setOnClickListener(this);
                 break;
             case 1:
-                btn_change.setText("电箱[" + code + "] 未连接");
-                btn_change.setTextColor(getResources().getColor(R.color.red_light));
+                tv_change.setText(String.format(getString(R.string.vs234), code));
+                tv_change.setTextColor(getResources().getColor(R.color.red_light));
                 btn_search.setEnabled(false);
+                btn_search.setTextColor(getResources().getColor(R.color.grey));
                 btn_ok.setOnClickListener(null);
                 break;
             case 2:
-                btn_change.setText("连接中...");
-                btn_change.setTextColor(getResources().getColor(R.color.gray));
+                tv_change.setText(getString(R.string.vs235));
+                tv_change.setTextColor(getResources().getColor(R.color.gray));
                 btn_search.setEnabled(false);
+                btn_search.setTextColor(getResources().getColor(R.color.grey));
                 btn_ok.setOnClickListener(null);
                 break;
         }
@@ -217,17 +220,17 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
                     intent.putExtra("ssids", ssids);
                     startActivityForResult(intent, RESQEST_SSID_LIST);
                 } else {
-                    UIUtil.toastShow(this, "没有搜索到SSID，请重试");//TODO
+                    UIUtil.toastShow(this, R.string.vs236);//TODO
                 }
                 break;
             case 0x82://  返回校验结果
                 int[] values = Tool.decode_82_data(data);
                 if (values[0] == 0)
-                    UIUtil.toastShow(this, "未发现此SSID");
+                    UIUtil.toastShow(this, R.string.vs237);
                 else if (values[1] == 0) {
-                    UIUtil.toastShow(this, "密码长度不正确");
+                    UIUtil.toastShow(this, R.string.vs238);
                 } else if (values[0] == 1 && values[1] == 1) {
-                    UIUtil.toastShow(this, "发送成功，请检查模块的状态");
+                    UIUtil.toastShow(this, R.string.vs239);
                     finish();
                 }
                 break;

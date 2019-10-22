@@ -76,7 +76,7 @@
             android:padding="16dp"
             android:text="@string/fun_quxian"
             android:textColor="#5A6187"
-            android:textSize="10sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/txt_anquan_sz"
@@ -89,7 +89,7 @@
             android:padding="16dp"
             android:text="@string/vs95"
             android:textColor="#5A6187"
-            android:textSize="10sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/txt_dianxiang_sz"
@@ -102,7 +102,7 @@
             android:padding="16dp"
             android:text="@string/vs86"
             android:textColor="#5A6187"
-            android:textSize="10sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/txt_xianlu_wh"
@@ -115,7 +115,7 @@
             android:padding="16dp"
             android:text="@string/vs117"
             android:textColor="#5A6187"
-            android:textSize="10sp" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 

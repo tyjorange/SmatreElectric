@@ -98,7 +98,7 @@
             android:padding="16dp"
             android:text="@string/remote_control"
             android:textColor="#5A6187"
-            android:textSize="10sp"
+            android:textSize="12sp"
             tools:ignore="SmallSp" />
 
         <TextView
@@ -112,7 +112,7 @@
             android:padding="16dp"
             android:text="@string/Retimesituation"
             android:textColor="#5A6187"
-            android:textSize="10sp"
+            android:textSize="12sp"
             tools:ignore="SmallSp" />
 
         <TextView
@@ -126,7 +126,7 @@
             android:padding="16dp"
             android:text="@string/fun_baobiao"
             android:textColor="#5A6187"
-            android:textSize="10sp"
+            android:textSize="12sp"
             tools:ignore="SmallSp" />
 
         <TextView
@@ -140,7 +140,7 @@
             android:padding="16dp"
             android:text="@string/timed_task"
             android:textColor="#5A6187"
-            android:textSize="10sp"
+            android:textSize="12sp"
             tools:ignore="SmallSp" />
 
         <!--<TextView-->
@@ -181,7 +181,7 @@
             android:padding="16dp"
             android:text="@string/energy_saving_info"
             android:textColor="#5A6187"
-            android:textSize="10sp"
+            android:textSize="12sp"
             tools:ignore="SmallSp" />
 
         <TextView
@@ -195,7 +195,7 @@
             android:padding="16dp"
             android:text="@string/important_info"
             android:textColor="#5A6187"
-            android:textSize="10sp"
+            android:textSize="12sp"
             tools:ignore="SmallSp" />
 
         <TextView
@@ -209,7 +209,7 @@
             android:padding="16dp"
             android:text="@string/vs58"
             android:textColor="#5A6187"
-            android:textSize="10sp"
+            android:textSize="12sp"
             tools:ignore="SmallSp" />
 
         <TextView
@@ -223,7 +223,7 @@
             android:padding="16dp"
             android:text="@string/vs59"
             android:textColor="#5A6187"
-            android:textSize="10sp"
+            android:textSize="12sp"
             tools:ignore="SmallSp" />
 
         <!--<TextView-->
@@ -259,7 +259,7 @@
             android:padding="16dp"
             android:text="@string/line_modify"
             android:textColor="#5A6187"
-            android:textSize="10sp"
+            android:textSize="12sp"
             tools:ignore="SmallSp" />
 
         <TextView
@@ -273,7 +273,7 @@
             android:padding="16dp"
             android:text="@string/my_electric_meter"
             android:textColor="#5A6187"
-            android:textSize="10sp"
+            android:textSize="12sp"
             tools:ignore="SmallSp" />
 
         <TextView
@@ -287,7 +287,7 @@
             android:padding="16dp"
             android:text="@string/vs209"
             android:textColor="#5A6187"
-            android:textSize="10sp"
+            android:textSize="12sp"
             tools:ignore="SmallSp" />
 
         <TextView
@@ -301,7 +301,7 @@
             android:padding="16dp"
             android:text="@string/vs60"
             android:textColor="#5A6187"
-            android:textSize="10sp"
+            android:textSize="12sp"
             tools:ignore="SmallSp" />
 
     </LinearLayout>
@@ -319,13 +319,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableTop="@drawable/collector_dxxl"
+            android:drawableTop="@drawable/collector_wifi"
             android:drawablePadding="4dp"
             android:gravity="center"
             android:padding="16dp"
             android:text="WIFI设置"
             android:textColor="#5A6187"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:visibility="invisible"
             tools:ignore="SmallSp" />
 
@@ -339,7 +339,7 @@
             android:padding="16dp"
             android:text="@string/my_electric_meter"
             android:textColor="#5A6187"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:visibility="invisible"
             tools:ignore="SmallSp" />
 
@@ -353,7 +353,7 @@
             android:padding="16dp"
             android:text="@string/vs209"
             android:textColor="#5A6187"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:visibility="invisible"
             tools:ignore="SmallSp" />
 
@@ -367,7 +367,7 @@
             android:padding="16dp"
             android:text="@string/vs60"
             android:textColor="#5A6187"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:visibility="invisible"
             tools:ignore="SmallSp" />
 
