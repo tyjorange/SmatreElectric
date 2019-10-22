@@ -18,6 +18,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.SwipeDismissBehavior;
@@ -196,6 +197,7 @@ public final class TSnackbar {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public TSnackbar setIconLeft(@DrawableRes int drawableRes, float sizeDp) {
         final TextView tv = mView.getMessageView();
         Drawable drawable = ContextCompat.getDrawable(mContext, drawableRes);
@@ -210,6 +212,7 @@ public final class TSnackbar {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public TSnackbar setIconRight(@DrawableRes int drawableRes, float sizeDp) {
         final TextView tv = mView.getMessageView();
         Drawable drawable = ContextCompat.getDrawable(mContext, drawableRes);
@@ -238,6 +241,7 @@ public final class TSnackbar {
       return this;
   }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private Drawable fitDrawable(Drawable drawable, int sizePx) {
         if (drawable.getIntrinsicWidth() != sizePx || drawable.getIntrinsicHeight() != sizePx) {
 
@@ -273,6 +277,7 @@ public final class TSnackbar {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private static Bitmap getBitmap(Drawable drawable) {
         if (drawable instanceof BitmapDrawable) {
             return ((BitmapDrawable) drawable).getBitmap();

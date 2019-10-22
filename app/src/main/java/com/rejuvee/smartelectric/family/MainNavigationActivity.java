@@ -171,16 +171,16 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
                         Manifest.permission.ACCESS_COARSE_LOCATION,
                         Manifest.permission.ACCESS_FINE_LOCATION},
                 new PermissionUtils.OnPermissionListener() {
-            @Override
-            public void onPermissionGranted() {
-                Log.i(TAG, "onPermissionGranted");
-            }
+                    @Override
+                    public void onPermissionGranted() {
+                        Log.i(TAG, "onPermissionGranted");
+                    }
 
-            @Override
-            public void onPermissionDenied(String[] deniedPermissions) {
-                Log.e(TAG, "onPermissionDenied");
-            }
-        });
+                    @Override
+                    public void onPermissionDenied(String[] deniedPermissions) {
+                        Log.e(TAG, "onPermissionDenied");
+                    }
+                });
     }
 
     @Override
@@ -202,9 +202,17 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
             @Override
             public void onSuccess(WxSubscribed data) {
                 if (data.getIsSubscribed() == 0) {
-//                    CustomToast.showCustomErrorToast(getBaseContext(), getString(R.string.vs225));
-                    Snackbar.make(tvNick, R.string.vs225, Snackbar.LENGTH_INDEFINITE).setDuration(10000).show();
-//                    SnackbarMessageShow.getInstance().showError(tvNick, getResources().getString(R.string.vs225));
+                    Snackbar.make(tvNick, R.string.vs225, Snackbar.LENGTH_INDEFINITE)
+                            .setAction(R.string.vs248, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(mContext, ThridBindActivity.class);
+                                    intent.putExtra("wechatUnionID", wechatUnionID);
+                                    intent.putExtra("qqUnionID", qqUnionID);
+                                    startActivityForResult(intent, CommonRequestCode.REQUEST_THIRD_BIND);
+                                }
+                            }).setActionTextColor(getResources().getColor(R.color.blue_light))
+                            .setDuration(10000).show();
                 }
             }
 
@@ -214,6 +222,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
             }
         });
     }
+
     @Override
     protected void dealloc() {
         AutoUpgrade.getInstacne(this).destroyInstance();
@@ -282,6 +291,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
     /**
      * 生成用户名二维码
      */
+    @Deprecated
     private void setQCodeUserName() {
         Bitmap bmpUser = utils.createQRcodeImage(username, SizeUtils.dp2px(100), SizeUtils.dp2px(100));
         if (bmpUser != null) {
@@ -298,6 +308,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 //        CircleImageView civ = (CircleImageView) findViewById(R.id.user_headimg_s);
 //        toolbar.setNavigationIcon(new CircleDrawable(BitmapUtil.drawable2Bitmap(ivHead.getDrawable())));
+        // 模糊控件Drawer
         DaliBlurDrawerToggle drawerToggle = new DaliBlurDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close, new NavigationDrawerListener() {
             @Override

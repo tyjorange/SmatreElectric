@@ -55,7 +55,6 @@ public class SnackbarMessageShow {
         if (snackbar != null) {
             return snackbar.isShown();
         }
-
         return false;
     }
 

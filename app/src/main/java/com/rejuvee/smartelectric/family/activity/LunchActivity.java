@@ -13,6 +13,7 @@ import com.rejuvee.smartelectric.family.common.BaseActivity;
 import java.util.Locale;
 
 public class LunchActivity extends BaseActivity {
+    private String TAG = "LunchActivity";
     private Button mBtnSkip;
     private int count = 3;
 
