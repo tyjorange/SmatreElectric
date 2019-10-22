@@ -320,7 +320,7 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
      */
     public void onDel() {
         DialogTip dialogTip = new DialogTip(mContext);
-        dialogTip.setTitle(mContext.getResources().getString(R.string.delete)).setRedBtn()
+        dialogTip.setTitle(mContext.getResources().getString(R.string.vs231)).setRedBtn()
                 .setContent(mContext.getResources().getString(R.string.delete_device))
                 .setDialogListener(new DialogTip.onEnsureDialogListener() {
                     @Override

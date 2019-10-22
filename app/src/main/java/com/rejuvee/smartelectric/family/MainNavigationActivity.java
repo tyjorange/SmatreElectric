@@ -334,6 +334,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        // 隐藏条目
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -549,6 +550,11 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         super.onBackPressed();
     }
 
+    /**
+     * 右上角按钮
+     *
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -556,6 +562,12 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         return true;
     }
 
+    /**
+     * 右上角按钮
+     *
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -585,7 +597,8 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
             Intent intent = new Intent(this, CustomerServiceActivity.class);
             intent.putExtra("username", username);
             startActivity(intent);
-//        } else if (id == R.id.me_wenti) {
+        } else if (id == R.id.me_wenti) {
+            System.out.println("me_wenti");
         } else if (id == R.id.me_guanyu) {
             startActivity(new Intent(this, AboutActivity.class));
         } else if (id == R.id.me_shezhi) {

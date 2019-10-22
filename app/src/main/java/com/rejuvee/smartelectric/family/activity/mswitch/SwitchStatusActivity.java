@@ -20,6 +20,7 @@ import com.rejuvee.smartelectric.family.custom.FlushTimeTask;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchSignalItem;
+import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
 import java.lang.ref.WeakReference;
 import java.text.DecimalFormat;
@@ -32,7 +33,7 @@ import java.util.TimerTask;
 public class SwitchStatusActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "SwitchStatusActivity";
     private CollectorBean collectorBean;
-    private SwitchBean curBreaker;
+    private SwitchBean switchBean;
     private TextView line_name;
     private ImageView online_icon;
     private TextView online_text;
@@ -43,6 +44,7 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
     private TextView ygdy_val;
     private TextView switch_ver;
     private Handler mHandler;
+    private LoadingDlg waitDialog;
 
     @Override
     protected int getLayoutResId() {
@@ -57,8 +59,10 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void initView() {
         collectorBean = getIntent().getParcelableExtra("collectorBean");
+        waitDialog = new LoadingDlg(this, -1);
         ImageView backBtn = findViewById(R.id.img_cancel);
         LinearLayout change = findViewById(R.id.img_change);
+        ImageView imgFlush = findViewById(R.id.img_flush);
         line_name = findViewById(R.id.line_name);
         online_icon = findViewById(R.id.online_icon);
         online_text = findViewById(R.id.online_text);
@@ -70,6 +74,7 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
         switch_ver = findViewById(R.id.switch_ver);
         backBtn.setOnClickListener(this);
         change.setOnClickListener(this);
+        imgFlush.setOnClickListener(this);
     }
 
     @Override
@@ -90,11 +95,17 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
             SwitchStatusActivity theActivity = activityWeakReference.get();
             if (msg.what == MSG_SWTCH_REFRESH_TASK_FLAG) {
                 theActivity.getSwitchState();
+            } else if (msg.what == MSG_SEND_REFRESH_FLAG) {
+                theActivity.sendRefreshSwitch(theActivity.switchBean);
+            } else if (msg.what == MSG_SEND_GET_FLAG) {
+                theActivity.getBreakSignalValue(theActivity.switchBean);
             }
         }
     }
 
     private static final int MSG_SWTCH_REFRESH_TASK_FLAG = 5123;// 刷新单个线路 定时任务id
+    private static final int MSG_SEND_REFRESH_FLAG = 5124;// 发送刷新命令
+    private static final int MSG_SEND_GET_FLAG = 5125;// 发送获取命令
     private FlushTimeTask flushTimeTask;
     private final int flushTimeMill = 3000;//刷新间隔
     private boolean runTask = true;
@@ -148,18 +159,35 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
 
     private DecimalFormat df = new DecimalFormat("00");
 
+
     /**
-     * 获取信号值
+     * 刷新断路器
      *
      * @param switchBean
      */
-    public void getBreakSignalValue(SwitchBean switchBean) {
-        line_name.setText(String.format("%s%s", getString(R.string.vs4), switchBean.getName()));
-        String s = df.format(switchBean.getModelMajor()) +
-                df.format(switchBean.getModelMinor()) +
-                df.format(switchBean.getVerMajor()) +
-                df.format(switchBean.getVerMinor());
-        switch_ver.setText(s);
+    private void sendRefreshSwitch(SwitchBean switchBean) {
+        waitDialog.show();
+        Core.instance(this).refreshSignal(switchBean.getSerialNumber(), new ActionCallbackListener<Void>() {
+            @Override
+            public void onSuccess(Void data) {
+                Log.d(TAG, getString(R.string.vs153) + " threadId = " + Thread.currentThread().getId());
+                mHandler.sendEmptyMessageDelayed(MSG_SEND_GET_FLAG, 5000); // 等待5秒
+            }
+
+            @Override
+            public void onFailure(int errorEvent, String message) {
+                waitDialog.dismiss();
+            }
+        });
+    }
+
+    /**
+     * 获取信号值 从数据库读取
+     *
+     * @param switchBean
+     */
+    private void getBreakSignalValue(SwitchBean switchBean) {
+        setSwitchVersion(switchBean);
         Core.instance(this).getSignals(switchBean.getSwitchID(), new ActionCallbackListener<List<SwitchSignalItem>>() {
             @Override
             public void onSuccess(List<SwitchSignalItem> data) {
@@ -194,6 +222,7 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
                             break;
                     }
                 }
+                waitDialog.dismiss();
             }
 
             @Override
@@ -207,8 +236,23 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
                 ygdy_val.setText("-");
                 switch_ver.setText("-");
                 CustomToast.showCustomErrorToast(SwitchStatusActivity.this, message);
+                waitDialog.dismiss();
             }
         });
+    }
+
+    /**
+     * 显示断路器版本号
+     *
+     * @param switchBean
+     */
+    private void setSwitchVersion(SwitchBean switchBean) {
+        line_name.setText(String.format("%s%s", getString(R.string.vs4), switchBean.getName()));
+        String s = df.format(switchBean.getModelMajor()) +
+                df.format(switchBean.getModelMinor()) +
+                df.format(switchBean.getVerMajor()) +
+                df.format(switchBean.getVerMinor());
+        switch_ver.setText(s);
     }
 
     @Override
@@ -220,16 +264,16 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
      * 刷新单条线路状态
      */
     private void getSwitchState() {
-        if (curBreaker == null) {
+        if (switchBean == null) {
             return;
         }
-        Core.instance(this).getSwitchState(curBreaker.getSerialNumber(), new ActionCallbackListener<SwitchBean>() {
+        Core.instance(this).getSwitchState(switchBean.getSerialNumber(), new ActionCallbackListener<SwitchBean>() {
 
             @Override
             public void onSuccess(SwitchBean cb) {
-//                curBreaker = cb;
-//                curBreaker.setFault(cb.getFault()); //fault
-//                curBreaker.setSwitchState(cb.getSwitchState());//state
+//                switchBean = cb;
+//                switchBean.setFault(cb.getFault()); //fault
+//                switchBean.setSwitchState(cb.getSwitchState());//state
                 judgSwitchstate(cb);
             }
 
@@ -241,9 +285,9 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
     }
 
     /**
-     * 设置线路状态
+     * 设置线路图标状态
      */
-    public void judgSwitchstate(SwitchBean ss) {
+    private void judgSwitchstate(SwitchBean ss) {
         online_icon.setVisibility(View.VISIBLE);
         if (ss.getSwitchState() == 1) {
             online_text.setText(getString(R.string.vs74));
@@ -264,9 +308,8 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
         Core.instance(this).getSwitchByCollector(collectorBean.getCode(), "nohierarchy", new ActionCallbackListener<List<SwitchBean>>() {
             @Override
             public void onSuccess(List<SwitchBean> data) {
-                curBreaker = data.get(0);//init bean
-                getBreakSignalValue(curBreaker);
-                judgSwitchstate(curBreaker);
+                switchBean = data.get(0);//init bean
+                mHandler.sendEmptyMessageDelayed(MSG_SEND_REFRESH_FLAG, 100);
             }
 
             @Override
@@ -284,6 +327,7 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
                 } else {
                     CustomToast.showCustomErrorToast(SwitchStatusActivity.this, message);
                 }
+                waitDialog.dismiss();
             }
         });
     }
@@ -292,10 +336,13 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-            case R.id.img_cancel://返回
+            case R.id.img_cancel:// 返回
                 finish();
                 break;
-            case R.id.img_change://改变线路
+            case R.id.img_flush:// 刷新
+                mHandler.sendEmptyMessageDelayed(MSG_SEND_REFRESH_FLAG, 100);
+                break;
+            case R.id.img_change:// 改变线路
 //                Intent intent = new Intent(SwitchStatusActivity.this, SwitchTreeDialog.class);
 //                intent.putExtra("collectorBean", collectorBean);
 //                intent.putExtra("viewType", SwitchTree.SHISHI);
@@ -304,9 +351,9 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
 
                     @Override
                     public void onChose(SwitchBean s) {
-                        curBreaker = s;
-                        getBreakSignalValue(curBreaker);
-                        judgSwitchstate(curBreaker);
+                        switchBean = s;
+                        mHandler.sendEmptyMessageDelayed(MSG_SEND_REFRESH_FLAG, 100);
+//                        getBreakSignalValue(switchBean);
                     }
                 });
                 switchTreeDialog.show();
@@ -318,10 +365,10 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            if (requestCode == CommonRequestCode.REQUEST_CHOSE_LINE) { //添加后 刷新数据 Deprecated
-                curBreaker = data.getParcelableExtra("switchBean");
-                getBreakSignalValue(curBreaker);
-                judgSwitchstate(curBreaker);
+            if (requestCode == CommonRequestCode.REQUEST_CHOSE_LINE) {
+                //添加后 刷新数据 Deprecated
+//                switchBean = data.getParcelableExtra("switchBean");
+//                getBreakSignalValue(switchBean);
             }
         }
     }

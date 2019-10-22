@@ -160,7 +160,7 @@ public class TimerEditDialogActivity extends BaseActivity implements View.OnClic
 //            String time = String.format("%1$02d:%2$02d", mTimePicker.getCurrentHour(), mTimePicker.getCurrentMinute());
 //            txtTime.setText(time);
         }
-        imgUpload.setImageResource(uploadToCollect == 1 ? R.drawable.timer_check : R.drawable.timer_uncheck);
+        imgUpload.setImageResource(uploadToCollect == 1 ? R.drawable.yixuan : R.drawable.weixuan);
     }
 
     private void initRepeatState() {
@@ -281,7 +281,7 @@ public class TimerEditDialogActivity extends BaseActivity implements View.OnClic
             finishEdit();
         } else if (v.getId() == R.id.iv_upload) {
             uploadToCollect = uploadToCollect == 1 ? 0 : 1;
-            imgUpload.setImageResource(uploadToCollect == 1 ? R.drawable.timer_check : R.drawable.timer_uncheck);
+            imgUpload.setImageResource(uploadToCollect == 1 ? R.drawable.yixuan : R.drawable.weixuan);
         } else if (v.getId() == R.id.iv_tips) {
             new DialogTipWithoutOkCancel(TimerEditDialogActivity.this).setTitle(getString(R.string.vs140)).setContent(getString(R.string.upload_tips)).show();
         } else if (v.getId() == R.id.iv_check) {

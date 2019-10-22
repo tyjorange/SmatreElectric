@@ -47,7 +47,7 @@ public class LunchActivity extends BaseActivity {
         }
     }
 
-    public int getCount() {
+    private int getCount() {
         count--;
         if (count == 0) {
             Intent intent = new Intent(this, LoginActivity.class);

@@ -203,21 +203,21 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
     private void toggleTip(int isCon) {
         String code = collectorBean.getCode();
         switch (isCon) {
-            case 0:
+            case LINK_OK:
                 tv_change.setText(String.format(getString(R.string.vs233), code));
                 tv_change.setTextColor(getResources().getColor(R.color.green_light));
                 btn_search.setEnabled(true);
                 btn_search.setTextColor(getResources().getColor(R.color.white));
                 btn_ok.setOnClickListener(this);
                 break;
-            case 1:
+            case LINK_FAILED:
                 tv_change.setText(String.format(getString(R.string.vs234), code));
                 tv_change.setTextColor(getResources().getColor(R.color.red_light));
                 btn_search.setEnabled(false);
                 btn_search.setTextColor(getResources().getColor(R.color.grey));
                 btn_ok.setOnClickListener(null);
                 break;
-            case 2:
+            case LINKING:
                 tv_change.setText(getString(R.string.vs235));
                 tv_change.setTextColor(getResources().getColor(R.color.gray));
                 btn_search.setEnabled(false);
@@ -226,42 +226,6 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
                 break;
         }
         canSearch = true;
-    }
-
-    /**
-     * 解析数据
-     *
-     * @param data
-     */
-    private void decodeData(byte[] data) {
-        if ((data[0] & 0xff) != 0xff)// 如果接收到的数据不是0xff开头,那么丢弃
-            return;
-        int i = data[3] & 0xff;
-//        System.out.println(i);
-        switch (i) {
-            case 0x81:// 解析返回列表指令
-                dialog.dismiss();
-                ArrayList<Item> ssids = Tool.decode_81_data(data);
-                if (ssids.size() != 0) {
-                    Intent intent = new Intent(AutoLinkActivity.this, SsidListActivity.class);
-                    intent.putExtra("ssids", ssids);
-                    startActivityForResult(intent, RESQEST_SSID_LIST);
-                } else {
-                    UIUtil.toastShow(this, R.string.vs236);//TODO
-                }
-                break;
-            case 0x82://  返回校验结果
-                int[] values = Tool.decode_82_data(data);
-                if (values[0] == 0)
-                    UIUtil.toastShow(this, R.string.vs237);
-                else if (values[1] == 0) {
-                    UIUtil.toastShow(this, R.string.vs238);
-                } else if (values[0] == 1 && values[1] == 1) {
-                    UIUtil.toastShow(this, R.string.vs239);
-                    finish();
-                }
-                break;
-        }
     }
 
     @Override
@@ -303,9 +267,13 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
         }
     }
 
+    private final int LINK_OK = 0;
+    private final int LINK_FAILED = 1;
+    private final int LINKING = 2;
+
     @Override
     public void onLost() {
-        Message msg = handler.obtainMessage(Tool.REC_WIFI, 2, 0);
+        Message msg = handler.obtainMessage(Tool.REC_WIFI, LINKING, 0);
         handler.sendMessage(msg);
     }
 
@@ -314,11 +282,47 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
 //        String code = collectorBean != null ? collectorBean.getCode() : "";
         boolean connectedWifi = mWifiUtil.isConnectedWifi(getApplicationContext(), collectorBean.getCode());
         if (connectedWifi) {
-            Message msg = handler.obtainMessage(Tool.REC_WIFI, 0, 0);
+            Message msg = handler.obtainMessage(Tool.REC_WIFI, LINK_OK, 0);
             handler.sendMessage(msg);
         } else {
-            Message msg = handler.obtainMessage(Tool.REC_WIFI, 1, 0);
+            Message msg = handler.obtainMessage(Tool.REC_WIFI, LINK_FAILED, 0);
             handler.sendMessage(msg);
+        }
+    }
+
+    /**
+     * 解析数据
+     *
+     * @param data
+     */
+    private void decodeData(byte[] data) {
+        if ((data[0] & 0xff) != 0xff)// 如果接收到的数据不是0xff开头,那么丢弃
+            return;
+        int i = data[3] & 0xff;
+//        System.out.println(i);
+        switch (i) {
+            case 0x81:// 解析返回列表指令
+                dialog.dismiss();
+                ArrayList<Item> ssids = Tool.decode_81_data(data);
+                if (ssids.size() != 0) {
+                    Intent intent = new Intent(AutoLinkActivity.this, SsidListActivity.class);
+                    intent.putExtra("ssids", ssids);
+                    startActivityForResult(intent, RESQEST_SSID_LIST);
+                } else {
+                    UIUtil.toastShow(this, R.string.vs236);//TODO
+                }
+                break;
+            case 0x82://  返回校验结果
+                int[] values = Tool.decode_82_data(data);
+                if (values[0] == 0)
+                    UIUtil.toastShow(this, R.string.vs237);
+                else if (values[1] == 0) {
+                    UIUtil.toastShow(this, R.string.vs238);
+                } else if (values[0] == 1 && values[1] == 1) {
+                    UIUtil.toastShow(this, R.string.vs239);
+                    finish();
+                }
+                break;
         }
     }
 

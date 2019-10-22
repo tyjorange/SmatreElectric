@@ -325,7 +325,6 @@ public interface Api {
             @Body Param param
     );
 
-
     /**
      * 获取信号值
      *
@@ -336,7 +335,11 @@ public interface Api {
             @Header("Cookie") String session,
             @Body Param param);
 
-
+    /**
+     * 刷新信号值（发送刷新命令）
+     *
+     * @return
+     */
     @POST("PowerManager/AppClientAction_refreshSwitch.do")
     Call<ApiResponse<Void>> refreshBreakSignals(
             @Header("Cookie") String session,

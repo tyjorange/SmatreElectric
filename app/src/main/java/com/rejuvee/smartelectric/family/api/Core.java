@@ -472,13 +472,13 @@ public class Core {
     /**
      * 强制刷新断路器获取最新值
      *
-     * @param switchId
+     * @param switchCode
      * @param listener
      * @return
      */
-    public Call<?> refreshSignal(String switchId, ActionCallbackListener<Void> listener) {
+    public Call<?> refreshSignal(String switchCode, ActionCallbackListener<Void> listener) {
         Param param = new Param();
-        param.setSwitchID(switchId);
+        param.setSwitchCode(switchCode);
         Call<ApiResponse<Void>> call = api.refreshBreakSignals(mJSessionId, param);
         enqueue(call, listener);
         return call;
