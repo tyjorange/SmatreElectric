@@ -168,7 +168,7 @@ public class ThridBindActivity extends BaseActivity {
 
                 @Override
                 public void onFailure(int errorEvent, String message) {
-                    if (errorEvent != 15) {
+                    if (errorEvent != 15) {// 此微信已注册登录或已被其他账号绑定
                         CustomToast.showCustomErrorToast(ThridBindActivity.this, message);
                     }
                 }
