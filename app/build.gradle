@@ -14,8 +14,8 @@ android {
         applicationId "com.rejuvee.smartelectric.family"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 203
-        versionName "2.0.3"
+        versionCode 205
+        versionName "2.0.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         signingConfig signingConfigs.config
