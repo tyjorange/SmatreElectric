@@ -226,7 +226,7 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
                     intent.putExtra("collectorUpgradeInfo", collectorUpgradeInfo);
                     startActivityForResult(intent, CommonRequestCode.REQUEST_COLLECTOR_UPGRADE);
                 } else {
-                    CustomToast.showCustomToast(mContext, "电箱已是最新版本:" + collectorBean.getVerMajorNew() + "." + collectorBean.getVerMinorNew());
+                    CustomToast.showCustomToast(mContext, "电箱已是最新版本:" + collectorBean.getVerMajor() + "." + collectorBean.getVerMinor());
                 }
                 break;
             case R.id.txt_zhuanye:
