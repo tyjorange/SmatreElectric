@@ -14,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.base.library.widget.CustomToast;
 import com.base.library.widget.SuperTextView;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
@@ -125,12 +126,13 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
     public void onClick(View v) {
         String port = etPort.getText().toString();
         if (TextUtils.isEmpty(port)) {
-            UIUtil.toastShow(this, R.string.vs227);
+            CustomToast.showCustomErrorToast(this, getResources().getString(R.string.vs227));
+
             return;
         }
         int targetPort = Integer.parseInt(port);
         if (targetPort < 0 || targetPort > 65535) {
-            UIUtil.toastShow(this, R.string.vs228);
+            CustomToast.showCustomErrorToast(this, getResources().getString(R.string.vs228));
             return;
         }
         searchSSIDThread.setTargetPort(Integer.parseInt(port));
@@ -149,11 +151,11 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
             String ssid = etSsid.getText().toString();
             String pwd = etPasd.getText().toString();
             if (TextUtils.isEmpty(ssid)) {
-                UIUtil.toastShow(this, R.string.vs229);
+                CustomToast.showCustomErrorToast(this, getResources().getString(R.string.vs229));
                 return;
             }
             if (TextUtils.isEmpty(pwd)) {
-                UIUtil.toastShow(this, R.string.vs230);
+                CustomToast.showCustomErrorToast(this, getResources().getString(R.string.vs230));
                 return;
             }
             ensure(ssid, pwd, targetPort);
@@ -309,17 +311,17 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
                     intent.putParcelableArrayListExtra("ssids", ssids);
                     startActivityForResult(intent, RESQEST_SSID_LIST);
                 } else {
-                    UIUtil.toastShow(this, R.string.vs236);//TODO
+                    CustomToast.showCustomErrorToast(this, getResources().getString(R.string.vs236));
                 }
                 break;
             case 0x82://  返回校验结果
                 int[] values = Tool.decode_82_data(data);
-                if (values[0] == 0)
-                    UIUtil.toastShow(this, R.string.vs237);
-                else if (values[1] == 0) {
-                    UIUtil.toastShow(this, R.string.vs238);
+                if (values[0] == 0) {
+                    CustomToast.showCustomErrorToast(this, getResources().getString(R.string.vs237));
+                } else if (values[1] == 0) {
+                    CustomToast.showCustomErrorToast(this, getResources().getString(R.string.vs238));
                 } else if (values[0] == 1 && values[1] == 1) {
-                    UIUtil.toastShow(this, R.string.vs239);
+                    CustomToast.showCustomToast(this, getResources().getString(R.string.vs239));
                     finish();
                 }
                 break;

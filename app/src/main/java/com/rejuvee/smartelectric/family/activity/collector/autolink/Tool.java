@@ -2,12 +2,12 @@ package com.rejuvee.smartelectric.family.activity.collector.autolink;
 
 import android.os.Parcel;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class Tool {
-    public static final int REC_DATA = 0x01;
-    public static final int REC_WIFI = 0x02;
+    static final int REC_DATA = 0x01;
+    static final int REC_WIFI = 0x02;
 
     /**
      * 校验数据对不对
@@ -29,7 +29,7 @@ public class Tool {
     /**
      * 解析返回SSID列表指令
      */
-    public static ArrayList<Item> decode_81_data(byte[] data) {
+    static ArrayList<Item> decode_81_data(byte[] data) {
         ArrayList<Item> items = new ArrayList<Item>();
         byte[] ssidData = new byte[data.length - 6];
         System.arraycopy(data, 5, ssidData, 0, ssidData.length);
@@ -55,7 +55,7 @@ public class Tool {
         return items;
     }
 
-    public static int[] decode_82_data(byte[] data) {
+    static int[] decode_82_data(byte[] data) {
         int[] values = new int[2];
         values[0] = data[4] & 0xff;
         values[1] = data[5] & 0xff;
@@ -70,19 +70,14 @@ public class Tool {
      * @param index ssid所在的序列 暂时为起作用，赋0即可
      * @return
      */
-    public static byte[] generate_02_data(String ssid, String pasd, int index) {
-        try {
-            String str = ssid + "\r\n" + pasd;
-            byte[] strBytes = str.getBytes("utf-8");
-            byte[] data = new byte[1 + 1 + strBytes.length];
-            data[0] = 0x02;
-            data[1] = (byte) (index & 0xff);
-            System.arraycopy(strBytes, 0, data, 2, strBytes.length);
-            return generateCmd(data);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return null;
-        }
+    static byte[] generate_02_data(String ssid, String pasd, int index) {
+        String str = ssid + "\r\n" + pasd;
+        byte[] strBytes = str.getBytes(StandardCharsets.UTF_8);
+        byte[] data = new byte[1 + 1 + strBytes.length];
+        data[0] = 0x02;
+        data[1] = (byte) (index & 0xff);
+        System.arraycopy(strBytes, 0, data, 2, strBytes.length);
+        return generateCmd(data);
     }
 
     /**
@@ -90,7 +85,7 @@ public class Tool {
      *
      * @return
      */
-    public static byte[] generateCmd(byte[] key) {
+    private static byte[] generateCmd(byte[] key) {
         // 根据协议：包头1 + 长度 2 + 命令 + 参数+ 校验1
         int length = 4 + key.length;
         byte[] cmd = new byte[length];
@@ -115,7 +110,7 @@ public class Tool {
      * @param res
      * @return
      */
-    public static byte[] int2byte(int res) {
+    private static byte[] int2byte(int res) {
         byte[] targets = new byte[4];
         targets[0] = (byte) (res & 0xff);// 最低位
         targets[1] = (byte) ((res >> 8) & 0xff);// 次低位
@@ -124,18 +119,18 @@ public class Tool {
         return targets;
     }
 
-    public static String bytesToHexString(byte[] src) {
+    static String bytesToHexString(byte[] src) {
         StringBuilder stringBuilder = new StringBuilder("");
         if (src == null || src.length <= 0) {
             return null;
         }
-        for (int i = 0; i < src.length; i++) {
-            int v = src[i] & 0xFF;
+        for (byte b : src) {
+            int v = b & 0xFF;
             String hv = Integer.toHexString(v);
             if (hv.length() < 2) {
                 stringBuilder.append(0);
             }
-            stringBuilder.append(hv + " ");
+            stringBuilder.append(hv).append(" ");
         }
         return stringBuilder.toString();
     }

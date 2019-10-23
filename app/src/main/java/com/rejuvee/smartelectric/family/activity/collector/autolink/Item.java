@@ -3,14 +3,12 @@ package com.rejuvee.smartelectric.family.activity.collector.autolink;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-
-public class Item implements Serializable, Parcelable {
+public class Item implements Parcelable {
     private String name;
     // 信号强度
     private int dbm;
 
-    protected Item(Parcel in) {
+    Item(Parcel in) {
         name = in.readString();
         dbm = in.readInt();
     }
@@ -35,11 +33,11 @@ public class Item implements Serializable, Parcelable {
         this.name = name;
     }
 
-    public int getDbm() {
+    int getDbm() {
         return dbm;
     }
 
-    public void setDbm(int dbm) {
+    void setDbm(int dbm) {
         this.dbm = dbm;
     }
 
