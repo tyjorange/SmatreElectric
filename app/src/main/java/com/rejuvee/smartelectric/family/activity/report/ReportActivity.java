@@ -1,20 +1,19 @@
 package com.rejuvee.smartelectric.family.activity.report;
 
-import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
-import com.base.frame.net.ActionCallbackListener;
-import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
-import com.rejuvee.smartelectric.family.adapter.ReportAdapter;
-import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
+import com.rejuvee.smartelectric.family.fragment.Report1Fragment;
+import com.rejuvee.smartelectric.family.fragment.Report3Fragment;
+import com.rejuvee.smartelectric.family.fragment.Report6Fragment;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
-import com.rejuvee.smartelectric.family.model.bean.ReportBean;
-import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +23,6 @@ import java.util.List;
  */
 public class ReportActivity extends BaseActivity {
     private CollectorBean collectorBean;
-    private ListView listView;
-    private ReportAdapter adapter;
-    private List<ReportBean> mListData = new ArrayList<>();
-    private Context mContext;
-    private LoadingDlg loadingDlg;
 
     @Override
     protected int getLayoutResId() {
@@ -42,7 +36,6 @@ public class ReportActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mContext = this;
         collectorBean = getIntent().getParcelableExtra("collectorBean");
         findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,49 +43,57 @@ public class ReportActivity extends BaseActivity {
                 finish();
             }
         });
-        loadingDlg = new LoadingDlg(this, -1);
-        listView = findViewById(R.id.report_list);
-        adapter = new ReportAdapter(this, mListData);
-        listView.setAdapter(adapter);
-        listView.setEmptyView(findViewById(R.id.empty_layout));
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(mContext, ReportDetailActivity.class);
-                intent.putExtra("collectorBean", collectorBean);
-                intent.putExtra("reportBean", mListData.get(position));
-                startActivity(intent);
-            }
-        });
+        TabLayout mTabLayout = (TabLayout) findViewById(R.id.tab_report_list);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.vp_report_list);
+        MyFragmentAdapter mAdapter = new MyFragmentAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(mAdapter);
+        mTabLayout.setupWithViewPager(viewPager, true);
     }
 
     @Override
     protected void initData() {
-        getReportList();
-    }
-
-    private void getReportList() {
-        loadingDlg.show();
-        Core.instance(this).getReportList(0, 99, new ActionCallbackListener<List<ReportBean>>() {
-
-            @Override
-            public void onSuccess(List<ReportBean> data) {
-                mListData.clear();
-                mListData.addAll(data);
-                adapter.notifyDataSetChanged();
-                loadingDlg.dismiss();
-            }
-
-            @Override
-            public void onFailure(int errorEvent, String message) {
-                CustomToast.showCustomErrorToast(mContext, message);
-                loadingDlg.dismiss();
-            }
-        });
     }
 
     @Override
     protected void dealloc() {
 
+    }
+
+    class MyFragmentAdapter extends FragmentPagerAdapter {
+
+        private Bundle bundle;
+        private List<Class> listFragments = new ArrayList<>();
+
+        MyFragmentAdapter(FragmentManager fm) {
+            super(fm);
+            bundle = new Bundle();
+            bundle.putParcelable("collectorBean", collectorBean);
+            listFragments.add(Report1Fragment.class);
+            listFragments.add(Report3Fragment.class);
+            listFragments.add(Report6Fragment.class);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            Class fragment = listFragments.get(position);
+            return Fragment.instantiate(ReportActivity.this, fragment.getName(), bundle);
+        }
+
+        @Override
+        public int getCount() {
+            return listFragments.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            if (position == 0) {
+                return "最近1个月";
+            } else if (position == 1) {
+                return "最近3个月";
+            } else if (position == 2) {
+                return "最近半年";
+            }
+            return super.getPageTitle(position);
+        }
     }
 }

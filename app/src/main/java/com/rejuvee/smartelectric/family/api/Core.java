@@ -1190,16 +1190,14 @@ public class Core {
     /**
      * 查询周报月报 列表
      *
-     * @param start
-     * @param length
+     * @param index
      * @param listener
      * @return
      */
-    public Call<?> getReportList(Integer start, Integer length,
+    public Call<?> getReportList(Integer index,
                                  ActionCallbackListener<List<ReportBean>> listener) {
         Param param = new Param();
-        param.setStart(start);
-        param.setLength(length);
+        param.setIndex(String.valueOf(index));
         Call<ApiResponse<List<ReportBean>>> call = api.getReportList(mJSessionId, param);
         enqueue(call, listener);
         return call;

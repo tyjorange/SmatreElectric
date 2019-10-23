@@ -51,23 +51,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
 
-        <ListView
-            android:id="@+id/report_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="25dp"
-            android:divider="#fff6f7fc"
-            android:dividerHeight="1dp" />
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_report_list"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="@integer/tag_1"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="#E3878F"
+            app:tabIndicatorFullWidth="false"
+            app:tabIndicatorHeight="2dp"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/black"
+            app:tabTextColor="@color/text_base_color_666" />
 
-        <include
-            android:id="@+id/empty_layout"
-            layout="@layout/empty_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="0dp"
+        android:background="@drawable/slices"
+        android:contentDescription="slices" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_report_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp" />
+
 </LinearLayout>
