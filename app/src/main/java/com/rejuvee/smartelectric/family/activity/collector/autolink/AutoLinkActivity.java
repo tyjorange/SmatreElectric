@@ -306,7 +306,7 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
                 ArrayList<Item> ssids = Tool.decode_81_data(data);
                 if (ssids.size() != 0) {
                     Intent intent = new Intent(AutoLinkActivity.this, SsidListActivity.class);
-                    intent.putExtra("ssids", ssids);
+                    intent.putParcelableArrayListExtra("ssids", ssids);
                     startActivityForResult(intent, RESQEST_SSID_LIST);
                 } else {
                     UIUtil.toastShow(this, R.string.vs236);//TODO

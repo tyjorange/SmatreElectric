@@ -1,5 +1,7 @@
 package com.rejuvee.smartelectric.family.activity.collector.autolink;
 
+import android.os.Parcel;
+
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
@@ -39,7 +41,7 @@ public class Tool {
             two[1] = ssidData[i + 1];
             String zdza = new String(two);
             if (zdza.equals("\r\n")) {//如果是0d0a那么根据协议提取出名字和信号强度
-                Item item = new Item();
+                Item item = new Item(Parcel.obtain());
                 byte[] name = new byte[i - 2 - last];//跳过信号强度2个字节
                 System.arraycopy(ssidData, last, name, 0, name.length);
                 item.setName(new String(name).trim());

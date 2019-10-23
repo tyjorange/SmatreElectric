@@ -17,7 +17,6 @@ import java.util.ArrayList;
  */
 public class SsidListActivity extends Activity {
     private ArrayList<Item> ssids;
-    private ListView lv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +28,13 @@ public class SsidListActivity extends Activity {
                 finish();
             }
         });
-        ssids = (ArrayList<Item>) getIntent().getSerializableExtra("ssids");
-        lv = (ListView) findViewById(R.id.lv_ssid);
+        ssids = getIntent().getParcelableArrayListExtra("ssids");
+        ListView lv = (ListView) findViewById(R.id.lv_ssid);
+        if (ssids == null) {
+            ssids = new ArrayList<>();
+        }
         ItemAdapter adapter = new ItemAdapter(this, ssids);
         lv.setAdapter(adapter);
-
 
         lv.setOnItemClickListener(new OnItemClickListener() {
             @Override
