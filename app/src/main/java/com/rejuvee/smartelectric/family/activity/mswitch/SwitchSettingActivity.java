@@ -9,10 +9,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.base.frame.net.ActionCallbackListener;
@@ -29,8 +27,6 @@ import com.rejuvee.smartelectric.family.fragment.SettingOtherFragment;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.model.bean.VoltageValue;
-import com.rejuvee.smartelectric.family.utils.ScrollBindHelper;
-import com.rejuvee.smartelectric.family.widget.ObservableScrollView;
 import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
 import java.lang.ref.WeakReference;
@@ -55,8 +51,8 @@ public class SwitchSettingActivity extends BaseActivity implements
     private LoadingDlg waitDialog;
     private Context mContext;
     private TextView txtLineName;//线路名称
-    private ObservableScrollView scrollView;
-    private SeekBar seekBar;
+//    private ObservableScrollView scrollView;
+//    private SeekBar seekBar;
 
     @Override
     protected int getLayoutResId() {
@@ -79,18 +75,18 @@ public class SwitchSettingActivity extends BaseActivity implements
         });
         waitDialog = new LoadingDlg(this, -1);
 
-        seekBar = findViewById(R.id.vrsBar);
-        scrollView = (ObservableScrollView) findViewById(R.id.sv_values);
+//        seekBar = findViewById(R.id.vrsBar);
+//        scrollView = (ObservableScrollView) findViewById(R.id.sv_values);
         // 禁止用户手动垂直滚动
-        scrollView.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
-            }
-        });
+//        scrollView.setOnTouchListener(new View.OnTouchListener() {
+//
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                return true;
+//            }
+//        });
         // scrollView绑定滚动条seekBar
-        ScrollBindHelper.bind(seekBar, scrollView);
+//        ScrollBindHelper.bind(seekBar, scrollView);
 
         //切换线路
         txtLineName = (TextView) findViewById(R.id.txt_line_name);

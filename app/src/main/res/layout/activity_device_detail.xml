@@ -78,304 +78,313 @@
             android:textSize="12sp" />
     </LinearLayout>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="@integer/tag_1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="ScrollViewRoot"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_kongzhi"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/collector_ykkg"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="@string/remote_control"
+                    android:textColor="#5A6187"
+                    android:textSize="12sp"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@+id/txt_shishi"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/collector_ssqk"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="@string/Retimesituation"
+                    android:textColor="#5A6187"
+                    android:textSize="12sp"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@+id/txt_baobiao"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/collector_bb"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="@string/fun_baobiao"
+                    android:textColor="#5A6187"
+                    android:textSize="12sp"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@+id/txt_dingshi"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/collector_dskg"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="@string/timed_task"
+                    android:textColor="#5A6187"
+                    android:textSize="12sp"
+                    tools:ignore="SmallSp" />
+
+                <!--<TextView-->
+                <!--android:id="@+id/txt_quxian"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:drawableTop="@drawable/quxian"-->
+                <!--android:drawablePadding="4dp"-->
+                <!--android:gravity="center"-->
+                <!--android:padding="16dp"-->
+                <!--android:text="@string/fun_quxian" />-->
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_jieneng"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/collector_jnxx"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="@string/energy_saving_info"
+                    android:textColor="#5A6187"
+                    android:textSize="12sp"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@+id/txt_anquan"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/collector_aqxx"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="@string/important_info"
+                    android:textColor="#5A6187"
+                    android:textSize="12sp"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@+id/txt_upgrade"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/collector_upgrade"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="@string/vs58"
+                    android:textColor="#5A6187"
+                    android:textSize="12sp"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@+id/txt_zhuanye"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/collector_zygn"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="@string/vs59"
+                    android:textColor="#5A6187"
+                    android:textSize="12sp"
+                    tools:ignore="SmallSp" />
+
+                <!--<TextView-->
+                <!--android:id="@+id/txt_config"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:drawableTop="@drawable/shezhi"-->
+                <!--android:drawablePadding="4dp"-->
+                <!--android:gravity="center"-->
+                <!--android:padding="16dp"-->
+                <!--android:text="@string/fun_peizhi" />-->
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_dianlu"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/collector_dxxl"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="@string/line_modify"
+                    android:textColor="#5A6187"
+                    android:textSize="12sp"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@+id/txt_dianbiao"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/collector_wddb"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="@string/my_electric_meter"
+                    android:textColor="#5A6187"
+                    android:textSize="12sp"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@+id/txt_dianqi"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/collector_wddq"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="@string/vs209"
+                    android:textColor="#5A6187"
+                    android:textSize="12sp"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@+id/txt_share"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/collector_wdfx"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="@string/vs60"
+                    android:textColor="#5A6187"
+                    android:textSize="12sp"
+                    tools:ignore="SmallSp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_wifi_set"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/collector_wifi"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="WIFI设置"
+                    android:textColor="#5A6187"
+                    android:textSize="12sp"
+                    android:visibility="invisible"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/collector_wddb"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="@string/my_electric_meter"
+                    android:textColor="#5A6187"
+                    android:textSize="12sp"
+                    android:visibility="invisible"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/collector_wddq"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="@string/vs209"
+                    android:textColor="#5A6187"
+                    android:textSize="12sp"
+                    android:visibility="invisible"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/collector_wdfx"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="@string/vs60"
+                    android:textColor="#5A6187"
+                    android:textSize="12sp"
+                    android:visibility="invisible"
+                    tools:ignore="SmallSp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/txt_kongzhi"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/collector_ykkg"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:padding="16dp"
-            android:text="@string/remote_control"
-            android:textColor="#5A6187"
-            android:textSize="12sp"
-            tools:ignore="SmallSp" />
-
-        <TextView
-            android:id="@+id/txt_shishi"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/collector_ssqk"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:padding="16dp"
-            android:text="@string/Retimesituation"
-            android:textColor="#5A6187"
-            android:textSize="12sp"
-            tools:ignore="SmallSp" />
-
-        <TextView
-            android:id="@+id/txt_baobiao"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/collector_bb"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:padding="16dp"
-            android:text="@string/fun_baobiao"
-            android:textColor="#5A6187"
-            android:textSize="12sp"
-            tools:ignore="SmallSp" />
-
-        <TextView
-            android:id="@+id/txt_dingshi"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/collector_dskg"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:padding="16dp"
-            android:text="@string/timed_task"
-            android:textColor="#5A6187"
-            android:textSize="12sp"
-            tools:ignore="SmallSp" />
-
-        <!--<TextView-->
-        <!--android:id="@+id/txt_quxian"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_weight="1"-->
-        <!--android:drawableTop="@drawable/quxian"-->
-        <!--android:drawablePadding="4dp"-->
-        <!--android:gravity="center"-->
-        <!--android:padding="16dp"-->
-        <!--android:text="@string/fun_quxian" />-->
-
-    </LinearLayout>
-    <!--   <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="horizontal">
-
-
-       </LinearLayout>-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/txt_jieneng"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/collector_jnxx"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:padding="16dp"
-            android:text="@string/energy_saving_info"
-            android:textColor="#5A6187"
-            android:textSize="12sp"
-            tools:ignore="SmallSp" />
-
-        <TextView
-            android:id="@+id/txt_anquan"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/collector_aqxx"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:padding="16dp"
-            android:text="@string/important_info"
-            android:textColor="#5A6187"
-            android:textSize="12sp"
-            tools:ignore="SmallSp" />
-
-        <TextView
-            android:id="@+id/txt_upgrade"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/collector_upgrade"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:padding="16dp"
-            android:text="@string/vs58"
-            android:textColor="#5A6187"
-            android:textSize="12sp"
-            tools:ignore="SmallSp" />
-
-        <TextView
-            android:id="@+id/txt_zhuanye"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/collector_zygn"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:padding="16dp"
-            android:text="@string/vs59"
-            android:textColor="#5A6187"
-            android:textSize="12sp"
-            tools:ignore="SmallSp" />
-
-        <!--<TextView-->
-        <!--android:id="@+id/txt_config"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_weight="1"-->
-        <!--android:drawableTop="@drawable/shezhi"-->
-        <!--android:drawablePadding="4dp"-->
-        <!--android:gravity="center"-->
-        <!--android:padding="16dp"-->
-        <!--android:text="@string/fun_peizhi" />-->
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/txt_dianlu"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/collector_dxxl"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:padding="16dp"
-            android:text="@string/line_modify"
-            android:textColor="#5A6187"
-            android:textSize="12sp"
-            tools:ignore="SmallSp" />
-
-        <TextView
-            android:id="@+id/txt_dianbiao"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/collector_wddb"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:padding="16dp"
-            android:text="@string/my_electric_meter"
-            android:textColor="#5A6187"
-            android:textSize="12sp"
-            tools:ignore="SmallSp" />
-
-        <TextView
-            android:id="@+id/txt_dianqi"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/collector_wddq"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:padding="16dp"
-            android:text="@string/vs209"
-            android:textColor="#5A6187"
-            android:textSize="12sp"
-            tools:ignore="SmallSp" />
-
-        <TextView
-            android:id="@+id/txt_share"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/collector_wdfx"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:padding="16dp"
-            android:text="@string/vs60"
-            android:textColor="#5A6187"
-            android:textSize="12sp"
-            tools:ignore="SmallSp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/txt_wifi_set"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/collector_wifi"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:padding="16dp"
-            android:text="WIFI设置"
-            android:textColor="#5A6187"
-            android:textSize="12sp"
-            android:visibility="invisible"
-            tools:ignore="SmallSp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/collector_wddb"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:padding="16dp"
-            android:text="@string/my_electric_meter"
-            android:textColor="#5A6187"
-            android:textSize="12sp"
-            android:visibility="invisible"
-            tools:ignore="SmallSp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/collector_wddq"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:padding="16dp"
-            android:text="@string/vs209"
-            android:textColor="#5A6187"
-            android:textSize="12sp"
-            android:visibility="invisible"
-            tools:ignore="SmallSp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/collector_wdfx"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:padding="16dp"
-            android:text="@string/vs60"
-            android:textColor="#5A6187"
-            android:textSize="12sp"
-            android:visibility="invisible"
-            tools:ignore="SmallSp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:orientation="horizontal">
 
         <TextView
@@ -389,7 +398,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:gravity="center"
-            android:paddingTop="10dp"
+            android:paddingTop="40dp"
             android:paddingBottom="40dp"
             android:text="解绑电箱"
             android:textColor="@color/red_light"

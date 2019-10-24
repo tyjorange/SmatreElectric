@@ -61,7 +61,9 @@ public class MainApplication extends Application {
 //                .setDefaultFontPath("fonts/syht.otf")
 //                .setFontAttrId(R.attr.fontPath)
 //                .build());
-        WifiUtil.getInstance(this);
+        if (Build.VERSION.SDK_INT != Build.VERSION_CODES.M) {
+            WifiUtil.getInstance(this);//TODO Android 6.0 会报错
+        }
         CrashHandler.getInstance().init(getApplicationContext());
     }
 
