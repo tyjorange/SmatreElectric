@@ -17,7 +17,7 @@
             android:id="@+id/tv_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
+            android:layout_weight="1.2"
             android:ellipsize="middle"
             android:text="@string/line_zhaoming"
             android:textColor="@color/text_base_color_333"
@@ -27,8 +27,9 @@
             android:id="@+id/tv_type"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
+            android:layout_weight="0.8"
             android:ellipsize="end"
+            android:gravity="end"
             android:text="@string/vs80"
             android:textSize="12sp" />
 

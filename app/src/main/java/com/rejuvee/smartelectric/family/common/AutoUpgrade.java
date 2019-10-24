@@ -254,27 +254,29 @@ public class AutoUpgrade {
      * 显示更新提示
      */
     private void createDialog() {
-        mDialogTip = new DialogTip(mContext, false);
-        mDialogTip.setCanceledOnTouchOutside(false);// 设置为点击窗口外部不可关闭
-        mDialogTip.setTitle(mContext.getString(R.string.new_version) + mVersionInfo.versionName);
         StringBuilder res = new StringBuilder();
         for (String s : mVersionInfo.upgradeItems) {
             res = res.append(s);
         }
-        mDialogTip.setContent(res.toString());
-        mDialogTip.setDialogListener(new DialogTip.onEnsureDialogListener() {
-            @Override
-            public void onEnsure() {
-                initDownManager();
-                mDialogTip.dismiss();
-            }
+        mDialogTip = new DialogTip(mContext, false);
+        mDialogTip.setCanceledOnTouchOutside(false);// 设置为点击窗口外部不可关闭
+        mDialogTip.setTitle(mContext.getString(R.string.new_version) + mVersionInfo.versionName)
+                .setOkTxt(mContext.getString(R.string.intall_now))
+                .setCancelTxt(mContext.getString(R.string.vs215))
+                .setContent(res.toString())
+                .setDialogListener(new DialogTip.onEnsureDialogListener() {
+                    @Override
+                    public void onEnsure() {
+                        initDownManager();
+                        mDialogTip.dismiss();
+                    }
 
-            @Override
-            public void onCancel() {
-                mDialogTip.dismiss();
-            }
-        });
-        mDialogTip.show();
+                    @Override
+                    public void onCancel() {
+                        mDialogTip.dismiss();
+                    }
+                })
+                .show();
     }
 
     /**

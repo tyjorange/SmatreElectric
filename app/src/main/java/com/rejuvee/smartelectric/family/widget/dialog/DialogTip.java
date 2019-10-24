@@ -77,10 +77,11 @@ public class DialogTip extends Dialog implements View.OnClickListener {
         dialogWindow.setAttributes(lp);
         if (isBottom) {
             dialogWindow.setGravity(Gravity.BOTTOM);
-        } else {
-            txtOk.setText(getContext().getString(R.string.intall_now));
-            txtCancel.setText(context.getString(R.string.vs215));
         }
+//        else {
+//            txtOk.setText(getContext().getString(R.string.intall_now));
+//            txtCancel.setText(getContext().getString(R.string.vs215));
+//        }
         txtOk.setOnClickListener(this);
         txtCancel.setOnClickListener(this);
     }
@@ -95,6 +96,15 @@ public class DialogTip extends Dialog implements View.OnClickListener {
         return this;
     }
 
+    public DialogTip setOkTxt(String okTxt) {
+        txtOk.setText(okTxt);
+        return this;
+    }
+
+    public DialogTip setCancelTxt(String cancelTxt) {
+        txtCancel.setText(cancelTxt);
+        return this;
+    }
     public DialogTip setRedBtn() {
         txtOk.setBackground(getContext().getDrawable(R.drawable.btn_red));
         return this;

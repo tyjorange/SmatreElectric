@@ -16,13 +16,12 @@
 
         <TextView
             android:id="@+id/tv_line_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/vs4"
             android:textColor="@color/text_base_color_333"
             android:textSize="12sp" />
-
 
         <TextView
             android:id="@+id/tv_power_count"
@@ -47,7 +46,7 @@
 
         <TextView
             android:id="@+id/tv_line_id"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="123123"

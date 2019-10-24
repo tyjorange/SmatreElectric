@@ -319,7 +319,7 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
      * 解绑电箱
      */
     public void onDel() {
-        DialogTip dialogTip = new DialogTip(mContext);
+        DialogTip dialogTip = new DialogTip(mContext, false);
         dialogTip.setTitle(mContext.getResources().getString(R.string.vs231)).setRedBtn()
                 .setContent(mContext.getResources().getString(R.string.delete_device))
                 .setDialogListener(new DialogTip.onEnsureDialogListener() {
