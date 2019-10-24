@@ -421,7 +421,8 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
                 }
             }
         });
-        //长按删除Deprecated 不再使用长按删除
+        //长按删除
+        // Deprecated
         gridViewDevice.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
