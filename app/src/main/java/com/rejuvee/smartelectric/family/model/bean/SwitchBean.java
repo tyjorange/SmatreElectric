@@ -57,6 +57,7 @@ public class SwitchBean implements Parcelable {
     private int verMinor;
     @Ignore
     public int showDelIcon = View.GONE;
+
     /**
      * 获取开关断开原因
      *
@@ -125,6 +126,13 @@ public class SwitchBean implements Parcelable {
         return "unknow";
     }
 
+    /**
+     * 告警预警TYPE名
+     *
+     * @param context
+     * @param paramID
+     * @return
+     */
     public static String getParamName(Context context, int paramID) {
         switch (paramID) {
             case 0x00000001:

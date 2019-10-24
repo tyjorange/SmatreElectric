@@ -411,19 +411,19 @@
         <item>设置存储间隔</item>
         <item>设置RTC时钟</item>
         <item>断路器1~n地址</item>
-        <item>过压阀值</item>
-        <item>过压阀值2</item>
-        <item>过压阀值3</item>
-        <item>过压阀值4</item>
+        <item>过压</item>
+        <item>过压</item>
+        <item>过压</item>
+        <item>过压</item>
         <item>过压启动延时时间1</item>
         <item>过压启动延时时间2</item>
         <item>过压启动延时时间3</item>
         <item>过压启动延时时间4</item>
-        <item>欠压阀值</item>
+        <item>欠压</item>
         <item>欠压启动延时时间</item>
         <item>欠压恢复延时时间</item>
         <item>上电延时时间</item>
-        <item>过流阀值</item>
+        <item>过流</item>
         <item>过流启动延时</item>
         <item>过流恢复延时</item>
         <item>定时拉闸使能</item>
@@ -432,15 +432,15 @@
         <item>定时合闸时间</item>
         <item>电量下限</item>
         <item>电量上限</item>
-        <item>过流阀值2</item>
-        <item>漏电阀值</item>
+        <item>过流</item>
+        <item>漏电</item>
         <item>漏电自检使能</item>
         <item>漏电自检时间设定</item>
-        <item>温度阀值</item>
+        <item>温度</item>
         <item>上电配置0：拉闸；1：合闸，2：掉电前开关状态</item>
-        <item>三相不平衡阀值</item>
-        <item>故障电弧阀值</item>
-        <item>防雷阀值</item>
+        <item>三相不平衡</item>
+        <item>故障电弧</item>
+        <item>防雷</item>
     </string-array>
 
     <string name="last_month">上月</string>

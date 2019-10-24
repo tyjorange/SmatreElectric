@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -434,8 +433,8 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 //                } else {
 //                    mDeviceAdapter.setEditMode(true);
 //                }
-                Vibrator vibrator = (Vibrator) mContext.getSystemService(VIBRATOR_SERVICE);
-                vibrator.vibrate(10000);
+//                Vibrator vibrator = (Vibrator) mContext.getSystemService(VIBRATOR_SERVICE);
+//                vibrator.vibrate(10000);
                 return true;
             }
         });

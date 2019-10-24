@@ -11,7 +11,7 @@ import com.rejuvee.smartelectric.family.custom.AmountView;
 import java.math.BigDecimal;
 
 /**
- * 电量类设置
+ * 电压类设置
  */
 public class SettingDYFragment extends BaseFragment {
     private RangeSeekBar rangeSeekBarGY;
