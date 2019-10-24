@@ -75,7 +75,7 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
 
         TextView tv_wifi = findViewById(R.id.txt_wifi_set);
 
-        TextView tv_del_collector = findViewById(R.id.tv_del_collector);
+        ImageView img_remove = findViewById(R.id.img_remove);
 
         backBtn.setOnClickListener(this);
 
@@ -99,7 +99,7 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
             tv_wifi.setVisibility(View.VISIBLE);
         }
 
-        tv_del_collector.setOnClickListener(this);
+        img_remove.setOnClickListener(this);
 
 //        tvConfig.setEnabled(collectorBean.beShared != 1);
         if (collectorBean.beShared == 1) {
@@ -138,7 +138,7 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
             } else {
                 txtShareTip.setText(String.format("%s%s", collectorBean.ownerUser.getNickName(), getString(R.string.vs3)));
             }
-            tv_del_collector.setVisibility(View.INVISIBLE);
+            img_remove.setVisibility(View.INVISIBLE);
         } else {
             txtShareTip.setVisibility(View.INVISIBLE);
         }
@@ -265,7 +265,7 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
                 intent.putExtra("collectorBean", collectorBean);
                 startActivity(intent);
                 break;
-            case R.id.tv_del_collector:
+            case R.id.img_remove:
                 onDel();
                 break;
             default:

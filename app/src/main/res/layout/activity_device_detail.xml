@@ -35,7 +35,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="start"
+        android:gravity="center"
         android:orientation="horizontal"
         android:paddingStart="20dp"
         android:paddingTop="20dp"
@@ -43,12 +43,20 @@
         android:paddingBottom="10dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="@integer/tag_1"
             android:text="@string/vs56"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
+        <ImageView
+            android:id="@+id/img_remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:src="@drawable/timer_del" />
     </LinearLayout>
 
     <LinearLayout
@@ -382,31 +390,31 @@
 
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal">-->
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="@integer/tag_1" />
+    <!--        <TextView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:layout_weight="@integer/tag_1" />-->
 
-        <TextView
-            android:id="@+id/tv_del_collector"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:gravity="center"
-            android:paddingTop="40dp"
-            android:paddingBottom="40dp"
-            android:text="解绑电箱"
-            android:textColor="@color/red_light"
-            android:textSize="13sp" />
+    <!--        <TextView-->
+    <!--            android:id="@+id/tv_del_collector"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_gravity="bottom"-->
+    <!--            android:gravity="center"-->
+    <!--            android:paddingTop="40dp"-->
+    <!--            android:paddingBottom="40dp"-->
+    <!--            android:text="解绑电箱"-->
+    <!--            android:textColor="@color/red_light"-->
+    <!--            android:textSize="13sp" />-->
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="@integer/tag_1" />
-    </LinearLayout>
+    <!--        <TextView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:layout_weight="@integer/tag_1" />-->
+    <!--    </LinearLayout>-->
 </LinearLayout>
