@@ -87,11 +87,11 @@ public class ReportActivity extends BaseActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             if (position == 0) {
-                return "最近1个月";
+                return getString(R.string.vs252);
             } else if (position == 1) {
-                return "最近3个月";
+                return getString(R.string.vs253);
             } else if (position == 2) {
-                return "最近半年";
+                return getString(R.string.vs254);
             }
             return super.getPageTitle(position);
         }

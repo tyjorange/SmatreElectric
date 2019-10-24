@@ -786,4 +786,7 @@
     <string name="vs249">SSID</string>
     <string name="vs250">信号强度</string>
     <string name="vs251">%d</string>
+    <string name="vs252">最近1个月</string>
+    <string name="vs253">最近3个月</string>
+    <string name="vs254">最近半年</string>
 </resources>

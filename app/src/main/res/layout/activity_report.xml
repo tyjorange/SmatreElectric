@@ -60,7 +60,7 @@
             android:layout_height="48dp"
             android:layout_weight="@integer/tag_1"
             app:tabGravity="fill"
-            app:tabIndicatorColor="#E3878F"
+            app:tabIndicatorColor="#37878F"
             app:tabIndicatorFullWidth="false"
             app:tabIndicatorHeight="2dp"
             app:tabMode="fixed"
