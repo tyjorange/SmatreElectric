@@ -324,8 +324,8 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
 
 
     private void initVpAdapter() {
-        tlCurve.setTabMode(isDay ? TabLayout.MODE_SCROLLABLE : TabLayout.GRAVITY_CENTER);
-        fpAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+        tlCurve.setTabMode(isDay ? TabLayout.MODE_SCROLLABLE : TabLayout.MODE_FIXED);
+        fpAdapter = new FragmentPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
             @Override
             public Fragment getItem(int position) {

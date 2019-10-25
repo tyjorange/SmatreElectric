@@ -217,6 +217,7 @@ public class MyEleApplianceActivity extends BaseActivity implements Eleappliance
         EventBus.getDefault().unregister(this);
     }
 
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK)

@@ -48,7 +48,7 @@ public class SecurityInformationActivity extends BaseActivity {
         });
         TabLayout mTabLayout = (TabLayout) findViewById(R.id.tab_alarm);
         ViewPager view_import_infor = (ViewPager) findViewById(R.id.viwe_import_infor);
-        MyFragmentAdapter mInforAdapter = new MyFragmentAdapter(getSupportFragmentManager());
+        MyFragmentAdapter mInforAdapter = new MyFragmentAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         view_import_infor.setAdapter(mInforAdapter);
         mTabLayout.setupWithViewPager(view_import_infor, true);
     }
@@ -78,8 +78,8 @@ public class SecurityInformationActivity extends BaseActivity {
         private Bundle bundle;
         private List<Class> listFragments = new ArrayList<>();
 
-        MyFragmentAdapter(FragmentManager fm) {
-            super(fm);
+        MyFragmentAdapter(FragmentManager fm, int a) {
+            super(fm, a);
             bundle = new Bundle();
             bundle.putString("CollectorID", mCollectorBean.getCollectorID());
             listFragments.add(LineAlarmFrgament.class);

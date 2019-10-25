@@ -214,6 +214,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private void gotoMainActivity() {
         startActivity(new Intent(this, MainNavigationActivity.class));
+        overridePendingTransition(R.anim.top_in, R.anim.top_out);
         finish();
     }
 
@@ -245,6 +246,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         QQLoginHelper.getInstance().onActivityResult(requestCode, resultCode, data);
     }
 

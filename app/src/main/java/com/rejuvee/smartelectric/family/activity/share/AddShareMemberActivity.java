@@ -1,19 +1,15 @@
 package com.rejuvee.smartelectric.family.activity.share;
 
-import android.Manifest;
 import android.content.Intent;
-import android.os.Build;
 import android.view.View;
 import android.widget.EditText;
 
 import com.base.frame.net.ActionCallbackListener;
-import com.base.library.utils.PermissionUtils;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
-import com.rejuvee.smartelectric.family.common.CommonRequestCode;
-import com.rejuvee.smartelectric.family.common.PermisionManage;
+import com.rejuvee.smartelectric.family.common.PermissionManage;
 import com.rejuvee.smartelectric.family.widget.dialog.WaitDialog;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 
@@ -21,7 +17,7 @@ import com.uuzuche.lib_zxing.activity.CaptureActivity;
  * 添加分享用户
  */
 public class AddShareMemberActivity extends BaseActivity {
-
+    private String TAG = "AddShareMemberActivity";
     private EditText edtScan;
     private WaitDialog mWaitDialog;
     private int request_code_scancode = 1001;
@@ -42,6 +38,18 @@ public class AddShareMemberActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        PermissionManage.getInstance().setCallBack(new PermissionManage.PermissionCallBack() {
+
+            @Override
+            public void onGranted() {
+            }
+
+            @Override
+            public void onDenied() {
+                CustomToast.showCustomErrorToast(AddShareMemberActivity.this, getString(R.string.vs46));
+            }
+        }).hasCamera(this);
+
         findViewById(R.id.ll_img_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,23 +59,8 @@ public class AddShareMemberActivity extends BaseActivity {
         findViewById(R.id.rl_scan_add).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    PermisionManage.getInstance().startRequest(AddShareMemberActivity.this, new String[]{Manifest.permission.CAMERA}, new PermissionUtils.OnPermissionListener() {
-                        @Override
-                        public void onPermissionGranted() {
-                            Intent intent = new Intent(AddShareMemberActivity.this, CaptureActivity.class);
-                            startActivityForResult(intent, CommonRequestCode.REQUEST_SCAN_CODE);
-                        }
-
-                        @Override
-                        public void onPermissionDenied(String[] deniedPermissions) {
-                            CustomToast.showCustomErrorToast(AddShareMemberActivity.this, getString(R.string.vs46));
-                        }
-                    });
-                } else {
-                    Intent intent = new Intent(AddShareMemberActivity.this, CaptureActivity.class);
-                    startActivityForResult(intent, request_code_scancode);
-                }
+                Intent intent = new Intent(AddShareMemberActivity.this, CaptureActivity.class);
+                startActivityForResult(intent, request_code_scancode);
             }
         });
         findViewById(R.id.st_finish).setOnClickListener(new View.OnClickListener() {

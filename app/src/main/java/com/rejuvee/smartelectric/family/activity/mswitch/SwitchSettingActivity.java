@@ -483,7 +483,7 @@ public class SwitchSettingActivity extends BaseActivity implements
     private void initFragment() {
         mTabLayout = (TabLayout) findViewById(R.id.tab_setting);
         viewPager = findViewById(R.id.vp_setting);
-        MyFragmentAdapter mAdapter = new MyFragmentAdapter(getSupportFragmentManager());
+        MyFragmentAdapter mAdapter = new MyFragmentAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(viewPager, true);
     }
@@ -495,6 +495,18 @@ public class SwitchSettingActivity extends BaseActivity implements
 
         MyFragmentAdapter(FragmentManager fm) {
             super(fm);
+            dl1_fragment = new SettingDL1Fragment().setOnShowingListener(SwitchSettingActivity.this);
+            dy_fragment = new SettingDYFragment().setOnShowingListener(SwitchSettingActivity.this);
+            dl2_fragment = new SettingDL2Fragment().setOnShowingListener(SwitchSettingActivity.this);
+            other_fragment = new SettingOtherFragment().setOnShowingListener(SwitchSettingActivity.this);
+            listFragments.add(dl1_fragment);
+            listFragments.add(dy_fragment);
+            listFragments.add(dl2_fragment);
+            listFragments.add(other_fragment);
+        }
+
+        MyFragmentAdapter(FragmentManager fm, int behavior) {
+            super(fm, behavior);
             dl1_fragment = new SettingDL1Fragment().setOnShowingListener(SwitchSettingActivity.this);
             dy_fragment = new SettingDYFragment().setOnShowingListener(SwitchSettingActivity.this);
             dl2_fragment = new SettingDL2Fragment().setOnShowingListener(SwitchSettingActivity.this);

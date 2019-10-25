@@ -25,7 +25,7 @@ public class SettingOtherFragment extends BaseFragment {
     private TextView tv_sdpz;
     private int sdpz_val;//上电配置值
     private RadioDialog radioDialog;
-    private boolean isShowing = false;
+//    private boolean isShowing = false;
 
     @Override
     protected int getLayoutResId() {
@@ -124,7 +124,7 @@ public class SettingOtherFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        isShowing = true;
+//        isShowing = true;
     }
 
     public String getParamID(SwitchBean currentSwitchBean) {
@@ -213,13 +213,19 @@ public class SettingOtherFragment extends BaseFragment {
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        if (isVisibleToUser && isShowing) {
-//            Log.e("VpAdapter", "setUserVisibleHint: " + position);
-            listener.onOtherShow();
-        }
-        super.setUserVisibleHint(isVisibleToUser);
+    public void onResume() {
+        super.onResume();
+        listener.onOtherShow();
     }
+
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        if (isVisibleToUser && isShowing) {
+//            Log.e("VpAdapter", "setUserVisibleHint: " + position);
+//            listener.onOtherShow();
+//        }
+//        super.setUserVisibleHint(isVisibleToUser);
+//    }
 
     private OnShowingListener listener;
 

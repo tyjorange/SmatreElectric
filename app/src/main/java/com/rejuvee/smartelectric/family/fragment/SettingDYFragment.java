@@ -18,7 +18,7 @@ public class SettingDYFragment extends BaseFragment {
     private AmountView amountGY;
     private RangeSeekBar rangeSeekBarQY;
     private AmountView amountQY;
-    private boolean isShowing = false;
+//    private boolean isShowing = false;
 
     @Override
     protected int getLayoutResId() {
@@ -97,7 +97,7 @@ public class SettingDYFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        isShowing = true;
+//        isShowing = true;
     }
 
     public String getParamID() {
@@ -141,13 +141,19 @@ public class SettingDYFragment extends BaseFragment {
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        if (isVisibleToUser && isShowing) {
-//            Log.e("VpAdapter", "setUserVisibleHint: " + position);
-            listener.onDYShow();
-        }
-        super.setUserVisibleHint(isVisibleToUser);
+    public void onResume() {
+        super.onResume();
+        listener.onDYShow();
     }
+
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        if (isVisibleToUser && isShowing) {
+//            Log.e("VpAdapter", "setUserVisibleHint: " + position);
+//            listener.onDYShow();
+//        }
+//        super.setUserVisibleHint(isVisibleToUser);
+//    }
 
     private OnShowingListener listener;
 

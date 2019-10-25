@@ -1,8 +1,6 @@
 package com.rejuvee.smartelectric.family.activity;
 
-import android.Manifest;
 import android.content.Intent;
-import android.os.Build;
 import android.text.InputFilter;
 import android.view.View;
 import android.widget.EditText;
@@ -10,14 +8,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.base.frame.net.ActionCallbackListener;
-import com.base.library.utils.PermissionUtils;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.activity.mswitch.SwitchModifyActivity;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.CommonRequestCode;
-import com.rejuvee.smartelectric.family.common.PermisionManage;
+import com.rejuvee.smartelectric.family.common.PermissionManage;
 import com.rejuvee.smartelectric.family.custom.DeviceEventMsg;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
@@ -57,6 +54,18 @@ public class AddDeviceOrSwitchActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        PermissionManage.getInstance().setCallBack(new PermissionManage.PermissionCallBack() {
+
+            @Override
+            public void onGranted() {
+            }
+
+            @Override
+            public void onDenied() {
+                CustomToast.showCustomErrorToast(AddDeviceOrSwitchActivity.this, getString(R.string.vs46));
+            }
+        }).hasCamera(this);
+
         findViewById(R.id.ll_img_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,23 +75,8 @@ public class AddDeviceOrSwitchActivity extends BaseActivity {
         findViewById(R.id.rl_scan_add).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    PermisionManage.getInstance().startRequest(AddDeviceOrSwitchActivity.this, new String[]{Manifest.permission.CAMERA}, new PermissionUtils.OnPermissionListener() {
-                        @Override
-                        public void onPermissionGranted() {
-                            Intent intent = new Intent(AddDeviceOrSwitchActivity.this, CaptureActivity.class);
-                            startActivityForResult(intent, CommonRequestCode.REQUEST_SCAN_CODE);
-                        }
-
-                        @Override
-                        public void onPermissionDenied(String[] deniedPermissions) {
-                            CustomToast.showCustomErrorToast(AddDeviceOrSwitchActivity.this, getString(R.string.vs46));
-                        }
-                    });
-                } else {
-                    Intent intent = new Intent(AddDeviceOrSwitchActivity.this, CaptureActivity.class);
-                    startActivityForResult(intent, CommonRequestCode.REQUEST_SCAN_CODE);
-                }
+                Intent intent = new Intent(AddDeviceOrSwitchActivity.this, CaptureActivity.class);
+                startActivityForResult(intent, CommonRequestCode.REQUEST_SCAN_CODE);
             }
         });
         findViewById(R.id.st_finish).setOnClickListener(new View.OnClickListener() {

@@ -52,6 +52,7 @@ public class LunchActivity extends BaseActivity {
         if (count == 0) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.top_in, R.anim.top_out);
             finish();
         }
         return count;
@@ -59,16 +60,17 @@ public class LunchActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        handler = new MyHandler(this);
         mBtnSkip = findViewById(R.id.btn_skip);
         mBtnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LunchActivity.this, LoginActivity.class));
+                overridePendingTransition(R.anim.top_in, R.anim.top_out);
                 handler.removeMessages(101);
                 finish();
             }
         });
+        handler = new MyHandler(this);
         handler.sendEmptyMessageDelayed(101, 1000);
     }
 

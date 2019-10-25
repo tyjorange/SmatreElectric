@@ -17,7 +17,7 @@ import java.text.DecimalFormat;
 public class SettingDL2Fragment extends BaseFragment {
     private EditText dl_shangxian;
     private EditText dl_xiaxian;
-    private boolean isShowing = false;
+//    private boolean isShowing = false;
 
     @Override
     protected int getLayoutResId() {
@@ -42,7 +42,7 @@ public class SettingDL2Fragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        isShowing = true;
+//        isShowing = true;
     }
 
     public String getParamID() {
@@ -81,13 +81,19 @@ public class SettingDL2Fragment extends BaseFragment {
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        if (isVisibleToUser && isShowing) {
-//            Log.e("VpAdapter", "setUserVisibleHint: " + position);
-            listener.onDL2Show();
-        }
-        super.setUserVisibleHint(isVisibleToUser);
+    public void onResume() {
+        super.onResume();
+        listener.onDL2Show();
     }
+
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        if (isVisibleToUser && isShowing) {
+//            Log.e("VpAdapter", "setUserVisibleHint: " + position);
+//            listener.onDL2Show();
+//        }
+//        super.setUserVisibleHint(isVisibleToUser);
+//    }
 
     private OnShowingListener listener;
 

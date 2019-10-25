@@ -165,12 +165,12 @@ public class EnergySavingInformationActivity extends BaseActivity implements Vie
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == CommonRequestCode.REQUEST_CHOSE_LINE) {//线路选择 Deprecated
                 SwitchBean s = data.getParcelableExtra("switchBean");
                 findData(s, collectorBean);
             }
         }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 }

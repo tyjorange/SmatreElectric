@@ -1,11 +1,9 @@
 package com.rejuvee.smartelectric.family;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
@@ -22,7 +20,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.base.frame.net.ActionCallbackListener;
-import com.base.library.utils.PermissionUtils;
 import com.base.library.utils.SizeUtils;
 import com.base.library.widget.CustomToast;
 import com.base.library.widget.HorizontalListView;
@@ -45,7 +42,7 @@ import com.rejuvee.smartelectric.family.common.ActivityFragmentManager;
 import com.rejuvee.smartelectric.family.common.AutoUpgrade;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.CommonRequestCode;
-import com.rejuvee.smartelectric.family.common.PermisionManage;
+import com.rejuvee.smartelectric.family.common.PermissionManage;
 import com.rejuvee.smartelectric.family.model.bean.AutoUpgradeEventMessage;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SceneBean;
@@ -168,22 +165,19 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         initScene();
         initCollector();
 
-        // 启动就申请 读写 定位 权限
-        PermisionManage.getInstance().startRequest(this,
-                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION},
-                new PermissionUtils.OnPermissionListener() {
-                    @Override
-                    public void onPermissionGranted() {
-                        Log.i(TAG, "onPermissionGranted");
-                    }
+        PermissionManage.getInstance().setCallBack(new PermissionManage.PermissionCallBack() {
 
-                    @Override
-                    public void onPermissionDenied(String[] deniedPermissions) {
-                        Log.e(TAG, "onPermissionDenied");
-                    }
-                });
+            @Override
+            public void onGranted() {
+
+            }
+
+            @Override
+            public void onDenied() {
+
+            }
+        }).hasLocationStorage(this);
+//        PermissionManage.hasCamera(this);
     }
 
     @Override
@@ -613,25 +607,26 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void autoUpgrade(final AutoUpgradeEventMessage autoUpgrade) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (PermisionManage.getInstance().isPermissionGranted(Manifest.permission.REQUEST_INSTALL_PACKAGES)) {
-                AutoUpgrade.getInstacne(MainNavigationActivity.this).installApkNew(autoUpgrade.upGradeUri);
-            } else {
-                PermisionManage.getInstance().startRequest(this, new String[]{Manifest.permission.REQUEST_INSTALL_PACKAGES}, new PermissionUtils.OnPermissionListener() {
-                    @Override
-                    public void onPermissionGranted() {
-                        AutoUpgrade.getInstacne(MainNavigationActivity.this).installApkNew(autoUpgrade.upGradeUri);
-                    }
-
-                    @Override
-                    public void onPermissionDenied(String[] deniedPermissions) {
-                        Log.e(TAG, "onPermissionDenied");
-                    }
-                });
-            }
-        } else {
-            AutoUpgrade.getInstacne(MainNavigationActivity.this).installApkNew(autoUpgrade.upGradeUri);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            if (PermissionManage.getInstance().isPermissionGranted(Manifest.permission.REQUEST_INSTALL_PACKAGES)) {
+//                AutoUpgrade.getInstacne(MainNavigationActivity.this).installApkNew(autoUpgrade.upGradeUri);
+//            } else {
+//                PermissionManage.getInstance().startRequest(this, new String[]{Manifest.permission.REQUEST_INSTALL_PACKAGES}, new PermissionUtils.OnPermissionListener() {
+//                    @Override
+//                    public void onPermissionGranted() {
+//                        AutoUpgrade.getInstacne(MainNavigationActivity.this).installApkNew(autoUpgrade.upGradeUri);
+//                    }
+//
+//                    @Override
+//                    public void onPermissionDenied(String[] deniedPermissions) {
+//                        Log.e(TAG, "onPermissionDenied");
+//                    }
+//                });
+//            }
+//        } else {
+//            AutoUpgrade.getInstacne(MainNavigationActivity.this).installApkNew(autoUpgrade.upGradeUri);
+//        }
+        AutoUpgrade.getInstacne(MainNavigationActivity.this).installApkNew(autoUpgrade.upGradeUri);
     }
 
     @Override

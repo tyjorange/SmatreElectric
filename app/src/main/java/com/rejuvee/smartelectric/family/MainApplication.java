@@ -17,18 +17,13 @@ import com.base.library.utils.Utils;
 import com.rejuvee.smartelectric.family.common.CrashHandler;
 import com.rejuvee.smartelectric.family.common.LogoVersionManage;
 import com.rejuvee.smartelectric.family.common.NativeLine;
-import com.rejuvee.smartelectric.family.utils.WifiUtil;
 import com.rejuvee.smartelectric.family.utils.thrid.QQLoginHelper;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import io.realm.Realm;
-//import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
-/**
- * Created by liuchengran on 2018/10/31.
- */
 public class MainApplication extends Application {
     private static final String TAG = "MainApplication";
     private static MainApplication self;
@@ -62,9 +57,9 @@ public class MainApplication extends Application {
 //                .setDefaultFontPath("fonts/syht.otf")
 //                .setFontAttrId(R.attr.fontPath)
 //                .build());
-        if (Build.VERSION.SDK_INT != Build.VERSION_CODES.M) {
-            WifiUtil.getInstance(this);//TODO Android 6.0 会报错
-        }
+//        if (Build.VERSION.SDK_INT != Build.VERSION_CODES.M) {
+//            WifiUtil.getInstance(this);//TODO Android 6.0 会报错
+//        }
         CrashHandler.getInstance().init(getApplicationContext());
     }
 

@@ -43,7 +43,7 @@ public class SettingDL1Fragment extends BaseFragment implements View.OnFocusChan
 
     private WheelDateTime dateSelector;
     //    private Handler mHandler;
-    private boolean isShowing = false;
+//    private boolean isShowing = false;
 
     @Override
     protected int getLayoutResId() {
@@ -162,8 +162,8 @@ public class SettingDL1Fragment extends BaseFragment implements View.OnFocusChan
 
     @Override
     protected void initData() {
-        isShowing = true;
-        listener.onDL1Show();// 第一个TAB
+//        isShowing = true;
+//        listener.onDL1Show();// 第一个TAB
     }
 
     @Override
@@ -298,13 +298,19 @@ public class SettingDL1Fragment extends BaseFragment implements View.OnFocusChan
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        if (isVisibleToUser && isShowing) {
-//            Log.e("VpAdapter", "setUserVisibleHint: " + position);
-            listener.onDL1Show();
-        }
-        super.setUserVisibleHint(isVisibleToUser);
+    public void onResume() {
+        super.onResume();
+        listener.onDL1Show();
     }
+
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        if (isVisibleToUser && isShowing) {
+//            Log.e("VpAdapter", "setUserVisibleHint: " + position);
+//            listener.onDL1Show();
+//        }
+//        super.setUserVisibleHint(isVisibleToUser);
+//    }
 
     private OnShowingListener listener;
 
