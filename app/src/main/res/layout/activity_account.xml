@@ -55,7 +55,6 @@
             android:paddingRight="@dimen/padding_max">
 
             <LinearLayout
-                android:id="@+id/ll_base"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -105,7 +104,6 @@
                         </LinearLayout>
 
                         <ImageView
-                            android:id="@+id/img_name"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/margin_line_inside"
@@ -115,7 +113,6 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/txt_wrong_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_message"
@@ -157,7 +154,6 @@
                                 android:textSize="@dimen/size_content" />
 
                             <com.rejuvee.smartelectric.family.widget.ClearEditText
-                                android:id="@+id/edit_id_number"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -174,7 +170,6 @@
                         </LinearLayout>
 
                         <ImageView
-                            android:id="@+id/img_id_number"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/margin_line_inside"
@@ -184,7 +179,6 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/txt_wrong_id_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_message"
@@ -226,7 +220,6 @@
                                 android:textSize="@dimen/size_content" />
 
                             <com.rejuvee.smartelectric.family.widget.ClearEditText
-                                android:id="@+id/edit_frame"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -241,7 +234,6 @@
                         </LinearLayout>
 
                         <ImageView
-                            android:id="@+id/img_frame"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/margin_line_inside"
@@ -251,7 +243,6 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/txt_wrong_frame"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_message"
@@ -293,7 +284,6 @@
                                 android:textSize="@dimen/size_content" />
 
                             <com.rejuvee.smartelectric.family.widget.ClearEditText
-                                android:id="@+id/edit_address"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -308,7 +298,6 @@
                         </LinearLayout>
 
                         <ImageView
-                            android:id="@+id/img_address"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/margin_line_inside"
@@ -318,7 +307,6 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/txt_wrong_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_message"
@@ -354,7 +342,6 @@
                         android:background="@drawable/skin_line_bk">
 
                         <TextView
-                            android:id="@+id/txt_mark_imei"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
@@ -639,7 +626,6 @@
             </LinearLayout>
             <!-- 原始密码-->
             <LinearLayout
-                android:id="@+id/ll_orgpwd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_line_outside"
@@ -659,7 +645,6 @@
                         android:background="@drawable/skin_line_bk">
 
                         <TextView
-                            android:id="@+id/txt_org_pwd"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
@@ -731,7 +716,6 @@
                         android:background="@drawable/skin_line_bk">
 
                         <TextView
-                            android:id="@+id/txt_mark_pwd"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
@@ -784,7 +768,6 @@
             </LinearLayout>
             <!-- 确认密码 -->
             <LinearLayout
-                android:id="@+id/ll_pwd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_line_outside"

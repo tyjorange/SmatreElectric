@@ -10,28 +10,19 @@
 
     <dimen name="height_line">48dp</dimen>
     <dimen name="width_code">96dp</dimen>
-    <dimen name="partition">1dp</dimen>
-    <dimen name="width_logo">128dp</dimen>
-    <dimen name="alterable">0dp</dimen>
     <dimen name="margin_message">4dp</dimen>
     <dimen name="margin_code">16dp</dimen>
     <dimen name="margin_line_inside">8dp</dimen>
     <dimen name="margin_line_outside">16dp</dimen>
     <dimen name="margin_fringe">32dp</dimen>
-    <dimen name="margin_max">48dp</dimen>
-    <dimen name="padding_fringe">1dp</dimen>
     <dimen name="padding_inside">8dp</dimen>
     <dimen name="padding_max">16dp</dimen>
-    <dimen name="size_title">20sp</dimen>
     <dimen name="size_content">16sp</dimen>
     <dimen name="size_message">14sp</dimen>
-    <dimen name="size_foot">12sp</dimen>
     <dimen name="size_sure">18sp</dimen>
 
     <integer name="tag_1">1</integer>
-    <integer name="tag_2">2</integer>
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
-    <dimen name="nav_header_height">176dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
     <!-- 侧滑图标与文字间距 -->
@@ -39,7 +30,4 @@
     <dimen name="design_navigation_icon_size" tools:override="true">17dp</dimen>
 
     <!-- 客服相关 -->
-    <dimen name="default_elevation">4dp</dimen>
-    <dimen name="user_profile_size">48dp</dimen>
-    <dimen name="left_menu_icon_size">16dp</dimen>
 </resources>

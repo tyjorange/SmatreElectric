@@ -34,7 +34,6 @@
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
-        android:id="@+id/ssz"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center_vertical"

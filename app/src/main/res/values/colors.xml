@@ -11,7 +11,6 @@
     <color name="homepage_main">#0d77ff</color>
     <color name="homepage_gray">#b9babb</color>
     <color name="blue">#0d77ff</color>
-    <color name="light_green">#38d7bf</color>
 
     <color name="text_content">#B6B6B6</color>
 
@@ -20,16 +19,11 @@
     <color name="black">#000000</color>
 
     <color name="skin_edt">@color/gray</color>
-    <color name="skin_edt_metal">@color/black</color>
-    <color name="skin_edt_login">@color/skin_edt</color>
-    <color name="skin_edt_login_metal">@color/white</color>
 
     <color name="skin_wrong_msg">@color/master_red</color>
     <color name="master_red">#ea4f15</color>
     <color name="skin_txt_code">@color/white</color>
     <color name="master">#15b0ea</color>
-    <color name="master_press">#00a1db</color>
-    <color name="line">#C3C3C3</color>
     <color name="def_color">#5A6187</color>
 
 </resources>

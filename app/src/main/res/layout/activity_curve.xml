@@ -202,7 +202,6 @@
                 android:layout_weight="@integer/tag_1" />
 
             <com.rejuvee.smartelectric.family.widget.CustomGridView
-                android:id="@+id/gv_breaker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:horizontalSpacing="8dp"
@@ -214,7 +213,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ll_anchor"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="bottom"

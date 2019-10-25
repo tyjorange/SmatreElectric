@@ -124,7 +124,6 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/zhbjs_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
@@ -157,7 +156,6 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/ztbjs_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"

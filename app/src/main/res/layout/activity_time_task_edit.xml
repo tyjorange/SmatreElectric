@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_time_task_edit"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/shape_bg_dialog_tip"
@@ -59,7 +58,6 @@
                     android:text="@string/timed_task" />
 
                 <TextView
-                    android:id="@+id/txt_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -76,7 +74,6 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/rl_upload"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -84,7 +81,6 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/iv_zl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -92,7 +88,6 @@
                     android:src="@drawable/upload_mark" />
 
                 <TextView
-                    android:id="@+id/tv_zhuliu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

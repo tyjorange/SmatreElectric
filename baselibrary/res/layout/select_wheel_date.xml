@@ -34,7 +34,6 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/select_wheel_layout"
         android:layout_width="match_parent"
         android:layout_height="220dp"
         android:gravity="center"

@@ -87,7 +87,6 @@
                 android:textSize="14sp" />
 
             <com.rejuvee.smartelectric.family.widget.CheckableImageView
-                android:id="@+id/login_civ_eye_invisible"
                 android:layout_width="1dp"
                 android:layout_height="1dp"
                 android:layout_marginStart="8dp"

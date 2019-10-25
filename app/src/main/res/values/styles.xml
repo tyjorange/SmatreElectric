@@ -14,24 +14,6 @@
 
     <!-- <item name="android:editTextStyle">@style/EditTextSel</item>-->
 
-    <style name="CustomCheckBoxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
-        <item name="android:button">@drawable/bg_checkbox</item>
-    </style>
-
-    <style name="CustomCheckBoxTheme1" parent="@android:style/Widget.CompoundButton.CheckBox">
-        <item name="android:button">@drawable/shape_bg_checkbox_theme1</item>
-    </style>
-
-    <style name="EditTextSel" parent="Widget.AppCompat.EditText">
-        <item name="colorControlNormal">@color/red_light</item>
-        <item name="colorControlActivated">@color/red_light</item>
-    </style>
-
-
-    <style name="TabLayoutTextStyle">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/colorPrimary</item>
-    </style>
 
     <style name="TabLayoutTextStyle2">
         <item name="android:textSize">9sp</item>
@@ -50,15 +32,6 @@
         <item name="android:windowBackground">@drawable/shape_toast_with_corner_rectangle</item>
     </style>
 
-    <style name="ActivityBasic" parent="AppTheme">
-        <item name="android:screenOrientation">portrait</item>
-    </style>
-
-    <style name="PopupAnimation" mce_bogus="1" parent="android:Animation">
-        <item name="android:windowEnterAnimation">@anim/popup_enter</item>
-        <item name="android:windowExitAnimation">@anim/popup_exit</item>
-    </style>
-
     <style name="transparentFrameWindowStyle" parent="android:style/Theme.Dialog">
         <item name="android:windowBackground">@drawable/photo_choose_bg</item>
     </style>
@@ -66,10 +39,6 @@
     <style name="main_menu_animstyle">
         <item name="android:windowEnterAnimation">@anim/photo_dialog_in_anim</item>
         <item name="android:windowExitAnimation">@anim/photo_dialog_out_anim</item>
-    </style>
-
-    <style name="TabTextSize" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
-        <item name="android:textSize">20sp</item>
     </style>
 
     <!--Activity Dialog样式的界面-->
@@ -92,9 +61,6 @@
         <!--点击 dialog Activity 周围是否关闭弹窗 true 关闭（默认为true） false 为不关闭-->
         <item name="android:windowCloseOnTouchOutside">false</item>
     </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <!--左拉导航字体-->
     <style name="myNavigationDrawerStyle">

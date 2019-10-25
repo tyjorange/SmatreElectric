@@ -26,23 +26,8 @@
     <!--<item name="android:windowIsTranslucent">true</item>-->
     <!--<item name="android:windowTranslucentStatus">false</item>-->
     <!--</style>-->
-    <style name="Framework_FullTheme" parent="AppTheme">
-        <item name="android:windowAnimationStyle">@style/base_activity_animation</item>
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowIsTranslucent">true</item>
-    </style>
     <!--main theme-->
-    <style name="Framework_MainTheme" parent="AppTheme">
-        <item name="android:windowAnimationStyle">@style/base_activity_animation</item>
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowIsTranslucent">true</item>
-    </style>
 
-    <style name="Framework_Bottom_FullTheme" parent="AppTheme">
-        <item name="android:windowAnimationStyle">@style/base_activity_bottom_animation</item>
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowIsTranslucent">true</item>
-    </style>
     <!--<item name="android:windowBackground">@color/backgroud_black_bg</item>-->
     <!--<style name="Framework_MainTheme" parent="AppTheme">-->
     <!--<item name="android:windowAnimationStyle">@style/base_activity_animation</item>-->
@@ -52,10 +37,5 @@
     <!--&lt;!&ndash;<item name="android:windowDrawsSystemBarBackgrounds">true</item>&ndash;&gt;-->
     <!--</style>-->
     <!--@android:style/Theme.DeviceDefault.Light-->
-    <style name="Framework_StatusBar_trans" parent="AppTheme">
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowAnimationStyle">@style/base_activity_animation</item>
-        <item name="android:windowIsTranslucent">true</item>
-    </style>
 
 </resources>

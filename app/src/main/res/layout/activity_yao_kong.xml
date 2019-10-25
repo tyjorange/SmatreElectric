@@ -116,7 +116,6 @@
             android:textSize="18sp" />
 
         <ImageView
-            android:id="@+id/iv_xianlu_paizhao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"
