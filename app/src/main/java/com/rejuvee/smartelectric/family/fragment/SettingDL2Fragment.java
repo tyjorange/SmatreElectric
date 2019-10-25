@@ -75,7 +75,7 @@ public class SettingDL2Fragment extends BaseFragment {
             CustomToast.showCustomErrorToast(getContext(), getString(R.string.vs189));
             return res;
         }
-        res += ",00000018:" + dlxx + // 电量下限
+        res += "00000018:" + dlxx + // 电量下限
                 ",00000019:" + dlsx; // 电量上限
         return res;
     }

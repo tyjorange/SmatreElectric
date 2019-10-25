@@ -206,13 +206,12 @@ public class WifiUtil {
         if (!mWifiManager.isWifiEnabled()) {
             bRet = mWifiManager.setWifiEnabled(true);
             while (mWifiList == null || mWifiList.size() == 0) {
-                try {
-                    Thread.sleep(2000);
-                    mWifiManager.startScan();
-                    mWifiList = mWifiManager.getScanResults();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    Thread.sleep(2000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+                startScan();
             }
         }
         return bRet;
@@ -220,16 +219,36 @@ public class WifiUtil {
 
     private String currentSSID = "";
 
-    //断判某个wifi是否是连接成功的那个wifi
+    /**
+     * 断判当前wifi 是否是连接成功 myssid
+     *
+     * @param context
+     * @param myssid
+     * @return
+     */
     public boolean isConnectedWifi(Context context, String myssid) {
         mWifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        String ssid;
         WifiInfo wifiInfo = mWifiManager.getConnectionInfo();
-        ssid = wifiInfo.getSSID();
+        String ssid = wifiInfo.getSSID();
         Log.i(TAG, "[" + ssid + "][" + myssid + "]");
-        if (ssid != null && ssid.contains(myssid)) {
-            currentSSID = myssid;
-            return true;
+        if (ssid != null) {
+            if (ssid.contains(myssid)) {
+                currentSSID = myssid;
+                return true;
+            }
+        } else {
+            // 9.0华为手机无法获取解决方案
+            int networkId = wifiInfo.getNetworkId();
+            List<WifiConfiguration> configuredNetworks = mWifiManager.getConfiguredNetworks();
+            for (WifiConfiguration wifiConfiguration : configuredNetworks) {
+                if (wifiConfiguration.networkId == networkId) {
+                    ssid = wifiConfiguration.SSID;
+                    if (ssid.contains(myssid)) {
+                        currentSSID = myssid;
+                        return true;
+                    }
+                }
+            }
         }
         return false;
     }

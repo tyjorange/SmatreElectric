@@ -202,7 +202,7 @@ public class SettingOtherFragment extends BaseFragment {
         String res = "";
         rangeSeekBarWDFZ.setProgress(amountWDFZ.getAmount());
         BigDecimal wdfz = BigDecimal.valueOf(rangeSeekBarWDFZ.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
-        res += ",0000001E:" + wdfz + // 温度阀值
+        res += "0000001E:" + wdfz + // 温度阀值
                 ",0000001F:" + sdpz_val; // 上电配置
         if (view.findViewById(R.id.ll_sxbph).getVisibility() == View.VISIBLE) {
             rangeSeekBarSXBPH.setProgress(amountSXBPH.getAmount());

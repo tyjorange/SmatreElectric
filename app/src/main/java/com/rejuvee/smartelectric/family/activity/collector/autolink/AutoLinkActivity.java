@@ -282,7 +282,7 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
     @Override
     public void onAvailable() {
 //        String code = collectorBean != null ? collectorBean.getCode() : "";
-        boolean connectedWifi = mWifiUtil.isConnectedWifi(getApplicationContext(), collectorBean.getCode());
+        boolean connectedWifi = mWifiUtil.isConnectedWifi(this, collectorBean.getCode());
         if (connectedWifi) {
             Message msg = handler.obtainMessage(Tool.REC_WIFI, LINK_OK, 0);
             handler.sendMessage(msg);

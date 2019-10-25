@@ -57,10 +57,12 @@ public class MainApplication extends Application {
 //                .setDefaultFontPath("fonts/syht.otf")
 //                .setFontAttrId(R.attr.fontPath)
 //                .build());
-//        if (Build.VERSION.SDK_INT != Build.VERSION_CODES.M) {
-//            WifiUtil.getInstance(this);//TODO Android 6.0 会报错
+//        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
+//            Intent goToSettings = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+//            goToSettings.setData(Uri.parse("package:" + getPackageName()));
+//            startActivity(goToSettings);
 //        }
-        CrashHandler.getInstance().init(getApplicationContext());
+        CrashHandler.getInstance().init(this);
     }
 
     @Override

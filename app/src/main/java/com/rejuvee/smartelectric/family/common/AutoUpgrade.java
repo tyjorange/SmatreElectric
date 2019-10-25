@@ -33,7 +33,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.ref.WeakReference;
+import java.lang.ref.SoftReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -97,10 +97,10 @@ public class AutoUpgrade {
     }
 
     private static class MyHandler extends Handler {
-        WeakReference<AutoUpgrade> activityWeakReference;
+        SoftReference<AutoUpgrade> activityWeakReference;
 
         MyHandler(AutoUpgrade autoUpgrade) {
-            activityWeakReference = new WeakReference<AutoUpgrade>(autoUpgrade);
+            activityWeakReference = new SoftReference<AutoUpgrade>(autoUpgrade);
         }
 
         @Override

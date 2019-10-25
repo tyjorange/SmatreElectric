@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
@@ -48,6 +51,7 @@ import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SceneBean;
 import com.rejuvee.smartelectric.family.model.bean.UserMsg;
 import com.rejuvee.smartelectric.family.model.bean.WxSubscribed;
+import com.rejuvee.smartelectric.family.utils.WifiUtil;
 import com.rejuvee.smartelectric.family.utils.utils;
 import com.rejuvee.smartelectric.family.widget.CircleImageView;
 import com.rejuvee.smartelectric.family.widget.dialog.DialogTip;
@@ -165,11 +169,19 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         initScene();
         initCollector();
 
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
+            //问题出在6.0 & 6.0.1版本中，这个权限默认是被拒绝，无法获取这个权限。所以，在需要个权限的时候会出现权限问题导致应用因为权限问题崩溃
+            if (!Settings.System.canWrite(this)) {
+                Intent goToSettings = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                goToSettings.setData(Uri.parse("package:" + getPackageName()));
+                startActivity(goToSettings);
+            }
+        }
         PermissionManage.getInstance().setCallBack(new PermissionManage.PermissionCallBack() {
 
             @Override
             public void onGranted() {
-
+                WifiUtil.getInstance(getBaseContext());
             }
 
             @Override
@@ -177,7 +189,6 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 
             }
         }).hasLocationStorage(this);
-//        PermissionManage.hasCamera(this);
     }
 
     @Override
@@ -626,7 +637,19 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 //        } else {
 //            AutoUpgrade.getInstacne(MainNavigationActivity.this).installApkNew(autoUpgrade.upGradeUri);
 //        }
-        AutoUpgrade.getInstacne(MainNavigationActivity.this).installApkNew(autoUpgrade.upGradeUri);
+        PermissionManage.getInstance().setCallBack(new PermissionManage.PermissionCallBack() {
+
+            @Override
+            public void onGranted() {
+                AutoUpgrade.getInstacne(MainNavigationActivity.this).installApkNew(autoUpgrade.upGradeUri);
+            }
+
+            @Override
+            public void onDenied() {
+//                CustomToast.showCustomErrorToast(mContext, getString(R.string.vs46));
+                Log.e(TAG, "onPermissionDenied");
+            }
+        }).hasInstall(this);
     }
 
     @Override

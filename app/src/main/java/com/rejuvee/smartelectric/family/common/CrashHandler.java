@@ -44,7 +44,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     //用来存储设备信息和异常信息
     private Map<String, String> infos = new HashMap<String, String>();
     //用于格式化日期,作为日志文件名的一部分
-    private DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.getDefault());
+    private DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.getDefault());
 
     /**
      * 保证只有一个CrashHandler实例

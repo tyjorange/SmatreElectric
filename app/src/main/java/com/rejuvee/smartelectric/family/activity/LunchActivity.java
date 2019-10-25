@@ -10,7 +10,6 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.activity.login.LoginActivity;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 
-import java.lang.ref.SoftReference;
 import java.util.Locale;
 
 public class LunchActivity extends BaseActivity {
@@ -31,18 +30,21 @@ public class LunchActivity extends BaseActivity {
     private Handler handler;
 
     private static class MyHandler extends Handler {
-        SoftReference<LunchActivity> activitySoftReference;
+//        SoftReference<LunchActivity> activitySoftReference;
 
+        LunchActivity lunchActivity;
         MyHandler(LunchActivity activity) {
-            activitySoftReference = new SoftReference<LunchActivity>(activity);
+//            activitySoftReference = new SoftReference<LunchActivity>(activity);
+            lunchActivity = activity;
         }
+
 
         @Override
         public void handleMessage(Message msg) {
-            LunchActivity theActivity = activitySoftReference.get();
+//            LunchActivity theActivity = activitySoftReference.get();
             if (msg.what == 101) {
-                theActivity.mBtnSkip.setText(String.format(Locale.getDefault(), "%s(%d)", theActivity.getString(R.string.vs11), theActivity.getCount()));
-                theActivity.handler.sendEmptyMessageDelayed(101, 1000);
+                lunchActivity.mBtnSkip.setText(String.format(Locale.getDefault(), "%s(%d)", lunchActivity.getString(R.string.vs11), lunchActivity.getCount()));
+                lunchActivity.handler.sendEmptyMessageDelayed(101, 1000);
             }
         }
     }

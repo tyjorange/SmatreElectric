@@ -69,6 +69,26 @@ public class PermissionManage {
                 .start();
     }
 
+    /**
+     * 获取安装权限
+     *
+     * @param context
+     */
+    public void hasInstall(Context context) {
+        AndPermission.with(context)
+                .install()
+//                    .permission(Manifest.permission.REQUEST_INSTALL_PACKAGES)
+                .onGranted(permissions -> {
+                    callBack.onGranted();
+                    // Storage permission are allowed.
+                })
+                .onDenied(permissions -> {
+                    // Storage permission are not allowed.
+                    callBack.onDenied();
+                })
+                .start();
+    }
+
     public interface PermissionCallBack {
         void onGranted();
 
