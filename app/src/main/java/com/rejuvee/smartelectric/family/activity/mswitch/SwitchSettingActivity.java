@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -489,21 +490,8 @@ public class SwitchSettingActivity extends BaseActivity implements
     }
 
     class MyFragmentAdapter extends FragmentPagerAdapter {
-
         //        private Bundle bundle;
         private List<BaseFragment> listFragments = new ArrayList<>();
-
-        MyFragmentAdapter(FragmentManager fm) {
-            super(fm);
-            dl1_fragment = new SettingDL1Fragment().setOnShowingListener(SwitchSettingActivity.this);
-            dy_fragment = new SettingDYFragment().setOnShowingListener(SwitchSettingActivity.this);
-            dl2_fragment = new SettingDL2Fragment().setOnShowingListener(SwitchSettingActivity.this);
-            other_fragment = new SettingOtherFragment().setOnShowingListener(SwitchSettingActivity.this);
-            listFragments.add(dl1_fragment);
-            listFragments.add(dy_fragment);
-            listFragments.add(dl2_fragment);
-            listFragments.add(other_fragment);
-        }
 
         MyFragmentAdapter(FragmentManager fm, int behavior) {
             super(fm, behavior);
@@ -517,6 +505,7 @@ public class SwitchSettingActivity extends BaseActivity implements
             listFragments.add(other_fragment);
         }
 
+        @NonNull
         @Override
         public Fragment getItem(int position) {
             return listFragments.get(position);

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -78,8 +79,8 @@ public class SecurityInformationActivity extends BaseActivity {
         private Bundle bundle;
         private List<Class> listFragments = new ArrayList<>();
 
-        MyFragmentAdapter(FragmentManager fm, int a) {
-            super(fm, a);
+        MyFragmentAdapter(FragmentManager fm, int behavior) {
+            super(fm, behavior);
             bundle = new Bundle();
             bundle.putString("CollectorID", mCollectorBean.getCollectorID());
             listFragments.add(LineAlarmFrgament.class);
@@ -87,6 +88,7 @@ public class SecurityInformationActivity extends BaseActivity {
             listFragments.add(LineOperateRecordFragment.class);
         }
 
+        @NonNull
         @Override
         public Fragment getItem(int position) {
             Class fragment = listFragments.get(position);
