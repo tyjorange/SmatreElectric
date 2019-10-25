@@ -2,7 +2,8 @@ package com.base.library.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

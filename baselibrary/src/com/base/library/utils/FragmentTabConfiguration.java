@@ -1,12 +1,13 @@
 package com.base.library.utils;
 
 import android.content.Context;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
+
+import androidx.fragment.app.FragmentManager;
 
 import com.base.frame.log.DebugLog;
 import com.base.frame.log.LogUtil;

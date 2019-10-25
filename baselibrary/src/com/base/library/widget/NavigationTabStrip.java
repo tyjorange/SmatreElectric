@@ -32,8 +32,6 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPager;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -43,6 +41,8 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.Scroller;
+
+import androidx.viewpager.widget.ViewPager;
 
 import com.base.library.R;
 
@@ -171,7 +171,7 @@ public class NavigationTabStrip extends View implements ViewPager.OnPageChangeLi
         // Always draw
         setWillNotDraw(false);
         // Speed and fix for pre 17 API
-        ViewCompat.setLayerType(this, ViewCompat.LAYER_TYPE_SOFTWARE, null);
+//        ViewCompat.setLayerType(this, ViewCompat.LAYER_TYPE_SOFTWARE, null);
         setLayerType(LAYER_TYPE_SOFTWARE, null);
 
         final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.NavigationTabStrip);

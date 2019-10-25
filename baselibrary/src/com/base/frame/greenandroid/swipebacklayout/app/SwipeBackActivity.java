@@ -2,8 +2,9 @@
 package com.base.frame.greenandroid.swipebacklayout.app;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
+
+import androidx.fragment.app.FragmentActivity;
 
 import com.base.frame.greenandroid.swipebacklayout.SwipeBackLayout;
 import com.base.frame.greenandroid.swipebacklayout.Utils;

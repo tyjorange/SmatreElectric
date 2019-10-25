@@ -9,7 +9,7 @@
     android:orientation="vertical"
     tools:context=".activity.collector.CurveActivity">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:contentInsetLeft="0dp"
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:text="@string/vs85"
             android:textSize="12sp" />
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -49,7 +49,7 @@
             android:textColor="@color/black"
             android:textSize="18sp" />
 
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_day_month"
             android:layout_width="wrap_content"
             android:layout_height="28dp"
@@ -183,7 +183,7 @@
             android:layout_marginBottom="0dp"
             android:orientation="vertical">
 
-            <android.support.design.widget.TabLayout
+            <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tl_curve"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
@@ -195,7 +195,7 @@
                 app:tabTextAppearance="@style/TabLayoutTextStyle2"
                 app:tabTextColor="@color/text_base_color_666" />
 
-            <android.support.v4.view.ViewPager
+            <androidx.viewpager.widget.ViewPager
                 android:id="@+id/vp_curve"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

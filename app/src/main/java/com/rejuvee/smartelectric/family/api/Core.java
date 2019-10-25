@@ -3,8 +3,9 @@ package com.rejuvee.smartelectric.family.api;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.frame.net.ApiResponse;

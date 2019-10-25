@@ -9,7 +9,7 @@ import android.view.MotionEvent;
  * 重写 SeekBar 使其竖直
  * 配合 ObservableScrollView
  */
-public class VerticalSeekBar extends android.support.v7.widget.AppCompatSeekBar {
+public class VerticalSeekBar extends androidx.appcompat.widget.AppCompatSeekBar {
     public VerticalSeekBar(Context context) {
         super(context);
     }

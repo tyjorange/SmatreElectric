@@ -1,9 +1,10 @@
 package com.base.library.widget;
 
 import android.content.Context;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
+
+import androidx.viewpager.widget.ViewPager;
 
 
 public class ExtendedViewPager extends ViewPager {

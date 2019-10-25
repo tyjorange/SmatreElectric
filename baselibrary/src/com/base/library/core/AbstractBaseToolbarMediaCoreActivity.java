@@ -2,8 +2,9 @@ package com.base.library.core;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.WindowManager;
+
+import androidx.annotation.Nullable;
 
 import com.base.frame.log.LogUtil;
 import com.base.library.R;

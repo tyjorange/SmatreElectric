@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context=".activity.mswitch.SwitchSettingActivity">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:contentInsetLeft="0dp"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:text="@string/vs61"
             android:textSize="12sp" />
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -90,7 +90,7 @@
         android:layout_weight="@integer/tag_1"
         android:orientation="vertical">
 
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_setting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
             app:tabSelectedTextColor="@color/black"
             app:tabTextColor="@color/text_base_color_666" />
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp_setting"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

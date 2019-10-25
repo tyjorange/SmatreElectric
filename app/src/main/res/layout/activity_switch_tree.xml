@@ -13,7 +13,7 @@
     <!--android:id="@+id/swipeLayout"-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="match_parent">-->
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/ll_img_cancel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
             android:padding="16dp"
             android:src="@drawable/main_fanhui" />
 
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:id="@+id/ll_tree_title"

@@ -1,11 +1,12 @@
 package com.base.library.widget.topsnackbar;
 
 
-import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
+
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 
 /**
  * Created by kurt on 2015/06/08.

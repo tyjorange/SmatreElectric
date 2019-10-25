@@ -3,11 +3,12 @@ package com.rejuvee.smartelectric.family.activity.collector;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;

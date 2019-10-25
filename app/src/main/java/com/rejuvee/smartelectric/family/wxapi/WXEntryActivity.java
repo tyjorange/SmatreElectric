@@ -2,8 +2,9 @@ package com.rejuvee.smartelectric.family.wxapi;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.util.Log;
+
+import androidx.annotation.Nullable;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;

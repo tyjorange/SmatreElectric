@@ -1,9 +1,10 @@
 package com.rejuvee.smartelectric.family.widget;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.Checkable;
+
+import androidx.annotation.Nullable;
 
 import com.rejuvee.smartelectric.family.R;
 
@@ -12,7 +13,7 @@ import com.rejuvee.smartelectric.family.R;
  * 查看密码 组件
  * Created by SH on 2017/12/19.
  */
-public class CheckableImageView extends android.support.v7.widget.AppCompatImageView implements Checkable {
+public class CheckableImageView extends androidx.appcompat.widget.AppCompatImageView implements Checkable {
 
     private boolean check;
     private OnCheckChangeListener listener;

@@ -4,12 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.base.frame.log.DebugLog;
 import com.base.frame.log.LogUtil;

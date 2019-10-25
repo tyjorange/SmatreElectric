@@ -2,13 +2,14 @@ package com.base.library.core;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.base.library.R;
 import com.base.library.widget.MyFragmentTabHost;
@@ -18,7 +19,6 @@ import java.util.List;
 /**
  * Created by kimhuang on 2018/4/17.
  */
-
 public abstract class AbstractBaseFragmentActivity extends AbstractBaseToolbarCoreActivity {
     private MyFragmentTabHost mTabHost = null;
 

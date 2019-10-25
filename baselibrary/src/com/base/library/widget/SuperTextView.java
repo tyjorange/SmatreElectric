@@ -37,7 +37,7 @@ import android.view.MotionEvent;
 import com.base.library.R;
 
 
-public class SuperTextView extends android.support.v7.widget.AppCompatTextView {
+public class SuperTextView extends androidx.appcompat.widget.AppCompatTextView {
 
   // Some Property Default Value
   private static final float DEFAULT_CORNER = 0f;

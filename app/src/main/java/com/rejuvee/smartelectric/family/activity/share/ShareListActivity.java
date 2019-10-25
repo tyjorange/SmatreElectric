@@ -1,10 +1,11 @@
 package com.rejuvee.smartelectric.family.activity.share;
 
 import android.content.Intent;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;

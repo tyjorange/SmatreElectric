@@ -16,8 +16,9 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.content.FileProvider;
 import android.util.Log;
+
+import androidx.core.content.FileProvider;
 
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;

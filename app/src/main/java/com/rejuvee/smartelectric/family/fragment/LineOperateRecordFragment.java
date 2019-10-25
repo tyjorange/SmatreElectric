@@ -2,10 +2,11 @@ package com.rejuvee.smartelectric.family.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import androidx.annotation.NonNull;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.rejuvee.smartelectric.family.R;

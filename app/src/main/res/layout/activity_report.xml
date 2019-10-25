@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context=".activity.report.ReportActivity">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:contentInsetLeft="0dp"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:text="@string/vs89"
             android:textSize="12sp" />
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,7 +54,7 @@
         android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_report_list"
             android:layout_width="0dp"
             android:layout_height="48dp"
@@ -76,7 +76,7 @@
         android:background="@drawable/slices"
         android:contentDescription="slices" />
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/vp_report_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
