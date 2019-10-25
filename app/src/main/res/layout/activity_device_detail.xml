@@ -335,7 +335,7 @@
                     android:drawablePadding="4dp"
                     android:gravity="center"
                     android:padding="16dp"
-                    android:text="WIFI设置"
+                    android:text="@string/fun_wifi_set"
                     android:textColor="#5A6187"
                     android:textSize="12sp"
                     android:visibility="invisible"

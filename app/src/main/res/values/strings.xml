@@ -589,7 +589,7 @@
     <string name="vs223">公众号已复制</string>
     <string name="vs224">您手机没有安装微信，请安装后使用该功能</string>
     <string name="vs225">请在个人设置中绑定公众号。\n及时获取系统通知、告警预警等信息。</string>
-    <string name="vs226">搜索中...</string>
+    <string name="vs226">搜索中&#8230;&#8230;&#8230;</string>
     <string name="vs227">请输入端口</string>
     <string name="vs228">请输入正确的端口</string>
     <string name="vs229">请输入WIFI名称</string>
@@ -598,13 +598,13 @@
     <string name="vs232">确认后将失去电箱连接，请确认WIFI密码是否正确</string>
     <string name="vs233">电箱[%s] 连接成功</string>
     <string name="vs234">电箱[%s] 未连接</string>
-    <string name="vs235">连接中...</string>
+    <string name="vs235">连接中&#8230;&#8230;&#8230;</string>
     <string name="vs236">没有搜索到SSID，请重试</string>
     <string name="vs237">未发现此SSID</string>
     <string name="vs238">WIFI密码长度不正确</string>
     <string name="vs239">发送成功，请检查模块的状态</string>
     <string name="vs240">1、请使用手机连接电箱AP</string>
-    <string name="vs241">等待连接...</string>
+    <string name="vs241">等待连接&#8230;&#8230;&#8230;</string>
     <string name="vs242">连接电箱</string>
     <string name="vs243">2、设置该电箱上网WiFi</string>
     <string name="vs244">WIFI名称</string>
@@ -618,4 +618,14 @@
     <string name="vs252">最近1个月</string>
     <string name="vs253">最近3个月</string>
     <string name="vs254">最近半年</string>
+    <string name="vs255">其他</string>
+    <string name="vs256">检查版本</string>
+    <string name="vs257">更新内容</string>
+    <string name="vs258">关于</string>
+    <string name="vs259">版本：</string>
+    <string name="vs260">公司：</string>
+    <string name="vs261">上海睿据科技有限公司</string>
+    <string name="vs262">主页：</string>
+    <string name="vs263">公众号：</string>
+    <string name="vs264">睿据科技</string>
 </resources>

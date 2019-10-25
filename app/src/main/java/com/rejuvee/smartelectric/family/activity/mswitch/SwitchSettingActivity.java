@@ -519,13 +519,13 @@ public class SwitchSettingActivity extends BaseActivity implements
         @Override
         public CharSequence getPageTitle(int position) {
             if (position == 0) {
-                return "电流";
+                return getString(R.string.statistical_2);
             } else if (position == 1) {
-                return "电压";
+                return getString(R.string.statistical_1);
             } else if (position == 2) {
-                return "电量";
+                return getString(R.string.electric_quantity);
             } else if (position == 3) {
-                return "其他";
+                return getString(R.string.vs255);
             }
             return super.getPageTitle(position);
         }

@@ -97,7 +97,7 @@ public class SearchSSIDThread extends Thread {
                 socket.send(sendPacket);
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("发送失败");
+                System.err.println("发送失败");
             }
 
         }

@@ -43,7 +43,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="关于"
+            android:text="@string/vs258"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -61,7 +61,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="版本："
+            android:text="@string/vs259"
             android:textColor="@color/black"
             android:textSize="12sp" />
 
@@ -87,7 +87,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="公司："
+            android:text="@string/vs260"
             android:textColor="@color/black"
             android:textSize="12sp" />
 
@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
             android:layout_weight="1"
-            android:text="上海睿据科技有限公司" />
+            android:text="@string/vs261" />
 
     </LinearLayout>
 
@@ -112,7 +112,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="主页："
+            android:text="@string/vs262"
             android:textColor="@color/black"
             android:textSize="12sp" />
 
@@ -137,7 +137,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="公众号："
+            android:text="@string/vs263"
             android:textColor="@color/black"
             android:textSize="12sp" />
 
@@ -146,7 +146,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
             android:layout_weight="1"
-            android:text="睿据科技" />
+            android:text="@string/vs264" />
 
     </LinearLayout>
 </LinearLayout>

@@ -118,7 +118,7 @@ public class UpgradeDialogActivity extends BaseActivity implements View.OnClickL
         iv_version_wenhao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DialogTipWithoutOkCancel(UpgradeDialogActivity.this).setTitle("更新内容").setContent(collectorBean.getText()).show();
+                new DialogTipWithoutOkCancel(UpgradeDialogActivity.this).setTitle(getString(R.string.vs257)).setContent(collectorBean.getText()).show();
             }
         });
 //        ArrayAdapter<Item> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
