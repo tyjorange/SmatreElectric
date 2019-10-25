@@ -10,6 +10,7 @@ android {
         }
     }
     compileSdkVersion 28
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "com.rejuvee.smartelectric.family"
         minSdkVersion 21
@@ -89,23 +90,22 @@ android {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
     }
-    buildToolsVersion = '28.0.3'
 }
 
 dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation files('libs/mta-android-sdk-3.4.7.jar')
 //    implementation 'com.android.support:appcompat-v7:28.0.0'
 //    implementation 'com.android.support:cardview-v7:28.0.0'
 //    implementation 'com.android.support:support-v4:28.0.0'
-    implementation 'androidx.multidex:multidex:2.0.0'
 //    implementation 'com.android.support:design:28.0.0'
-//    implementation 'com.google.android.gms:play-services-plus:17.0.0'
 //    implementation 'com.android.support:support-v4:28.0.0'
-    implementation 'com.google.android.gms:play-services-plus:16.0.0'
+    implementation 'androidx.multidex:multidex:2.0.0'
+    implementation 'com.google.android.gms:play-services-plus:17.0.0'
     testImplementation 'junit:junit:4.12'
-//    androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+//    androidTestImplementation 'com.android.support.test:runner:1.0.2'
     implementation project(path: ':baselibrary')
     implementation project(path: ':MPChartLib')
     implementation 'io.reactivex.rxjava2:rxjava:2.1.3'
@@ -114,7 +114,6 @@ dependencies {
     implementation 'io.realm:realm-android-library:3.5.0'
     implementation 'cn.yipianfengye.android:zxing-library:2.2'
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
-    implementation files('libs/mta-android-sdk-3.4.7.jar')
     implementation 'org.greenrobot:eventbus:3.0.0'
     implementation 'com.aliyun.ams:alicloud-android-push:3.1.4'
     implementation 'com.github.bmelnychuk:atv:1.2.+'
