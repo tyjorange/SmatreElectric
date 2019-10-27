@@ -577,7 +577,7 @@
     <string name="vs211">上个月</string>
     <string name="vs212">去年本月</string>
     <string name="vs213">设置提交成功。因最新值反馈需要些许时间，如果内容未变化，请稍后尝试刷新。</string>
-    <string name="vs214">很抱歉,程序出现异常,即将退出.</string>
+    <string name="vs214">程序出现异常,3秒后结束.请联系管理员</string>
     <string name="vs215">下次再说</string>
     <string name="vs216">已是最新版本</string>
     <string name="vs217">下载失败，请稍后再试。</string>
