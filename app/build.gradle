@@ -9,18 +9,18 @@ android {
             storePassword 'solarstem'
         }
     }
-    compileSdkVersion 28
+    compileSdkVersion 29
     buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "com.rejuvee.smartelectric.family"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 301
         versionName "3.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         signingConfig signingConfigs.config
-        renderscriptTargetApi 20
+        renderscriptTargetApi 21
         renderscriptSupportModeEnabled true
 //        ndk {
 //            //选择要添加的对应cpu类型的.so库。

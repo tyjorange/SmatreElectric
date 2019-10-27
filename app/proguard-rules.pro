@@ -112,3 +112,5 @@
    -dontwarn anetwork.**
    -dontwarn com.ut.**
    -dontwarn com.ta.**
+   #-dontwarn androidx.renderscript.**
+   -keep class androidx.renderscript.** { *; }
