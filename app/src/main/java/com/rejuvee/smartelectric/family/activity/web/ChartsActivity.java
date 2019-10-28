@@ -1,4 +1,4 @@
-package com.rejuvee.smartelectric.family.activity.collector;
+package com.rejuvee.smartelectric.family.activity.web;
 
 import android.annotation.SuppressLint;
 import android.view.View;

@@ -1,4 +1,4 @@
-package com.rejuvee.smartelectric.family.activity.collector;
+package com.rejuvee.smartelectric.family.activity.curve;
 
 import android.content.Intent;
 import android.os.Bundle;

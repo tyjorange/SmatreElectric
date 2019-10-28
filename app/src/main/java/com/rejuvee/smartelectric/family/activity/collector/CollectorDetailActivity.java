@@ -23,6 +23,7 @@ import com.rejuvee.smartelectric.family.activity.mswitch.YaoKongActivity;
 import com.rejuvee.smartelectric.family.activity.report.ReportActivity;
 import com.rejuvee.smartelectric.family.activity.share.ShareListActivity;
 import com.rejuvee.smartelectric.family.activity.timer.TimerActivity;
+import com.rejuvee.smartelectric.family.activity.web.ChartsActivity;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.CommonRequestCode;

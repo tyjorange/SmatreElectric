@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rejuvee.smartelectric.family.R;
+import com.rejuvee.smartelectric.family.activity.curve.CurveActivity;
 import com.rejuvee.smartelectric.family.activity.mswitch.SwitchSettingActivity;
 import com.rejuvee.smartelectric.family.activity.mswitch.YaoKongActivity;
 import com.rejuvee.smartelectric.family.common.BaseActivity;

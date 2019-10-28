@@ -1,6 +1,5 @@
 package com.rejuvee.smartelectric.family.common;
 
-import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -487,7 +486,6 @@ public class AutoUpgrade {
      */
     public class DownloadCompleteReceiver extends BroadcastReceiver {
 
-        @SuppressLint("NewApi")
         @Override
         public void onReceive(Context context, Intent intent) {
             //判断是否下载完成的广播

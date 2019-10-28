@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".activity.collector.CurveActivity">
+    tools:context=".activity.curve.CurveActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"

@@ -38,7 +38,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.collector.ChartsActivity"></activity>
+        <activity android:name=".activity.web.ChartsActivity"></activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -202,7 +202,7 @@
             android:name=".activity.collector.CollectorDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.collector.CurveActivity"
+            android:name=".activity.curve.CurveActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.collector.CollectorAttrActivity"
