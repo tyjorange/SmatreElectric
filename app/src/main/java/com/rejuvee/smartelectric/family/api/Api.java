@@ -390,6 +390,17 @@ public interface Api {
     );
 
     /**
+     * 获取时段电费
+     *
+     * @return
+     */
+    @POST("PowerManager/AppClientAction_AppClientAction_getTotalPowerByTime.do")
+    Call<ApiResponse<List<SwitchStatementBean>>> getTotalPowerByTime(
+            @Header("Cookie") String session,
+            @Body Param param
+    );
+
+    /**
      * 获取按月数据
      *
      * @return

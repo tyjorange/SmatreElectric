@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.base.frame.greenandroid.wheel.view.WheelDateTime;
 import com.base.frame.net.ActionCallbackListener;
-import com.base.library.utils.LanguageUtil;
 import com.base.library.widget.CustomToast;
 import com.google.android.material.tabs.TabLayout;
 import com.rejuvee.smartelectric.family.R;
@@ -42,13 +41,19 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
     private SimpleTreeAdapter mAdapter;
     private List<SwitchStatementBean> switchStatementBeanList = new ArrayList<>();
     private WheelDateTime dateSelector;
+    private WheelDateTime dateSelectorSS;
+    private WheelDateTime dateSelectorEE;
     private TextView tvDate;
-    private boolean isDay;
+    private TextView tvDateSS;
+    private TextView tvDateEE;
+    //    private boolean isDay;
+    private int selectType;
     private TextView tvEQuantity;
     private TextView tvECharge;
     private int iyear;
     private int imonth;
     private int iday;
+    private int ihour;
     //    private List<CollectorBean> collectorBeanList;
     private CollectorBean currentCollectorBean;
     private TabLayout mTabLayout;
@@ -78,29 +83,45 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
         img_cancel.setOnClickListener(this);
         lvStatement = (ListView) findViewById(R.id.lv_statement);
         tvDate = (TextView) findViewById(R.id.tv_date);
+        tvDateSS = (TextView) findViewById(R.id.tv_date_ss);
+        tvDateEE = (TextView) findViewById(R.id.tv_date_ee);
         tvEQuantity = (TextView) findViewById(R.id.tv_electric_quantity);
         tvECharge = (TextView) findViewById(R.id.tv_electric_charge);
 
         mTabLayout = (TabLayout) findViewById(R.id.tab_day_month);
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.curve_by_day)));
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.curve_by_month)));
+        mTabLayout.addTab(mTabLayout.newTab().setText("时段"));
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()) {
                     case 0:
-                        isDay = true;
+//                        isDay = true;
+                        selectType = 0;
                         dateSelector.setDateItemVisiable(true, true, true, false, false);
                         changeDate(0);
                         getBreakerStatement();
+                        findViewById(R.id.day_month).setVisibility(View.VISIBLE);
+                        findViewById(R.id.hour_hour).setVisibility(View.GONE);
                         break;
                     case 1:
-                        isDay = false;
+//                        isDay = false;
+                        selectType = 1;
                         dateSelector.setDateItemVisiable(true, true, false, false, false);
                         changeDate(0);
                         getBreakerStatement();
+                        findViewById(R.id.day_month).setVisibility(View.VISIBLE);
+                        findViewById(R.id.hour_hour).setVisibility(View.GONE);
                         break;
-
+                    case 2:
+                        selectType = 2;
+                        changeTvDateSS();
+                        changeTvDateEE();
+                        getBreakerStatement();
+                        findViewById(R.id.hour_hour).setVisibility(View.VISIBLE);
+                        findViewById(R.id.day_month).setVisibility(View.GONE);
+                        break;
                 }
             }
 
@@ -149,9 +170,8 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void initTimeSelect() {
-        isDay = true;
+//        isDay = true;
         changeDate(0);
-
         dateSelector = new WheelDateTime(StatementActivity.this,
                 new WheelDateTime.OnWheelListener() {
 
@@ -159,7 +179,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                     public void onWheel(Boolean isSubmit, String year, String month, String day, String hour, String minute) {
                         iyear = Integer.parseInt(year);
                         imonth = Integer.parseInt(month);
-                        if (isDay) {
+                        if (selectType == 0) {
                             iday = Integer.parseInt(day);
                         }
                         changeTvDate();
@@ -170,8 +190,51 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                 new SimpleDateFormat("dd", Locale.getDefault()).format(new Date()),
                 getString(R.string.select_date), getString(R.string.cancel), getString(R.string.ensure));
         dateSelector.setDateItemVisiable(true, true, true, false, false);
+        dateSelectorSS = new WheelDateTime(StatementActivity.this,
+                new WheelDateTime.OnWheelListener() {
+
+                    @Override
+                    public void onWheel(Boolean isSubmit, String year, String month, String day, String hour, String minute) {
+                        iyear = Integer.parseInt(year);
+                        imonth = Integer.parseInt(month);
+                        iday = Integer.parseInt(day);
+                        ihour = Integer.parseInt(hour);
+                        changeTvDateSS();
+                        getBreakerStatement();
+                    }
+                }, true,
+                new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date()),
+                new SimpleDateFormat("MM", Locale.getDefault()).format(new Date()),
+                new SimpleDateFormat("dd", Locale.getDefault()).format(new Date()),
+                new SimpleDateFormat("HH", Locale.getDefault()).format(new Date()),
+                "起始时间", getString(R.string.cancel), getString(R.string.ensure));
+        dateSelectorSS.setDateItemVisiable(true, true, true, true, false);
+        dateSelectorEE = new WheelDateTime(StatementActivity.this,
+                new WheelDateTime.OnWheelListener() {
+
+                    @Override
+                    public void onWheel(Boolean isSubmit, String year, String month, String day, String hour, String minute) {
+                        iyear = Integer.parseInt(year);
+                        imonth = Integer.parseInt(month);
+                        iday = Integer.parseInt(day);
+                        ihour = Integer.parseInt(hour);
+                        changeTvDateEE();
+                        getBreakerStatement();
+                    }
+                }, true,
+                new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date()),
+                new SimpleDateFormat("MM", Locale.getDefault()).format(new Date()),
+                new SimpleDateFormat("dd", Locale.getDefault()).format(new Date()),
+                new SimpleDateFormat("HH", Locale.getDefault()).format(new Date()),
+                "结束时间", getString(R.string.cancel), getString(R.string.ensure));
+        dateSelectorEE.setDateItemVisiable(true, true, true, true, false);
     }
 
+    /**
+     * 日期+1 或-1
+     *
+     * @param c
+     */
     private void changeDate(int c) {
         Calendar calendar = Calendar.getInstance();
         int month = calendar.get(Calendar.MONTH) + 1;
@@ -180,11 +243,11 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
         boolean canChange = true;
         switch (c) {
             case 1:
-                if (isDay) {
+                if (selectType == 0) {
                     if (iyear == year && imonth == month && iday == day) {
                         canChange = false;
                     }
-                } else {
+                } else if (selectType == 1) {
                     if (iyear == year && imonth == month) {
                         canChange = false;
                     }
@@ -192,9 +255,9 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
             case -1:
                 if (canChange) {
                     calendar.set(iyear, imonth - 1, iday);
-                    if (isDay) {
+                    if (selectType == 0) {
                         calendar.add(Calendar.DAY_OF_MONTH, c);
-                    } else {
+                    } else if (selectType == 1) {
                         calendar.add(Calendar.MONTH, c);
                     }
                     imonth = calendar.get(Calendar.MONTH) + 1;
@@ -211,31 +274,73 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
         changeTvDate();
     }
 
+    /**
+     * 按日按月
+     */
     private void changeTvDate() {
         getBreakerStatement();
-        String date;
+        String date = "";
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.MONTH, imonth - 1);
         calendar.set(Calendar.YEAR, iyear);
         calendar.set(Calendar.DATE, iday);
         SimpleDateFormat dateFormat;
-        Locale locale = Locale.getDefault();
-        if (LanguageUtil.getLangType(this) == 1) {
-            locale = Locale.ENGLISH;
-        }
-        if (isDay) {
-            dateFormat = new SimpleDateFormat(getString(R.string.daily_date_format), locale);
+//        Locale locale = Locale.getDefault();
+//        if (LanguageUtil.getLangType(this) == 1) {
+//            locale = Locale.ENGLISH;
+//        }
+        if (selectType == 0) {
+            dateFormat = new SimpleDateFormat(getString(R.string.daily_date_format), Locale.getDefault());
             date = dateFormat.format(calendar.getTime());
             //date = imonth + getResources().getString(DATE_UNITS[1]) + iday + getResources().getString(DATE_UNITS[2]);
-        } else {
-            dateFormat = new SimpleDateFormat(getString(R.string.monthly_date_format), locale);
+        } else if (selectType == 1) {
+            dateFormat = new SimpleDateFormat(getString(R.string.monthly_date_format), Locale.getDefault());
             date = dateFormat.format(calendar.getTime());
             //date = iyear + getResources().getString(DATE_UNITS[0]) + imonth + getResources().getString(DATE_UNITS[1]);
         }
         tvDate.setText(date);
     }
 
+    /**
+     * 按时段
+     */
+    private void changeTvDateSS() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.MONTH, imonth - 1);
+        calendar.set(Calendar.YEAR, iyear);
+        calendar.set(Calendar.DATE, iday);
+        calendar.set(Calendar.HOUR_OF_DAY, ihour);
+        // 改变显示
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日HH时", Locale.getDefault());
+        String date = dateFormat.format(calendar.getTime());
+        tvDateSS.setText(date);
+        // 准备要提交的值
+        SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH", Locale.getDefault());
+        resStart = dateFormat2.format(calendar.getTime());
+    }
+
+    private String resStart;
+
+    /**
+     * 按时段
+     */
+    private void changeTvDateEE() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.MONTH, imonth - 1);
+        calendar.set(Calendar.YEAR, iyear);
+        calendar.set(Calendar.DATE, iday);
+        calendar.set(Calendar.HOUR_OF_DAY, ihour);
+        // 改变显示
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日HH时", Locale.getDefault());
+        String date = dateFormat.format(calendar.getTime());
+        tvDateEE.setText(date);
+        // 准备要提交的值
+        SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH", Locale.getDefault());
+        resEnd = dateFormat2.format(calendar.getTime());
+    }
+
+    private String resEnd;
    /* private void getCollector() {
         Core.instance(this).getCollector(utils.USER_KRY, new ActionCallbackListener<List<CollectorBean>>() {
             @Override
@@ -288,22 +393,24 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
         dialog.setCanceledOnTouchOutside(true);
     }*/
 
+    /**
+     * 计算线路电费和
+     */
     private void getBreakerStatement() {
-
         if (currentCollectorBean == null) {
             return;
         }
         String time = iyear + "-" + (imonth < 10 ? "0" + imonth : imonth);
-        if (isDay) {
+        if (selectType == 0) {
             time = time + "-" + (iday < 10 ? "0" + iday : iday);
         }
-        if (isDay) {
+        if (selectType == 0) {
             getTotalPowerByDay(time);
-        } else {
+        } else if (selectType == 1) {
             getTotalPowerByMonth(time);
+        } else if (selectType == 2) {
+            getTotalPowerBySSEE(resStart, resEnd);
         }
-
-
     }
 
     private void changeTotal() {
@@ -392,18 +499,51 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                     mAdapter = new SimpleTreeAdapter<SwitchStatementBean>(lvStatement, mContext, switchStatementBeanList, 0);
                     lvStatement.setAdapter(mAdapter);
                 }
-
 //                if (errorEvent == 12) {
 ////                    message = getString(R.string.local_error_message_no_data);
 //                } else {
 ////                    message = getString(R.string.get_data_fail);
 //                }
                 CustomToast.showCustomErrorToast(StatementActivity.this, message);
-
             }
         });
     }
 
+    private void getTotalPowerBySSEE(String timeS, String timeE) {
+        if (currentCollectorBean == null) {
+            return;
+        }
+        waitDialog.show();
+        Core.instance(this).getTotalPowerByTime("nohierarchy", currentCollectorBean.getCode(), timeS, timeE, new ActionCallbackListener<List<SwitchStatementBean>>() {
+            @Override
+            public void onSuccess(List<SwitchStatementBean> data) {
+                waitDialog.dismiss();
+                switchStatementBeanList.clear();
+                switchStatementBeanList.addAll(data);
+                mAdapter.notifyDataSetChanged();
+                mAdapter = new SimpleTreeAdapter<SwitchStatementBean>(lvStatement, mContext, switchStatementBeanList, 0);
+                lvStatement.setAdapter(mAdapter);
+                changeTotal();
+            }
+
+            @Override
+            public void onFailure(int errorEvent, String message) {
+                waitDialog.dismiss();
+                if (switchStatementBeanList != null) {
+                    switchStatementBeanList.clear();
+                    mAdapter.notifyDataSetChanged();
+                    mAdapter = new SimpleTreeAdapter<SwitchStatementBean>(lvStatement, mContext, switchStatementBeanList, 0);
+                    lvStatement.setAdapter(mAdapter);
+                }
+//                if (errorEvent == 12) {
+////                    message = getString(R.string.local_error_message_no_data);
+//                } else {
+////                    message = getString(R.string.get_data_fail);
+//                }
+                CustomToast.showCustomErrorToast(StatementActivity.this, message);
+            }
+        });
+    }
 
     @Override
     protected void initData() {
@@ -553,12 +693,12 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
             case R.id.tv_date:
                 dateSelector.show(v);
                 break;
-//            case R.id.iv_device:
-            //dialog.show();
-//                break;
-//            case R.id.tv_close:
-            //dialog.dismiss();
-//                break;
+            case R.id.tv_date_ss:
+                dateSelectorSS.show(v);
+                break;
+            case R.id.tv_date_ee:
+                dateSelectorEE.show(v);
+                break;
         }
     }
 }

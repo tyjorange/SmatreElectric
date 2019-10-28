@@ -91,6 +91,9 @@ public class Param {
     private Integer userChatID;
     private String title;
     private String content;
+    //
+    private String startTime;
+    private String endTime;
 
     public Integer getDateListID() {
         return dateListID;
@@ -578,5 +581,23 @@ public class Param {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public Param setStartTime(String startTime) {
+        this.startTime = startTime;
+        return this;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public Param setEndTime(String endTime) {
+        this.endTime = endTime;
+        return this;
     }
 }

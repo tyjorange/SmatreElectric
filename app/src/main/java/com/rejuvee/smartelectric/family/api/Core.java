@@ -552,6 +552,25 @@ public class Core {
     }
 
     /**
+     * 获取按月电量
+     *
+     * @param collectorCode
+     * @param timeS         yyyy-MM-dd HH
+     * @param timeE         yyyy-MM-dd HH
+     * @return
+     */
+    public Call<?> getTotalPowerByTime(String type, String collectorCode, String timeS, String timeE, ActionCallbackListener<List<SwitchStatementBean>> listener) {
+        Param param = new Param();
+        param.setType(type);
+        param.setCollectorCode(collectorCode);
+        param.setStartTime(timeS);
+        param.setEndTime(timeE);
+        Call<ApiResponse<List<SwitchStatementBean>>> call = api.getTotalPowerByTime(mJSessionId, param);
+        enqueue(call, listener);
+        return call;
+    }
+
+    /**
      * 获取按月数据
      *
      * @param switchId

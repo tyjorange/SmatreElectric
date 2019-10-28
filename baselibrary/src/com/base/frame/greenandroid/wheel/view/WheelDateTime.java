@@ -24,6 +24,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * 选择日期控件
@@ -83,6 +84,20 @@ public class WheelDateTime extends PopupWindow implements OnClickListener {
         this.mContext = mContext;
         this.onWheelListener = onWheelListener;
         this.age = yearInt + "-" + monthInt + "-" + dayInt;
+        this.title = title;
+        this.btnLeft = leftBtn;
+        this.btnRight = rightBtn;
+        initView();
+    }
+
+    public WheelDateTime(Context mContext, OnWheelListener onWheelListener,
+                         boolean isHaveDayWheel1, String yearInt, String monthInt,
+                         String dayInt, String HoursInt, String title, String leftBtn, String rightBtn) {
+        super(mContext);
+        isHaveDayWheel = isHaveDayWheel1;
+        this.mContext = mContext;
+        this.onWheelListener = onWheelListener;
+        this.age = yearInt + "-" + monthInt + "-" + dayInt + "-" + HoursInt;
         this.title = title;
         this.btnLeft = leftBtn;
         this.btnRight = rightBtn;
@@ -280,24 +295,24 @@ public class WheelDateTime extends PopupWindow implements OnClickListener {
         String hour = "";
         String minute = "";
         try {
-            Date dates = new SimpleDateFormat("MM").parse(String
+            Date dates = new SimpleDateFormat("MM", Locale.getDefault()).parse(String
                     .valueOf(lastMonth));
-            month = new SimpleDateFormat("MM").format(dates);
-            Date days = new SimpleDateFormat("dd").parse(String
+            month = new SimpleDateFormat("MM", Locale.getDefault()).format(dates);
+            Date days = new SimpleDateFormat("dd", Locale.getDefault()).parse(String
                     .valueOf(lastDay));
-            day = new SimpleDateFormat("dd").format(days);
-            Date hours = new SimpleDateFormat("HH").parse(String
+            day = new SimpleDateFormat("dd", Locale.getDefault()).format(days);
+            Date hours = new SimpleDateFormat("HH", Locale.getDefault()).parse(String
                     .valueOf(lastHour));
-            hour = new SimpleDateFormat("HH").format(hours);
-            Date minutes = new SimpleDateFormat("mm").parse(String
+            hour = new SimpleDateFormat("HH", Locale.getDefault()).format(hours);
+            Date minutes = new SimpleDateFormat("mm", Locale.getDefault()).parse(String
                     .valueOf(lastMinute));
-            minute = new SimpleDateFormat("mm").format(minutes);
+            minute = new SimpleDateFormat("mm", Locale.getDefault()).format(minutes);
         } catch (ParseException e) {
             // e.printStackTrace();
-            month = new SimpleDateFormat("MM").format(new Date());
-            day = new SimpleDateFormat("dd").format(new Date());
-            hour = new SimpleDateFormat("HH").format(new Date());
-            minute = new SimpleDateFormat("mm").format(new Date());
+            month = new SimpleDateFormat("MM", Locale.getDefault()).format(new Date());
+            day = new SimpleDateFormat("dd", Locale.getDefault()).format(new Date());
+            hour = new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
+            minute = new SimpleDateFormat("mm", Locale.getDefault()).format(new Date());
         }
         int id = v.getId();
         if (id == R.id.select_wheel_submit) {
