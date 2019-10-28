@@ -5,7 +5,6 @@ import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
@@ -440,18 +439,25 @@ public class AutoUpgrade {
         // 设置ProgressDialog 标题
 //            progressDialog.setTitle("下载提示");
         // 设置ProgressDialog 提示信息
-        progressDialog.setMessage(mContext.getString(R.string.vs218));
+//        progressDialog.setMessage(mContext.getString(R.string.vs218));
         // 设置ProgressDialog 的进度条是否不明确
         progressDialog.setIndeterminate(false);
         // 设置ProgressDialog 是否可以按退回按键取消
         progressDialog.setCancelable(false);
 //            progressDialog.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.btn_def));
-        progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, mContext.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+//        progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, mContext.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                removeDownload();
+//                dialog.dismiss();
+////                    mContext.finish();
+//            }
+//        });
+        progressDialog.setCancel(new DownloadProgressDialog.ICancel() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onCancel() {
                 removeDownload();
-                dialog.dismiss();
-//                    mContext.finish();
+                progressDialog.dismiss();
             }
         });
         if (!progressDialog.isShowing()) {

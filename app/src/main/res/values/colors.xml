@@ -25,5 +25,6 @@
     <color name="skin_txt_code">@color/white</color>
     <color name="master">#15b0ea</color>
     <color name="def_color">#5A6187</color>
+    <color name="progress_bar">#6671ae</color>
 
 </resources>

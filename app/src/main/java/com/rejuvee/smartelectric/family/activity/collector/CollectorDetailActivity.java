@@ -75,6 +75,7 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
         TextView tvShare = findViewById(R.id.txt_share);
 
         TextView tv_wifi = findViewById(R.id.txt_wifi_set);
+        TextView txt_cha = findViewById(R.id.txt_cha);
 
         ImageView img_remove = findViewById(R.id.img_remove);
 
@@ -99,6 +100,7 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
             tv_wifi.setOnClickListener(this);
             tv_wifi.setVisibility(View.VISIBLE);
         }
+        txt_cha.setOnClickListener(this);
 
         img_remove.setOnClickListener(this);
 
@@ -125,8 +127,6 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
             tvZhuanye.setCompoundDrawablesWithIntrinsicBounds(null, top4, null, null);
         }
 //        tvWifi.setEnabled(collectorBean.beShared != 1);
-
-
 //        if (collectorBean.beShared != 1) {//不是被分享的集中器
 //            tvUpgrade.setEnabled(haveNewUpgrade());
 //        } else {
@@ -150,6 +150,12 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
         //不是被分享的集中器 且有新版本
         if (collectorBean.beShared != 1 && haveNewUpgrade()) {
             getCollectorUpgrade();
+        }
+        if (!haveNewUpgrade()) {
+            tvUpgrade.setEnabled(false);
+            tvUpgrade.setTextColor(getResources().getColor(R.color.gray));
+            Drawable top3 = getResources().getDrawable(R.drawable.collector_upgrade_gray);
+            tvUpgrade.setCompoundDrawablesWithIntrinsicBounds(null, top3, null, null);
         }
     }
 
@@ -268,6 +274,10 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
                 break;
             case R.id.img_remove:
                 onDel();
+                break;
+            case R.id.txt_cha:
+                intent = new Intent(this, ChartsActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

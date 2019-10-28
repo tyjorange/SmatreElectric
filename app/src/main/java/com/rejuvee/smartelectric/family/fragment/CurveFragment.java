@@ -36,7 +36,7 @@ public class CurveFragment extends AbstractBaseFragment {
     private List<SignalValue> signalValueList;
     private List<SignalValue> signalValueListExtral = new ArrayList<>();//用于月查询时，谷值跟峰值
     private OnShowingListener listener;
-    private boolean isShowing;
+//    private boolean isShowing;
 
     public void setPosition(int position) {
         this.position = position;
@@ -70,7 +70,7 @@ public class CurveFragment extends AbstractBaseFragment {
         Log.e("VpAdapter", "initData: " + position);
         signalValueList = new ArrayList<>();
         change(getArguments());
-        isShowing = true;
+//        isShowing = true;
     }
 
 
@@ -108,13 +108,19 @@ public class CurveFragment extends AbstractBaseFragment {
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        if (isVisibleToUser && isShowing) {
-            Log.e("VpAdapter", "setUserVisibleHint: " + position);
-            listener.onShowing(this);
-        }
-        super.setUserVisibleHint(isVisibleToUser);
+    public void onResume() {
+        super.onResume();
+        listener.onShowing(this);
     }
+
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        if (isVisibleToUser && isShowing) {
+//            Log.e("VpAdapter", "setUserVisibleHint: " + position);
+//            listener.onShowing(this);
+//        }
+//        super.setUserVisibleHint(isVisibleToUser);
+//    }
 
 
     private void notifyDataListChanged() {

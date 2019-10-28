@@ -320,7 +320,7 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
         if (currentCall != null) {
             currentCall.cancel();
         }
-        System.gc();
+//        System.gc();
     }
 
 

@@ -34,6 +34,7 @@ public class DownloadProgressDialog extends AlertDialog {
     private Handler mViewUpdateHandler;
     private TextView mProgressNumber;
     private TextView mProgressPercent;
+    private TextView cancel_dialog;
     private TextView mMessageView;
     private int mProgressStyle = STYLE_SPINNER;
     private int mMax;
@@ -49,7 +50,7 @@ public class DownloadProgressDialog extends AlertDialog {
     private boolean mHasStarted;
 
     public DownloadProgressDialog(Context context) {
-        super(context);
+        super(context, R.style.MyDialogStyle);
         initFormats();
     }
 
@@ -128,6 +129,12 @@ public class DownloadProgressDialog extends AlertDialog {
         }
     }
 
+    private ICancel cancel;
+
+    public void setCancel(ICancel cancel) {
+        this.cancel = cancel;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -137,6 +144,13 @@ public class DownloadProgressDialog extends AlertDialog {
             mProgress = (ProgressBar) view.findViewById(R.id.progress);
             mProgressNumber = (TextView) view.findViewById(R.id.progress_number);
             mProgressPercent = (TextView) view.findViewById(R.id.progress_percent);
+            cancel_dialog = (TextView) view.findViewById(R.id.cancel_dialog);
+            cancel_dialog.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    cancel.onCancel();
+                }
+            });
             setView(view);
         } else {
             View view = inflater.inflate(R.layout.progress_dialog, null);
@@ -184,6 +198,10 @@ public class DownloadProgressDialog extends AlertDialog {
         super.onStop();
         mHasStarted = false;
     }
+
+//    public void setCancel(View.OnClickListener clickListener) {
+//        cancel_dialog.setOnClickListener(clickListener);
+//    }
 
     public void setProgress(int value) {
         if (mHasStarted) {
@@ -333,5 +351,9 @@ public class DownloadProgressDialog extends AlertDialog {
                 mViewUpdateHandler.sendEmptyMessage(0);
             }
         }
+    }
+
+    public interface ICancel {
+        void onCancel();
     }
 }

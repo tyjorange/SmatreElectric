@@ -214,6 +214,10 @@ public class TimerEditDialogActivity extends BaseActivity implements View.OnClic
 
     private void finishEdit() {
         int weekDay = getRepeatState();
+        if (weekDay == 0 & uploadToCollect != 0) {
+            CustomToast.showCustomErrorToast(TimerEditDialogActivity.this, getString(R.string.vs265));
+            return;
+        }
         int cmdData = isSwicthOn ? 1 : 0;
         mWaitDialog.show();
         String runTime = null;// hourOfDay + ":" + minute;
