@@ -628,4 +628,8 @@
     <string name="vs263">公众号：</string>
     <string name="vs264">睿据科技</string>
     <string name="vs265">只有重复定时才能驻留电箱</string>
+    <string name="vs266">时段</string>
+    <string name="vs267">起始时间</string>
+    <string name="vs268">结束时间</string>
+    <string name="vs269">yyyy年MM月dd日HH时</string>
 </resources>

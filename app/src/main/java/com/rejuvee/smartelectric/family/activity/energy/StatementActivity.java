@@ -55,7 +55,6 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
     private int ihour;
     //    private List<CollectorBean> collectorBeanList;
     private CollectorBean currentCollectorBean;
-    private TabLayout mTabLayout;
     //    private ListView lvCollector;
 //    private BaseAdapter lvAdapter;
     //    private TextView tvDevice;
@@ -87,10 +86,10 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
         tvEQuantity = findViewById(R.id.tv_electric_quantity);
         tvECharge = findViewById(R.id.tv_electric_charge);
 
-        mTabLayout = findViewById(R.id.tab_day_month);
+        TabLayout mTabLayout = findViewById(R.id.tab_day_month);
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.curve_by_day)));
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.curve_by_month)));
-        mTabLayout.addTab(mTabLayout.newTab().setText("时段"));
+        mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.vs266)));
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -159,21 +158,19 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
         findViewById(R.id.img_price).setOnClickListener(v -> startActivity(new Intent(StatementActivity.this, TimePriceActivity.class)));
     }
 
+    /**
+     * 初始化
+     */
     private void initTimeSelect() {
-//        changeDate(0);
         dateSelector = new WheelDateTime(StatementActivity.this,
-                new WheelDateTime.OnWheelListener() {
-
-                    @Override
-                    public void onWheel(Boolean isSubmit, String year, String month, String day, String hour, String minute) {
-                        iyear = Integer.parseInt(year);
-                        imonth = Integer.parseInt(month);
-                        if (selectType == 0) {
-                            iday = Integer.parseInt(day);
-                        }
-                        changeTextView();
-                        getBreakerStatement();
+                (isSubmit, year, month, day, hour, minute) -> {
+                    iyear = Integer.parseInt(year);
+                    imonth = Integer.parseInt(month);
+                    if (selectType == 0) {
+                        iday = Integer.parseInt(day);
                     }
+                    changeTextView();
+                    getBreakerStatement();
                 }, true,
                 new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date()),
                 new SimpleDateFormat("MM", Locale.getDefault()).format(new Date()),
@@ -181,49 +178,42 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                 getString(R.string.select_date), getString(R.string.cancel), getString(R.string.ensure));
         dateSelector.setDateItemVisiable(true, true, true, false, false);
         dateSelectorSS = new WheelDateTime(StatementActivity.this,
-                new WheelDateTime.OnWheelListener() {
-
-                    @Override
-                    public void onWheel(Boolean isSubmit, String year, String month, String day, String hour, String minute) {
-                        iyear = Integer.parseInt(year);
-                        imonth = Integer.parseInt(month);
-                        iday = Integer.parseInt(day);
-                        ihour = Integer.parseInt(hour);
-                        changeTextViewSS();
-                        getBreakerStatement();
-                    }
+                (isSubmit, year, month, day, hour, minute) -> {
+                    iyear = Integer.parseInt(year);
+                    imonth = Integer.parseInt(month);
+                    iday = Integer.parseInt(day);
+                    ihour = Integer.parseInt(hour);
+                    changeTextViewSS();
+                    getBreakerStatement();
                 }, true,
                 new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date()),
                 new SimpleDateFormat("MM", Locale.getDefault()).format(new Date()),
                 new SimpleDateFormat("dd", Locale.getDefault()).format(new Date()),
                 new SimpleDateFormat("HH", Locale.getDefault()).format(new Date()),
-                "起始时间", getString(R.string.cancel), getString(R.string.ensure));
+                getString(R.string.vs267), getString(R.string.cancel), getString(R.string.ensure));
         dateSelectorSS.setDateItemVisiable(true, true, true, true, false);
         dateSelectorEE = new WheelDateTime(StatementActivity.this,
-                new WheelDateTime.OnWheelListener() {
-
-                    @Override
-                    public void onWheel(Boolean isSubmit, String year, String month, String day, String hour, String minute) {
-                        iyear = Integer.parseInt(year);
-                        imonth = Integer.parseInt(month);
-                        iday = Integer.parseInt(day);
-                        ihour = Integer.parseInt(hour);
-                        changeTextViewEE();
-                        getBreakerStatement();
-                    }
+                (isSubmit, year, month, day, hour, minute) -> {
+                    iyear = Integer.parseInt(year);
+                    imonth = Integer.parseInt(month);
+                    iday = Integer.parseInt(day);
+                    ihour = Integer.parseInt(hour);
+                    changeTextViewEE();
+                    getBreakerStatement();
                 }, true,
                 new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date()),
                 new SimpleDateFormat("MM", Locale.getDefault()).format(new Date()),
                 new SimpleDateFormat("dd", Locale.getDefault()).format(new Date()),
                 new SimpleDateFormat("HH", Locale.getDefault()).format(new Date()),
-                "结束时间", getString(R.string.cancel), getString(R.string.ensure));
+                getString(R.string.vs268), getString(R.string.cancel), getString(R.string.ensure));
         dateSelectorEE.setDateItemVisiable(true, true, true, true, false);
+        changeDate(0);
     }
 
     /**
      * 日期+1 或-1
      *
-     * @param c
+     * @param c 增加或减少
      */
     private void changeDate(int c) {
         Calendar calendar = Calendar.getInstance();
@@ -304,7 +294,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
         calendar.set(Calendar.HOUR_OF_DAY, ihour);
         calendar.add(Calendar.MONTH, -1);// 起始时间设为上个月
         // 改变显示
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日HH时", Locale.getDefault());
+        SimpleDateFormat dateFormat = new SimpleDateFormat(getString(R.string.vs269), Locale.getDefault());
         String date = dateFormat.format(calendar.getTime());
         tvDateSS.setText(date);
         // 准备要提交的值
@@ -324,7 +314,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
         calendar.set(Calendar.DATE, iday);
         calendar.set(Calendar.HOUR_OF_DAY, ihour);
         // 改变显示
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日HH时", Locale.getDefault());
+        SimpleDateFormat dateFormat = new SimpleDateFormat(getString(R.string.vs269), Locale.getDefault());
         String date = dateFormat.format(calendar.getTime());
         tvDateEE.setText(date);
         // 准备要提交的值
@@ -403,6 +393,9 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * 计算线路电费和
+     */
     private void changeTotal() {
         double totalQuantity = 0;
         double totalCharge = 0;
@@ -417,8 +410,6 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
 
         totalQuantity = new BigDecimal(totalQuantity).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         totalCharge = new BigDecimal(totalCharge).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-       /* String gonglv = String.format(getResources().getString(R.string.cur_gonglv),
-                "<font color='#0d77ff'>", item.getValue(), "</font>");*/
         tvECharge.setText(Html.fromHtml(String.valueOf(totalCharge)));
         tvEQuantity.setText(Html.fromHtml(String.valueOf(totalQuantity)));
     }
@@ -541,9 +532,8 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
         currentCollectorBean = getIntent().getParcelableExtra("collectorBean");
 //        tvDevice.setText(currentCollectorBean.getDeviceName());
         initTimeSelect();
-        getBreakerStatement();
+//        getBreakerStatement();
         changeTotal();
-        //getCollector();
     }
 
 //    private void initAdapter() {
