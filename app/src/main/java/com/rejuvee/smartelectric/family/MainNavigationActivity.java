@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.utils.SizeUtils;
@@ -99,6 +100,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 
     private NavigationView navigationView;
     private DrawerLayout drawer;
+    private SwipeRefreshLayout refreshLayout;
     //    private Toolbar toolbar;
 //    private ImageView ivUserQCode;
 //    private PopwindowQCode popwindowQCode;
@@ -160,6 +162,8 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         ll_add_scene = findViewById(R.id.ll_add_scene);
         initScene();
         initCollector();
+        refreshLayout = findViewById(R.id.refreshlayout);
+        refreshLayout.setOnRefreshListener(this::getCollector);
 
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
             //问题出在6.0 & 6.0.1版本中，这个权限默认是被拒绝，无法获取这个权限。所以，在需要个权限的时候会出现权限问题导致应用因为权限问题崩溃
@@ -429,11 +433,13 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
                 listDeviceData.addAll(data);
                 mDeviceAdapter.notifyDataSetChanged();
 //                updateRefreshState();
+                refreshLayout.setRefreshing(false);
             }
 
             @Override
             public void onFailure(int errorEvent, String message) {
 //                updateRefreshState();
+                refreshLayout.setRefreshing(false);
             }
         });
     }

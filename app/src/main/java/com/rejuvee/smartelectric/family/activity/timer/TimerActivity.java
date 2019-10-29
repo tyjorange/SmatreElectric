@@ -169,6 +169,15 @@ public class TimerActivity extends BaseActivity implements View.OnClickListener,
         mListTimerAdapter.notifyDataSetChanged();
     }
 
+    private void closeDelIcon() {
+        for (TimeTaskBean.TimeTask taskBean : mListTaskData) {
+            if (taskBean.showDelIcon == View.VISIBLE) {
+                taskBean.showDelIcon = View.GONE;
+            }
+        }
+        mListTimerAdapter.notifyDataSetChanged();
+    }
+
     @Override
     public void onDelItem(String timerId) {
         dialogTip = new DialogTip(this);
@@ -210,6 +219,12 @@ public class TimerActivity extends BaseActivity implements View.OnClickListener,
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        closeDelIcon();
+        super.onBackPressed();
     }
 
     @Override

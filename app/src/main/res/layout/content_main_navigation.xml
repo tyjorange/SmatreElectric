@@ -92,23 +92,28 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/main_banner" />
 
-            <com.rejuvee.smartelectric.family.widget.CustomGridViewWithSplitLine
-                android:id="@+id/grid_device"
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/refreshlayout"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:horizontalSpacing="5dp"
-                android:numColumns="1"
-                android:padding="8dp"
-                android:verticalSpacing="15dp" />
+                android:layout_height="match_parent">
 
-            <include
-                android:id="@+id/empty_layout"
-                layout="@layout/empty_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone" />
+                <com.rejuvee.smartelectric.family.widget.CustomGridViewWithSplitLine
+                    android:id="@+id/grid_device"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:horizontalSpacing="5dp"
+                    android:numColumns="1"
+                    android:padding="8dp"
+                    android:verticalSpacing="15dp" />
+
+                <include
+                    android:id="@+id/empty_layout"
+                    layout="@layout/empty_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone" />
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
