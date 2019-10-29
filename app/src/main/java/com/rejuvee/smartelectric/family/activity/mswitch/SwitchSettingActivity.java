@@ -88,18 +88,14 @@ public class SwitchSettingActivity extends BaseActivity implements
         txtLineName = findViewById(R.id.txt_line_name);
         LinearLayout img_change = findViewById(R.id.img_change);
         img_change.setOnClickListener(v -> {
-            SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(mContext, SwitchTree.DINGSHI, collectorBean, new SwitchTreeDialog.ChoseCallBack() {
-
-                @Override
-                public void onChose(SwitchBean s) {
-                    currentSwitchBean = s;
+            SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(mContext, SwitchTree.DINGSHI, collectorBean, s -> {
+                currentSwitchBean = s;
 //                        getData(switchBean);
-                    txtLineName.setText(String.format("%s%s", mContext.getString(R.string.vs14), currentSwitchBean.getName()));
+                txtLineName.setText(String.format("%s%s", mContext.getString(R.string.vs14), currentSwitchBean.getName()));
 
-                    mTabLayout.getTabAt(0).select();// 重置为第一个TAB
-                    currentParamID = dl1_fragment.getParamID(currentSwitchBean);
-                    mHandler.sendEmptyMessageDelayed(MSG_findSwitchParamBySwitch_FLAG, 100);
-                }
+                mTabLayout.getTabAt(0).select();// 重置为第一个TAB
+                currentParamID = dl1_fragment.getParamID(currentSwitchBean);
+                mHandler.sendEmptyMessageDelayed(MSG_findSwitchParamBySwitch_FLAG, 100);
             });
             switchTreeDialog.show();
         });

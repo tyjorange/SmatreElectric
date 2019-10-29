@@ -283,20 +283,16 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
         changeDate(0);
 
         dateSelector = new WheelDateTime(CurveActivity.this,
-                new WheelDateTime.OnWheelListener() {
-
-                    @Override
-                    public void onWheel(Boolean isSubmit, String year, String month, String day, String hour, String minute) {
-                        Log.e("onWheel", "onWheel: " + year);
-                        Log.e("onWheel", "onWheel: " + month);
-                        Log.e("onWheel", "onWheel: " + day);
-                        iyear = Integer.parseInt(year);
-                        imonth = Integer.parseInt(month);
-                        if (isDay) {
-                            iday = Integer.parseInt(day);
-                        }
-                        changeTvDate();
+                (isSubmit, year, month, day, hour, minute) -> {
+                    Log.e("onWheel", "onWheel: " + year);
+                    Log.e("onWheel", "onWheel: " + month);
+                    Log.e("onWheel", "onWheel: " + day);
+                    iyear = Integer.parseInt(year);
+                    imonth = Integer.parseInt(month);
+                    if (isDay) {
+                        iday = Integer.parseInt(day);
                     }
+                    changeTvDate();
                 }, true,
                 new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date()),
                 new SimpleDateFormat("MM", Locale.getDefault()).format(new Date()),
@@ -507,16 +503,12 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
 //                intent.putExtra("collectorBean", collectorBean);
 //                intent.putExtra("viewType", SwitchTree.QUXIAN);
 //                startActivityForResult(intent, CommonRequestCode.REQUEST_CHOSE_LINE);
-                SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(this, SwitchTree.QUXIAN, collectorBean, new SwitchTreeDialog.ChoseCallBack() {
-
-                    @Override
-                    public void onChose(SwitchBean s) {
-                        //添加后 刷新数据
-                        currentSwitchBean = s;
-                        cur_line.setText(String.format("%s%s", getString(R.string.vs4), currentSwitchBean.getName()));
+                SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(this, SwitchTree.QUXIAN, collectorBean, s -> {
+                    //添加后 刷新数据
+                    currentSwitchBean = s;
+                    cur_line.setText(String.format("%s%s", getString(R.string.vs4), currentSwitchBean.getName()));
 //                gvAdapter.notifyDataSetChanged();
-                        notifyFpAdapter();
-                    }
+                    notifyFpAdapter();
                 });
                 switchTreeDialog.show();
                 break;

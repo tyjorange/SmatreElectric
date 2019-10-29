@@ -73,12 +73,7 @@ public class AccountInfoRealm {
      * @param
      */
     public void addAccount(final AccountInfo accountInfo) {
-        realm.executeTransactionAsync(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                realm.insertOrUpdate(accountInfo);
-            }
-        });
+        realm.executeTransactionAsync(realm -> realm.insertOrUpdate(accountInfo));
     }
 
     /**
@@ -87,12 +82,7 @@ public class AccountInfoRealm {
      * @param
      */
     public void removeAccountInfo(final AccountInfo accountInfo) {
-        realm.executeTransactionAsync(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                accountInfo.deleteFromRealm();
-            }
-        });
+        realm.executeTransactionAsync(realm -> accountInfo.deleteFromRealm());
     }
 
     /**

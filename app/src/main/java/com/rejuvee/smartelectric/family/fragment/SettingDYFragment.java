@@ -32,12 +32,7 @@ public class SettingDYFragment extends BaseFragment {
         amountGY.setVal_min(100);
         amountGY.setVal_max(480);
 //        amountQY.setAmount(275);
-        amountGY.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
-            @Override
-            public void onAmountChange(View view, float amount) {
-                rangeSeekBarGY.setProgress(amount);
-            }
-        });
+        amountGY.setOnAmountChangeListener((view, amount) -> rangeSeekBarGY.setProgress(amount));
         rangeSeekBarGY = v.findViewById(R.id.seek_bar_gy);
         rangeSeekBarGY.setRange(100, 480);//范围
         rangeSeekBarGY.setTickMarkTextArray(new String[]{"100", "480"});//刻度
@@ -65,12 +60,7 @@ public class SettingDYFragment extends BaseFragment {
         amountQY.setVal_min(50);
         amountQY.setVal_max(320);
 //        amountQY.setAmount(160);
-        amountQY.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
-            @Override
-            public void onAmountChange(View view, float amount) {
-                rangeSeekBarQY.setProgress(amount);
-            }
-        });
+        amountQY.setOnAmountChangeListener((view, amount) -> rangeSeekBarQY.setProgress(amount));
         rangeSeekBarQY = v.findViewById(R.id.seek_bar_qy);
         rangeSeekBarQY.setRange(50, 320);//范围
         rangeSeekBarQY.setTickMarkTextArray(new String[]{"50", "320"});//刻度

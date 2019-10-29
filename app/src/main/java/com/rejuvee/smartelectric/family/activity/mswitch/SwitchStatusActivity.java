@@ -347,14 +347,10 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
 //                intent.putExtra("collectorBean", collectorBean);
 //                intent.putExtra("viewType", SwitchTree.SHISHI);
 //                startActivityForResult(intent, CommonRequestCode.REQUEST_CHOSE_LINE);
-                SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(this, SwitchTree.SHISHI, collectorBean, new SwitchTreeDialog.ChoseCallBack() {
-
-                    @Override
-                    public void onChose(SwitchBean s) {
-                        switchBean = s;
-                        mHandler.sendEmptyMessageDelayed(MSG_SEND_REFRESH_FLAG, 100);
+                SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(this, SwitchTree.SHISHI, collectorBean, s -> {
+                    switchBean = s;
+                    mHandler.sendEmptyMessageDelayed(MSG_SEND_REFRESH_FLAG, 100);
 //                        getBreakSignalValue(switchBean);
-                    }
                 });
                 switchTreeDialog.show();
                 break;

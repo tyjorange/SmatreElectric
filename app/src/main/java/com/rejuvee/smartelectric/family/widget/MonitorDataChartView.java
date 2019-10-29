@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -86,18 +85,13 @@ public class MonitorDataChartView extends FrameLayout {
             return;
 
         //X轴底部日期数据
-        IAxisValueFormatter formatter = new IAxisValueFormatter() {
+        IAxisValueFormatter formatter = (value, axis) -> {
+            //Log.d(TAG, "value=" + value);
+            int position = (int) value;
+            if (position < 0 || position >= data.get(0).listData.size())
+                return "";
 
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                //Log.d(TAG, "value=" + value);
-                int position = (int) value;
-                if (position < 0 || position >= data.get(0).listData.size())
-                    return "";
-
-                return data.get(0).listData.get((int) value).time;
-            }
-
+            return data.get(0).listData.get((int) value).time;
         };
 
         XAxis xAxis = mChart.getXAxis();

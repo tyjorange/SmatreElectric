@@ -40,12 +40,7 @@ public class SettingOtherFragment extends BaseFragment {
         amountWDFZ.setVal_min(0);
         amountWDFZ.setVal_max(85);
         amountWDFZ.setAmount(84);
-        amountWDFZ.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
-            @Override
-            public void onAmountChange(View view, float amount) {
-                rangeSeekBarWDFZ.setProgress(amount);
-            }
-        });
+        amountWDFZ.setOnAmountChangeListener((view, amount) -> rangeSeekBarWDFZ.setProgress(amount));
         rangeSeekBarWDFZ = v.findViewById(R.id.seek_bar_gwfz);
         rangeSeekBarWDFZ.setRange(0, 85);//范围
         rangeSeekBarWDFZ.setTickMarkTextArray(new String[]{"0", "85"});//刻度
@@ -71,13 +66,7 @@ public class SettingOtherFragment extends BaseFragment {
         // 上电配置
         radioDialog = new RadioDialog(v.getContext());
         setSDPZ(2);
-        radioDialog.setDialogListener(new RadioDialog.onInputDialogListener() {
-
-            @Override
-            public void onEnsure(int val) {
-                setSDPZ(val);
-            }
-        });
+        radioDialog.setDialogListener(val -> setSDPZ(val));
         tv_sdpz = v.findViewById(R.id.tv_sdpz);
         v.findViewById(R.id.ll_sdpz).setOnClickListener(v12 -> {
             radioDialog.setVal(sdpz_val);
@@ -89,12 +78,7 @@ public class SettingOtherFragment extends BaseFragment {
         amountSXBPH.setVal_min(10);
         amountSXBPH.setVal_max(100);
         amountSXBPH.setAmount(10);
-        amountSXBPH.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
-            @Override
-            public void onAmountChange(View view, float amount) {
-                rangeSeekBarSXBPH.setProgress(amount);
-            }
-        });
+        amountSXBPH.setOnAmountChangeListener((view, amount) -> rangeSeekBarSXBPH.setProgress(amount));
         rangeSeekBarSXBPH = v.findViewById(R.id.seek_bar_sxbph);
         rangeSeekBarSXBPH.setRange(10, 100);//范围
         rangeSeekBarSXBPH.setTickMarkTextArray(new String[]{"10", "100"});//刻度

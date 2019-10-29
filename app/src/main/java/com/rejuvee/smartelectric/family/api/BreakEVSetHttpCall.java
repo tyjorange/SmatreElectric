@@ -11,8 +11,6 @@ import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -194,25 +192,19 @@ public class BreakEVSetHttpCall {
 //        param.setIndex("0");
         param.setParamID("00000011,00000005,0000000D,00000018,00000019,");
         api.sendGetThreadValueCommand(Core.mJSessionId, param)
-                .flatMap(new Function<ApiResponse<Void>, ObservableSource<ApiResponse<List<VoltageValue>>>>() {
-                    @Override
-                    public ObservableSource<ApiResponse<List<VoltageValue>>> apply(ApiResponse<Void> voidApiResponse) throws Exception {
-                        if (voidApiResponse.isSuccess()) {
-                            Log.d(TAG, "发送刷新命令成功, threadId = " + Thread.currentThread().getId());
-                            Param param1 = new Param();
-                            param1.setSwitchID(swichId);
-                            param1.setParamID("00000011,00000005,0000000D,00000018,00000019,");
-                            return api.findSwitchParamBySwitch(Core.mJSessionId, param1);
-                        } else {
-                            Log.e(TAG, "发送刷新命令失败");
-                            return Observable.create(new ObservableOnSubscribe<ApiResponse<List<VoltageValue>>>() {
-                                @Override
-                                public void subscribe(ObservableEmitter<ApiResponse<List<VoltageValue>>> e) throws Exception {
-                                    e.tryOnError(new refreshError());
-                                    e.onComplete();
-                                }
-                            });
-                        }
+                .flatMap((Function<ApiResponse<Void>, ObservableSource<ApiResponse<List<VoltageValue>>>>) voidApiResponse -> {
+                    if (voidApiResponse.isSuccess()) {
+                        Log.d(TAG, "发送刷新命令成功, threadId = " + Thread.currentThread().getId());
+                        Param param1 = new Param();
+                        param1.setSwitchID(swichId);
+                        param1.setParamID("00000011,00000005,0000000D,00000018,00000019,");
+                        return api.findSwitchParamBySwitch(Core.mJSessionId, param1);
+                    } else {
+                        Log.e(TAG, "发送刷新命令失败");
+                        return Observable.create(e -> {
+                            e.tryOnError(new refreshError());
+                            e.onComplete();
+                        });
                     }
                 }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<ApiResponse<List<VoltageValue>>>() {

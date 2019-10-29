@@ -146,13 +146,7 @@ public class EnergySavingInformationActivity extends BaseActivity implements Vie
 //                intent.putExtra("collectorBean", collectorBean);
 //                intent.putExtra("viewType", SwitchTree.JIENENG);
 //                startActivityForResult(intent, CommonRequestCode.REQUEST_CHOSE_LINE);
-                SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(this, SwitchTree.JIENENG, collectorBean, new SwitchTreeDialog.ChoseCallBack() {
-
-                    @Override
-                    public void onChose(SwitchBean s) {
-                        findData(s, collectorBean);
-                    }
-                });
+                SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(this, SwitchTree.JIENENG, collectorBean, s -> findData(s, collectorBean));
                 switchTreeDialog.show();
                 break;
         }

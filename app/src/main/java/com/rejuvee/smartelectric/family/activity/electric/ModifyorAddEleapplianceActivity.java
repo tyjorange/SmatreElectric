@@ -148,15 +148,11 @@ public class ModifyorAddEleapplianceActivity extends BaseActivity implements Vie
 //                intent.putExtra("collectorBean", collectorBean);
 //                intent.putExtra("viewType", SwitchTreeDialog.JIENENG);
 //                startActivityForResult(intent, CommonRequestCode.REQUEST_CHOSE_LINE);
-                SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(this, SwitchTree.JIENENG, collectorBean, new SwitchTreeDialog.ChoseCallBack() {
-
-                    @Override
-                    public void onChose(SwitchBean s) {
-                        if (s != null) {
-                            txt_appliance_linename.setText(s.getName());
-                            switchID = s.getSwitchID();
-                            Log.i(TAG, switchID + "");
-                        }
+                SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(this, SwitchTree.JIENENG, collectorBean, s -> {
+                    if (s != null) {
+                        txt_appliance_linename.setText(s.getName());
+                        switchID = s.getSwitchID();
+                        Log.i(TAG, switchID + "");
                     }
                 });
                 switchTreeDialog.show();

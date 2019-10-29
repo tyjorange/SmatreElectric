@@ -99,12 +99,7 @@ public class DialogTimePicker implements View.OnClickListener {
         mPickerHour.setFormatter(formater);
         mPickerHour.setMinValue(0);
         mPickerHour.setMaxValue(24);
-        mPickerHour.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                currentHour = newVal;
-            }
-        });
+        mPickerHour.setOnValueChangedListener((picker, oldVal, newVal) -> currentHour = newVal);
 
         setNumberPickerDividerColor(mPickerHour);
         setNumberPickerDividerColor(mPickMinute);

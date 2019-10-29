@@ -90,14 +90,11 @@ public class ExpandLayout extends LinearLayout {
         heightAnimation.setDuration(animationDuration / 2);
         heightAnimation.setStartDelay(animationDuration / 2);
 
-        heightAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                int value = (int) (float) animation.getAnimatedValue();
-                setViewHeight(layoutView, value);
-                if (value == viewHeight || value == 0) {
-                    lock = false;
-                }
+        heightAnimation.addUpdateListener(animation -> {
+            int value = (int) (float) animation.getAnimatedValue();
+            setViewHeight(layoutView, value);
+            if (value == viewHeight || value == 0) {
+                lock = false;
             }
         });
 

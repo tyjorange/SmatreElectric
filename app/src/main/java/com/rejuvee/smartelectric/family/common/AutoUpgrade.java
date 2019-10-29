@@ -439,20 +439,14 @@ public class AutoUpgrade {
         // 设置ProgressDialog 是否可以按退回按键取消
         progressDialog.setCancelable(false);
 //            progressDialog.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.btn_def));
-//        progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, mContext.getString(R.string.cancel), new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                removeDownload();
-//                dialog.dismiss();
+//        progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, mContext.getString(R.string.cancel), (dialog, which) -> {
+//            removeDownload();
+//            dialog.dismiss();
 ////                    mContext.finish();
-//            }
 //        });
-        progressDialog.setCancel(new DownloadProgressDialog.ICancel() {
-            @Override
-            public void onCancel() {
-                removeDownload();
-                progressDialog.dismiss();
-            }
+        progressDialog.setCancel(() -> {
+            removeDownload();
+            progressDialog.dismiss();
         });
         if (!progressDialog.isShowing()) {
             // 保持ProgressDialog显示

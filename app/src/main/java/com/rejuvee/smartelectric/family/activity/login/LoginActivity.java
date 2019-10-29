@@ -110,13 +110,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
         // 查看密码 事件
         CheckableImageView checkableImageView = findViewById(R.id.login_civ_eye);
-        checkableImageView.setOnCheckChangeListener(new CheckableImageView.OnCheckChangeListener() {
-            @Override
-            public void onCheckChanged(boolean checked) {
-                int type = checked ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD;
+        checkableImageView.setOnCheckChangeListener(checked -> {
+            int type = checked ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD;
 //                checkableImageView.setBackgroundDrawable(checked ? getDrawable(R.drawable.eye) : getDrawable(R.drawable.eye_close));
-                cetPassword.setInputType(type);
-            }
+            cetPassword.setInputType(type);
         });
         autoLogin();
     }

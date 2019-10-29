@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
-import androidx.annotation.NonNull;
-
 import com.base.frame.net.ActionCallbackListener;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.activity.logger.LogDetailActivity;
@@ -15,9 +13,6 @@ import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseFragment;
 import com.rejuvee.smartelectric.family.model.bean.RecordBean;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,18 +43,10 @@ public class LineOperateRecordFragment extends BaseFragment {
         listView.setAdapter(mAdapter);
         listView.setEmptyView(v.findViewById(R.id.empty_layout));
         smartRefreshLayout = v.findViewById(R.id.smart_refreshLayout);
-        smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                doRequest();
-            }
-        });
-        smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                curPage = 0;
-                doRequest();
-            }
+        smartRefreshLayout.setOnLoadMoreListener(refreshLayout -> doRequest());
+        smartRefreshLayout.setOnRefreshListener(refreshLayout -> {
+            curPage = 0;
+            doRequest();
         });
         listView.setOnItemClickListener((parent, view, position, id) -> {
             RecordBean recordBean = mListData.get(position);

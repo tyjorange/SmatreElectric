@@ -39,16 +39,13 @@ public class TimePriceSetActivity extends BaseActivity implements View.OnClickLi
         mTimePicker = new DialogTimePicker(this);
         mTimePicker.setCurrentHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY))
                 .setCurrentMiniute(0)
-                .setListener(new DialogTimePicker.TimeSelectedListen() {
-                    @Override
-                    public void onTimeSelected(int hour, int miniute, int type) {
-                        if (type == 0) {
-                            txtStartTime.setText(String.format(Locale.getDefault(), "%1$02d:%2$02d", hour, miniute));
-                            mStartTime = hour;
-                        } else if (type == 1) {
-                            txtEndTime.setText(String.format(Locale.getDefault(), "%1$02d:%2$02d", hour, miniute));
-                            mEndTime = hour;
-                        }
+                .setListener((hour, miniute, type) -> {
+                    if (type == 0) {
+                        txtStartTime.setText(String.format(Locale.getDefault(), "%1$02d:%2$02d", hour, miniute));
+                        mStartTime = hour;
+                    } else if (type == 1) {
+                        txtEndTime.setText(String.format(Locale.getDefault(), "%1$02d:%2$02d", hour, miniute));
+                        mEndTime = hour;
                     }
                 });
         txtStartTime = findViewById(R.id.txt_start_time);

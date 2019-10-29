@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
-import androidx.annotation.NonNull;
-
 import com.base.frame.net.ActionCallbackListener;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.adapter.LineAlarmAdapter;
@@ -14,9 +12,6 @@ import com.rejuvee.smartelectric.family.common.BaseFragment;
 import com.rejuvee.smartelectric.family.model.bean.RecordBean;
 import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,18 +45,10 @@ public class LineAlarmFrgament extends BaseFragment {
         listView.setEmptyView(v.findViewById(R.id.empty_layout));
 
         smartRefreshLayout = v.findViewById(R.id.smart_refreshLayout);
-        smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                doRequest(false);
-            }
-        });
-        smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                curPage = 0;
-                doRequest(false);
-            }
+        smartRefreshLayout.setOnLoadMoreListener(refreshLayout -> doRequest(false));
+        smartRefreshLayout.setOnRefreshListener(refreshLayout -> {
+            curPage = 0;
+            doRequest(false);
         });
     }
 

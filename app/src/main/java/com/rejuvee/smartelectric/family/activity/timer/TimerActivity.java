@@ -244,13 +244,9 @@ public class TimerActivity extends BaseActivity implements View.OnClickListener,
 //                intent.putExtra("collectorBean", collectorBean);
 //                intent.putExtra("viewType", SwitchTree.DINGSHI);
 //                startActivityForResult(intent, CommonRequestCode.REQUEST_CHOSE_LINE);
-                SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(this, SwitchTree.DINGSHI, collectorBean, new SwitchTreeDialog.ChoseCallBack() {
-
-                    @Override
-                    public void onChose(SwitchBean s) {
-                        switchBean = s;
-                        getData(switchBean);
-                    }
+                SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(this, SwitchTree.DINGSHI, collectorBean, s -> {
+                    switchBean = s;
+                    getData(switchBean);
                 });
                 switchTreeDialog.show();
                 break;

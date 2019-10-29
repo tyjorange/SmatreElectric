@@ -78,17 +78,13 @@ public class SwitchModifyActivity extends BaseActivity {
         LinearLayout img_change = findViewById(R.id.img_change);
         if (collectorBean != null) {//修改
             img_change.setOnClickListener(v -> {
-                SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(mContext, SwitchTree.DINGSHI, collectorBean, new SwitchTreeDialog.ChoseCallBack() {
-
-                    @Override
-                    public void onChose(SwitchBean s) {
-                        currentSwitchBean = s;
+                SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(mContext, SwitchTree.DINGSHI, collectorBean, s -> {
+                    currentSwitchBean = s;
 //                        getData(switchBean);
-                        txtLineName.setText(String.format("%s%s", mContext.getString(R.string.vs14), currentSwitchBean.getName()));
-                        editLineName.setText(currentSwitchBean.getName());
-                        customLineAdapter.reset();
-                        customLineAdapter.setCurrentSelected(currentSwitchBean.getIconType());
-                    }
+                    txtLineName.setText(String.format("%s%s", mContext.getString(R.string.vs14), currentSwitchBean.getName()));
+                    editLineName.setText(currentSwitchBean.getName());
+                    customLineAdapter.reset();
+                    customLineAdapter.setCurrentSelected(currentSwitchBean.getIconType());
                 });
                 switchTreeDialog.show();
             });
