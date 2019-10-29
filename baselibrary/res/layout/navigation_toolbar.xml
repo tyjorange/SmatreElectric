@@ -9,7 +9,6 @@
     app:contentInsetLeft="0dp"
     app:contentInsetStart="0dp">
 
-
     <TextView
         android:id="@+id/nav_toolbar_title"
         android:layout_width="wrap_content"

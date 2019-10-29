@@ -2,17 +2,18 @@ package com.rejuvee.smartelectric.family;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -55,7 +56,9 @@ import com.rejuvee.smartelectric.family.model.bean.WxSubscribed;
 import com.rejuvee.smartelectric.family.utils.WifiUtil;
 import com.rejuvee.smartelectric.family.utils.utils;
 import com.rejuvee.smartelectric.family.widget.CircleImageView;
+import com.rejuvee.smartelectric.family.widget.MyBlurDrawerToggle;
 import com.rejuvee.smartelectric.family.widget.dialog.DialogTip;
+import com.rejuvee.smartelectric.family.widget.dialog.DialogTipWithoutOkCancel;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 import com.squareup.picasso.Target;
@@ -71,8 +74,7 @@ import java.util.Locale;
 import at.favre.lib.dali.builder.nav.DaliBlurDrawerToggle;
 import at.favre.lib.dali.builder.nav.NavigationDrawerListener;
 
-public class MainNavigationActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener,
-        GridDeviceAdapter.MyListener {
+public class MainNavigationActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     private String TAG = "MainNavigationActivity";
     private DialogTip mDialogTip;
     private Context mContext;
@@ -85,7 +87,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
     private GridView gridViewDevice;
     private List<CollectorBean> listDeviceData = new ArrayList<>();
     private GridDeviceAdapter mDeviceAdapter;
-    private TextView tv_collector_count;//集中器计数
+    private TextView tvCollectorCount;//集中器计数
     //用户
     private CircleImageView ivHead;//头像view
     private CircleImageView ivHeadSmall;//头像view
@@ -99,7 +101,8 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
     private String qqUnionID;
 
     private NavigationView navigationView;
-    private DrawerLayout drawer;
+    private DrawerLayout drawerLayout;
+    private DaliBlurDrawerToggle drawerToggle;
     private SwipeRefreshLayout refreshLayout;
     //    private Toolbar toolbar;
 //    private ImageView ivUserQCode;
@@ -138,7 +141,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         getDensity();
         mContext = this;
         navigationView = findViewById(R.id.nav_view);
-        tv_collector_count = findViewById(R.id.tv_collector_count);
+        tvCollectorCount = findViewById(R.id.tv_collector_count);
         tvNick = navigationView.getHeaderView(0).findViewById(R.id.user_nickname);
         ivHead = navigationView.getHeaderView(0).findViewById(R.id.user_headimg);
 //        ivHead.setOnClickListener(new View.OnClickListener() {
@@ -148,7 +151,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 //            }
 //        });
         ivHeadSmall = findViewById(R.id.user_headimg_small);
-        ivHeadSmall.setOnClickListener(v -> drawer.openDrawer(GravityCompat.START));
+        ivHeadSmall.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
 //        ivUserQCode = (ImageView) findViewById(R.id.iv_scan_code);
         navigationView.getHeaderView(0).findViewById(R.id.user_edit).setOnClickListener(v -> {
             Intent intent = new Intent();
@@ -166,7 +169,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         refreshLayout.setOnRefreshListener(this::getCollector);
 
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
-            //问题出在6.0 & 6.0.1版本中，这个权限默认是被拒绝，无法获取这个权限。所以，在需要个权限的时候会出现权限问题导致应用因为权限问题崩溃
+            //问题出在6.0 && 6.0.1版本中，这个权限默认是被拒绝，无法获取这个权限。所以，在需要个权限的时候会出现权限问题导致应用因为权限问题崩溃
             if (!Settings.System.canWrite(this)) {
                 Intent goToSettings = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
                 goToSettings.setData(Uri.parse("package:" + getPackageName()));
@@ -292,25 +295,23 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
     /**
      * 生成用户名二维码
      */
-    @Deprecated
-    private void setQCodeUserName() {
-        Bitmap bmpUser = utils.createQRcodeImage(username, SizeUtils.dp2px(100), SizeUtils.dp2px(100));
+//    private void setQCodeUserName() {
+//        Bitmap bmpUser = utils.createQRcodeImage(username, SizeUtils.dp2px(100), SizeUtils.dp2px(100));
 //        if (bmpUser != null) {
 //            ivUserQCode.setImageBitmap(bmpUser);
 //            popwindowQCode.setQCodeImageBitmap(bmpUser);
 //        }
-    }
-
+//    }
     private void initToolBar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("");
 
-        drawer = findViewById(R.id.drawer_layout);
+        drawerLayout = findViewById(R.id.drawer_layout);
 //        CircleImageView civ = (CircleImageView) findViewById(R.id.user_headimg_s);
 //        toolbar.setNavigationIcon(new CircleDrawable(BitmapUtil.drawable2Bitmap(ivHead.getDrawable())));
         // 模糊控件Drawer
-        DaliBlurDrawerToggle drawerToggle = new DaliBlurDrawerToggle(this, drawer, toolbar,
+        drawerToggle = new MyBlurDrawerToggle(this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close, new NavigationDrawerListener() {
             @Override
             public void onDrawerClosed(View view) {
@@ -325,14 +326,15 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 //        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
 //                this, drawerLayout, toolbar,
 //                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(drawerToggle);
 //        drawerToggle.syncState();
+//        drawerToggle.setConfig(1, 2, DaliBlurDrawerToggle.CacheMode.AUTO);
         drawerToggle.setDrawerIndicatorEnabled(true);
+        drawerLayout.addDrawerListener(drawerToggle);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // 隐藏条目
+        // 隐藏的条目
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show());
@@ -388,7 +390,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 
     private void initCollector() {
         gridViewDevice = findViewById(R.id.grid_device);
-        mDeviceAdapter = new GridDeviceAdapter(listDeviceData, mContext, this);
+        mDeviceAdapter = new GridDeviceAdapter(listDeviceData, mContext, null);
         gridViewDevice.setAdapter(mDeviceAdapter);
 //        gridViewDevice.setEmptyView(findViewById(R.id.empty_layout));
         gridViewDevice.setOnItemClickListener((parent, view, position, id) -> {
@@ -406,9 +408,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         });
         //长按删除
         // Deprecated
-        gridViewDevice.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        gridViewDevice.setOnItemLongClickListener((parent, view, position, id) -> {
 //                if (position == listDeviceData.size()) {
 //                    return true;
 //                }
@@ -419,8 +419,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 //                }
 //                Vibrator vibrator = (Vibrator) mContext.getSystemService(VIBRATOR_SERVICE);
 //                vibrator.vibrate(10000);
-                return true;
-            }
+            return true;
         });
     }
 
@@ -428,7 +427,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         Core.instance(this).getCollector(new ActionCallbackListener<List<CollectorBean>>() {
             @Override
             public void onSuccess(List<CollectorBean> data) {
-                tv_collector_count.setText(String.format(Locale.getDefault(), "%s%d", getString(R.string.vs13), data.size()));
+                tvCollectorCount.setText(String.format(Locale.getDefault(), "%s%d", getString(R.string.vs13), data.size()));
                 listDeviceData.clear();
                 listDeviceData.addAll(data);
                 mDeviceAdapter.notifyDataSetChanged();
@@ -447,10 +446,10 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
     /**
      * 执行场景
      *
-     * @param sceneid
+     * @param sceneId
      */
-    public void doExecute(final String sceneid) {
-        Core.instance(this).doExcuteScene(sceneid, new ActionCallbackListener<Void>() {
+    public void doExecute(final String sceneId) {
+        Core.instance(this).doExcuteScene(sceneId, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 CustomToast.showCustomToast(mContext, getString(R.string.scene_excute_sucess));
@@ -464,13 +463,11 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
     }
 
     /**
-     * 不再使用长按删除
-     *
-     * @param position
+     * 长按删除
      */
-    @Override
-    @Deprecated
-    public void onDel(int position) {
+//    @Override
+//    @Deprecated
+//    public void onDel(int position) {
 //        DialogTip dialogTip = new DialogTip(mContext);
 //        dialogTip.setTitle(mContext.getResources().getString(R.string.delete)).setRedBtn()
 //                .setContent(mContext.getResources().getString(R.string.delete_device))
@@ -489,7 +486,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 //                                listDeviceData.remove(position);
 //                                mDeviceAdapter.notifyDataSetChanged();
 //                                mDeviceAdapter.setEditMode(false);
-//                                tv_collector_count.setText(String.format(Locale.getDefault(), "%s%d", getString(R.string.vs13), listDeviceData.size()));
+//                                tvCollectorCount.setText(String.format(Locale.getDefault(), "%s%d", getString(R.string.vs13), listDeviceData.size()));
 //                                CustomToast.showCustomToast(mContext, getString(R.string.vs66));
 //                            }
 //
@@ -501,13 +498,30 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 //
 //                    }
 //                }).show();
+//    }
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+//        drawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        drawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+//        boolean drawerOpen = drawerLayout.isDrawerOpen(mDrawerList);
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public void onBackPressed() {
-        drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
         } else if (mDeviceAdapter.isEditMode()) {
             mDeviceAdapter.setEditMode(false);
         } else {
@@ -583,15 +597,19 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
             intent.putExtra("username", username);
             startActivity(intent);
         } else if (id == R.id.me_wenti) {
-            System.out.println("me_wenti");
+            DialogTipWithoutOkCancel d = new DialogTipWithoutOkCancel(this);
+            d.hiddenTitle();
+            d.showImg();
+            d.setContent(getString(R.string.vs30));
+            d.show();
         } else if (id == R.id.me_guanyu) {
             startActivity(new Intent(this, AboutActivity.class));
         } else if (id == R.id.me_shezhi) {
             startActivity(new Intent(this, SettingsActivity.class));
         }
         //收起侧边栏
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        drawer.closeDrawer(GravityCompat.START);
+//        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 

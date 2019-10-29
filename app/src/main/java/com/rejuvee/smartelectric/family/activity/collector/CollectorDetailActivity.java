@@ -321,7 +321,7 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
     /**
      * 判断是否有集中器软件版本升级
      *
-     * @return
+     * @return true 有可用升级
      */
     private boolean haveNewUpgrade() {
         return collectorBean.getVerMajorNew() * 256 + collectorBean.getVerMinorNew() > collectorBean.getVerMajor() * 256 + collectorBean.getVerMinor();

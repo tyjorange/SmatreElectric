@@ -116,8 +116,7 @@
                     android:padding="16dp"
                     android:text="@string/remote_control"
                     android:textColor="#5A6187"
-                    android:textSize="12sp"
-                    tools:ignore="SmallSp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/txt_shishi"
@@ -130,8 +129,7 @@
                     android:padding="16dp"
                     android:text="@string/Retimesituation"
                     android:textColor="#5A6187"
-                    android:textSize="12sp"
-                    tools:ignore="SmallSp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/txt_baobiao"
@@ -144,8 +142,7 @@
                     android:padding="16dp"
                     android:text="@string/fun_baobiao"
                     android:textColor="#5A6187"
-                    android:textSize="12sp"
-                    tools:ignore="SmallSp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/txt_dingshi"
@@ -158,8 +155,7 @@
                     android:padding="16dp"
                     android:text="@string/timed_task"
                     android:textColor="#5A6187"
-                    android:textSize="12sp"
-                    tools:ignore="SmallSp" />
+                    android:textSize="12sp" />
 
                 <!--<TextView-->
                 <!--android:id="@+id/txt_quxian"-->
@@ -193,8 +189,7 @@
                     android:padding="16dp"
                     android:text="@string/energy_saving_info"
                     android:textColor="#5A6187"
-                    android:textSize="12sp"
-                    tools:ignore="SmallSp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/txt_anquan"
@@ -207,8 +202,7 @@
                     android:padding="16dp"
                     android:text="@string/important_info"
                     android:textColor="#5A6187"
-                    android:textSize="12sp"
-                    tools:ignore="SmallSp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/txt_upgrade"
@@ -221,8 +215,7 @@
                     android:padding="16dp"
                     android:text="@string/vs58"
                     android:textColor="#5A6187"
-                    android:textSize="12sp"
-                    tools:ignore="SmallSp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/txt_zhuanye"
@@ -235,8 +228,7 @@
                     android:padding="16dp"
                     android:text="@string/vs59"
                     android:textColor="#5A6187"
-                    android:textSize="12sp"
-                    tools:ignore="SmallSp" />
+                    android:textSize="12sp" />
 
                 <!--<TextView-->
                 <!--android:id="@+id/txt_config"-->
@@ -271,8 +263,7 @@
                     android:padding="16dp"
                     android:text="@string/line_modify"
                     android:textColor="#5A6187"
-                    android:textSize="12sp"
-                    tools:ignore="SmallSp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/txt_dianbiao"
@@ -285,8 +276,7 @@
                     android:padding="16dp"
                     android:text="@string/my_electric_meter"
                     android:textColor="#5A6187"
-                    android:textSize="12sp"
-                    tools:ignore="SmallSp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/txt_dianqi"
@@ -299,8 +289,7 @@
                     android:padding="16dp"
                     android:text="@string/vs209"
                     android:textColor="#5A6187"
-                    android:textSize="12sp"
-                    tools:ignore="SmallSp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/txt_share"
@@ -313,8 +302,7 @@
                     android:padding="16dp"
                     android:text="@string/vs60"
                     android:textColor="#5A6187"
-                    android:textSize="12sp"
-                    tools:ignore="SmallSp" />
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
@@ -338,8 +326,7 @@
                     android:text="@string/fun_wifi_set"
                     android:textColor="#5A6187"
                     android:textSize="12sp"
-                    android:visibility="invisible"
-                    tools:ignore="SmallSp" />
+                    android:visibility="invisible" />
 
                 <TextView
                     android:id="@+id/txt_cha"
@@ -353,8 +340,7 @@
                     android:text="测试功能"
                     android:textColor="#5A6187"
                     android:textSize="12sp"
-                    android:visibility="visible"
-                    tools:ignore="SmallSp" />
+                    android:visibility="invisible" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -367,8 +353,7 @@
                     android:text="@string/vs209"
                     android:textColor="#5A6187"
                     android:textSize="12sp"
-                    android:visibility="invisible"
-                    tools:ignore="SmallSp" />
+                    android:visibility="invisible" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -381,8 +366,7 @@
                     android:text="@string/vs60"
                     android:textColor="#5A6187"
                     android:textSize="12sp"
-                    android:visibility="invisible"
-                    tools:ignore="SmallSp" />
+                    android:visibility="invisible" />
 
             </LinearLayout>
 

@@ -118,9 +118,9 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.0.0'
     implementation 'com.aliyun.ams:alicloud-android-push:3.1.4'
     implementation 'com.github.bmelnychuk:atv:1.2.9'
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
     implementation 'com.github.Jay-Goo:RangeSeekBar:v3.0.0'
-    implementation 'at.favre.lib:dali:0.3.5'
+    implementation 'at.favre.lib:dali:0.3.8'
 //    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
     implementation "com.mikepenz:iconics-core:2.8.2@aar"
     implementation 'com.mikepenz:google-material-typeface:3.0.1.0.original@aar'

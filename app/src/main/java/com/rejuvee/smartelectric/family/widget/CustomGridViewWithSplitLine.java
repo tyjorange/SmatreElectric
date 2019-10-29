@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AbsListView;
@@ -29,7 +28,7 @@ public class CustomGridViewWithSplitLine extends GridView {
         setOnScrollListener(new OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-                Log.d(TAG, "scrollState=" + scrollState);
+//                Log.d(TAG, "scrollState=" + scrollState);
             }
 
             @Override
