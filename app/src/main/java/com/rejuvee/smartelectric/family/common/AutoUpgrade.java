@@ -257,7 +257,7 @@ public class AutoUpgrade {
         mDialogTip.setTitle(mContext.getString(R.string.new_version) + mVersionInfo.versionName)
                 .setOkTxt(mContext.getString(R.string.intall_now))
                 .setCancelTxt(mContext.getString(R.string.vs215))
-                .setContent(res.toString())
+                .setContent(res.toString().replace("\\n", "\n"))
                 .setDialogListener(new DialogTip.onEnsureDialogListener() {
                     @Override
                     public void onEnsure() {
