@@ -1,7 +1,6 @@
 package com.rejuvee.smartelectric.family.activity.timer;
 
 import android.content.Intent;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -49,15 +48,10 @@ public class TimerSwitchActivity extends BaseActivity implements ListTimerSwitch
     protected void initView() {
         mDevicollectorBeane = getIntent().getParcelableExtra("collectorBean");
 //        mListLineView = (ListView) findViewById(R.id.lv_left);
-        backBtn = (ImageView) findViewById(R.id.img_cancel);
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        mListTimeTaskView = (ListView) findViewById(R.id.lv_right);
-        TextView collectorName = (TextView) findViewById(R.id.tv_device);
+        backBtn = findViewById(R.id.img_cancel);
+        backBtn.setOnClickListener(v -> finish());
+        mListTimeTaskView = findViewById(R.id.lv_right);
+        TextView collectorName = findViewById(R.id.tv_device);
         collectorName.setText(mDevicollectorBeane.getDeviceName());
         mWaitDialog = new LoadingDlg(this, -1);
     }

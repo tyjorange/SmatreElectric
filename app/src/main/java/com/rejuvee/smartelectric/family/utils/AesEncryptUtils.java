@@ -2,6 +2,8 @@ package com.rejuvee.smartelectric.family.utils;
 
 import android.util.Base64;
 
+import java.nio.charset.StandardCharsets;
+
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.spec.SecretKeySpec;
@@ -25,7 +27,7 @@ public class AesEncryptUtils {
         kgen.init(128);
         Cipher cipher = Cipher.getInstance(ALGORITHM_STR);
         cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(encryptKey.getBytes(), "AesEncryptUtils"));
-        return cipher.doFinal(content.getBytes("utf-8"));
+        return cipher.doFinal(content.getBytes(StandardCharsets.UTF_8));
     }
 
     public static String aesEncrypt(String content, String encryptKey) throws Exception {
@@ -38,7 +40,7 @@ public class AesEncryptUtils {
         Cipher cipher = Cipher.getInstance(ALGORITHM_STR);
         cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(decryptKey.getBytes(), "AesEncryptUtils"));
         byte[] decryptBytes = cipher.doFinal(encryptBytes);
-        return new String(decryptBytes, "utf-8");
+        return new String(decryptBytes, StandardCharsets.UTF_8);
     }
 
     public static String aesDecrypt(String encryptStr, String decryptKey) throws Exception {

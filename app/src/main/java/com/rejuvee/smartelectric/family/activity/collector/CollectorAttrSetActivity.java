@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -74,15 +73,15 @@ public class CollectorAttrSetActivity extends BaseActivity implements View.OnCli
         partext = intent.getStringExtra("partext");
         title = intent.getStringExtra("title");
 
-        edit_devicename = (EditText) findViewById(R.id.edit_devicename);
-        tv_attr_title = (TextView) findViewById(R.id.tv_attr_title);
+        edit_devicename = findViewById(R.id.edit_devicename);
+        tv_attr_title = findViewById(R.id.tv_attr_title);
         if (tv_attr_title != null) {
             tv_attr_title.setText(title);
         }
         if (edit_devicename != null)
             edit_devicename.setText(partext);
         if (Acposition != 0) {
-            list_count = (ListView) findViewById(R.id.list_count);
+            list_count = findViewById(R.id.list_count);
             switch (Acposition) {
                 case 1:
                     isslecet(setBtlv);
@@ -111,29 +110,26 @@ public class CollectorAttrSetActivity extends BaseActivity implements View.OnCli
                     break;
             }
 
-            list_count.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    switch (Acposition) {
-                        case 1:
-                            settext = setBtlv[position];
-                            break;
-                        case 2:
-                            settext = setAcquifrequency[position];
-                            break;
-                        case 3:
-                            settext = setAlarmthreshold[position];
-                            break;
-                        case 4:
-                            settext = setGuzhangma[position];
-                            break;
-                        case 5:
-                            settext = setheartrate[position];
-                            break;
-                    }
-                    curposition = position;
-                    countsadapter.notifyDataSetChanged();
+            list_count.setOnItemClickListener((parent, view, position, id) -> {
+                switch (Acposition) {
+                    case 1:
+                        settext = setBtlv[position];
+                        break;
+                    case 2:
+                        settext = setAcquifrequency[position];
+                        break;
+                    case 3:
+                        settext = setAlarmthreshold[position];
+                        break;
+                    case 4:
+                        settext = setGuzhangma[position];
+                        break;
+                    case 5:
+                        settext = setheartrate[position];
+                        break;
                 }
+                curposition = position;
+                countsadapter.notifyDataSetChanged();
             });
         }
         findViewById(R.id.img_cancel).setOnClickListener(this);
@@ -260,8 +256,8 @@ public class CollectorAttrSetActivity extends BaseActivity implements View.OnCli
             if (convertView == null) {
                 convertView = View.inflate(CollectorAttrSetActivity.this, R.layout.setcounts_items, null);
                 holder = new Holder();
-                holder.text_counts = (TextView) convertView.findViewById(R.id.text_counts);
-                holder.img_slecte = (ImageView) convertView.findViewById(R.id.img_slecte);
+                holder.text_counts = convertView.findViewById(R.id.text_counts);
+                holder.img_slecte = convertView.findViewById(R.id.img_slecte);
                 convertView.setTag(holder);
             } else {
                 holder = (Holder) convertView.getTag();

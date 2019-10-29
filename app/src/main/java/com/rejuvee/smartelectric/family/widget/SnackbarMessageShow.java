@@ -31,15 +31,10 @@ public class SnackbarMessageShow {
         snackbar = TSnackbar.make(view, errorText, TSnackbar.LENGTH_INDEFINITE);
 //        snackbar.setIconRight(R.drawable.global_delete_logo_icon, 24); //Resize to bigger dp
         snackbar.setMaxWidth(3000);
-        snackbar.getView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
+        snackbar.getView().setOnClickListener(v -> snackbar.dismiss());
         View snackbarView = snackbar.getView();
         snackbarView.setBackgroundColor(Color.parseColor("#000000"));
-        TextView textView = (TextView) snackbarView.findViewById(R.id.snackbar_text);
+        TextView textView = snackbarView.findViewById(R.id.snackbar_text);
         textView.setTextColor(Color.WHITE);
         snackbar.show();
 

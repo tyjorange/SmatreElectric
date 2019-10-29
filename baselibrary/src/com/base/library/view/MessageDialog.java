@@ -103,11 +103,11 @@ public class MessageDialog extends Dialog implements
 	}
 
 	private void initView(View mView) {
-		txtTitle = (TextView) mView.findViewById(R.id.dialog_message_title);
+        txtTitle = mView.findViewById(R.id.dialog_message_title);
 
-		txtConfim = (TextView) mView
+        txtConfim = mView
 				.findViewById(R.id.dialog_message_btn_confim);
-		txtCancel = (TextView) mView
+        txtCancel = mView
 				.findViewById(R.id.dialog_message_btn_cancel);
 		// inputEdit.setText(curMileage+"");
 		txtTitle.setText(title == null || title.equals("") ? spanned : title);
@@ -194,9 +194,9 @@ public class MessageDialog extends Dialog implements
 	}
 
 	public interface OnInputMileageChanged {
-		public void onConfirm();
+        void onConfirm();
 
-		public void onCancel();
+        void onCancel();
 
 	}
 }

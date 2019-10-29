@@ -26,7 +26,7 @@ public class ReportAlarmFragment extends BaseFragment {
 
     @Override
     protected void initView(View v) {
-        ListView listView = (ListView) v.findViewById(R.id.list_alarm);
+        ListView listView = v.findViewById(R.id.list_alarm);
         adapter = new ReportAlarmAdapter(getContext(), mListData);
         listView.setAdapter(adapter);
         listView.setEmptyView(v.findViewById(R.id.empty_layout));

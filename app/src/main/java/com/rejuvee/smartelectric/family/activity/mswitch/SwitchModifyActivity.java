@@ -3,7 +3,6 @@ package com.rejuvee.smartelectric.family.activity.mswitch;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -66,43 +65,32 @@ public class SwitchModifyActivity extends BaseActivity {
 //            return;
 //        }
         ImageView img_cancel = findViewById(R.id.img_cancel);
-        img_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        img_cancel.setOnClickListener(v -> finish());
         SuperTextView superTextView = findViewById(R.id.st_finish);
-        superTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (collectorBean != null) {//修改
-                    modify();
-                } else {//添加
-                    add();
-                }
+        superTextView.setOnClickListener(v -> {
+            if (collectorBean != null) {//修改
+                modify();
+            } else {//添加
+                add();
             }
         });
         // dialog切换线路
         LinearLayout img_change = findViewById(R.id.img_change);
         if (collectorBean != null) {//修改
-            img_change.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(mContext, SwitchTree.DINGSHI, collectorBean, new SwitchTreeDialog.ChoseCallBack() {
+            img_change.setOnClickListener(v -> {
+                SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(mContext, SwitchTree.DINGSHI, collectorBean, new SwitchTreeDialog.ChoseCallBack() {
 
-                        @Override
-                        public void onChose(SwitchBean s) {
-                            currentSwitchBean = s;
+                    @Override
+                    public void onChose(SwitchBean s) {
+                        currentSwitchBean = s;
 //                        getData(switchBean);
-                            txtLineName.setText(String.format("%s%s", mContext.getString(R.string.vs14), currentSwitchBean.getName()));
-                            editLineName.setText(currentSwitchBean.getName());
-                            customLineAdapter.reset();
-                            customLineAdapter.setCurrentSelected(currentSwitchBean.getIconType());
-                        }
-                    });
-                    switchTreeDialog.show();
-                }
+                        txtLineName.setText(String.format("%s%s", mContext.getString(R.string.vs14), currentSwitchBean.getName()));
+                        editLineName.setText(currentSwitchBean.getName());
+                        customLineAdapter.reset();
+                        customLineAdapter.setCurrentSelected(currentSwitchBean.getIconType());
+                    }
+                });
+                switchTreeDialog.show();
             });
             findViewById(R.id.type_rename_switch).setVisibility(View.VISIBLE);
             findViewById(R.id.type_add_switch).setVisibility(View.GONE);
@@ -113,12 +101,12 @@ public class SwitchModifyActivity extends BaseActivity {
         }
 //        txtCurDianliang = (TextView) findViewById(R.id.txt_dianliang);
 //        txtCurGonglv = (TextView) findViewById(R.id.txt_gonglv);
-        txtLineName = (TextView) findViewById(R.id.txt_line_name);
-        editLineName = (EditText) findViewById(R.id.edit_line_name);
+        txtLineName = findViewById(R.id.txt_line_name);
+        editLineName = findViewById(R.id.edit_line_name);
 //        imgLine = (ImageView) findViewById(R.id.img_line);
         //    private TextView txtCurDianliang;//当前电量
         //    private TextView txtCurGonglv;//当前功率
-        GridView gridView = (GridView) findViewById(R.id.grid_default_pic);
+        GridView gridView = findViewById(R.id.grid_default_pic);
         customLineAdapter = new CustomLineAdapter(this);
         gridView.setAdapter(customLineAdapter);
 //        mAdapter2 = new CustomLineAdapter(this);
@@ -127,13 +115,10 @@ public class SwitchModifyActivity extends BaseActivity {
 //        horizontalListView.setAdapter(mAdapter2);
 //        horizontalListView.setDividerWidth(SizeUtils.dp2px(8));
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                customLineAdapter.reset();
-                CustomLineAdapter.Item item = customLineAdapter.setCurrentSelected(position);
-                editLineName.setText(item.name);
-            }
+        gridView.setOnItemClickListener((parent, view, position, id) -> {
+            customLineAdapter.reset();
+            CustomLineAdapter.Item item = customLineAdapter.setCurrentSelected(position);
+            editLineName.setText(item.name);
         });
         // 修改
         if (currentSwitchBean != null) {

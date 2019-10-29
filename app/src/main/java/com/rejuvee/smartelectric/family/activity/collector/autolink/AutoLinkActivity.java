@@ -64,7 +64,7 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
         WeakReference<AutoLinkActivity> activityWeakReference;
 
         MyHandler(AutoLinkActivity activity) {
-            activityWeakReference = new WeakReference<AutoLinkActivity>(activity);
+            activityWeakReference = new WeakReference<>(activity);
         }
 
         @Override
@@ -91,12 +91,7 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auto_link);
         collectorBean = getIntent().getParcelableExtra("collectorBean");
-        findViewById(R.id.img_cancel).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
         mDialogTip = new DialogTip(this);
 
         btn_ok = findViewById(R.id.btn_ok);
@@ -108,9 +103,9 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
 
         lock = manager.createMulticastLock("fa_wifi");
         lock.acquire();
-        etSsid = (EditText) findViewById(R.id.et_ssid);
-        etPasd = (EditText) findViewById(R.id.et_pasd);
-        etPort = (EditText) findViewById(R.id.et_port);
+        etSsid = findViewById(R.id.et_ssid);
+        etPasd = findViewById(R.id.et_pasd);
+        etPort = findViewById(R.id.et_port);
 
         dialog = new ProgressDialog(this);
         dialog.setMessage(getString(R.string.vs226));
@@ -241,13 +236,9 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
 
 
     private void dismiss() {
-        handler.postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                if (dialog.isShowing()) {
-                    dialog.dismiss();
-                }
+        handler.postDelayed(() -> {
+            if (dialog.isShowing()) {
+                dialog.dismiss();
             }
         }, 3000);
     }

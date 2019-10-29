@@ -79,12 +79,9 @@ public class SettingOtherFragment extends BaseFragment {
             }
         });
         tv_sdpz = v.findViewById(R.id.tv_sdpz);
-        v.findViewById(R.id.ll_sdpz).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                radioDialog.setVal(sdpz_val);
-                radioDialog.show();
-            }
+        v.findViewById(R.id.ll_sdpz).setOnClickListener(v12 -> {
+            radioDialog.setVal(sdpz_val);
+            radioDialog.show();
         });
         //三项不平衡
         v.findViewById(R.id.ll_sxbph).setVisibility(View.VISIBLE);

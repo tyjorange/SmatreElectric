@@ -50,9 +50,9 @@ public class SetInfoActivity extends BaseActivity implements View.OnClickListene
 
         findViewById(R.id.img_cancel).setOnClickListener(this);
         findViewById(R.id.text_save).setOnClickListener(this);
-        TextView txt_title = (TextView) findViewById(R.id.txt_title);
+        TextView txt_title = findViewById(R.id.txt_title);
 
-        edit_changname = (EditText) findViewById(R.id.edit_changname);
+        edit_changname = findViewById(R.id.edit_changname);
         if (position == 0) {
             txt_title.setText(getString(R.string.vs165));
             edit_changname.setText(phone_num);

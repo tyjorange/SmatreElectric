@@ -10,9 +10,7 @@ import android.widget.TextView;
 
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.NativeLine;
-import com.rejuvee.smartelectric.family.model.bean.UserMsg;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.rejuvee.smartelectric.family.adapter.ListSetingItem.ITEM_VIEW_TYPE_DELETE;
@@ -64,16 +62,16 @@ public class SetingAdapter extends BaseAdapter {
                     //分时计价
                     holder = new SetViewHolder();
                     view = View.inflate(context, R.layout.item_line_detail1, null);
-                    holder.txtContent = (TextView) view.findViewById(R.id.txt_content);
-                    holder.txtDesc = (TextView) view.findViewById(R.id.txt_state);
-                    holder.ivDelete = (ImageView) view.findViewById(R.id.iv_delete);
+                    holder.txtContent = view.findViewById(R.id.txt_content);
+                    holder.txtDesc = view.findViewById(R.id.txt_state);
+                    holder.ivDelete = view.findViewById(R.id.iv_delete);
                     view.setTag(holder);
                     break;
                 case ITEM_VIEW_TYPE_LINEDETAIL2:
                     holder = new SetViewHolder();
                     view = View.inflate(context, R.layout.item_line_detail2, null);
-                    holder.txtContent = (TextView) view.findViewById(R.id.txt_content);
-                    holder.txtDesc = (TextView) view.findViewById(R.id.txt_state);
+                    holder.txtContent = view.findViewById(R.id.txt_content);
+                    holder.txtDesc = view.findViewById(R.id.txt_state);
                     view.setTag(holder);
                     break;
                 case ITEM_VIEW_TYPE_EMPTY:
@@ -84,16 +82,16 @@ public class SetingAdapter extends BaseAdapter {
                 case ITEM_VIEW_TYPE_NORMAL:
                     view = View.inflate(context, R.layout.item_line_normal, null);
                     holder = new SetViewHolder();
-                    holder.txtContent = (TextView) view.findViewById(R.id.txt_content);
+                    holder.txtContent = view.findViewById(R.id.txt_content);
                     view.setTag(holder);
                     break;
                 case ITEM_VIEW_TYPE_DELETE:
                     // 分享用户
                     view = View.inflate(context, R.layout.item_line_delete, null);
                     holder = new SetViewHolder();
-                    holder.txtContent = (TextView) view.findViewById(R.id.txt_content);
-                    holder.ivSwitch = (ImageView) view.findViewById(R.id.iv_switch);
-                    holder.ivDelete = (ImageView) view.findViewById(R.id.iv_delete);
+                    holder.txtContent = view.findViewById(R.id.txt_content);
+                    holder.ivSwitch = view.findViewById(R.id.iv_switch);
+                    holder.ivDelete = view.findViewById(R.id.iv_delete);
                     view.setTag(holder);
                     break;
             }
@@ -120,21 +118,15 @@ public class SetingAdapter extends BaseAdapter {
         }
         if (setingItem.getViewType() == ITEM_VIEW_TYPE_DELETE) {
             holder.txtContent.setText(setingItem.getContent());
-            holder.ivDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mListener != null) {
-                        mListener.onRemove(position);
-                    }
+            holder.ivDelete.setOnClickListener(v -> {
+                if (mListener != null) {
+                    mListener.onRemove(position);
                 }
             });
             holder.ivSwitch.setImageResource(NativeLine.DrawableToggle[listDatas.get(position).getIsEnable()]);
-            holder.ivSwitch.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mListener != null) {
-                        mListener.onSwitch(position, (listDatas.get(position).getIsEnable() == 1 ? 0 : 1));
-                    }
+            holder.ivSwitch.setOnClickListener(v -> {
+                if (mListener != null) {
+                    mListener.onSwitch(position, (listDatas.get(position).getIsEnable() == 1 ? 0 : 1));
                 }
             });
         }

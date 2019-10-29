@@ -146,12 +146,7 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
         ImageView backBtn = findViewById(R.id.img_cancel);
         TextView title = findViewById(R.id.tree_title);
         linearLayout.addView(treeView.getView());
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        backBtn.setOnClickListener(v -> finish());
         title.setText(getViewTitle());
         LinearLayout ll_choce_tip = findViewById(R.id.ll_choce_tip);
         if (viewType == SwitchTree.YAOKONG || viewType == SwitchTree.XIANLU_XIUGAI || viewType == SwitchTree.ANQUAN_SHEZHI || viewType == SwitchTree.XIANLU_WEIHU) {
@@ -162,20 +157,10 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
         if (viewType == SwitchTree.XIANLU_WEIHU) {
             ImageView img_add = findViewById(R.id.img_add);
             img_add.setVisibility(View.VISIBLE);
-            img_add.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    addSwitch(null);
-                }
-            });
+            img_add.setOnClickListener(v -> addSwitch(null));
             ImageView img_remove = findViewById(R.id.img_remove);
             img_remove.setVisibility(View.VISIBLE);
-            img_remove.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getAllSwitchState(2);
-                }
-            });
+            img_remove.setOnClickListener(v -> getAllSwitchState(2));
         }
         EventBus.getDefault().register(this);
     }

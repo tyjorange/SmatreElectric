@@ -78,16 +78,11 @@ public class PerInfoActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     protected void initView() {
-        findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        img_head = (CircleImageView) findViewById(R.id.img_head);
-        txt_phone = (TextView) findViewById(R.id.txt_phone);
-        txt_nickname = (TextView) findViewById(R.id.txt_nickname);
-        txt_username = (TextView) findViewById(R.id.txt_username);
+        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
+        img_head = findViewById(R.id.img_head);
+        txt_phone = findViewById(R.id.txt_phone);
+        txt_nickname = findViewById(R.id.txt_nickname);
+        txt_username = findViewById(R.id.txt_username);
         findViewById(R.id.ll_headimg).setOnClickListener(this);
         findViewById(R.id.ll_getphone).setOnClickListener(this);
         findViewById(R.id.ll_nickname).setOnClickListener(this);
@@ -242,9 +237,9 @@ public class PerInfoActivity extends BaseActivity implements View.OnClickListene
 
     private void getHeadview() {
         View view = getLayoutInflater().inflate(R.layout.photo_choose_dialog, null);
-        bu_img = (Button) view.findViewById(R.id.bu_img);
+        bu_img = view.findViewById(R.id.bu_img);
 //        bu_getphto = (Button) view.findViewById(R.id.bu_getphto);
-        dimiss = (Button) view.findViewById(R.id.dimiss);
+        dimiss = view.findViewById(R.id.dimiss);
 
         bu_img.setOnClickListener(this);
 //        bu_getphto.setOnClickListener(this);

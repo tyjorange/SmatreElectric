@@ -38,7 +38,7 @@ public class WaitDialog extends Dialog {
         window.getAttributes().gravity = Gravity.CENTER;
         WindowManager.LayoutParams lp = window.getAttributes();
         window.setAttributes(lp);
-        TextView tvMsg = (TextView) customProgressDialog.findViewById(R.id.id_tv_loadingmsg);
+        TextView tvMsg = customProgressDialog.findViewById(R.id.id_tv_loadingmsg);
         tvMsg.setText(context.getString(R.string.please_wait));
 
         return customProgressDialog;
@@ -60,7 +60,7 @@ public class WaitDialog extends Dialog {
 
 
     public WaitDialog setMessage(String strMessage) {
-        TextView tvMsg = (TextView) customProgressDialog.findViewById(R.id.id_tv_loadingmsg);
+        TextView tvMsg = customProgressDialog.findViewById(R.id.id_tv_loadingmsg);
 
         if (tvMsg != null) {
             tvMsg.setText(strMessage);

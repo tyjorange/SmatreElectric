@@ -47,11 +47,11 @@ public class GridViewAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = View.inflate(context, R.layout.device_items, null);
             holder = new Holder();
-            holder.img_device = (ImageView) convertView.findViewById(R.id.img_device);
-            holder.text_device = (TextView) convertView.findViewById(R.id.text_device);
-            holder.text_room = (TextView) convertView.findViewById(R.id.text_room);
-            holder.img_xuanzhe = (ImageView) convertView.findViewById(R.id.img_xuanzhe);
-            holder.ln_chose = (RelativeLayout) convertView.findViewById(R.id.ln_chose);
+            holder.img_device = convertView.findViewById(R.id.img_device);
+            holder.text_device = convertView.findViewById(R.id.text_device);
+            holder.text_room = convertView.findViewById(R.id.text_room);
+            holder.img_xuanzhe = convertView.findViewById(R.id.img_xuanzhe);
+            holder.ln_chose = convertView.findViewById(R.id.ln_chose);
            /*ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             convertView.setLayoutParams(lp);*/
             convertView.setTag(holder);

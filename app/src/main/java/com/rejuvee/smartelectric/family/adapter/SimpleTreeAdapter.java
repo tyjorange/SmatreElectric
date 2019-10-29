@@ -27,7 +27,7 @@ public class SimpleTreeAdapter<T> extends TreeListViewAdapter<T> {
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.item_lv_statement, parent, false);
             viewHolder = new ViewHolder();
-            viewHolder.tni_indicator = (TreeNodeIndicator) convertView.findViewById(R.id.tni_indicator);
+            viewHolder.tni_indicator = convertView.findViewById(R.id.tni_indicator);
 
             viewHolder.tvName = convertView.findViewById(R.id.tv_name);
             viewHolder.tvQuantity = convertView.findViewById(R.id.tv_quantity);

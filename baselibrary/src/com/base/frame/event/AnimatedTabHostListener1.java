@@ -43,11 +43,7 @@ public class AnimatedTabHostListener1 implements OnTabChangeListener {
 		gestureDetector = new GestureDetector(context, new MyGestureDetector());
 		tabHost.setOnTouchListener(new OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
-				if (gestureDetector.onTouchEvent(event)) {
-					return false;
-				} else {
-					return true;
-				}
+                return !gestureDetector.onTouchEvent(event);
 			}
 		});
 	}

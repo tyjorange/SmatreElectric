@@ -1,5 +1,6 @@
 package com.base.frame.os;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -143,7 +144,7 @@ public class ApplicationInfo {
      * @return
      */
     public static String getDeviceId(Context mContext) {
-        String deviceId = ((TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+        @SuppressLint({"MissingPermission", "HardwareIds"}) String deviceId = ((TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
         return deviceId;
     }
 

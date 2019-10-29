@@ -45,12 +45,7 @@ public class SettingsActivity extends BaseActivity {
 //        setToolbarHide(true);
 //        tvClean = (TextView) findViewById(R.id.tv_clean);
         ((TextView) findViewById(R.id.txt_current_vision)).setText(String.format("v%s", packageCode(this)));
-        findViewById(R.id.ll_check_new).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AutoUpgrade.getInstacne(mContext).startWithTip();
-            }
-        });
+        findViewById(R.id.ll_check_new).setOnClickListener(v -> AutoUpgrade.getInstacne(mContext).startWithTip());
     }
 
     private String packageCode(Context context) {

@@ -62,9 +62,9 @@ public abstract class AbstractBaseActivity extends Activity {
 		 * 不能与StatService.onPageStart一级onPageEnd函数交叉使用
 		 */
 		//StatService.onResume(this);
-	};
+    }
 
-	@Override
+    @Override
 	protected void onPause() {
 		super.onPause();
 		/**

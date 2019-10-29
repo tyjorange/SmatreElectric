@@ -82,13 +82,13 @@ public class DialogTimePicker implements View.OnClickListener {
         DisplayMetrics d = context.getResources().getDisplayMetrics(); // 获取屏幕宽、高用
         lp.width = (d.widthPixels);
         dialogWindow.setAttributes(lp);
-        txtCancel = (TextView) contentView.findViewById(R.id.txt_cancel);
-        txtOk = (TextView) contentView.findViewById(R.id.txt_ok);
+        txtCancel = contentView.findViewById(R.id.txt_cancel);
+        txtOk = contentView.findViewById(R.id.txt_ok);
 
         txtOk.setOnClickListener(this);
         txtCancel.setOnClickListener(this);
-        mPickerHour = (NumberPicker) contentView.findViewById(R.id.hour);
-        mPickMinute = (NumberPicker) contentView.findViewById(R.id.minute);
+        mPickerHour = contentView.findViewById(R.id.hour);
+        mPickMinute = contentView.findViewById(R.id.minute);
         mPickMinute.setOnLongPressUpdateInterval(100);
         mPickMinute.setFormatter(formater);
         mPickMinute.setMinValue(0);

@@ -1,7 +1,6 @@
 package com.rejuvee.smartelectric.family.activity.web;
 
 import android.annotation.SuppressLint;
-import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -24,12 +23,7 @@ public class ChartsActivity extends BaseActivity {
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void initView() {
-        findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        findViewById(R.id.img_cancel).setOnClickListener(view -> finish());
         WebView webView = findViewById(R.id.wv_cha);
         WebSettings webSettings = webView.getSettings();
         //如果访问的页面中要与Javascript交互，则webview必须设置支持Javascript

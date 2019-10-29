@@ -145,7 +145,7 @@ public class AccountHelper {
 
             @Override
             public void onFailure(int errorEvent, String message) {
-                Log.i(TAG, "errorEvent=" + errorEvent + "--" + "message=" + message.toString());
+                Log.i(TAG, "errorEvent=" + errorEvent + "--" + "message=" + message);
                 postResult(AccountEventMsg.EVENT_PHONE_REG, errorEvent, message, false);
             }
         });

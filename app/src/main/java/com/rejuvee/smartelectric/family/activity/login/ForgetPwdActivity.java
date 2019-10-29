@@ -1,9 +1,7 @@
 package com.rejuvee.smartelectric.family.activity.login;
 
 import android.content.Intent;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.base.frame.net.ActionCallbackListener;
@@ -45,18 +43,12 @@ public class ForgetPwdActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        ImageView img_cancel = (ImageView) findViewById(R.id.img_cancel);
-        img_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        et_phone = (EditText) findViewById(R.id.et_phone);
-        et_code = (EditText) findViewById(R.id.et_code);
-        login_cet_password = (ClearEditText) findViewById(R.id.login_cet_password);
-        login_cet_password_again = (ClearEditText) findViewById(R.id.login_cet_password_again);
-        tvGetCode = (TextView) findViewById(R.id.tv_getcode);
+        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
+        et_phone = findViewById(R.id.et_phone);
+        et_code = findViewById(R.id.et_code);
+        login_cet_password = findViewById(R.id.login_cet_password);
+        login_cet_password_again = findViewById(R.id.login_cet_password_again);
+        tvGetCode = findViewById(R.id.tv_getcode);
 //        txt_tishi = (TextView) findViewById(R.id.txt_tishi);
 
 
@@ -64,12 +56,7 @@ public class ForgetPwdActivity extends BaseActivity {
         EventBus.getDefault().register(ForgetPwdActivity.this);
 
         initGetCode();
-        findViewById(R.id.st_getpwdagain).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setPasswordAgain();
-            }
-        });
+        findViewById(R.id.st_getpwdagain).setOnClickListener(view -> setPasswordAgain());
 
 
     }
@@ -77,26 +64,20 @@ public class ForgetPwdActivity extends BaseActivity {
     private void initGetCode() {
 
         tvGetCode.setSelected(true);
-        countDownUtil = new CountDownUtil(60, new CountDownUtil.ITimeUpListener() {
-            @Override
-            public void onTimeUp(int seconds) {
-                tvGetCode.setText(seconds == 0 ? getString(R.string.mark_getcode) : String.format(getString(R.string.resend_time), seconds));
-                tvGetCode.setSelected(seconds == 0);
-            }
+        countDownUtil = new CountDownUtil(60, seconds -> {
+            tvGetCode.setText(seconds == 0 ? getString(R.string.mark_getcode) : String.format(getString(R.string.resend_time), seconds));
+            tvGetCode.setSelected(seconds == 0);
         });
-        tvGetCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v.isSelected()) {
-                    getVerifyCode();
-                }
+        tvGetCode.setOnClickListener(v -> {
+            if (v.isSelected()) {
+                getVerifyCode();
             }
         });
     }
 
     private void getVerifyCode() {
         String phone = et_phone.getEditableText().toString();
-        if (phone.isEmpty() || phone.length() != 11) {
+        if (phone.length() != 11) {
             CustomToast.showCustomErrorToast(this, getString(R.string.input_correct_phone));
             return;
         }
@@ -131,7 +112,7 @@ public class ForgetPwdActivity extends BaseActivity {
             return;
         }
 
-        if (phone.isEmpty() || phone.length() != 11) {
+        if (phone.length() != 11) {
             CustomToast.showCustomErrorToast(this, getString(R.string.input_correct_phone));
             return;
         }

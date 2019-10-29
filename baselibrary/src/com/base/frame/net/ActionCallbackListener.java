@@ -10,7 +10,7 @@ public interface ActionCallbackListener <T> {
      *
      * @param data 返回的数据
      */
-    public void onSuccess(T data);
+    void onSuccess(T data);
 
     /**
      * 失败时调用
@@ -18,5 +18,5 @@ public interface ActionCallbackListener <T> {
      * @param errorEvent 错误码
      * @param message    错误信息
      */
-    public void onFailure(int errorEvent, String message);
+    void onFailure(int errorEvent, String message);
 }

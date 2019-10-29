@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.text.Editable;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -74,9 +73,9 @@ public class CreateSceneActivity extends BaseActivity implements View.OnClickLis
         findViewById(R.id.txt_cancel).setOnClickListener(this);
         findViewById(R.id.st_wancheng).setOnClickListener(this);
 
-        edit_name = (EditText) findViewById(R.id.edit_name);
-        list_line = (ListView) findViewById(R.id.list_line);
-        choseimg = (ImageView) findViewById(R.id.choseimg);
+        edit_name = findViewById(R.id.edit_name);
+        list_line = findViewById(R.id.list_line);
+        choseimg = findViewById(R.id.choseimg);
 //        text_title = (TextView) findViewById(R.id.text_title);
 
         Intent intent = getIntent();
@@ -113,12 +112,9 @@ public class CreateSceneActivity extends BaseActivity implements View.OnClickLis
             }
         });
 
-        list_line.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                lineposition = position;
-                dialogTip.show();
-            }
+        list_line.setOnItemClickListener((parent, view, position, id) -> {
+            lineposition = position;
+            dialogTip.show();
         });
 //        mPopWindow = new PopupWindow();
 //        list_line.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

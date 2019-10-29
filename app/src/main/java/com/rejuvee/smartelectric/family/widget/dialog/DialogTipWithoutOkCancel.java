@@ -36,14 +36,9 @@ public class DialogTipWithoutOkCancel extends Dialog {
     private void init(Context context) {
         setContentView(R.layout.dialog_tip);
 
-        txtTitle = (TextView) findViewById(R.id.tv_tip_title);
-        txtContent = (TextView) findViewById(R.id.txt_tip_desc);
-        findViewById(R.id.tv_know).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        txtTitle = findViewById(R.id.tv_tip_title);
+        txtContent = findViewById(R.id.txt_tip_desc);
+        findViewById(R.id.tv_know).setOnClickListener(v -> dismiss());
 
         setCanceledOnTouchOutside(true);
 

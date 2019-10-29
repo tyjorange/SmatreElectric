@@ -47,28 +47,18 @@ public class CustomerServiceChartActivity extends BaseActivity {
         mContext = this;
         username = getIntent().getStringExtra("username");
         chartListItemBean = getIntent().getParcelableExtra("ChartListItemBean");
-        findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
         TextView tv_topic = findViewById(R.id.tv_topic);
         TextView tv_content = findViewById(R.id.tv_content);
         tv_topic.setText(String.format(getString(R.string.vs203), chartListItemBean.getTopic()));
         tv_content.setText(String.format(getString(R.string.vs204), chartListItemBean.getContent()));
-        ListView listView = (ListView) findViewById(R.id.list_chart);
+        ListView listView = findViewById(R.id.list_chart);
         listView.setSelector(new ColorDrawable(Color.TRANSPARENT));//List view 点击水纹效果取消
         adapter = new ChartItemBeanAdapter(this, mList);
         listView.setAdapter(adapter);
         listView.setEmptyView(findViewById(R.id.empty_layout));
 
-        findViewById(R.id.tv_commit).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                commitQA();
-            }
-        });
+        findViewById(R.id.tv_commit).setOnClickListener(v -> commitQA());
     }
 
     @Override
@@ -155,9 +145,9 @@ public class CustomerServiceChartActivity extends BaseActivity {
                 convertView = View.inflate(mContext, R.layout.item_chat_left, null);
             }
             holder = new ViewHolder();
-            holder.tvContent = (TextView) convertView.findViewById(R.id.tvContent);
-            holder.tv_chat_time = (TextView) convertView.findViewById(R.id.tv_chat_time);
-            holder.ivAvatar = (ImageView) convertView.findViewById(R.id.ivAvatar);
+            holder.tvContent = convertView.findViewById(R.id.tvContent);
+            holder.tv_chat_time = convertView.findViewById(R.id.tv_chat_time);
+            holder.ivAvatar = convertView.findViewById(R.id.ivAvatar);
 //                convertView.setTag(holder);
 //            } else {
 //                holder = (ViewHolder) convertView.getTag();

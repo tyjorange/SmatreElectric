@@ -51,7 +51,7 @@ public class PopwindowQCode extends Dialog {
             }
         });*/
 
-        ivQcode = (ImageView) contentView.findViewById(R.id.iv_qcode);
+        ivQcode = contentView.findViewById(R.id.iv_qcode);
 
     }
 

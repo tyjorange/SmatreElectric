@@ -78,11 +78,11 @@ public class SuperTextView extends androidx.appcompat.widget.AppCompatTextView {
   private Path solidPath;
   private RectF strokeLineRectF;
   private RectF solidRectF;
-  private float leftTopCorner[] = new float[2];
-  private float rightTopCorner[] = new float[2];
-  private float leftBottomCorner[] = new float[2];
-  private float rightBottomCorner[] = new float[2];
-  private float corners[] = new float[8];
+    private float[] leftTopCorner = new float[2];
+    private float[] rightTopCorner = new float[2];
+    private float[] leftBottomCorner = new float[2];
+    private float[] rightBottomCorner = new float[2];
+    private float[] corners = new float[8];
   private float[] drawableBounds = new float[4];
   private float drawableWidth;
   private float drawableHeight;
@@ -1028,7 +1028,7 @@ public class SuperTextView extends androidx.appcompat.widget.AppCompatTextView {
      */
     public boolean onTouch(SuperTextView v, MotionEvent event) {
       return false;
-    };
+    }
 
     /**
      * @return Adjuster的作用层级。
@@ -1050,7 +1050,7 @@ public class SuperTextView extends androidx.appcompat.widget.AppCompatTextView {
      * 在SuperTextView中，绘制层级被从下到上分为：背景层、Drawable层、文字层3个层级。
      * 通过Opportunity来指定你的Adjuster想要插入到那个层级间。
      */
-    public static enum Opportunity {
+    public enum Opportunity {
       /**
        * 背景层和Drawable层之间
        */
@@ -1070,7 +1070,7 @@ public class SuperTextView extends androidx.appcompat.widget.AppCompatTextView {
    * 状态图的显示模式。SuperTextView定义了10中显示模式。它们控制着状态图的相对位置。
    * 默认为居中，即{@link DrawableMode#CENTER}。
    */
-  public static enum DrawableMode {
+  public enum DrawableMode {
     /**
      * 正左
      */
@@ -1130,7 +1130,7 @@ public class SuperTextView extends androidx.appcompat.widget.AppCompatTextView {
   /**
    * 渐变模式。
    */
-  public static enum ShaderMode {
+  public enum ShaderMode {
     /**
      * 从上到下
      */

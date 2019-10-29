@@ -54,32 +54,22 @@ public class ListSceneAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = View.inflate(context, R.layout.item_scene, null);
             myHolder = new MyHolder();
-            myHolder.img_item_remove = (ImageView) convertView.findViewById(R.id.img_item_remove);
-            myHolder.img_scen = (ImageView) convertView.findViewById(R.id.img_scen);
-            myHolder.text_scenname = (TextView) convertView.findViewById(R.id.text_scenname);
-            myHolder.text_scenline = (TextView) convertView.findViewById(R.id.text_scenline);
-            myHolder.img_zhixing = (TextView) convertView.findViewById(R.id.img_zhixing);
+            myHolder.img_item_remove = convertView.findViewById(R.id.img_item_remove);
+            myHolder.img_scen = convertView.findViewById(R.id.img_scen);
+            myHolder.text_scenname = convertView.findViewById(R.id.text_scenname);
+            myHolder.text_scenline = convertView.findViewById(R.id.text_scenline);
+            myHolder.img_zhixing = convertView.findViewById(R.id.img_zhixing);
             convertView.setTag(myHolder);
         } else {
             myHolder = (MyHolder) convertView.getTag();
         }
         final SceneBean sceneBean = result.get(position);
         myHolder.img_item_remove.setVisibility(sceneBean.showDelIcon);
-        myHolder.img_item_remove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.onDelItem(sceneBean.getSceneId());
-            }
-        });
+        myHolder.img_item_remove.setOnClickListener(v -> mListener.onDelItem(sceneBean.getSceneId()));
         myHolder.img_scen.setImageResource(NativeLine.imageId[sceneBean.getSceneIconRes()]);
         myHolder.text_scenname.setText(sceneBean.getSceneName());
         myHolder.text_scenline.setText(String.format(context.getString(R.string.associated_lines), sceneBean.getCount()));
-        myHolder.img_zhixing.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.onExcuteItem(sceneBean.getSceneId(), position);
-            }
-        });
+        myHolder.img_zhixing.setOnClickListener(v -> mListener.onExcuteItem(sceneBean.getSceneId(), position));
         return convertView;
     }
 

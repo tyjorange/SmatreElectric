@@ -24,7 +24,7 @@ public class LoadingDlg extends Dialog {
         window.getAttributes().gravity = Gravity.CENTER;
         WindowManager.LayoutParams lp = window.getAttributes();
         window.setAttributes(lp);
-        txtToast = (TextView) findViewById(R.id.txt_tip);
+        txtToast = findViewById(R.id.txt_tip);
         if (tipsRes != -1) {
             txtToast.setText(tipsRes);
         }

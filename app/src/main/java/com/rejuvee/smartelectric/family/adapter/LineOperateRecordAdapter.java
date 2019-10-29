@@ -49,11 +49,11 @@ public class LineOperateRecordAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = View.inflate(mContext, R.layout.item_line_record, null);
             holder = new ViewHolder();
-            holder.tvTitle = (TextView) convertView.findViewById(R.id.tv_title);
-            holder.tvState = (TextView) convertView.findViewById(R.id.tv_state);
-            holder.tvCode = (TextView) convertView.findViewById(R.id.tv_code);
-            holder.tvDate = (TextView) convertView.findViewById(R.id.tv_time);
-            holder.ivRight = (ImageView) convertView.findViewById(R.id.iv_right);
+            holder.tvTitle = convertView.findViewById(R.id.tv_title);
+            holder.tvState = convertView.findViewById(R.id.tv_state);
+            holder.tvCode = convertView.findViewById(R.id.tv_code);
+            holder.tvDate = convertView.findViewById(R.id.tv_time);
+            holder.ivRight = convertView.findViewById(R.id.iv_right);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

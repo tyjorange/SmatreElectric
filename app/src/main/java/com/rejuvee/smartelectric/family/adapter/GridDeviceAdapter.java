@@ -59,23 +59,20 @@ public class GridDeviceAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = View.inflate(mContext, R.layout.item_easy_device, null);
             holder = new ViewHolder();
-            holder.imgDevice = (ImageView) convertView.findViewById(R.id.img_device);
-            holder.txtDeviceName = (TextView) convertView.findViewById(R.id.txt_device_name);
-            holder.imgOnline = (ImageView) convertView.findViewById(R.id.img_online);
-            holder.ivDeviceType = (ImageView) convertView.findViewById(R.id.img_device_type);
-            holder.ivJinru = (ImageView) convertView.findViewById(R.id.iv_jinru);
-            holder.ivShare = (ImageView) convertView.findViewById(R.id.iv_share);
-            holder.llRight = (LinearLayout) convertView.findViewById(R.id.ll_right);
+            holder.imgDevice = convertView.findViewById(R.id.img_device);
+            holder.txtDeviceName = convertView.findViewById(R.id.txt_device_name);
+            holder.imgOnline = convertView.findViewById(R.id.img_online);
+            holder.ivDeviceType = convertView.findViewById(R.id.img_device_type);
+            holder.ivJinru = convertView.findViewById(R.id.iv_jinru);
+            holder.ivShare = convertView.findViewById(R.id.iv_share);
+            holder.llRight = convertView.findViewById(R.id.ll_right);
             holder.ll_collector_item1 = convertView.findViewById(R.id.ll_collector_item);
             holder.ll_collector_item2 = convertView.findViewById(R.id.ll_collector_item2);
-            holder.ivDel = (ImageView) convertView.findViewById(R.id.iv_del);
-            holder.ivDel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = (int) v.getTag();
-                    if (mListener != null) {
-                        mListener.onDel(pos);
-                    }
+            holder.ivDel = convertView.findViewById(R.id.iv_del);
+            holder.ivDel.setOnClickListener(v -> {
+                int pos = (int) v.getTag();
+                if (mListener != null) {
+                    mListener.onDel(pos);
                 }
             });
             convertView.setTag(holder);

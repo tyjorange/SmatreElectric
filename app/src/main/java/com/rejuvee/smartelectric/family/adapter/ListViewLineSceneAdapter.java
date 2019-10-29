@@ -52,10 +52,10 @@ public class ListViewLineSceneAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = View.inflate(context, R.layout.item_scene_switch, null);
             holder = new Holder();
-            holder.img_device = (ImageView) convertView.findViewById(R.id.img_device);
-            holder.txt_device = (TextView) convertView.findViewById(R.id.txt_device);
-            holder.txt_room = (TextView) convertView.findViewById(R.id.txt_room);
-            holder.img_kaiguang = (ImageView) convertView.findViewById(R.id.img_kaiguang);
+            holder.img_device = convertView.findViewById(R.id.img_device);
+            holder.txt_device = convertView.findViewById(R.id.txt_device);
+            holder.txt_room = convertView.findViewById(R.id.txt_room);
+            holder.img_kaiguang = convertView.findViewById(R.id.img_kaiguang);
             convertView.setTag(holder);
         } else {
             holder = (Holder) convertView.getTag();
@@ -68,13 +68,10 @@ public class ListViewLineSceneAdapter extends BaseAdapter {
         } else
             holder.img_kaiguang.setImageResource(R.drawable.yk_kaizha);
 
-        holder.img_kaiguang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int state = result.get(position).getState();
-                result.get(position).setState(state == 0 ? 1 : 0);
-                ListViewLineSceneAdapter.this.notifyDataSetChanged();
-            }
+        holder.img_kaiguang.setOnClickListener(v -> {
+            int state = result.get(position).getState();
+            result.get(position).setState(state == 0 ? 1 : 0);
+            ListViewLineSceneAdapter.this.notifyDataSetChanged();
         });
         return convertView;
     }

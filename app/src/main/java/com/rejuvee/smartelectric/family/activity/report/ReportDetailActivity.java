@@ -2,7 +2,6 @@ package com.rejuvee.smartelectric.family.activity.report;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -55,15 +54,10 @@ public class ReportDetailActivity extends BaseActivity {
         collectorBean = getIntent().getParcelableExtra("collectorBean");
         reportBean = getIntent().getParcelableExtra("reportBean");
         loadingDlg = new LoadingDlg(this, -1);
-        findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        mTabLayout = (TabLayout) findViewById(R.id.tab_report);
-        viewPager = (ViewPager) findViewById(R.id.vp_report);
-        TextView textViewTitle = (TextView) findViewById(R.id.tv_report_title);
+        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
+        mTabLayout = findViewById(R.id.tab_report);
+        viewPager = findViewById(R.id.vp_report);
+        TextView textViewTitle = findViewById(R.id.tv_report_title);
         String a = reportBean.timeType == 1 ? getString(R.string.vs88) : getString(R.string.vs137);
         textViewTitle.setText(String.format("%s %s - %s", a, reportBean.startDay, reportBean.endDay));
     }

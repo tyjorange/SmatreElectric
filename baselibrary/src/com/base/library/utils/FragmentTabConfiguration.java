@@ -45,7 +45,7 @@ public final class FragmentTabConfiguration implements FragmentBuilder {
         }
 
         private void create(View parentView) {
-            frgTabHost = (MyFragmentTabHost) parentView.findViewById(R.id.tabhost);
+            frgTabHost = parentView.findViewById(R.id.tabhost);
             frgTabHost.setup(mContext, frg,
                     android.R.id.tabcontent);
         }
@@ -73,8 +73,8 @@ public final class FragmentTabConfiguration implements FragmentBuilder {
                                                              int tabResId) {
             View view = LayoutInflater.from(this.mContext).inflate(
                     R.layout.tab_customtab, null);
-            ImageView image = (ImageView) view.findViewById(R.id.tab_icon);
-            TextView text = (TextView) view.findViewById(R.id.tabtitle);
+            ImageView image = view.findViewById(R.id.tab_icon);
+            TextView text = view.findViewById(R.id.tabtitle);
             image.setBackgroundResource(tabResId);
             text.setText(tabTitle);
             TabHost.TabSpec spec = frgTabHost.newTabSpec(fgTag);

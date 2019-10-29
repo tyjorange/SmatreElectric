@@ -3,7 +3,6 @@ package com.rejuvee.smartelectric.family.activity.scene;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -49,23 +48,20 @@ public class ChoceLineActivity extends BaseActivity implements View.OnClickListe
         intent = getIntent();
         initAllLine();
 
-        grid_device = (GridView) findViewById(R.id.grid_device);
+        grid_device = findViewById(R.id.grid_device);
         gridViewAdapter = new GridViewAdapter(ChoceLineActivity.this, mListAllBreak);
         grid_device.setAdapter(gridViewAdapter);
 
-        text_choceall = (TextView) findViewById(R.id.text_choceall);
+        text_choceall = findViewById(R.id.text_choceall);
         findViewById(R.id.text_choceall).setOnClickListener(this);
         findViewById(R.id.bu_wancheng).setOnClickListener(this);
         findViewById(R.id.img_cancel).setOnClickListener(this);
 
-        grid_device.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                boolean flag = mListAllBreak.get(position).isFlag();
-                mListAllBreak.get(position).setFlag(!flag);
-                gridViewAdapter.notifyDataSetChanged();
-                updateRightMenu(isAllSelect());
-            }
+        grid_device.setOnItemClickListener((parent, view, position, id) -> {
+            boolean flag = mListAllBreak.get(position).isFlag();
+            mListAllBreak.get(position).setFlag(!flag);
+            gridViewAdapter.notifyDataSetChanged();
+            updateRightMenu(isAllSelect());
         });
     }
 

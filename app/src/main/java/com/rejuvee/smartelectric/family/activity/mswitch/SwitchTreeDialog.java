@@ -125,18 +125,15 @@ public class SwitchTreeDialog extends Dialog implements SwitchTree {
         //选择确认按钮
         SuperTextView superTextView = findViewById(R.id.st_wancheng);
         superTextView.setVisibility(View.VISIBLE);
-        superTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (currentSwitch != null) {
+        superTextView.setOnClickListener(v -> {
+            if (currentSwitch != null) {
 //                    Intent intent = new Intent();
 //                    intent.putExtra("switchBean", currentSwitch);
 //                    setResult(Activity.RESULT_OK, intent);
 //                    finish();
-                    if (choseCallBack != null) {
-                        choseCallBack.onChose(currentSwitch);
-                        SwitchTreeDialog.this.dismiss();
-                    }
+                if (choseCallBack != null) {
+                    choseCallBack.onChose(currentSwitch);
+                    SwitchTreeDialog.this.dismiss();
                 }
             }
         });
@@ -153,12 +150,9 @@ public class SwitchTreeDialog extends Dialog implements SwitchTree {
 
         // 取消
         ImageView choce_cancel = findViewById(R.id.choce_cancel);
-        choce_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        choce_cancel.setOnClickListener(v -> {
 //                finish();
-                SwitchTreeDialog.this.dismiss();
-            }
+            SwitchTreeDialog.this.dismiss();
         });
 //        EventBus.getDefault().register(this);
     }

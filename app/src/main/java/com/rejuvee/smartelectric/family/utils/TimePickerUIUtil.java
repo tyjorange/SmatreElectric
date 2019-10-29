@@ -45,9 +45,9 @@ public class TimePickerUIUtil {
         int minute_numberpicker_id = system.getIdentifier("minute", "id", "android");
         int ampm_numberpicker_id = system.getIdentifier("amPm", "id", "android");
 
-        NumberPicker hour_numberpicker = (NumberPicker) time_picker.findViewById(hour_numberpicker_id);
-        NumberPicker minute_numberpicker = (NumberPicker) time_picker.findViewById(minute_numberpicker_id);
-        NumberPicker ampm_numberpicker = (NumberPicker) time_picker.findViewById(ampm_numberpicker_id);
+        NumberPicker hour_numberpicker = time_picker.findViewById(hour_numberpicker_id);
+        NumberPicker minute_numberpicker = time_picker.findViewById(minute_numberpicker_id);
+        NumberPicker ampm_numberpicker = time_picker.findViewById(ampm_numberpicker_id);
 
         setNumberpickerTextColour(hour_numberpicker, context);
         setNumberpickerTextColour(minute_numberpicker, context);

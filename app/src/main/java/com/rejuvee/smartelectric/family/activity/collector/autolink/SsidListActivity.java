@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,31 +26,22 @@ public class SsidListActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_ssid_list);
-        findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
         ssids = getIntent().getParcelableArrayListExtra("ssids");
-        ListView lv = (ListView) findViewById(R.id.lv_ssid);
+        ListView lv = findViewById(R.id.lv_ssid);
         if (ssids == null) {
             ssids = new ArrayList<>();
         }
         ItemAdapter adapter = new ItemAdapter(this, ssids);
         lv.setAdapter(adapter);
 
-        lv.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Item ssid = ssids.get(position);
-                System.out.println("onClick-------------->ssid:" + ssid.getName() + " dbm:" + ssid.getDbm());
-                Intent data = new Intent();
-                data.putExtra("ssid", ssid.getName());
-                setResult(RESULT_OK, data);
-                finish();
-            }
+        lv.setOnItemClickListener((parent, view, position, id) -> {
+            Item ssid = ssids.get(position);
+            System.out.println("onClick-------------->ssid:" + ssid.getName() + " dbm:" + ssid.getDbm());
+            Intent data = new Intent();
+            data.putExtra("ssid", ssid.getName());
+            setResult(RESULT_OK, data);
+            finish();
         });
     }
 
@@ -86,8 +75,8 @@ public class SsidListActivity extends Activity {
             if (convertView == null) {
                 viewHolder = new ViewHolder();
                 convertView = View.inflate(context, R.layout.item_auto_link, null);
-                viewHolder.tvName = (TextView) convertView.findViewById(R.id.name);
-                viewHolder.tvDbm = (TextView) convertView.findViewById(R.id.dbm);
+                viewHolder.tvName = convertView.findViewById(R.id.name);
+                viewHolder.tvDbm = convertView.findViewById(R.id.dbm);
                 convertView.setTag(viewHolder);
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();

@@ -47,9 +47,9 @@ public class ListTimerSwitchAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = View.inflate(mContext, R.layout.item_timer_switch, null);
             holder = new ViewHolder();
-            holder.img_line = (ImageView) convertView.findViewById(R.id.img_line);
-            holder.tv_name = (TextView) convertView.findViewById(R.id.tv_name);
-            holder.tv_code = (TextView) convertView.findViewById(R.id.tv_code);
+            holder.img_line = convertView.findViewById(R.id.img_line);
+            holder.tv_name = convertView.findViewById(R.id.tv_name);
+            holder.tv_code = convertView.findViewById(R.id.tv_code);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -58,12 +58,9 @@ public class ListTimerSwitchAdapter extends BaseAdapter {
         holder.img_line.setImageResource(switchBean.getIcon());
         holder.tv_name.setText(switchBean.getName());
         holder.tv_code.setText(switchBean.getSerialNumber());
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mListener != null) {
-                    mListener.onClickItem(switchBean.getSwitchID());
-                }
+        convertView.setOnClickListener(v -> {
+            if (mListener != null) {
+                mListener.onClickItem(switchBean.getSwitchID());
             }
         });
         return convertView;

@@ -1,7 +1,6 @@
 package com.rejuvee.smartelectric.family.activity.share;
 
 import android.content.Intent;
-import android.view.View;
 import android.widget.EditText;
 
 import com.base.frame.net.ActionCallbackListener;
@@ -50,31 +49,18 @@ public class AddShareMemberActivity extends BaseActivity {
             }
         }).hasCamera(this);
 
-        findViewById(R.id.ll_img_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
+        findViewById(R.id.ll_img_cancel).setOnClickListener(v -> finish());
+        findViewById(R.id.rl_scan_add).setOnClickListener(v -> {
+            Intent intent = new Intent(AddShareMemberActivity.this, CaptureActivity.class);
+            startActivityForResult(intent, request_code_scancode);
         });
-        findViewById(R.id.rl_scan_add).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AddShareMemberActivity.this, CaptureActivity.class);
-                startActivityForResult(intent, request_code_scancode);
-            }
-        });
-        findViewById(R.id.st_finish).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addShareUser();
-            }
-        });
+        findViewById(R.id.st_finish).setOnClickListener(view -> addShareUser());
 //        findViewById(R.id.iv_check).setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //            }
 //        });
-        edtScan = (EditText) findViewById(R.id.edt_input_device);
+        edtScan = findViewById(R.id.edt_input_device);
 //        iv_check = (ImageView) findViewById(R.id.iv_check);
 //        ischeck = true;
 //

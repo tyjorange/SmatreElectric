@@ -1,7 +1,6 @@
 package com.rejuvee.smartelectric.family.activity.mine;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 
@@ -112,69 +111,45 @@ public class ThridPushActivity extends BaseActivity {
     private void initBox() {
         checkBox1.setChecked(true);
         checkBox1.setEnabled(false);
-        ll_cb1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        ll_cb1.setOnClickListener(v -> {
 //                checkBox1.toggle();
 //                CustomToast.showCustomErrorToast(ThridPushActivity.this, "系统通知必选");
-            }
         });
-        ll_cb2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        ll_cb2.setOnClickListener(v -> {
 //                checkBox2.toggle();
 //                CustomToast.showCustomErrorToast(ThridPushActivity.this, "更新通知必选");
-            }
         });
-        ll_cb3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkBox3.toggle();
+        ll_cb3.setOnClickListener(v -> checkBox3.toggle());
+        ll_cb4.setOnClickListener(v -> checkBox4.toggle());
+        ll_cb5.setOnClickListener(v -> checkBox5.toggle());
+        superTextView.setOnClickListener(v -> {
+            String remind = "";
+            if (checkBox1.isChecked()) {
+                remind += opt[0];
             }
-        });
-        ll_cb4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkBox4.toggle();
+            if (checkBox2.isChecked()) {
+                remind += opt[1];
             }
-        });
-        ll_cb5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkBox5.toggle();
+            if (checkBox3.isChecked()) {
+                remind += opt[2];
             }
-        });
-        superTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String remind = "";
-                if (checkBox1.isChecked()) {
-                    remind += opt[0];
+            if (checkBox4.isChecked()) {
+                remind += opt[3];
+            }
+            if (checkBox5.isChecked()) {
+                remind += opt[4];
+            }
+            Core.instance(context).updatePushSetting(remind, new ActionCallbackListener<Void>() {
+                @Override
+                public void onSuccess(Void data) {
+                    CustomToast.showCustomToast(ThridPushActivity.this, getString(R.string.operator_sucess));
                 }
-                if (checkBox2.isChecked()) {
-                    remind += opt[1];
-                }
-                if (checkBox3.isChecked()) {
-                    remind += opt[2];
-                }
-                if (checkBox4.isChecked()) {
-                    remind += opt[3];
-                }
-                if (checkBox5.isChecked()) {
-                    remind += opt[4];
-                }
-                Core.instance(context).updatePushSetting(remind, new ActionCallbackListener<Void>() {
-                    @Override
-                    public void onSuccess(Void data) {
-                        CustomToast.showCustomToast(ThridPushActivity.this, getString(R.string.operator_sucess));
-                    }
 
-                    @Override
-                    public void onFailure(int errorEvent, String message) {
-                        CustomToast.showCustomErrorToast(ThridPushActivity.this, message);
-                    }
-                });
-            }
+                @Override
+                public void onFailure(int errorEvent, String message) {
+                    CustomToast.showCustomErrorToast(ThridPushActivity.this, message);
+                }
+            });
         });
     }
 

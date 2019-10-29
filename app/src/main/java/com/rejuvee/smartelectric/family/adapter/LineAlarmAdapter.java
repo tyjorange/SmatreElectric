@@ -44,10 +44,10 @@ public class LineAlarmAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = View.inflate(mContext, R.layout.item_line_alarm, null);
             holder = new ViewHolder();
-            holder.tvTitle = (TextView) convertView.findViewById(R.id.tv_title);
-            holder.tvState = (TextView) convertView.findViewById(R.id.tv_state);
-            holder.tvCode = (TextView) convertView.findViewById(R.id.tv_code);
-            holder.tvDate = (TextView) convertView.findViewById(R.id.tv_time);
+            holder.tvTitle = convertView.findViewById(R.id.tv_title);
+            holder.tvState = convertView.findViewById(R.id.tv_state);
+            holder.tvCode = convertView.findViewById(R.id.tv_code);
+            holder.tvDate = convertView.findViewById(R.id.tv_time);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

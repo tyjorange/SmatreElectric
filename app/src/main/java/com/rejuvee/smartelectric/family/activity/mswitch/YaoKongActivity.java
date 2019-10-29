@@ -60,12 +60,7 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
         viewType = getIntent().getIntExtra("viewType", -1);
         waitDialog = new LoadingDlg(this, -1);
         d = new DialogTipWithoutOkCancel(this);
-        findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
         TextView tv_title = findViewById(R.id.tv_title);
         switch (viewType) {
             case YaoKongActivity.YAOKONG:
@@ -79,41 +74,25 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
                 findViewById(R.id.type_yaokong).setVisibility(View.GONE);
                 findViewById(R.id.type_xianluweihu).setVisibility(View.VISIBLE);
                 View iv_switch_add = findViewById(R.id.iv_add_child_switch);
-                iv_switch_add.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        addSwitch(null);//添加至集中器
-                    }
+                iv_switch_add.setOnClickListener(v -> {
+                    addSwitch(null);//添加至集中器
                 });
                 iv_switch_add.setVisibility(View.VISIBLE);
                 View iv_switch_remove = findViewById(R.id.iv_switch_remove_toggle);
-                iv_switch_remove.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        toggleDelIcon();
-                    }
-                });
+                iv_switch_remove.setOnClickListener(v -> toggleDelIcon());
                 iv_switch_remove.setVisibility(View.VISIBLE);
                 findViewById(R.id.ll_xianlu_paizhao).setVisibility(View.VISIBLE);
-                findViewById(R.id.ll_xianlu_paizhao).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        d.hiddenTitle();
-                        d.showImg();
-                        d.setContent(getString(R.string.vs30));
-                        d.show();
-                    }
+                findViewById(R.id.ll_xianlu_paizhao).setOnClickListener(v -> {
+                    d.hiddenTitle();
+                    d.showImg();
+                    d.setContent(getString(R.string.vs30));
+                    d.show();
                 });
                 break;
         }
-        ListView lvProduct = (ListView) findViewById(R.id.lv_products);
+        ListView lvProduct = findViewById(R.id.lv_products);
         lvProduct.setEmptyView(findViewById(R.id.empty_layout));
-        adapter = new MyAdapter(this, mCollectorBean, viewType, mListData, new MyAdapter.ISwitchCheckListen() {
-            @Override
-            public void onDelete(SwitchBean s) {
-                deleteSwitch(s.getSwitchID());
-            }
-        });
+        adapter = new MyAdapter(this, mCollectorBean, viewType, mListData, s -> deleteSwitch(s.getSwitchID()));
         lvProduct.setAdapter(adapter);
     }
 
@@ -308,13 +287,13 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
             if (convertView == null) {
                 convertView = LayoutInflater.from(context).inflate(R.layout.item_test0, parent, false);
                 holder = new ViewHolder();
-                holder.img_line = (ImageView) convertView.findViewById(R.id.img_line);
-                holder.txt_content = (TextView) convertView.findViewById(R.id.txt_content);
-                holder.tv_state = (TextView) convertView.findViewById(R.id.tv_state);
-                holder.tv_code = (TextView) convertView.findViewById(R.id.tv_code);
-                holder.iv_time_clock = (ImageView) convertView.findViewById(R.id.iv_time_clock);
-                holder.img_right = (ImageView) convertView.findViewById(R.id.img_right);
-                holder.iv_del_switch = (ImageView) convertView.findViewById(R.id.iv_del_switch);
+                holder.img_line = convertView.findViewById(R.id.img_line);
+                holder.txt_content = convertView.findViewById(R.id.txt_content);
+                holder.tv_state = convertView.findViewById(R.id.tv_state);
+                holder.tv_code = convertView.findViewById(R.id.tv_code);
+                holder.iv_time_clock = convertView.findViewById(R.id.iv_time_clock);
+                holder.img_right = convertView.findViewById(R.id.img_right);
+                holder.iv_del_switch = convertView.findViewById(R.id.iv_del_switch);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
@@ -331,24 +310,16 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
 
             if (switchBean.getChild() != null) {
                 holder.img_right.setVisibility(View.VISIBLE);
-                convertView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(context, YaoKongDetailActivity.class);
-                        intent.putExtra("collectorBean", collectorBean);
-                        intent.putExtra("SwitchBean", switchBean);
-                        intent.putExtra("viewType", viewType);
+                convertView.setOnClickListener(view -> {
+                    Intent intent = new Intent(context, YaoKongDetailActivity.class);
+                    intent.putExtra("collectorBean", collectorBean);
+                    intent.putExtra("SwitchBean", switchBean);
+                    intent.putExtra("viewType", viewType);
 //                        intent.putExtra("datas", datas);
-                        ((Activity) context).startActivityForResult(intent, CommonRequestCode.REQUEST_ADD_LINE);
-                    }
+                    ((Activity) context).startActivityForResult(intent, CommonRequestCode.REQUEST_ADD_LINE);
                 });
             }
-            holder.iv_del_switch.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    iSwitchCheckListen.onDelete(switchBean);
-                }
-            });
+            holder.iv_del_switch.setOnClickListener(v -> iSwitchCheckListen.onDelete(switchBean));
             return convertView;
         }
 

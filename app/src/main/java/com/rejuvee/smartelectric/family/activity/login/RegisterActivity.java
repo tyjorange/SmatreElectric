@@ -1,9 +1,7 @@
 package com.rejuvee.smartelectric.family.activity.login;
 
 import android.content.Intent;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.base.frame.net.ActionCallbackListener;
@@ -42,55 +40,35 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        ImageView img_cancel = (ImageView) findViewById(R.id.img_cancel);
-        img_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        edtUserName = (EditText) findViewById(R.id.login_cet_username);
-        edtPassword = (EditText) findViewById(R.id.login_cet_password);
-        edtEnsurePassword = (EditText) findViewById(R.id.login_cet_password_again);
-        edtPhone = (EditText) findViewById(R.id.et_phone);
-        edtVerifyCode = (EditText) findViewById(R.id.et_code);
-        txtRegister = (TextView) findViewById(R.id.st_register);
-        txtRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startRegister();
-            }
-        });
+        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
+        edtUserName = findViewById(R.id.login_cet_username);
+        edtPassword = findViewById(R.id.login_cet_password);
+        edtEnsurePassword = findViewById(R.id.login_cet_password_again);
+        edtPhone = findViewById(R.id.et_phone);
+        edtVerifyCode = findViewById(R.id.et_code);
+        txtRegister = findViewById(R.id.st_register);
+        txtRegister.setOnClickListener(v -> startRegister());
         accountHelper = new AccountHelper();
         initGetCode();
-        edtUserName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {// 失去焦点
-                    EditText e = (EditText) v;
-                    usernameVerify(e.getEditableText().toString());
-                }
+        edtUserName.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {// 失去焦点
+                EditText e = (EditText) v;
+                usernameVerify(e.getEditableText().toString());
             }
         });
         EventBus.getDefault().register(this);
     }
 
     private void initGetCode() {
-        tvGetCode = (TextView) findViewById(R.id.tv_reget);
+        tvGetCode = findViewById(R.id.tv_reget);
         tvGetCode.setSelected(true);
-        countDownUtil = new CountDownUtil(60, new CountDownUtil.ITimeUpListener() {
-            @Override
-            public void onTimeUp(int seconds) {
-                tvGetCode.setText(seconds == 0 ? getString(R.string.mark_getcode) : String.format(getString(R.string.resend_time), seconds));
-                tvGetCode.setSelected(seconds == 0);
-            }
+        countDownUtil = new CountDownUtil(60, seconds -> {
+            tvGetCode.setText(seconds == 0 ? getString(R.string.mark_getcode) : String.format(getString(R.string.resend_time), seconds));
+            tvGetCode.setSelected(seconds == 0);
         });
-        tvGetCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v.isSelected()) {
-                    getVerifyCode();
-                }
+        tvGetCode.setOnClickListener(v -> {
+            if (v.isSelected()) {
+                getVerifyCode();
             }
         });
     }

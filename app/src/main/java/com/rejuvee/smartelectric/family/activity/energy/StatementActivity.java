@@ -46,8 +46,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
     private TextView tvDate;
     private TextView tvDateSS;
     private TextView tvDateEE;
-    //    private boolean isDay;
-    private int selectType;
+    private int selectType;// 0按日 1按月 2按时段
     private TextView tvEQuantity;
     private TextView tvECharge;
     private int iyear;
@@ -79,16 +78,16 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
         mContext = this;
         waitDialog = new LoadingDlg(this, -1);
         NativeLine.init(this);
-        ImageView img_cancel = (ImageView) findViewById(R.id.img_cancel);
+        ImageView img_cancel = findViewById(R.id.img_cancel);
         img_cancel.setOnClickListener(this);
-        lvStatement = (ListView) findViewById(R.id.lv_statement);
-        tvDate = (TextView) findViewById(R.id.tv_date);
-        tvDateSS = (TextView) findViewById(R.id.tv_date_ss);
-        tvDateEE = (TextView) findViewById(R.id.tv_date_ee);
-        tvEQuantity = (TextView) findViewById(R.id.tv_electric_quantity);
-        tvECharge = (TextView) findViewById(R.id.tv_electric_charge);
+        lvStatement = findViewById(R.id.lv_statement);
+        tvDate = findViewById(R.id.tv_date);
+        tvDateSS = findViewById(R.id.tv_date_ss);
+        tvDateEE = findViewById(R.id.tv_date_ee);
+        tvEQuantity = findViewById(R.id.tv_electric_quantity);
+        tvECharge = findViewById(R.id.tv_electric_charge);
 
-        mTabLayout = (TabLayout) findViewById(R.id.tab_day_month);
+        mTabLayout = findViewById(R.id.tab_day_month);
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.curve_by_day)));
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.curve_by_month)));
         mTabLayout.addTab(mTabLayout.newTab().setText("时段"));
@@ -97,27 +96,23 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()) {
                     case 0:
-//                        isDay = true;
                         selectType = 0;
                         dateSelector.setDateItemVisiable(true, true, true, false, false);
                         changeDate(0);
-                        getBreakerStatement();
                         findViewById(R.id.day_month).setVisibility(View.VISIBLE);
                         findViewById(R.id.hour_hour).setVisibility(View.GONE);
                         break;
                     case 1:
-//                        isDay = false;
                         selectType = 1;
                         dateSelector.setDateItemVisiable(true, true, false, false, false);
                         changeDate(0);
-                        getBreakerStatement();
                         findViewById(R.id.day_month).setVisibility(View.VISIBLE);
                         findViewById(R.id.hour_hour).setVisibility(View.GONE);
                         break;
                     case 2:
                         selectType = 2;
-                        changeTvDateSS();
-                        changeTvDateEE();
+                        changeTextViewSS();
+                        changeTextViewEE();
                         getBreakerStatement();
                         findViewById(R.id.hour_hour).setVisibility(View.VISIBLE);
                         findViewById(R.id.day_month).setVisibility(View.GONE);
@@ -161,17 +156,11 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
 //        initAdapter();
         mAdapter = new SimpleTreeAdapter<>(lvStatement, this, switchStatementBeanList, 0);
         lvStatement.setAdapter(mAdapter);
-        findViewById(R.id.img_price).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(StatementActivity.this, TimePriceActivity.class));
-            }
-        });
+        findViewById(R.id.img_price).setOnClickListener(v -> startActivity(new Intent(StatementActivity.this, TimePriceActivity.class)));
     }
 
     private void initTimeSelect() {
-//        isDay = true;
-        changeDate(0);
+//        changeDate(0);
         dateSelector = new WheelDateTime(StatementActivity.this,
                 new WheelDateTime.OnWheelListener() {
 
@@ -182,7 +171,8 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                         if (selectType == 0) {
                             iday = Integer.parseInt(day);
                         }
-                        changeTvDate();
+                        changeTextView();
+                        getBreakerStatement();
                     }
                 }, true,
                 new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date()),
@@ -199,7 +189,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                         imonth = Integer.parseInt(month);
                         iday = Integer.parseInt(day);
                         ihour = Integer.parseInt(hour);
-                        changeTvDateSS();
+                        changeTextViewSS();
                         getBreakerStatement();
                     }
                 }, true,
@@ -218,7 +208,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                         imonth = Integer.parseInt(month);
                         iday = Integer.parseInt(day);
                         ihour = Integer.parseInt(hour);
-                        changeTvDateEE();
+                        changeTextViewEE();
                         getBreakerStatement();
                     }
                 }, true,
@@ -271,14 +261,15 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                 iday = day;
                 break;
         }
-        changeTvDate();
+        changeTextView();
+        getBreakerStatement();
     }
 
     /**
      * 按日按月
      */
-    private void changeTvDate() {
-        getBreakerStatement();
+    private void changeTextView() {
+//        getBreakerStatement();
         String date = "";
 
         Calendar calendar = Calendar.getInstance();
@@ -305,12 +296,13 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
     /**
      * 按时段
      */
-    private void changeTvDateSS() {
+    private void changeTextViewSS() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.MONTH, imonth - 1);
         calendar.set(Calendar.YEAR, iyear);
         calendar.set(Calendar.DATE, iday);
         calendar.set(Calendar.HOUR_OF_DAY, ihour);
+        calendar.add(Calendar.MONTH, -1);// 起始时间设为上个月
         // 改变显示
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日HH时", Locale.getDefault());
         String date = dateFormat.format(calendar.getTime());
@@ -325,7 +317,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
     /**
      * 按时段
      */
-    private void changeTvDateEE() {
+    private void changeTextViewEE() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.MONTH, imonth - 1);
         calendar.set(Calendar.YEAR, iyear);
@@ -341,60 +333,60 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
     }
 
     private String resEnd;
-   /* private void getCollector() {
-        Core.instance(this).getCollector(utils.USER_KRY, new ActionCallbackListener<List<CollectorBean>>() {
-            @Override
-            public void onSuccess(List<CollectorBean> data) {
-                collectorBeanList = new ArrayList<>();
-                collectorBeanList.addAll(data);
-                currentCollectorBean = collectorBeanList.get(0);
-                tvDevice.setText(currentCollectorBean.getDeviceName());
-                initLvAdapter();
-                lvCollector.setAdapter(lvAdapter);
-                getBreakerStatement();
-            }
+//    private void getCollector() {
+//        Core.instance(this).getCollector(utils.USER_KRY, new ActionCallbackListener<List<CollectorBean>>() {
+//            @Override
+//            public void onSuccess(List<CollectorBean> data) {
+//                collectorBeanList = new ArrayList<>();
+//                collectorBeanList.addAll(data);
+//                currentCollectorBean = collectorBeanList.get(0);
+//                tvDevice.setText(currentCollectorBean.getDeviceName());
+//                initLvAdapter();
+//                lvCollector.setAdapter(lvAdapter);
+//                getBreakerStatement();
+//            }
+//
+//            @Override
+//            public void onFailure(int errorEvent, String message) {
+//
+//                if (message.contains(getResources().getString(R.string.server_error_message_no_result))) {
+//                    message = getString(R.string.local_error_message_no_data);
+//                }
+//                CustomToast.showCustomToast(StatementActivity.this, message);
+//            }
+//        });
+//    }
 
-            @Override
-            public void onFailure(int errorEvent, String message) {
-
-                if (message.contains(getResources().getString(R.string.server_error_message_no_result))) {
-                    message = getString(R.string.local_error_message_no_data);
-                }
-                CustomToast.showCustomToast(StatementActivity.this, message);
-            }
-        });
-    }*/
-
-    /*private Dialog dialog;
-
-    private void initDialog() {
-        View contentView = View.inflate(this, R.layout.view_dialog_collector, null);
-        lvCollector = (ListView) contentView.findViewById(R.id.lv_collector);
-        lvCollector.setAdapter(lvAdapter);
-        lvCollector.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                dialog.dismiss();
-                currentCollectorBean = collectorBeanList.get(position);
-                tvDevice.setText(currentCollectorBean.getDeviceName());
-                getBreakerStatement();
-            }
-        });
-        dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(contentView);
-        Window window = dialog.getWindow();
-        window.setGravity(Gravity.BOTTOM);
-        window.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-        WindowManager.LayoutParams lp = window.getAttributes(); // 获取对话框当前的参数值  
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT; // 宽度  
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT; // 高度  
-        window.setAttributes(lp);
-        dialog.setCanceledOnTouchOutside(true);
-    }*/
+//    private Dialog dialog;
+//
+//    private void initDialog() {
+//        View contentView = View.inflate(this, R.layout.view_dialog_collector, null);
+//        lvCollector = (ListView) contentView.findViewById(R.id.lv_collector);
+//        lvCollector.setAdapter(lvAdapter);
+//        lvCollector.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                dialog.dismiss();
+//                currentCollectorBean = collectorBeanList.get(position);
+//                tvDevice.setText(currentCollectorBean.getDeviceName());
+//                getBreakerStatement();
+//            }
+//        });
+//        dialog = new Dialog(this);
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        dialog.setContentView(contentView);
+//        Window window = dialog.getWindow();
+//        window.setGravity(Gravity.BOTTOM);
+//        window.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+//        WindowManager.LayoutParams lp = window.getAttributes(); // 获取对话框当前的参数值
+//        lp.width = WindowManager.LayoutParams.MATCH_PARENT; // 宽度
+//        lp.height = WindowManager.LayoutParams.WRAP_CONTENT; // 高度
+//        window.setAttributes(lp);
+//        dialog.setCanceledOnTouchOutside(true);
+//    }
 
     /**
-     * 计算线路电费和
+     * 根据selectType调用不同接口
      */
     private void getBreakerStatement() {
         if (currentCollectorBean == null) {
@@ -403,13 +395,11 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
         String time = iyear + "-" + (imonth < 10 ? "0" + imonth : imonth);
         if (selectType == 0) {
             time = time + "-" + (iday < 10 ? "0" + iday : iday);
-        }
-        if (selectType == 0) {
             getTotalPowerByDay(time);
         } else if (selectType == 1) {
             getTotalPowerByMonth(time);
         } else if (selectType == 2) {
-            getTotalPowerBySSEE(resStart, resEnd);
+            getTotalPowerByTime(resStart, resEnd);
         }
     }
 
@@ -446,7 +436,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                 switchStatementBeanList.clear();
                 switchStatementBeanList.addAll(data);
 //                mAdapter.notifyDataSetChanged();
-                mAdapter = new SimpleTreeAdapter<SwitchStatementBean>(lvStatement, mContext, switchStatementBeanList, 0);
+                mAdapter = new SimpleTreeAdapter<>(lvStatement, mContext, switchStatementBeanList, 0);
                 lvStatement.setAdapter(mAdapter);
                 changeTotal();
             }
@@ -457,7 +447,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                 if (switchStatementBeanList != null) {
                     switchStatementBeanList.clear();
 //                    mAdapter.notifyDataSetChanged();
-                    mAdapter = new SimpleTreeAdapter<SwitchStatementBean>(lvStatement, mContext, switchStatementBeanList, 0);
+                    mAdapter = new SimpleTreeAdapter<>(lvStatement, mContext, switchStatementBeanList, 0);
                     lvStatement.setAdapter(mAdapter);
                 }
 
@@ -485,7 +475,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                 switchStatementBeanList.clear();
                 switchStatementBeanList.addAll(data);
                 mAdapter.notifyDataSetChanged();
-                mAdapter = new SimpleTreeAdapter<SwitchStatementBean>(lvStatement, mContext, switchStatementBeanList, 0);
+                mAdapter = new SimpleTreeAdapter<>(lvStatement, mContext, switchStatementBeanList, 0);
                 lvStatement.setAdapter(mAdapter);
                 changeTotal();
             }
@@ -496,7 +486,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                 if (switchStatementBeanList != null) {
                     switchStatementBeanList.clear();
                     mAdapter.notifyDataSetChanged();
-                    mAdapter = new SimpleTreeAdapter<SwitchStatementBean>(lvStatement, mContext, switchStatementBeanList, 0);
+                    mAdapter = new SimpleTreeAdapter<>(lvStatement, mContext, switchStatementBeanList, 0);
                     lvStatement.setAdapter(mAdapter);
                 }
 //                if (errorEvent == 12) {
@@ -509,19 +499,19 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
         });
     }
 
-    private void getTotalPowerBySSEE(String timeS, String timeE) {
+    private void getTotalPowerByTime(String startStr, String endStr) {
         if (currentCollectorBean == null) {
             return;
         }
         waitDialog.show();
-        Core.instance(this).getTotalPowerByTime("nohierarchy", currentCollectorBean.getCode(), timeS, timeE, new ActionCallbackListener<List<SwitchStatementBean>>() {
+        Core.instance(this).getTotalPowerByTime("nohierarchy", currentCollectorBean.getCode(), startStr, endStr, new ActionCallbackListener<List<SwitchStatementBean>>() {
             @Override
             public void onSuccess(List<SwitchStatementBean> data) {
                 waitDialog.dismiss();
                 switchStatementBeanList.clear();
                 switchStatementBeanList.addAll(data);
                 mAdapter.notifyDataSetChanged();
-                mAdapter = new SimpleTreeAdapter<SwitchStatementBean>(lvStatement, mContext, switchStatementBeanList, 0);
+                mAdapter = new SimpleTreeAdapter<>(lvStatement, mContext, switchStatementBeanList, 0);
                 lvStatement.setAdapter(mAdapter);
                 changeTotal();
             }
@@ -532,7 +522,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                 if (switchStatementBeanList != null) {
                     switchStatementBeanList.clear();
                     mAdapter.notifyDataSetChanged();
-                    mAdapter = new SimpleTreeAdapter<SwitchStatementBean>(lvStatement, mContext, switchStatementBeanList, 0);
+                    mAdapter = new SimpleTreeAdapter<>(lvStatement, mContext, switchStatementBeanList, 0);
                     lvStatement.setAdapter(mAdapter);
                 }
 //                if (errorEvent == 12) {
@@ -548,9 +538,9 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void initData() {
         switchStatementBeanList = new ArrayList<>();
-        initTimeSelect();
         currentCollectorBean = getIntent().getParcelableExtra("collectorBean");
 //        tvDevice.setText(currentCollectorBean.getDeviceName());
+        initTimeSelect();
         getBreakerStatement();
         changeTotal();
         //getCollector();
@@ -624,59 +614,59 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
 
     }
 
-    /*private void initLvAdapter() {
-
-        lvAdapter = new BaseAdapter() {
-            @Override
-            public int getCount() {
-                return collectorBeanList.size();
-            }
-
-            @Override
-            public Object getItem(int position) {
-                return collectorBeanList.get(position);
-            }
-
-            @Override
-            public long getItemId(int position) {
-                return position;
-            }
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-
-                CollectorBean collectDevice = collectorBeanList.get(position);
-
-                ViewHolder viewHolder;
-                if (convertView == null) {
-                    convertView = View.inflate(StatementActivity.this, R.layout.item_lv_collector, null);
-                    viewHolder = new ViewHolder();
-                    viewHolder.ivSelected = (ImageView) convertView.findViewById(R.id.iv_selected);
-                    viewHolder.tvName = (TextView) convertView.findViewById(R.id.tv_name);
-                    convertView.setTag(viewHolder);
-
-                } else {
-                    viewHolder = (ViewHolder) convertView.getTag();
-                }
-                viewHolder.ivSelected = (ImageView) convertView.findViewById(R.id.iv_selected);
-                viewHolder.tvName = (TextView) convertView.findViewById(R.id.tv_name);
-
-                if (collectDevice.equals(currentCollectorBean)) {
-                    viewHolder.ivSelected.setVisibility(View.VISIBLE);
-                } else {
-                    viewHolder.ivSelected.setVisibility(View.GONE);
-                }
-
-                viewHolder.tvName.setText(collectDevice.getDeviceName());
-                return convertView;
-            }
-
-            class ViewHolder {
-                ImageView ivSelected;
-                TextView tvName;
-            }
-        };
-    }*/
+//    private void initLvAdapter() {
+//
+//        lvAdapter = new BaseAdapter() {
+//            @Override
+//            public int getCount() {
+//                return collectorBeanList.size();
+//            }
+//
+//            @Override
+//            public Object getItem(int position) {
+//                return collectorBeanList.get(position);
+//            }
+//
+//            @Override
+//            public long getItemId(int position) {
+//                return position;
+//            }
+//
+//            @Override
+//            public View getView(int position, View convertView, ViewGroup parent) {
+//
+//                CollectorBean collectDevice = collectorBeanList.get(position);
+//
+//                ViewHolder viewHolder;
+//                if (convertView == null) {
+//                    convertView = View.inflate(StatementActivity.this, R.layout.item_lv_collector, null);
+//                    viewHolder = new ViewHolder();
+//                    viewHolder.ivSelected = (ImageView) convertView.findViewById(R.id.iv_selected);
+//                    viewHolder.tvName = (TextView) convertView.findViewById(R.id.tv_name);
+//                    convertView.setTag(viewHolder);
+//
+//                } else {
+//                    viewHolder = (ViewHolder) convertView.getTag();
+//                }
+//                viewHolder.ivSelected = (ImageView) convertView.findViewById(R.id.iv_selected);
+//                viewHolder.tvName = (TextView) convertView.findViewById(R.id.tv_name);
+//
+//                if (collectDevice.equals(currentCollectorBean)) {
+//                    viewHolder.ivSelected.setVisibility(View.VISIBLE);
+//                } else {
+//                    viewHolder.ivSelected.setVisibility(View.GONE);
+//                }
+//
+//                viewHolder.tvName.setText(collectDevice.getDeviceName());
+//                return convertView;
+//            }
+//
+//            class ViewHolder {
+//                ImageView ivSelected;
+//                TextView tvName;
+//            }
+//        };
+//    }
 
     @Override
     public void onClick(View v) {

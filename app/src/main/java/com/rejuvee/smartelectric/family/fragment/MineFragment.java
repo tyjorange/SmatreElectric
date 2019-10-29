@@ -66,10 +66,10 @@ public class MineFragment extends AbstractBaseFragment implements View.OnClickLi
     @Override
     protected void initView(View v) {
 
-        tvUsername = (TextView) v.findViewById(R.id.tv_phone);
-        tvNick = (TextView) v.findViewById(R.id.tv_nick_name);
-        ivHead = (CircleImageView) v.findViewById(R.id.iv_head);
-        ivUserQCode = (ImageView) v.findViewById(R.id.iv_scan_code);
+        tvUsername = v.findViewById(R.id.tv_phone);
+        tvNick = v.findViewById(R.id.tv_nick_name);
+        ivHead = v.findViewById(R.id.iv_head);
+        ivUserQCode = v.findViewById(R.id.iv_scan_code);
         getUserMsg();
         /*getCacheAccount();
         buildUri();

@@ -118,7 +118,7 @@ public class DownloadProgressDialog extends AlertDialog {
                 progressDialog.mProgressNumber.setText("");
             }
             if (progressDialog.mProgressPercentFormat != null) {
-                double percent = (double) progress / (double) max;
+                double percent = progress / max;
                 SpannableString tmp = new SpannableString(progressDialog.mProgressPercentFormat.format(percent));
                 tmp.setSpan(new StyleSpan(android.graphics.Typeface.BOLD),
                         0, tmp.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -141,21 +141,16 @@ public class DownloadProgressDialog extends AlertDialog {
         if (mProgressStyle == STYLE_HORIZONTAL) {
             mViewUpdateHandler = new MyHandler(this);
             View view = inflater.inflate(R.layout.alert_dialog_progress, null);
-            mProgress = (ProgressBar) view.findViewById(R.id.progress);
-            mProgressNumber = (TextView) view.findViewById(R.id.progress_number);
-            mProgressPercent = (TextView) view.findViewById(R.id.progress_percent);
-            cancel_dialog = (TextView) view.findViewById(R.id.cancel_dialog);
-            cancel_dialog.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    cancel.onCancel();
-                }
-            });
+            mProgress = view.findViewById(R.id.progress);
+            mProgressNumber = view.findViewById(R.id.progress_number);
+            mProgressPercent = view.findViewById(R.id.progress_percent);
+            cancel_dialog = view.findViewById(R.id.cancel_dialog);
+            cancel_dialog.setOnClickListener(v -> cancel.onCancel());
             setView(view);
         } else {
             View view = inflater.inflate(R.layout.progress_dialog, null);
-            mProgress = (ProgressBar) view.findViewById(R.id.progress);
-            mMessageView = (TextView) view.findViewById(R.id.message);
+            mProgress = view.findViewById(R.id.progress);
+            mMessageView = view.findViewById(R.id.message);
             setView(view);
         }
         if (mMax > 0) {

@@ -109,18 +109,8 @@ public class UpgradeDialogActivity extends BaseActivity implements View.OnClickL
 
     @Override
     protected void initData() {
-        tvWenHao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DialogTipWithoutOkCancel(UpgradeDialogActivity.this).setTitle(getString(R.string.vs22)).setContent(getString(R.string.upgrade_tip)).show();
-            }
-        });
-        iv_version_wenhao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DialogTipWithoutOkCancel(UpgradeDialogActivity.this).setTitle(getString(R.string.vs257)).setContent(collectorBean.getText()).show();
-            }
-        });
+        tvWenHao.setOnClickListener(v -> new DialogTipWithoutOkCancel(UpgradeDialogActivity.this).setTitle(getString(R.string.vs22)).setContent(getString(R.string.upgrade_tip)).show());
+        iv_version_wenhao.setOnClickListener(v -> new DialogTipWithoutOkCancel(UpgradeDialogActivity.this).setTitle(getString(R.string.vs257)).setContent(collectorBean.getText()).show());
 //        ArrayAdapter<Item> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
 //        spinner.setAdapter(adapter);//事件段选择
         if (collectorUpgradeInfo != null) {// 以前确认过
@@ -138,12 +128,9 @@ public class UpgradeDialogActivity extends BaseActivity implements View.OnClickL
             }
             btnCancel.setVisibility(View.INVISIBLE);
             btnSave.setText(getString(R.string.vs27));
-            btnSave.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    setResult(RESULT_CANCELED);
-                    finish();
-                }
+            btnSave.setOnClickListener(v -> {
+                setResult(RESULT_CANCELED);
+                finish();
             });
         } else {// 让用户选择：同意升级/忽略此版本
             tvTime.setText(String.format(Locale.getDefault(), "%s%d.%d%s%d.%d",
@@ -152,24 +139,18 @@ public class UpgradeDialogActivity extends BaseActivity implements View.OnClickL
             tvTip.setText(getString(R.string.vs25));
             btnCancel.setVisibility(View.VISIBLE);
             btnSave.setText(getString(R.string.vs26));
-            btnSave.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    for (int i = 0; i < mListDataCheckButton.size(); i++) {
-                        if (mListDataCheckButton.get(i).isChecked()) {
-                            setCollectorUpgrade(1, items.get(i).getValue());
-                            return;
-                        }
+            btnSave.setOnClickListener(v -> {
+                for (int i = 0; i < mListDataCheckButton.size(); i++) {
+                    if (mListDataCheckButton.get(i).isChecked()) {
+                        setCollectorUpgrade(1, items.get(i).getValue());
+                        return;
                     }
-                    CustomToast.showCustomErrorToast(UpgradeDialogActivity.this, getString(R.string.vs25));
                 }
+                CustomToast.showCustomErrorToast(UpgradeDialogActivity.this, getString(R.string.vs25));
             });
-            btnCancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            btnCancel.setOnClickListener(v -> {
 //                    setCollectorUpgrade(0, "0");
-                    finish();
-                }
+                finish();
             });
         }
     }

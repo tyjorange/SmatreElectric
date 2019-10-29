@@ -65,14 +65,14 @@ public class TimerEditDialogActivity extends BaseActivity implements View.OnClic
         dialogWindow.setGravity(Gravity.BOTTOM);
         dialogWindow.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
 
-        mListDataCheckButton.add((CheckBox) findViewById(R.id.cb_day0));
-        mListDataCheckButton.add((CheckBox) findViewById(R.id.cb_day1));
-        mListDataCheckButton.add((CheckBox) findViewById(R.id.cb_day2));
-        mListDataCheckButton.add((CheckBox) findViewById(R.id.cb_day3));
-        mListDataCheckButton.add((CheckBox) findViewById(R.id.cb_day4));
-        mListDataCheckButton.add((CheckBox) findViewById(R.id.cb_day5));
-        mListDataCheckButton.add((CheckBox) findViewById(R.id.cb_day6));
-        mListDataCheckButton.add((CheckBox) findViewById(R.id.cb_day7));
+        mListDataCheckButton.add(findViewById(R.id.cb_day0));
+        mListDataCheckButton.add(findViewById(R.id.cb_day1));
+        mListDataCheckButton.add(findViewById(R.id.cb_day2));
+        mListDataCheckButton.add(findViewById(R.id.cb_day3));
+        mListDataCheckButton.add(findViewById(R.id.cb_day4));
+        mListDataCheckButton.add(findViewById(R.id.cb_day5));
+        mListDataCheckButton.add(findViewById(R.id.cb_day6));
+        mListDataCheckButton.add(findViewById(R.id.cb_day7));
 
 //        int width = (ScreenUtils.getScreenWidth() - SizeUtils.dp2px(32 + 28)) / mListDataCheckButton.size();
         for (int i = 0; i < mListDataCheckButton.size(); i++) {
@@ -83,7 +83,7 @@ public class TimerEditDialogActivity extends BaseActivity implements View.OnClic
             checkBox.setText(getResources().getStringArray(R.array.week_day)[i]);
         }
 
-        mTimePicker = (TimePicker) findViewById(R.id.time_picker);
+        mTimePicker = findViewById(R.id.time_picker);
         mTimePicker.setIs24HourView(true);
         TimePickerUIUtil.setTimepickerTextColour(mTimePicker, this);
 //        TimePickerUIUtil.setNumberPickerTextSize(mTimePicker);
@@ -95,12 +95,12 @@ public class TimerEditDialogActivity extends BaseActivity implements View.OnClic
 //        });
 
 //        txtTime = (TextView) findViewById(R.id.txt_time);
-        txtSwitchState = (TextView) findViewById(R.id.txt_switch_state);
+        txtSwitchState = findViewById(R.id.txt_switch_state);
 //        imgSwitchOff = (ImageView) findViewById(R.id.img_check_off);
 //        imgSwithOn = (ImageView) findViewById(R.id.img_check_on);
-        imgUpload = (ImageView) findViewById(R.id.iv_upload);
-        imgCaozuo = (ImageView) findViewById(R.id.iv_check);
-        txtCaozuo = (TextView) findViewById(R.id.tv_caozuo);
+        imgUpload = findViewById(R.id.iv_upload);
+        imgCaozuo = findViewById(R.id.iv_check);
+        txtCaozuo = findViewById(R.id.tv_caozuo);
 
 //        findViewById(R.id.rl_on).setOnClickListener(mSwitchListener);
 //        findViewById(R.id.rl_off).setOnClickListener(mSwitchListener);

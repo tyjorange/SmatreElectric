@@ -97,7 +97,7 @@ public class KeyboardNewEvent {
      */
     public static void attach(final Activity activity, boolean isTranslucentStatusBar,
                               KeyboardEventListener keyboardEventListener) {
-        final ViewGroup contentView = (ViewGroup) activity.findViewById(android.R.id.content);
+        final ViewGroup contentView = activity.findViewById(android.R.id.content);
         keyboardStatusListener = new KeyboardNewEvent.KeyboardStatusListener(isTranslucentStatusBar, contentView,
                 keyboardEventListener);
         contentView.getViewTreeObserver().
@@ -242,11 +242,7 @@ public class KeyboardNewEvent {
                 if (maxOverlayLayoutHeight == 0) {
                     // non-used.
                     isKeyboardShowing = lastKeyboardShowing;
-                } else if (displayHeight > maxOverlayLayoutHeight) {
-                    isKeyboardShowing = false;
-                } else {
-                    isKeyboardShowing = true;
-                }
+                } else isKeyboardShowing = displayHeight <= maxOverlayLayoutHeight;
 
                 maxOverlayLayoutHeight = Math.max(maxOverlayLayoutHeight, actionBarOverlayLayoutHeight);
             }

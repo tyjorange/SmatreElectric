@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -69,12 +68,7 @@ public class SwitchSettingActivity extends BaseActivity implements
     @Override
     protected void initView() {
         mContext = this;
-        findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
         waitDialog = new LoadingDlg(this, -1);
 
 //        seekBar = findViewById(R.id.vrsBar);
@@ -91,42 +85,29 @@ public class SwitchSettingActivity extends BaseActivity implements
 //        ScrollBindHelper.bind(seekBar, scrollView);
 
         //切换线路
-        txtLineName = (TextView) findViewById(R.id.txt_line_name);
+        txtLineName = findViewById(R.id.txt_line_name);
         LinearLayout img_change = findViewById(R.id.img_change);
-        img_change.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(mContext, SwitchTree.DINGSHI, collectorBean, new SwitchTreeDialog.ChoseCallBack() {
+        img_change.setOnClickListener(v -> {
+            SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(mContext, SwitchTree.DINGSHI, collectorBean, new SwitchTreeDialog.ChoseCallBack() {
 
-                    @Override
-                    public void onChose(SwitchBean s) {
-                        currentSwitchBean = s;
+                @Override
+                public void onChose(SwitchBean s) {
+                    currentSwitchBean = s;
 //                        getData(switchBean);
-                        txtLineName.setText(String.format("%s%s", mContext.getString(R.string.vs14), currentSwitchBean.getName()));
+                    txtLineName.setText(String.format("%s%s", mContext.getString(R.string.vs14), currentSwitchBean.getName()));
 
-                        mTabLayout.getTabAt(0).select();// 重置为第一个TAB
-                        currentParamID = dl1_fragment.getParamID(currentSwitchBean);
-                        mHandler.sendEmptyMessageDelayed(MSG_findSwitchParamBySwitch_FLAG, 100);
-                    }
-                });
-                switchTreeDialog.show();
-            }
+                    mTabLayout.getTabAt(0).select();// 重置为第一个TAB
+                    currentParamID = dl1_fragment.getParamID(currentSwitchBean);
+                    mHandler.sendEmptyMessageDelayed(MSG_findSwitchParamBySwitch_FLAG, 100);
+                }
+            });
+            switchTreeDialog.show();
         });
         // 刷新按钮
-        findViewById(R.id.img_flush).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mHandler.sendEmptyMessageDelayed(MSG_sendGetThreadValueCommand_FLAG, 100);
-            }
-        });
+        findViewById(R.id.img_flush).setOnClickListener(v -> mHandler.sendEmptyMessageDelayed(MSG_sendGetThreadValueCommand_FLAG, 100));
         // 提交按钮
         superTextView = findViewById(R.id.stv_commit);
-        superTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setValues();
-            }
-        });
+        superTextView.setOnClickListener(v -> setValues());
     }
 
     @Override
@@ -482,7 +463,7 @@ public class SwitchSettingActivity extends BaseActivity implements
     }
 
     private void initFragment() {
-        mTabLayout = (TabLayout) findViewById(R.id.tab_setting);
+        mTabLayout = findViewById(R.id.tab_setting);
         viewPager = findViewById(R.id.vp_setting);
         MyFragmentAdapter mAdapter = new MyFragmentAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(mAdapter);

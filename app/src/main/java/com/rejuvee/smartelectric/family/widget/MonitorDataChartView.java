@@ -42,7 +42,7 @@ public class MonitorDataChartView extends FrameLayout {
 
     private void init(Context context) {
         View.inflate(context, R.layout.widget_monitor_chart, this);
-        mChart = (LineChart) findViewById(R.id.chart_content);
+        mChart = findViewById(R.id.chart_content);
 
         mChart.setDrawGridBackground(false);
         // no description text

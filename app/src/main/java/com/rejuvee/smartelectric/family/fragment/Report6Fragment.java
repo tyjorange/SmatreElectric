@@ -2,7 +2,6 @@ package com.rejuvee.smartelectric.family.fragment;
 
 import android.content.Intent;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.base.frame.net.ActionCallbackListener;
@@ -34,14 +33,11 @@ public class Report6Fragment extends BaseFragment {
         adapter = new ReportAdapter(v.getContext(), mListData);
         listView.setAdapter(adapter);
         listView.setEmptyView(v.findViewById(R.id.empty_layout));
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(v.getContext(), ReportDetailActivity.class);
-                intent.putExtra("collectorBean", collectorBean);
-                intent.putExtra("reportBean", mListData.get(position));
-                startActivity(intent);
-            }
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            Intent intent = new Intent(v.getContext(), ReportDetailActivity.class);
+            intent.putExtra("collectorBean", collectorBean);
+            intent.putExtra("reportBean", mListData.get(position));
+            startActivity(intent);
         });
     }
 

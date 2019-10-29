@@ -60,10 +60,10 @@ public class ModifyorAddEleapplianceActivity extends BaseActivity implements Vie
 
         org.greenrobot.eventbus.EventBus.getDefault().register(this);
 
-        txt_appliance_linename = (TextView) findViewById(R.id.appliance_line_name);
-        txt_appliance_name = (TextView) findViewById(R.id.txt_appliance_name);
-        txt_appliance_power = (TextView) findViewById(R.id.txt_appliance_power);
-        text_title = (TextView) findViewById(R.id.ele_title);
+        txt_appliance_linename = findViewById(R.id.appliance_line_name);
+        txt_appliance_name = findViewById(R.id.txt_appliance_name);
+        txt_appliance_power = findViewById(R.id.txt_appliance_power);
+        text_title = findViewById(R.id.ele_title);
         findViewById(R.id.save_appliance).setOnClickListener(this);
         findViewById(R.id.re_addappliance).setOnClickListener(this);
         findViewById(R.id.re_insetname).setOnClickListener(this);

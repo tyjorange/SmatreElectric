@@ -146,24 +146,16 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 //            }
 //        });
         ivHeadSmall = findViewById(R.id.user_headimg_small);
-        ivHeadSmall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawer.openDrawer(GravityCompat.START);
-            }
-        });
+        ivHeadSmall.setOnClickListener(v -> drawer.openDrawer(GravityCompat.START));
 //        ivUserQCode = (ImageView) findViewById(R.id.iv_scan_code);
-        navigationView.getHeaderView(0).findViewById(R.id.user_edit).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra("telephone", telephone);
-                intent.putExtra("nickname", nickname);
-                intent.putExtra("username", username);
-                intent.putExtra("headImgurl", headImgurl);
-                intent.setClass(mContext, PerInfoActivity.class);
-                startActivityForResult(intent, CommonRequestCode.REQUEST_USER_INFO);
-            }
+        navigationView.getHeaderView(0).findViewById(R.id.user_edit).setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.putExtra("telephone", telephone);
+            intent.putExtra("nickname", nickname);
+            intent.putExtra("username", username);
+            intent.putExtra("headImgurl", headImgurl);
+            intent.setClass(mContext, PerInfoActivity.class);
+            startActivityForResult(intent, CommonRequestCode.REQUEST_USER_INFO);
         });
         ll_add_scene = findViewById(R.id.ll_add_scene);
         initScene();
@@ -211,14 +203,11 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
             public void onSuccess(WxSubscribed data) {
                 if (data.getIsSubscribed() == 0) {
                     Snackbar.make(tvNick, R.string.vs225, Snackbar.LENGTH_INDEFINITE)
-                            .setAction(R.string.vs248, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Intent intent = new Intent(mContext, ThridBindActivity.class);
-                                    intent.putExtra("wechatUnionID", wechatUnionID);
-                                    intent.putExtra("qqUnionID", qqUnionID);
-                                    startActivityForResult(intent, CommonRequestCode.REQUEST_THIRD_BIND);
-                                }
+                            .setAction(R.string.vs248, v -> {
+                                Intent intent = new Intent(mContext, ThridBindActivity.class);
+                                intent.putExtra("wechatUnionID", wechatUnionID);
+                                intent.putExtra("qqUnionID", qqUnionID);
+                                startActivityForResult(intent, CommonRequestCode.REQUEST_THIRD_BIND);
                             }).setActionTextColor(getResources().getColor(R.color.blue_light))
                             .setDuration(10000).show();
                 }
@@ -302,18 +291,18 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
     @Deprecated
     private void setQCodeUserName() {
         Bitmap bmpUser = utils.createQRcodeImage(username, SizeUtils.dp2px(100), SizeUtils.dp2px(100));
-        if (bmpUser != null) {
+//        if (bmpUser != null) {
 //            ivUserQCode.setImageBitmap(bmpUser);
 //            popwindowQCode.setQCodeImageBitmap(bmpUser);
-        }
+//        }
     }
 
     private void initToolBar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("");
 
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
 //        CircleImageView civ = (CircleImageView) findViewById(R.id.user_headimg_s);
 //        toolbar.setNavigationIcon(new CircleDrawable(BitmapUtil.drawable2Bitmap(ivHead.getDrawable())));
         // 模糊控件Drawer
@@ -336,18 +325,13 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 //        drawerToggle.syncState();
         drawerToggle.setDrawerIndicatorEnabled(true);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         // 隐藏条目
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show());
     }
 
     private void initScene() {
@@ -355,34 +339,26 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         listViewScene.setDividerWidth(SizeUtils.dp2px(35));//图标间隔
         mSceneAdapter = new HorizontalListSceneAdapter(this, listSceneBeanData);
         listViewScene.setAdapter(mSceneAdapter);
-        listViewScene.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                mDialogTip = new DialogTip(mContext);
-                mDialogTip.setTitle(getString(R.string.exceu_sce));
-                mDialogTip.setContent(String.format(getString(R.string.exceu_sce_issure), listSceneBeanData.get(position).getSceneName()));
-                mDialogTip.setDialogListener(new DialogTip.onEnsureDialogListener() {
-                    @Override
-                    public void onCancel() {
-                        mDialogTip.dismiss();
-                    }
+        listViewScene.setOnItemClickListener((parent, view, position, id) -> {
+            mDialogTip = new DialogTip(mContext);
+            mDialogTip.setTitle(getString(R.string.exceu_sce));
+            mDialogTip.setContent(String.format(getString(R.string.exceu_sce_issure), listSceneBeanData.get(position).getSceneName()));
+            mDialogTip.setDialogListener(new DialogTip.onEnsureDialogListener() {
+                @Override
+                public void onCancel() {
+                    mDialogTip.dismiss();
+                }
 
-                    @Override
-                    public void onEnsure() {
-                        mDialogTip.dismiss();
-                        doExecute(listSceneBeanData.get(position).getSceneId());
-                    }
-                });
-                mDialogTip.show();
-            }
+                @Override
+                public void onEnsure() {
+                    mDialogTip.dismiss();
+                    doExecute(listSceneBeanData.get(position).getSceneId());
+                }
+            });
+            mDialogTip.show();
         });
 
-        ll_add_scene.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(mContext, SceneActivity.class));
-            }
-        });
+        ll_add_scene.setOnClickListener(v -> startActivity(new Intent(mContext, SceneActivity.class)));
     }
 
     private void getScene() {
@@ -411,20 +387,17 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         mDeviceAdapter = new GridDeviceAdapter(listDeviceData, mContext, this);
         gridViewDevice.setAdapter(mDeviceAdapter);
 //        gridViewDevice.setEmptyView(findViewById(R.id.empty_layout));
-        gridViewDevice.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (mDeviceAdapter.isEditMode()) {
-                    return;
-                }
-                if (position == listDeviceData.size()) {
-                    startActivityForResult(new Intent(mContext, AddDeviceOrSwitchActivity.class), CommonRequestCode.REQUEST_ADD_COLLECTOR);
-                } else {
-                    CollectorBean collectorBean = listDeviceData.get(position);
-                    Intent intent = new Intent(MainNavigationActivity.this, CollectorDetailActivity.class);
-                    intent.putExtra("collectorBean", collectorBean);
-                    startActivity(intent);
-                }
+        gridViewDevice.setOnItemClickListener((parent, view, position, id) -> {
+            if (mDeviceAdapter.isEditMode()) {
+                return;
+            }
+            if (position == listDeviceData.size()) {
+                startActivityForResult(new Intent(mContext, AddDeviceOrSwitchActivity.class), CommonRequestCode.REQUEST_ADD_COLLECTOR);
+            } else {
+                CollectorBean collectorBean = listDeviceData.get(position);
+                Intent intent = new Intent(MainNavigationActivity.this, CollectorDetailActivity.class);
+                intent.putExtra("collectorBean", collectorBean);
+                startActivity(intent);
             }
         });
         //长按删除
@@ -526,7 +499,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 
     @Override
     public void onBackPressed() {
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else if (mDeviceAdapter.isEditMode()) {

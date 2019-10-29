@@ -52,29 +52,16 @@ public class ShareListActivity extends BaseActivity {
         mDialogSwitchEnable = new DialogTip(this);
         collectorBean = getIntent().getParcelableExtra("collectorBean");
         ImageView img_cancel = findViewById(R.id.img_cancel);
-        img_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        findViewById(R.id.img_remove).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleDelIcon();
-            }
-        });
+        img_cancel.setOnClickListener(v -> finish());
+        findViewById(R.id.img_remove).setOnClickListener(v -> toggleDelIcon());
         ImageView img_add = findViewById(R.id.img_add);
-        img_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ShareListActivity.this, AddShareMemberActivity.class);
-                intent.putExtra("collect_id", collectorBean.getCollectorID());
-                startActivity(intent);
-            }
+        img_add.setOnClickListener(v -> {
+            Intent intent = new Intent(ShareListActivity.this, AddShareMemberActivity.class);
+            intent.putExtra("collect_id", collectorBean.getCollectorID());
+            startActivity(intent);
         });
-        ListView listView = (ListView) findViewById(R.id.list_share_users);
-        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refreshlayout);
+        ListView listView = findViewById(R.id.list_share_users);
+        refreshLayout = findViewById(R.id.refreshlayout);
         setingAdapter = new SetingAdapter(this, mListData);
         setingAdapter.setSetListener(new SetingAdapter.onSettingClickListener() {
             @Override
@@ -106,12 +93,7 @@ public class ShareListActivity extends BaseActivity {
         listView.setEmptyView(findViewById(R.id.empty_layout));
 
         waitDialog = new WaitDialog(this);
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                doRequest(false);
-            }
-        });
+        refreshLayout.setOnRefreshListener(() -> doRequest(false));
     }
 
     // 改变用户控制权限

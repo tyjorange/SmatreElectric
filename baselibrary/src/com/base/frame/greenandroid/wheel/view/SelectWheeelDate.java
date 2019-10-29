@@ -99,16 +99,16 @@ public class SelectWheeelDate extends PopupWindow implements OnClickListener {
         viewfipper.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
                 LayoutParams.WRAP_CONTENT));
 
-        year = (WheelView) mMenuView.findViewById(R.id.select_wheel_year);
-        month = (WheelView) mMenuView.findViewById(R.id.select_wheel_month);
-        day = (WheelView) mMenuView.findViewById(R.id.select_wheel_day);
+        year = mMenuView.findViewById(R.id.select_wheel_year);
+        month = mMenuView.findViewById(R.id.select_wheel_month);
+        day = mMenuView.findViewById(R.id.select_wheel_day);
         if (isHaveDayWheel)
             day.setVisibility(View.VISIBLE);
         else
             day.setVisibility(View.GONE);
 
-        btnSubmit = (Button) mMenuView.findViewById(R.id.select_wheel_submit);
-        btnCancel = (Button) mMenuView.findViewById(R.id.select_wheel_cancel);
+        btnSubmit = mMenuView.findViewById(R.id.select_wheel_submit);
+        btnCancel = mMenuView.findViewById(R.id.select_wheel_cancel);
         btnSubmit.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
         Calendar calendar = Calendar.getInstance();
@@ -119,7 +119,7 @@ public class SelectWheeelDate extends PopupWindow implements OnClickListener {
         };
         int curYear = calendar.get(Calendar.YEAR);
         if (age != null && age.contains("-")) {
-            String str[] = age.split("-");
+            String[] str = age.split("-");
             mCurYear = 100 - (curYear - Integer.parseInt(str[0]));
             mCurMonth = Integer.parseInt(str[1]) - 1;
             mCurDay = Integer.parseInt(str[2]) - 1;
@@ -264,8 +264,8 @@ public class SelectWheeelDate extends PopupWindow implements OnClickListener {
          * 获取日期接口
          *
          */
-        public void onWheel(Boolean isSubmit, String year, String month,
-                            String day);
+        void onWheel(Boolean isSubmit, String year, String month,
+                     String day);
 
         // public void getSlectedDate(String date);
     }

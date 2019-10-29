@@ -35,12 +35,7 @@ public class TimePriceSetActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     protected void initView() {
-        findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
         mTimePicker = new DialogTimePicker(this);
         mTimePicker.setCurrentHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY))
                 .setCurrentMiniute(0)
@@ -56,9 +51,9 @@ public class TimePriceSetActivity extends BaseActivity implements View.OnClickLi
                         }
                     }
                 });
-        txtStartTime = (TextView) findViewById(R.id.txt_start_time);
-        txtEndTime = (TextView) findViewById(R.id.txt_end_time);
-        edtPrice = (EditText) findViewById(R.id.edt_price);
+        txtStartTime = findViewById(R.id.txt_start_time);
+        txtEndTime = findViewById(R.id.txt_end_time);
+        edtPrice = findViewById(R.id.edt_price);
 
         String s_price = getIntent().getStringExtra("s_price");
         String s_start = getIntent().getStringExtra("s_start");
@@ -80,7 +75,7 @@ public class TimePriceSetActivity extends BaseActivity implements View.OnClickLi
         findViewById(R.id.st_ensure).setOnClickListener(this);
 
         Currency currency = Currency.getInstance(Locale.getDefault());
-        TextView txtSymbol = (TextView) findViewById(R.id.txt_symbol);
+        TextView txtSymbol = findViewById(R.id.txt_symbol);
         txtSymbol.setText(String.format("%s%s", getString(R.string.vs19), currency.getSymbol()));
 
     }

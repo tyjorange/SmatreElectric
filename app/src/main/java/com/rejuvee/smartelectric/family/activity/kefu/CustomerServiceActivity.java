@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -45,33 +44,22 @@ public class CustomerServiceActivity extends BaseActivity {
     protected void initView() {
         mContext = this;
         username = getIntent().getStringExtra("username");
-        findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
         loadingDlg = new LoadingDlg(this, -1);
 
-        ListView listView = (ListView) findViewById(R.id.list_tiwen);
+        ListView listView = findViewById(R.id.list_tiwen);
         adapter = new ChartListItemBeanAdapter(this, mList);
         listView.setAdapter(adapter);
         listView.setEmptyView(findViewById(R.id.empty_layout));
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(mContext, CustomerServiceChartActivity.class);
-                intent.putExtra("ChartListItemBean", mList.get(position));
-                intent.putExtra("username", username);
-                startActivity(intent);
-            }
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            Intent intent = new Intent(mContext, CustomerServiceChartActivity.class);
+            intent.putExtra("ChartListItemBean", mList.get(position));
+            intent.putExtra("username", username);
+            startActivity(intent);
         });
-        findViewById(R.id.iv_send_wenti).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, AddTopicActivity.class);
-                startActivityForResult(intent, CommonRequestCode.REQUEST_ADD_QA);
-            }
+        findViewById(R.id.iv_send_wenti).setOnClickListener(v -> {
+            Intent intent = new Intent(mContext, AddTopicActivity.class);
+            startActivityForResult(intent, CommonRequestCode.REQUEST_ADD_QA);
         });
     }
 
@@ -142,9 +130,9 @@ public class CustomerServiceActivity extends BaseActivity {
             if (convertView == null) {
                 convertView = View.inflate(mContext, R.layout.item_line_chart, null);
                 holder = new ViewHolder();
-                holder.tv_topic = (TextView) convertView.findViewById(R.id.tv_topic);
-                holder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
-                holder.tv_updateTime = (TextView) convertView.findViewById(R.id.tv_updateTime);
+                holder.tv_topic = convertView.findViewById(R.id.tv_topic);
+                holder.tv_time = convertView.findViewById(R.id.tv_time);
+                holder.tv_updateTime = convertView.findViewById(R.id.tv_updateTime);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();

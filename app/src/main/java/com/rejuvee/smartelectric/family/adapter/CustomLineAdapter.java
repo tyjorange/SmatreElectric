@@ -98,9 +98,9 @@ public class CustomLineAdapter extends BaseAdapter {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = View.inflate(mContext, R.layout.item_gv_breaker, null);
-            viewHolder.ivPicture = (ImageView) convertView.findViewById(R.id.iv_picture);
-            viewHolder.imgChose = (ImageView) convertView.findViewById(R.id.img_chose);
-            viewHolder.tvName = (TextView) convertView.findViewById(R.id.tv_name);
+            viewHolder.ivPicture = convertView.findViewById(R.id.iv_picture);
+            viewHolder.imgChose = convertView.findViewById(R.id.img_chose);
+            viewHolder.tvName = convertView.findViewById(R.id.tv_name);
 //            viewHolder.llBreaker = (LinearLayout) convertView.findViewById(R.id.ll_breaker);
             convertView.setTag(viewHolder);
         } else {

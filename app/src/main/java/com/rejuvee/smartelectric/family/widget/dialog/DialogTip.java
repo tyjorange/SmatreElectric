@@ -61,12 +61,12 @@ public class DialogTip extends Dialog implements View.OnClickListener {
 
     private void init(Context context, boolean isBottom) {
         setContentView(R.layout.dialog_ensure);
-        txtTitle = (TextView) findViewById(R.id.txt_tip_title);
-        txtCancel = (TextView) findViewById(R.id.txt_cancel);
-        txtOk = (TextView) findViewById(R.id.txt_ok);
+        txtTitle = findViewById(R.id.txt_tip_title);
+        txtCancel = findViewById(R.id.txt_cancel);
+        txtOk = findViewById(R.id.txt_ok);
         txtOk.setBackground(getContext().getDrawable(R.drawable.btn_def));
 
-        txtContent = (TextView) findViewById(R.id.txt_tip_desc);
+        txtContent = findViewById(R.id.txt_tip_desc);
 
         setCanceledOnTouchOutside(true);
 

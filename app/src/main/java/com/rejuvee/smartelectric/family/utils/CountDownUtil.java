@@ -35,12 +35,7 @@ public class CountDownUtil {
             public void run() {
                 seconds--;
                 if (mListener != null) {
-                    mHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            mListener.onTimeUp(seconds);
-                        }
-                    });
+                    mHandler.post(() -> mListener.onTimeUp(seconds));
 
                 }
 

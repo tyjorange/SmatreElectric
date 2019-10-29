@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -56,19 +55,9 @@ public class MyEleApplianceActivity extends BaseActivity implements Eleappliance
 
     @Override
     protected void initView() {
-        findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        findViewById(R.id.img_remove).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleDelIcon();
-            }
-        });
-        ListView list_myelec = (ListView) findViewById(R.id.list_myelec);
+        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
+        findViewById(R.id.img_remove).setOnClickListener(v -> toggleDelIcon());
+        ListView list_myelec = findViewById(R.id.list_myelec);
         //    private DeviceHelper deviceHelper;
         ImageView add_appliance = findViewById(R.id.add_appliance);
         dialogTip = new DialogTip(this);
@@ -81,25 +70,19 @@ public class MyEleApplianceActivity extends BaseActivity implements Eleappliance
         list_myelec.setEmptyView(findViewById(R.id.empty_layout));
 
         //点击修改电器
-        list_myelec.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Intent intent = new Intent(MyEleApplianceActivity.this, ModifyorAddEleapplianceActivity.class);
-                Log.i(TAG, "gonglv=" + arreleappliance.get(position).getGonglv() + "");
-                intent.putExtra("eleappliance", arreleappliance.get(position));
-                intent.putExtra("collectorBean", collectorBean);
-                startActivityForResult(intent, CommonRequestCode.REQUEST_MODIFYORUPDATE_ELES);
-            }
+        list_myelec.setOnItemClickListener((adapterView, view, position, l) -> {
+            Intent intent = new Intent(MyEleApplianceActivity.this, ModifyorAddEleapplianceActivity.class);
+            Log.i(TAG, "gonglv=" + arreleappliance.get(position).getGonglv() + "");
+            intent.putExtra("eleappliance", arreleappliance.get(position));
+            intent.putExtra("collectorBean", collectorBean);
+            startActivityForResult(intent, CommonRequestCode.REQUEST_MODIFYORUPDATE_ELES);
         });
 
         //点击添加电器
-        findViewById(R.id.add_appliance).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MyEleApplianceActivity.this, ModifyorAddEleapplianceActivity.class);
-                intent.putExtra("collectorBean", collectorBean);
-                startActivityForResult(intent, CommonRequestCode.REQUEST_ADD_ELES);
-            }
+        findViewById(R.id.add_appliance).setOnClickListener(v -> {
+            Intent intent = new Intent(MyEleApplianceActivity.this, ModifyorAddEleapplianceActivity.class);
+            intent.putExtra("collectorBean", collectorBean);
+            startActivityForResult(intent, CommonRequestCode.REQUEST_ADD_ELES);
         });
     }
 

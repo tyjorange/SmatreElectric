@@ -4,7 +4,6 @@ package com.rejuvee.smartelectric.family.activity.scene;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -46,22 +45,19 @@ public class SceneActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     protected void initView() {
-        list_scene = (ListView) findViewById(R.id.list_scene);
+        list_scene = findViewById(R.id.list_scene);
         findViewById(R.id.img_add).setOnClickListener(this);
         findViewById(R.id.img_cancel).setOnClickListener(this);
         findViewById(R.id.img_remove).setOnClickListener(this);
         listSceneAdapter = new ListSceneAdapter(SceneActivity.this, sceneBeanList, this);
         list_scene.setAdapter(listSceneAdapter);
         list_scene.setEmptyView(findViewById(R.id.empty_layout));
-        list_scene.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(SceneActivity.this, CreateSceneActivity.class);
-                intent.putExtra("scene", sceneBeanList.get(position));
-                intent.putExtra("SceneIconRes", sceneBeanList.get(position).getSceneIconRes());
-                Log.i(TAG, sceneBeanList.get(position).getSceneIconRes() + "=sceneid");
-                startActivityForResult(intent, CommonRequestCode.REQUEST_UPDATE_SCENE);
-            }
+        list_scene.setOnItemClickListener((parent, view, position, id) -> {
+            Intent intent = new Intent(SceneActivity.this, CreateSceneActivity.class);
+            intent.putExtra("scene", sceneBeanList.get(position));
+            intent.putExtra("SceneIconRes", sceneBeanList.get(position).getSceneIconRes());
+            Log.i(TAG, sceneBeanList.get(position).getSceneIconRes() + "=sceneid");
+            startActivityForResult(intent, CommonRequestCode.REQUEST_UPDATE_SCENE);
         });
         mWaitDialog = new LoadingDlg(this, -1);
     }

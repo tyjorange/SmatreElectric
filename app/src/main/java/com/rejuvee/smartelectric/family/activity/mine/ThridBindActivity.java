@@ -6,7 +6,6 @@ import android.content.ClipboardManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -51,37 +50,29 @@ public class ThridBindActivity extends BaseActivity {
     @Override
     protected void initView() {
         context = this;
-        findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
         mDialogSwitch = new DialogTip(this);
         waitDialog = new LoadingDlg(this, -1);
         ll_wx = findViewById(R.id.ll_wx);
         ll_qq = findViewById(R.id.ll_qq);
         tv_wx = findViewById(R.id.tv_wx);
         tv_qq = findViewById(R.id.tv_qq);
-        findViewById(R.id.stv_commit).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 复制到剪贴板
-                ClipboardManager tvCopy = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                tvCopy.setText(getResources().getString(R.string.vs221));
-                CustomToast.showCustomToast(getBaseContext(), getString(R.string.vs223));
-                // 跳转到微信
-                try {
-                    Intent intent = new Intent(Intent.ACTION_MAIN);
-                    ComponentName cmp = new ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI");
-                    intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.setComponent(cmp);
-                    startActivity(intent);
-                } catch (ActivityNotFoundException e) {
-                    e.printStackTrace();
-                    CustomToast.showCustomErrorToast(getBaseContext(), getString(R.string.vs224));
-                }
+        findViewById(R.id.stv_commit).setOnClickListener(v -> {
+            // 复制到剪贴板
+            ClipboardManager tvCopy = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            tvCopy.setText(getResources().getString(R.string.vs221));
+            CustomToast.showCustomToast(getBaseContext(), getString(R.string.vs223));
+            // 跳转到微信
+            try {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                ComponentName cmp = new ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI");
+                intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setComponent(cmp);
+                startActivity(intent);
+            } catch (ActivityNotFoundException e) {
+                e.printStackTrace();
+                CustomToast.showCustomErrorToast(getBaseContext(), getString(R.string.vs224));
             }
         });
         EventBus.getDefault().register(this);
@@ -104,23 +95,17 @@ public class ThridBindActivity extends BaseActivity {
         String wechatUnionID = getIntent().getStringExtra("wechatUnionID");
         if (wechatUnionID == null || wechatUnionID.isEmpty()) {
             tv_wx.setText(R.string.mine_unbound);
-            ll_wx.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            ll_wx.setOnClickListener(v -> {
 //                    Snackbar.make(v, wechatUnionID, Snackbar.LENGTH_SHORT).show();
-                    //TODO 拉起第三方
-                    WXHelper.startWxBind(context);
-                }
+                //TODO 拉起第三方
+                WXHelper.startWxBind(context);
             });
         } else {
             tv_wx.setText(R.string.mine_isbound);
-            ll_wx.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            ll_wx.setOnClickListener(v -> {
 //                    Snackbar.make(v, wechatUnionID, Snackbar.LENGTH_SHORT).show();
-                    //TODO 提示解绑
-                    popDialog(getString(R.string.vs167), getString(R.string.vs168), "WX");
-                }
+                //TODO 提示解绑
+                popDialog(getString(R.string.vs167), getString(R.string.vs168), "WX");
             });
         }
     }
@@ -130,23 +115,17 @@ public class ThridBindActivity extends BaseActivity {
         String qqUnionID = getIntent().getStringExtra("qqUnionID");
         if (qqUnionID == null || qqUnionID.isEmpty()) {
             tv_qq.setText(R.string.mine_unbound);
-            ll_qq.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            ll_qq.setOnClickListener(v -> {
 //                    Snackbar.make(v, qqOpenID, Snackbar.LENGTH_SHORT).show();
-                    //TODO 拉起第三方
-                    QQLoginHelper.getInstance().qqBind((Activity) context);
-                }
+                //TODO 拉起第三方
+                QQLoginHelper.getInstance().qqBind((Activity) context);
             });
         } else {
             tv_qq.setText(R.string.mine_isbound);
-            ll_qq.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            ll_qq.setOnClickListener(v -> {
 //                    Snackbar.make(v, qqOpenID, Snackbar.LENGTH_SHORT).show();
-                    //TODO 提示解绑
-                    popDialog(getString(R.string.vs167), getString(R.string.vs169), "QQ");
-                }
+                //TODO 提示解绑
+                popDialog(getString(R.string.vs167), getString(R.string.vs169), "QQ");
             });
         }
     }

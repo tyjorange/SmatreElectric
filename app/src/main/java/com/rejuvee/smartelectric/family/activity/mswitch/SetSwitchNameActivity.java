@@ -1,8 +1,6 @@
 package com.rejuvee.smartelectric.family.activity.mswitch;
 
 import android.content.Intent;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.base.library.utils.SizeUtils;
@@ -35,21 +33,11 @@ public class SetSwitchNameActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        findViewById(R.id.st_finish).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                modify();
-            }
-        });
+        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
+        findViewById(R.id.st_finish).setOnClickListener(v -> modify());
 //        editLineName = (EditText) findViewById(R.id.edit_line_name);
-        gridView = (GridView) findViewById(R.id.grid_default_pic);
-        horizontalListView = (HorizontalListView) findViewById(R.id.horizontal_listview);
+        gridView = findViewById(R.id.grid_default_pic);
+        horizontalListView = findViewById(R.id.horizontal_listview);
 
         mAdapter1 = new CustomLineAdapter(this);
         mAdapter2 = new CustomLineAdapter(this);
@@ -59,26 +47,20 @@ public class SetSwitchNameActivity extends BaseActivity {
         horizontalListView.setAdapter(mAdapter2);
         horizontalListView.setDividerWidth(SizeUtils.dp2px(8));
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+        gridView.setOnItemClickListener((parent, view, position, id) -> {
 //                mAdapter1.setCurrentSelected(position);
 //                CustomLineAdapter.Line line = (CustomLineAdapter.Line) mAdapter1.getItem(position);
 //                switchBean.setName(line.name);
 //                switchBean.setIcon(line.picRes);
-                switchBean.setIconType(position);
+            switchBean.setIconType(position);
 
 //                mAdapter2.setCurrentSelected(-1);
-            }
         });
 
 
-        horizontalListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        horizontalListView.setOnItemClickListener((parent, view, position, id) -> {
 //                mAdapter2.setCurrentSelected(position);
 //                mAdapter1.setCurrentSelected(-1);
-            }
         });
     }
 

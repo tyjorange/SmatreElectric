@@ -1,7 +1,6 @@
 package com.rejuvee.smartelectric.family.activity.logger;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -41,14 +40,9 @@ public class SecurityInformationActivity extends BaseActivity {
     protected void initView() {
         mCollectorBean = getIntent().getParcelableExtra("collectorBean");
         ImageView img_cancel = findViewById(R.id.img_cancel);
-        img_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        TabLayout mTabLayout = (TabLayout) findViewById(R.id.tab_alarm);
-        ViewPager view_import_infor = (ViewPager) findViewById(R.id.viwe_import_infor);
+        img_cancel.setOnClickListener(v -> finish());
+        TabLayout mTabLayout = findViewById(R.id.tab_alarm);
+        ViewPager view_import_infor = findViewById(R.id.viwe_import_infor);
         MyFragmentAdapter mInforAdapter = new MyFragmentAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         view_import_infor.setAdapter(mInforAdapter);
         mTabLayout.setupWithViewPager(view_import_infor, true);

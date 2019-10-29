@@ -113,12 +113,12 @@ public class WheelDateTime extends PopupWindow implements OnClickListener {
         viewfipper.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
                 LayoutParams.WRAP_CONTENT));
 
-        txtTitle = (TextView) mMenuView.findViewById(R.id.wheel_date_time_title) ;
-        year = (WheelView) mMenuView.findViewById(R.id.select_wheel_year);
-        month = (WheelView) mMenuView.findViewById(R.id.select_wheel_month);
-        day = (WheelView) mMenuView.findViewById(R.id.select_wheel_day);
-        hour = (WheelView) mMenuView.findViewById(R.id.select_wheel_hour);
-        minute = (WheelView) mMenuView.findViewById(R.id.select_wheel_minute);
+        txtTitle = mMenuView.findViewById(R.id.wheel_date_time_title);
+        year = mMenuView.findViewById(R.id.select_wheel_year);
+        month = mMenuView.findViewById(R.id.select_wheel_month);
+        day = mMenuView.findViewById(R.id.select_wheel_day);
+        hour = mMenuView.findViewById(R.id.select_wheel_hour);
+        minute = mMenuView.findViewById(R.id.select_wheel_minute);
 
         if (!TextUtils.isEmpty(this.title)) {
             txtTitle.setText(this.title);
@@ -129,8 +129,8 @@ public class WheelDateTime extends PopupWindow implements OnClickListener {
         else
             day.setVisibility(View.GONE);
 
-        btnSubmit = (Button) mMenuView.findViewById(R.id.select_wheel_submit);
-        btnCancel = (Button) mMenuView.findViewById(R.id.select_wheel_cancel);
+        btnSubmit = mMenuView.findViewById(R.id.select_wheel_submit);
+        btnCancel = mMenuView.findViewById(R.id.select_wheel_cancel);
         if (!TextUtils.isEmpty(this.btnLeft)) {
             btnCancel.setText(this.btnLeft);
         }
@@ -147,7 +147,7 @@ public class WheelDateTime extends PopupWindow implements OnClickListener {
         };
         int curYear = calendar.get(Calendar.YEAR);
         if (age != null && age.contains("-")) {
-            String str[] = age.split("-");
+            String[] str = age.split("-");
             mCurYear = 100 - (curYear - Integer.parseInt(str[0]));
             mCurMonth = Integer.parseInt(str[1]) - 1;
             mCurDay = Integer.parseInt(str[2]) - 1;

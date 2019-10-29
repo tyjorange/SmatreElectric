@@ -42,9 +42,9 @@ public class ReportPowerAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = View.inflate(mContext, R.layout.item_report_power, null);
             holder = new ViewHolder();
-            holder.tv_line_name = (TextView) convertView.findViewById(R.id.tv_line_name);
-            holder.tv_power_count = (TextView) convertView.findViewById(R.id.tv_power_count);
-            holder.tv_line_id = (TextView) convertView.findViewById(R.id.tv_line_id);
+            holder.tv_line_name = convertView.findViewById(R.id.tv_line_name);
+            holder.tv_power_count = convertView.findViewById(R.id.tv_power_count);
+            holder.tv_line_id = convertView.findViewById(R.id.tv_line_id);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

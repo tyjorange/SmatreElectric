@@ -1,6 +1,5 @@
 package com.rejuvee.smartelectric.family.activity.logger;
 
-import android.view.View;
 import android.widget.ListView;
 
 import com.rejuvee.smartelectric.family.R;
@@ -30,13 +29,8 @@ public class LogDetailActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        listView = (ListView) findViewById(R.id.list_logs);
-        findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        listView = findViewById(R.id.list_logs);
+        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
 
         List<RecordBean> listData = getIntent().getParcelableArrayListExtra("records");
         mAdapter = new LineOperateRecordAdapter(this, listData);

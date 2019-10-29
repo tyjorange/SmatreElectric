@@ -86,11 +86,7 @@ public class ActivityStack {
 	public boolean containActivity(String filter) {
 		while (true) {
 			Activity activity = currentActivity();
-			if (activity.getClass().getName().equals(filter)) {
-				return true;
-			} else {
-				return false;
-			}
+            return activity.getClass().getName().equals(filter);
 		}
 	}
 

@@ -6,14 +6,14 @@ public interface DragGridBaseAdapter {
 	 * @param oldPosition
 	 * @param newPosition
 	 */
-	public void reorderItems(int oldPosition, int newPosition);
+    void reorderItems(int oldPosition, int newPosition);
 
 
 	/**
 	 * 设置某个item隐藏
 	 * @param hidePosition
 	 */
-	public void setHideItem(int hidePosition);
+    void setHideItem(int hidePosition);
 	
 
 }

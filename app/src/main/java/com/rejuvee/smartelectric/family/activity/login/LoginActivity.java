@@ -71,9 +71,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 //        setTitle("");
 //        setContentView(getLayoutResId());
         hiddenBtn = findViewById(R.id.hidden_btn);
-        cetUsername = (ClearEditText) findViewById(R.id.login_cet_username);
-        cetPassword = (ClearEditText) findViewById(R.id.login_cet_password);
-        ImageView imgLogo = (ImageView) findViewById(R.id.iv_logo);
+        cetUsername = findViewById(R.id.login_cet_username);
+        cetPassword = findViewById(R.id.login_cet_password);
+        ImageView imgLogo = findViewById(R.id.iv_logo);
         imgLogo.setImageResource(LogoVersionManage.getInstance().getLoginLogo());
         LanguageUtil.SwitchLang(this);
         accountHelper = new AccountHelper();
@@ -303,20 +303,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             v.performClick();
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 clickCount++;
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (clickCount == 1) {
-                            myClickCallBack.oneClick();
-                        } else if (clickCount == 2) {
-                            myClickCallBack.doubleClick();
-                        } else if (clickCount == 3) {
-                            myClickCallBack.threeClick();
-                        }
-                        handler.removeCallbacksAndMessages(null);
-                        //清空handler延时，并防内存泄漏
-                        clickCount = 0;//计数清零
+                handler.postDelayed(() -> {
+                    if (clickCount == 1) {
+                        myClickCallBack.oneClick();
+                    } else if (clickCount == 2) {
+                        myClickCallBack.doubleClick();
+                    } else if (clickCount == 3) {
+                        myClickCallBack.threeClick();
                     }
+                    handler.removeCallbacksAndMessages(null);
+                    //清空handler延时，并防内存泄漏
+                    clickCount = 0;//计数清零
                 }, timeout);//延时timeout后执行run方法中的代码
             }
             return false;//让点击事件继续传播，方便再给View添加其他事件监听

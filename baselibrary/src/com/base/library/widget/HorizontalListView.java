@@ -786,8 +786,6 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
         mHeightMeasureSpec = heightMeasureSpec;
     }
 
-    ;
-
     /**
      * Determine the Max X position. This is the farthest that the user can
      * scroll the screen. Until the last adapter item has been laid out it is
@@ -814,9 +812,7 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
                     mMaxX = 0;
                 }
 
-                if (mMaxX != oldMaxX) {
-                    return true;
-                }
+                return mMaxX != oldMaxX;
             }
         }
 
@@ -1307,8 +1303,6 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
         }
     }
 
-    ;
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         requestDisallowInterceptTouchEvent(true);
@@ -1375,7 +1369,7 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
      * This listener is used to allow notification when the HorizontalListView
      * is running low on data to display.
      */
-    public static interface RunningOutOfDataListener {
+    public interface RunningOutOfDataListener {
         /**
          * Called when the HorizontalListView is running out of data and has
          * reached at least the provided threshold.
@@ -1417,7 +1411,7 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
      * state has changed.
      */
     public interface OnScrollStateChangedListener {
-        public enum ScrollState {
+        enum ScrollState {
             /**
              * The view is not scrolling. Note navigating the list using the
              * trackball counts as being in the idle state since these
@@ -1443,7 +1437,7 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
          *
          * @param scrollState The current scroll state.
          */
-        public void onScrollStateChanged(ScrollState scrollState);
+        void onScrollStateChanged(ScrollState scrollState);
     }
 
     /**

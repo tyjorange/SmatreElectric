@@ -58,17 +58,17 @@ public class MyNodeViewHolder extends TreeNode.BaseNodeViewHolder<SwitchBean> {
         holder = (ViewHolder) view.getTag();
         if (holder == null) {
             holder = new MyNodeViewHolder.ViewHolder();
-            holder.ivSwitch = (ImageView) view.findViewById(R.id.iv_switch);
-            holder.txtContent = (TextView) view.findViewById(R.id.txt_content);
-            holder.imgLine = (ImageView) view.findViewById(R.id.img_line);
-            holder.tvState = (TextView) view.findViewById(R.id.tv_state);
-            holder.tvCode = (TextView) view.findViewById(R.id.tv_code);
-            holder.imgTimeClock = (ImageView) view.findViewById(R.id.iv_time_clock);
-            holder.toggleView = (ImageView) view.findViewById(R.id.toggle_icon);
-            holder.ivDel = (ImageView) view.findViewById(R.id.iv_del_switch);
-            holder.ivAdd = (ImageView) view.findViewById(R.id.iv_add_switch);
-            holder.imgRight = (ImageView) view.findViewById(R.id.img_right);
-            holder.imgNodeChose = (ImageView) view.findViewById(R.id.img_node_chose);
+            holder.ivSwitch = view.findViewById(R.id.iv_switch);
+            holder.txtContent = view.findViewById(R.id.txt_content);
+            holder.imgLine = view.findViewById(R.id.img_line);
+            holder.tvState = view.findViewById(R.id.tv_state);
+            holder.tvCode = view.findViewById(R.id.tv_code);
+            holder.imgTimeClock = view.findViewById(R.id.iv_time_clock);
+            holder.toggleView = view.findViewById(R.id.toggle_icon);
+            holder.ivDel = view.findViewById(R.id.iv_del_switch);
+            holder.ivAdd = view.findViewById(R.id.iv_add_switch);
+            holder.imgRight = view.findViewById(R.id.img_right);
+            holder.imgNodeChose = view.findViewById(R.id.img_node_chose);
 
             view.setTag(holder);
         }
@@ -117,27 +117,21 @@ public class MyNodeViewHolder extends TreeNode.BaseNodeViewHolder<SwitchBean> {
             holder.ivSwitch.setVisibility(View.VISIBLE);
             if (collectorBean.beShared == 0 || collectorBean.enable == 1) {// 不是被分享的 或 有集中器操作权限
                 holder.ivSwitch.setImageResource(NativeLine.DrawableToggle[switchBean.getSwitchState() == -1 ? 2 : switchBean.getSwitchState()]);
-                holder.ivSwitch.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (iSwitchCheckListen != null) {
+                holder.ivSwitch.setOnClickListener(v -> {
+                    if (iSwitchCheckListen != null) {
 //                        holder.ivSwitch.setImageResource(NativeLine.DrawableToggle[2]);
-                            iSwitchCheckListen.onSwitch(switchBean);
-                        }
+                        iSwitchCheckListen.onSwitch(switchBean);
                     }
                 });
             }
         } else if (viewType == SwitchTree.SHISHI) {
             holder.imgNodeChose.setVisibility(View.VISIBLE);
-            holder.imgNodeChose.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (iSwitchCheckListen != null) {
-                        iSwitchCheckListen.onResetChose();
-                        iSwitchCheckListen.onChose(switchBean);
-                    }
-                    holder.imgNodeChose.setImageDrawable(v.getContext().getDrawable(R.drawable.dx_chose_slices));
+            holder.imgNodeChose.setOnClickListener(v -> {
+                if (iSwitchCheckListen != null) {
+                    iSwitchCheckListen.onResetChose();
+                    iSwitchCheckListen.onChose(switchBean);
                 }
+                holder.imgNodeChose.setImageDrawable(v.getContext().getDrawable(R.drawable.dx_chose_slices));
             });
 //            holder.imgRight.setVisibility(View.VISIBLE);
 //            holder.imgRight.setOnClickListener(new View.OnClickListener() {
@@ -153,15 +147,12 @@ public class MyNodeViewHolder extends TreeNode.BaseNodeViewHolder<SwitchBean> {
 //            holder.tvState.setVisibility(View.GONE);
         } else if (viewType == SwitchTree.DINGSHI) {
             holder.imgNodeChose.setVisibility(View.VISIBLE);
-            holder.imgNodeChose.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (iSwitchCheckListen != null) {
-                        iSwitchCheckListen.onResetChose();
-                        iSwitchCheckListen.onChose(switchBean);
-                    }
-                    holder.imgNodeChose.setImageDrawable(v.getContext().getDrawable(R.drawable.dx_chose_slices));
+            holder.imgNodeChose.setOnClickListener(v -> {
+                if (iSwitchCheckListen != null) {
+                    iSwitchCheckListen.onResetChose();
+                    iSwitchCheckListen.onChose(switchBean);
                 }
+                holder.imgNodeChose.setImageDrawable(v.getContext().getDrawable(R.drawable.dx_chose_slices));
             });
 //            holder.imgRight.setVisibility(View.VISIBLE);
 //            holder.imgRight.setOnClickListener(new View.OnClickListener() {
@@ -176,49 +167,42 @@ public class MyNodeViewHolder extends TreeNode.BaseNodeViewHolder<SwitchBean> {
 //            holder.tvState.setVisibility(View.GONE);
         } else if (viewType == SwitchTree.JIENENG) {
             holder.imgNodeChose.setVisibility(View.VISIBLE);
-            holder.imgNodeChose.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (iSwitchCheckListen != null) {
-                        iSwitchCheckListen.onResetChose();
-                        iSwitchCheckListen.onChose(switchBean);
-                    }
-                    holder.imgNodeChose.setImageDrawable(v.getContext().getDrawable(R.drawable.dx_chose_slices));
+            holder.imgNodeChose.setOnClickListener(v -> {
+                if (iSwitchCheckListen != null) {
+                    iSwitchCheckListen.onResetChose();
+                    iSwitchCheckListen.onChose(switchBean);
                 }
+                holder.imgNodeChose.setImageDrawable(v.getContext().getDrawable(R.drawable.dx_chose_slices));
             });
-//            holder.imgRight.setVisibility(View.VISIBLE);
-//            holder.imgRight.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent intent = new Intent();
-//                    intent.putExtra("switchBean", switchBean);
-//                    ((Activity) mContext).setResult(Activity.RESULT_OK, intent);
-//                    ((Activity) mContext).finish();
-//                }
-//            });
-//            holder.tvState.setVisibility(View.GONE);
-        } else if (viewType == SwitchTree.XIANLU_XIUGAI) {
+/*
             holder.imgRight.setVisibility(View.VISIBLE);
             holder.imgRight.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mContext, SwitchModifyActivity.class);
+                    Intent intent = new Intent();
                     intent.putExtra("switchBean", switchBean);
-                    ((Activity) mContext).startActivityForResult(intent, CommonRequestCode.REQUEST_MODIFY_LINE);
+                    ((Activity) mContext).setResult(Activity.RESULT_OK, intent);
+                    ((Activity) mContext).finish();
                 }
+            });
+            holder.tvState.setVisibility(View.GONE);
+*/
+        } else if (viewType == SwitchTree.XIANLU_XIUGAI) {
+            holder.imgRight.setVisibility(View.VISIBLE);
+            holder.imgRight.setOnClickListener(v -> {
+                Intent intent = new Intent(mContext, SwitchModifyActivity.class);
+                intent.putExtra("switchBean", switchBean);
+                ((Activity) mContext).startActivityForResult(intent, CommonRequestCode.REQUEST_MODIFY_LINE);
             });
             holder.tvState.setVisibility(View.GONE);
         } else if (viewType == SwitchTree.QUXIAN) {
             holder.imgNodeChose.setVisibility(View.VISIBLE);
-            holder.imgNodeChose.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (iSwitchCheckListen != null) {
-                        iSwitchCheckListen.onResetChose();
-                        iSwitchCheckListen.onChose(switchBean);
-                    }
-                    holder.imgNodeChose.setImageDrawable(v.getContext().getDrawable(R.drawable.dx_chose_slices));
+            holder.imgNodeChose.setOnClickListener(v -> {
+                if (iSwitchCheckListen != null) {
+                    iSwitchCheckListen.onResetChose();
+                    iSwitchCheckListen.onChose(switchBean);
                 }
+                holder.imgNodeChose.setImageDrawable(v.getContext().getDrawable(R.drawable.dx_chose_slices));
             });
 //            holder.imgRight.setVisibility(View.VISIBLE);
 //            holder.imgRight.setOnClickListener(new View.OnClickListener() {
@@ -233,34 +217,25 @@ public class MyNodeViewHolder extends TreeNode.BaseNodeViewHolder<SwitchBean> {
 //            holder.tvState.setVisibility(View.GONE);
         } else if (viewType == SwitchTree.ANQUAN_SHEZHI) {
             holder.imgRight.setVisibility(View.VISIBLE);
-            holder.imgRight.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(mContext, SwitchSettingActivity.class);
-                    intent.putExtra("switchBean", switchBean);
-                    ((Activity) mContext).startActivityForResult(intent, CommonRequestCode.REQUEST_MODIFY_LINE);
-                }
+            holder.imgRight.setOnClickListener(v -> {
+                Intent intent = new Intent(mContext, SwitchSettingActivity.class);
+                intent.putExtra("switchBean", switchBean);
+                ((Activity) mContext).startActivityForResult(intent, CommonRequestCode.REQUEST_MODIFY_LINE);
             });
             holder.tvState.setVisibility(View.GONE);
         } else if (viewType == SwitchTree.XIANLU_WEIHU) {
             holder.imgRight.setVisibility(View.GONE);
             holder.tvState.setVisibility(View.GONE);
             holder.ivAdd.setVisibility(View.VISIBLE);
-            holder.ivAdd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (iSwitchCheckListen != null) {
-                        iSwitchCheckListen.onAdd(switchBean);
-                    }
+            holder.ivAdd.setOnClickListener(v -> {
+                if (iSwitchCheckListen != null) {
+                    iSwitchCheckListen.onAdd(switchBean);
                 }
             });
 //            holder.ivDel.setVisibility(View.VISIBLE);
-            holder.ivDel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (iSwitchCheckListen != null) {
-                        iSwitchCheckListen.onDelete(switchBean);
-                    }
+            holder.ivDel.setOnClickListener(v -> {
+                if (iSwitchCheckListen != null) {
+                    iSwitchCheckListen.onDelete(switchBean);
                 }
             });
         }

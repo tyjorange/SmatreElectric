@@ -87,43 +87,25 @@ public class YaoKongDetailActivity extends BaseActivity {
         rootSwitchBean = getIntent().getParcelableExtra("SwitchBean");
         viewType = getIntent().getIntExtra("viewType", -1);
         mWaitDialog = new LoadingDlg(this, -1);
-        findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
         switch (viewType) {
             case SwitchTree.YAOKONG:
                 iv_switch_root = findViewById(R.id.iv_switch_root);
                 iv_switch_root.setImageResource(NativeLine.DrawableToggle[rootSwitchBean.getSwitchState() == -1 ? 2 : rootSwitchBean.getSwitchState()]);
                 iv_switch_root.setVisibility(View.VISIBLE);
-                iv_switch_root.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        isRootSwitch = true;
-                        switchBreak(rootSwitchBean);
-                    }
+                iv_switch_root.setOnClickListener(v -> {
+                    isRootSwitch = true;
+                    switchBreak(rootSwitchBean);
                 });
                 findViewById(R.id.type_yaokong).setVisibility(View.VISIBLE);
                 findViewById(R.id.type_xianluweihu).setVisibility(View.GONE);
                 break;
             case SwitchTree.XIANLU_WEIHU:
                 ImageView iv_switch_add = findViewById(R.id.iv_add_child_switch);
-                iv_switch_add.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        addSwitch(rootSwitchBean);
-                    }
-                });
+                iv_switch_add.setOnClickListener(v -> addSwitch(rootSwitchBean));
                 iv_switch_add.setVisibility(View.VISIBLE);
                 ImageView iv_switch_remove_toggle = findViewById(R.id.iv_switch_remove_toggle);
-                iv_switch_remove_toggle.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        toggleDelIcon();
-                    }
-                });
+                iv_switch_remove_toggle.setOnClickListener(v -> toggleDelIcon());
                 iv_switch_remove_toggle.setVisibility(View.VISIBLE);
                 findViewById(R.id.type_yaokong).setVisibility(View.GONE);
                 findViewById(R.id.type_xianluweihu).setVisibility(View.VISIBLE);
@@ -131,7 +113,7 @@ public class YaoKongDetailActivity extends BaseActivity {
         }
         TextView tv_root_name = findViewById(R.id.tv_root_name);
         tv_root_name.setText(String.format("%s%s", mContext.getString(R.string.vs14), rootSwitchBean.getName()));
-        lvProduct = (ListView) findViewById(R.id.lv_products);
+        lvProduct = findViewById(R.id.lv_products);
         lvProduct.setEmptyView(findViewById(R.id.empty_layout));
         childList = rootSwitchBean.getChild();
         adapter = new OneExpandAdapter(this, mCollectorBean, viewType, childList, new OneExpandAdapter.ISwitchCheckListen() {
@@ -685,20 +667,20 @@ public class YaoKongDetailActivity extends BaseActivity {
             if (convertView == null) {
                 convertView = LayoutInflater.from(context).inflate(R.layout.item_test1, parent, false);
                 holder = new ViewHolder();
-                holder.showArea = (LinearLayout) convertView.findViewById(R.id.layout_showArea);
-                holder.img_line = (ImageView) convertView.findViewById(R.id.img_line);
-                holder.txt_content = (TextView) convertView.findViewById(R.id.txt_content);
-                holder.tv_state = (TextView) convertView.findViewById(R.id.tv_state);
-                holder.tv_code = (TextView) convertView.findViewById(R.id.tv_code);
-                holder.iv_time_clock = (ImageView) convertView.findViewById(R.id.iv_time_clock);
-                holder.iv_switch = (ImageView) convertView.findViewById(R.id.iv_switch);
-                holder.toggle_icon = (ImageView) convertView.findViewById(R.id.toggle_icon);
-                holder.sp_line = (ImageView) convertView.findViewById(R.id.sp_line);
-                holder.hideArea = (ExpandLayout) convertView.findViewById(R.id.layout_hideArea);
-                holder.sub_list = (ListView) convertView.findViewById(R.id.sub_list);
-                holder.iv_del_switch = (ImageView) convertView.findViewById(R.id.iv_del_switch);
-                holder.iv_add_sub_switch = (ImageView) convertView.findViewById(R.id.iv_add_sub_switch);
-                holder.toggle_ll = (LinearLayout) convertView.findViewById(R.id.toggle_ll);
+                holder.showArea = convertView.findViewById(R.id.layout_showArea);
+                holder.img_line = convertView.findViewById(R.id.img_line);
+                holder.txt_content = convertView.findViewById(R.id.txt_content);
+                holder.tv_state = convertView.findViewById(R.id.tv_state);
+                holder.tv_code = convertView.findViewById(R.id.tv_code);
+                holder.iv_time_clock = convertView.findViewById(R.id.iv_time_clock);
+                holder.iv_switch = convertView.findViewById(R.id.iv_switch);
+                holder.toggle_icon = convertView.findViewById(R.id.toggle_icon);
+                holder.sp_line = convertView.findViewById(R.id.sp_line);
+                holder.hideArea = convertView.findViewById(R.id.layout_hideArea);
+                holder.sub_list = convertView.findViewById(R.id.sub_list);
+                holder.iv_del_switch = convertView.findViewById(R.id.iv_del_switch);
+                holder.iv_add_sub_switch = convertView.findViewById(R.id.iv_add_sub_switch);
+                holder.toggle_ll = convertView.findViewById(R.id.toggle_ll);
 
                 convertView.setTag(holder);
             } else {
@@ -753,31 +735,18 @@ public class YaoKongDetailActivity extends BaseActivity {
                     holder.iv_switch.setVisibility(View.VISIBLE);
                     if (collectorBean.beShared == 0 || collectorBean.enable == 1) {// 不是被分享的 或 有集中器操作权限
                         holder.iv_switch.setImageResource(NativeLine.DrawableToggle[currentSwitchBean.getSwitchState() == -1 ? 2 : currentSwitchBean.getSwitchState()]);
-                        holder.iv_switch.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (iSwitchCheckListen != null) {
-                                    iSwitchCheckListen.onSwitch(currentSwitchBean);
-                                }
+                        holder.iv_switch.setOnClickListener(v -> {
+                            if (iSwitchCheckListen != null) {
+                                iSwitchCheckListen.onSwitch(currentSwitchBean);
                             }
                         });
                     }
                     break;
                 case YaoKongActivity.XIANLU_WEIHU:
                     holder.iv_add_sub_switch.setVisibility(View.VISIBLE);
-                    holder.iv_add_sub_switch.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            iSwitchCheckListen.onAdd(currentSwitchBean);
-                        }
-                    });
+                    holder.iv_add_sub_switch.setOnClickListener(v -> iSwitchCheckListen.onAdd(currentSwitchBean));
                     holder.iv_del_switch.setVisibility(currentSwitchBean.showDelIcon);
-                    holder.iv_del_switch.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            iSwitchCheckListen.onDelete(currentSwitchBean);
-                        }
-                    });
+                    holder.iv_del_switch.setOnClickListener(v -> iSwitchCheckListen.onDelete(currentSwitchBean));
                     break;
             }
 
@@ -806,28 +775,20 @@ public class YaoKongDetailActivity extends BaseActivity {
                 }
                 ViewHolder finalHolder = holder;
                 // 点击事件
-                holder.showArea.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View view) {
-                        //用 currentItem 记录点击位置
-                        currentItem = (int) (Integer) view.getTag();
-                        finalHolder.hideArea.toggleExpand();
-                        //通知adapter数据改变需要重新加载 必须有的一步
-                        notifyDataSetChanged();
-                    }
+                holder.showArea.setOnClickListener(view -> {
+                    //用 currentItem 记录点击位置
+                    currentItem = (int) (Integer) view.getTag();
+                    finalHolder.hideArea.toggleExpand();
+                    //通知adapter数据改变需要重新加载 必须有的一步
+                    notifyDataSetChanged();
                 });
                 // 点击事件
-                holder.toggle_ll.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View view) {
-                        //用 currentItem 记录点击位置
-                        currentItem = (int) (Integer) view.getTag();
-                        finalHolder.hideArea.toggleExpand();
-                        //通知adapter数据改变需要重新加载 必须有的一步
-                        notifyDataSetChanged();
-                    }
+                holder.toggle_ll.setOnClickListener(view -> {
+                    //用 currentItem 记录点击位置
+                    currentItem = (int) (Integer) view.getTag();
+                    finalHolder.hideArea.toggleExpand();
+                    //通知adapter数据改变需要重新加载 必须有的一步
+                    notifyDataSetChanged();
                 });
             }
             return convertView;
@@ -904,13 +865,13 @@ public class YaoKongDetailActivity extends BaseActivity {
             if (convertView == null) {
                 convertView = LayoutInflater.from(context).inflate(R.layout.item_test2, parent, false);
                 holder1 = new SubHolder();
-                holder1.img_line = (ImageView) convertView.findViewById(R.id.img_line);
-                holder1.txt_content = (TextView) convertView.findViewById(R.id.txt_content);
-                holder1.tv_state = (TextView) convertView.findViewById(R.id.tv_state);
-                holder1.tv_code = (TextView) convertView.findViewById(R.id.tv_code);
-                holder1.iv_switch = (ImageView) convertView.findViewById(R.id.iv_switch);
-                holder1.iv_time_clock = (ImageView) convertView.findViewById(R.id.iv_time_clock);
-                holder1.iv_del_switch = (ImageView) convertView.findViewById(R.id.iv_del_switch);
+                holder1.img_line = convertView.findViewById(R.id.img_line);
+                holder1.txt_content = convertView.findViewById(R.id.txt_content);
+                holder1.tv_state = convertView.findViewById(R.id.tv_state);
+                holder1.tv_code = convertView.findViewById(R.id.tv_code);
+                holder1.iv_switch = convertView.findViewById(R.id.iv_switch);
+                holder1.iv_time_clock = convertView.findViewById(R.id.iv_time_clock);
+                holder1.iv_del_switch = convertView.findViewById(R.id.iv_del_switch);
 //                    holder1.iv_add_sub_switch = (ImageView) inflate1.findViewById(R.id.iv_add_sub_switch);
 
                 convertView.setTag(holder1);
@@ -930,12 +891,7 @@ public class YaoKongDetailActivity extends BaseActivity {
                     holder1.iv_switch.setVisibility(View.VISIBLE);
                     if (collectorBean.beShared == 0 || collectorBean.enable == 1) {// 不是被分享的 或 有集中器操作权限
                         holder1.iv_switch.setImageResource(NativeLine.DrawableToggle[currentSubSwitchBean.getSwitchState() == -1 ? 2 : currentSubSwitchBean.getSwitchState()]);
-                        holder1.iv_switch.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                iSwitchCheckListen.onSwitch(currentSubSwitchBean);
-                            }
-                        });
+                        holder1.iv_switch.setOnClickListener(v -> iSwitchCheckListen.onSwitch(currentSubSwitchBean));
                     }
                     break;
                 case YaoKongActivity.XIANLU_WEIHU:
@@ -947,12 +903,7 @@ public class YaoKongDetailActivity extends BaseActivity {
 //                                }
 //                            });
                     holder1.iv_del_switch.setVisibility(currentSubSwitchBean.showDelIcon);
-                    holder1.iv_del_switch.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            iSwitchCheckListen.onDelete(currentSubSwitchBean);
-                        }
-                    });
+                    holder1.iv_del_switch.setOnClickListener(v -> iSwitchCheckListen.onDelete(currentSubSwitchBean));
                     break;
             }
             return convertView;

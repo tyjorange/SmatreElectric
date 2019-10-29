@@ -3,7 +3,6 @@ package com.rejuvee.smartelectric.family.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -44,11 +43,11 @@ public class LineOperateRecordFragment extends BaseFragment {
 
     @Override
     protected void initView(View v) {
-        ListView listView = (ListView) v.findViewById(R.id.list_logs);
+        ListView listView = v.findViewById(R.id.list_logs);
         mAdapter = new LineOperateRecordAdapter(getContext(), mListData);
         listView.setAdapter(mAdapter);
         listView.setEmptyView(v.findViewById(R.id.empty_layout));
-        smartRefreshLayout = (SmartRefreshLayout) v.findViewById(R.id.smart_refreshLayout);
+        smartRefreshLayout = v.findViewById(R.id.smart_refreshLayout);
         smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
@@ -62,23 +61,20 @@ public class LineOperateRecordFragment extends BaseFragment {
                 doRequest();
             }
         });
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                RecordBean recordBean = mListData.get(position);
-                if (recordBean.type == 1) {//
-                    String title = recordBean.name;
-                    ArrayList<RecordBean> listRecord = (ArrayList<RecordBean>) recordBean.switchs;
-                    if (listRecord != null)
-                        for (RecordBean recordBean1 : listRecord) {
-                            recordBean1.time = recordBean.time;
-                            recordBean1.type = -1;
-                        }
-                    Intent intent = new Intent(getActivity(), LogDetailActivity.class);
-                    intent.putExtra("title", title);
-                    intent.putParcelableArrayListExtra("records", listRecord);
-                    startActivity(intent);
-                }
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            RecordBean recordBean = mListData.get(position);
+            if (recordBean.type == 1) {//
+                String title = recordBean.name;
+                ArrayList<RecordBean> listRecord = (ArrayList<RecordBean>) recordBean.switchs;
+                if (listRecord != null)
+                    for (RecordBean recordBean1 : listRecord) {
+                        recordBean1.time = recordBean.time;
+                        recordBean1.type = -1;
+                    }
+                Intent intent = new Intent(getActivity(), LogDetailActivity.class);
+                intent.putExtra("title", title);
+                intent.putParcelableArrayListExtra("records", listRecord);
+                startActivity(intent);
             }
         });
     }

@@ -55,32 +55,22 @@ public class ListTimerAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = View.inflate(mContext, R.layout.item_timer, null);
             holder = new ViewHolder();
-            holder.img_item_remove = (ImageView) convertView.findViewById(R.id.img_item_remove);
-            holder.img_switch = (ImageView) convertView.findViewById(R.id.img_switch);
-            holder.img_zhuliu = (ImageView) convertView.findViewById(R.id.img_zhuliu);
-            holder.tv_state = (TextView) convertView.findViewById(R.id.tv_state);
-            holder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
-            holder.tv_repet = (TextView) convertView.findViewById(R.id.tv_repet);
+            holder.img_item_remove = convertView.findViewById(R.id.img_item_remove);
+            holder.img_switch = convertView.findViewById(R.id.img_switch);
+            holder.img_zhuliu = convertView.findViewById(R.id.img_zhuliu);
+            holder.tv_state = convertView.findViewById(R.id.tv_state);
+            holder.tv_time = convertView.findViewById(R.id.tv_time);
+            holder.tv_repet = convertView.findViewById(R.id.tv_repet);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
         final TimeTaskBean.TimeTask timeTask = mListData.get(position);
         holder.img_item_remove.setVisibility(timeTask.showDelIcon);
-        holder.img_item_remove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.onDelItem(timeTask.taskId);
-            }
-        });
+        holder.img_item_remove.setOnClickListener(v -> mListener.onDelItem(timeTask.taskId));
         holder.img_zhuliu.setVisibility(timeTask.upload == 1 ? View.VISIBLE : View.INVISIBLE);
         holder.img_switch.setImageResource(timeTask.enable == 1 ? R.drawable.shineng : R.drawable.jinzhi);
-        holder.img_switch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.onEnable(position, timeTask.enable == 0);
-            }
-        });
+        holder.img_switch.setOnClickListener(v -> mListener.onEnable(position, timeTask.enable == 0));
         holder.tv_state.setText(timeTask.switchState == 1 ? mContext.getString(R.string.vs74) : mContext.getString(R.string.vs75));
         holder.tv_time.setText(timeTask.time);
         holder.tv_repet.setText(toRepeat(timeTask.repeatState));

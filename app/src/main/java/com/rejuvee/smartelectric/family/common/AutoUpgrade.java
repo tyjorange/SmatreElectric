@@ -218,12 +218,7 @@ public class AutoUpgrade {
             XMLContentHandler handler = new XMLContentHandler();
             saxParser.parse(inputStream, handler);
             inputStream.close();
-            mHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    compareVersion();
-                }
-            });
+            mHandler.post(() -> compareVersion());
 
         } catch (Exception e) {
             e.printStackTrace();

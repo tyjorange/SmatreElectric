@@ -96,7 +96,7 @@ public abstract class AbstractBaseToolbarChatActivity extends AbstractSwipeBackB
                 return true;
             }
         });
-        toolbarTitle = (TextView) toolbar.findViewById(R.id.nav_toolbar_title);
+        toolbarTitle = toolbar.findViewById(R.id.nav_toolbar_title);
         toolbarTitle.setText(getToolbarTitle());
         toolbarTitle.setOnClickListener(this);
         //返回

@@ -1,7 +1,6 @@
 package com.rejuvee.smartelectric.family.fragment;
 
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -61,49 +60,33 @@ public class SettingDL1Fragment extends BaseFragment implements View.OnFocusChan
         // et_GL2.setOnFocusChangeListener(this);
         // 漏电保护、自检使能
         iv_bhsn = v.findViewById(R.id.iv_bhsn);
-        iv_bhsn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (bhsn == 0) {
-                    bhsn = 1;
-                } else {
-                    bhsn = 0;
-                }
-                updateSwitchStatus(v);
+        iv_bhsn.setOnClickListener(v12 -> {
+            if (bhsn == 0) {
+                bhsn = 1;
+            } else {
+                bhsn = 0;
             }
+            updateSwitchStatus(v12);
         });
         iv_zjsn = v.findViewById(R.id.iv_zjsn);
-        iv_zjsn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (zjsn == 0) {
-                    zjsn = 1;
-                } else {
-                    zjsn = 0;
-                }
-                updateSwitchStatus(v);
+        iv_zjsn.setOnClickListener(v13 -> {
+            if (zjsn == 0) {
+                zjsn = 1;
+            } else {
+                zjsn = 0;
             }
+            updateSwitchStatus(v13);
         });
         // 漏电自检时间
         tv_zj_time = v.findViewById(R.id.tv_zj_time);
-        v.findViewById(R.id.ll_zj_time).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dateSelector.show(v);
-            }
-        });
+        v.findViewById(R.id.ll_zj_time).setOnClickListener(v14 -> dateSelector.show(v14));
         // 漏电流阀值
 //        v.findViewById(R.id.ll_ldl).setVisibility(View.VISIBLE);
         amountLDL = v.findViewById(R.id.amount_view_ldl);
         amountLDL.setVal_min(0);
         amountLDL.setVal_max(999);
         amountLDL.setAmountInt(30);
-        amountLDL.setOnAmountChangeListener(new AmountViewInt.OnAmountChangeListener() {
-            @Override
-            public void onAmountChange(View view, float amount) {
-                rangeSeekBarLDL.setProgress((int) amount);
-            }
-        });
+        amountLDL.setOnAmountChangeListener((view, amount) -> rangeSeekBarLDL.setProgress((int) amount));
         rangeSeekBarLDL = v.findViewById(R.id.seek_bar_ldl);
         rangeSeekBarLDL.setRange(0, 999);//范围
         rangeSeekBarLDL.setTickMarkTextArray(new String[]{"0", "999"});//刻度
@@ -128,20 +111,16 @@ public class SettingDL1Fragment extends BaseFragment implements View.OnFocusChan
         });
         // 日期选择器
         dateSelector = new WheelDateTime(v.getContext(),
-                new WheelDateTime.OnWheelListener() {
-
-                    @Override
-                    public void onWheel(Boolean isSubmit, String year, String month, String day, String hour, String minute) {
+                (isSubmit, year, month, day, hour, minute) -> {
 //                        iyear = Integer.parseInt(year);
 //                        imonth = Integer.parseInt(month);
 //                        if (isDay) {
 //                            iday = Integer.parseInt(day);
 //                        }
 //                        changeTvDate();
-                        dd = Integer.parseInt(day);
-                        hh = Integer.parseInt(hour);
-                        tv_zj_time.setText(String.format(Locale.getDefault(), getString(R.string.vs190), dd, hh));
-                    }
+                    dd = Integer.parseInt(day);
+                    hh = Integer.parseInt(hour);
+                    tv_zj_time.setText(String.format(Locale.getDefault(), getString(R.string.vs190), dd, hh));
                 }, true,
                 new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date()),
                 new SimpleDateFormat("MM", Locale.getDefault()).format(new Date()),
@@ -181,12 +160,10 @@ public class SettingDL1Fragment extends BaseFragment implements View.OnFocusChan
         listPopupWindow.setAnchorView(et_GL1);//以哪个控件为基准，在该处以mEditText为基准
         listPopupWindow.setModal(true);
 
-        listPopupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {//设置项点击监听
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                et_GL1.setText(listVal[i]);//把选择的选项内容展示在EditText上
-                listPopupWindow.dismiss();//如果已经选择了，隐藏起来
-            }
+        //设置项点击监听
+        listPopupWindow.setOnItemClickListener((adapterView, view, i, l) -> {
+            et_GL1.setText(listVal[i]);//把选择的选项内容展示在EditText上
+            listPopupWindow.dismiss();//如果已经选择了，隐藏起来
         });
         listPopupWindow.show();//把ListPopWindow展示出来
     }

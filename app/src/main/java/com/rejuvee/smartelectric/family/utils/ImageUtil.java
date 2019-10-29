@@ -120,11 +120,7 @@ public class ImageUtil {
 
     private boolean hasSdcard() {
         String state = Environment.getExternalStorageState();
-        if (state.equals(Environment.MEDIA_MOUNTED)) {
-            return true;
-        } else {
-            return false;
-        }
+        return state.equals(Environment.MEDIA_MOUNTED);
     }
 
     private Intent buildCropIntent(Uri uri, Uri tempUri) {

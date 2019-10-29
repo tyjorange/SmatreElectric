@@ -29,7 +29,6 @@ public class CollectorAttrActivity extends BaseActivity implements View.OnClickL
     private TextView text_gaojin;
     private TextView text_guzhangma;
     private TextView text_xintiao;
-    private TextView tvDeviceId;
     private CollectorBean collectorBean;
     private String Baud;
     private String Freq;
@@ -81,13 +80,13 @@ public class CollectorAttrActivity extends BaseActivity implements View.OnClickL
         findViewById(R.id.iv_tips_cjfz).setOnClickListener(this);
         findViewById(R.id.iv_tips_gzmpl).setOnClickListener(this);
         findViewById(R.id.iv_tips_xtjg).setOnClickListener(this);
-        text_devicename = (TextView) findViewById(R.id.text_devicename);
-        text_botelv = (TextView) findViewById(R.id.text_botelv);
-        text_caijilv = (TextView) findViewById(R.id.text_caijilv);
-        text_gaojin = (TextView) findViewById(R.id.text_gaojin);
-        text_guzhangma = (TextView) findViewById(R.id.text_guzhangma);
-        text_xintiao = (TextView) findViewById(R.id.text_xintiao);
-        tvDeviceId = (TextView) findViewById(R.id.tv_collect_id);
+        text_devicename = findViewById(R.id.text_devicename);
+        text_botelv = findViewById(R.id.text_botelv);
+        text_caijilv = findViewById(R.id.text_caijilv);
+        text_gaojin = findViewById(R.id.text_gaojin);
+        text_guzhangma = findViewById(R.id.text_guzhangma);
+        text_xintiao = findViewById(R.id.text_xintiao);
+        TextView tvDeviceId = findViewById(R.id.tv_collect_id);
         tvDeviceId.setText(String.format("%s", collectorBean.getCode()));
         getCollectorByCollectorID(collectorBean.getCollectorID());
 
@@ -146,10 +145,10 @@ public class CollectorAttrActivity extends BaseActivity implements View.OnClickL
                 startactivtiy(heartrate, 5);
                 break;
             case R.id.tv_reboot:
-                collectSet(0);
+//                collectSet(0);
                 break;
             case R.id.tv_restore:
-                collectSet(1);
+//                collectSet(1);
                 break;
             case R.id.iv_tips_btl:
                 new DialogTipWithoutOkCancel(this).setTitle(getString(R.string.sets_botelv)).setContent(getString(R.string.tips_btl)).show();

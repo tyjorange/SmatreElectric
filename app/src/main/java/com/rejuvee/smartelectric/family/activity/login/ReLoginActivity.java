@@ -2,7 +2,6 @@ package com.rejuvee.smartelectric.family.activity.login;
 
 import android.content.Context;
 import android.content.Intent;
-import android.view.View;
 
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.ActivityFragmentManager;
@@ -24,12 +23,7 @@ public class ReLoginActivity extends BaseActivity {
     @Override
     protected void initView() {
         mContext = this;
-        findViewById(R.id.btn_ok).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                restartApp(mContext);
-            }
-        });
+        findViewById(R.id.btn_ok).setOnClickListener(v -> restartApp(mContext));
     }
 
     @Override

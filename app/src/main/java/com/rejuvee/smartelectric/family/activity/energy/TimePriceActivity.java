@@ -7,8 +7,6 @@ import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -59,41 +57,28 @@ public class TimePriceActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
         Currency currency = Currency.getInstance(Locale.getDefault());
-        TextView txtSymbol = (TextView) findViewById(R.id.txt_symbol);
+        TextView txtSymbol = findViewById(R.id.txt_symbol);
         txtSymbol.setText(currency.getSymbol());
         currencySymbol = currency.getSymbol();
-        mEditText = (EditText) findViewById(R.id.edt_default_price);
-        mListView = (ListView) findViewById(R.id.list_sections);
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(TimePriceActivity.this, TimePriceSetActivity.class);
-                intent.putExtra("s_price", timeOfUsePrice[position]);
-                String[] split = mListData.get(position).getContent().split(" - ");
-                intent.putExtra("s_start", split[0]);
-                intent.putExtra("s_end", split[1]);
-                intent.putExtra("i_start", position);
-                intent.putExtra("i_end", position + 1);
-                startActivityForResult(intent, 1000);
-            }
+        mEditText = findViewById(R.id.edt_default_price);
+        mListView = findViewById(R.id.list_sections);
+        mListView.setOnItemClickListener((parent, view, position, id) -> {
+            Intent intent = new Intent(TimePriceActivity.this, TimePriceSetActivity.class);
+            intent.putExtra("s_price", timeOfUsePrice[position]);
+            String[] split = mListData.get(position).getContent().split(" - ");
+            intent.putExtra("s_start", split[0]);
+            intent.putExtra("s_end", split[1]);
+            intent.putExtra("i_start", position);
+            intent.putExtra("i_end", position + 1);
+            startActivityForResult(intent, 1000);
         });
         readPriceFromShared();//读取本地的
         mEditText.setText(defaultPrice);
         mEditText.addTextChangedListener(textWatcher);
 
-        findViewById(R.id.img_edit_section).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivityForResult(new Intent(TimePriceActivity.this, TimePriceSetActivity.class), 1000);
-            }
-        });
+        findViewById(R.id.img_edit_section).setOnClickListener(v -> startActivityForResult(new Intent(TimePriceActivity.this, TimePriceSetActivity.class), 1000));
         mHandler = new MyHandler(this);
 
         mWaitDialog = new LoadingDlg(this, -1);

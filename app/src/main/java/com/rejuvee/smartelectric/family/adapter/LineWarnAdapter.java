@@ -45,12 +45,12 @@ public class LineWarnAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = View.inflate(mContext, R.layout.item_line_warn, null);
             holder = new ViewHolder();
-            holder.tvTitle = (TextView) convertView.findViewById(R.id.tv_title);
-            holder.tvState1 = (TextView) convertView.findViewById(R.id.tv_state1);
-            holder.tvState2 = (TextView) convertView.findViewById(R.id.tv_state2);
-            holder.tvType = (TextView) convertView.findViewById(R.id.tv_type);
-            holder.tvCode = (TextView) convertView.findViewById(R.id.tv_code);
-            holder.tvDate = (TextView) convertView.findViewById(R.id.tv_time);
+            holder.tvTitle = convertView.findViewById(R.id.tv_title);
+            holder.tvState1 = convertView.findViewById(R.id.tv_state1);
+            holder.tvState2 = convertView.findViewById(R.id.tv_state2);
+            holder.tvType = convertView.findViewById(R.id.tv_type);
+            holder.tvCode = convertView.findViewById(R.id.tv_code);
+            holder.tvDate = convertView.findViewById(R.id.tv_time);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

@@ -394,7 +394,7 @@ public interface Api {
      *
      * @return
      */
-    @POST("PowerManager/AppClientAction_AppClientAction_getTotalPowerByTime.do")
+    @POST("PowerManager/AppClientAction_getTotalPowerByTime.do")
     Call<ApiResponse<List<SwitchStatementBean>>> getTotalPowerByTime(
             @Header("Cookie") String session,
             @Body Param param
@@ -567,7 +567,7 @@ public interface Api {
     //设置头像，昵称，号码
     @Multipart
     @POST("PowerManager/AppClientAction_uploadHeadImg.do")
-    public Call<ApiResponse<Headimg>> uploadHeadImg(
+    Call<ApiResponse<Headimg>> uploadHeadImg(
             @Header("Cookie") String session,
             @Part MultipartBody.Part photo
     );

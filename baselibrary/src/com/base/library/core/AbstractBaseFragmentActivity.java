@@ -56,7 +56,7 @@ public abstract class AbstractBaseFragmentActivity extends AbstractBaseToolbarCo
                                           FragmentManager frg,
                                           MyFragmentTabHost.OnFragmentChangedListener
                                                   onFragmentChangedListener) {
-        MyFragmentTabHost mTabHost = (MyFragmentTabHost) parentView.findViewById(R.id.tabhost);
+        MyFragmentTabHost mTabHost = parentView.findViewById(R.id.tabhost);
         mTabHost.setChanagedListener(onFragmentChangedListener);
         mTabHost.setup(mContext, frg, android.R.id.tabcontent);
         if (disableScroll()) {
@@ -69,8 +69,8 @@ public abstract class AbstractBaseFragmentActivity extends AbstractBaseToolbarCo
                              int resId, Class<?> c, MyFragmentTabHost fth) {
         View view = LayoutInflater.from(context).inflate(
                 R.layout.tab_customtab, null);
-        ImageView image = (ImageView) view.findViewById(R.id.tab_icon);
-        TextView text = (TextView) view.findViewById(R.id.tabtitle);
+        ImageView image = view.findViewById(R.id.tab_icon);
+        TextView text = view.findViewById(R.id.tabtitle);
         image.setBackgroundResource(resId);
         text.setText(tabHostTitle);
         TabHost.TabSpec spec = fth.newTabSpec(tag);

@@ -60,11 +60,11 @@ public class EleapplianceAdapter extends BaseAdapter implements View.OnClickList
         if (convertView == null) {
             convertView = View.inflate(context, R.layout.item_ele, null);
             myHolder = new MyHolder();
-            myHolder.txt_linename = (TextView) convertView.findViewById(R.id.txt_linename);
-            myHolder.txt_elename = (TextView) convertView.findViewById(R.id.txt_elename);
-            myHolder.txt_gonglv = (TextView) convertView.findViewById(R.id.txt_gonglv);
-            myHolder.img_shanchu = (ImageView) convertView.findViewById(R.id.img_shanchu);
-            myHolder.img_line = (ImageView) convertView.findViewById(R.id.img_line);
+            myHolder.txt_linename = convertView.findViewById(R.id.txt_linename);
+            myHolder.txt_elename = convertView.findViewById(R.id.txt_elename);
+            myHolder.txt_gonglv = convertView.findViewById(R.id.txt_gonglv);
+            myHolder.img_shanchu = convertView.findViewById(R.id.img_shanchu);
+            myHolder.img_line = convertView.findViewById(R.id.img_line);
             convertView.setTag(myHolder);
         } else {
             myHolder = (MyHolder) convertView.getTag();

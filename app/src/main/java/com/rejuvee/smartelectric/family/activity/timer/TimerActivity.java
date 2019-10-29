@@ -3,7 +3,6 @@ package com.rejuvee.smartelectric.family.activity.timer;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -73,12 +72,7 @@ public class TimerActivity extends BaseActivity implements View.OnClickListener,
         mListTimerAdapter = new ListTimerAdapter(TimerActivity.this, mListTaskData, this);
         mTimerView.setAdapter(mListTimerAdapter);
         mTimerView.setEmptyView(findViewById(R.id.empty_layout));
-        mTimerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                editTask(mListTaskData.get(position));
-            }
-        });
+        mTimerView.setOnItemClickListener((parent, view, position, id) -> editTask(mListTaskData.get(position)));
         mWaitDialog = new LoadingDlg(this, -1);
     }
 

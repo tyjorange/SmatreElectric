@@ -89,10 +89,10 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
         waitDialog = new LoadingDlg(this, -1);
 
         cur_line = findViewById(R.id.cur_line);
-        tvDate = (TextView) findViewById(R.id.tv_date);
-        tvDevice = (TextView) findViewById(R.id.tv_device);
+        tvDate = findViewById(R.id.tv_date);
+        tvDevice = findViewById(R.id.tv_device);
 
-        mTabLayout = (TabLayout) findViewById(R.id.tab_day_month);
+        mTabLayout = findViewById(R.id.tab_day_month);
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.curve_by_day)));
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.curve_by_month)));
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -143,8 +143,8 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
 //            }
 //        });
 
-        vpCurve = (ViewPager) findViewById(R.id.vp_curve);
-        tlCurve = (TabLayout) findViewById(R.id.tl_curve);
+        vpCurve = findViewById(R.id.vp_curve);
+        tlCurve = findViewById(R.id.tl_curve);
         tlCurve.setupWithViewPager(vpCurve);
 
 //        gvBreaker = (GridView) findViewById(R.id.gv_breaker);

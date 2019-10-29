@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -57,23 +56,20 @@ public class ChoceSceneimgActivity extends BaseActivity implements View.OnClickL
         findViewById(R.id.txt_cancel).setOnClickListener(this);
         findViewById(R.id.st_wancheng).setOnClickListener(this);
 //      MyGridView gride_allscen = (MyGridView) findViewById(R.id.gride_allscen);
-        GridView gride_allscen = (GridView) findViewById(R.id.gride_allscen);
+        GridView gride_allscen = findViewById(R.id.gride_allscen);
         gridViewAdapter = new GridViewAdapter(ChoceSceneimgActivity.this, listGrids);
         if (listGrids.size() > 0) {
             gride_allscen.setAdapter(gridViewAdapter);
         }
-        gride_allscen.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                reset();
-                listGrids.get(position).chose = 1;
-                gridViewAdapter.notifyDataSetChanged();
-                currentPos = position;
+        gride_allscen.setOnItemClickListener((parent, view, position, id) -> {
+            reset();
+            listGrids.get(position).chose = 1;
+            gridViewAdapter.notifyDataSetChanged();
+            currentPos = position;
 //                Intent intent = new Intent();
 //                intent.putExtra("scenimg", position);
 //                setResult(RESULT_OK, intent);
 //                ChoceSceneimgActivity.this.finish();
-            }
         });
         findViewById(R.id.img_qichuang).setOnClickListener(this);
         findViewById(R.id.img_shuijiao).setOnClickListener(this);
@@ -197,8 +193,8 @@ public class ChoceSceneimgActivity extends BaseActivity implements View.OnClickL
             if (convertView == null) {
                 convertView = View.inflate(context, R.layout.chocesceneimg_items, null);
                 holder = new Holder();
-                holder.img_scene = (ImageView) convertView.findViewById(R.id.img_scene);
-                holder.img_chose = (ImageView) convertView.findViewById(R.id.img_chose);
+                holder.img_scene = convertView.findViewById(R.id.img_scene);
+                holder.img_chose = convertView.findViewById(R.id.img_chose);
                 convertView.setTag(holder);
             } else {
                 holder = (Holder) convertView.getTag();

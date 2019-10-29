@@ -44,12 +44,12 @@ public class LineAlarmFrgament extends BaseFragment {
     @Override
     protected void initView(View v) {
         loadingDlg = new LoadingDlg(getContext(), -1);
-        ListView listView = (ListView) v.findViewById(R.id.list_alarms);
+        ListView listView = v.findViewById(R.id.list_alarms);
         mAdapter = new LineAlarmAdapter(getContext(), mListData);
         listView.setAdapter(mAdapter);
         listView.setEmptyView(v.findViewById(R.id.empty_layout));
 
-        smartRefreshLayout = (SmartRefreshLayout) v.findViewById(R.id.smart_refreshLayout);
+        smartRefreshLayout = v.findViewById(R.id.smart_refreshLayout);
         smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {

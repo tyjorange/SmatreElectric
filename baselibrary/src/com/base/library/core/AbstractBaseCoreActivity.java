@@ -95,7 +95,7 @@ public abstract class AbstractBaseCoreActivity extends AppCompatActivity impleme
         if (getNavToolbarLayoutResId() != 0)
             initContentView();
         setContentView(getLayoutResId());//把设置布局文件的操作交给继承的子类
-        ViewGroup contentFrameLayout = (ViewGroup) findViewById(Window.ID_ANDROID_CONTENT);
+        ViewGroup contentFrameLayout = findViewById(Window.ID_ANDROID_CONTENT);
         parentView = contentFrameLayout.getChildAt(0);
         if (parentView != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 //            Boolean internal attribute to adjust view layout based on system windows such as
@@ -104,7 +104,7 @@ public abstract class AbstractBaseCoreActivity extends AppCompatActivity impleme
             parentView.setFitsSystemWindows(false);
         }
 
-        toolbar = (Toolbar) this.findViewById(R.id.toolbar);
+        toolbar = this.findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
         //是否显示toolbar 自带title
@@ -115,7 +115,7 @@ public abstract class AbstractBaseCoreActivity extends AppCompatActivity impleme
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.base_nav_back_icon);
             // toolbar.seton
         }
-        toolbarTitle = (TextView) toolbar.findViewById(R.id.nav_toolbar_title);
+        toolbarTitle = toolbar.findViewById(R.id.nav_toolbar_title);
         toolbarTitle.setText(getToolbarTitle());
         toolbarTitle.setOnClickListener(this);
         //返回
@@ -301,7 +301,7 @@ public abstract class AbstractBaseCoreActivity extends AppCompatActivity impleme
     }
 
     protected void initContentView() {
-        ViewGroup content = (ViewGroup) findViewById(android.R.id.content);
+        ViewGroup content = findViewById(android.R.id.content);
         content.removeAllViews();
         contentLayout = new LinearLayout(this);
         contentLayout.setOrientation(LinearLayout.VERTICAL);

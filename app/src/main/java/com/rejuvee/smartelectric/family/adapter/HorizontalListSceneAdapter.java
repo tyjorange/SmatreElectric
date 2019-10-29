@@ -48,8 +48,8 @@ public class HorizontalListSceneAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = View.inflate(mContext, R.layout.item_easy_scene, null);
             holder = new ViewHolder();
-            holder.imgSceneIcon = (ImageView) convertView.findViewById(R.id.img_scene);
-            holder.txtSceneName = (TextView) convertView.findViewById(R.id.txt_scene_name);
+            holder.imgSceneIcon = convertView.findViewById(R.id.img_scene);
+            holder.txtSceneName = convertView.findViewById(R.id.txt_scene_name);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

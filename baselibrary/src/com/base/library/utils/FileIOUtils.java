@@ -84,7 +84,7 @@ public final class FileIOUtils {
         OutputStream os = null;
         try {
             os = new BufferedOutputStream(new FileOutputStream(file, append));
-            byte data[] = new byte[1024];
+            byte[] data = new byte[1024];
             int len;
             while ((len = is.read(data, 0, 1024)) != -1) {
                 os.write(data, 0, len);

@@ -41,8 +41,8 @@ public class ReportAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = View.inflate(mContext, R.layout.item_line_report, null);
             holder = new ViewHolder();
-            holder.tv_type = (TextView) convertView.findViewById(R.id.tv_type);
-            holder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
+            holder.tv_type = convertView.findViewById(R.id.tv_type);
+            holder.tv_time = convertView.findViewById(R.id.tv_time);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

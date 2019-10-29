@@ -1,7 +1,6 @@
 package com.rejuvee.smartelectric.family.activity.report;
 
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -38,14 +37,9 @@ public class ReportActivity extends BaseActivity {
     @Override
     protected void initView() {
         collectorBean = getIntent().getParcelableExtra("collectorBean");
-        findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        TabLayout mTabLayout = (TabLayout) findViewById(R.id.tab_report_list);
-        ViewPager viewPager = (ViewPager) findViewById(R.id.vp_report_list);
+        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
+        TabLayout mTabLayout = findViewById(R.id.tab_report_list);
+        ViewPager viewPager = findViewById(R.id.vp_report_list);
         MyFragmentAdapter mAdapter = new MyFragmentAdapter(getSupportFragmentManager());
         viewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(viewPager, true);

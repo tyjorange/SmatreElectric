@@ -168,7 +168,7 @@ public class MyFragmentTabHost extends TabHost implements
 
     private void ensureContent() {
         if (mRealTabContent == null) {
-            mRealTabContent = (FrameLayout) findViewById(mContainerId);
+            mRealTabContent = findViewById(mContainerId);
             if (mRealTabContent == null) {
                 throw new IllegalStateException(
                         "No tab content FrameLayout found for id "
@@ -353,7 +353,7 @@ public class MyFragmentTabHost extends TabHost implements
          *
          * @param fragments
          */
-        public void onChanaged(Fragment fragments);
+        void onChanaged(Fragment fragments);
 
     }
 }

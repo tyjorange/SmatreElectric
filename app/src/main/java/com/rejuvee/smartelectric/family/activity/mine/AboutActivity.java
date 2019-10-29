@@ -3,7 +3,6 @@ package com.rejuvee.smartelectric.family.activity.mine;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.view.View;
 import android.widget.TextView;
 
 import com.rejuvee.smartelectric.family.R;
@@ -24,12 +23,7 @@ public class AboutActivity extends BaseActivity {
     @Override
     protected void initView() {
         mContext = this;
-        findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        findViewById(R.id.iv_back).setOnClickListener(v -> finish());
         ((TextView) findViewById(R.id.txt_current_vision)).setText(String.format("当前版本%s", packageCode(mContext)));
     }
 

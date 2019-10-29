@@ -1,7 +1,6 @@
 package com.rejuvee.smartelectric.family.activity.kefu;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.EditText;
 
 import com.base.frame.net.ActionCallbackListener;
@@ -29,18 +28,8 @@ public class AddTopicActivity extends BaseActivity {
     @Override
     protected void initView() {
         mContext = this;
-        findViewById(R.id.img_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        findViewById(R.id.stv_commit).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                commitQA();
-            }
-        });
+        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
+        findViewById(R.id.stv_commit).setOnClickListener(v -> commitQA());
     }
 
     @Override

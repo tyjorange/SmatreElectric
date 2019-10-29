@@ -37,7 +37,7 @@ public class CustomToast {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View view = inflater.inflate(R.layout.toast_layout, null);
         toast.setView(view);
-        TextView txtDes = (TextView) view
+        TextView txtDes = view
                 .findViewById(R.id.custom_toast_text_des);
         txtDes.setText(des);
         toast.setDuration(Toast.LENGTH_SHORT);
@@ -60,7 +60,7 @@ public class CustomToast {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View view = inflater.inflate(R.layout.toast_error_layout, null);
         toast.setView(view);
-        TextView txtDes = (TextView) view
+        TextView txtDes = view
                 .findViewById(R.id.custom_toast_text_des);
         txtDes.setText(des);
         toast.setDuration(Toast.LENGTH_SHORT);
@@ -82,7 +82,7 @@ public class CustomToast {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View view = inflater.inflate(R.layout.toast_correct_layout, null);
         toast.setView(view);
-        TextView txtDes = (TextView) view
+        TextView txtDes = view
                 .findViewById(R.id.custom_toast_text_des);
         txtDes.setText(des);
         toast.setDuration(Toast.LENGTH_SHORT);
@@ -106,7 +106,7 @@ public class CustomToast {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View view = inflater.inflate(R.layout.toast_error_layout, null);
         toast.setView(view);
-        TextView txtDes = (TextView) view
+        TextView txtDes = view
                 .findViewById(R.id.custom_toast_text_des);
         txtDes.setText(des);
         toast.setDuration(duration);
@@ -127,7 +127,7 @@ public class CustomToast {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             View view = inflater.inflate(R.layout.custom_toast_layout, null);
             toast.setView(view);
-            TextView txtDes = (TextView) view
+            TextView txtDes = view
                     .findViewById(R.id.custom_toast_text_des);
             txtDes.setText(des);
             toast.setDuration(Toast.LENGTH_SHORT);
@@ -154,7 +154,7 @@ public class CustomToast {
             View view = inflater.inflate(R.layout.custom_toast_error_layout,
                     null);
             toast.setView(view);
-            TextView txtDes = (TextView) view
+            TextView txtDes = view
                     .findViewById(R.id.custom_toast_text_des);
             txtDes.setText(des);
             toast.setDuration(Toast.LENGTH_SHORT);
@@ -174,7 +174,7 @@ public class CustomToast {
             View view = inflater.inflate(R.layout.toast_loading,
                     null);
             toast.setView(view);
-            TextView txtDes = (TextView) view
+            TextView txtDes = view
                     .findViewById(R.id.txt_tip);
             txtDes.setText(des);
             toast.setDuration(Toast.LENGTH_SHORT);

@@ -1,5 +1,6 @@
 package com.base.library.utils;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
@@ -103,6 +104,7 @@ public final class PermissionUtils {
     /**
      * 获取请求权限中需要授权的权限
      */
+    @SuppressLint("WrongConstant")
     public static String[] getDeniedPermissions(Context context, String[] permissions) {
         try {
             final PackageInfo info = context.getPackageManager().getPackageInfo(

@@ -56,14 +56,11 @@ public class ExpandLayout extends LinearLayout {
      * View.post()的runnable对象中的方法会在View的measure、layout等事件后触发
      */
     private void setViewDimensions() {
-        layoutView.post(new Runnable() {
-            @Override
-            public void run() {
-                if (viewHeight <= 0) {
-                    viewHeight = layoutView.getMeasuredHeight();
-                }
-                setViewHeight(layoutView, isExpand ? viewHeight : 0);
+        layoutView.post(() -> {
+            if (viewHeight <= 0) {
+                viewHeight = layoutView.getMeasuredHeight();
             }
+            setViewHeight(layoutView, isExpand ? viewHeight : 0);
         });
     }
 

@@ -60,8 +60,8 @@ public class CurveFragment extends AbstractBaseFragment {
     @Override
     protected void initView(View v) {
         Log.e("VpAdapter", "initView: " + position);
-        tvUnit = (TextView) v.findViewById(R.id.tv_unit);
-        monitorDataChartView = (MonitorDataChartView) v.findViewById(R.id.mdcv);
+        tvUnit = v.findViewById(R.id.tv_unit);
+        monitorDataChartView = v.findViewById(R.id.mdcv);
         loadingDlg = new LoadingDlg(getContext(), -1);
     }
 

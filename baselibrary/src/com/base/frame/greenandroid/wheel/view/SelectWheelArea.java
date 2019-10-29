@@ -88,13 +88,13 @@ public class SelectWheelArea extends PopupWindow implements View.OnClickListener
         viewfipper.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        province = (WheelView) mMenuView.findViewById(R.id.select_wheel_province);
-        city = (WheelView) mMenuView.findViewById(R.id.select_wheel_city);
-        county = (WheelView) mMenuView.findViewById(R.id.select_wheel_county);
+        province = mMenuView.findViewById(R.id.select_wheel_province);
+        city = mMenuView.findViewById(R.id.select_wheel_city);
+        county = mMenuView.findViewById(R.id.select_wheel_county);
 
 
-        btnSubmit = (Button) mMenuView.findViewById(R.id.select_wheel_submit);
-        btnCancel = (Button) mMenuView.findViewById(R.id.select_wheel_cancel);
+        btnSubmit = mMenuView.findViewById(R.id.select_wheel_submit);
+        btnCancel = mMenuView.findViewById(R.id.select_wheel_cancel);
         btnSubmit.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
 
@@ -206,7 +206,7 @@ public class SelectWheelArea extends PopupWindow implements View.OnClickListener
          * 获取接口
          *
          */
-        public void onWheel(String provinceName, String cityName, String countyName);
+        void onWheel(String provinceName, String cityName, String countyName);
 
         // public void getSlectedDate(String date);
     }

@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
-        String s = Integer.toBinaryString((int) 0);
+        String s = Integer.toBinaryString(0);
         System.out.println(s);
         String s1 = Integer.valueOf("11", 2).toString();
         System.out.println(s1);

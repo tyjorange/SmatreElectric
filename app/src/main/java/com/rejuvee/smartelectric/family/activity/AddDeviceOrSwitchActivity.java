@@ -66,30 +66,19 @@ public class AddDeviceOrSwitchActivity extends BaseActivity {
             }
         }).hasCamera(this);
 
-        findViewById(R.id.ll_img_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
+        findViewById(R.id.ll_img_cancel).setOnClickListener(v -> finish());
+        findViewById(R.id.rl_scan_add).setOnClickListener(v -> {
+            Intent intent = new Intent(AddDeviceOrSwitchActivity.this, CaptureActivity.class);
+            startActivityForResult(intent, CommonRequestCode.REQUEST_SCAN_CODE);
+        });
+        findViewById(R.id.st_finish).setOnClickListener(view -> {
+            if (addType == EQUIPMENT_ADD) {
+                bindDevice();
+            } else {
+                addBreak();
             }
         });
-        findViewById(R.id.rl_scan_add).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AddDeviceOrSwitchActivity.this, CaptureActivity.class);
-                startActivityForResult(intent, CommonRequestCode.REQUEST_SCAN_CODE);
-            }
-        });
-        findViewById(R.id.st_finish).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (addType == EQUIPMENT_ADD) {
-                    bindDevice();
-                } else {
-                    addBreak();
-                }
-            }
-        });
-        edtScan = (EditText) findViewById(R.id.edt_input_device);
+        edtScan = findViewById(R.id.edt_input_device);
         mWaitDialog = new LoadingDlg(this, -1);
     }
 
@@ -99,8 +88,8 @@ public class AddDeviceOrSwitchActivity extends BaseActivity {
         intent.setExtrasClassLoader(getClass().getClassLoader());
         addType = intent.getIntExtra("add_type", 0);
         mSwitch = intent.getParcelableExtra("switch");
-        add_title = (TextView) findViewById(R.id.add_title);
-        TextView parent_tip = (TextView) findViewById(R.id.txt_parent_tip);
+        add_title = findViewById(R.id.add_title);
+        TextView parent_tip = findViewById(R.id.txt_parent_tip);
         if (addType == BREAK_ADD) {
             add_title.setText(getString(R.string.sce_addxianlu));
             findViewById(R.id.type_dianxiang).setVisibility(View.GONE);
@@ -113,15 +102,12 @@ public class AddDeviceOrSwitchActivity extends BaseActivity {
             }
 //            getToolbarTextView().setText(getResources().getString(R.string.sce_addxianlu));
             collectorBean = getIntent().getParcelableExtra("collectorBean");
-            txtLineName = (TextView) findViewById(R.id.txt_line_name);
-            llSetLineName = (LinearLayout) findViewById(R.id.ll_set_line_name);
+            txtLineName = findViewById(R.id.txt_line_name);
+            llSetLineName = findViewById(R.id.ll_set_line_name);
             llSetLineName.setVisibility(View.VISIBLE);
-            llSetLineName.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(AddDeviceOrSwitchActivity.this, SwitchModifyActivity.class);
-                    startActivityForResult(intent, CommonRequestCode.REQUEST_SET_LINE_NAME);
-                }
+            llSetLineName.setOnClickListener(v -> {
+                Intent intent1 = new Intent(AddDeviceOrSwitchActivity.this, SwitchModifyActivity.class);
+                startActivityForResult(intent1, CommonRequestCode.REQUEST_SET_LINE_NAME);
             });
             edtScan.setFilters(new InputFilter[]{new InputFilter.LengthFilter(12)});
             edtScan.setHint(getString(R.string.scan_rusults_hint1));

@@ -3,6 +3,7 @@ package com.base.library.utils;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -110,8 +111,8 @@ public final class ShellUtils {
             if (isNeedResultMsg) {
                 successMsg = new StringBuilder();
                 errorMsg = new StringBuilder();
-                successResult = new BufferedReader(new InputStreamReader(process.getInputStream(), "UTF-8"));
-                errorResult = new BufferedReader(new InputStreamReader(process.getErrorStream(), "UTF-8"));
+                successResult = new BufferedReader(new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_8));
+                errorResult = new BufferedReader(new InputStreamReader(process.getErrorStream(), StandardCharsets.UTF_8));
                 String s;
                 while ((s = successResult.readLine()) != null) {
                     successMsg.append(s);
