@@ -69,6 +69,8 @@ public class SwitchSettingActivity extends BaseActivity implements
     protected void initView() {
         mContext = this;
         findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
+        mTabLayout = findViewById(R.id.tab_setting);
+        viewPager = findViewById(R.id.vp_setting);
         waitDialog = new LoadingDlg(this, -1);
 
 //        seekBar = findViewById(R.id.vrsBar);
@@ -459,8 +461,6 @@ public class SwitchSettingActivity extends BaseActivity implements
     }
 
     private void initFragment() {
-        mTabLayout = findViewById(R.id.tab_setting);
-        viewPager = findViewById(R.id.vp_setting);
         MyFragmentAdapter mAdapter = new MyFragmentAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(viewPager, true);
