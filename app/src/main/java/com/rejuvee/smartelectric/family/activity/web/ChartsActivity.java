@@ -26,9 +26,11 @@ import com.github.abel533.echarts.style.LineStyle;
 import com.github.abel533.echarts.style.itemstyle.Normal;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
+import com.rejuvee.smartelectric.family.common.AppGlobalConfig;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
+import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,6 +43,7 @@ public class ChartsActivity extends BaseActivity {
     private static final String TAG = "ChartsActivity";
     private WebView webView;
     private boolean isLoading;
+    private LoadingDlg waitDialog;
     private CollectorBean collectorBean;
     private static List<SwitchBean> result;
 
@@ -57,6 +60,7 @@ public class ChartsActivity extends BaseActivity {
     @Override
     protected void initView() {
         findViewById(R.id.img_cancel).setOnClickListener(view -> finish());
+        waitDialog = new LoadingDlg(this, -1);
         webView = findViewById(R.id.wv_cha);
         WebSettings webSettings = webView.getSettings();
         //如果访问的页面中要与Javascript交互，则webview必须设置支持Javascript
@@ -79,6 +83,7 @@ public class ChartsActivity extends BaseActivity {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 isLoading = true;
+                waitDialog.show();
                 Log.d(TAG, "onPageStarted " + view);
                 Log.d(TAG, "onPageStarted " + url);
             }
@@ -107,7 +112,7 @@ public class ChartsActivity extends BaseActivity {
                 Log.e(TAG, errorResponse.getStatusCode() + "");
             }
         });
-        webView.loadUrl("http://192.168.1.162:8088/#/cha");
+        webView.loadUrl(AppGlobalConfig.HTTP_ECHARTES_TEMPLATE_URL + "#/getTemplate");
     }
 
     @Override
@@ -131,6 +136,7 @@ public class ChartsActivity extends BaseActivity {
                 if (errorEvent == 12) {
                     CustomToast.showCustomErrorToast(getBaseContext(), getString(R.string.vs29));
                     result = new ArrayList<SwitchBean>();
+                    waitDialog.dismiss();
                 } else {
                     CustomToast.showCustomErrorToast(getBaseContext(), message);
                 }
@@ -153,6 +159,7 @@ public class ChartsActivity extends BaseActivity {
         Log.d(TAG, optionString);
         String call = "javascript:loadEcharts('" + optionString + "')";
         webView.loadUrl(call);
+        waitDialog.dismiss();
     }
 
     @Override
@@ -284,7 +291,7 @@ public class ChartsActivity extends BaseActivity {
         private static List<MyNodeData> getDatas() {
             List<MyNodeData> list = new ArrayList<>();
             result.forEach(s -> {
-                list.add(new MyNodeData().category(getCategory(s)).name(s.getName()).draggable(false));
+                list.add(new MyNodeData().category(getCategory(s)).state(s.getSwitchState()).name(s.getName()).draggable(false));
             });
             return list;
         }
@@ -351,7 +358,8 @@ public class ChartsActivity extends BaseActivity {
         private static Map<String, Feature> getFeature() {
             HashMap<String, Feature> stringFeatureHashMap = new HashMap<>();
             stringFeatureHashMap.put("restore", new Feature().show(true));
-            stringFeatureHashMap.put("saveAsImage", new Feature().show(true));
+            stringFeatureHashMap.put("saveAsImage", new Feature().show(false));
+            stringFeatureHashMap.put("dataView", new Feature().show(false).readOnly(true));
             return stringFeatureHashMap;
         }
 
@@ -401,6 +409,7 @@ public class ChartsActivity extends BaseActivity {
             private String name;//节点名称
             private int category;//节点类目
             private boolean draggable;//是否拖拽位置
+            private int state;// 1 合闸 0 拉闸 -1 错误
 
             public MyNodeData name(String name) {
                 this.name = name;
@@ -414,6 +423,11 @@ public class ChartsActivity extends BaseActivity {
 
             public MyNodeData draggable(boolean draggable) {
                 this.draggable = draggable;
+                return this;
+            }
+
+            public MyNodeData state(int state) {
+                this.state = state;
                 return this;
             }
         }
