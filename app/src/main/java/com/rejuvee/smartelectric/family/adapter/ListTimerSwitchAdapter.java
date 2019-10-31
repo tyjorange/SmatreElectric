@@ -73,6 +73,6 @@ public class ListTimerSwitchAdapter extends BaseAdapter {
     }
 
     public interface MyListener {
-        void onClickItem(String switchId);
+        void onClickItem(int switchId);
     }
 }

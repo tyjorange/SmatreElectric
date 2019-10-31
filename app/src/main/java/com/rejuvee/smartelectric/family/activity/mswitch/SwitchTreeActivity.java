@@ -714,7 +714,7 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
     /**
      * 删除断路器(switch)
      */
-    private void deleteBreak(String switchId) {
+    private void deleteBreak(int switchId) {
         waitDialog.show();
         Core.instance(this).deleteBreak(switchId, new ActionCallbackListener<Void>() {
             @Override

@@ -260,7 +260,7 @@ public class YaoKongDetailActivity extends BaseActivity {
             public void onSuccess(List<SwitchBean> data) {
                 for (SwitchBean ss : data) {
                     // 取当前线路的支线
-                    if (ss.getSwitchID().equals(rootSwitchBean.getSwitchID())) {
+                    if (ss.getSwitchID() == (rootSwitchBean.getSwitchID())) {
                         childList.clear();
                         childList.addAll(ss.getChild());
                         break;
@@ -314,7 +314,7 @@ public class YaoKongDetailActivity extends BaseActivity {
     /**
      * 删除断路器(switch)
      */
-    private void deleteSwitch(String switchId) {
+    private void deleteSwitch(int switchId) {
         mDialogTip = new DialogTip(mContext);
         mDialogTip.setTitle(getString(R.string.deletexianlu));
         mDialogTip.setContent(getString(R.string.xianlu_issure));

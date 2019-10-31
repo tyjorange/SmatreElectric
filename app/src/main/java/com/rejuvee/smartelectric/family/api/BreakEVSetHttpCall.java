@@ -72,7 +72,7 @@ public class BreakEVSetHttpCall {
     }
 
     public void getAllLimit(String switchCode,
-                            String swichId,
+                            int swichId,
                             IBreakEVGetCallback callback) {
         getValueLimit(switchCode, swichId, callback);
     }
@@ -184,7 +184,7 @@ public class BreakEVSetHttpCall {
      * @param callback
      */
     private void getValueLimit(final String switchCode,
-                               final String swichId,
+                               final int swichId,
                                final IBreakEVGetCallback callback) {
         Param param = new Param();
         param.setSwitchCode(switchCode);

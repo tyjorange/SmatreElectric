@@ -117,7 +117,7 @@ public class EnergySavingInformationActivity extends BaseActivity implements Vie
         for (ElequantityBean eb : res) {
             if (eb.getCollector().getCollectorID().equals(collectorBean.getCollectorID())) {
                 for (SwitchBean sb : eb.getSwitchs()) {
-                    if (sb.getSwitchID().equals(switchBean.getSwitchID())) {
+                    if (sb.getSwitchID() == (switchBean.getSwitchID())) {
                         setData(sb, eb.getCollector());
                     }
                 }

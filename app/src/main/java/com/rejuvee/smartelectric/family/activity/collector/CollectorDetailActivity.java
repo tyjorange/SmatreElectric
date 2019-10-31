@@ -278,6 +278,7 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
                 break;
             case R.id.txt_cha:
                 intent = new Intent(this, ChartsActivity.class);
+                intent.putExtra("collectorBean", collectorBean);
                 startActivity(intent);
                 break;
             default:

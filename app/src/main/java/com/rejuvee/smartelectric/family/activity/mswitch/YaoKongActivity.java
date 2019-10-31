@@ -174,7 +174,7 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
     /**
      * 删除断路器(switch)
      */
-    private void deleteSwitch(String switchId) {
+    private void deleteSwitch(int switchId) {
         mDialogTip = new DialogTip(mContext);
         mDialogTip.setTitle(getString(R.string.deletexianlu));
         mDialogTip.setContent(getString(R.string.xianlu_issure));

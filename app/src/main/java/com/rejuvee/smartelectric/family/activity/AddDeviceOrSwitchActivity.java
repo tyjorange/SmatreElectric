@@ -139,7 +139,7 @@ public class AddDeviceOrSwitchActivity extends BaseActivity {
             return;
         }
         mWaitDialog.show();
-        Core.instance(this).addSwitch(collectorBean.getCollectorID(), lineName, switchCode, iconType, mSwitch == null ? "0" : mSwitch.getSwitchID(), new ActionCallbackListener<Void>() {
+        Core.instance(this).addSwitch(collectorBean.getCollectorID(), lineName, switchCode, iconType, mSwitch == null ? 0 : mSwitch.getSwitchID(), new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 CustomToast.showCustomToast(AddDeviceOrSwitchActivity.this, getString(R.string.operator_sucess));

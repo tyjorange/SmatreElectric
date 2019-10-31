@@ -98,7 +98,7 @@ public class TimerSwitchActivity extends BaseActivity implements ListTimerSwitch
     }
 
     @Override
-    public void onClickItem(String switchId) {
+    public void onClickItem(int switchId) {
         Intent intent = new Intent(TimerSwitchActivity.this, TimerActivity.class);
         intent.putExtra("switchId", switchId);
         startActivity(intent);

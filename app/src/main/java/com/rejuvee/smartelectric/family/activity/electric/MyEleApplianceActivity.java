@@ -146,7 +146,7 @@ public class MyEleApplianceActivity extends BaseActivity implements Eleappliance
             if (eventMsg.isSucess()) {
                 arreleappliance.clear();
                 List<EleBean> meventMsg = (List<EleBean>) eventMsg.getEventMsg();
-                for (EleBean EleBean : meventMsg) {
+                for (EleBean eleBean : meventMsg) {
 //                    ArrayList<MyEleBean.allSwitchs> mswitchs = MyEleBean.getSwitchs();
 //                    if (mswitchs != null) {
 //                        for (MyEleBean.allSwitchs mswitch : mswitchs) {
@@ -155,7 +155,7 @@ public class MyEleApplianceActivity extends BaseActivity implements Eleappliance
 //                            ArrayList<MyEleBean.allEle> listeles = mswitch.getEes();
 //                            if (listeles != null) {
 //                                for (MyEleBean.allEle listele : listeles) {
-                    arreleappliance.add(new MyEleApplianceBean(EleBean.getSwitchName(), EleBean.getName(), EleBean.getGonglv(), String.valueOf(EleBean.getId()), String.valueOf(EleBean.getSwitchID())));
+//                    arreleappliance.add(new MyEleApplianceBean(EleBean.getSwitchName(), EleBean.getName(), EleBean.getGonglv(), String.valueOf(EleBean.getId()), String.valueOf(EleBean.getSwitchID())));
 //                                }
 //                            }
 //                        }

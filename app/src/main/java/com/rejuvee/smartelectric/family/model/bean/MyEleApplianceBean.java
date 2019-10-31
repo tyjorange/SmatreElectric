@@ -16,11 +16,11 @@ public class MyEleApplianceBean implements Parcelable {
     private String elename; //电器名称
     private Double gonglv;
     private String id;
-    private String switchID;
+    private int switchID;
     @Ignore
     public int showDelIcon = View.GONE;
 
-    public MyEleApplianceBean(String linename, String elename, Double gonglv, String id, String switchID) {
+    public MyEleApplianceBean(String linename, String elename, Double gonglv, String id, int switchID) {
         this.linename = linename;
         this.elename = elename;
         this.gonglv = gonglv;
@@ -33,7 +33,7 @@ public class MyEleApplianceBean implements Parcelable {
         elename = in.readString();
         gonglv = in.readDouble();
         id = in.readString();
-        switchID = in.readString();
+        switchID = in.readInt();
     }
 
     @Override
@@ -42,7 +42,7 @@ public class MyEleApplianceBean implements Parcelable {
         dest.writeString(elename);
         dest.writeDouble(gonglv);
         dest.writeString(id);
-        dest.writeString(switchID);
+        dest.writeInt(switchID);
     }
 
     @Override
@@ -94,11 +94,11 @@ public class MyEleApplianceBean implements Parcelable {
         this.id = id;
     }
 
-    public String getSwitchID() {
+    public int getSwitchID() {
         return switchID;
     }
 
-    public void setSwitchID(String switchID) {
+    public void setSwitchID(int switchID) {
         this.switchID = switchID;
     }
 

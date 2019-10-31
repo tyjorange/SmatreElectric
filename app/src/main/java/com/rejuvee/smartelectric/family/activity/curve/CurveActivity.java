@@ -263,7 +263,7 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
 
         Bundle bundle = new Bundle();
         bundle.putCharSequence("signalTypeId", currentSignalType.getSignalsTypeID());
-        bundle.putCharSequence("switchId", currentSwitchBean.getSwitchID());
+        bundle.putInt("switchId", currentSwitchBean.getSwitchID());
 
         String time = iyear + "-" + (imonth < 10 ? "0" + imonth : imonth);
         if (isDay) {

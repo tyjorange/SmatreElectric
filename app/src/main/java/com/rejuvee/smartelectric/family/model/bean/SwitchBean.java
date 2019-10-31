@@ -22,8 +22,9 @@ public class SwitchBean implements Parcelable {
     private String serialNumber;//断路器唯一标识
     public String name;
     private int iconType;//对应本地图片资源 NativeLine
+    private int pid;
     private boolean flag; //是否选中
-    private String switchID;//断路器ID
+    private int switchID;//断路器ID
     @SerializedName("state")
     private int switchState;//开关状态 0： 关  1： 开
 
@@ -211,8 +212,9 @@ public class SwitchBean implements Parcelable {
         serialNumber = in.readString();
         icon = in.readInt();
         iconType = in.readInt();
+        pid = in.readInt();
         flag = in.readByte() != 0;
-        switchID = in.readString();
+        switchID = in.readInt();
         switchState = in.readInt();
         lockState = in.readInt();
         deviceName = in.readString();
@@ -236,8 +238,9 @@ public class SwitchBean implements Parcelable {
         dest.writeString(serialNumber);
         dest.writeInt(icon);
         dest.writeInt(iconType);
+        dest.writeInt(pid);
         dest.writeByte((byte) (flag ? 1 : 0));
-        dest.writeString(switchID);
+        dest.writeInt(switchID);
         dest.writeInt(switchState);
         dest.writeInt(lockState);
         dest.writeString(deviceName);
@@ -344,11 +347,11 @@ public class SwitchBean implements Parcelable {
         this.year = year;
     }
 
-    public String getSwitchID() {
+    public int getSwitchID() {
         return switchID;
     }
 
-    public void setSwitchID(String switchID) {
+    public void setSwitchID(int switchID) {
         this.switchID = switchID;
     }
 
@@ -505,5 +508,14 @@ public class SwitchBean implements Parcelable {
 
     public void setLastYearMonth(String lastYearMonth) {
         this.lastYearMonth = lastYearMonth;
+    }
+
+    public int getPid() {
+        return pid;
+    }
+
+    public SwitchBean setPid(int pid) {
+        this.pid = pid;
+        return this;
     }
 }

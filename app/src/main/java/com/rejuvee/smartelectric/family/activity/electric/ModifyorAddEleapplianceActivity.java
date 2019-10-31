@@ -38,7 +38,7 @@ public class ModifyorAddEleapplianceActivity extends BaseActivity implements Vie
     //    private String FALE_APPLIANCENAME = "appliance_name";
 //    private String FALE_APPLIANCEPOWER = "appliance_power";
     //    private DialogTip dialogTip;
-    private String switchID;
+    private int switchID;
     private TextView text_title;
     private MyEleApplianceBean eleappliance;
     private LoadingDlg mWaitDialog;
@@ -130,7 +130,7 @@ public class ModifyorAddEleapplianceActivity extends BaseActivity implements Vie
                 String conname = txt_appliance_name.getText().toString();
                 String conpower = txt_appliance_power.getText().toString();
                 //将数据保存到数据库  返回上一个界面
-                if (switchID == null || conname.isEmpty() || conpower.isEmpty()) {
+                if (conname.isEmpty() || conpower.isEmpty()) {
                     CustomToast.showCustomErrorToast(ModifyorAddEleapplianceActivity.this, getString(R.string.ple_select_line));
                 } else {
                     if (eleappliance != null) { //修改电器
@@ -170,7 +170,7 @@ public class ModifyorAddEleapplianceActivity extends BaseActivity implements Vie
     }
 
     //添加修改电器
-    public void addOrUpdateElet(Context context, String electricalEquipmentID, String switchID, String name, Double gonglv, boolean showLoading) {
+    public void addOrUpdateElet(Context context, String electricalEquipmentID, int switchID, String name, Double gonglv, boolean showLoading) {
         if (showLoading) {
             mWaitDialog = new LoadingDlg(context, -1);
             mWaitDialog.show();

@@ -26,7 +26,7 @@ public class Param {
     private String collectorCode;
     private String setupCode;
     //
-    private String switchID;
+    private int switchID;
     private String switchIDs;
     private String switchCode;
     private String switchs;
@@ -60,7 +60,7 @@ public class Param {
     private String faultFreq;
     private String HBFreq;
     //
-    private String pid;
+    private int pid;
     // 电费
     private String prices;
     private String signalsTypeID;
@@ -287,11 +287,11 @@ public class Param {
         this.prices = prices;
     }
 
-    public String getPid() {
+    public int getPid() {
         return pid;
     }
 
-    public void setPid(String pid) {
+    public void setPid(int pid) {
         this.pid = pid;
     }
 
@@ -471,11 +471,11 @@ public class Param {
         this.collectorID = collectorID;
     }
 
-    public String getSwitchID() {
+    public int getSwitchID() {
         return switchID;
     }
 
-    public void setSwitchID(String switchID) {
+    public void setSwitchID(int switchID) {
         this.switchID = switchID;
     }
 

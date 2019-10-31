@@ -23,6 +23,7 @@ package com.rejuvee.smartelectric.family.model.bean;
  * ]
  * }
  */
+@Deprecated
 public class EleBean {
     double gonglv;
     int id;

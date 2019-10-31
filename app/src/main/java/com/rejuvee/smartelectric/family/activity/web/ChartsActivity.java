@@ -11,6 +11,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.base.frame.net.ActionCallbackListener;
+import com.base.library.widget.CustomToast;
 import com.github.abel533.echarts.Legend;
 import com.github.abel533.echarts.code.Easing;
 import com.github.abel533.echarts.code.Layout;
@@ -21,19 +23,26 @@ import com.github.abel533.echarts.series.force.Category;
 import com.github.abel533.echarts.series.force.Link;
 import com.github.abel533.echarts.style.ItemStyle;
 import com.github.abel533.echarts.style.LineStyle;
-import com.github.abel533.echarts.style.TextStyle;
 import com.github.abel533.echarts.style.itemstyle.Normal;
 import com.rejuvee.smartelectric.family.R;
+import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
+import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
+import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class ChartsActivity extends BaseActivity {
     private static final String TAG = "ChartsActivity";
     private WebView webView;
     private boolean isLoading;
+    private CollectorBean collectorBean;
+    private static List<SwitchBean> result;
 
     @Override
     protected int getLayoutResId() {
@@ -83,12 +92,6 @@ public class ChartsActivity extends BaseActivity {
                 }
                 Log.d(TAG, "onPageFinished " + view);
                 Log.d(TAG, "onPageFinished " + url);
-//                Object[] x = new Object[]{
-//                        "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"
-//                };
-//                Object[] y = new Object[]{
-//                        820, 932, 901, 934, 1290, 1330, 1320
-//                };
                 refreshEchartsWithOption(EchartOptionUtil.getGraphOptions());
             }
 
@@ -109,7 +112,30 @@ public class ChartsActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        collectorBean = getIntent().getParcelableExtra("collectorBean");
+        getSwitchByCollector();
+    }
 
+    /**
+     * 获取集中器下的线路
+     */
+    private void getSwitchByCollector() {
+        Core.instance(this).getSwitchByCollector(collectorBean.getCode(), "nohierarchy", new ActionCallbackListener<List<SwitchBean>>() {
+            @Override
+            public void onSuccess(List<SwitchBean> data) {
+                result = data;
+            }
+
+            @Override
+            public void onFailure(int errorEvent, String message) {
+                if (errorEvent == 12) {
+                    CustomToast.showCustomErrorToast(getBaseContext(), getString(R.string.vs29));
+                    result = new ArrayList<SwitchBean>();
+                } else {
+                    CustomToast.showCustomErrorToast(getBaseContext(), message);
+                }
+            }
+        });
     }
 
     /**
@@ -124,7 +150,7 @@ public class ChartsActivity extends BaseActivity {
             return;
         }
         String optionString = option.toString();
-        System.out.println(optionString);//TODO
+        Log.d(TAG, optionString);
         String call = "javascript:loadEcharts('" + optionString + "')";
         webView.loadUrl(call);
     }
@@ -150,18 +176,17 @@ public class ChartsActivity extends BaseActivity {
      * echarts生成类
      */
     static class EchartOptionUtil {
-
+        /**
+         * @return GsonOption
+         */
         static GsonOption getGraphOptions() {
             GsonOption option = new GsonOption();
             //title
-            option.title("关系图test");
+            option.title("线路");
             //tooltip
             option.tooltip().show(false);
             //toolbox
-            HashMap<String, Feature> stringFeatureHashMap = new HashMap<>();
-            stringFeatureHashMap.put("restore", new Feature().show(true));
-            stringFeatureHashMap.put("saveAsImage", new Feature().show(true));
-            option.toolbox().show(true).setFeature(stringFeatureHashMap);
+            option.toolbox().show(true).setFeature(getFeature());
             //animationDurationUpdate
             option.animationDurationUpdate(1500);
             //animationEasingUpdate
@@ -182,59 +207,168 @@ public class ChartsActivity extends BaseActivity {
                 //categories
                 graph.categories(getCategory());
                 //label
-                TextStyle textStyle = new TextStyle();
-                textStyle.fontSize(12);
+                ItemStyle itemStyle = new ItemStyle();
                 Normal normal = new Normal();
-                normal.textStyle(textStyle);
                 normal.show(true);
-                ItemStyle style = new ItemStyle();
-                style.normal(normal);
-                graph.label(style);
+                itemStyle.normal(normal);
+                itemStyle.normal().textStyle().fontSize(12);
+                graph.label(itemStyle);
                 //force
-                graph.force().repulsion(1000);
+                graph.force()
+                        .repulsion(3000) //节点之间的斥力因子。
+//                        .initLayout("circular") //进行力引导布局前的初始化布局，初始化布局会影响到力引导的效果。
+                        .gravity(1) //节点受到的向中心的引力因子。该值越大节点越往中心点靠拢。 bug: 无法设置为小数
+                        .edgeLength(150); //边的两个节点之间的距离，这个距离也会受 repulsion。
                 //data
                 graph.setData(getDatas());
                 //links
-                graph.links(getLinks());
+                graph.setLinks(getLinks());
             }
             option.series(graph);
             return option;
         }
 
+        /**
+         * 节点间的关系数据。示例：
+         * <p>
+         * links: [{
+         * source: 'n1',
+         * target: 'n2'
+         * }, {
+         * source: 'n2',
+         * target: 'n3'
+         * }]
+         *
+         * @return
+         */
         private static List<Link> getLinks() {
             List<Link> list = new ArrayList<>();
-            //TODO++++++++++
             LineStyle lineStyle = new LineStyle();
             lineStyle.normal()
-                    .opacity(0.9)
-                    .borderWidth(1)
-                    .curveness(0d);
-            //TODO----------
-            list.add(new Link()
-                    .source(0)
-                    .target(1)
-                    .lineStyle(lineStyle));
+                    .opacity(0.9)//图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。
+//                    .borderWidth(1)
+                    .curveness(0d);//边的曲度，支持从 0 到 1 的值，值越大曲度越大。
+            result.forEach(s -> {
+                if (s.getPid() != 0) {
+                    list.add(new Link()
+                            .source(s.getName())
+                            .target(findPname(s.getPid()))
+                            .lineStyle(lineStyle));
+                }
+            });
             return list;
         }
 
-        private static List<MyData> getDatas() {
-            List<MyData> list = new ArrayList<>();
-            //TODO++++++++++
-            list.add(new MyData().category(1).name("data1").draggable(false));
-            list.add(new MyData().category(2).name("data2").draggable(false));
-            //TODO----------
+        /**
+         * 关系图的节点数据列表。
+         * data: [{
+         * name: '1',
+         * x: 10,
+         * y: 10,
+         * value: 10
+         * }, {
+         * name: '2',
+         * x: 100,
+         * y: 100,
+         * value: 20,
+         * symbolSize: 20,
+         * itemStyle: {
+         * normal: {
+         * color: 'red'
+         * }
+         * }
+         * }]
+         *
+         * @return
+         */
+        private static List<MyNodeData> getDatas() {
+            List<MyNodeData> list = new ArrayList<>();
+            result.forEach(s -> {
+                list.add(new MyNodeData().category(getCategory(s)).name(s.getName()).draggable(false));
+            });
             return list;
         }
 
-        private static ArrayList<Category> getCategory() {
+        /**
+         * 父节点名称
+         */
+        static AtomicReference<String> name = new AtomicReference<>();
+
+        /**
+         * 获取父节点名称
+         *
+         * @param pid
+         * @return
+         */
+        private static String findPname(int pid) {
+            result.forEach(s -> {
+                if (s.getSwitchID() == pid) {
+                    name.set(s.getName());
+                    return;
+                }
+            });
+            return name.get();
+        }
+
+        /**
+         * 数据项所在类目
+         */
+        static AtomicInteger res = new AtomicInteger();
+
+        /**
+         * 计算数据项所在类目
+         *
+         * @param s
+         * @return 0 线路 1 分线 2 支线
+         */
+        private static int getCategory(SwitchBean s) {
+            if (s.getPid() == 0) {// 父节点为0 则是线路 category=0
+                res.set(0);
+                return res.get();
+            } else {
+                result.forEach(rs -> {
+                    if (rs.getSwitchID() == s.getPid()) {
+                        if (rs.getPid() == 0) {// 父节点的父节点为0 则是分线 category=1
+                            res.set(1);
+                            return;
+                        } else {// 剩下则是支线 category=2
+                            res.set(2);
+                            return;
+                        }
+                    }
+                });
+            }
+            return res.get();
+        }
+
+        /**
+         * 各工具配置项。
+         * <p>
+         * 除了各个内置的工具按钮外，还可以自定义工具按钮。
+         *
+         * @return
+         */
+        private static Map<String, Feature> getFeature() {
+            HashMap<String, Feature> stringFeatureHashMap = new HashMap<>();
+            stringFeatureHashMap.put("restore", new Feature().show(true));
+            stringFeatureHashMap.put("saveAsImage", new Feature().show(true));
+            return stringFeatureHashMap;
+        }
+
+        /**
+         * 数据项所在类目。与图例联动
+         *
+         * @return
+         */
+        private static List<Category> getCategory() {
             Category category1 = new Category();
-            category1.name("夫妻")
+            category1.name("线路")
                     .itemStyle().normal().color("#009800");
             Category category2 = new Category();
-            category2.name("战友")
+            category2.name("分线")
                     .itemStyle().normal().color("#4592FF");
             Category category3 = new Category();
-            category3.name("亲戚")
+            category3.name("支线")
                     .itemStyle().normal().color("#663601");
             ArrayList<Category> categories = new ArrayList<>();
             categories.add(category1);
@@ -243,30 +377,42 @@ public class ChartsActivity extends BaseActivity {
             return categories;
         }
 
+        /**
+         * 图例组件。与类目联动
+         * <p>
+         * 图例组件展现了不同系列的标记(symbol)，颜色和名字。可以通过点击图例控制哪些系列不显示。
+         *
+         * @return
+         */
         private static Legend getLegend() {
             ArrayList<String> strings = new ArrayList<>();
-            strings.add("夫妻");
-            strings.add("战友");
-            strings.add("亲戚");
+            strings.add("线路");
+            strings.add("分线");
+            strings.add("支线");
             return new Legend().data(strings).show(true);
         }
 
-        private static class MyData {
-            private String name;
-            private int category;
-            private boolean draggable;
+        /**
+         * 节点信息
+         *
+         * @return
+         */
+        private static class MyNodeData {
+            private String name;//节点名称
+            private int category;//节点类目
+            private boolean draggable;//是否拖拽位置
 
-            public MyData name(String name) {
+            public MyNodeData name(String name) {
                 this.name = name;
                 return this;
             }
 
-            public MyData category(int category) {
+            public MyNodeData category(int category) {
                 this.category = category;
                 return this;
             }
 
-            public MyData draggable(boolean draggable) {
+            public MyNodeData draggable(boolean draggable) {
                 this.draggable = draggable;
                 return this;
             }

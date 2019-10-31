@@ -27,7 +27,7 @@ public class CurveFragment extends AbstractBaseFragment {
     private TextView tvUnit;
 
     private String signalTypeId;
-    private String switchId;
+    private int switchId;
     private String time;
     private boolean isDay;
     private String unit;
@@ -81,14 +81,14 @@ public class CurveFragment extends AbstractBaseFragment {
         Log.e("VpAdapter", "changeData: " + position);
         tag = bundle.getCharSequence("tag").toString();
         String signalTypeIdNew = bundle.getCharSequence("signalTypeId").toString();
-        String switchIdNew = bundle.getCharSequence("switchId").toString();
+        int switchIdNew = bundle.getInt("switchId");
         String timeNew = bundle.getCharSequence("time").toString();
         boolean isDayNew = bundle.getBoolean("isDay");
         String unitNew = bundle.getCharSequence("unit").toString();
         if (signalValueList.size() == 0
                 || (!isDayNew && signalValueListExtral.size() == 0)
                 || !signalTypeIdNew.equals(signalTypeId)
-                || !switchIdNew.equals(switchId)
+                || switchIdNew != (switchId)
                 || !timeNew.equals(time)
                 || !(isDayNew == isDay)
                 || !unitNew.equals(unit)) {

@@ -247,7 +247,7 @@ public class Core {
         return call;
     }
 
-    public Call<?> findTimeControllerBySwitch(String switchId, ActionCallbackListener<List<TimeTaskBean.TimeTask>> listener) {
+    public Call<?> findTimeControllerBySwitch(int switchId, ActionCallbackListener<List<TimeTaskBean.TimeTask>> listener) {
         Param param = new Param();
         param.setSwitchID(switchId);
         Call<ApiResponse<List<TimeTaskBean.TimeTask>>> call = api.findTimeControllerBySwitch(mJSessionId, param);
@@ -272,7 +272,7 @@ public class Core {
     }
 
     //插入或更新一个时间任务
-    public Call<?> updateOrInsertTask(String taskId, String breakId, String time, int weekDay,
+    public Call<?> updateOrInsertTask(String taskId, int breakId, String time, int weekDay,
                                       int state, int cmdData, int upload, ActionCallbackListener<Void> listener) {
         Param param = new Param();
         param.setTimeControllerID(taskId);
@@ -341,7 +341,7 @@ public class Core {
         return call;
     }
 
-    public Observable<ApiResponse<SwitchBean>> rxGetSwitch(String swicthId) {
+    public Observable<ApiResponse<SwitchBean>> rxGetSwitch(int swicthId) {
         Param param = new Param();
         param.setSwitchID(swicthId);
         try {
@@ -360,7 +360,7 @@ public class Core {
     }
 
 
-    public Call<?> updateBreak(String breakId, int iconType, String name, ActionCallbackListener<Void> listener) {
+    public Call<?> updateBreak(int breakId, int iconType, String name, ActionCallbackListener<Void> listener) {
         Param param = new Param();
         param.setSwitchID(breakId);
         param.setIconType(String.valueOf(iconType));
@@ -376,7 +376,7 @@ public class Core {
      * @param listener
      * @return
      */
-    public Call<?> controlBreak(String breakId, boolean off, ActionCallbackListener<ControllerId> listener) {
+    public Call<?> controlBreak(int breakId, boolean off, ActionCallbackListener<ControllerId> listener) {
         Param param = new Param();
         param.setSwitchID(breakId);
         param.setCmdData(off ? "0" : "1");
@@ -402,7 +402,7 @@ public class Core {
         return call;
     }
 
-    public Observable<ApiResponse<ControllerId>> rxControlBreak(String breakId, boolean off) {
+    public Observable<ApiResponse<ControllerId>> rxControlBreak(int breakId, boolean off) {
         Param param = new Param();
         param.setSwitchID(breakId);
         param.setCmdData(off ? "0" : "1");
@@ -425,7 +425,7 @@ public class Core {
      * @param listener
      * @return
      */
-    public Call<?> addSwitch(String collectorID, String name, String switchCode, int iconType, String pid, ActionCallbackListener<Void> listener) {
+    public Call<?> addSwitch(String collectorID, String name, String switchCode, int iconType, int pid, ActionCallbackListener<Void> listener) {
         Param param = new Param();
 //        param.setSwitchID(switchId);
         param.setCollectorID(collectorID);
@@ -447,7 +447,7 @@ public class Core {
      * @param listener
      * @return
      */
-    public Call<?> deleteBreak(String switchId, ActionCallbackListener<Void> listener) {
+    public Call<?> deleteBreak(int switchId, ActionCallbackListener<Void> listener) {
         Param param = new Param();
         param.setSwitchID(switchId);
         Call<ApiResponse<Void>> call = api.deleteBreak(mJSessionId, param);
@@ -462,7 +462,7 @@ public class Core {
      * @param listener
      * @return
      */
-    public Call<?> getSignals(String switchId, ActionCallbackListener<List<SwitchSignalItem>> listener) {
+    public Call<?> getSignals(int switchId, ActionCallbackListener<List<SwitchSignalItem>> listener) {
         Param param = new Param();
         param.setSwitchID(switchId);
         Call<ApiResponse<List<SwitchSignalItem>>> call = api.getSignals(mJSessionId, param);
@@ -524,7 +524,7 @@ public class Core {
      * @param time         yyyy-MM-dd
      * @return
      */
-    public Call<?> getAverageValueByDay(String switchId, String signalTypeId, String time, ActionCallbackListener<List<SignalValue>> listener) {
+    public Call<?> getAverageValueByDay(int switchId, String signalTypeId, String time, ActionCallbackListener<List<SignalValue>> listener) {
         Param param = new Param();
         param.setSwitchID(switchId);
         param.setSignalsTypeID(signalTypeId);
@@ -578,7 +578,7 @@ public class Core {
      * @param time         yyyy-MM
      * @return
      */
-    public Call<?> getAverageValueByMonth(String switchId, String signalTypeId, String time, ActionCallbackListener<List<SignalValue>> listener) {
+    public Call<?> getAverageValueByMonth(int switchId, String signalTypeId, String time, ActionCallbackListener<List<SignalValue>> listener) {
         Param param = new Param();
         param.setSwitchID(switchId);
         param.setSignalsTypeID(signalTypeId);
@@ -626,7 +626,7 @@ public class Core {
      * @param listener
      * @return
      */
-    public Call<?> findSwitchParamBySwitch(String switchID, String paramID, ActionCallbackListener<List<VoltageValue>> listener) {
+    public Call<?> findSwitchParamBySwitch(int switchID, String paramID, ActionCallbackListener<List<VoltageValue>> listener) {
         Param param = new Param();
         param.setSwitchID(switchID);
         param.setParamID(paramID);
@@ -707,7 +707,7 @@ public class Core {
      */
     public Call<?> addOrUpdateSceneSwitch(String sceneSwitchID,
                                           String sceneID,
-                                          String switchID,
+                                          int switchID,
                                           String cmdData, ActionCallbackListener<Void> listener) {
         Param param = new Param();
         param.setScenes(sceneSwitchID);
@@ -921,7 +921,7 @@ public class Core {
     }
 
 
-    public Call<?> addOrUpdateEE(String electricalEquipmentID, String switchID, String name, Double gonglv, ActionCallbackListener<Void> listener) {
+    public Call<?> addOrUpdateEE(String electricalEquipmentID, int switchID, String name, Double gonglv, ActionCallbackListener<Void> listener) {
         Param param = new Param();
         param.setElectricalEquipmentID(electricalEquipmentID);
         param.setSwitchID(switchID);
@@ -1195,7 +1195,7 @@ public class Core {
      * @param listener
      * @return
      */
-    public Call<?> getSignalByTime(String switchId, String time, String signalTypeId, String type,
+    public Call<?> getSignalByTime(int switchId, String time, String signalTypeId, String type,
                                    ActionCallbackListener<List<SignalPeakValleyValue>> listener) {
         Param param = new Param();
         param.setSwitchID(switchId);
