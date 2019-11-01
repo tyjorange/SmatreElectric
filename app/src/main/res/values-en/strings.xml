@@ -1,632 +1,621 @@
 <resources>
-    <!--    <string name="app_name">DM</string>-->
-    <string name="fun_changjing">scenario</string>
-    <string name="fun_quxian">curve</string>
-    <string name="fun_baobiao">report forms</string>
-    <string name="fun_dingshi">timing</string>
-    <string name="fun_wifi_set">wifi connect</string>
-    <string name="fun_wifi_list">WIFI列表</string>
-
-    <string name="add_device">add intelligent electric box</string>
-    <string name="please_wait">wait please</string>
-    <string name="scan_add">scan the code to add</string>
-    <string name="scan_results">the result of scanning</string>
-    <string name="scan_rusults_hint1">scan for device number</string>
-    <string name="scan_rusults_hint2">scan for device number</string>
-    <string name="switch_code_empty">device code is empty</string>
-    <string name="device_code_empty">device code is empty</string>
-    <string name="input_correct_switch_code">Please enter the correct code and the length of the code is %1$s</string>
-    <string name="input_correct_device_code">Please enter the correct code and the length of the code is %1$s</string>
-    <string name="finish">complete</string>
-    <string name="control">control</string>
-    <string name="normal">normal</string>
-    <string name="line_modify">line modification</string>
-    <string name="line_use_default_pic">use the default name and image</string>
-    <string name="line_custom_name">customize the line name</string>
-    <string name="line_custom_pic">customize line images</string>
-    <string name="line_name">Line name</string>
-    <string name="line_input_name">please enter the name of the line</string>
-    <string name="line_set_under">under voltage setting</string>
-    <string name="line_set_over">over voltage setting</string>
-    <string name="line_set_electricity">over current setting</string>
-    <string name="line_set_electricity1">电量上限</string>
-    <string name="line_set_electricity2">电量下限</string>
-    <string name="save">save</string>
-    <string name="statistical_1">voltage</string>
-    <string name="statistical_2">electron current</string>
-    <string name="statistical_3">active energy</string>
-    <string name="statistical_4">reactive energy</string>
-    <string name="statistical_5">active power of Current month</string>
-    <string name="statistical_6">reactive power of Current month</string>
-    <string name="statistical_7">active power</string>
-    <string name="statistical_8">reactive power</string>
-    <string name="statistical_9">power factor</string>
-    <string name="line_zhaoming">lighting</string>
+    <!--    <string name="app_name">电母</string>-->
+    <string name="fun_changjing">Scenes</string>
+    <string name="fun_quxian">Curves</string>
+    <string name="fun_baobiao">Reports</string>
+    <string name="fun_dingshi">Timing Control setting</string>
+    <string name="fun_wifi_set">WiFi setting</string>
+    <string name="fun_wifi_list">WiFi list</string>
+    <string name="add_device">Add power box</string>
+    <string name="please_wait">Please wait</string>
+    <string name="scan_add">Scan QR code to add</string>
+    <string name="scan_results">Scan results</string>
+    <string name="scan_rusults_hint1">Scan to get breaker code</string>
+    <string name="scan_rusults_hint2">Scan to get power box installation code</string>
+    <string name="switch_code_empty">Invalid device code</string>
+    <string name="device_code_empty">Invalid installation code</string>
+    <string name="input_correct_switch_code">Enter valid %1$s digit code</string>
+    <string name="input_correct_device_code">Enter valid %1$s digit installation code</string>
+    <string name="finish">Finish</string>
+    <string name="control">Control</string>
+    <string name="normal">Normal</string>
+    <string name="line_modify">Breaker edit</string>
+    <string name="line_use_default_pic">Use preset name and photo</string>
+    <string name="line_custom_name">Customize breaker name</string>
+    <string name="line_custom_pic">Customize breaker photo</string>
+    <string name="line_name">Breaker name</string>
+    <string name="line_input_name">Enter breaker name</string>
+    <string name="line_set_under">Under-voltage threshold(V)</string>
+    <string name="line_set_over">Over-voltage threshold(V)</string>
+    <string name="line_set_electricity">Over current threshold(A)</string>
+    <string name="line_set_electricity1">Upper limit of electricity quantity (KWH)</string>
+    <string name="line_set_electricity2">Lower limit of electricity quantity (KWH)</string>
+    <string name="save">Save</string>
+    <string name="statistical_1">Voltage</string>
+    <string name="statistical_2">Electric current</string>
+    <string name="statistical_3">Active power</string>
+    <string name="statistical_4">Reactive power</string>
+    <string name="statistical_5">Current month active electricity</string>
+    <string name="statistical_6">Current month reactive electricity</string>
+    <string name="statistical_7">Active power</string>
+    <string name="statistical_8">Reactive power</string>
+    <string name="statistical_9">Power factor</string>
+    <string name="line_zhaoming">Lighting</string>
     <string name="line_keting">living room</string>
-    <string name="line_zhuwo">master bedroom</string>
-    <string name="line_woshi">bedroom</string>
-    <string name="line_shufang">study room</string>
-    <string name="line_diannao">computer</string>
-    <string name="line_chufang">kitchen</string>
-    <string name="line_weishengjian">toilet</string>
-    <string name="line_kongtiao">air conditioner</string>
-    <string name="line_chazuo">chazuo</string>
-    <string name="line_reshuiqi">reshuiqi</string>
-    <string name="line_other">else</string>
-    <string name="modify_tip">remind to modify</string>
-    <string name="cancel">cancel</string>
-    <string name="ensure">confirm</string>
-    <string name="modify_pic">are you to sure use this picture?</string>
-    <string name="input_custom_name">enter a custom name</string>
-    <string name="ple_set_line_name">Please set the line name and picture</string>
-    <string name="timed_task">timed task</string>
-    <string name="timed_task_enable">Timed tasks are enabled</string>
-    <string name="timed_task_unenable">Timed tasks are prohibited</string>
-    <string name="operator_sucess">success</string>
-    <string name="operator_failure">failed</string>
-    <string name="repeat">repeat:</string>
-    <string name="switch_on">turn on</string>
-    <string name="switch_off">turn off</string>
+    <string name="line_zhuwo">Master bedroom</string>
+    <string name="line_woshi">Bedroom</string>
+    <string name="line_shufang">Study</string>
+    <string name="line_diannao">Computer</string>
+    <string name="line_chufang"> Kitchen</string>
+    <string name="line_weishengjian">Bathroom</string>
+    <string name="line_kongtiao">Air-conditioner</string>
+    <string name="line_chazuo">Power Socket</string>
+    <string name="line_reshuiqi">Water heater</string>
+    <string name="line_other">Others</string>
+    <string name="modify_tip">Setting reminder</string>
+    <string name="cancel">Cancel</string>
+    <string name="ensure">Yes</string>
+    <string name="modify_pic">Change to this picture?</string>
+    <string name="input_custom_name">Customize name of breaker</string>
+    <string name="ple_set_line_name">Enter name and photo of breaker</string>
+    <string name="timed_task">Time-switch</string>
+    <string name="timed_task_enable">Time-switch enable</string>
+    <string name="timed_task_unenable">Time-switch disable</string>
+    <string name="operator_sucess">Operate complete</string>
+    <string name="operator_failure">Operate fail</string>
+    <string name="repeat">Repeat</string>
+    <string name="switch_on">On</string>
+    <string name="switch_off">Off</string>
     <string-array name="week_day">
-        <item>sun</item>
-        <item>mon</item>
-        <item>tue</item>
-        <item>wed</item>
-        <item>thu</item>
-        <item>fri</item>
-        <item>sat</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
         <item>-</item>
     </string-array>
     <string-array name="short_week_day">
-        <item>sun</item>
-        <item>mon</item>
-        <item>tue</item>
-        <item>wed</item>
-        <item>thu</item>
-        <item>fri</item>
-        <item>sat</item>
+        <item>Mon</item>
+        <item>Tue</item>
+        <item>Wed</item>
+        <item>Thu</item>
+        <item>Fri</item>
+        <item>Sat</item>
+        <item>Sun</item>
         <item>-</item>
     </string-array>
 
-    <string name="week"></string>
+    <string name="week">Week</string>
     <string name="maxelectric">0A</string>
+    <string name="choses_device">Smart devices</string>
+    <string name="choses_room">Living room</string>
+    <string name="sce_tuijian">Recommend icon</string>
+    <string name="sce_alltuijian">All icons</string>
+    <string name="sce_wancheng">Finish</string>
+    <string name="sce_name">Scene name:</string>
+    <string name="sce_miaoshu">Enter scene name</string>
+    <string name="sce_icon">Choose scene icon:</string>
+    <string name="sce_xianlu">Breakers in this scene</string>
+    <string name="sce_addxianlu">Add breaker</string>
+    <string name="sce_choceall">Choose all</string>
+    <string name="sce_getbed">Wake up</string>
+    <string name="sce_shuijiao">Sleep</string>
+    <string name="sce_huijia">Back to home</string>
+    <string name="sce_lijia">Leave home</string>
+    <string name="sce_issure">Are you sure to delete this scene?</string>
+    <string name="xianlu_issure">Are you sure to delete this breaker?</string>
+    <string name="deletescen">Scene delete</string>
+    <string name="deletescene_succe">Scene delete complete</string>
+    <string name="deletexianlu">Line delete</string>
+    <string name="zhixing_sucess">Operate complete</string>
+    <string name="zhixing_fail">Operate fail</string>
+    <string name="associated_lines">Associate %1$s breakers</string>
+    <string name="exceu_sce">Run this scene</string>
+    <string name="execute">Run</string>
+    <string name="exceu_sce_issure">Are you sure to run this scene: %1$s?</string>
+    <string name="login_regist">Register now</string>
+    <string name="register_fail">Register fail</string>
+    <string name="login_forget_password">Forget password</string>
+    <string name="login">Login</string>
+    <string name="login_fail">Login fail</string>
+    <string name="name_password_cannot_empty">User name and password required</string>
+    <string name="login_hint_password">Please enter your password</string>
+    <string name="input_password_again">Please re-enter your password</string>
+    <string name="password_not_same">Passwords unmatched</string>
+    <string name="login_hint_username">Enter username or phone number</string>
+    <string name="reg_hint_username">Enter username</string>
+    <string name="reg_hint_input_phone">Enter phone number</string>
+    <string name="input_correct_phone">Enter valid phone number</string>
+    <string name="reg_hint_input_verify">Enter SMS verification code</string>
+    <string name="curve_by_month">Monthly</string>
+    <string name="curve_by_day">Daily</string>
+    <string name="statement_circuit_name">Breaker name</string>
+    <string name="statement_electric_quantity">Electricity consumption (kWh)</string>
+    <string name="statement_electric_charge">Electricity fees (yuan)</string>
+    <string name="statement_unit_electric">kWh</string>
+    <string name="loading">Loading</string>
+    <string name="curve_close">Close</string>
+    <string name="settings_title">Setting</string>
+    <string name="settings_change_password">Change password</string>
+    <string name="settings_suggestion">Feedback</string>
+    <string name="settings_clean">Clear cache</string>
+    <string name="settings_exit">Logout</string>
+    <string name="deletewarn">Delete reminder</string>
+    <string name="local_error_message_no_data">No data</string>
+    <string name="get_data_fail">Data loading fail</string>
+    <string name="mine_subtitle_about">About</string>
+    <string name="mine_subtitle_question">Frequent asked questions (FAQ)</string>
+    <string name="mine_subtitle_bind">Third party binding</string>
+    <string name="mine_subtitle_push">Push settings</string>
+    <string name="mine_binding_wx">Relate to your WeChat account</string>
+    <string name="mine_binding_qq">Relate to your QQ account</string>
+    <string name="mine_push">Push content</string>
+    <string name="mine_unbound">Unrelate</string>
+    <string name="mine_isbound">Related</string>
+    <string name="frequency">Frequency</string>
+    <string name="personalcenter"> My account</string>
+    <string name="nick_name">Nickname</string>
+    <string name="phone_num">Phone number</string>
+    <string name="set">Setting</string>
+    <string name="daily_date_format">MM(month)dd(day)</string>
+    <string name="monthly_date_format">yyyy(year)mm(month)</string>
 
-    <string name="choses_device">智能设备121</string>
-    <string name="choses_room">living room</string>
-    <string name="sce_tuijian">Recommendation scenarios</string>
-    <string name="sce_alltuijian">all scenarios</string>
-    <string name="sce_wancheng">complete</string>
-    <string name="sce_name">scenario name:</string>
-    <string name="sce_miaoshu">enter the scenario name</string>
-    <string name="sce_icon">select the scenario icon</string>
-    <string name="sce_xianlu">the line of this scenario</string>
-    <string name="sce_addxianlu">add line</string>
-    <string name="sce_choceall">select all</string>
-    <string name="sce_getbed">get up</string>
-    <string name="sce_shuijiao">sleep</string>
-    <string name="sce_huijia">back home</string>
-    <string name="sce_lijia">leave home</string>
-    <string name="zhixing_sucess">execute successfully</string>
-    <string name="zhixing_fail">execute failure</string>
-    <string name="sce_issure">are you sure to delete this scenario?</string>
-    <string name="xianlu_issure">are you sure to delete this line?</string>
-    <string name="deletescen">delete scenario</string>
-    <string name="deletescene_succe">delete scenario sucess</string>
-    <string name="deletexianlu">delete line</string>
-    <string name="associated_lines">associated %1$s lines</string>
-    <string name="exceu_sce">execute scenario</string>
-    <string name="execute">execute</string>
-    <string name="exceu_sce_issure">are you sure to execute %1$s scenario?</string>
-
-    <string name="login_regist">sign up</string>
-    <string name="register_fail">sign up failed</string>
-    <string name="login_forget_password">forgot password？</string>
-    <string name="login">login</string>
-    <string name="login_fail">login failed</string>
-    <string name="name_password_cannot_empty">user name or password cannot be empty</string>
-    <string name="login_hint_password">enter your password</string>
-    <string name="input_password_again">enter your password again</string>
-    <string name="password_not_same">inconsistent passwords</string>
-    <string name="login_hint_username">enter username</string>
-    <string name="curve_by_month">monthly</string>
-    <string name="curve_by_day">daily</string>
-    <string name="statement_circuit_name">name of line</string>
-    <string name="statement_electric_quantity">the use of electricity（kwh）</string>
-    <string name="statement_electric_charge">electric charge（yuan）</string>
-    <string name="statement_unit_electric">kwh</string>
-    <string name="loading">loading</string>
-    <string name="curve_close">close</string>
-    <string name="settings_title">settings</string>
-    <string name="settings_change_password">change password</string>
-    <string name="settings_suggestion">feedback</string>
-    <string name="settings_clean">clear cache</string>
-    <string name="settings_exit">log out</string>
-    <string name="deletewarn">delete remind</string>
-    <string name="frequency">frequency</string>
-    <string name="local_error_message_no_data">no data</string>
-    <string name="get_data_fail">Failed to get data </string>
-    <string name="mine_subtitle_about">about</string>
-    <string name="mine_subtitle_question">frequent questions</string>
-    <string name="mine_subtitle_bind">bind</string>
-    <string name="mine_subtitle_push">push</string>
-    <string name="mine_binding_wx">bind wechat</string>
-    <string name="mine_binding_qq">bind QQ</string>
-    <string name="mine_push">push</string>
-    <string name="mine_unbound">unbound</string>
-    <string name="mine_isbound">isbound</string>
-    <string name="personalcenter">personal center</string>
-    <string name="nick_name">nickname</string>
-    <string name="phone_num">telephone number</string>
-    <string name="set">set</string>
-    <string name="daily_date_format">MMM d</string>
-    <string name="monthly_date_format">MMM yyyy</string>
-
-    <string name="sets_devicename">Set the name</string>
-    <string name="sets_botelv">set baud rate</string>
-    <string name="sets_caijipl">Set the acquisition frequency</string>
-    <string name="sets_gaojingfazhi">Setting alarm threshold</string>
-    <string name="sets_guzhangma">故障码频率</string>
-    <string name="sets_miaoshu">Please enter the name of the device</string>
+    <string name="sets_devicename">Power box name</string>
+    <string name="sets_botelv">Baud rate</string>
+    <string name="sets_caijipl">Data Acquisition interval</string>
+    <string name="sets_gaojingfazhi">Alarm threshold</string>
+    <string name="sets_guzhangma">Fault code Acquisition interval</string>
+    <string name="sets_xintiaopinglv">Heartbeat interval</string>
+    <string name="sets_miaoshu">Name your device</string>
     <string name="devicename">Device name</string>
-    <string name="modify_succe">Set up success</string>
-    <string name="modify_fail">Set up failure</string>
-    <string name="op_fail">Operation failed, please try again</string>
-
-    <string name="new_version">A new version has been detected</string>
+    <string name="modify_succe">Done</string>
+    <string name="modify_fail">Fail</string>
+    <string name="op_fail">Fail, try again</string>
+    <string name="new_version">Software update available</string>
     <string name="intall_now">Install now</string>
-    <string name="network_cannot_connect">The network is not accessible, plesase check your network connection</string>
-
-    <string name="network_time_out">Network connection timed out, please try again</string>
-    <string name="terminal_net_error">Terminal response timed out, please confirm if there is a network failure</string>
-    <string name="sets_xintiaopinglv">Setting up heartbeat interval</string>
-    <string name="time_price">Time-of-use pricing </string>
-    <string name="ple_input_price">Please enter the price</string>
-    <string name="time_section_start">Start time</string>
-    <string name="time_section_end">deadline</string>
-    <string name="default_price">Default price</string>
-    <string name="please_input_start_end_time">Please enter the start time and deadline</string>
-    <string name="endtime_early_starttime">The deadline cannot be earlier than the start time</string>
-    <string name="please_input_price">Please enter the price</string>
-    <string name="select_date">select date</string>
-
-
-    <string name="original_password">Original cipher：</string>
-    <string name="new_password">New password：</string>
-    <string name="hint_org_password">Please enter the correct password</string>
-    <string name="hint_null_password">The password can not be empty</string>
-    <string name="prompt">The input content can not be empty</string>
-
-    <string name="mark_repassword">Confirm the password：</string>
-    <string name="mark_phone_new">New mobile phone number：</string>
-    <string name="mark_code">Verification code</string>
-    <string name="mark_getcode">Get the code</string>
-    <string name="mark_regetcode">Recapture</string>
-    <string name="forgetpwd_success">Resetting success</string>
-    <string name="forgetpwd_fail">Reset failure, incorrect input information</string>
-    <string name="resend_time">resend after %1$d second</string>
-    <string name="phone_registed">The mobile number is already registered</string>
-    <string name="phone_unregist">The mobile number is not yet registered</string>
-    <string name="input_correct_phone">Please enter the correct phone number</string>
-
-    <string name="reg_hint_username">enter username</string>
-    <string name="reg_hint_input_phone">enter mobile number</string>
-    <string name="reg_hint_input_verify">enter SMS verification code</string>
-
-    <string name="hint_phone">Please enter the cell phone number</string>
-    <string name="hint_code">Please enter the verification code</string>
-    <string name="hint_password">Please input a password</string>
-    <string name="hint_repassword">Please enter the password again</string>
-    <string name="hint_imei">Please enter the last 12 bits of IMEI</string>
-    <string name="wrong_phone">The input of the phone number is incorrect</string>
-    <string name="wrong_password">Incorrect password input</string>
-    <string name="wrong_repassword">Inconsistency of ciphers</string>
-    <string name="hint_input">Please enter the complete information</string>
-    <string name="mark_sure">Determine</string>
-    <string name="mark_phone">Cell-phone number：</string>
+    <string name="network_cannot_connect">Network unconnected, please check</string>
+    <string name="network_time_out">Network connection timeout, try again</string>
+    <string name="terminal_net_error">Terminal response timeout, check your internet</string>
+    <string name="mark_repassword">Confirm your password:</string>
+    <string name="mark_phone_new">New phone number：</string>
+    <string name="mark_code">Verification code：</string>
+    <string name="mark_getcode">Get verification code</string>
+    <string name="mark_regetcode">Resend</string>
+    <string name="forgetpwd_success">Reset complete</string>
+    <string name="forgetpwd_fail">Reset fail, input correct information</string>
+    <string name="resend_time"> Resend after %1$ds seconds</string>
+    <string name="phone_registed">This phone number has been registered</string>
+    <string name="phone_unregist">This phone number has not been registered</string>
+    <string name="hint_phone">Enter your phone number</string>
+    <string name="hint_code">Enter verification code</string>
+    <string name="hint_password">Enter password</string>
+    <string name="hint_repassword">Enter password again</string>
+    <string name="hint_imei">Enter last 12 digit of IMEI</string>
+    <string name="wrong_phone">Invalid phone number</string>
+    <string name="wrong_password">Invalid password</string>
+    <string name="wrong_repassword">Unmatched passwords</string>
+    <string name="hint_input">Enter complete information</string>
+    <string name="mark_sure">Comfirm</string>
+    <string name="mark_phone">Phone number：</string>
     <string name="mark_imei">IMEI：</string>
-    <string name="mark_address">address：</string>
-    <string name="mark_id">ID number：</string>
-    <string name="mark_regist">register</string>
-    <string name="mark_name">name：</string>
+    <string name="mark_address">Address：</string>
+    <string name="mark_id">ID card No.：</string>
+    <string name="mark_regist">Register</string>
+    <string name="mark_name">Name：</string>
 
-    <string name="picture">picture</string>
-
+    <string name="original_password">Initial password：</string>
+    <string name="new_password">New password：</string>
+    <string name="hint_org_password">Enter correct password</string>
+    <string name="hint_null_password">Enter password</string>
+    <string name="prompt">Enter information</string>
     <string name="input_digits">0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ</string>
     <string name="input_digits_id_number">0123456789xX</string>
-    <string name="open_break">Open the circuit breaker </string>
-    <string name="close_break">Turn off the circuit breaker </string>
-    <string name="open">open</string>
-    <string name="close">turn off</string>
-    <string name="break_op_tip">Are you sure you need to %1$s the %2$s?</string>
-    <string name="delete">delete</string>
-    <string name="delete_device">Are you sure to delete the device?</string>
-    <string name="electric_quantity">electricity</string>
-    <string name="device_id">Device code</string>
-    <string name="scene_excute_sucess">The command has been sent successfully, refresh the breaker status to view the execution result.</string>
-
-    <string name="timetask_once">Single timing</string>
-    <string name="ple_select_line">Please choose a route</string>
-    <string name="line_select">Route selection</string>
-    <string name="remote_control">Remote switch</string>
-    <string name="energy_saving_info">Energy saving information</string>
-    <string name="off_line">Off-line</string>
-
+    <string name="time_price">Time-of-use pricing</string>
+    <string name="ple_input_price">Input price</string>
+    <string name="time_section_start">Starting time</string>
+    <string name="time_section_end">Ending time</string>
+    <string name="default_price">Default price</string>
+    <string name="please_input_start_end_time">Enter starting and ending time</string>
+    <string name="endtime_early_starttime">Ending time cannot be earlier than or same as starting time</string>
+    <string name="select_date">Select date</string>
+    <string name="please_input_price">Input price</string>
+    <string name="picture">Picture</string>
+    <string name="open_break">Switch on</string>
+    <string name="close_break">Switch off</string>
+    <string name="open">On</string>
+    <string name="close">Off</string>
+    <string name="break_op_tip">Switch %1$s breaker‘%2$s’?</string>
+    <string name="delete">Delete</string>
+    <string name="delete_device">Unrelate this power box?</string>
+    <string name="electric_quantity">Electricity quantity</string>
+    <string name="device_id">Power box ID</string>
+    <string name="scene_excute_sucess">Command sent, refresh to check result</string>
+    <string name="timetask_once">Single timed</string>
+    <string name="ple_select_line">Choose one breaker</string>
+    <string name="line_select">breaker select</string>
+    <string name="remote_control">Remote control</string>
+    <string name="energy_saving_info">Energy-Saving information</string>
+    <string name="off_line">Offline</string>
+    <string name="modify_appliance">Edit appliance</string>
     <string name="My_ele_appliance">My appliances</string>
-    <string name="add_appliance">Add electrical appliance</string>
-    <string name="modify_appliance">modify appliance</string>
-    <string name="inset_name">Input name</string>
+    <string name="add_appliance">Add appliances</string>
+    <string name="inset_name">Enter name</string>
     <string name="inset_power">Input power</string>
-    <string name="Retimesituation">Real time situation</string>
-    <string name="my_electric_meter">My watt hour meter</string>
-    <string name="content_input_name">Please enter the name of the appliance.</string>
-    <string name="content_input_power">Please input setting power</string>
-
-
+    <string name="Retimesituation">Current situation</string>
+    <string name="my_electric_meter">My Watt-hour meter</string>
+    <string name="content_input_name">Name your appliance</string>
+    <string name="content_input_power">Rated power</string>
     <string-array name="switch_fault_code">
-        <item>overvoltage</item>
-        <item>undervoltage</item>
-        <item>overload</item>
-        <item>exceeding power consumption threshold</item>
-        <item>timing switching-close</item>
-        <item>remote switching-close</item>
-        <item>exceeding automatic closing cycles</item>
-        <item>instant current switching-open</item>
-        <item>manual switching-open</item>
-        <item>manual switching-close</item>
-        <item>remote switching-open</item>
-        <item>Electric leakage</item>
-        <item>Overheating</item>
-        <item>Overheating</item>
-        <item>Overheating</item>
-        <item>Overheating</item>
-        <item>Overheating</item>
-        <item>Overheating</item>
-        <item>Overheating</item>
+        <item>Switch off due to over-voltage</item>
+        <item>Switch off due to under-voltage</item>
+        <item>Switch off due to overload</item>
+        <item>Switch off due to over-electricity-consumption</item>
+        <item>Switch off by local-timing-control</item>
+        <item>Switch off by remote-control</item>
+        <item>Switch off due to exceed-times-of-auto-recovery</item>
+        <item>Switch off due to Instantaneous-Over-Current</item>
+        <item>Switch on by manual-opration</item>
+        <item>Switch off by manual-opration</item>
+        <item>Switch on by remote-control</item>
+        <item>Switch off due to over-leakage-current</item>
+        <item>Switched off due to over-temperature</item>
+        <item> Switch off due to leakage-self-test</item>
+        <item>Upper level protection switched on</item>
+        <item>Upper level protection switched off</item>
+        <item>Switched on by local-timing-control</item>
+        <item>Leakage-self-test failed</item>
+        <item>Switch fault</item>
     </string-array>
     <string-array name="switch_param_code">
-        <item>设置终端与断路器IO互通</item>
-        <item>设置存储间隔</item>
-        <item>设置RTC时钟</item>
-        <item>断路器1~n地址</item>
-        <item>过压阀值1</item>
-        <item>过压阀值2</item>
-        <item>过压阀值3</item>
-        <item>过压阀值4</item>
-        <item>过压启动延时时间1</item>
-        <item>过压启动延时时间2</item>
-        <item>过压启动延时时间3</item>
-        <item>过压启动延时时间4</item>
-        <item>欠压阀值</item>
-        <item>欠压启动延时时间</item>
-        <item>欠压恢复延时时间</item>
-        <item>上电延时时间</item>
-        <item>过流阀值</item>
-        <item>过流启动延时</item>
-        <item>过流恢复延时</item>
-        <item>定时拉闸使能</item>
-        <item>定时合闸使能</item>
-        <item>定时拉闸时间</item>
-        <item>定时合闸时间</item>
-        <item>电量下限</item>
-        <item>电量上限</item>
-        <item>过流阀值2</item>
-        <item>漏电阀值</item>
-        <item>漏电自检使能</item>
-        <item>漏电自检时间设定</item>
-        <item>温度阀值</item>
-        <item>上电配置0：拉闸；1：合闸，2：掉电前开关状态</item>
-        <item>三相不平衡阀值</item>
-        <item>故障电弧阀值</item>
-        <item>防雷阀值</item>
+        <item>Connect power box to breaker</item>
+        <item>Set storage time interval</item>
+        <item>Set RTC clock</item>
+        <item>Breaker address</item>
+        <item>Over voltage</item>
+        <item>Over voltage</item>
+        <item>Over voltage</item>
+        <item>Over voltage</item>
+        <item>Switch off time delay after over-voltage Event1</item>
+        <item>Switch off time delay after over-voltage Event2</item>
+        <item>Switch off time delay after over-voltage Event3</item>
+        <item>Switch off time delay after over-voltage Event4</item>
+        <item>Under voltage.</item>
+        <item>Time: Switch off time delay after under-voltage Event</item>
+        <item>Time: Switch on time delay after under-voltage Resuming</item>
+        <item>Power-on time delay</item>
+        <item>Over current</item>
+        <item>Switch off time delay after over-current Event</item>
+        <item>Switch on time delay after over-current-Swithed-off</item>
+        <item>Enable timed switch off</item>
+        <item>Enable timed switch on</item>
+        <item>Time of timed switch off</item>
+        <item>Time of timed switch on</item>
+        <item>Lower limit of electricity quantity</item>
+        <item>Upper limit of electricity quantity</item>
+        <item>Over current</item>
+        <item>Leakage</item>
+        <item>Enable leakage self test</item>
+        <item>Leakage-self-test time setting</item>
+        <item>Temperature</item>
+        <item>Power on switch status  0:Switch off 1:Switch on 2:No action</item>
+        <item>3-Ph unbalance</item>
+        <item>Arc failure</item>
+        <item>Lightning surge protection</item>
     </string-array>
 
-    <string name="important_info">security information</string>
-    <string name="fault_alarm">Fault alarm</string>
-    <string name="fault_warn">warn</string>
-    <string name="add_eleappliances_sucess">Successful addition and modification of electrical information</string>
-    <string name="delete_eleappliances_sucess">Successful deletion of electrical information</string>
+    <string name="important_info">Safety information</string>
+    <string name="fault_alarm">Alarm</string>
+    <string name="fault_warn">Warning</string>
+    <string name="add_eleappliances_sucess">Appliance information added</string>
+    <string name="delete_eleappliances_sucess">Appliance information deleted</string>
+    <string name="input_share_username">Enter username you want to share</string>
+    <string name="cancel_share">Cancel your share to this user?</string>
+    <string name="quick_login">Quick login</string>
+    <string name="without_weixin_client">WeChat APP not installed</string>
+    <string name="log">Log</string>
+    <string name="restart">Restart</string>
+    <string name="restore_factory_set">Restore factory setting</string>
+    <string name="sucess">Success</string>
+    <string name="failure">Fail</string>
+    <string name="temperature">Temperature</string>
+    <string name="ldl">Leakage current</string>
+    <string name="upload_tips">
+1.Timing operation is usually saved in the cloud server. At the set time,the cloud server will automatically send the timing tasks to the power box through the Internet. The operation will fail when power box is not connected to the Internet.\n
+2.The user can select the "reside box" button to avoid operation failure under the network error. The scheduled operation will be saved in the power box and will work normally at the set time.\n
+3.Due to the limitation of power box hardware resources, a power box can reside up to 24 cyclical timing operations.</string>
 
-    <string name="input_share_username">Please enter the sharer\'s username</string>
-    <string name="cancel_share">Are you sure to cancel the sharing of this user?</string>
-    <string name="quick_login">Quick Login</string>
-    <string name="without_weixin_client">You haven\'t installed the Wechat client yet</string>
-    <string name="log">log</string>
-    <string name="restart">restart</string>
-    <string name="restore_factory_set">restore factory settings</string>
-    <string name="sucess">success</string>
-    <string name="failure">failure</string>
-    <string name="temperature">temperature</string>
-    <string name="ldl">漏电流</string>
-    <string name="upload_tips">Resident concentrator
-　　Timed operations set by the user are usually saved on the cloud server. At the time of arrival, the cloud server automatically sends the corresponding circuit breaker switch operation to the concentrator over the network. If the network fails at the time, the operation will fail.
-　　In order to prevent the scheduled operation failure by network failure, the user can select the "Resident Concentrator" option. In this way, The contents of timed operations will be saved directly on the corresponding concentrator and triggered directly when the set time is reached.
-　　Due to hardware resource constraints, a concentrator of current version resides up to 24 timed operations, and only repeated scheduled operations are allowed to reside.</string>
-    <string name="tips_btl">电箱和线路设备之间的通讯波特率。</string>
-    <string name="tips_cjpl">通常情况下，线路采集数据的上报频率。</string>
-    <string name="tips_cjfz">电压或电流变化幅度如果超过该阀值，则立即上报。</string>
-    <string name="tips_gzmpl">线路故障码在未变化时的上报频率，如果变化则立即上报。</string>
-    <string name="tips_xtjg">电箱和服务器之间通讯是否畅通的检测频率，建议不要修改。</string>
-    <string name="tip_know">got it</string>
-    <string name="push_tip">关注公众号：睿据科技</string>
-    <string name="opt_100">系统通知</string>
-    <string name="opt_101">更新通知</string>
-    <string name="opt_200">线路告警</string>
-    <string name="opt_201">集中器告警</string>
-    <string name="opt_300">用电量</string>
-    <!--    <string name="signal_type_tab_title_0">有功电量</string>
-        <string name="signal_type_tab_title_1">当前月有功电量</string>
-        <string name="signal_type_tab_title_2">无功电量</string>
-        <string name="signal_type_tab_title_3">当前月无功电量</string>
-        <string name="signal_type_tab_title_4">电压</string>
-        <string name="signal_type_tab_title_5">电流</string>
-        <string name="signal_type_tab_title_6">有功功率</string>
-        <string name="signal_type_tab_title_7">无功功率</string>
-        <string name="signal_type_tab_title_8">功率因数</string>
-        <string name="signal_type_tab_title_9">频率</string>-->
-    <string name="upgrade_tip">1、网络连接正常情况下，集中器软件升级将持续20分钟左右。\n
-2、集中器软件升级过程中，该集中器采集和控制功能将停止，直至升级完成。但各线路功能不会受影响。\n
-3、集中器软件升级将在用户指定时段中的某一时刻自动开始，但不一定会在指定时段内完成。</string>
+    <string name="tips_btl">Baudrate between power box and breakers</string>
+    <string name="tips_cjpl">Normal data acquisition frequency from breakers</string>
+    <string name="tips_cjfz">If the voltage or current changes by more than this threshold, report immediately.</string>
+    <string name="tips_gzmpl">Status code report frequency when the breaker status code has not changed. If the status changes, it will be reported immediately.</string>
+    <string name="tips_xtjg">Heartbeat frequency between power box and cloud server. No edit recommend.</string>
+
+    <string name="tip_know">OK</string>
+    <string name="push_tip">WeChat Subscription: Rejuvee Tech</string>
+    <string name="opt_100">System notification</string>
+    <string name="opt_101">Update notification</string>
+    <string name="opt_200">Breaker alarm</string>
+    <string name="opt_201">Power box alarm</string>
+    <string name="opt_300">Electricity consumption</string>
+
+    <!-- <string name="signal_type_tab_title_0">Active electricity</string>
+        <string name="signal_type_tab_title_1">Current month active electricity</string>
+        <string name="signal_type_tab_title_2">Reactive electricity</string>
+        <string name="signal_type_tab_title_3">Current month reactive electricity</string>
+        <string name="signal_type_tab_title_4">Voltage</string>
+        <string name="signal_type_tab_title_5">Current</string>
+        <string name="signal_type_tab_title_6">Active power</string>
+        <string name="signal_type_tab_title_7">Reactive power</string>
+        <string name="signal_type_tab_title_8">Power factor</string>
+        <string name="signal_type_tab_title_9">Frequency</string>-->
+    <string name="upgrade_tip">1. When the network connection is normal, the software upgrade of the power box will last about 20 minutes.\n
+2. All functions of the power box will not be affected during software updating.\n
+3. Software updating will start automatically at a certain time in the period specified by the user, but it is not necessarily completed in that time period.</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="vs1">上级线路：</string>
-    <string name="vs2">编号:</string>
-    <string name="vs3">的分享</string>
-    <string name="vs4">线路:</string>
-    <string name="vs5">电箱:</string>
+    <string name="vs1">Superior Breaker：</string>
+    <string name="vs2">SN Code:</string>
+    <string name="vs3">Share</string>
+    <string name="vs4">Breaker:</string>
+    <string name="vs5">Power box name:</string>
     <string name="vs6">ID:</string>
-    <string name="vs7">用户:</string>
-    <string name="vs8">88</string>
-    <string name="vs9">安全阀值:</string>
-    <string name="vs10">当前值:</string>
-    <string name="vs11">跳过</string>
-    <string name="vs12">条支线</string>
-    <string name="vs13">总电箱数量：</string>
-    <string name="vs14">线路：</string>
-    <string name="vs15">分线：</string>
-    <string name="vs16">支线：</string>
-    <string name="vs17">次</string>
-    <string name="vs18">度</string>
-    <string name="vs19">设置价钱</string>
-    <string name="vs20">当前版本:</string>
-    <string name="vs21">新版本:</string>
-    <string name="vs22">电箱升级介绍</string>
-    <string name="vs23">已同意升级</string>
-    <string name="vs24">已忽略此版本</string>
-    <string name="vs25">请选择升级时间段</string>
-    <string name="vs26">升级</string>
-    <string name="vs27">确认</string>
-    <string name="vs28">条分线</string>
-    <string name="vs29">请先添加线路</string>
-    <string name="vs30">正在努力开发中&#8230;&#8230;&#8230;</string>
-    <string name="vs31">驻留定时</string>
-    <string name="vs32">结果超时</string>
-    <string name="vs33">冲突</string>
-    <string name="vs34">手动拉闸</string>
-    <string name="vs37">关注微信公众号</string>
-    <string name="vs38">分时计价</string>
-    <string name="vs39">客服</string>
-    <string name="vs40">常见问题</string>
-    <string name="vs41">关于</string>
-    <string name="vs42">设置</string>
-    <string name="vs43">首页</string>
-    <string name="vs44">首页 / 智能电箱 / 专业功能 / 线路维护</string>
-    <string name="vs45">上级线路</string>
-    <string name="vs46">请打开相机权限</string>
-    <string name="vs47">首页 / 智能电箱 / 我的分享</string>
-    <string name="vs48">添加分享</string>
-    <string name="vs49">添加电箱</string>
-    <string name="vs50">首页 / 智能电箱</string>
-    <string name="vs51">断路器设置</string>
-    <string name="vs52">错误状态</string>
-    <string name="vs53">编码</string>
-    <string name="vs54">首页 / 智能电箱 / 专业功能 / 线路维护 / 添加线路</string>
-    <string name="vs55">选择图片:</string>
-    <string name="vs56">智能电箱</string>
-    <string name="vs57">编号:</string>
-    <string name="vs58">电箱升级</string>
-    <string name="vs59">专业功能</string>
-    <string name="vs60">我的分享</string>
-    <string name="vs61">首页 / 智能电箱 / 专业功能</string>
-    <string name="vs62">线路图</string>
-    <string name="vs63">定时任务标志</string>
-    <string name="vs64">首页 / 场景管理 / 添加与修改</string>
-    <string name="vs65">选择场景图标</string>
-    <string name="vs66">解除绑定成功</string>
-    <string name="vs67">退出</string>
-    <string name="vs68">是否退出电母?</string>
-    <string name="vs69">首页 / 智能电箱 / 遥控开关</string>
-    <string name="vs70">首页 / 智能电箱 / 专业功能 / 线路维护</string>
-    <string name="vs71">选择时间</string>
-    <string name="vs72">驻留电箱</string>
-    <string name="vs73">操作</string>
-    <string name="vs74">合闸</string>
-    <string name="vs75">拉闸</string>
-    <string name="vs76">首页 / 智能电箱 / 周月报表</string>
-    <string name="vs77">报表详情</string>
-    <string name="vs78">首页 / 分时计价</string>
-    <string name="vs79">电价设置</string>
-    <string name="vs80">类型</string>
-    <string name="vs81">首页 / 场景管理 / 添加与修改</string>
-    <string name="vs82">选择线路</string>
-    <string name="vs83">上电配置</string>
-    <string name="vs84">不动作</string>
-    <string name="vs85">首页 / 智能电箱 / 专业功能</string>
-    <string name="vs86">电箱设置</string>
-    <string name="vs87">采集阀值</string>
-    <string name="vs88">周报</string>
-    <string name="vs89">首页 / 智能电箱</string>
-    <string name="vs90">首页 / 智能电箱 / 我的电器</string>
-    <string name="vs91">电箱新版本</string>
-    <string name="vs92">请选择升级时间</string>
-    <string name="vs94">登录过期，重新登录</string>
-    <string name="vs95">安全设置</string>
-    <string name="vs96">请输入</string>
-    <string name="vs97">瞬时过流阀值(A)</string>
-    <string name="vs100">上电配置</string>
-    <string name="vs101">高温阀值(℃)</string>
-    <string name="vs102">漏电自检使能</string>
-    <string name="vs1022">漏电保护使能</string>
-    <string name="vs103">漏电自检时间(ddhh)</string>
-    <string name="vs104">漏电阀值(mA)</string>
-    <string name="vs105">三相不平衡</string>
-    <string name="vs108">首页 / 场景管理</string>
-    <string name="vs109">添加与修改</string>
-    <string name="vs110">请添加线路：</string>
-    <string name="vs111">电箱介绍</string>
-    <string name="vs112">首页 / 智能电箱 / 专业功能 / 电箱设置</string>
-    <string name="vs113">场景管理</string>
-    <string name="vs114">首页 / 智能电箱 / 安全信息</string>
-    <string name="vs115">日志详情</string>
-    <string name="vs116">已添加场景</string>
-    <string name="vs117">线路维护</string>
-    <string name="vs118">过流</string>
-    <string name="vs119">参数</string>
-    <string name="vs120">总环比(月)</string>
-    <string name="vs121">总同比(月)</string>
-    <string name="vs122">环比(月)</string>
-    <string name="vs123">同比(月)</string>
-    <string name="vs124">本月用电量（度）</string>
-    <string name="vs125">警告</string>
-    <string name="vs126">关联线路</string>
-    <string name="vs127">修改用户名</string>
-    <string name="vs128">状态</string>
-    <string name="vs129">漏电流</string>
-    <string name="vs130">型号</string>
-    <string name="vs131">服务器地址设置</string>
-    <string name="vs132">还原</string>
-    <string name="vs133">修改</string>
-    <string name="vs134">编辑个人资料</string>
-    <string name="vs135">其他登录方式</string>
-    <string name="vs136">登录/注册</string>
-    <string name="vs137">月报</string>
-    <string name="vs138">添加成功</string>
-    <string name="vs139">修改成功</string>
-    <string name="vs140">驻留电箱介绍</string>
-    <string name="vs141">错误</string>
-    <string name="vs142">获取配置失败</string>
-    <string name="vs144">添加失败</string>
-    <string name="vs145">修改线路名</string>
-    <string name="vs146">请输入6&#8211;12位密码</string>
-    <string name="vs147">打开控制权限</string>
-    <string name="vs148">关闭控制权限</string>
-    <string name="vs149">场景编辑</string>
-    <string name="vs150">移除这条线路吗？</string>
-    <string name="vs151">请设置电量</string>
-    <string name="vs152">发送刷新命令失败</string>
-    <string name="vs153">发送刷新命令成功</string>
-    <string name="vs154">确定要删除该电器吗</string>
-    <string name="vs155">查询操作超时，请刷新</string>
-    <string name="vs156">请求超时，请稍后尝试</string>
-    <string name="vs157">发送操作失败，请确认设备是否在线</string>
-    <string name="vs158">请求失败，多人同时操作冲突</string>
-    <string name="vs159">集中器不在线，请刷新集中器</string>
-    <string name="vs160">请刷当前线路状态再操作</string>
-    <string name="vs161">删除成功</string>
-    <string name="vs162">删除定时任务</string>
-    <string name="vs163">确定需要删除此定时任务吗？</string>
-    <string name="vs164">修改昵称</string>
-    <string name="vs165">修改手机号码</string>
-    <string name="lunchTip">智能电箱云平台</string>
-    <string name="vs166">返回</string>
-    <string name="vs167">解绑</string>
-    <string name="vs168">是否解绑微信?</string>
-    <string name="vs169">是否解绑QQ?</string>
-    <string name="vs170">绑定微信成功</string>
-    <string name="vs171">绑定QQ成功</string>
-    <string name="vs172">解绑微信成功</string>
-    <string name="vs173">解绑微信失败</string>
-    <string name="vs174">解绑QQ成功</string>
-    <string name="vs175">解绑QQ失败</string>
-    <string name="vs176">拒绝授权微信登录</string>
-    <string name="vs177">取消了微信登录</string>
-    <string name="vs178">取消了微信分享</string>
-    <string name="vs179">电箱名称1&#8211;12个字符</string>
-    <string name="vs180">恢复出厂设置</string>
-    <string name="vs181">重启集中器</string>
-    <string name="vs182">确认恢复出厂设置?</string>
-    <string name="vs183">确认重启集中器?</string>
-    <string name="vs184">共计用电（度）</string>
-    <string name="vs185">共计电费（元）</string>
-    <string name="vs186">确定要退出么？</string>
-    <string name="vs187">更新用户信息成功</string>
-    <string name="vs188">更新用户信息失败</string>
-    <string name="vs189">电量下限不能大于或等于上限</string>
-    <string name="vs190">每月%02d日%02d时</string>
-    <string name="vs191">选择自检时间</string>
-    <string name="vs192">请输入主题内容</string>
-    <string name="vs193">请输入问题描述</string>
-    <string name="vs194">提交问题成功</string>
-    <string name="vs195">提交</string>
-    <string name="vs196">首页 / 客服</string>
-    <string name="vs197">提问</string>
-    <string name="vs198">主题：</string>
-    <string name="vs199">内容：</string>
-    <string name="vs200">提问时间：</string>
-    <string name="vs201">更新时间：</string>
-    <string name="vs202">客服</string>
-    <string name="vs203">聊天主题：%s</string>
-    <string name="vs204">问题：%s</string>
-    <string name="vs205">发送</string>
-    <string name="vs206">聊天主题</string>
-    <string name="vs207">不能发送空消息</string>
-    <string name="vs208">发送失败</string>
-    <string name="vs209">智能家居</string>
-    <string name="vs211">上个月</string>
-    <string name="vs212">去年本月</string>
-    <string name="vs213">设置提交成功。因最新值反馈需要些许时间，如果内容未变化，请稍后尝试刷新。</string>
-    <string name="vs214">我挂了,快找客服</string>
-    <string name="vs215">下次再说</string>
-    <string name="vs216">已是最新版本</string>
-    <string name="vs217">下载失败，请稍后再试。</string>
-    <string name="vs219">获取新版本信息失败，请稍后再试。</string>
-    <string name="vs220">使用本机微信关注以下公众号</string>
-    <string name="vs221">睿据科技</string>
-    <string name="vs222">复制公众号名称</string>
-    <string name="vs223">公众号已复制</string>
-    <string name="vs224">您手机没有安装微信，请安装后使用该功能</string>
-    <string name="vs225">无法接收推送的消息，请先关注微信公众号</string>
-    <string name="vs226">搜索中&#8230;&#8230;&#8230;</string>
-    <string name="vs227">请输入端口</string>
-    <string name="vs228">请输入正确的端口</string>
-    <string name="vs229">请输入WIFI名称</string>
-    <string name="vs230">请输入WIFI密码</string>
-    <string name="vs231">提示</string>
-    <string name="vs232">确认后将失去电箱连接，请确认WIFI密码是否正确</string>
-    <string name="vs233">电箱[%s] 连接成功</string>
-    <string name="vs234">电箱[%s] 未连接</string>
-    <string name="vs235">连接中&#8230;&#8230;&#8230;</string>
-    <string name="vs236">没有搜索到SSID，请重试</string>
-    <string name="vs237">未发现此SSID</string>
-    <string name="vs238">WIFI密码长度不正确</string>
-    <string name="vs239">发送成功，请检查模块的状态</string>
-    <string name="vs240">1、请使用手机连接电箱AP</string>
-    <string name="vs241">等待连接&#8230;&#8230;&#8230;</string>
-    <string name="vs242">连接电箱</string>
-    <string name="vs243">2、设置该电箱上网WiFi</string>
-    <string name="vs244">WIFI名称</string>
-    <string name="vs245">选择WIFI</string>
-    <string name="vs246">WIFI密码</string>
-    <string name="vs247">注：如果设置错误，请长按集中器复位按钮8秒以上。</string>
-    <string name="vs248"><![CDATA[去设置>>]]></string>
+    <string name="vs7">User:</string>
+    <string name="vs8">Home/Power box/WiFi setting</string>
+    <string name="vs9">Safe threshold:</string>
+    <string name="vs10">Current value:</string>
+    <string name="vs11">Skip</string>
+    <string name="vs12">Branch breaker</string>
+    <string name="vs13">Total amount of power box：</string>
+    <string name="vs14">Breaker：</string>
+    <string name="vs15">Sub-breaker：</string>
+    <string name="vs16">Branch breaker：</string>
+    <string name="vs17">time</string>
+    <string name="vs18">KWh</string>
+    <string name="vs19">Price set</string>
+    <string name="vs20">Current version:</string>
+    <string name="vs21">New version:</string>
+    <string name="vs22">Introduction of power box software updating</string>
+    <string name="vs23">Update agreed</string>
+    <string name="vs24">Ignored this version</string>
+    <string name="vs25">Choose your update time period</string>
+    <string name="vs26">Update</string>
+    <string name="vs27">Confirm</string>
+    <string name="vs28">Sub-breaker</string>
+    <string name="vs29">Add breaker</string>
+    <string name="vs30">Under development&#8230;&#8230;&#8230;</string>
+    <string name="vs31">Reside timing control</string>
+    <string name="vs32">Response timeout</string>
+    <string name="vs33">Conflict</string>
+    <string name="vs34">Manual switch off</string>
+    <string name="vs37">Follow our WeChat official account</string>
+    <string name="vs38">Time-of-use pricing</string>
+    <string name="vs39">Customer service</string>
+    <string name="vs40">FAQ</string>
+    <string name="vs41">About</string>
+    <string name="vs42">Setting</string>
+    <string name="vs43">Home</string>
+    <string name="vs44">Home/ Power box/ Professional Functions / Breaker maintain</string>
+    <string name="vs45">Upper layer breaker</string>
+    <string name="vs46">Authorize access to your camera</string>
+    <string name="vs47">Home/ Power box/ My shares</string>
+    <string name="vs48">Add share</string>
+    <string name="vs49">Add power box</string>
+    <string name="vs50">Home/Power box</string>
+    <string name="vs51">Breaker setting</string>
+    <string name="vs52">Error</string>
+    <string name="vs53">Code</string>
+    <string name="vs54">Home/ Power box/ Professional Functions/ Breaker maintain/ Add breaker</string>
+    <string name="vs55">Choose picture:</string>
+    <string name="vs56">Power box</string>
+    <string name="vs57">Code:</string>
+    <string name="vs58">Software upgrade</string>
+    <string name="vs59">Professional Functions</string>
+    <string name="vs60">My share</string>
+    <string name="vs61">Home/ Power box/ Professional Functions</string>
+    <string name="vs62">Circuit diagram</string>
+    <string name="vs63">Timing task icon</string>
+    <string name="vs64">Home/ Senses manager / Add and edit</string>
+    <string name="vs65">Choose sense icon</string>
+    <string name="vs66">Unbind success</string>
+    <string name="vs67">Exit</string>
+    <string name="vs68">Quit APP?</string>
+    <string name="vs69">Home/ Power box/ Remote control</string>
+    <string name="vs70">Home/ Power box/ Professional Functions/ Breaker maintain</string>
+    <string name="vs71">Choose time</string>
+    <string name="vs72">Reside box</string>
+    <string name="vs73">Operate</string>
+    <string name="vs74">Switch on</string>
+    <string name="vs75">Switch off</string>
+    <string name="vs76">Home/ Power box/ Monthly report</string>
+    <string name="vs77">Report details</string>
+    <string name="vs78">Home/ Time-of-use pricing</string>
+    <string name="vs79">Electricity price setting</string>
+    <string name="vs80">Types</string>
+    <string name="vs81">Home/ Scenario manager/ Add and edit</string>
+    <string name="vs82">Choose breaker</string>
+    <string name="vs83">Power on setting</string>
+    <string name="vs84">No action</string>
+    <string name="vs85">Home/Power box/ Professional Functions</string>
+    <string name="vs86">Power box setting</string>
+    <string name="vs87">Thresholds setting</string>
+    <string name="vs88">Weekly report</string>
+    <string name="vs89">Home/Power box</string>
+    <string name="vs90">Home/ Power box/ My appliances</string>
+    <string name="vs91">New software version of power box</string>
+    <string name="vs92">Select update time</string>
+    <string name="vs94">Login expired, please login again</string>
+    <string name="vs95">Safety setting</string>
+    <string name="vs96">Please input</string>
+    <string name="vs97">Instantaneous over current threshold</string>
+    <string name="vs100">Power on setting</string>
+    <string name="vs101">High temperature threshold(℃)</string>
+    <string name="vs102">Enable leakage self test</string>
+    <string name="vs1022">Enable leakage protection</string>
+    <string name="vs103">Time of leakage self test(ddhh)</string>
+    <string name="vs104">Leakage threshold(mA)</string>
+    <string name="vs105">3-Ph unbalance</string>
+    <string name="vs108">Home/ Scene manager</string>
+    <string name="vs109">Add and edit</string>
+    <string name="vs110">Add breaker：</string>
+    <string name="vs111">Power box introduction</string>
+    <string name="vs112">Home/ Power box/ Professional Functions/ Box setting</string>
+    <string name="vs113">Scenes Setting</string>
+    <string name="vs114">Home/ Power box/ Safety information</string>
+    <string name="vs115">Log details</string>
+    <string name="vs116">Added scenes</string>
+    <string name="vs117">Breaker maintain</string>
+    <string name="vs118">Over current</string>
+    <string name="vs119">Parameter</string>
+    <string name="vs120">Ratio compared to last month(All breakers)</string>
+    <string name="vs121">Ratio compared with the same month of last year(All breakers)</string>
+    <string name="vs122">Ratio compared to last month</string>
+    <string name="vs123">Ratio compared with the same month of last year</string>
+    <string name="vs124">Monthly electricity consumption (kWh)</string>
+    <string name="vs125">Warning</string>
+    <string name="vs126">Relate breaker</string>
+    <string name="vs127">Edit username</string>
+    <string name="vs128">Status</string>
+    <string name="vs129">Leakage current</string>
+    <string name="vs130">Breaker version</string>
+    <string name="vs131">Server address</string>
+    <string name="vs132">Restore</string>
+    <string name="vs133">Edit</string>
+    <string name="vs134">Edit personal information</string>
+    <string name="vs135">Other login methods</string>
+    <string name="vs136">Login/Register</string>
+    <string name="vs137">Monthly report</string>
+    <string name="vs138">Add success</string>
+    <string name="vs139">Edit success</string>
+    <string name="vs140">Introduction of reside box</string>
+    <string name="vs141">Error</string>
+    <string name="vs142">Failed to get configuration data</string>
+    <string name="vs144">Add fail</string>
+    <string name="vs145">Edit breaker name</string>
+    <string name="vs146">Enter 6-12 digit password</string>
+    <string name="vs147">open control permission</string>
+    <string name="vs148">close control permission</string>
+    <string name="vs149">Edit scene</string>
+    <string name="vs150">Remove this breaker?</string>
+    <string name="vs151">Set electricity quantity</string>
+    <string name="vs152">Failed to send refresh command</string>
+    <string name="vs153">Send refresh command successfully</string>
+    <string name="vs154">Remove this appliance?</string>
+    <string name="vs155">Query operation time out, try again</string>
+    <string name="vs156">Request time out, try agin</string>
+    <string name="vs157">Sending operation fail, check your connection</string>
+    <string name="vs158">Request failed by multiple simultaneous operation requests</string>
+    <string name="vs159">Power box offline, please refresh</string>
+    <string name="vs160">Refresh the breaker state before operation</string>
+    <string name="vs161">Delete success</string>
+    <string name="vs162">Delete timing task</string>
+    <string name="vs163">Delete this timing task?</string>
+    <string name="vs164">Edit nickname</string>
+    <string name="vs165">Edit phone number</string>
+    <string name="lunchTip">Smart power box cloud platform</string>
+    <string name="vs166">Back</string>
+    <string name="vs167">Remove Unrelate</string>
+    <string name="vs168">Unrelate WeChat account?</string>
+    <string name="vs169">Unrelate QQ account??</string>
+    <string name="vs170">Relate WeChat account success</string>
+    <string name="vs171">Relate QQ account success</string>
+    <string name="vs172">Unrelate WeChat account success</string>
+    <string name="vs173">Unrelate WeChat account fail</string>
+    <string name="vs174">Relate QQ account success</string>
+    <string name="vs175">Relate QQ account fail</string>
+    <string name="vs176">Reject to authorize WeChat login</string>
+    <string name="vs177">WeChat login canceled</string>
+    <string name="vs178">WeChat share canceled</string>
+    <string name="vs179">Box name 1-12 chartset</string>
+    <string name="vs180">Restore factory default</string>
+    <string name="vs181">Start power box</string>
+    <string name="vs182">Are you sure to restore factory default?</string>
+    <string name="vs183">Are you  sure  to restart power box?</string>
+    <string name="vs184">Total electricity consumption (kWh)</string>
+    <string name="vs185">Total Electricity fees(yuan)</string>
+    <string name="vs186">Are you sure to Exit?</string>
+    <string name="vs187">Account information update success</string>
+    <string name="vs188">Account information update fail</string>
+    <string name="vs189">Lower electricity consumption limit cannot be greater than or equal to the upper limit</string>
+    <string name="vs190">%02d days,%02d:00 ,every month 4days,23:00, every month</string>
+    <string name="vs191">Choose self test time</string>
+    <string name="vs192">Enter your question</string>
+    <string name="vs193">Describe your problem</string>
+    <string name="vs194">Submit success</string>
+    <string name="vs195">Submit</string>
+    <string name="vs196">Home/ Customer service</string>
+    <string name="vs197">Question</string>
+    <string name="vs198">Question：</string>
+    <string name="vs199">Describe：</string>
+    <string name="vs200">Question time：</string>
+    <string name="vs201">Update time：</string>
+    <string name="vs202">Customer service</string>
+    <string name="vs203">Question：%s</string>
+    <string name="vs204">Question describe：%s</string>
+    <string name="vs205">Send</string>
+    <string name="vs206">Chat topic</string>
+    <string name="vs207">Message can not be empty</string>
+    <string name="vs208">Send fail</string>
+    <string name="vs209">Smart home</string>
+    <string name="vs211">Last month</string>
+    <string name="vs212">Last year this month</string>
+    <string name="vs213">Setting submitted. Latest data will be shown in several seconds, refresh later.</string>
+    <string name="vs214">Sorry, application exception, exit</string>
+    <string name="vs215">Next time</string>
+    <string name="vs216">Latest version</string>
+    <string name="vs217">Download fail, try again later</string>
+    <string name="vs218">Loading progress:</string>
+    <string name="vs219">Failed to get new software version information, try later.</string>
+    <string name="vs220">Please use your WeChat account to follow our official account</string>
+    <string name="vs221">REJUVEE Tech</string>
+    <string name="vs222">Copy official account</string>
+    <string name="vs223">Official account copied</string>
+    <string name="vs224">No WeChat found in this device, try after downloading WeChat application</string>
+    <string name="vs225">Please bind the your WeChat account in personal settings and get system notification, alarm warning and other information in time.</string>
+    <string name="vs226"> Searching&#8230;&#8230;&#8230;</string>
+    <string name="vs227">Port No.</string>
+    <string name="vs228">Input valid port</string>
+    <string name="vs229"> WIFI SSID</string>
+    <string name="vs230">WIFI password</string>
+    <string name="vs231">Notice</string>
+    <string name="vs232">After confirmation, it will be disconnected from the power box. Please check the WiFi SSID and password.</string>
+    <string name="vs233">Power box [%s] connected</string>
+    <string name="vs234">Power box [%s] unconnected</string>
+    <string name="vs235">Connecting&#8230;&#8230;&#8230;</string>
+    <string name="vs236">SSID not found, try again</string>
+    <string name="vs237">Not found this SSID</string>
+    <string name="vs238">WiFi password length incorrect</string>
+    <string name="vs239">Sending succeeded, please check the status of power box</string>
+    <string name="vs240">1.Connect power box with your phone</string>
+    <string name="vs241">Waiting for connection&#8230;&#8230;&#8230;</string>
+    <string name="vs242">Connect power box</string>
+    <string name="vs243">2. Set the WiFi parameters of the power box connected to the Internet</string>
+    <string name="vs244">WiFi SSID</string>
+    <string name="vs245">Choose WIFI</string>
+    <string name="vs246">WiFi password</string>
+    <string name="vs247">Note: if the setting is wrong, please press and hold the reset button for more than 8 seconds.</string>
+    <string name="vs248"><![CDATA[To set up>>]]></string>
     <string name="vs249">SSID</string>
-    <string name="vs250">信号强度</string>
+    <string name="vs250">RSSI</string>
     <string name="vs251">%d</string>
-    <string name="vs252">最近1个月</string>
-    <string name="vs253">最近3个月</string>
-    <string name="vs254">最近半年</string>
-    <string name="vs255">其他</string>
-    <string name="vs256">检查版本</string>
-    <string name="vs257">更新内容</string>
-    <string name="vs258">关于</string>
-    <string name="vs259">版本：</string>
-    <string name="vs260">公司：</string>
-    <string name="vs261">上海睿据科技有限公司</string>
-    <string name="vs262">主页：</string>
-    <string name="vs263">公众号：</string>
-    <string name="vs264">睿据科技</string>
-    <string name="vs265">只有重复定时才能驻留电箱</string>
-    <string name="vs266">时段</string>
-    <string name="vs267">起始时间</string>
-    <string name="vs268">结束时间</string>
-    <string name="vs269">yyyy年MM月dd日HH时</string>
+    <string name="vs252">Last month</string>
+    <string name="vs253">Last 3 months</string>
+    <string name="vs254">Last 6 months</string>
+    <string name="vs255">other</string>
+    <string name="vs256">check software version</string>
+    <string name="vs257">Update content</string>
+    <string name="vs258">About</string>
+    <string name="vs259">Version：</string>
+    <string name="vs260">Company：</string>
+    <string name="vs261">Shanghai Rejevee technology limited company</string>
+    <string name="vs262">Homepage：</string>
+    <string name="vs263">WeChat Official account：</string>
+    <string name="vs264">Rejuvee Tech</string>
+    <string name="vs265">only repet-timing task can use Reside box</string>
+    <string name="vs266">time interval</string>
+    <string name="vs267">start time</string>
+    <string name="vs268">end time</string>
+    <string name="vs269">yyyy-MM-dd HH:00:00</string>
 </resources>
