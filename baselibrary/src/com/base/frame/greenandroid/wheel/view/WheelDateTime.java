@@ -52,7 +52,7 @@ public class WheelDateTime extends PopupWindow implements OnClickListener {
 
     // 可以设置时间选择器的title文案
     private TextView txtTitle;
-    private String title = "", btnLeft="", btnRight="";
+    private String title = "", btnLeft = "", btnRight = "";
 
     /**
      * 初始化选择日期对话框
@@ -106,12 +106,10 @@ public class WheelDateTime extends PopupWindow implements OnClickListener {
 
 
     private void initView() {
-        LayoutInflater inflater = (LayoutInflater) mContext
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mMenuView = inflater.inflate(R.layout.select_wheel_date_time, null);
         viewfipper = new ViewFlipper(mContext);
-        viewfipper.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT));
+        viewfipper.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 
         txtTitle = mMenuView.findViewById(R.id.wheel_date_time_title);
         year = mMenuView.findViewById(R.id.select_wheel_year);
@@ -139,7 +137,7 @@ public class WheelDateTime extends PopupWindow implements OnClickListener {
         }
         btnSubmit.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance(Locale.getDefault());
         OnWheelChangedListener listener = new OnWheelChangedListener() {
             public void onChanged(WheelView wheel, int oldValue, int newValue) {
                 updateDays(year, month, day, hour, minute);
@@ -153,7 +151,7 @@ public class WheelDateTime extends PopupWindow implements OnClickListener {
             mCurDay = Integer.parseInt(str[2]) - 1;
 
         }
-        dateType = mContext.getResources().getStringArray(R.array.date);
+        dateType = mContext.getResources().getStringArray(R.array.date_wheel);
         monthAdapter = new DateNumericAdapter(mContext, 1, 12, 5);
         monthAdapter.setTextType(dateType[1]);
         month.setViewAdapter(monthAdapter);
@@ -162,7 +160,7 @@ public class WheelDateTime extends PopupWindow implements OnClickListener {
         // year
 
         yearAdapter = new DateNumericAdapter(mContext, curYear - 20,
-             curYear + 50, 0);
+                curYear + 50, 0);
         mCurYear = 20;
         /*yearAdapter = new DateNumericAdapter(mContext, curYear, curYear + 50,
                 100 - 20);*/
@@ -229,9 +227,8 @@ public class WheelDateTime extends PopupWindow implements OnClickListener {
     private void updateDays(WheelView year, WheelView month, WheelView day,
                             WheelView hour, WheelView minute) {
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR,
-                calendar.get(Calendar.YEAR) - 20 + year.getCurrentItem());
+        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) - 20 + year.getCurrentItem());
         calendar.set(Calendar.MONTH, month.getCurrentItem());
 
         int maxDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -330,8 +327,6 @@ public class WheelDateTime extends PopupWindow implements OnClickListener {
     public interface OnWheelListener {
         /**
          * 获取日期接口
-         *
-         *
          */
         void onWheel(Boolean isSubmit, String year, String month,
                      String day, String hour, String minute);

@@ -227,7 +227,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="50dp"
@@ -262,6 +262,22 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/ll_privacy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/vs271"
+                android:textColor="@color/text_content"
+                android:textSize="12sp">
+
+            </TextView>
+        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>

@@ -39,7 +39,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:label">
-        <activity android:name=".activity.web.ChartsActivity"></activity>
+        <activity android:name=".activity.login.PrivacyActivity"></activity>
+        <activity android:name=".activity.web.ChartsActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

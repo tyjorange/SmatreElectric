@@ -115,6 +115,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 //                checkableImageView.setBackgroundDrawable(checked ? getDrawable(R.drawable.eye) : getDrawable(R.drawable.eye_close));
             cetPassword.setInputType(type);
         });
+        findViewById(R.id.ll_privacy).setOnClickListener(v -> {
+            startActivity(new Intent(mContext, PrivacyActivity.class));
+        });
         autoLogin();
     }
 

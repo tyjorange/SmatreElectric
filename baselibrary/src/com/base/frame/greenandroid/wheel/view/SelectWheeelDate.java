@@ -125,7 +125,7 @@ public class SelectWheeelDate extends PopupWindow implements OnClickListener {
             mCurDay = Integer.parseInt(str[2]) - 1;
 
         }
-        dateType = mContext.getResources().getStringArray(R.array.date);
+        dateType = mContext.getResources().getStringArray(R.array.date_wheel);
         monthAdapter = new DateNumericAdapter(mContext, 1, 12, 5);
         monthAdapter.setTextType(dateType[1]);
         month.setViewAdapter(monthAdapter);
