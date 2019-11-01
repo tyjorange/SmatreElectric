@@ -1,6 +1,7 @@
 package com.rejuvee.smartelectric.family.activity.web;
 
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -103,7 +104,11 @@ public class ChartsActivity extends BaseActivity {
             @Override
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                 super.onReceivedError(view, request, error);
-                Log.e(TAG, error.getDescription().toString());
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    Log.e(TAG, error.getDescription().toString());
+                } else {
+                    //TODO
+                }
             }
 
             @Override
@@ -255,14 +260,18 @@ public class ChartsActivity extends BaseActivity {
                     .opacity(0.9)//图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。
 //                    .borderWidth(1)
                     .curveness(0d);//边的曲度，支持从 0 到 1 的值，值越大曲度越大。
-            result.forEach(s -> {
-                if (s.getPid() != 0) {
-                    list.add(new Link()
-                            .source(s.getName())
-                            .target(findPname(s.getPid()))
-                            .lineStyle(lineStyle));
-                }
-            });
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                result.forEach(s -> {
+                    if (s.getPid() != 0) {
+                        list.add(new Link()
+                                .source(s.getName())
+                                .target(findPname(s.getPid()))
+                                .lineStyle(lineStyle));
+                    }
+                });
+            } else {
+                //TODO
+            }
             return list;
         }
 
@@ -290,9 +299,13 @@ public class ChartsActivity extends BaseActivity {
          */
         private static List<MyNodeData> getDatas() {
             List<MyNodeData> list = new ArrayList<>();
-            result.forEach(s -> {
-                list.add(new MyNodeData().category(getCategory(s)).state(s.getSwitchState()).name(s.getName()).draggable(false));
-            });
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                result.forEach(s -> {
+                    list.add(new MyNodeData().category(getCategory(s)).state(s.getSwitchState()).name(s.getName()).draggable(false));
+                });
+            } else {
+                //TODO
+            }
             return list;
         }
 
@@ -308,12 +321,16 @@ public class ChartsActivity extends BaseActivity {
          * @return
          */
         private static String findPname(int pid) {
-            result.forEach(s -> {
-                if (s.getSwitchID() == pid) {
-                    name.set(s.getName());
-                    return;
-                }
-            });
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                result.forEach(s -> {
+                    if (s.getSwitchID() == pid) {
+                        name.set(s.getName());
+                        return;
+                    }
+                });
+            } else {
+                //TODO
+            }
             return name.get();
         }
 
@@ -333,17 +350,21 @@ public class ChartsActivity extends BaseActivity {
                 res.set(0);
                 return res.get();
             } else {
-                result.forEach(rs -> {
-                    if (rs.getSwitchID() == s.getPid()) {
-                        if (rs.getPid() == 0) {// 父节点的父节点为0 则是分线 category=1
-                            res.set(1);
-                            return;
-                        } else {// 剩下则是支线 category=2
-                            res.set(2);
-                            return;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    result.forEach(rs -> {
+                        if (rs.getSwitchID() == s.getPid()) {
+                            if (rs.getPid() == 0) {// 父节点的父节点为0 则是分线 category=1
+                                res.set(1);
+                                return;
+                            } else {// 剩下则是支线 category=2
+                                res.set(2);
+                                return;
+                            }
                         }
-                    }
-                });
+                    });
+                } else {
+                    //TODO
+                }
             }
             return res.get();
         }

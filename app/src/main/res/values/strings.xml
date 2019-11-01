@@ -580,6 +580,7 @@
     <string name="vs214">我挂了,快找客服</string>
     <string name="vs215">下次再说</string>
     <string name="vs216">已是最新版本</string>
+    <string name="vs218">Loading progress:</string>
     <string name="vs217">下载失败，请稍后再试。</string>
     <string name="vs219">获取新版本信息失败，请稍后再试。</string>
     <string name="vs220">请使用本机微信关注以下公众号</string>

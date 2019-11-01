@@ -16,6 +16,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.base.library.widget.CustomToast;
@@ -64,6 +65,7 @@ import static android.content.Context.MODE_PRIVATE;
 * */
 public class AutoUpgrade {
     private final String TAG = "AutoUpgrade";
+    private static AutoUpgrade instacne;
     private String versionInfoUrl; //版本信息XML Url
     private String downloadUrl;//APK下载地址
     private DownloadManager downloadManager;
@@ -79,7 +81,6 @@ public class AutoUpgrade {
     private Context mContext;
     private DialogTip mDialogTip;
     private Handler mHandler;
-    private static AutoUpgrade instacne;
     private boolean showTip = false;
 
     private AutoUpgrade(Context context) {
@@ -98,13 +99,13 @@ public class AutoUpgrade {
         SoftReference<AutoUpgrade> activityWeakReference;
 
         MyHandler(AutoUpgrade autoUpgrade) {
-            activityWeakReference = new SoftReference<AutoUpgrade>(autoUpgrade);
+            activityWeakReference = new SoftReference<>(autoUpgrade);
         }
 
         @Override
-        public void handleMessage(Message msg) {
+        public void handleMessage(@NonNull Message msg) {
             AutoUpgrade autoUpgrade = activityWeakReference.get();
-            if (msg.what == 1001) {
+            if (msg.what == 1021) {
                 if (autoUpgrade.progressDialog != null) {
                     autoUpgrade.progressDialog.setProgress(msg.arg1);
                     autoUpgrade.progressDialog.setMax(msg.arg2);
@@ -143,34 +144,18 @@ public class AutoUpgrade {
         new Thread(new readVersionRunable()).start();
     }
 
-    public VersionInfo getVersionInfo() {
-        return mVersionInfo;
-    }
-
-    public static class VersionInfo {
+    private class VersionInfo {
         private String versionName;
         private String versionCode;
         private List<String> upgradeItems;
         private String apkName;
 
-        public String getVersionName() {
-            return versionName;
-        }
-
         void setVersionName(String versionName) {
             this.versionName = versionName;
         }
 
-        public List<String> getUpgradeItems() {
-            return upgradeItems;
-        }
-
         void setUpgradeItems(List<String> upgradeItems) {
             this.upgradeItems = upgradeItems;
-        }
-
-        public String getVersionCode() {
-            return versionCode;
         }
 
         void setVersionCode(String versionCode) {
@@ -218,8 +203,7 @@ public class AutoUpgrade {
             XMLContentHandler handler = new XMLContentHandler();
             saxParser.parse(inputStream, handler);
             inputStream.close();
-            mHandler.post(() -> compareVersion());
-
+            mHandler.post(this::compareVersion);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -229,7 +213,7 @@ public class AutoUpgrade {
     private void compareVersion() {
         try {
             PackageInfo currentPackageInfo = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);
-            int appVersionCode = currentPackageInfo.versionCode;
+            long appVersionCode = currentPackageInfo.getLongVersionCode();
             Log.d(TAG, "localVersionCode = " + appVersionCode + " remoteVersionCode=" + mVersionInfo.versionCode);
             if (appVersionCode < Integer.valueOf(mVersionInfo.versionCode)) {//版本不同，需要更新版本
                 downloadManager = (DownloadManager) mContext.getSystemService(DOWNLOAD_SERVICE);
@@ -280,25 +264,26 @@ public class AutoUpgrade {
         downloadManager = (DownloadManager) mContext.getSystemService(DOWNLOAD_SERVICE);
         Log.i(TAG, "attempt download from : " + downloadUrl + mVersionInfo.getApkName());
         Uri parse = Uri.parse(downloadUrl + mVersionInfo.getApkName());
-        DownloadManager.Request down = new DownloadManager.Request(parse);
+        DownloadManager.Request dmr = new DownloadManager.Request(parse);
         // 设置允许使用的网络类型，这里是移动网络和wifi都可以
-//        down.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
-        down.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
+//        dmr.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
+        dmr.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
         // 下载时，通知栏显示途中
-        down.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+        dmr.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
         // 显示下载界面
-        down.setVisibleInDownloadsUi(true);
-        down.setTitle(mVersionInfo.getApkName());
+//        dmr.setVisibleInDownloadsUi(true);
+        dmr.setTitle(mVersionInfo.getApkName());
         // 设置下载后文件存放的位置
         String apkName = parse.getLastPathSegment();
-        down.setDestinationInExternalFilesDir(mContext, Environment.DIRECTORY_DOWNLOADS, apkName);
+        dmr.setDestinationInExternalFilesDir(mContext, Environment.DIRECTORY_DOWNLOADS, apkName);
         String downloadPath = String.format("%s/%s", Objects.requireNonNull(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)).getPath(), apkName);
         File file = new File(downloadPath);
         if (file.exists()) {
             boolean delete = file.delete();
+            Log.d(TAG, "file[" + file.getPath() + "]isDelete=" + delete);
         }
         // 将下载请求放入队列
-        long downloadId = downloadManager.enqueue(down);
+        long downloadId = downloadManager.enqueue(dmr);
         mContext.getSharedPreferences(AppGlobalConfig.BASIC_CONFIG, MODE_PRIVATE).edit().putLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, downloadId).apply();
         startQuery();
     }
@@ -323,7 +308,7 @@ public class AutoUpgrade {
                 int mDownload_all = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
                 if (mDownload_all > 0) {
                     Message msg = Message.obtain();
-                    msg.what = 1001;
+                    msg.what = 1021;
                     msg.arg1 = mDownload_so_far;
                     msg.arg2 = mDownload_all;
                     mHandler.sendMessage(msg);
