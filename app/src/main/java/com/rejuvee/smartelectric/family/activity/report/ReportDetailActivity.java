@@ -15,13 +15,13 @@ import com.google.android.material.tabs.TabLayout;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
+import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
 import com.rejuvee.smartelectric.family.fragment.ReportAlarmFragment;
 import com.rejuvee.smartelectric.family.fragment.ReportPowerFragment;
 import com.rejuvee.smartelectric.family.fragment.ReportWarnFragment;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.ReportBean;
 import com.rejuvee.smartelectric.family.model.bean.ReportDetailBean;
-import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
 import java.util.ArrayList;
 import java.util.List;

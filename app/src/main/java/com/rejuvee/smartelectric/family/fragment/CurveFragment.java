@@ -10,10 +10,10 @@ import com.base.library.core.AbstractBaseFragment;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
+import com.rejuvee.smartelectric.family.common.widget.MonitorDataChartView;
+import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
 import com.rejuvee.smartelectric.family.model.bean.SignalPeakValleyValue;
 import com.rejuvee.smartelectric.family.model.bean.SignalValue;
-import com.rejuvee.smartelectric.family.widget.MonitorDataChartView;
-import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
 import java.util.ArrayList;
 import java.util.List;

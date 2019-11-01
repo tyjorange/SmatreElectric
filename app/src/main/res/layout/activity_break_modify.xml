@@ -82,7 +82,7 @@
             android:src="@drawable/jinru" />
     </LinearLayout>
 
-    <com.rejuvee.smartelectric.family.widget.CustomScrollView
+    <com.rejuvee.smartelectric.family.common.widget.CustomScrollView
         android:id="@+id/csv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -159,7 +159,7 @@
             <!--android:text="@string/line_use_default_pic"-->
             <!--android:textSize="9sp" />-->
 
-            <com.rejuvee.smartelectric.family.widget.NoSCrollGridView
+            <com.rejuvee.smartelectric.family.common.widget.NoSCrollGridView
                 android:id="@+id/grid_default_pic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -171,7 +171,7 @@
 
         </LinearLayout>
 
-    </com.rejuvee.smartelectric.family.widget.CustomScrollView>
+    </com.rejuvee.smartelectric.family.common.widget.CustomScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"

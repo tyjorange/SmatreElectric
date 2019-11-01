@@ -16,8 +16,8 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.activity.login.LoginActivity;
 import com.rejuvee.smartelectric.family.common.AutoUpgrade;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
+import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTip;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfoRealm;
-import com.rejuvee.smartelectric.family.widget.dialog.DialogTip;
 
 /**
  * APP设置

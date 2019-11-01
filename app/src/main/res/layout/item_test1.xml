@@ -148,7 +148,7 @@
         android:layout_marginEnd="10dp"
         android:background="#E9EAF3" />
 
-    <com.rejuvee.smartelectric.family.widget.ExpandLayout
+    <com.rejuvee.smartelectric.family.common.widget.ExpandLayout
         android:id="@+id/layout_hideArea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -169,7 +169,7 @@
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent" />-->
 
-    </com.rejuvee.smartelectric.family.widget.ExpandLayout>
+    </com.rejuvee.smartelectric.family.common.widget.ExpandLayout>
 
     <LinearLayout
         android:id="@+id/toggle_ll"

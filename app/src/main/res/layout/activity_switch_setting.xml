@@ -123,7 +123,7 @@
     <!--        &lt;!&ndash;            android:layout_height="match_parent"&ndash;&gt;-->
     <!--        &lt;!&ndash;            android:visibility="gone" />&ndash;&gt;-->
 
-    <!--        <com.rejuvee.smartelectric.family.widget.ObservableScrollView-->
+    <!--        <com.rejuvee.smartelectric.family.common.widget.ObservableScrollView-->
     <!--            android:id="@+id/sv_values"-->
     <!--            android:layout_width="0dp"-->
     <!--            android:layout_height="match_parent"-->
@@ -133,9 +133,9 @@
     <!--            android:scrollbars="none"-->
     <!--            tools:ignore="NestedWeights">-->
 
-    <!--        </com.rejuvee.smartelectric.family.widget.ObservableScrollView>-->
+    <!--        </com.rejuvee.smartelectric.family.common.widget.ObservableScrollView>-->
 
-    <!--        <com.rejuvee.smartelectric.family.widget.VerticalSeekBar-->
+    <!--        <com.rejuvee.smartelectric.family.common.widget.VerticalSeekBar-->
     <!--            android:id="@+id/vrsBar"-->
     <!--            android:layout_width="25dp"-->
     <!--            android:layout_height="match_parent"-->

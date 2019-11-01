@@ -10,10 +10,10 @@ import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
-import com.rejuvee.smartelectric.family.custom.AccountEventMsg;
+import com.rejuvee.smartelectric.family.common.custom.AccountEventMsg;
+import com.rejuvee.smartelectric.family.common.widget.ClearEditText;
 import com.rejuvee.smartelectric.family.utils.AccountHelper;
 import com.rejuvee.smartelectric.family.utils.CountDownUtil;
-import com.rejuvee.smartelectric.family.widget.ClearEditText;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

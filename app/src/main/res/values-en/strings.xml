@@ -1,5 +1,5 @@
 <resources>
-    <!--    <string name="app_name">电母</string>-->
+    <string name="eapp_name">DM</string>
     <string name="fun_changjing">Scenes</string>
     <string name="fun_quxian">Curves</string>
     <string name="fun_baobiao">Reports</string>
@@ -41,7 +41,7 @@
     <string name="statistical_8">Reactive power</string>
     <string name="statistical_9">Power factor</string>
     <string name="line_zhaoming">Lighting</string>
-    <string name="line_keting">living room</string>
+    <string name="line_keting">Living room</string>
     <string name="line_zhuwo">Master bedroom</string>
     <string name="line_woshi">Bedroom</string>
     <string name="line_shufang">Study</string>
@@ -87,7 +87,7 @@
         <item>-</item>
     </string-array>
 
-    <string name="week">Week</string>
+    <string name="week">Week:</string>
     <string name="maxelectric">0A</string>
     <string name="choses_device">Smart devices</string>
     <string name="choses_room">Living room</string>
@@ -159,8 +159,8 @@
     <string name="nick_name">Nickname</string>
     <string name="phone_num">Phone number</string>
     <string name="set">Setting</string>
-    <string name="daily_date_format">MM(month)dd(day)</string>
-    <string name="monthly_date_format">yyyy(year)mm(month)</string>
+    <string name="daily_date_format">yyyy-MM-dd</string>
+    <string name="monthly_date_format">yyyy-MM</string>
 
     <string name="sets_devicename">Power box name</string>
     <string name="sets_botelv">Baud rate</string>
@@ -574,10 +574,10 @@
     <string name="vs223">Official account copied</string>
     <string name="vs224">No WeChat found in this device, try after downloading WeChat application</string>
     <string name="vs225">Please bind the your WeChat account in personal settings and get system notification, alarm warning and other information in time.</string>
-    <string name="vs226"> Searching&#8230;&#8230;&#8230;</string>
+    <string name="vs226">Searching&#8230;&#8230;&#8230;</string>
     <string name="vs227">Port No.</string>
     <string name="vs228">Input valid port</string>
-    <string name="vs229"> WIFI SSID</string>
+    <string name="vs229">WIFI SSID</string>
     <string name="vs230">WIFI password</string>
     <string name="vs231">Notice</string>
     <string name="vs232">After confirmation, it will be disconnected from the power box. Please check the WiFi SSID and password.</string>
@@ -603,7 +603,7 @@
     <string name="vs252">Last month</string>
     <string name="vs253">Last 3 months</string>
     <string name="vs254">Last 6 months</string>
-    <string name="vs255">other</string>
+    <string name="vs255">Other</string>
     <string name="vs256">check software version</string>
     <string name="vs257">Update content</string>
     <string name="vs258">About</string>
@@ -613,9 +613,10 @@
     <string name="vs262">Homepage：</string>
     <string name="vs263">WeChat Official account：</string>
     <string name="vs264">Rejuvee Tech</string>
-    <string name="vs265">only repet-timing task can use Reside box</string>
-    <string name="vs266">time interval</string>
-    <string name="vs267">start time</string>
-    <string name="vs268">end time</string>
+    <string name="vs265">Only repet-timing task can use Reside box</string>
+    <string name="vs266">Time interval</string>
+    <string name="vs267">Start time</string>
+    <string name="vs268">End time</string>
     <string name="vs269">yyyy-MM-dd HH:00:00</string>
+    <string name="vs270">Break name/icon</string>
 </resources>

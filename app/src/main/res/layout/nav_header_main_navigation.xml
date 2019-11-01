@@ -18,7 +18,7 @@
     <!--android:contentDescription="@string/nav_header_desc"-->
     <!--app:srcCompat="@mipmap/ic_launcher" />-->
 
-    <com.rejuvee.smartelectric.family.widget.CircleImageView
+    <com.rejuvee.smartelectric.family.common.widget.CircleImageView
         android:id="@+id/user_headimg"
         android:layout_width="66dp"
         android:layout_height="66dp"

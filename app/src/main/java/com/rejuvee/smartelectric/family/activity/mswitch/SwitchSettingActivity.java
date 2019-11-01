@@ -21,6 +21,7 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.BaseFragment;
+import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
 import com.rejuvee.smartelectric.family.fragment.SettingDL1Fragment;
 import com.rejuvee.smartelectric.family.fragment.SettingDL2Fragment;
 import com.rejuvee.smartelectric.family.fragment.SettingDYFragment;
@@ -28,7 +29,6 @@ import com.rejuvee.smartelectric.family.fragment.SettingOtherFragment;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.model.bean.VoltageValue;
-import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

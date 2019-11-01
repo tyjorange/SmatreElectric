@@ -24,7 +24,7 @@ public class AboutActivity extends BaseActivity {
     protected void initView() {
         mContext = this;
         findViewById(R.id.iv_back).setOnClickListener(v -> finish());
-        ((TextView) findViewById(R.id.txt_current_vision)).setText(String.format("当前版本%s", packageCode(mContext)));
+        ((TextView) findViewById(R.id.txt_current_vision)).setText(String.format("%s%s", getString(R.string.vs20), packageCode(mContext)));
     }
 
     private String packageCode(Context context) {

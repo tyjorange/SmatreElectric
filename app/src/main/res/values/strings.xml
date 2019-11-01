@@ -1,5 +1,5 @@
 <resources>
-    <!--    <string name="app_name">电母</string>-->
+    <string name="eapp_name">电母</string>
     <string name="fun_changjing">场景</string>
     <string name="fun_quxian">曲线</string>
     <string name="fun_baobiao">周月报表</string>
@@ -632,4 +632,5 @@
     <string name="vs267">起始时间</string>
     <string name="vs268">结束时间</string>
     <string name="vs269">yyyy年MM月dd日HH时</string>
+    <string name="vs270">线路名称/图片</string>
 </resources>

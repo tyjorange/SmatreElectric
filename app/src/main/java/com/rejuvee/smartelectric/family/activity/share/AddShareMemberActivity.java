@@ -9,7 +9,7 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.PermissionManage;
-import com.rejuvee.smartelectric.family.widget.dialog.WaitDialog;
+import com.rejuvee.smartelectric.family.common.widget.dialog.WaitDialog;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 
 /**

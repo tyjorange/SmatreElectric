@@ -27,10 +27,10 @@ import com.rejuvee.smartelectric.family.activity.web.ChartsActivity;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.CommonRequestCode;
+import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTip;
+import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTipWithoutOkCancel;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.CollectorUpgradeInfo;
-import com.rejuvee.smartelectric.family.widget.dialog.DialogTip;
-import com.rejuvee.smartelectric.family.widget.dialog.DialogTipWithoutOkCancel;
 
 /**
  * 集中器设备详情

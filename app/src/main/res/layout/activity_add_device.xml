@@ -150,7 +150,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="16dp"
-            android:text="线路名称/图片"
+            android:text="@string/vs270"
             android:textColor="@color/text_base_color_333"
             android:textSize="14sp" />
 

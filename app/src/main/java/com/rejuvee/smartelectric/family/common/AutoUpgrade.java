@@ -20,9 +20,9 @@ import androidx.core.content.FileProvider;
 
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
+import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTip;
+import com.rejuvee.smartelectric.family.common.widget.dialog.DownloadProgressDialog;
 import com.rejuvee.smartelectric.family.model.bean.AutoUpgradeEventMessage;
-import com.rejuvee.smartelectric.family.widget.dialog.DialogTip;
-import com.rejuvee.smartelectric.family.widget.dialog.DownloadProgressDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.xml.sax.Attributes;

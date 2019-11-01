@@ -15,9 +15,9 @@ import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
+import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTipWithoutOkCancel;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.CollectorUpgradeInfo;
-import com.rejuvee.smartelectric.family.widget.dialog.DialogTipWithoutOkCancel;
 
 import java.util.ArrayList;
 import java.util.List;

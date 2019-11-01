@@ -201,7 +201,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="@integer/tag_1" />
 
-            <com.rejuvee.smartelectric.family.widget.CustomGridView
+            <com.rejuvee.smartelectric.family.common.widget.CustomGridView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:horizontalSpacing="8dp"

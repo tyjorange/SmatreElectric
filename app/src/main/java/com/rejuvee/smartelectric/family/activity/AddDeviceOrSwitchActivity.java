@@ -15,11 +15,11 @@ import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.CommonRequestCode;
 import com.rejuvee.smartelectric.family.common.PermissionManage;
-import com.rejuvee.smartelectric.family.custom.DeviceEventMsg;
+import com.rejuvee.smartelectric.family.common.custom.DeviceEventMsg;
+import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.utils.AccountHelper;
-import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 

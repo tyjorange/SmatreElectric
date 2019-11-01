@@ -7,9 +7,9 @@ import com.jaygoo.widget.OnRangeChangedListener;
 import com.jaygoo.widget.RangeSeekBar;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.BaseFragment;
-import com.rejuvee.smartelectric.family.custom.AmountView;
+import com.rejuvee.smartelectric.family.common.custom.AmountView;
+import com.rejuvee.smartelectric.family.common.widget.dialog.RadioDialog;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
-import com.rejuvee.smartelectric.family.widget.dialog.RadioDialog;
 
 import java.math.BigDecimal;
 

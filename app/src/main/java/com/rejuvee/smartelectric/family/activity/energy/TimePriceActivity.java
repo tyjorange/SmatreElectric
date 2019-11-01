@@ -18,8 +18,8 @@ import com.rejuvee.smartelectric.family.adapter.ListSetingItem;
 import com.rejuvee.smartelectric.family.adapter.SetingAdapter;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
+import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
 import com.rejuvee.smartelectric.family.model.bean.TimePrice;
-import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

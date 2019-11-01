@@ -14,8 +14,8 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.CommonRequestCode;
+import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
 import com.rejuvee.smartelectric.family.model.bean.ChartListItemBean;
-import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
 import java.util.ArrayList;
 import java.util.List;

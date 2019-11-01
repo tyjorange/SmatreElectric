@@ -97,7 +97,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <com.rejuvee.smartelectric.family.widget.CustomGridViewWithSplitLine
+                <com.rejuvee.smartelectric.family.common.widget.CustomGridViewWithSplitLine
                     android:id="@+id/grid_device"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

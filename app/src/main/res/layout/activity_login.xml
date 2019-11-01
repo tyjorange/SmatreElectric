@@ -72,7 +72,7 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/yonghu" />
 
-            <com.rejuvee.smartelectric.family.widget.ClearEditText
+            <com.rejuvee.smartelectric.family.common.widget.ClearEditText
                 android:id="@+id/login_cet_username"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -86,7 +86,7 @@
                 android:textColorHint="@color/text_content"
                 android:textSize="14sp" />
 
-            <com.rejuvee.smartelectric.family.widget.CheckableImageView
+            <com.rejuvee.smartelectric.family.common.widget.CheckableImageView
                 android:layout_width="1dp"
                 android:layout_height="1dp"
                 android:layout_marginStart="8dp"
@@ -117,7 +117,7 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/mima" />
 
-            <com.rejuvee.smartelectric.family.widget.ClearEditText
+            <com.rejuvee.smartelectric.family.common.widget.ClearEditText
                 android:id="@+id/login_cet_password"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -132,7 +132,7 @@
                 android:textColorHint="@color/text_content"
                 android:textSize="14sp" />
 
-            <com.rejuvee.smartelectric.family.widget.CheckableImageView
+            <com.rejuvee.smartelectric.family.common.widget.CheckableImageView
                 android:id="@+id/login_civ_eye"
                 android:layout_width="21dp"
                 android:layout_height="21dp"

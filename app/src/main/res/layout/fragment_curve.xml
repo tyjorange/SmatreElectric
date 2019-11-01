@@ -15,7 +15,7 @@
         android:textColor="@color/homepage_gray"
         android:textSize="14sp" />
 
-    <com.rejuvee.smartelectric.family.widget.MonitorDataChartView
+    <com.rejuvee.smartelectric.family.common.widget.MonitorDataChartView
         android:id="@+id/mdcv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

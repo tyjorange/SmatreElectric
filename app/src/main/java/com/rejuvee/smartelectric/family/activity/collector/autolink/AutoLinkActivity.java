@@ -17,9 +17,9 @@ import android.widget.TextView;
 import com.base.library.widget.CustomToast;
 import com.base.library.widget.SuperTextView;
 import com.rejuvee.smartelectric.family.R;
+import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTip;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.utils.WifiUtil;
-import com.rejuvee.smartelectric.family.widget.dialog.DialogTip;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

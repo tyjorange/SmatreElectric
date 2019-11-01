@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context="com.rejuvee.smartelectric.family.fragment.SettingDYFragment">
 
-    <com.rejuvee.smartelectric.family.widget.ObservableScrollView
+    <com.rejuvee.smartelectric.family.common.widget.ObservableScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingStart="0dp"
@@ -43,7 +43,7 @@
                         android:textColor="@color/black"
                         android:textSize="12sp" />
 
-                    <com.rejuvee.smartelectric.family.custom.AmountView
+                    <com.rejuvee.smartelectric.family.common.custom.AmountView
                         android:id="@+id/amount_view_gy"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
@@ -99,7 +99,7 @@
                         android:textColor="@color/black"
                         android:textSize="12sp" />
 
-                    <com.rejuvee.smartelectric.family.custom.AmountView
+                    <com.rejuvee.smartelectric.family.common.custom.AmountView
                         android:id="@+id/amount_view_qy"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
@@ -131,5 +131,5 @@
 
             </LinearLayout>
         </LinearLayout>
-    </com.rejuvee.smartelectric.family.widget.ObservableScrollView>
+    </com.rejuvee.smartelectric.family.common.widget.ObservableScrollView>
 </FrameLayout>

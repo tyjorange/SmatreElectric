@@ -13,7 +13,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.base.frame.greenandroid.wheel.view.WheelDateTime;
 import com.base.frame.net.ActionCallbackListener;
-import com.base.library.utils.LanguageUtil;
 import com.base.library.widget.CustomToast;
 import com.google.android.material.tabs.TabLayout;
 import com.rejuvee.smartelectric.family.R;
@@ -22,11 +21,11 @@ import com.rejuvee.smartelectric.family.activity.mswitch.SwitchTreeDialog;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.CommonRequestCode;
+import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
 import com.rejuvee.smartelectric.family.fragment.CurveFragment;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SignalType;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
-import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -461,17 +460,17 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
         calendar.set(Calendar.YEAR, iyear);
         calendar.set(Calendar.DATE, iday);
         SimpleDateFormat dateFormat;
-        Locale locale = Locale.getDefault();
-        if (LanguageUtil.getLangType(this) == 1) {
-            locale = Locale.ENGLISH;
-        }
+//        Locale locale = Locale.getDefault();
+//        if (LanguageUtil.getLangType(this) == 1) {
+//            locale = Locale.ENGLISH;
+//        }
         String date;
         if (isDay) {
-            dateFormat = new SimpleDateFormat(getString(R.string.daily_date_format), locale);
+            dateFormat = new SimpleDateFormat(getString(R.string.daily_date_format), Locale.getDefault());
             date = dateFormat.format(calendar.getTime());
             //date = imonth + getResources().getString(DATE_UNITS[1]) + iday + getResources().getString(DATE_UNITS[2]);
         } else {
-            dateFormat = new SimpleDateFormat(getString(R.string.monthly_date_format), locale);
+            dateFormat = new SimpleDateFormat(getString(R.string.monthly_date_format), Locale.getDefault());
             date = dateFormat.format(calendar.getTime());
             //date = iyear + getResources().getString(DATE_UNITS[0]) + imonth + getResources().getString(DATE_UNITS[1]);
         }

@@ -4,8 +4,8 @@ import android.os.Message;
 import android.view.View;
 import android.widget.SeekBar;
 
-import com.rejuvee.smartelectric.family.custom.LastMsgHandler;
-import com.rejuvee.smartelectric.family.widget.ObservableScrollView;
+import com.rejuvee.smartelectric.family.common.custom.LastMsgHandler;
+import com.rejuvee.smartelectric.family.common.widget.ObservableScrollView;
 
 /**
  * 滚动界面滚动条双向绑定

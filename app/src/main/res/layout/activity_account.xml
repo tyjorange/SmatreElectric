@@ -88,7 +88,7 @@
 
                                 android:textSize="@dimen/size_content" />
 
-                            <com.rejuvee.smartelectric.family.widget.ClearEditText
+                            <com.rejuvee.smartelectric.family.common.widget.ClearEditText
                                 android:id="@+id/edit_name"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -153,7 +153,7 @@
 
                                 android:textSize="@dimen/size_content" />
 
-                            <com.rejuvee.smartelectric.family.widget.ClearEditText
+                            <com.rejuvee.smartelectric.family.common.widget.ClearEditText
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -219,7 +219,7 @@
 
                                 android:textSize="@dimen/size_content" />
 
-                            <com.rejuvee.smartelectric.family.widget.ClearEditText
+                            <com.rejuvee.smartelectric.family.common.widget.ClearEditText
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -283,7 +283,7 @@
 
                                 android:textSize="@dimen/size_content" />
 
-                            <com.rejuvee.smartelectric.family.widget.ClearEditText
+                            <com.rejuvee.smartelectric.family.common.widget.ClearEditText
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -351,7 +351,7 @@
                             android:textColor="@color/text_content"
                             android:textSize="@dimen/size_content" />
 
-                        <com.rejuvee.smartelectric.family.widget.ClearEditText
+                        <com.rejuvee.smartelectric.family.common.widget.ClearEditText
                             android:id="@+id/edit_imei"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -424,7 +424,7 @@
                             android:textColor="@color/text_content"
                             android:textSize="@dimen/size_content" />
 
-                        <com.rejuvee.smartelectric.family.widget.ClearEditText
+                        <com.rejuvee.smartelectric.family.common.widget.ClearEditText
                             android:id="@+id/edit_phone"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -496,7 +496,7 @@
 
                             android:textSize="@dimen/size_content" />
 
-                        <com.rejuvee.smartelectric.family.widget.ClearEditText
+                        <com.rejuvee.smartelectric.family.common.widget.ClearEditText
                             android:id="@+id/edit_phone_new"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -569,7 +569,7 @@
                             android:textColor="@color/text_content"
                             android:textSize="@dimen/size_content" />
 
-                        <com.rejuvee.smartelectric.family.widget.ClearEditText
+                        <com.rejuvee.smartelectric.family.common.widget.ClearEditText
                             android:id="@+id/edit_code"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -654,7 +654,7 @@
                             android:textColor="@color/text_content"
                             android:textSize="@dimen/size_content" />
 
-                        <com.rejuvee.smartelectric.family.widget.ClearEditText
+                        <com.rejuvee.smartelectric.family.common.widget.ClearEditText
                             android:id="@+id/edit_org_pwd"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -725,7 +725,7 @@
                             android:textColor="@color/text_content"
                             android:textSize="@dimen/size_content" />
 
-                        <com.rejuvee.smartelectric.family.widget.ClearEditText
+                        <com.rejuvee.smartelectric.family.common.widget.ClearEditText
                             android:id="@+id/edit_pwd"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -797,7 +797,7 @@
 
                             android:textSize="@dimen/size_content" />
 
-                        <com.rejuvee.smartelectric.family.widget.ClearEditText
+                        <com.rejuvee.smartelectric.family.common.widget.ClearEditText
                             android:id="@+id/edit_repwd"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"

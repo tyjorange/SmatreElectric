@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context="com.rejuvee.smartelectric.family.fragment.SettingDL2Fragment">
 
-    <com.rejuvee.smartelectric.family.widget.ObservableScrollView
+    <com.rejuvee.smartelectric.family.common.widget.ObservableScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingStart="0dp"
@@ -83,5 +83,5 @@
             </LinearLayout>
 
         </LinearLayout>
-    </com.rejuvee.smartelectric.family.widget.ObservableScrollView>
+    </com.rejuvee.smartelectric.family.common.widget.ObservableScrollView>
 </FrameLayout>

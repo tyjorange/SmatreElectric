@@ -20,15 +20,15 @@
 
         <TextView
             android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:gravity="center"
             android:text="aa"
             android:textSize="12sp"
             tools:ignore="SmallSp" />
 
     </LinearLayout>
-
 
     <ImageView
         android:id="@+id/img_chose"

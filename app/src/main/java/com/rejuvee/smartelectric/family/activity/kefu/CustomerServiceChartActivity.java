@@ -15,9 +15,9 @@ import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
+import com.rejuvee.smartelectric.family.common.widget.ClearEditText;
 import com.rejuvee.smartelectric.family.model.bean.ChartItemBean;
 import com.rejuvee.smartelectric.family.model.bean.ChartListItemBean;
-import com.rejuvee.smartelectric.family.widget.ClearEditText;
 
 import java.util.ArrayList;
 import java.util.List;

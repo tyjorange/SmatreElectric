@@ -9,8 +9,8 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.adapter.LineAlarmAdapter;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseFragment;
+import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
 import com.rejuvee.smartelectric.family.model.bean.RecordBean;
-import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;

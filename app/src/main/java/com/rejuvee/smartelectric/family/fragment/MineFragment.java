@@ -22,11 +22,11 @@ import com.rejuvee.smartelectric.family.activity.mine.ThridBindActivity;
 import com.rejuvee.smartelectric.family.activity.mine.ThridPushActivity;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.CommonRequestCode;
+import com.rejuvee.smartelectric.family.common.widget.PopwindowQCode;
 import com.rejuvee.smartelectric.family.model.bean.UserMsg;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfo;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfoRealm;
 import com.rejuvee.smartelectric.family.utils.utils;
-import com.rejuvee.smartelectric.family.widget.PopwindowQCode;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;

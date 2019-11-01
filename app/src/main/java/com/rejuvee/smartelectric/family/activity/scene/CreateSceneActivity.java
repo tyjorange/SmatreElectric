@@ -19,10 +19,10 @@ import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.CommonRequestCode;
 import com.rejuvee.smartelectric.family.common.NativeLine;
+import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTip;
 import com.rejuvee.smartelectric.family.model.bean.SceneBean;
 import com.rejuvee.smartelectric.family.model.bean.SceneItemBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchInfoBean;
-import com.rejuvee.smartelectric.family.widget.dialog.DialogTip;
 
 import org.json.JSONArray;
 import org.json.JSONException;

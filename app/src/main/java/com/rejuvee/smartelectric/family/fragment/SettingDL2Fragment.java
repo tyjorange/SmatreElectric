@@ -7,7 +7,7 @@ import android.widget.EditText;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.BaseFragment;
-import com.rejuvee.smartelectric.family.custom.MyTextWatcher;
+import com.rejuvee.smartelectric.family.common.custom.MyTextWatcher;
 
 import java.text.DecimalFormat;
 

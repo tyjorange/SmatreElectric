@@ -6,7 +6,7 @@ import com.jaygoo.widget.OnRangeChangedListener;
 import com.jaygoo.widget.RangeSeekBar;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.BaseFragment;
-import com.rejuvee.smartelectric.family.custom.AmountView;
+import com.rejuvee.smartelectric.family.common.custom.AmountView;
 
 import java.math.BigDecimal;
 

@@ -14,11 +14,11 @@ import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
+import com.rejuvee.smartelectric.family.common.widget.ClearEditText;
+import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfo;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfoRealm;
 import com.rejuvee.smartelectric.family.utils.utils;
-import com.rejuvee.smartelectric.family.widget.ClearEditText;
-import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
 import java.lang.ref.WeakReference;
 import java.util.List;

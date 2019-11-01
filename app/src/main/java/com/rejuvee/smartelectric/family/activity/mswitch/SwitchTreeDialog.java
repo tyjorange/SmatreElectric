@@ -22,11 +22,11 @@ import com.base.library.widget.CustomToast;
 import com.base.library.widget.SuperTextView;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
-import com.rejuvee.smartelectric.family.custom.MyNodeViewHolder;
+import com.rejuvee.smartelectric.family.common.custom.MyNodeViewHolder;
+import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.CollectorState;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
-import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 import com.unnamed.b.atv.model.TreeNode;
 import com.unnamed.b.atv.view.AndroidTreeView;
 

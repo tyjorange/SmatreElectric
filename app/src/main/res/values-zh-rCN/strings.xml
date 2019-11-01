@@ -1,5 +1,5 @@
 <resources>
-    <!--    <string name="app_name">电母</string>-->
+    <string name="eapp_name">电母</string>
     <string name="fun_changjing">场景</string>
     <string name="fun_quxian">曲线</string>
     <string name="fun_baobiao">周月报表</string>
@@ -163,7 +163,7 @@
     <string name="nick_name">昵称</string>
     <string name="phone_num">手机号码</string>
     <string name="set">设置</string>
-    <string name="daily_date_format">MM月dd日</string>
+    <string name="daily_date_format">yyyy年MM月dd日</string>
     <string name="monthly_date_format">yyyy年MM月</string>
 
     <string name="sets_devicename">电箱名称</string>
@@ -629,4 +629,5 @@
     <string name="vs267">起始时间</string>
     <string name="vs268">结束时间</string>
     <string name="vs269">yyyy年MM月dd日HH时</string>
+    <string name="vs270">线路名称/图片</string>
 </resources>

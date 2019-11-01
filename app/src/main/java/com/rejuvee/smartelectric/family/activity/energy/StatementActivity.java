@@ -17,9 +17,9 @@ import com.rejuvee.smartelectric.family.adapter.SimpleTreeAdapter;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.NativeLine;
+import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchStatementBean;
-import com.rejuvee.smartelectric.family.widget.dialog.LoadingDlg;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
