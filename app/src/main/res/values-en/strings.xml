@@ -46,7 +46,7 @@
     <string name="line_woshi">Bedroom</string>
     <string name="line_shufang">Study</string>
     <string name="line_diannao">Computer</string>
-    <string name="line_chufang"> Kitchen</string>
+    <string name="line_chufang">Kitchen</string>
     <string name="line_weishengjian">Bathroom</string>
     <string name="line_kongtiao">Air-conditioner</string>
     <string name="line_chazuo">Power Socket</string>
@@ -155,7 +155,7 @@
     <string name="mine_unbound">Unrelate</string>
     <string name="mine_isbound">Related</string>
     <string name="frequency">Frequency</string>
-    <string name="personalcenter"> My account</string>
+    <string name="personalcenter">My account</string>
     <string name="nick_name">Nickname</string>
     <string name="phone_num">Phone number</string>
     <string name="set">Setting</string>
@@ -185,7 +185,7 @@
     <string name="mark_regetcode">Resend</string>
     <string name="forgetpwd_success">Reset complete</string>
     <string name="forgetpwd_fail">Reset fail, input correct information</string>
-    <string name="resend_time"> Resend after %1$ds seconds</string>
+    <string name="resend_time">Resend after %1$ds seconds</string>
     <string name="phone_registed">This phone number has been registered</string>
     <string name="phone_unregist">This phone number has not been registered</string>
     <string name="hint_phone">Enter your phone number</string>
@@ -234,7 +234,7 @@
     <string name="scene_excute_sucess">Command sent, refresh to check result</string>
     <string name="timetask_once">Single timed</string>
     <string name="ple_select_line">Choose one breaker</string>
-    <string name="line_select">breaker select</string>
+    <string name="line_select">Breaker select</string>
     <string name="remote_control">Remote control</string>
     <string name="energy_saving_info">Energy-Saving information</string>
     <string name="off_line">Offline</string>
@@ -261,7 +261,7 @@
         <item>Switch on by remote-control</item>
         <item>Switch off due to over-leakage-current</item>
         <item>Switched off due to over-temperature</item>
-        <item> Switch off due to leakage-self-test</item>
+        <item>Switch off due to leakage-self-test</item>
         <item>Upper level protection switched on</item>
         <item>Upper level protection switched off</item>
         <item>Switched on by local-timing-control</item>
@@ -495,8 +495,8 @@
     <string name="vs144">Add fail</string>
     <string name="vs145">Edit breaker name</string>
     <string name="vs146">Enter 6-12 digit password</string>
-    <string name="vs147">open control permission</string>
-    <string name="vs148">close control permission</string>
+    <string name="vs147">Open control permission</string>
+    <string name="vs148">Close control permission</string>
     <string name="vs149">Edit scene</string>
     <string name="vs150">Remove this breaker?</string>
     <string name="vs151">Set electricity quantity</string>
@@ -604,7 +604,7 @@
     <string name="vs253">Last 3 months</string>
     <string name="vs254">Last 6 months</string>
     <string name="vs255">Other</string>
-    <string name="vs256">check software version</string>
+    <string name="vs256">Check software version</string>
     <string name="vs257">Update content</string>
     <string name="vs258">About</string>
     <string name="vs259">Version：</string>
