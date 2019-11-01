@@ -35,8 +35,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:label">
-        <activity android:name=".activity.login.PrivacyActivity"></activity>
-        <activity android:name=".activity.web.ChartsActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -297,6 +295,12 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.collector.autolink.SsidListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.login.PrivacyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.web.ChartsActivity"
             android:screenOrientation="portrait" />
     </application>
 
