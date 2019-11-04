@@ -81,7 +81,7 @@ public class CustomerServiceActivity extends BaseActivity {
 
             @Override
             public void onFailure(int errorEvent, String message) {
-                CustomToast.showCustomErrorToast(CustomerServiceActivity.this, getString(R.string.operator_failure));
+                CustomToast.showCustomErrorToast(CustomerServiceActivity.this, message);
                 loadingDlg.dismiss();
             }
         });

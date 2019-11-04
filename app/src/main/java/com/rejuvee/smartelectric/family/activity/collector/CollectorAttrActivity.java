@@ -23,6 +23,7 @@ import java.util.Locale;
  * Created by Administrator on 2018/1/2.
  */
 public class CollectorAttrActivity extends BaseActivity implements View.OnClickListener {
+    private String TAG = "CollectorAttrActivity";
     private TextView text_devicename;
     private TextView text_botelv;
     private TextView text_caijilv;
@@ -115,7 +116,7 @@ public class CollectorAttrActivity extends BaseActivity implements View.OnClickL
 
             @Override
             public void onFailure(int errorEvent, String message) {
-
+                Log.e(TAG, message);
             }
         });
     }
@@ -189,7 +190,7 @@ public class CollectorAttrActivity extends BaseActivity implements View.OnClickL
 
                     @Override
                     public void onFailure(int errorEvent, String message) {
-                        CustomToast.showCustomErrorToast(CollectorAttrActivity.this, getString(R.string.operator_failure));
+                        CustomToast.showCustomErrorToast(CollectorAttrActivity.this, message);
                         loadingDlg.dismiss();
                     }
                 });

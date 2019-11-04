@@ -128,6 +128,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
                     @Override
                     public void onFailure(int errorEvent, String message) {
+                        Log.e(TAG, message);
                         postWXLoginEvent(null);
                     }
                 }

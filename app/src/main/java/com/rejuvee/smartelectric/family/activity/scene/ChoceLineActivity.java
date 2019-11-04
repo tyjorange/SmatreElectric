@@ -158,7 +158,7 @@ public class ChoceLineActivity extends BaseActivity implements View.OnClickListe
 
             @Override
             public void onFailure(int errorEvent, String message) {
-
+                Log.e(TAG, message);
             }
         });
     }

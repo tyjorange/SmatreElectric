@@ -104,7 +104,7 @@ public class AddShareMemberActivity extends BaseActivity {
 
             @Override
             public void onFailure(int errorEvent, String message) {
-                CustomToast.showCustomErrorToast(AddShareMemberActivity.this, getString(R.string.op_fail));
+                CustomToast.showCustomErrorToast(AddShareMemberActivity.this, message);
                 mWaitDialog.dismiss();
             }
         });

@@ -1,6 +1,7 @@
 package com.rejuvee.smartelectric.family.activity.share;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -26,6 +27,7 @@ import java.util.List;
  * 我的分享
  */
 public class ShareListActivity extends BaseActivity {
+    private String TAG = "ShareListActivity";
     private List<UserMsg> listShareUsers = new ArrayList<>();
     private List<ListSetingItem> mListData = new ArrayList<>();
     private UserMsg currentUser;
@@ -151,6 +153,7 @@ public class ShareListActivity extends BaseActivity {
 
             @Override
             public void onFailure(int errorEvent, String message) {
+                Log.e(TAG, message);
                 refreshLayout.setRefreshing(false);
                 waitDialog.dismiss();
             }
@@ -186,7 +189,7 @@ public class ShareListActivity extends BaseActivity {
             @Override
             public void onFailure(int errorEvent, String message) {
                 waitDialog.dismiss();
-                CustomToast.showCustomErrorToast(ShareListActivity.this, getString(R.string.op_fail));
+                CustomToast.showCustomErrorToast(ShareListActivity.this, message);
             }
         });
 
@@ -257,7 +260,7 @@ public class ShareListActivity extends BaseActivity {
 
             @Override
             public void onFailure(int errorEvent, String message) {
-                CustomToast.showCustomErrorToast(ShareListActivity.this, getString(R.string.op_fail));
+                CustomToast.showCustomErrorToast(ShareListActivity.this, message);
                 waitDialog.dismiss();
             }
         });

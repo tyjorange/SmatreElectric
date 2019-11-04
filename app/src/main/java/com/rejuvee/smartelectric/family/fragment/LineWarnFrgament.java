@@ -1,6 +1,7 @@
 package com.rejuvee.smartelectric.family.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -20,6 +21,7 @@ import java.util.List;
  * 预警记录
  */
 public class LineWarnFrgament extends BaseFragment {
+    private String TAG = "LineWarnFrgament";
     private LineWarnAdapter mAdapter;
     private List<WarnBean> mListData = new ArrayList<>();
     private SmartRefreshLayout smartRefreshLayout;
@@ -87,6 +89,7 @@ public class LineWarnFrgament extends BaseFragment {
 
             @Override
             public void onFailure(int errorEvent, String message) {
+                Log.e(TAG, message);
                 smartRefreshLayout.finishLoadMore();
                 smartRefreshLayout.finishRefresh();
                 loadingDlg.dismiss();

@@ -120,7 +120,7 @@ public class RegisterActivity extends BaseActivity {
                 } else if (errorEvent == 8) {//已注册
                     CustomToast.showCustomErrorToast(RegisterActivity.this, getString(R.string.phone_registed));
                 } else {
-                    CustomToast.showCustomErrorToast(RegisterActivity.this, getString(R.string.operator_failure));
+                    CustomToast.showCustomErrorToast(RegisterActivity.this, message);
                 }
             }
         });

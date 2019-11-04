@@ -110,7 +110,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                         break;
                     case 2:
                         selectType = 2;
-                        changeTextViewSS();
+                        changeTextViewSS(0);
                         changeTextViewEE();
                         getBreakerStatement();
                         findViewById(R.id.hour_hour).setVisibility(View.VISIBLE);
@@ -183,7 +183,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                     imonth = Integer.parseInt(month);
                     iday = Integer.parseInt(day);
                     ihour = Integer.parseInt(hour);
-                    changeTextViewSS();
+                    changeTextViewSS(-1);
                     getBreakerStatement();
                 }, true,
                 new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date()),
@@ -285,14 +285,15 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
 
     /**
      * 按时段
+     * 起始时间设为前移fix月
      */
-    private void changeTextViewSS() {
+    private void changeTextViewSS(int fix) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.MONTH, imonth - 1);
         calendar.set(Calendar.YEAR, iyear);
         calendar.set(Calendar.DATE, iday);
         calendar.set(Calendar.HOUR_OF_DAY, ihour);
-        calendar.add(Calendar.MONTH, -1);// 起始时间设为上个月
+        calendar.add(Calendar.MONTH, -fix);// 起始时间设为前移fix月
         // 改变显示
         SimpleDateFormat dateFormat = new SimpleDateFormat(getString(R.string.vs269), Locale.getDefault());
         String date = dateFormat.format(calendar.getTime());

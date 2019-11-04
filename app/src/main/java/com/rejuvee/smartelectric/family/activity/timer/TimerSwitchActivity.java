@@ -1,6 +1,7 @@
 package com.rejuvee.smartelectric.family.activity.timer;
 
 import android.content.Intent;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -84,6 +85,7 @@ public class TimerSwitchActivity extends BaseActivity implements ListTimerSwitch
 
             @Override
             public void onFailure(int errorEvent, String message) {
+                Log.e(TAG, message);
                 mWaitDialog.dismiss();
             }
         });

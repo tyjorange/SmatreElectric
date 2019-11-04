@@ -65,7 +65,7 @@ public class AddTopicActivity extends BaseActivity {
 
             @Override
             public void onFailure(int errorEvent, String message) {
-                CustomToast.showCustomErrorToast(AddTopicActivity.this, getString(R.string.operator_failure));
+                CustomToast.showCustomErrorToast(AddTopicActivity.this, message);
             }
         });
     }

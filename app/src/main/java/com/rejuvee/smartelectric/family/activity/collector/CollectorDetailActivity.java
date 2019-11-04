@@ -304,7 +304,7 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
 
                     @Override
                     public void onFailure(int errorEvent, String message) {
-                        Log.w(TAG, message);
+                        Log.e(TAG, message);
                     }
                 });
     }

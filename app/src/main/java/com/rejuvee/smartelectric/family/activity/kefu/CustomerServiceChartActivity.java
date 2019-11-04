@@ -3,6 +3,7 @@ package com.rejuvee.smartelectric.family.activity.kefu;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -26,6 +27,7 @@ import java.util.List;
  * 客服聊天
  */
 public class CustomerServiceChartActivity extends BaseActivity {
+    private String TAG = "CustomerServiceChartActivity";
     private Context mContext;
     private List<ChartItemBean> mList = new ArrayList<>();
     private ChartItemBeanAdapter adapter;
@@ -77,7 +79,7 @@ public class CustomerServiceChartActivity extends BaseActivity {
 
             @Override
             public void onFailure(int errorEvent, String message) {
-
+                Log.e(TAG, message);
             }
         });
     }

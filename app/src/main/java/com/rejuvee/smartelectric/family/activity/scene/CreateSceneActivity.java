@@ -203,7 +203,7 @@ public class CreateSceneActivity extends BaseActivity implements View.OnClickLis
 
             @Override
             public void onFailure(int errorEvent, String message) {
-                Toast.makeText(CreateSceneActivity.this, R.string.operator_failure + message, Toast.LENGTH_LONG).show();
+                Toast.makeText(CreateSceneActivity.this, message, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -239,6 +239,7 @@ public class CreateSceneActivity extends BaseActivity implements View.OnClickLis
 
             @Override
             public void onFailure(int errorEvent, String message) {
+                Log.e(TAG, message);
             }
         });
     }

@@ -273,7 +273,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 @Override
                 public void onFailure(int errorEvent, String message) {
                     mWaitDialog.dismiss();
-                    CustomToast.showCustomErrorToast(LoginActivity.this, getString(R.string.login_fail));
+                    CustomToast.showCustomErrorToast(LoginActivity.this, message);
                 }
             });
         }

@@ -278,12 +278,6 @@ public class YaoKongDetailActivity extends BaseActivity {
 
             @Override
             public void onFailure(int errorEvent, String message) {
-//                String messageTip = "";
-//                if (errorEvent == 12) {
-//                    messageTip = getString(R.string.local_error_message_no_data);
-//                } else {
-//                    messageTip = getString(R.string.operator_failure);
-//                }
                 if (errorEvent == 12) {
                     CustomToast.showCustomErrorToast(YaoKongDetailActivity.this, getString(R.string.vs29));
                 } else {
@@ -292,7 +286,6 @@ public class YaoKongDetailActivity extends BaseActivity {
                 // 显示空提示界面
 //                findViewById(R.id.ll_empty_layout).setVisibility(View.VISIBLE);
 //                linearLayout.setVisibility(View.GONE);
-
                 mWaitDialog.dismiss();
 //                refreshLayout.setRefreshing(false);
             }
@@ -444,7 +437,6 @@ public class YaoKongDetailActivity extends BaseActivity {
                 CustomToast.showCustomErrorToast(YaoKongDetailActivity.this, message);
                 if (currentSearchCount >= MAX_REQUEST_COUNT) {
                     currentSearchCount = 0;
-//                    CustomToast.showCustomToast(SwitchTreeActivity.this, getString(R.string.op_fail));
                     SnackbarMessageShow.getInstance().showError(lvProduct, getString(R.string.vs156));
                     mWaitDialog.dismiss();
                 } else {

@@ -116,6 +116,7 @@ public class MineFragment extends AbstractBaseFragment implements View.OnClickLi
 
             @Override
             public void onFailure(int errorEvent, String message) {
+                Log.e(TAG, message);
                 ivHead.setImageResource(R.drawable.icon_user_default);
             }
         });

@@ -227,7 +227,7 @@ public class SwitchSettingActivity extends BaseActivity implements
 
             @Override
             public void onFailure(int errorEvent, String message) {
-                Log.e(TAG, getString(R.string.vs152));
+                Log.e(TAG, message);
                 waitDialog.dismiss();
                 CustomToast.showCustomErrorToast(mContext, message);
 //                scrollView.setVisibility(View.INVISIBLE);
@@ -322,12 +322,13 @@ public class SwitchSettingActivity extends BaseActivity implements
 
             @Override
             public void onFailure(int errorEvent, String message) {
+                Log.e(TAG, message);
 //                CustomToast.showCustomErrorToast(mContext, message); // 无结果
 //                        scrollView.setVisibility(View.INVISIBLE);
 //                        superTextView.setVisibility(View.INVISIBLE);
 //                        empty_layout.setVisibility(View.VISIBLE);
-                setDefaultValue();
 //                curentSwitchHaveValue = false;
+                setDefaultValue();
                 waitDialog.dismiss();
             }
         });

@@ -156,6 +156,7 @@ public class PerInfoActivity extends BaseActivity implements View.OnClickListene
 
             @Override
             public void onFailure(int errorEvent, String message) {
+                Log.e(TAG, message);
                 img_head.setImageResource(R.drawable.icon_user_default);
             }
         });

@@ -219,7 +219,6 @@ public class CollectorAttrSetActivity extends BaseActivity implements View.OnCli
             @Override
             public void onFailure(int errorEvent, String message) {
                 Toast.makeText(CollectorAttrSetActivity.this, R.string.modify_fail + message, Toast.LENGTH_LONG).show();
-
             }
         });
     }

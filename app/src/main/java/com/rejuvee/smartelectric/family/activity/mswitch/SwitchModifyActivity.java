@@ -261,7 +261,7 @@ public class SwitchModifyActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(int errorEvent, String message) {
-                        CustomToast.showCustomErrorToast(SwitchModifyActivity.this, getString(R.string.operator_failure));
+                        CustomToast.showCustomErrorToast(SwitchModifyActivity.this, message);
                     }
                 });
 

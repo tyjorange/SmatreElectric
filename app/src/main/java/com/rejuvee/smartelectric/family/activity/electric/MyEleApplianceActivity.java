@@ -124,6 +124,7 @@ public class MyEleApplianceActivity extends BaseActivity implements Eleappliance
 
             @Override
             public void onFailure(int errorEvent, String message) {
+                Log.e(TAG, message);
 //                postResult(DeviceEventMsg.EVENT_DELET_ELES, null, message, false);
                 CustomToast.showCustomErrorToast(MyEleApplianceActivity.this, message);
                 mWaitDialog.dismiss();

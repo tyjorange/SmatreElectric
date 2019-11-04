@@ -445,7 +445,7 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
 
                             @Override
                             public void onFailure(int errorEvent, String message) {
-                                CustomToast.showCustomErrorToast(AccountBaseActivity.this, getString(R.string.op_fail));
+                                CustomToast.showCustomErrorToast(AccountBaseActivity.this, message);
                             }
                         });
                     }

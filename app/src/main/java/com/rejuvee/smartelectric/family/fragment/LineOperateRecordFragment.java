@@ -2,6 +2,7 @@ package com.rejuvee.smartelectric.family.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -21,6 +22,7 @@ import java.util.List;
  * 操作记录
  */
 public class LineOperateRecordFragment extends BaseFragment {
+    private String TAG = "LineOperateRecordFragment";
     private LineOperateRecordAdapter mAdapter;
     private List<RecordBean> mListData = new ArrayList<>();
     private SmartRefreshLayout smartRefreshLayout;
@@ -93,6 +95,7 @@ public class LineOperateRecordFragment extends BaseFragment {
 
             @Override
             public void onFailure(int errorEvent, String message) {
+                Log.e(TAG, message);
                 smartRefreshLayout.finishLoadMore();
                 smartRefreshLayout.finishRefresh();
             }

@@ -134,6 +134,7 @@ public class TimerActivity extends BaseActivity implements View.OnClickListener,
 
                     @Override
                     public void onFailure(int errorEvent, String message) {
+                        Log.e(TAG, message);
                         task.enable = !enable ? 1 : 0;
                         mListTimerAdapter.notifyDataSetChanged();
                     }
