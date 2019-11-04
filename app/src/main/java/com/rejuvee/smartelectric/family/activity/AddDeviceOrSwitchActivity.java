@@ -151,7 +151,7 @@ public class AddDeviceOrSwitchActivity extends BaseActivity {
 
             @Override
             public void onFailure(int errorEvent, String message) {
-                CustomToast.showCustomErrorToast(AddDeviceOrSwitchActivity.this, getString(R.string.operator_failure)+message);
+                CustomToast.showCustomErrorToast(AddDeviceOrSwitchActivity.this, message);
                 mWaitDialog.dismiss();
             }
         });
@@ -192,7 +192,7 @@ public class AddDeviceOrSwitchActivity extends BaseActivity {
             @Override
             public void onFailure(int errorEvent, String message) {
                 mWaitDialog.dismiss();
-                CustomToast.showCustomErrorToast(AddDeviceOrSwitchActivity.this, getString(R.string.operator_failure)+message);
+                CustomToast.showCustomErrorToast(AddDeviceOrSwitchActivity.this, message);
             }
         });
     }

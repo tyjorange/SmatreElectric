@@ -234,7 +234,7 @@ public class TimePriceActivity extends BaseActivity {
             @Override
             public void onFailure(int errorEvent, String message) {
                 mWaitDialog.dismiss();
-                CustomToast.showCustomErrorToast(TimePriceActivity.this, getString(R.string.operator_failure) + message);
+                CustomToast.showCustomErrorToast(TimePriceActivity.this, message);
             }
         });
     }

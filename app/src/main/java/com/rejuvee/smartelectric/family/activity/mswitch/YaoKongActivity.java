@@ -138,12 +138,6 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
 
             @Override
             public void onFailure(int errorEvent, String message) {
-//                String messageTip = "";
-//                if (errorEvent == 12) {
-//                    messageTip = getString(R.string.local_error_message_no_data);
-//                } else {
-//                    messageTip = getString(R.string.operator_failure);
-//                }
                 if (errorEvent == 12) {
                     CustomToast.showCustomErrorToast(YaoKongActivity.this, getString(R.string.vs29));
                 } else {
@@ -152,7 +146,6 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
                 // 显示空提示界面
 //                findViewById(R.id.ll_empty_layout).setVisibility(View.VISIBLE);
 //                linearLayout.setVisibility(View.GONE);
-
                 waitDialog.dismiss();
 //                refreshLayout.setRefreshing(false);
             }
