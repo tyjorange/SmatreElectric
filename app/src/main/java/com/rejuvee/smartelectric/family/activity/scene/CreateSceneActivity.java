@@ -30,6 +30,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -53,7 +54,7 @@ public class CreateSceneActivity extends BaseActivity implements View.OnClickLis
     //    private PopupWindow mPopWindow;
 //    private String collectorID = "1";
 //    private int sceneiconres;
-    private ArrayList<String> Sceneswitchid = new ArrayList<>();
+    private ArrayList<String> sceneswitchid = new ArrayList<>();
 
     @Override
     protected int getLayoutResId() {
@@ -105,7 +106,7 @@ public class CreateSceneActivity extends BaseActivity implements View.OnClickLis
             public void onEnsure() {
                 dialogTip.dismiss();
                 if (mSscene != null) {
-                    Sceneswitchid.add(listBreak.get(lineposition).getSwitchID());
+                    sceneswitchid.add(listBreak.get(lineposition).getSwitchID());
                 }
                 listBreak.remove(lineposition);
                 listViewlineSceneAdapter.notifyDataSetChanged();
@@ -157,7 +158,7 @@ public class CreateSceneActivity extends BaseActivity implements View.OnClickLis
         return null;
     }
 
-    private String createname;
+//    private String createname;
 
     @Override
     public void onClick(View v) {
@@ -252,7 +253,7 @@ public class CreateSceneActivity extends BaseActivity implements View.OnClickLis
                 case CommonRequestCode.REQUEST_CHOSE_LINE:
                     addBreakList = data.getParcelableArrayListExtra("breaks");
 //                    scecount = addBreakList.size() + "";
-                    listBreak.addAll(addBreakList);  //添加已选中的线路
+                    listBreak.addAll(Objects.requireNonNull(addBreakList));  //添加已选中的线路
                     listViewlineSceneAdapter.notifyDataSetChanged();
                     break;
                 case CommonRequestCode.REQUEST_SELECT_SCENE_IMG:

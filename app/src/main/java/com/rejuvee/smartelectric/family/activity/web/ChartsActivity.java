@@ -107,7 +107,7 @@ public class ChartsActivity extends BaseActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     Log.e(TAG, error.getDescription().toString());
                 } else {
-                    //TODO
+                    Log.e(TAG, error.toString());
                 }
             }
 
@@ -325,7 +325,6 @@ public class ChartsActivity extends BaseActivity {
                 result.forEach(s -> {
                     if (s.getSwitchID() == pid) {
                         name.set(s.getName());
-                        return;
                     }
                 });
             } else {
@@ -355,10 +354,8 @@ public class ChartsActivity extends BaseActivity {
                         if (rs.getSwitchID() == s.getPid()) {
                             if (rs.getPid() == 0) {// 父节点的父节点为0 则是分线 category=1
                                 res.set(1);
-                                return;
                             } else {// 剩下则是支线 category=2
                                 res.set(2);
-                                return;
                             }
                         }
                     });
@@ -432,22 +429,58 @@ public class ChartsActivity extends BaseActivity {
             private boolean draggable;//是否拖拽位置
             private int state;// 1 合闸 0 拉闸 -1 错误
 
-            public MyNodeData name(String name) {
+            MyNodeData name(String name) {
                 this.name = name;
                 return this;
             }
 
-            public MyNodeData category(int category) {
+            MyNodeData category(int category) {
                 this.category = category;
                 return this;
             }
 
-            public MyNodeData draggable(boolean draggable) {
+            MyNodeData draggable(boolean draggable) {
                 this.draggable = draggable;
                 return this;
             }
 
-            public MyNodeData state(int state) {
+            MyNodeData state(int state) {
+                this.state = state;
+                return this;
+            }
+
+            public boolean isDraggable() {
+                return draggable;
+            }
+
+            public MyNodeData setDraggable(boolean draggable) {
+                this.draggable = draggable;
+                return this;
+            }
+
+            public int getCategory() {
+                return category;
+            }
+
+            public MyNodeData setCategory(int category) {
+                this.category = category;
+                return this;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public MyNodeData setName(String name) {
+                this.name = name;
+                return this;
+            }
+
+            public int getState() {
+                return state;
+            }
+
+            public MyNodeData setState(int state) {
                 this.state = state;
                 return this;
             }
