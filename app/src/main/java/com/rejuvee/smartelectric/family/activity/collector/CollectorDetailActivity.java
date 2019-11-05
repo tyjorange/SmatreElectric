@@ -26,7 +26,7 @@ import com.rejuvee.smartelectric.family.activity.timer.TimerActivity;
 import com.rejuvee.smartelectric.family.activity.web.ChartsActivity;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
-import com.rejuvee.smartelectric.family.common.CommonRequestCode;
+import com.rejuvee.smartelectric.family.common.constant.CommonRequestCode;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTip;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTipWithoutOkCancel;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;

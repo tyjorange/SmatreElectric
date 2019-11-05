@@ -1,4 +1,4 @@
-package com.rejuvee.smartelectric.family.utils.thrid;
+package com.rejuvee.smartelectric.family.common.utils.thrid;
 
 import android.content.Context;
 

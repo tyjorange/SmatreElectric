@@ -14,7 +14,7 @@ import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.converter.ConverterFactory;
 import com.rejuvee.smartelectric.family.api.converter.Param;
-import com.rejuvee.smartelectric.family.common.AppGlobalConfig;
+import com.rejuvee.smartelectric.family.common.constant.AppGlobalConfig;
 import com.rejuvee.smartelectric.family.model.bean.ChartItemBean;
 import com.rejuvee.smartelectric.family.model.bean.ChartListItemBean;
 import com.rejuvee.smartelectric.family.model.bean.CmdExcuteStateBean;

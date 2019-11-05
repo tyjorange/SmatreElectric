@@ -17,8 +17,8 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.adapter.ListViewLineSceneAdapter;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
-import com.rejuvee.smartelectric.family.common.CommonRequestCode;
-import com.rejuvee.smartelectric.family.common.NativeLine;
+import com.rejuvee.smartelectric.family.common.constant.CommonRequestCode;
+import com.rejuvee.smartelectric.family.common.constant.NativeLine;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTip;
 import com.rejuvee.smartelectric.family.model.bean.SceneBean;
 import com.rejuvee.smartelectric.family.model.bean.SceneItemBean;
@@ -139,7 +139,7 @@ public class CreateSceneActivity extends BaseActivity implements View.OnClickLis
     private String getJsonContent(String scneID, String name, int iconType, ArrayList<SwitchInfoBean> listBreak) {
         try {
             JSONObject scenes = new JSONObject();
-//            scenes.put("userkey", utils.USER_KRY);
+//            scenes.put("userkey", ValidateUtils.USER_KRY);
             scenes.put("sceneID", scneID == null ? "" : scneID);
             scenes.put("name", name);
             scenes.put("iconType", iconType);

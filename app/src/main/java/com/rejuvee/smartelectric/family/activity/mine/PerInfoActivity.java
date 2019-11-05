@@ -24,15 +24,15 @@ import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
-import com.rejuvee.smartelectric.family.common.CommonRequestCode;
+import com.rejuvee.smartelectric.family.common.constant.CommonRequestCode;
+import com.rejuvee.smartelectric.family.common.utils.GetPhotoUtil;
+import com.rejuvee.smartelectric.family.common.utils.ImageUtil;
+import com.rejuvee.smartelectric.family.common.utils.ValidateUtils;
 import com.rejuvee.smartelectric.family.fragment.MineFragment;
 import com.rejuvee.smartelectric.family.model.bean.Headimg;
 import com.rejuvee.smartelectric.family.model.bean.UserMsg;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfo;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfoRealm;
-import com.rejuvee.smartelectric.family.utils.GetPhotoUtil;
-import com.rejuvee.smartelectric.family.utils.ImageUtil;
-import com.rejuvee.smartelectric.family.utils.utils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 import com.squareup.picasso.Target;
@@ -108,7 +108,7 @@ public class PerInfoActivity extends BaseActivity implements View.OnClickListene
         getCacheAccount();
         buildUri();
 
-        Bitmap bmpUser = utils.createQRcodeImage(username, SizeUtils.dp2px(100), SizeUtils.dp2px(100));
+        Bitmap bmpUser = ValidateUtils.createQRcodeImage(username, SizeUtils.dp2px(100), SizeUtils.dp2px(100));
         ImageView ivQcode = findViewById(R.id.iv_qcode);
         ivQcode.setImageBitmap(bmpUser);
     }

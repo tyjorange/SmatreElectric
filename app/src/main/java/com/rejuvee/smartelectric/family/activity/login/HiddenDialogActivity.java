@@ -6,9 +6,9 @@ import android.widget.EditText;
 
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
-import com.rejuvee.smartelectric.family.common.AppGlobalConfig;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
-import com.rejuvee.smartelectric.family.utils.utils;
+import com.rejuvee.smartelectric.family.common.constant.AppGlobalConfig;
+import com.rejuvee.smartelectric.family.common.utils.ValidateUtils;
 
 /**
  * 设置IP 本地调试
@@ -54,7 +54,7 @@ public class HiddenDialogActivity extends BaseActivity {
         });
         btnSave.setOnClickListener(v -> {
             String str = etIP.getEditableText().toString();
-            if (utils.isIP(str)) {
+            if (ValidateUtils.isIP(str)) {
                 AppGlobalConfig.HTTP_URL = URL_START + str + URL_END;
                 etIP.setText(str);
                 CustomToast.showCustomToast(HiddenDialogActivity.this, "设置成功，可关闭窗口");

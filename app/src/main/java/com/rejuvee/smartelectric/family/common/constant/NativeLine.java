@@ -1,4 +1,4 @@
-package com.rejuvee.smartelectric.family.common;
+package com.rejuvee.smartelectric.family.common.constant;
 
 import android.content.Context;
 

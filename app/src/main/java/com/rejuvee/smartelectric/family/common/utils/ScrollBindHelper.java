@@ -1,4 +1,4 @@
-package com.rejuvee.smartelectric.family.utils;
+package com.rejuvee.smartelectric.family.common.utils;
 
 import android.os.Message;
 import android.view.View;

@@ -17,7 +17,7 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.activity.AddDeviceOrSwitchActivity;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
-import com.rejuvee.smartelectric.family.common.CommonRequestCode;
+import com.rejuvee.smartelectric.family.common.constant.CommonRequestCode;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTip;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTipWithoutOkCancel;
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;

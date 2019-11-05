@@ -1,4 +1,4 @@
-package com.rejuvee.smartelectric.family.common;
+package com.rejuvee.smartelectric.family.common.constant;
 
 /**
  * Created by liuchengran on 2018/10/31.

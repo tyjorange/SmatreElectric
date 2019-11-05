@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.google.gson.annotations.SerializedName;
 import com.rejuvee.smartelectric.family.R;
-import com.rejuvee.smartelectric.family.common.NativeLine;
+import com.rejuvee.smartelectric.family.common.constant.NativeLine;
 
 import java.util.List;
 

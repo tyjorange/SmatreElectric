@@ -1,4 +1,4 @@
-package com.rejuvee.smartelectric.family;
+package com.rejuvee.smartelectric.family.common.receiver;
 
 import android.content.Context;
 import android.util.Log;

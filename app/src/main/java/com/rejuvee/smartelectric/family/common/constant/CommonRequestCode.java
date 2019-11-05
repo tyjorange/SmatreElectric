@@ -1,4 +1,4 @@
-package com.rejuvee.smartelectric.family.common;
+package com.rejuvee.smartelectric.family.common.constant;
 
 public class CommonRequestCode {
     public static final int REQUEST_SELECT_SCENE_IMG = 2011;//选择场景图标

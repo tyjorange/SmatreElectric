@@ -22,9 +22,10 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.activity.AddDeviceOrSwitchActivity;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
-import com.rejuvee.smartelectric.family.common.CommonRequestCode;
-import com.rejuvee.smartelectric.family.common.NativeLine;
+import com.rejuvee.smartelectric.family.common.constant.CommonRequestCode;
+import com.rejuvee.smartelectric.family.common.constant.NativeLine;
 import com.rejuvee.smartelectric.family.common.custom.FlushTimeTask;
+import com.rejuvee.smartelectric.family.common.utils.ValidateUtils;
 import com.rejuvee.smartelectric.family.common.widget.ExpandLayout;
 import com.rejuvee.smartelectric.family.common.widget.SnackbarMessageShow;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTip;
@@ -33,7 +34,6 @@ import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.CollectorState;
 import com.rejuvee.smartelectric.family.model.bean.ControllerId;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
-import com.rejuvee.smartelectric.family.utils.utils;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -719,7 +719,7 @@ public class YaoKongDetailActivity extends BaseActivity {
                 }
             });
             holder.sub_list.setAdapter(sa);
-            utils.setListViewHeightBasedOnChildren(holder.sub_list);
+            ValidateUtils.setListViewHeightBasedOnChildren(holder.sub_list);
 //            holder.hideArea.setViewHeight(holder.sub_list.getMeasuredHeight());
 
             switch (viewType) {

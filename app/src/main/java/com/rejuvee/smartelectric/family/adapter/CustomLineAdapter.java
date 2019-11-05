@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rejuvee.smartelectric.family.R;
-import com.rejuvee.smartelectric.family.common.NativeLine;
+import com.rejuvee.smartelectric.family.common.constant.NativeLine;
 
 import java.util.ArrayList;
 import java.util.List;

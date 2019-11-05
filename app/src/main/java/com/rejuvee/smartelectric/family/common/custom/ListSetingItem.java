@@ -1,4 +1,4 @@
-package com.rejuvee.smartelectric.family.common;
+package com.rejuvee.smartelectric.family.common.custom;
 
 /**
  * 什么玩意

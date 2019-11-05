@@ -20,7 +20,7 @@ import com.rejuvee.smartelectric.family.activity.mswitch.SwitchTree;
 import com.rejuvee.smartelectric.family.activity.mswitch.SwitchTreeDialog;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
-import com.rejuvee.smartelectric.family.common.CommonRequestCode;
+import com.rejuvee.smartelectric.family.common.constant.CommonRequestCode;
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
 import com.rejuvee.smartelectric.family.fragment.CurveFragment;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;

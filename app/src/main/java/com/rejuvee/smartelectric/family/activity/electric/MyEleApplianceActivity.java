@@ -14,7 +14,7 @@ import com.rejuvee.smartelectric.family.adapter.EleapplianceAdapter;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.api.ErrorEvent;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
-import com.rejuvee.smartelectric.family.common.CommonRequestCode;
+import com.rejuvee.smartelectric.family.common.constant.CommonRequestCode;
 import com.rejuvee.smartelectric.family.common.custom.DeviceEventMsg;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTip;
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;

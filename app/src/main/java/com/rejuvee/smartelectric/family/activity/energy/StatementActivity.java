@@ -16,7 +16,7 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.adapter.SimpleTreeAdapter;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
-import com.rejuvee.smartelectric.family.common.NativeLine;
+import com.rejuvee.smartelectric.family.common.constant.NativeLine;
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchStatementBean;
@@ -325,7 +325,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
 
     private String resEnd;
 //    private void getCollector() {
-//        Core.instance(this).getCollector(utils.USER_KRY, new ActionCallbackListener<List<CollectorBean>>() {
+//        Core.instance(this).getCollector(ValidateUtils.USER_KRY, new ActionCallbackListener<List<CollectorBean>>() {
 //            @Override
 //            public void onSuccess(List<CollectorBean> data) {
 //                collectorBeanList = new ArrayList<>();

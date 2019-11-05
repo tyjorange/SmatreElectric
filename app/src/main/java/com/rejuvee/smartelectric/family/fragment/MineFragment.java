@@ -21,12 +21,12 @@ import com.rejuvee.smartelectric.family.activity.mine.SettingsActivity;
 import com.rejuvee.smartelectric.family.activity.mine.ThridBindActivity;
 import com.rejuvee.smartelectric.family.activity.mine.ThridPushActivity;
 import com.rejuvee.smartelectric.family.api.Core;
-import com.rejuvee.smartelectric.family.common.CommonRequestCode;
+import com.rejuvee.smartelectric.family.common.constant.CommonRequestCode;
+import com.rejuvee.smartelectric.family.common.utils.ValidateUtils;
 import com.rejuvee.smartelectric.family.common.widget.PopwindowQCode;
 import com.rejuvee.smartelectric.family.model.bean.UserMsg;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfo;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfoRealm;
-import com.rejuvee.smartelectric.family.utils.utils;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -123,7 +123,7 @@ public class MineFragment extends AbstractBaseFragment implements View.OnClickLi
     }
 
     private void setQCodeUserName() {
-        Bitmap bmpUser = utils.createQRcodeImage(username, SizeUtils.dp2px(100), SizeUtils.dp2px(100));
+        Bitmap bmpUser = ValidateUtils.createQRcodeImage(username, SizeUtils.dp2px(100), SizeUtils.dp2px(100));
         if (bmpUser != null) {
             ivUserQCode.setImageBitmap(bmpUser);
             popwindowQCode.setQCodeImageBitmap(bmpUser);

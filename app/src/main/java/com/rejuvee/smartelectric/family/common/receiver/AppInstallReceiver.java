@@ -1,4 +1,4 @@
-package com.rejuvee.smartelectric.family.common;
+package com.rejuvee.smartelectric.family.common.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.rejuvee.smartelectric.family.MainApplication;
-import com.rejuvee.smartelectric.family.utils.WifiUtil;
+import com.rejuvee.smartelectric.family.common.utils.WifiUtil;
 
 import java.util.Objects;
 

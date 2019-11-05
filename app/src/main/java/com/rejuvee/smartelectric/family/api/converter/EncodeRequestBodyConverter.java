@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
-import com.rejuvee.smartelectric.family.utils.AesEncryptUtils;
+import com.rejuvee.smartelectric.family.common.utils.AesEncryptUtils;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;

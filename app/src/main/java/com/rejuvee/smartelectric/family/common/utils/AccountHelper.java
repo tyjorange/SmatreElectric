@@ -1,4 +1,4 @@
-package com.rejuvee.smartelectric.family.utils;
+package com.rejuvee.smartelectric.family.common.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,7 +9,7 @@ import android.util.Log;
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.utils.Utils;
 import com.rejuvee.smartelectric.family.api.Core;
-import com.rejuvee.smartelectric.family.common.AppGlobalConfig;
+import com.rejuvee.smartelectric.family.common.constant.AppGlobalConfig;
 import com.rejuvee.smartelectric.family.common.custom.AccountEventMsg;
 import com.rejuvee.smartelectric.family.common.custom.DeviceEventMsg;
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;

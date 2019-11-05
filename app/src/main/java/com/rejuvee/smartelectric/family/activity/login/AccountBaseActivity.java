@@ -14,11 +14,11 @@ import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
+import com.rejuvee.smartelectric.family.common.utils.ValidateUtils;
 import com.rejuvee.smartelectric.family.common.widget.ClearEditText;
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfo;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfoRealm;
-import com.rejuvee.smartelectric.family.utils.utils;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -291,7 +291,7 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
             mTvPhone.setVisibility(View.VISIBLE);
             mTvPhone.setText(R.string.hint_phone);
             mIvPhone.setVisibility(View.GONE);
-        } else if (mPhoneOrOld.length() < 11 || !utils.isPhone(mPhoneOrOld)) {
+        } else if (mPhoneOrOld.length() < 11 || !ValidateUtils.isPhone(mPhoneOrOld)) {
             mTvPhone.setVisibility(View.VISIBLE);
             mTvPhone.setText(R.string.wrong_phone);
             mIvPhone.setVisibility(View.GONE);
@@ -313,7 +313,7 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
             mTvNewPhone.setVisibility(View.VISIBLE);
             mTvNewPhone.setText(R.string.hint_phone);
             mIvNewPhone.setVisibility(View.GONE);
-        } else if (mNewPhone.length() < 11 || !utils.isPhone(mNewPhone)) {
+        } else if (mNewPhone.length() < 11 || !ValidateUtils.isPhone(mNewPhone)) {
             mTvNewPhone.setVisibility(View.VISIBLE);
             mTvNewPhone.setText(R.string.wrong_phone);
             mIvNewPhone.setVisibility(View.GONE);

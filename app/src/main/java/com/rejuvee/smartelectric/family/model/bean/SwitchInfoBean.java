@@ -3,7 +3,7 @@ package com.rejuvee.smartelectric.family.model.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.rejuvee.smartelectric.family.common.NativeLine;
+import com.rejuvee.smartelectric.family.common.constant.NativeLine;
 
 /**
  *

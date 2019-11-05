@@ -46,8 +46,10 @@ import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.ActivityFragmentManager;
 import com.rejuvee.smartelectric.family.common.AutoUpgrade;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
-import com.rejuvee.smartelectric.family.common.CommonRequestCode;
 import com.rejuvee.smartelectric.family.common.PermissionManage;
+import com.rejuvee.smartelectric.family.common.constant.CommonRequestCode;
+import com.rejuvee.smartelectric.family.common.utils.ValidateUtils;
+import com.rejuvee.smartelectric.family.common.utils.WifiUtil;
 import com.rejuvee.smartelectric.family.common.widget.CircleImageView;
 import com.rejuvee.smartelectric.family.common.widget.MyBlurDrawerToggle;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTip;
@@ -57,8 +59,6 @@ import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SceneBean;
 import com.rejuvee.smartelectric.family.model.bean.UserMsg;
 import com.rejuvee.smartelectric.family.model.bean.WxSubscribed;
-import com.rejuvee.smartelectric.family.utils.WifiUtil;
-import com.rejuvee.smartelectric.family.utils.utils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 import com.squareup.picasso.Target;
@@ -122,10 +122,10 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
      * 获取屏幕参数
      */
     private void getDensity() {
-        Log.w(TAG, utils.getSystemLanguage());
-        Log.w(TAG, utils.getSystemVersion());
-        Log.w(TAG, utils.getDeviceBrand());
-        Log.w(TAG, utils.getSystemModel());
+        Log.w(TAG, ValidateUtils.getSystemLanguage());
+        Log.w(TAG, ValidateUtils.getSystemVersion());
+        Log.w(TAG, ValidateUtils.getDeviceBrand());
+        Log.w(TAG, ValidateUtils.getSystemModel());
         DisplayMetrics outMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getRealMetrics(outMetrics);
         int widthPixel = outMetrics.widthPixels;
@@ -296,7 +296,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
      * 生成用户名二维码
      */
 //    private void setQCodeUserName() {
-//        Bitmap bmpUser = utils.createQRcodeImage(username, SizeUtils.dp2px(100), SizeUtils.dp2px(100));
+//        Bitmap bmpUser = ValidateUtils.createQRcodeImage(username, SizeUtils.dp2px(100), SizeUtils.dp2px(100));
 //        if (bmpUser != null) {
 //            ivUserQCode.setImageBitmap(bmpUser);
 //            popwindowQCode.setQCodeImageBitmap(bmpUser);

@@ -23,15 +23,15 @@ import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.LogoVersionManage;
 import com.rejuvee.smartelectric.family.common.custom.AccountEventMsg;
+import com.rejuvee.smartelectric.family.common.utils.AccountHelper;
+import com.rejuvee.smartelectric.family.common.utils.thrid.QQLoginHelper;
+import com.rejuvee.smartelectric.family.common.utils.thrid.WXHelper;
 import com.rejuvee.smartelectric.family.common.widget.CheckableImageView;
 import com.rejuvee.smartelectric.family.common.widget.ClearEditText;
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
 import com.rejuvee.smartelectric.family.model.bean.ThirdPartyInfo;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfo;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfoRealm;
-import com.rejuvee.smartelectric.family.utils.AccountHelper;
-import com.rejuvee.smartelectric.family.utils.thrid.QQLoginHelper;
-import com.rejuvee.smartelectric.family.utils.thrid.WXHelper;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

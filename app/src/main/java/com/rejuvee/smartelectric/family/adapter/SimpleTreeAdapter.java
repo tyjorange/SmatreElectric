@@ -8,7 +8,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.rejuvee.smartelectric.family.R;
-import com.rejuvee.smartelectric.family.common.NativeLine;
+import com.rejuvee.smartelectric.family.common.constant.NativeLine;
 import com.rejuvee.smartelectric.family.model.bean.Node;
 import com.rejuvee.smartelectric.family.model.bean.TreeNodeIndicator;
 

@@ -9,16 +9,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rejuvee.smartelectric.family.R;
-import com.rejuvee.smartelectric.family.common.ListSetingItem;
-import com.rejuvee.smartelectric.family.common.NativeLine;
+import com.rejuvee.smartelectric.family.common.constant.NativeLine;
+import com.rejuvee.smartelectric.family.common.custom.ListSetingItem;
 
 import java.util.List;
 
-import static com.rejuvee.smartelectric.family.common.ListSetingItem.ITEM_VIEW_TYPE_DELETE;
-import static com.rejuvee.smartelectric.family.common.ListSetingItem.ITEM_VIEW_TYPE_EMPTY;
-import static com.rejuvee.smartelectric.family.common.ListSetingItem.ITEM_VIEW_TYPE_LINEDETAIL1;
-import static com.rejuvee.smartelectric.family.common.ListSetingItem.ITEM_VIEW_TYPE_LINEDETAIL2;
-import static com.rejuvee.smartelectric.family.common.ListSetingItem.ITEM_VIEW_TYPE_NORMAL;
+import static com.rejuvee.smartelectric.family.common.custom.ListSetingItem.ITEM_VIEW_TYPE_DELETE;
+import static com.rejuvee.smartelectric.family.common.custom.ListSetingItem.ITEM_VIEW_TYPE_EMPTY;
+import static com.rejuvee.smartelectric.family.common.custom.ListSetingItem.ITEM_VIEW_TYPE_LINEDETAIL1;
+import static com.rejuvee.smartelectric.family.common.custom.ListSetingItem.ITEM_VIEW_TYPE_LINEDETAIL2;
+import static com.rejuvee.smartelectric.family.common.custom.ListSetingItem.ITEM_VIEW_TYPE_NORMAL;
 
 
 /**

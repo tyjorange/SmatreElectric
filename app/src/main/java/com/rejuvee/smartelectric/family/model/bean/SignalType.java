@@ -1,7 +1,7 @@
 package com.rejuvee.smartelectric.family.model.bean;
 
 
-import com.rejuvee.smartelectric.family.common.NativeLine;
+import com.rejuvee.smartelectric.family.common.constant.NativeLine;
 
 /**
  * Created by SH on 2018/1/2.

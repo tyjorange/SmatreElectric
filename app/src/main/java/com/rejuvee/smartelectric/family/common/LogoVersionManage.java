@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.converter.Param;
+import com.rejuvee.smartelectric.family.common.constant.AppGlobalConfig;
 
 /**
  * Created by liuchengran on 2018/9/12.
