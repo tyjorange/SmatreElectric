@@ -3,7 +3,6 @@ package com.rejuvee.smartelectric.family.activity.login;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.os.Handler;
 import android.text.InputType;
 import android.util.Log;
@@ -24,6 +23,7 @@ import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.LogoVersionManage;
 import com.rejuvee.smartelectric.family.common.custom.AccountEventMsg;
 import com.rejuvee.smartelectric.family.common.utils.AccountHelper;
+import com.rejuvee.smartelectric.family.common.utils.ValidateUtils;
 import com.rejuvee.smartelectric.family.common.utils.thrid.QQLoginHelper;
 import com.rejuvee.smartelectric.family.common.utils.thrid.WXHelper;
 import com.rejuvee.smartelectric.family.common.widget.CheckableImageView;
@@ -89,7 +89,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     protected void initData() {
-        if (isApkInDebug(this)) {
+        if (ValidateUtils.isApkInDebug(this)) {
             // 隐藏按钮 事件
             hiddenBtn.setOnTouchListener(new HiddenClickListener(new HiddenClickListener.MyClickCallBack() {
                 @Override
@@ -158,22 +158,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             cetPassword.setText("******");
             login(cacheAccount.getUserName(), cacheAccount.getPassword());
         } else {
-            if (isApkInDebug(this)) {
+            if (ValidateUtils.isApkInDebug(this)) {
                 cetUsername.setText("test");// TODO 测试账号
                 cetPassword.setText("test");
             }
-        }
-    }
-
-    /**
-     * 判断当前应用是否是debug状态
-     */
-    public static boolean isApkInDebug(Context context) {
-        try {
-            ApplicationInfo info = context.getApplicationInfo();
-            return (info.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
-        } catch (Exception e) {
-            return false;
         }
     }
 

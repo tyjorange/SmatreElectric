@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.model.bean.RecordBean;
+import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class LineAlarmAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public RecordBean getItem(int position) {
         return mListData.get(position);
     }
 
@@ -57,7 +58,7 @@ public class LineAlarmAdapter extends BaseAdapter {
         holder.tvTitle.setText(String.format("%s%s", mContext.getString(R.string.vs4), recordBean.name));
         holder.tvCode.setText(String.format("%s%s", mContext.getString(R.string.vs6), recordBean.code));
 //        holder.tvState.setText(SwitchBean.getSwitchFaultState(mContext, recordBean.state));
-        holder.tvState.setText(recordBean.desc);
+        holder.tvState.setText(SwitchBean.getSwitchFaultState(mContext, getItem(position).state));
         holder.tvDate.setText(recordBean.time);
         return convertView;
     }

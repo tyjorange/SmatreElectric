@@ -9,7 +9,7 @@ import java.util.List;
  * Created by liuchengran on 2018/12/4.
  */
 public class RecordBean implements Parcelable {
-    public int state;//告警用到的字段
+    public int state;// 告警TYPE ID
     public String desc;// 告警描述
     public int type;//0 :开关操作  1：场景操作
     public String name;

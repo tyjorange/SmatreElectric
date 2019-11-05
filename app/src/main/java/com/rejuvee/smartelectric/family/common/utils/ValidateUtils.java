@@ -1,5 +1,7 @@
 package com.rejuvee.smartelectric.family.common.utils;
 
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +39,18 @@ public class ValidateUtils {
         Pattern p = Pattern.compile(pattern);
         Matcher m = p.matcher(InternetURL);
         return m.matches();
+    }
+
+    /**
+     * 判断当前应用是否是debug状态
+     */
+    public static boolean isApkInDebug(Context context) {
+        try {
+            ApplicationInfo info = context.getApplicationInfo();
+            return (info.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public static Bitmap createQRcodeImage(String url, int width, int height) {
