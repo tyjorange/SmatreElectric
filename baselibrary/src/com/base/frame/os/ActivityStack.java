@@ -18,7 +18,7 @@ import java.util.Stack;
 public class ActivityStack {
 	private static final String LOGTAG = LogUtil
 			.makeLogTag(ActivityStack.class);
-	private static Stack<Activity> actStack = new Stack<Activity>();
+	private static Stack<Activity> actStack = new Stack<>();
 	private static ActivityStack instance;
 
 	private ActivityStack() {

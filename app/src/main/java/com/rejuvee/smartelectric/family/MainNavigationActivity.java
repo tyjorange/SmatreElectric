@@ -180,7 +180,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 
             @Override
             public void onGranted() {
-                WifiUtil.getInstance(getBaseContext());
+                WifiUtil.getInstance(getApplicationContext());
             }
 
             @Override

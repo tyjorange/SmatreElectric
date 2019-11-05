@@ -102,7 +102,7 @@ public class DownloadProgressDialog extends AlertDialog {
         WeakReference<DownloadProgressDialog> activityWeakReference;
 
         MyHandler(DownloadProgressDialog activity) {
-            activityWeakReference = new WeakReference<DownloadProgressDialog>(activity);
+            activityWeakReference = new WeakReference<>(activity);
         }
 
         @Override

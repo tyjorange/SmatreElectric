@@ -28,7 +28,7 @@ public class Node {
     /**
      * 下一级的子Node
      */
-    private List<Node> children = new ArrayList<Node>();
+    private List<Node> children = new ArrayList<>();
 
     /**
      * 父Node

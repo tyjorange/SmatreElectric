@@ -29,7 +29,7 @@ public class MyFragmentTabHost extends TabHost implements
         TabHost.OnTabChangeListener {
     private static final String LOGTAG = LogUtil
             .makeLogTag(MyFragmentTabHost.class);
-    private final ArrayList<TabInfo> mTabs = new ArrayList<TabInfo>();
+    private final ArrayList<TabInfo> mTabs = new ArrayList<>();
     private Fragment curFragment = null;
     private FrameLayout mRealTabContent;
     private Context mContext;

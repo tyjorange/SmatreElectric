@@ -35,7 +35,7 @@ public class ChoceSceneimgActivity extends BaseActivity implements View.OnClickL
     };
 
     private List<Item> listGrids = new ArrayList<>();
-    private List<ImageView> chk = new ArrayList<ImageView>();
+    private List<ImageView> chk = new ArrayList<>();
     private GridViewAdapter gridViewAdapter;
     private int currentPos = -1;
 

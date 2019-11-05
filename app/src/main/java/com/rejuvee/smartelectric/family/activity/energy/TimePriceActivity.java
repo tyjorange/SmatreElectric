@@ -89,7 +89,7 @@ public class TimePriceActivity extends BaseActivity {
         WeakReference<TimePriceActivity> activityWeakReference;
 
         MyHandler(TimePriceActivity activity) {
-            activityWeakReference = new WeakReference<TimePriceActivity>(activity);
+            activityWeakReference = new WeakReference<>(activity);
         }
 
         @Override

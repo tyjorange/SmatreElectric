@@ -326,7 +326,7 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
      */
     private class SendMsgThread extends Thread {
         // 发送消息的队列
-        private Queue<byte[]> sendMsgQuene = new LinkedList<byte[]>();
+        private Queue<byte[]> sendMsgQuene = new LinkedList<>();
         // 是否发送消息
         private boolean send = true;
 

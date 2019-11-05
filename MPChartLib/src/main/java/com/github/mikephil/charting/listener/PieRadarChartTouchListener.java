@@ -2,7 +2,6 @@
 package com.github.mikephil.charting.listener;
 
 import android.annotation.SuppressLint;
-import android.graphics.PointF;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -28,7 +27,7 @@ public class PieRadarChartTouchListener extends ChartTouchListener<PieRadarChart
      */
     private float mStartAngle = 0f;
 
-    private ArrayList<AngularVelocitySample> _velocitySamples = new ArrayList<AngularVelocitySample>();
+    private ArrayList<AngularVelocitySample> _velocitySamples = new ArrayList<>();
 
     private long mDecelerationLastTime = 0;
     private float mDecelerationAngularVelocity = 0.f;

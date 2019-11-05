@@ -30,7 +30,7 @@ public class Tool {
      * 解析返回SSID列表指令
      */
     static ArrayList<Item> decode_81_data(byte[] data) {
-        ArrayList<Item> items = new ArrayList<Item>();
+        ArrayList<Item> items = new ArrayList<>();
         byte[] ssidData = new byte[data.length - 6];
         System.arraycopy(data, 5, ssidData, 0, ssidData.length);
         int last = 0;

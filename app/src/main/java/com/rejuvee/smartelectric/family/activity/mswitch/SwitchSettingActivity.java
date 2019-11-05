@@ -160,7 +160,7 @@ public class SwitchSettingActivity extends BaseActivity implements
         WeakReference<SwitchSettingActivity> activityWeakReference;
 
         MyHandler(SwitchSettingActivity activity) {
-            activityWeakReference = new WeakReference<SwitchSettingActivity>(activity);
+            activityWeakReference = new WeakReference<>(activity);
         }
 
         @Override

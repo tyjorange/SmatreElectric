@@ -61,7 +61,7 @@ public class ThridBindActivity extends BaseActivity {
             // 复制到剪贴板
             ClipboardManager tvCopy = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
             tvCopy.setText(getResources().getString(R.string.vs221));
-            CustomToast.showCustomToast(getBaseContext(), getString(R.string.vs223));
+            CustomToast.showCustomToast(getApplicationContext(), getString(R.string.vs223));
             // 跳转到微信
             try {
                 Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -72,7 +72,7 @@ public class ThridBindActivity extends BaseActivity {
                 startActivity(intent);
             } catch (ActivityNotFoundException e) {
                 e.printStackTrace();
-                CustomToast.showCustomErrorToast(getBaseContext(), getString(R.string.vs224));
+                CustomToast.showCustomErrorToast(context, getString(R.string.vs224));
             }
         });
         EventBus.getDefault().register(this);

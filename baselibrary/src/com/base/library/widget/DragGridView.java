@@ -538,7 +538,7 @@ public class DragGridView extends GridView{
 	 */
 	private void animateReorder(final int oldPosition, final int newPosition) {
 		boolean isForward = newPosition > oldPosition;
-		List<Animator> resultList = new LinkedList<Animator>();
+		List<Animator> resultList = new LinkedList<>();
 		if (isForward) {
 			for (int pos = oldPosition; pos < newPosition; pos++) {
 				View view = getChildAt(pos - getFirstVisiblePosition());

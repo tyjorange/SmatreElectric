@@ -112,7 +112,7 @@ public class TimePickerUIUtil {
     }
 
     private static List<NumberPicker> findNumberPicker(ViewGroup viewGroup) {
-        List<NumberPicker> npList = new ArrayList<NumberPicker>();
+        List<NumberPicker> npList = new ArrayList<>();
         View child = null;
 
         if (null != viewGroup) {

@@ -81,7 +81,7 @@ public class AdvancedWebView extends WebView {
 	protected WeakReference<Activity> mActivity;
 	protected WeakReference<Fragment> mFragment;
 	protected Listener mListener;
-	protected final List<String> mPermittedHostnames = new LinkedList<String>();
+	protected final List<String> mPermittedHostnames = new LinkedList<>();
 	/** File upload callback for platform versions prior to Android 5.0 */
 	protected ValueCallback<Uri> mFileUploadCallbackFirst;
 	/** File upload callback for Android 5.0+ */
@@ -93,7 +93,7 @@ public class AdvancedWebView extends WebView {
 	protected WebChromeClient mCustomWebChromeClient;
 	protected boolean mGeolocationEnabled;
 	protected String mUploadableFileTypes = "*/*";
-	protected final Map<String, String> mHttpHeaders = new HashMap<String, String>();
+	protected final Map<String, String> mHttpHeaders = new HashMap<>();
 
 	public AdvancedWebView(Context context) {
 		super(context);
@@ -116,7 +116,7 @@ public class AdvancedWebView extends WebView {
 
 	public void setListener(final Activity activity, final Listener listener, final int requestCodeFilePicker) {
 		if (activity != null) {
-			mActivity = new WeakReference<Activity>(activity);
+			mActivity = new WeakReference<>(activity);
 		}
 		else {
 			mActivity = null;
@@ -131,7 +131,7 @@ public class AdvancedWebView extends WebView {
 
 	public void setListener(final Fragment fragment, final Listener listener, final int requestCodeFilePicker) {
 		if (fragment != null) {
-			mFragment = new WeakReference<Fragment>(fragment);
+			mFragment = new WeakReference<>(fragment);
 		}
 		else {
 			mFragment = null;
@@ -431,7 +431,7 @@ public class AdvancedWebView extends WebView {
 		}
 
 		if (context instanceof Activity) {
-			mActivity = new WeakReference<Activity>((Activity) context);
+			mActivity = new WeakReference<>((Activity) context);
 		}
 
 		mLanguageIso3 = getLanguageIso3();

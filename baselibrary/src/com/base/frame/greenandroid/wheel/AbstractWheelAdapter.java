@@ -20,7 +20,7 @@ public abstract class AbstractWheelAdapter implements WheelViewAdapter {
 
 	public void registerDataSetObserver(DataSetObserver observer) {
 		if (datasetObservers == null) {
-			datasetObservers = new LinkedList<DataSetObserver>();
+			datasetObservers = new LinkedList<>();
 		}
 		datasetObservers.add(observer);
 	}

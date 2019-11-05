@@ -285,15 +285,16 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
 
     /**
      * 按时段-起始
-     * @param isSub  是否起始时间设为前移1月
+     *
+     * @param hasSubMonth 是否起始时间设为前移1月
      */
-    private void changeTextViewSS(boolean isSub) {
+    private void changeTextViewSS(boolean hasSubMonth) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.MONTH, imonth - 1);
         calendar.set(Calendar.YEAR, iyear);
         calendar.set(Calendar.DATE, iday);
         calendar.set(Calendar.HOUR_OF_DAY, ihour);
-        if (isSub) {
+        if (hasSubMonth) {
             calendar.add(Calendar.MONTH, -1);// 起始时间设为前移1月
         }
         // 改变显示
@@ -326,57 +327,6 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
     }
 
     private String resEnd;
-//    private void getCollector() {
-//        Core.instance(this).getCollector(ValidateUtils.USER_KRY, new ActionCallbackListener<List<CollectorBean>>() {
-//            @Override
-//            public void onSuccess(List<CollectorBean> data) {
-//                collectorBeanList = new ArrayList<>();
-//                collectorBeanList.addAll(data);
-//                currentCollectorBean = collectorBeanList.get(0);
-//                tvDevice.setText(currentCollectorBean.getDeviceName());
-//                initLvAdapter();
-//                lvCollector.setAdapter(lvAdapter);
-//                getBreakerStatement();
-//            }
-//
-//            @Override
-//            public void onFailure(int errorEvent, String message) {
-//
-//                if (message.contains(getResources().getString(R.string.server_error_message_no_result))) {
-//                    message = getString(R.string.local_error_message_no_data);
-//                }
-//                CustomToast.showCustomToast(StatementActivity.this, message);
-//            }
-//        });
-//    }
-
-//    private Dialog dialog;
-//
-//    private void initDialog() {
-//        View contentView = View.inflate(this, R.layout.view_dialog_collector, null);
-//        lvCollector = (ListView) contentView.findViewById(R.id.lv_collector);
-//        lvCollector.setAdapter(lvAdapter);
-//        lvCollector.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                dialog.dismiss();
-//                currentCollectorBean = collectorBeanList.get(position);
-//                tvDevice.setText(currentCollectorBean.getDeviceName());
-//                getBreakerStatement();
-//            }
-//        });
-//        dialog = new Dialog(this);
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        dialog.setContentView(contentView);
-//        Window window = dialog.getWindow();
-//        window.setGravity(Gravity.BOTTOM);
-//        window.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-//        WindowManager.LayoutParams lp = window.getAttributes(); // 获取对话框当前的参数值
-//        lp.width = WindowManager.LayoutParams.MATCH_PARENT; // 宽度
-//        lp.height = WindowManager.LayoutParams.WRAP_CONTENT; // 高度
-//        window.setAttributes(lp);
-//        dialog.setCanceledOnTouchOutside(true);
-//    }
 
     /**
      * 根据selectType调用不同接口
@@ -445,13 +395,14 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                     lvStatement.setAdapter(mAdapter);
                 }
 
-                if (errorEvent == 12) {
+//                if (errorEvent == 12) {
 //                    message = getString(R.string.local_error_message_no_data);
-                    CustomToast.showCustomErrorToast(StatementActivity.this, message);
-                } else {
+//                    CustomToast.showCustomErrorToast(StatementActivity.this, message);
+//                } else {
 //                    message = getString(R.string.get_data_fail);
-                    CustomToast.showCustomErrorToast(StatementActivity.this, message);
-                }
+//                    CustomToast.showCustomErrorToast(StatementActivity.this, message);
+//                }
+                CustomToast.showCustomErrorToast(StatementActivity.this, message);
 
             }
         });
@@ -606,6 +557,57 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
     protected void dealloc() {
 
     }
+//    private void getCollector() {
+//        Core.instance(this).getCollector(ValidateUtils.USER_KRY, new ActionCallbackListener<List<CollectorBean>>() {
+//            @Override
+//            public void onSuccess(List<CollectorBean> data) {
+//                collectorBeanList = new ArrayList<>();
+//                collectorBeanList.addAll(data);
+//                currentCollectorBean = collectorBeanList.get(0);
+//                tvDevice.setText(currentCollectorBean.getDeviceName());
+//                initLvAdapter();
+//                lvCollector.setAdapter(lvAdapter);
+//                getBreakerStatement();
+//            }
+//
+//            @Override
+//            public void onFailure(int errorEvent, String message) {
+//
+//                if (message.contains(getResources().getString(R.string.server_error_message_no_result))) {
+//                    message = getString(R.string.local_error_message_no_data);
+//                }
+//                CustomToast.showCustomToast(StatementActivity.this, message);
+//            }
+//        });
+//    }
+
+//    private Dialog dialog;
+//
+//    private void initDialog() {
+//        View contentView = View.inflate(this, R.layout.view_dialog_collector, null);
+//        lvCollector = (ListView) contentView.findViewById(R.id.lv_collector);
+//        lvCollector.setAdapter(lvAdapter);
+//        lvCollector.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                dialog.dismiss();
+//                currentCollectorBean = collectorBeanList.get(position);
+//                tvDevice.setText(currentCollectorBean.getDeviceName());
+//                getBreakerStatement();
+//            }
+//        });
+//        dialog = new Dialog(this);
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        dialog.setContentView(contentView);
+//        Window window = dialog.getWindow();
+//        window.setGravity(Gravity.BOTTOM);
+//        window.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+//        WindowManager.LayoutParams lp = window.getAttributes(); // 获取对话框当前的参数值
+//        lp.width = WindowManager.LayoutParams.MATCH_PARENT; // 宽度
+//        lp.height = WindowManager.LayoutParams.WRAP_CONTENT; // 高度
+//        window.setAttributes(lp);
+//        dialog.setCanceledOnTouchOutside(true);
+//    }
 
 //    private void initLvAdapter() {
 //

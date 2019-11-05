@@ -150,7 +150,7 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
     /**
      * Holds a cache of recycled views to be reused as needed
      */
-    private List<Queue<View>> mRemovedViewsCache = new ArrayList<Queue<View>>();
+    private List<Queue<View>> mRemovedViewsCache = new ArrayList<>();
 
     /**
      * Flag used to mark when the adapters data has changed, so the view can be

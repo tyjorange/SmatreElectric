@@ -1,5 +1,6 @@
 package com.rejuvee.smartelectric.family.activity.web;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.util.Log;
@@ -42,6 +43,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class ChartsActivity extends BaseActivity {
     private static final String TAG = "ChartsActivity";
+    private Context context;
     private WebView webView;
     private boolean isLoading;
     private LoadingDlg waitDialog;
@@ -60,6 +62,7 @@ public class ChartsActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        context = this;
         findViewById(R.id.img_cancel).setOnClickListener(view -> finish());
         waitDialog = new LoadingDlg(this, -1);
         webView = findViewById(R.id.wv_cha);
@@ -139,11 +142,11 @@ public class ChartsActivity extends BaseActivity {
             @Override
             public void onFailure(int errorEvent, String message) {
                 if (errorEvent == 12) {
-                    CustomToast.showCustomErrorToast(getBaseContext(), getString(R.string.vs29));
-                    result = new ArrayList<SwitchBean>();
+                    CustomToast.showCustomErrorToast(context, getString(R.string.vs29));
+                    result = new ArrayList<>();
                     waitDialog.dismiss();
                 } else {
-                    CustomToast.showCustomErrorToast(getBaseContext(), message);
+                    CustomToast.showCustomErrorToast(context, message);
                 }
             }
         });

@@ -169,7 +169,7 @@ public class SwitchTreeDialog extends Dialog implements SwitchTree {
         WeakReference<SwitchTreeDialog> activityWeakReference;
 
         MyHandler(SwitchTreeDialog dialog) {
-            activityWeakReference = new WeakReference<SwitchTreeDialog>(dialog);
+            activityWeakReference = new WeakReference<>(dialog);
         }
 
         @Override

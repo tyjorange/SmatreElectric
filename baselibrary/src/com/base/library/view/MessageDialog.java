@@ -39,8 +39,8 @@ public class MessageDialog extends Dialog implements
 	private String title;
 	private String btnConfim;
 	private String btnCancel;
-	ArrayList<OnCancelListener> m_arrCancelListeners = new ArrayList<OnCancelListener>();
-	ArrayList<OnDismissListener> m_arrDismissListeners = new ArrayList<OnDismissListener>();
+	ArrayList<OnCancelListener> m_arrCancelListeners = new ArrayList<>();
+	ArrayList<OnDismissListener> m_arrDismissListeners = new ArrayList<>();
 	private OnInputMileageChanged onChanged = null;
 	private Spanned spanned;
 

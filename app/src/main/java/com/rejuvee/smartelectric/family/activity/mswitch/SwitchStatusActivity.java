@@ -87,7 +87,7 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
         WeakReference<SwitchStatusActivity> activityWeakReference;
 
         MyHandler(SwitchStatusActivity activity) {
-            activityWeakReference = new WeakReference<SwitchStatusActivity>(activity);
+            activityWeakReference = new WeakReference<>(activity);
         }
 
         @Override

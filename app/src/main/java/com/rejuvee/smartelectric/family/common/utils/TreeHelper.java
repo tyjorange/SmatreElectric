@@ -21,7 +21,7 @@ public class TreeHelper {
      * @throws IllegalAccessException
      */
     public static <T> List<Node> getSortedNodes(List<T> datas, int defaultExpandLevel) {
-        List<Node> result = new ArrayList<Node>();
+        List<Node> result = new ArrayList<>();
         // 将用户数据转化为List<Node>
         List<Node> nodes = convetData2Node(datas);
         // 拿到根节点
@@ -40,7 +40,7 @@ public class TreeHelper {
      * @return
      */
     public static List<Node> filterVisibleNode(List<Node> nodes) {
-        List<Node> result = new ArrayList<Node>();
+        List<Node> result = new ArrayList<>();
         if (nodes == null || nodes.size() == 0) {
             return result;
         }
@@ -74,7 +74,7 @@ public class TreeHelper {
      * @throws IllegalArgumentException
      */
     private static <T> List<Node> convetData2Node(List<T> datas) {
-        List<Node> nodes = new ArrayList<Node>();
+        List<Node> nodes = new ArrayList<>();
         Node node = null;
 
         for (T t : datas) {
@@ -137,7 +137,7 @@ public class TreeHelper {
     }
 
     private static List<Node> getRootNodes(List<Node> nodes) {
-        List<Node> root = new ArrayList<Node>();
+        List<Node> root = new ArrayList<>();
         for (Node node : nodes) {
             if (node.isRoot())
                 root.add(node);
