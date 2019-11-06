@@ -26,7 +26,7 @@
     <string name="line_name">Breaker name</string>
     <string name="line_input_name">Enter breaker name</string>
     <string name="line_set_under">Under-voltage threshold(V)</string>
-    <string name="line_set_over">Over-voltage threshold(V)</string>
+    <string name="line_set_over">Overvoltage threshold(V)</string>
     <string name="line_set_electricity">Over current threshold(A)</string>
     <string name="line_set_electricity1">Upper limit of electricity quantity (KWH)</string>
     <string name="line_set_electricity2">Lower limit of electricity quantity (KWH)</string>
@@ -222,8 +222,8 @@
     <string name="select_date">Select date</string>
     <string name="please_input_price">Input price</string>
     <string name="picture">Picture</string>
-    <string name="open_break">Switch on</string>
-    <string name="close_break">Switch off</string>
+    <string name="open_break">closing</string>
+    <string name="close_break">opening</string>
     <string name="open">On</string>
     <string name="close">Off</string>
     <string name="break_op_tip">Switch %1$s breaker‘%2$s’?</string>
@@ -248,24 +248,24 @@
     <string name="content_input_name">Name your appliance</string>
     <string name="content_input_power">Rated power</string>
     <string-array name="switch_fault_code">
-        <item>Switch off due to over-voltage</item>
-        <item>Switch off due to under-voltage</item>
-        <item>Switch off due to overload</item>
-        <item>Switch off due to over-electricity-consumption</item>
-        <item>Switch off by local-timing-control</item>
-        <item>Switch off by remote-control</item>
-        <item>Switch off due to exceed-times-of-auto-recovery</item>
-        <item>Switch off due to Instantaneous-Over-Current</item>
-        <item>Switch on by manual-opration</item>
-        <item>Switch off by manual-opration</item>
-        <item>Switch on by remote-control</item>
-        <item>Switch off due to over-leakage-current</item>
+        <item>opening due to overvoltage</item>
+        <item>opening due to under-voltage</item>
+        <item>opening due to overload</item>
+        <item>opening due to over-electricity-consumption</item>
+        <item>opening by local-timing-control</item>
+        <item>opening by remote-control</item>
+        <item>opening due to exceed-times-of-auto-recovery</item>
+        <item>opening due to Instantaneous-Over-Current</item>
+        <item>closing by manual-opration</item>
+        <item>opening by manual-opration</item>
+        <item>closing by remote-control</item>
+        <item>opening due to over-residual-current</item>
         <item>Switched off due to over-temperature</item>
-        <item>Switch off due to leakage-self-test</item>
+        <item>opening due to residual-self-test</item>
         <item>Upper level protection switched on</item>
         <item>Upper level protection switched off</item>
         <item>Switched on by local-timing-control</item>
-        <item>Leakage-self-test failed</item>
+        <item>residual-self-test failed</item>
         <item>Switch fault</item>
     </string-array>
     <string-array name="switch_param_code">
@@ -273,35 +273,35 @@
         <item>Set storage time interval</item>
         <item>Set RTC clock</item>
         <item>Breaker address</item>
-        <item>Over voltage</item>
-        <item>Over voltage</item>
-        <item>Over voltage</item>
-        <item>Over voltage</item>
-        <item>Switch off time delay after over-voltage Event1</item>
-        <item>Switch off time delay after over-voltage Event2</item>
-        <item>Switch off time delay after over-voltage Event3</item>
-        <item>Switch off time delay after over-voltage Event4</item>
+        <item>Overvoltage</item>
+        <item>Overvoltage</item>
+        <item>Overvoltage</item>
+        <item>Overvoltage</item>
+        <item>opening time delay after Overvoltage Event1</item>
+        <item>opening time delay after Overvoltage Event2</item>
+        <item>opening time delay after Overvoltage Event3</item>
+        <item>opening time delay after Overvoltage Event4</item>
         <item>Under voltage.</item>
-        <item>Time: Switch off time delay after under-voltage Event</item>
-        <item>Time: Switch on time delay after under-voltage Resuming</item>
+        <item>Time: opening time delay after under-voltage Event</item>
+        <item>Time: closing time delay after under-voltage Resuming</item>
         <item>Power-on time delay</item>
         <item>Over current</item>
-        <item>Switch off time delay after over-current Event</item>
-        <item>Switch on time delay after over-current-Swithed-off</item>
-        <item>Enable timed switch off</item>
-        <item>Enable timed switch on</item>
-        <item>Time of timed switch off</item>
-        <item>Time of timed switch on</item>
+        <item>opening time delay after over-current Event</item>
+        <item>closing time delay after over-current-Swithed-off</item>
+        <item>Enable timed opening</item>
+        <item>Enable timed closing</item>
+        <item>Time of timed opening</item>
+        <item>Time of timed closing</item>
         <item>Lower limit of electricity quantity</item>
         <item>Upper limit of electricity quantity</item>
         <item>Over current</item>
-        <item>Leakage</item>
-        <item>Enable leakage self test</item>
-        <item>Leakage-self-test time setting</item>
+        <item>residual</item>
+        <item>Enable residual self test</item>
+        <item>residual-self-test time setting</item>
         <item>Temperature</item>
-        <item>Power on switch status  0:Switch off 1:Switch on 2:No action</item>
+        <item>Power on switch status  0:opening 1:closing 2:No action</item>
         <item>3-Ph unbalance</item>
-        <item>Arc failure</item>
+        <item>Arc fault</item>
         <item>Lightning surge protection</item>
     </string-array>
 
@@ -320,7 +320,7 @@
     <string name="sucess">Success</string>
     <string name="failure">Fail</string>
     <string name="temperature">Temperature</string>
-    <string name="ldl">Leakage current</string>
+    <string name="ldl">residual current</string>
     <string name="upload_tips">
 1.Timing operation is usually saved in the cloud server. At the set time,the cloud server will automatically send the timing tasks to the power box through the Internet. The operation will fail when power box is not connected to the Internet.\n
 2.The user can select the "reside box" button to avoid operation failure under the network error. The scheduled operation will be saved in the power box and will work normally at the set time.\n
@@ -389,7 +389,7 @@
     <string name="vs31">Reside timing control</string>
     <string name="vs32">Response timeout</string>
     <string name="vs33">Conflict</string>
-    <string name="vs34">Manual switch off</string>
+    <string name="vs34">Manual opening</string>
     <string name="vs37">Follow our WeChat official account</string>
     <string name="vs38">Time-of-use pricing</string>
     <string name="vs39">Customer service</string>
@@ -427,8 +427,8 @@
     <string name="vs71">Choose time</string>
     <string name="vs72">Reside box</string>
     <string name="vs73">Operate</string>
-    <string name="vs74">Switch on</string>
-    <string name="vs75">Switch off</string>
+    <string name="vs74">closing</string>
+    <string name="vs75">opening</string>
     <string name="vs76">Home/ Power box/ Monthly report</string>
     <string name="vs77">Report details</string>
     <string name="vs78">Home/ Time-of-use pricing</string>
@@ -452,10 +452,10 @@
     <string name="vs97">Instantaneous over current threshold</string>
     <string name="vs100">Power on setting</string>
     <string name="vs101">High temperature threshold(℃)</string>
-    <string name="vs102">Enable leakage self test</string>
-    <string name="vs1022">Enable leakage protection</string>
-    <string name="vs103">Time of leakage self test(ddhh)</string>
-    <string name="vs104">Leakage threshold(mA)</string>
+    <string name="vs102">Enable residual self test</string>
+    <string name="vs1022">Enable residual protection</string>
+    <string name="vs103">Time of residual self test(ddhh)</string>
+    <string name="vs104">residual threshold(mA)</string>
     <string name="vs105">3-Ph unbalance</string>
     <string name="vs108">Home/ Scene manager</string>
     <string name="vs109">Add and edit</string>
@@ -478,7 +478,7 @@
     <string name="vs126">Relate breaker</string>
     <string name="vs127">Edit username</string>
     <string name="vs128">Status</string>
-    <string name="vs129">Leakage current</string>
+    <string name="vs129">residual current</string>
     <string name="vs130">Breaker version</string>
     <string name="vs131">Server address</string>
     <string name="vs132">Restore</string>
@@ -494,7 +494,7 @@
     <string name="vs142">Failed to get configuration data</string>
     <string name="vs144">Add fail</string>
     <string name="vs145">Edit breaker name</string>
-    <string name="vs146">Enter 6-12 digit password</string>
+    <string name="vs146">Enter 6&#8211;12 digit password</string>
     <string name="vs147">Open control permission</string>
     <string name="vs148">Close control permission</string>
     <string name="vs149">Edit scene</string>
@@ -504,7 +504,7 @@
     <string name="vs153">Send refresh command successfully</string>
     <string name="vs154">Remove this appliance?</string>
     <string name="vs155">Query operation time out, try again</string>
-    <string name="vs156">Request time out, try agin</string>
+    <string name="vs156">Request time out, try again</string>
     <string name="vs157">Sending operation fail, check your connection</string>
     <string name="vs158">Request failed by multiple simultaneous operation requests</string>
     <string name="vs159">Power box offline, please refresh</string>
@@ -528,7 +528,7 @@
     <string name="vs176">Reject to authorize WeChat login</string>
     <string name="vs177">WeChat login canceled</string>
     <string name="vs178">WeChat share canceled</string>
-    <string name="vs179">Box name 1-12 chartset</string>
+    <string name="vs179">Box name 1&#8211;12 chartset</string>
     <string name="vs180">Restore factory default</string>
     <string name="vs181">Start power box</string>
     <string name="vs182">Are you sure to restore factory default?</string>
