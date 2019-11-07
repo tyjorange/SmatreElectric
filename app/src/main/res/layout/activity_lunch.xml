@@ -22,7 +22,7 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
         android:src="@drawable/logo_dm"
         android:visibility="visible" />
@@ -35,8 +35,8 @@
         android:src="@drawable/logo" />
 
     <TextView
-        android:layout_height="0dp"
         android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="@integer/tag_1"
         android:gravity="center"
         android:text="@string/lunchTip"
