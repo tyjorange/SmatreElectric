@@ -21,7 +21,6 @@ import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 
 import java.util.List;
 
-
 /**
  * 线路修改 （名称图片）
  */

@@ -120,7 +120,7 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
     /**
      * 获取集中器下的线路(switch)
      */
-    private void getSwitchByCollector() {
+    private void getSwitchByCollector(boolean showTip) {
         waitDialog.show();
         Core.instance(this).getSwitchByCollector(mCollectorBean.getCode(), "hierarchy", new ActionCallbackListener<List<SwitchBean>>() {
             @Override
@@ -139,7 +139,11 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
             @Override
             public void onFailure(int errorEvent, String message) {
                 if (errorEvent == 12) {
-                    CustomToast.showCustomErrorToast(YaoKongActivity.this, getString(R.string.vs29));
+                    mListData.clear();
+                    adapter.notifyDataSetChanged();
+                    if (showTip) {
+                        CustomToast.showCustomErrorToast(YaoKongActivity.this, getString(R.string.vs29));
+                    }
                 } else {
                     CustomToast.showCustomErrorToast(YaoKongActivity.this, message);
                 }
@@ -186,7 +190,7 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
                     public void onSuccess(Void data) {
 //                mListData.remove(position);
 //                mAdapter.notifyDataSetChanged();
-                        getSwitchByCollector();
+                        getSwitchByCollector(false);
                         CustomToast.showCustomToast(YaoKongActivity.this, getString(R.string.operator_sucess));
                         waitDialog.dismiss();
                     }
@@ -226,7 +230,7 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
     @Override
     protected void onResume() {
         super.onResume();
-        getSwitchByCollector();
+        getSwitchByCollector(true);
     }
 
     @Override
@@ -238,7 +242,7 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
 //                getSwitchByCollector();
                 finish();//TODO 添加/删除完分线支线直接结束界面
             } else if (requestCode == CommonRequestCode.REQUEST_ADD_LINE_ROOT) {
-                getSwitchByCollector();
+                getSwitchByCollector(false);
             }
         }
     }
