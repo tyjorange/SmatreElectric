@@ -3,6 +3,8 @@ package com.rejuvee.smartelectric.family.model.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.databinding.ObservableBoolean;
+
 import com.google.gson.annotations.SerializedName;
 import com.rejuvee.smartelectric.family.R;
 
@@ -100,9 +102,14 @@ public class CollectorBean implements Parcelable {
 
     public int ioType;
     private boolean flag; //是否选中
+//    public ObservableBoolean isAddBtn = new ObservableBoolean(false);
 
+//    public CollectorBean setIsAddBtn(boolean fired) {
+//        isAddBtn.set(fired);
+//        return this;
+//    }
 
-    protected CollectorBean(Parcel in) {
+    public CollectorBean(Parcel in) {
         deviceMac = in.readString();
         deviceName = in.readString();
         collectorID = in.readString();
@@ -271,7 +278,14 @@ public class CollectorBean implements Parcelable {
     }
 
     public int getBeShared() {
-        return beShared;
+        if (beShared == 1) {
+            return (R.drawable.gongxiangjinlai);
+        } else {
+            if (beShared == 0 && share > 0) {
+                return (R.drawable.gongxiangchuqu);
+            }
+        }
+        return R.drawable.empty;
     }
 
     public void setBeShared(int beShared) {
@@ -303,7 +317,7 @@ public class CollectorBean implements Parcelable {
     }
 
     public int getIoType() {
-        return ioType;
+        return getDeviceTypeImg(ioType);
     }
 
     public void setIoType(int ioType) {
@@ -398,7 +412,7 @@ public class CollectorBean implements Parcelable {
     //        5 -- LoRa
     //        6 -- mesh
     //        7 -- 4g
-    public static int getDeviceTypeImg(int ioType) {
+    private int getDeviceTypeImg(int ioType) {
         if (ioType == 0) {
             return R.drawable.io_weizhi;
         } else if (ioType == 1) {

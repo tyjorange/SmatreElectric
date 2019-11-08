@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -20,14 +21,13 @@ import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.utils.SizeUtils;
 import com.base.library.widget.CustomToast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import com.rejuvee.smartelectric.family.activity.AddDeviceOrSwitchActivity;
-import com.rejuvee.smartelectric.family.activity.collector.CollectorDetailActivity;
 import com.rejuvee.smartelectric.family.activity.energy.TimePriceActivity;
 import com.rejuvee.smartelectric.family.activity.kefu.CustomerServiceActivity;
 import com.rejuvee.smartelectric.family.activity.mine.AboutActivity;
@@ -35,7 +35,7 @@ import com.rejuvee.smartelectric.family.activity.mine.PerInfoActivity;
 import com.rejuvee.smartelectric.family.activity.mine.SettingsActivity;
 import com.rejuvee.smartelectric.family.activity.mine.ThridBindActivity;
 import com.rejuvee.smartelectric.family.activity.scene.SceneActivity;
-import com.rejuvee.smartelectric.family.adapter.GridDeviceAdapter;
+import com.rejuvee.smartelectric.family.adapter.GDAdapter;
 import com.rejuvee.smartelectric.family.adapter.HorizontalListSceneAdapter;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.ActivityFragmentManager;
@@ -81,8 +81,8 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
     //    private LinearLayout ll_add_scene;
     //集中器
 //    private GridView gridViewDevice;
-    private List<CollectorBean> listDeviceData = new ArrayList<>();
-    private GridDeviceAdapter mDeviceAdapter;
+//    private List<CollectorBean> listDeviceData = new ArrayList<>();
+    private GDAdapter mGDAdapter;
     //    private TextView tvCollectorCount;//集中器计数
     //用户
     private CircleImageView ivHead;//头像view
@@ -388,27 +388,45 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         });
     }
 
+    public class Presenter {
+        public void onClickAddItem(View view) {
+//            mGDAdapter.add(new Employee("haha", "1", false));
+        }
+
+        public void onClickRemoveItem(View view) {
+//            mGDAdapter.remove();
+        }
+    }
+
     private void initCollector() {
 //        gridViewDevice = findViewById(R.id.grid_device);
-        mDeviceAdapter = new GridDeviceAdapter(listDeviceData, mContext);
-        mBinding.include.include.gridDevice.setAdapter(mDeviceAdapter);
-//        gridViewDevice.setEmptyView(findViewById(R.id.empty_layout));
-        mBinding.include.include.gridDevice.setOnItemClickListener((parent, view, position, id) -> {
-            if (mDeviceAdapter.isEditMode()) {
-                return;
-            }
-            if (position == listDeviceData.size()) {
-                startActivityForResult(new Intent(mContext, AddDeviceOrSwitchActivity.class), CommonRequestCode.REQUEST_ADD_COLLECTOR);
-            } else {
-                CollectorBean collectorBean = listDeviceData.get(position);
-                Intent intent = new Intent(MainNavigationActivity.this, CollectorDetailActivity.class);
-                intent.putExtra("collectorBean", collectorBean);
-                startActivity(intent);
+        mGDAdapter = new GDAdapter(this);
+        mBinding.include.include.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mBinding.include.include.recyclerView.setAdapter(mGDAdapter);
+        mGDAdapter.setListener(new GDAdapter.OnItemClickListener() {
+
+            @Override
+            public void onCollectorBeanClick(CollectorBean bean) {
+                System.out.println(bean);
             }
         });
+//        gridViewDevice.setEmptyView(findViewById(R.id.empty_layout));
+//        mBinding.include.include.gridDevice.setOnItemClickListener((parent, view, position, id) -> {
+////            if (mDeviceAdapter.isEditMode()) {
+////                return;
+////            }
+//            if (position == listDeviceData.size()) {
+//                startActivityForResult(new Intent(mContext, AddDeviceOrSwitchActivity.class), CommonRequestCode.REQUEST_ADD_COLLECTOR);
+//            } else {
+//                CollectorBean collectorBean = listDeviceData.get(position);
+//                Intent intent = new Intent(MainNavigationActivity.this, CollectorDetailActivity.class);
+//                intent.putExtra("collectorBean", collectorBean);
+//                startActivity(intent);
+//            }
+//        });
         //长按删除
         // Deprecated
-        mBinding.include.include.gridDevice.setOnItemLongClickListener((parent, view, position, id) -> {
+//        mBinding.include.include.gridDevice.setOnItemLongClickListener((parent, view, position, id) -> {
 //                if (position == listDeviceData.size()) {
 //                    return true;
 //                }
@@ -419,8 +437,8 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 //                }
 //                Vibrator vibrator = (Vibrator) mContext.getSystemService(VIBRATOR_SERVICE);
 //                vibrator.vibrate(10000);
-            return true;
-        });
+//            return true;
+//        });
     }
 
     private void getCollector() {
@@ -428,9 +446,11 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
             @Override
             public void onSuccess(List<CollectorBean> data) {
                 mBinding.include.include.tvCollectorCount.setText(String.format(Locale.getDefault(), "%s%d", getString(R.string.vs13), data.size()));
-                listDeviceData.clear();
-                listDeviceData.addAll(data);
-                mDeviceAdapter.notifyDataSetChanged();
+//                listDeviceData.clear();
+//                listDeviceData.addAll(data);
+                data.add(new CollectorBean(Parcel.obtain()));// 加一个空项作为添加按钮事件
+                mGDAdapter.addAll(data);
+//                mDeviceAdapter.notifyDataSetChanged();
 //                updateRefreshState();
                 mBinding.include.include.refreshlayout.setRefreshing(false);
             }
@@ -522,8 +542,8 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 //        drawerLayout = findViewById(R.id.drawer_layout);
         if (mBinding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             mBinding.drawerLayout.closeDrawer(GravityCompat.START);
-        } else if (mDeviceAdapter.isEditMode()) {
-            mDeviceAdapter.setEditMode(false);
+//        } else if (mDeviceAdapter.isEditMode()) {
+//            mDeviceAdapter.setEditMode(false);
         } else {
             mDialogTip = new DialogTip(mContext);
             mDialogTip.setTitle(getString(R.string.vs67));

@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            android:src="@{mSceneBean.getSceneIconRes(),default=@drawable/cj_gengduo_cj}" />
+            android:src="@{mSceneBean.sceneIconRes,default=@drawable/cj_gengduo_cj}" />
 
         <TextView
             android:id="@+id/txt_scene_name"

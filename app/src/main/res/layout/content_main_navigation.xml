@@ -107,22 +107,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <com.rejuvee.smartelectric.family.common.widget.CustomGridViewWithSplitLine
-                        android:id="@+id/grid_device"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_view"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:horizontalSpacing="5dp"
-                        android:numColumns="1"
-                        android:padding="8dp"
-                        android:verticalSpacing="15dp" />
+                        android:layout_height="match_parent" />
+                    <!--                    <com.rejuvee.smartelectric.family.common.widget.CustomGridViewWithSplitLine-->
+                    <!--                        android:id="@+id/grid_device"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="match_parent"-->
+                    <!--                        android:layout_margin="10dp"-->
+                    <!--                        android:horizontalSpacing="5dp"-->
+                    <!--                        android:numColumns="1"-->
+                    <!--                        android:padding="8dp"-->
+                    <!--                        android:verticalSpacing="15dp" />-->
 
-                    <include
-                        android:id="@+id/empty_layout"
-                        layout="@layout/empty_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:visibility="gone" />
+                    <!--                    <include-->
+                    <!--                        android:id="@+id/empty_layout"-->
+                    <!--                        layout="@layout/empty_layout"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="match_parent"-->
+                    <!--                        android:visibility="gone" />-->
                 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
             </LinearLayout>
         </LinearLayout>

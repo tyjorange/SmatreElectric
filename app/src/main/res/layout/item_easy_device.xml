@@ -64,7 +64,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
-                        android:text="S2580467356533"
+                        android:text="@{mCollectorBean.deviceName,default=S2580467356533}"
                         android:textColor="@color/black"
                         android:textSize="15sp"
                         android:textStyle="bold" />
@@ -75,7 +75,7 @@
                         android:layout_height="6dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="5dp"
-                        android:background="@drawable/selector_online" />
+                        android:src="@{mCollectorBean.online==0?@drawable/selector_offline:@drawable/selector_online,default=@drawable/selector_online}" />
 
                     <ImageView
                         android:id="@+id/iv_share"
@@ -83,7 +83,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="5dp"
-                        android:src="@drawable/gongxiangchuqu" />
+                        android:src="@{mCollectorBean.beShared,default=@drawable/gongxiangchuqu}" />
 
                 </LinearLayout>
 
@@ -92,7 +92,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/io_gprs" />
+                    android:src="@{mCollectorBean.ioType,default=@drawable/io_weizhi}" />
             </LinearLayout>
 
             <LinearLayout

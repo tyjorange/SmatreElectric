@@ -16,10 +16,11 @@ import java.util.List;
 /**
  * Created by liuchengran on 2018/1/2.
  */
+@Deprecated
 public class GridDeviceAdapter extends BaseAdapter {
     private List<CollectorBean> mListData;
     private Context mContext;
-    private boolean isEditMode = false;
+//    private boolean isEditMode = false;
     private MyListener mListener;
 
     public GridDeviceAdapter(List<CollectorBean> listData, Context context) {
@@ -27,14 +28,14 @@ public class GridDeviceAdapter extends BaseAdapter {
         mContext = context;
     }
 
-    public void setEditMode(boolean edit) {
-        isEditMode = edit;
-        notifyDataSetChanged();
-    }
-
-    public boolean isEditMode() {
-        return isEditMode;
-    }
+//    public void setEditMode(boolean edit) {
+//        isEditMode = edit;
+//        notifyDataSetChanged();
+//    }
+//
+//    public boolean isEditMode() {
+//        return isEditMode;
+//    }
 
     @Override
     public int getCount() {
@@ -81,7 +82,7 @@ public class GridDeviceAdapter extends BaseAdapter {
 //            params.height = params.width;
 //            convertView.requestLayout();
         }
-        boolean isShareFromOther = false;
+//        boolean isShareFromOther = false;
         if (mListData == null || position == mListData.size()) {//添加
 //            FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 //            lp.gravity = Gravity.CENTER;
@@ -108,7 +109,7 @@ public class GridDeviceAdapter extends BaseAdapter {
             if (collectorBean.beShared == 1) {
                 holder.ivShare.setVisibility(View.VISIBLE);
                 holder.ivShare.setImageResource(R.drawable.gongxiangjinlai);
-                isShareFromOther = true;
+//                isShareFromOther = true;
             } else {
                 if (collectorBean.beShared == 0 && collectorBean.share > 0) {
                     holder.ivShare.setVisibility(View.VISIBLE);
@@ -116,15 +117,15 @@ public class GridDeviceAdapter extends BaseAdapter {
                 }
             }
 //            holder.tvDeviceType.setText(CollectorBean.getDeviceType(collectorBean.ioType));
-            holder.ivDeviceType.setBackground(mContext.getResources().getDrawable(CollectorBean.getDeviceTypeImg(collectorBean.ioType)));
+//            holder.ivDeviceType.setBackground(mContext.getResources().getDrawable(CollectorBean.getDeviceTypeImg(collectorBean.ioType)));
 //            holder.ivDeviceType.setImageDrawable(mContext.getResources().getDrawable(CollectorBean.getDeviceTypeImg(collectorBean.ioType)));
 //            Drawable leftDrawable = mContext.getResources().getDrawable(CollectorBean.getDeviceTypeImg(collectorBean.ioType));
 //            leftDrawable.setBounds(0, 0, SizeUtils.dp2px(12), SizeUtils.dp2px(12));
 //            holder.ivDeviceType.setCompoundDrawables(leftDrawable, null, null, null);
 //            holder.tvDeviceType.setVisibility(collectorBean.ioType == 0 ? View.GONE : View.VISIBLE);
         }
-        holder.ivDel.setVisibility(isEditMode && position != mListData.size() && !isShareFromOther ? View.VISIBLE : View.GONE);
-        holder.llRight.setVisibility(isEditMode && position != mListData.size() ? View.GONE : View.VISIBLE);
+//        holder.ivDel.setVisibility(isEditMode && position != mListData.size() && !isShareFromOther ? View.VISIBLE : View.GONE);
+//        holder.llRight.setVisibility(isEditMode && position != mListData.size() ? View.GONE : View.VISIBLE);
 //        if (isShareFromOther) {
 //            holder.ivDel.setImageDrawable(mContext.getResources().getDrawable(R.drawable.reduce));
 //            holder.ivDel.setVisibility(View.VISIBLE);
