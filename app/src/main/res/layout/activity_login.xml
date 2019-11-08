@@ -1,283 +1,297 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/login_beijing"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    android:theme="@style/AppTheme"
-    tools:context=".activity.login.LoginActivity"
-    tools:openDrawer="start">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="act"
+            type="com.rejuvee.smartelectric.family.activity.login.LoginActivity" />
+
+        <variable
+            name="vm"
+            type="com.rejuvee.smartelectric.family.activity.login.LoginViewModel" />
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp">
-
-        <!--<View-->
-        <!--android:layout_width="50dp"-->
-        <!--android:layout_height="50dp" />-->
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
-
-        <TextView
-            android:id="@+id/hidden_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="0dp"
-            android:paddingEnd="32dp"
-            android:text="@string/vs136"
-            android:textColor="@color/text_content"
-            android:textSize="20sp" />
-
-        <ImageView
-            android:id="@+id/iv_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:src="@drawable/login_logo"
-            android:visibility="invisible" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="32dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:background="@drawable/login_beijing"
+        android:fitsSystemWindows="true"
         android:orientation="vertical"
-        android:paddingLeft="16dp"
-        android:paddingTop="32dp"
-        android:paddingRight="16dp"
-        android:paddingBottom="32dp">
+        android:theme="@style/AppTheme"
+        tools:context=".activity.login.LoginActivity"
+        tools:openDrawer="start">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/login_input"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_height="70dp">
 
-            <ImageView
+            <!--<View-->
+            <!--android:layout_width="50dp"-->
+            <!--android:layout_height="50dp" />-->
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/hidden_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginEnd="16dp"
-                android:contentDescription="TODO"
-                android:scaleType="centerCrop"
-                android:src="@drawable/yonghu" />
-
-            <com.rejuvee.smartelectric.family.common.widget.ClearEditText
-                android:id="@+id/login_cet_username"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/transparent"
-                android:gravity="center_vertical"
-                android:hint="@string/login_hint_username"
-                android:imeOptions="actionNext"
-                android:singleLine="true"
+                android:paddingStart="0dp"
+                android:paddingEnd="32dp"
+                android:text="@string/vs136"
                 android:textColor="@color/text_content"
-                android:textColorHint="@color/text_content"
-                android:textSize="14sp" />
+                android:textSize="20sp" />
 
-            <com.rejuvee.smartelectric.family.common.widget.CheckableImageView
-                android:layout_width="1dp"
-                android:layout_height="1dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
+            <ImageView
+                android:id="@+id/iv_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
-                android:src="@drawable/iconfont_yanjing"
+                android:src="@drawable/login_logo"
                 android:visibility="invisible" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="32dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/login_input"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_marginRight="32dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingTop="32dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="32dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginEnd="16dp"
-                android:contentDescription="TODO"
-                android:scaleType="centerCrop"
-                android:src="@drawable/mima" />
-
-            <com.rejuvee.smartelectric.family.common.widget.ClearEditText
-                android:id="@+id/login_cet_password"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/transparent"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/login_input"
                 android:gravity="center_vertical"
-                android:hint="@string/login_hint_password"
-                android:imeOptions="actionNext"
-                android:inputType="textPassword"
-                android:singleLine="true"
-                android:textColor="@color/text_content"
-                android:textColorHint="@color/text_content"
-                android:textSize="14sp" />
+                android:orientation="horizontal">
 
-            <com.rejuvee.smartelectric.family.common.widget.CheckableImageView
-                android:id="@+id/login_civ_eye"
-                android:layout_width="21dp"
-                android:layout_height="21dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="18dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/eye_close" />
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="TODO"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/yonghu" />
 
-        <TextView
-            android:id="@+id/login_tv_login"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="48dp"
-            android:background="@drawable/login_btn"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:orientation="horizontal"
-            android:text="@string/login"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
+                <com.rejuvee.smartelectric.family.common.widget.ClearEditText
+                    android:id="@+id/login_cet_username"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/transparent"
+                    android:gravity="center_vertical"
+                    android:hint="@string/login_hint_username"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true"
+                    android:textColor="@color/text_content"
+                    android:textColorHint="@color/text_content"
+                    android:textSize="14sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+                <com.rejuvee.smartelectric.family.common.widget.CheckableImageView
+                    android:layout_width="1dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/iconfont_yanjing"
+                    android:visibility="invisible" />
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/login_input"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="TODO"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/mima" />
+
+                <com.rejuvee.smartelectric.family.common.widget.ClearEditText
+                    android:id="@+id/login_cet_password"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/transparent"
+                    android:gravity="center_vertical"
+                    android:hint="@string/login_hint_password"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword"
+                    android:singleLine="true"
+                    android:textColor="@color/text_content"
+                    android:textColorHint="@color/text_content"
+                    android:textSize="14sp" />
+
+                <com.rejuvee.smartelectric.family.common.widget.CheckableImageView
+                    android:id="@+id/login_civ_eye"
+                    android:layout_width="21dp"
+                    android:layout_height="21dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="18dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/eye_close" />
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/login_tv_regist"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:gravity="start"
+                android:id="@+id/login_tv_login"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="48dp"
+                android:background="@drawable/login_btn"
+                android:gravity="center"
                 android:onClick="onClick"
-                android:padding="16dp"
-                android:text="@string/login_regist"
-                android:textColor="@color/text_content"
-                android:textSize="14sp" />
+                android:orientation="horizontal"
+                android:text="@string/login"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/login_tv_forget"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:gravity="end"
-                android:onClick="onClick"
-                android:padding="16dp"
-                android:text="@string/login_forget_password"
-                android:textColor="@color/text_content"
-                android:textSize="14sp" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:orientation="horizontal"
-            android:visibility="gone">
+                <TextView
+                    android:id="@+id/login_tv_regist"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="start"
+                    android:onClick="onClick"
+                    android:padding="16dp"
+                    android:text="@string/login_regist"
+                    android:textColor="@color/text_content"
+                    android:textSize="14sp" />
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:background="@color/horizontal_split_line" />
+                <TextView
+                    android:id="@+id/login_tv_forget"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="end"
+                    android:onClick="onClick"
+                    android:padding="16dp"
+                    android:text="@string/login_forget_password"
+                    android:textColor="@color/text_content"
+                    android:textSize="14sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:text="@string/quick_login"
-                android:textColor="@color/text_base_color_999"
-                android:textSize="14sp" />
+                android:orientation="horizontal"
+                android:visibility="gone">
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:background="@color/horizontal_split_line" />
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/horizontal_split_line" />
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:text="@string/quick_login"
+                    android:textColor="@color/text_base_color_999"
+                    android:textSize="14sp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="50dp"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/vs135"
-            android:textColor="@color/text_content"
-            android:textSize="12sp" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center">
-
-            <ImageView
-                android:id="@+id/iv_weixin_login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/login_wx" />
-
-            <ImageView
-                android:id="@+id/iv_qq_login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:src="@drawable/login_qq" />
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/horizontal_split_line" />
+            </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ll_privacy"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center">
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="50dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/vs271"
+                android:text="@string/vs135"
                 android:textColor="@color/text_content"
-                android:textSize="12sp">
+                android:textSize="12sp" />
 
-            </TextView>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/iv_weixin_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/login_wx" />
+
+                <ImageView
+                    android:id="@+id/iv_qq_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/login_qq" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_privacy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vs271"
+                    android:textColor="@color/text_content"
+                    android:textSize="12sp">
+
+                </TextView>
+            </LinearLayout>
+
         </LinearLayout>
-
     </LinearLayout>
-</LinearLayout>
+</layout>

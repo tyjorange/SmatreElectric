@@ -25,15 +25,15 @@ public class SetInfoActivity extends BaseActivity implements View.OnClickListene
     private AccountInfo cacheAccount;
     private String userName;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_setnickname;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_setnickname;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

@@ -38,15 +38,15 @@ public class EnergySavingInformationActivity extends BaseActivity implements Vie
     private TextView tbjs_val;
     private TextView ydl_val;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_energy_saving_information;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_energy_saving_information;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

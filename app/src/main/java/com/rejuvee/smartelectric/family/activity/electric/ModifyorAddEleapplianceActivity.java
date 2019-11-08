@@ -44,15 +44,15 @@ public class ModifyorAddEleapplianceActivity extends BaseActivity implements Vie
     private LoadingDlg mWaitDialog;
     private CollectorBean collectorBean;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_addeleappliance;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_addeleappliance;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

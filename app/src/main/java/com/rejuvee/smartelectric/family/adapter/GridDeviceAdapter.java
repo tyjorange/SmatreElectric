@@ -22,10 +22,9 @@ public class GridDeviceAdapter extends BaseAdapter {
     private boolean isEditMode = false;
     private MyListener mListener;
 
-    public GridDeviceAdapter(List<CollectorBean> listData, Context context, MyListener listener) {
+    public GridDeviceAdapter(List<CollectorBean> listData, Context context) {
         mListData = listData;
         mContext = context;
-        mListener = listener;
     }
 
     public void setEditMode(boolean edit) {

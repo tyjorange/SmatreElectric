@@ -35,15 +35,15 @@ public class TimerSwitchActivity extends BaseActivity implements ListTimerSwitch
     private CollectorBean mDevicollectorBeane;
 
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_timer_switch;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_timer_switch;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

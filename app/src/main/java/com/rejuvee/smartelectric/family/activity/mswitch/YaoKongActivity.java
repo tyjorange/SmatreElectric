@@ -43,15 +43,15 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
 
     private DialogTip mDialogTip;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_yao_kong;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_yao_kong;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

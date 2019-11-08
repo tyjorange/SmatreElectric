@@ -25,15 +25,15 @@ public class AddShareMemberActivity extends BaseActivity {
     private boolean ischeck;
     private int enable = 1;  //1表示允许  0不允许  默认允许
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_add_share_member;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_add_share_member;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

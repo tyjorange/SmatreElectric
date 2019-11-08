@@ -1,14 +1,16 @@
 package com.rejuvee.smartelectric.family.adapter;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
+import androidx.databinding.library.baseAdapters.BR;
 
 import com.rejuvee.smartelectric.family.R;
-import com.rejuvee.smartelectric.family.common.constant.NativeLine;
 import com.rejuvee.smartelectric.family.model.bean.SceneBean;
 
 import java.util.List;
@@ -44,24 +46,28 @@ public class HorizontalListSceneAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+        ViewDataBinding binding;
         if (convertView == null) {
-            convertView = View.inflate(mContext, R.layout.item_easy_scene, null);
-            holder = new ViewHolder();
-            holder.imgSceneIcon = convertView.findViewById(R.id.img_scene);
-            holder.txtSceneName = convertView.findViewById(R.id.txt_scene_name);
-            convertView.setTag(holder);
+            binding = DataBindingUtil.inflate(LayoutInflater.from(mContext), R.layout.item_easy_scene, parent, false);
+//            convertView = View.inflate(mContext, R.layout.item_easy_scene, null);
+//            holder = new ViewHolder();
+//            holder.imgSceneIcon = convertView.findViewById(R.id.img_scene);
+//            holder.txtSceneName = convertView.findViewById(R.id.txt_scene_name);
+//            convertView.setTag(holder);
+            convertView = binding.getRoot();
         } else {
-            holder = (ViewHolder) convertView.getTag();
+            binding = DataBindingUtil.getBinding(convertView);
+//            holder = (ViewHolder) convertView.getTag();
         }
 //        if (mListData == null || position == mListData.size()) {//最后一个
 //            holder.imgSceneIcon.setImageResource(R.drawable.gengduo_cj);
 //            holder.txtSceneName.setText(mContext.getString(R.string.sceneBean));
 //        } else {
-        SceneBean sceneBean = mListData.get(position);
-        holder.imgSceneIcon.setImageResource(NativeLine.imageId[sceneBean.getSceneIconRes()]);
-        holder.txtSceneName.setText(spSceneName(sceneBean.getSceneName()));
+//        SceneBean sceneBean = mListData.get(position);
+//        holder.imgSceneIcon.setImageResource(NativeLine.imageId[sceneBean.getSceneIconRes()]);
+//        holder.txtSceneName.setText(spSceneName(sceneBean.getSceneName()));
 //        }
+        binding.setVariable(BR.mSceneBean, mListData.get(position));
         return convertView;
     }
 
@@ -72,8 +78,8 @@ public class HorizontalListSceneAdapter extends BaseAdapter {
         return name;
     }
 
-    class ViewHolder {
-        ImageView imgSceneIcon;
-        TextView txtSceneName;
-    }
+//    class ViewHolder {
+//        ImageView imgSceneIcon;
+//        TextView txtSceneName;
+//    }
 }

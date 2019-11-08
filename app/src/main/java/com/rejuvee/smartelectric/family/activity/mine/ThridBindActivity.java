@@ -37,15 +37,15 @@ public class ThridBindActivity extends BaseActivity {
     private DialogTip mDialogSwitch;
     private LoadingDlg waitDialog;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_bind;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_bind;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

@@ -39,15 +39,15 @@ public class ShareListActivity extends BaseActivity {
 
     private SwipeRefreshLayout refreshLayout;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_share_list;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_share_list;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

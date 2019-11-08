@@ -42,15 +42,15 @@ public class CollectorDetailActivity extends BaseActivity implements View.OnClic
     private Context mContext;
     private TextView tvUpgrade;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_device_detail;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_device_detail;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

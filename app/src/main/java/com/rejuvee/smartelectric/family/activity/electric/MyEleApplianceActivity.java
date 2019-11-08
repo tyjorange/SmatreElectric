@@ -43,15 +43,15 @@ public class MyEleApplianceActivity extends BaseActivity implements Eleappliance
     private LoadingDlg mWaitDialog;
     private CollectorBean collectorBean;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_myeleappliance;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_myeleappliance;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

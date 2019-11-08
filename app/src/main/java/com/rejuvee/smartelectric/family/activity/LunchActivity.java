@@ -3,28 +3,32 @@ package com.rejuvee.smartelectric.family.activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.widget.Button;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.activity.login.LoginActivity;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
+import com.rejuvee.smartelectric.family.databinding.ActivityLunchBinding;
 
 import java.util.Locale;
 
 public class LunchActivity extends BaseActivity {
     private String TAG = "LunchActivity";
-    private Button mBtnSkip;
+    //    private Button mBtnSkip;
     private int count = 3;
+    private ActivityLunchBinding mBinding;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_lunch;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return 0;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     private Handler handler;
 
@@ -32,6 +36,7 @@ public class LunchActivity extends BaseActivity {
 //        SoftReference<LunchActivity> activitySoftReference;
 
         LunchActivity lunchActivity;
+
         MyHandler(LunchActivity activity) {
 //            activitySoftReference = new SoftReference<LunchActivity>(activity);
             lunchActivity = activity;
@@ -42,7 +47,7 @@ public class LunchActivity extends BaseActivity {
         public void handleMessage(Message msg) {
 //            LunchActivity theActivity = activitySoftReference.get();
             if (msg.what == 101) {
-                lunchActivity.mBtnSkip.setText(String.format(Locale.getDefault(), "%s(%d)", lunchActivity.getString(R.string.vs11), lunchActivity.getCount()));
+                lunchActivity.mBinding.btnSkip.setText(String.format(Locale.getDefault(), "%s(%d)", lunchActivity.getString(R.string.vs11), lunchActivity.getCount()));
                 lunchActivity.handler.sendEmptyMessageDelayed(101, 1000);
             }
         }
@@ -61,8 +66,14 @@ public class LunchActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mBtnSkip = findViewById(R.id.btn_skip);
-        mBtnSkip.setOnClickListener(view -> {
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_lunch);
+        LunchViewModel mViewModel = ViewModelProviders.of(this).get(LunchViewModel.class);
+        mBinding.setAct(this);
+        mBinding.setVm(mViewModel);
+        mBinding.setLifecycleOwner(this);
+
+//        mBtnSkip = findViewById(R.id.btn_skip);
+        mBinding.btnSkip.setOnClickListener(view -> {
             startActivity(new Intent(LunchActivity.this, LoginActivity.class));
             overridePendingTransition(R.anim.top_in, R.anim.top_out);
             handler.removeMessages(101);

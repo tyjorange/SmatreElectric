@@ -51,20 +51,20 @@ public class CollectorAttrSetActivity extends BaseActivity implements View.OnCli
             "90", "120", "150",
     };
 
-    @Override
-    protected int getLayoutResId() {
-        Acposition = getIntent().getIntExtra("position", 1);
-        if (Acposition == 0) {
-            return R.layout.activity_setupname;
-        } else {
-            return R.layout.activity_setupextra;
-        }
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        Acposition = getIntent().getIntExtra("position", 1);
+//        if (Acposition == 0) {
+//            return R.layout.activity_setupname;
+//        } else {
+//            return R.layout.activity_setupextra;
+//        }
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

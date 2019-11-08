@@ -24,15 +24,15 @@ public class HiddenDialogActivity extends BaseActivity {
     private Button btnSave;
     private Button btnCancel;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.active_hidden_dialog;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.active_hidden_dialog;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

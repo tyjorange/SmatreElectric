@@ -56,15 +56,15 @@ public class CreateSceneActivity extends BaseActivity implements View.OnClickLis
 //    private int sceneiconres;
     private ArrayList<String> sceneswitchid = new ArrayList<>();
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_createscene;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_createscene;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

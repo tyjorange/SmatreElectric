@@ -52,15 +52,15 @@ public class CollectorAttrActivity extends BaseActivity implements View.OnClickL
 
     private LoadingDlg loadingDlg;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_setup_layout;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_setup_layout;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

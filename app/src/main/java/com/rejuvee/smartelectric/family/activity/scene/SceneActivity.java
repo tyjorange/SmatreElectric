@@ -33,15 +33,15 @@ public class SceneActivity extends BaseActivity implements View.OnClickListener,
     private DialogTip dialogTip;
     private LoadingDlg mWaitDialog;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_scene;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_scene;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

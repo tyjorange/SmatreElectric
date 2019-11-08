@@ -50,15 +50,15 @@ public class ChartsActivity extends BaseActivity {
     private CollectorBean collectorBean;
     private static List<SwitchBean> result;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_charts;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_charts;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

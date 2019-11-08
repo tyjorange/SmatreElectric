@@ -43,15 +43,15 @@ public class TimerEditDialogActivity extends BaseActivity implements View.OnClic
 
     private int uploadToCollect = 0;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_time_task_edit;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_time_task_edit;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

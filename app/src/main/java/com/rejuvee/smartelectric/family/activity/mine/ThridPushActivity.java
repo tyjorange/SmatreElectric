@@ -42,15 +42,15 @@ public class ThridPushActivity extends BaseActivity {
     private Context context;
     private LoadingDlg mWaitDialog;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_push;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_push;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

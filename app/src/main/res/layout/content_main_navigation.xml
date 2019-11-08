@@ -1,119 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.rejuvee.smartelectric.family.MainNavigationActivity"
-    tools:showIn="@layout/app_bar_main_navigation">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <data>
+
+        <variable
+            name="HorizontalListSceneAdapter"
+            type="com.rejuvee.smartelectric.family.adapter.HorizontalListSceneAdapter" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tv_collector_count"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/rounded_rectangle"
-            android:drawableStart="@drawable/guangbo"
-            android:drawablePadding="10dp"
-            android:gravity="center_vertical"
-            android:paddingStart="20dp"
-            android:paddingTop="12dp"
-            android:paddingEnd="20dp"
-            android:paddingBottom="20dp"
-            android:text="总电箱数量：0"
-            android:textColor="@color/text_content" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.rejuvee.smartelectric.family.MainNavigationActivity"
+        tools:showIn="@layout/app_bar_main_navigation">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/shape_scene_bg"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_collector_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rounded_rectangle"
+                android:drawableStart="@drawable/guangbo"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:paddingTop="12dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="20dp"
+                android:text="总电箱数量：0"
+                android:textColor="@color/text_content" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="0dp"
-                android:layout_marginBottom="5dp"
+                android:layout_height="match_parent"
                 android:background="@drawable/shape_scene_bg"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <com.base.library.widget.HorizontalListView
-                    android:id="@+id/main_scene"
-                    android:layout_width="0dp"
-                    android:layout_height="80dp"
-                    android:layout_weight="1" />
-
-                <ImageView
-                    android:layout_width="2dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/grid_bg" />
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/ll_add_scene"
-                    android:layout_width="90dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/shape_scene_bg"
                     android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="10dp">
+                    android:orientation="horizontal">
+
+                    <com.base.library.widget.HorizontalListView
+                        android:id="@+id/main_scene"
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_weight="1"
+                        app:adapter="@{HorizontalListSceneAdapter}" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/main_add_changjing"
-                        android:contentDescription="TODO" />
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/grid_bg" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/ll_add_scene"
+                        android:layout_width="90dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/vs113"
-                        android:textColor="#5A6187"
-                        android:textSize="12sp" />
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/main_add_changjing"
+                            android:contentDescription="TODO" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/vs113"
+                            android:textColor="#5A6187"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/main_banner" />
+
+                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                    android:id="@+id/refreshlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.rejuvee.smartelectric.family.common.widget.CustomGridViewWithSplitLine
+                        android:id="@+id/grid_device"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:horizontalSpacing="5dp"
+                        android:numColumns="1"
+                        android:padding="8dp"
+                        android:verticalSpacing="15dp" />
+
+                    <include
+                        android:id="@+id/empty_layout"
+                        layout="@layout/empty_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone" />
+                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
             </LinearLayout>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/main_banner" />
-
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/refreshlayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <com.rejuvee.smartelectric.family.common.widget.CustomGridViewWithSplitLine
-                    android:id="@+id/grid_device"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:horizontalSpacing="5dp"
-                    android:numColumns="1"
-                    android:padding="8dp"
-                    android:verticalSpacing="15dp" />
-
-                <include
-                    android:id="@+id/empty_layout"
-                    layout="@layout/empty_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="gone" />
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         </LinearLayout>
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

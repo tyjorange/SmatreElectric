@@ -70,15 +70,15 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
     private Call<?> currentCall;
     private TabLayout mTabLayout;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_curve;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_curve;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

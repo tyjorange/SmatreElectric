@@ -34,15 +34,15 @@ public class CustomerServiceChartActivity extends BaseActivity {
     private String username;
     private ChartListItemBean chartListItemBean;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_customer_service_chart;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_customer_service_chart;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

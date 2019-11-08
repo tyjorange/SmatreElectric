@@ -1,65 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bitmap_hot_1"
-    android:fitsSystemWindows="true">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <data>
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/transparent"
-        android:paddingStart="20dp"
-        android:paddingEnd="10dp"
-        app:elevation="0dp">
+        android:layout_height="match_parent"
+        android:background="@drawable/bitmap_hot_1"
+        android:fitsSystemWindows="true">
 
-        <LinearLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:background="@color/transparent"
+            android:paddingStart="20dp"
+            android:paddingEnd="10dp"
+            app:elevation="0dp">
 
-            <com.rejuvee.smartelectric.family.common.widget.CircleImageView
-                android:id="@+id/user_headimg_small"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:src="@drawable/icon_user_default">
-
-            </com.rejuvee.smartelectric.family.common.widget.CircleImageView>
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/transparent"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
+                android:orientation="horizontal">
+
+                <com.rejuvee.smartelectric.family.common.widget.CircleImageView
+                    android:id="@+id/user_headimg_small"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/icon_user_default">
+
+                </com.rejuvee.smartelectric.family.common.widget.CircleImageView>
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
 
 
-                <!--<com.rejuvee.smartelectric.demo.widget.CircleImageView-->
-                <!--android:id="@+id/user_headimg_small"-->
-                <!--android:layout_width="40dp"-->
-                <!--android:layout_height="40dp"-->
-                <!--android:contentDescription="@string/nav_header_desc"-->
-                <!--android:src="@mipmap/ic_launcher">-->
+                    <!--<com.rejuvee.smartelectric.demo.widget.CircleImageView-->
+                    <!--android:id="@+id/user_headimg_small"-->
+                    <!--android:layout_width="40dp"-->
+                    <!--android:layout_height="40dp"-->
+                    <!--android:contentDescription="@string/nav_header_desc"-->
+                    <!--android:src="@mipmap/ic_launcher">-->
 
-                <!--</com.rejuvee.smartelectric.demo.widget.CircleImageView>-->
+                    <!--</com.rejuvee.smartelectric.demo.widget.CircleImageView>-->
 
-            </androidx.appcompat.widget.Toolbar>
+                </androidx.appcompat.widget.Toolbar>
 
-        </LinearLayout>
+            </LinearLayout>
 
-    </com.google.android.material.appbar.AppBarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_main_navigation" />
+        <include
+            android:id="@+id/include"
+            layout="@layout/content_main_navigation" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:visibility="gone"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:visibility="gone"
+            app:srcCompat="@android:drawable/ic_dialog_email" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

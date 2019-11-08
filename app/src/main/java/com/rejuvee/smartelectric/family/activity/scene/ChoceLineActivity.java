@@ -31,15 +31,15 @@ public class ChoceLineActivity extends BaseActivity implements View.OnClickListe
 //    private String sceneid;
 
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_choce_line;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_choce_line;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

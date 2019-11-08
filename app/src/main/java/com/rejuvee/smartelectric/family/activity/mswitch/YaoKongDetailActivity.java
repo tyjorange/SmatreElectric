@@ -70,15 +70,15 @@ public class YaoKongDetailActivity extends BaseActivity {
     private DialogTip mDialogTip;
     private ImageView iv_switch_root;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_yao_kong_detail;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_yao_kong_detail;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

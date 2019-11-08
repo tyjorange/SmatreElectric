@@ -62,15 +62,15 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
 
 //    private static int[] DATE_UNITS = {R.string.date_unit_year, R.string.date_unit_month, R.string.date_unit_day};
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_statement;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_statement;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

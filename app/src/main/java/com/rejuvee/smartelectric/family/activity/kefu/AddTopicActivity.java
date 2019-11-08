@@ -15,15 +15,15 @@ import com.rejuvee.smartelectric.family.common.BaseActivity;
 public class AddTopicActivity extends BaseActivity {
     private Context mContext;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_add_topic;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_add_topic;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

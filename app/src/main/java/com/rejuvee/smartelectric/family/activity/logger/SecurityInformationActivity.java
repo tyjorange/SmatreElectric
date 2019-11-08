@@ -26,15 +26,15 @@ import java.util.List;
 public class SecurityInformationActivity extends BaseActivity {
     private CollectorBean mCollectorBean;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_security_information;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_security_information;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

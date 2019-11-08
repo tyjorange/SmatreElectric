@@ -30,15 +30,15 @@ public class CustomerServiceActivity extends BaseActivity {
     private LoadingDlg loadingDlg;
     private String username;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_ke_fu;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_ke_fu;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

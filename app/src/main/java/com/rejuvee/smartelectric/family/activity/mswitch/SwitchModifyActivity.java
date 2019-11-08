@@ -37,15 +37,15 @@ public class SwitchModifyActivity extends BaseActivity {
     //    private DialogTip dialogTip;
     private Context mContext;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_break_modify;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_break_modify;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
 //    public static void startModifyBreak(Activity activity, SwitchBean breakerInfoBean) {
 //        Intent intent = new Intent(activity, SwitchModifyActivity.class);

@@ -24,15 +24,15 @@ import java.util.List;
 public class ReportActivity extends BaseActivity {
     private CollectorBean collectorBean;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_report;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_report;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

@@ -45,15 +45,15 @@ public class TimerActivity extends BaseActivity implements View.OnClickListener,
     private DialogTip dialogTip;
     private LoadingDlg mWaitDialog;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_timer;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_timer;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

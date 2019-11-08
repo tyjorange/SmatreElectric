@@ -45,15 +45,15 @@ public class TimePriceActivity extends BaseActivity {
 
     private LoadingDlg mWaitDialog;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_cost_calculation;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_cost_calculation;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

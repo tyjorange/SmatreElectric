@@ -117,15 +117,15 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
 
     private boolean isOk = false;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_account;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_account;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     //    @SuppressLint("HandlerLeak")
     @Override

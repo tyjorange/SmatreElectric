@@ -513,7 +513,7 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
             mAdapter.registerDataSetObserver(mAdapterDataObserver);
         }
 
-        initializeRecycledViewCache(mAdapter.getViewTypeCount());
+//        initializeRecycledViewCache(mAdapter.getViewTypeCount());
         reset();
     }
 

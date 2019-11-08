@@ -39,15 +39,15 @@ public class ChoceSceneimgActivity extends BaseActivity implements View.OnClickL
     private GridViewAdapter gridViewAdapter;
     private int currentPos = -1;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_chocesceneimg;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_chocesceneimg;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

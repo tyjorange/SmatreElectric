@@ -11,15 +11,15 @@ import com.rejuvee.smartelectric.family.common.BaseActivity;
 public class PrivacyActivity extends BaseActivity {
     private WebView webView;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_privacy;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_privacy;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

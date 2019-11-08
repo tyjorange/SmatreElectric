@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.view.View;
 
 import com.google.gson.annotations.SerializedName;
+import com.rejuvee.smartelectric.family.common.constant.NativeLine;
 
 import io.realm.RealmObject;
 import io.realm.annotations.Ignore;
@@ -97,7 +98,7 @@ public class SceneBean extends RealmObject implements Parcelable {
     }
 
     public int getSceneIconRes() {
-        return sceneIconRes;
+        return NativeLine.imageId[sceneIconRes];
     }
 
     public void setSceneIconRes(int sceneIconRes) {

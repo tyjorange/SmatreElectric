@@ -55,15 +55,15 @@ public class SwitchSettingActivity extends BaseActivity implements
 //    private ObservableScrollView scrollView;
 //    private SeekBar seekBar;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_switch_setting;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_switch_setting;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

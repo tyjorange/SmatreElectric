@@ -42,15 +42,15 @@ public class UpgradeDialogActivity extends BaseActivity implements View.OnClickL
     private ImageView iv_version_wenhao;
     private List<CheckBox> mListDataCheckButton = new ArrayList<>();
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.active_upgrade_dialog;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.active_upgrade_dialog;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

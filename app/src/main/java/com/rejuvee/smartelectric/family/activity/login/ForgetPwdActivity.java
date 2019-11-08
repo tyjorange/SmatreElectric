@@ -31,15 +31,15 @@ public class ForgetPwdActivity extends BaseActivity {
     private CountDownUtil countDownUtil;
 //    private TextView txt_tishi;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_forgetpwd;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_forgetpwd;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

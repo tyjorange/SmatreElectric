@@ -1,6 +1,5 @@
 package com.rejuvee.smartelectric.family.activity.login;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -8,8 +7,9 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.utils.EncryptUtils;
@@ -26,9 +26,8 @@ import com.rejuvee.smartelectric.family.common.utils.AccountHelper;
 import com.rejuvee.smartelectric.family.common.utils.ValidateUtils;
 import com.rejuvee.smartelectric.family.common.utils.thrid.QQLoginHelper;
 import com.rejuvee.smartelectric.family.common.utils.thrid.WXHelper;
-import com.rejuvee.smartelectric.family.common.widget.CheckableImageView;
-import com.rejuvee.smartelectric.family.common.widget.ClearEditText;
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
+import com.rejuvee.smartelectric.family.databinding.ActivityLoginBinding;
 import com.rejuvee.smartelectric.family.model.bean.ThirdPartyInfo;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfo;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfoRealm;
@@ -42,46 +41,54 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
     private String TAG = "LoginActivity";
-    private TextView hiddenBtn;
-    private ClearEditText cetPassword;
-    private ClearEditText cetUsername;
-    private AccountInfo cacheAccount;
-
-    private AccountHelper accountHelper;
+    //    private TextView hiddenBtn;
+//    private ClearEditText cetPassword;
+//    private ClearEditText cetUsername;
+//    private AccountInfo cacheAccount;
+//    private AccountHelper accountHelper;
     //    private int requestCode_adddevice = 1000;
 //    private ArrayList<CollectorBean> arrCollectorBean;
 //    private DeviceHelper deviceHelper;
     private LoadingDlg mWaitDialog;
     private Context mContext;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_login;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+    private ActivityLoginBinding mBinding;
+    private LoginViewModel mViewModel;
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_login;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        mViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
+        mBinding.setAct(this);
+        mBinding.setVm(mViewModel);
+        mBinding.setLifecycleOwner(this);
+
         mContext = this;
 //        setToolbarHide(true);
 //        setTitle("");
 //        setContentView(getLayoutResId());
-        hiddenBtn = findViewById(R.id.hidden_btn);
-        cetUsername = findViewById(R.id.login_cet_username);
-        cetPassword = findViewById(R.id.login_cet_password);
-        ImageView imgLogo = findViewById(R.id.iv_logo);
-        imgLogo.setImageResource(LogoVersionManage.getInstance().getLoginLogo());
+//        hiddenBtn = findViewById(R.id.hidden_btn);
+//        cetUsername = findViewById(R.id.login_cet_username);
+//        cetPassword = findViewById(R.id.login_cet_password);
+//        ImageView imgLogo = findViewById(R.id.iv_logo);
+        mBinding.ivLogo.setImageResource(LogoVersionManage.getInstance().getLoginLogo());
         LanguageUtil.SwitchLang(this);
-        accountHelper = new AccountHelper();
+//        accountHelper = new AccountHelper();
+        mViewModel.setAccountHelper(new AccountHelper());
 //        deviceHelper = new DeviceHelper();
 
 
-        findViewById(R.id.iv_weixin_login).setOnClickListener(this);
-        findViewById(R.id.iv_qq_login).setOnClickListener(this);
+        mBinding.ivWeixinLogin.setOnClickListener(this);
+        mBinding.ivQqLogin.setOnClickListener(this);
 
         EventBus.getDefault().register(this);
         mWaitDialog = new LoadingDlg(this, -1);
@@ -91,7 +98,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     protected void initData() {
         if (ValidateUtils.isApkInDebug(this)) {
             // 隐藏按钮 事件
-            hiddenBtn.setOnTouchListener(new HiddenClickListener(new HiddenClickListener.MyClickCallBack() {
+            mBinding.hiddenBtn.setOnTouchListener(new HiddenClickListener(new HiddenClickListener.MyClickCallBack() {
                 @Override
                 public void oneClick() {
 //                CustomToast.showCustomErrorToast(LoginActivity.this, "111");
@@ -109,13 +116,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             }));
         }
         // 查看密码 事件
-        CheckableImageView checkableImageView = findViewById(R.id.login_civ_eye);
-        checkableImageView.setOnCheckChangeListener(checked -> {
+//        CheckableImageView checkableImageView = findViewById(R.id.login_civ_eye);
+        mBinding.loginCivEye.setOnCheckChangeListener(checked -> {
             int type = checked ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD;
 //                checkableImageView.setBackgroundDrawable(checked ? getDrawable(R.drawable.eye) : getDrawable(R.drawable.eye_close));
-            cetPassword.setInputType(type);
+            mBinding.loginCetPassword.setInputType(type);
         });
-        findViewById(R.id.ll_privacy).setOnClickListener(v -> {
+        mBinding.llPrivacy.setOnClickListener(v -> {
             startActivity(new Intent(mContext, PrivacyActivity.class));
         });
         autoLogin();
@@ -134,8 +141,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void dealloc() {
         //防止内存泄漏
-        cetPassword.removeTextChangedListener();
-        cetUsername.removeTextChangedListener();
+        mBinding.loginCetPassword.removeTextChangedListener();
+        mBinding.loginCetUsername.removeTextChangedListener();
         EventBus.getDefault().unregister(this);
     }
 
@@ -150,23 +157,22 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
-    @SuppressLint("SetTextI18n")
     private void autoLogin() {
-        cacheAccount = AccountHelper.getCacheAccount();
+        AccountInfo cacheAccount = mViewModel.setCacheAccount(AccountHelper.getCacheAccount());
         if (cacheAccount != null) {
-            cetUsername.setText(cacheAccount.getUserName());
-            cetPassword.setText("******");
+            mBinding.loginCetUsername.setText(cacheAccount.getUserName());
+            mBinding.loginCetPassword.setText("******");
             login(cacheAccount.getUserName(), cacheAccount.getPassword());
         } else {
             if (ValidateUtils.isApkInDebug(this)) {
-                cetUsername.setText("test");// TODO 测试账号
-                cetPassword.setText("test");
+                mBinding.loginCetUsername.setText("test");// TODO 测试账号
+                mBinding.loginCetPassword.setText("test");
             }
         }
     }
 
     private void login(final String userName, final String password) {
-        accountHelper.Login(this, userName, password, true);
+        mViewModel.getAccountHelper().getValue().Login(this, userName, password, true);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -186,8 +192,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void onClickLogin() {
-        String userName = cetUsername.getEditableText().toString();
-        String password = cetPassword.getEditableText().toString();
+        String userName = mBinding.loginCetUsername.getEditableText().toString();
+        String password = mBinding.loginCetPassword.getEditableText().toString();
         if (userName.isEmpty() || password.isEmpty()) {
             CustomToast.showCustomErrorToast(this, getString(R.string.name_password_cannot_empty));
             return;

@@ -42,15 +42,15 @@ public class AddDeviceOrSwitchActivity extends BaseActivity {
     private TextView txtLineName;
     private LinearLayout llSetLineName;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_add_device;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_add_device;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

@@ -38,6 +38,9 @@ android {
             signingConfig signingConfigs.config
         }
     }
+    dataBinding {
+        enabled true
+    }
     flavorDimensions "smarte"
     productFlavors {
         //applicationId本来应该是有差异的，但是考虑到第三方微信QQ登录缘故，保持包名一致，避免重复申请。
@@ -68,8 +71,10 @@ android {
             dimension "smarte"
             applicationId "com.rejuvee.smartelectric.family.smarte"
             resValue "string", "app_name", "电母"
-            manifestPlaceholders = [app_company_name: "smarte", provide_name: "com.rejuvee.smartelectric.family.smarte",
-                                    emas_app_key    : "27681332", emas_app_secret: "c04e04347b5f12ac49a6805bed9f459f"]
+            manifestPlaceholders = [app_company_name: "smarte",
+                                    provide_name    : "com.rejuvee.smartelectric.family.smarte",
+                                    emas_app_key    : "27681332",
+                                    emas_app_secret : "c04e04347b5f12ac49a6805bed9f459f"]
             signingConfig signingConfigs.config
         }
     }
@@ -104,6 +109,7 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.google.android.gms:play-services-plus:17.0.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation "androidx.lifecycle:lifecycle-extensions:2.1.0"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 //    androidTestImplementation 'com.android.support.test:runner:1.0.2'

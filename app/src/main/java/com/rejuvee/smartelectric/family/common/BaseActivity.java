@@ -99,10 +99,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getMyTheme() != 0) {
-            setTheme(getMyTheme());
-        }
-        setContentView(getLayoutResId());
+//        if (getMyTheme() != 0) {
+//            setTheme(getMyTheme());
+//        }
+//        setContentView(getLayoutResId());
         //每创建一个活动，就加入到活动管理器中
         ActivityFragmentManager.addActivity(this);
         initView();
@@ -117,9 +117,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         dealloc();
     }
 
-    protected abstract int getLayoutResId();
-
-    protected abstract int getMyTheme();
+//    protected abstract int getLayoutResId();
+//
+//    protected abstract int getMyTheme();
 
     protected abstract void initView();
 

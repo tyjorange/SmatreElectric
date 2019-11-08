@@ -18,15 +18,15 @@ import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 public class CollectorDetail2Activity extends BaseActivity implements View.OnClickListener {
     private CollectorBean collectorBean;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_collector_detail2;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_collector_detail2;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

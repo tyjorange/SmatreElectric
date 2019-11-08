@@ -28,15 +28,15 @@ public class RegisterActivity extends BaseActivity {
 //    private boolean usernameFlag = true;
     //    private String uMessage = getResources().getString(R.string.vs143);
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_register;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_register;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

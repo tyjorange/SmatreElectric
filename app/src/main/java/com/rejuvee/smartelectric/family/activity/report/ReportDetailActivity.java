@@ -38,15 +38,15 @@ public class ReportDetailActivity extends BaseActivity {
     private ViewPager viewPager;
     private ReportDetailBean reportDetailBean;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_report_detail;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_report_detail;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

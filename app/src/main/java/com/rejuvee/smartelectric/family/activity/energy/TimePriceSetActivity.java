@@ -23,15 +23,15 @@ public class TimePriceSetActivity extends BaseActivity implements View.OnClickLi
     private EditText edtPrice;
     private int mStartTime = -1, mEndTime = -1;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_time_price_set;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_time_price_set;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

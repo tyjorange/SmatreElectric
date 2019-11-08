@@ -119,15 +119,15 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
     private DialogTip mDialogSwitch;
 
     //    public static boolean NEED_REFRESH = false;
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_switch_tree;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_switch_tree;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {

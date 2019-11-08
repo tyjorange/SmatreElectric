@@ -21,15 +21,15 @@ public class SetSwitchNameActivity extends BaseActivity {
 //    private EditText editLineName;
     private CustomLineAdapter mAdapter1, mAdapter2;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_set_break_name;
-    }
-
-    @Override
-    protected int getMyTheme() {
-        return 0;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.activity_set_break_name;
+//    }
+//
+//    @Override
+//    protected int getMyTheme() {
+//        return 0;
+//    }
 
     @Override
     protected void initView() {
