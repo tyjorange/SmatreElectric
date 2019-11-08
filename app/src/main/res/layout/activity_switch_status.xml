@@ -122,6 +122,7 @@
                     android:id="@+id/online_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="invisible"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:background="@drawable/hezha_p" />
@@ -131,7 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/vs74"
+                    android:text="-"
                     android:textColor="@color/text_content"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -164,7 +165,7 @@
                     android:id="@+id/dl_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0.0A"
+                    android:text="-"
                     android:textColor="@color/text_content"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -197,7 +198,7 @@
                     android:id="@+id/dy_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="228.6V"
+                    android:text="-"
                     android:textColor="@color/text_content"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -230,7 +231,7 @@
                     android:id="@+id/ldl_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="228.6A"
+                    android:text="-"
                     android:textColor="@color/text_content"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -263,7 +264,7 @@
                     android:id="@+id/wd_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0C"
+                    android:text="-"
                     android:textColor="@color/text_content"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -296,7 +297,7 @@
                     android:id="@+id/ygdy_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0.0kwh"
+                    android:text="-"
                     android:textColor="@color/text_content"
                     android:textSize="12sp" />
             </LinearLayout>

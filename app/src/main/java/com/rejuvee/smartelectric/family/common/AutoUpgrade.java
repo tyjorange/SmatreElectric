@@ -214,7 +214,12 @@ public class AutoUpgrade {
     private void compareVersion() {
         try {
             PackageInfo currentPackageInfo = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);
-            long appVersionCode = currentPackageInfo.getLongVersionCode();
+            long appVersionCode = 0;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+                appVersionCode = currentPackageInfo.getLongVersionCode();
+            } else {
+                appVersionCode = currentPackageInfo.versionCode;
+            }
             Log.d(TAG, "localVersionCode = " + appVersionCode + " remoteVersionCode=" + mVersionInfo.versionCode);
             if (appVersionCode < Integer.valueOf(mVersionInfo.versionCode)) {//版本不同，需要更新版本
                 downloadManager = (DownloadManager) mContext.getSystemService(DOWNLOAD_SERVICE);

@@ -107,7 +107,7 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
     private static final int MSG_SEND_REFRESH_FLAG = 5124;// 发送刷新命令
     private static final int MSG_SEND_GET_FLAG = 5125;// 发送获取命令
     private FlushTimeTask flushTimeTask;
-    private final int flushTimeMill = 3000;//刷新间隔
+    private final int flushTimeMill = 5000;//刷新间隔
     private boolean runTask = true;
 
     @Override
@@ -227,8 +227,8 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public void onFailure(int errorEvent, String message) {
-//                online_icon.setVisibility(View.INVISIBLE);
-//                online_text.setText("-");
+                online_icon.setVisibility(View.INVISIBLE);
+                online_text.setText("-");
                 dl_val.setText("-");
                 dy_val.setText("-");
                 wd_val.setText("-");
@@ -274,7 +274,7 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
 //                switchBean = cb;
 //                switchBean.setFault(cb.getFault()); //fault
 //                switchBean.setSwitchState(cb.getSwitchState());//state
-                judgSwitchstate(cb);
+                toggleSwitchState(cb);
             }
 
             @Override
@@ -287,7 +287,7 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
     /**
      * 设置线路图标状态
      */
-    private void judgSwitchstate(SwitchBean ss) {
+    private void toggleSwitchState(SwitchBean ss) {
         online_icon.setVisibility(View.VISIBLE);
         if (ss.getSwitchState() == 1) {
             online_text.setText(getString(R.string.vs74));
@@ -319,8 +319,8 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
                     online_text.setText("-");
                     dl_val.setText("-");
                     dy_val.setText("-");
-                    wd_val.setText("-");
                     ldl_val.setText("-");
+                    wd_val.setText("-");
                     ygdy_val.setText("-");
                     switch_ver.setText("-");
                     CustomToast.showCustomErrorToast(SwitchStatusActivity.this, getString(R.string.vs29));
