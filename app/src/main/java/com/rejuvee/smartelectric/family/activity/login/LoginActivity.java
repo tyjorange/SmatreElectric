@@ -1,6 +1,6 @@
 package com.rejuvee.smartelectric.family.activity.login;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.text.InputType;
@@ -39,7 +39,7 @@ import org.greenrobot.eventbus.ThreadMode;
 /**
  * Created by SH on 2017/12/19.
  */
-public class LoginActivity extends BaseActivity implements View.OnClickListener {
+public class LoginActivity extends BaseActivity {
     private String TAG = "LoginActivity";
     //    private TextView hiddenBtn;
 //    private ClearEditText cetPassword;
@@ -50,7 +50,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 //    private ArrayList<CollectorBean> arrCollectorBean;
 //    private DeviceHelper deviceHelper;
     private LoadingDlg mWaitDialog;
-    private Context mContext;
+//    private Context mContext;
 
     private ActivityLoginBinding mBinding;
     private LoginViewModel mViewModel;
@@ -68,11 +68,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     protected void initView() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         mViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
-        mBinding.setAct(this);
-        mBinding.setVm(mViewModel);
+        mViewModel.setAccountHelper(new AccountHelper());
+        mViewModel.setCacheAccountInfo(AccountHelper.getCacheAccount());
+        mBinding.setPresenter(new Presenter());
         mBinding.setLifecycleOwner(this);
+        mBinding.setVm(mViewModel);
 
-        mContext = this;
+//        mContext = this;
 //        setToolbarHide(true);
 //        setTitle("");
 //        setContentView(getLayoutResId());
@@ -80,16 +82,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 //        cetUsername = findViewById(R.id.login_cet_username);
 //        cetPassword = findViewById(R.id.login_cet_password);
 //        ImageView imgLogo = findViewById(R.id.iv_logo);
-        mBinding.ivLogo.setImageResource(LogoVersionManage.getInstance().getLoginLogo());
-        LanguageUtil.SwitchLang(this);
+//        mBinding.ivLogo.setImageResource(LogoVersionManage.getInstance().getLoginLogo());
 //        accountHelper = new AccountHelper();
-        mViewModel.setAccountHelper(new AccountHelper());
 //        deviceHelper = new DeviceHelper();
 
 
-        mBinding.ivWeixinLogin.setOnClickListener(this);
-        mBinding.ivQqLogin.setOnClickListener(this);
+//        mBinding.ivWeixinLogin.setOnClickListener(this);
+//        mBinding.ivQqLogin.setOnClickListener(this);
 
+        LanguageUtil.SwitchLang(this);
         EventBus.getDefault().register(this);
         mWaitDialog = new LoadingDlg(this, -1);
     }
@@ -111,7 +112,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                 @Override
                 public void threeClick() {
-                    startActivity(new Intent(mContext, HiddenDialogActivity.class));
+                    startActivity(new Intent(getBaseContext(), HiddenDialogActivity.class));
                 }
             }));
         }
@@ -122,9 +123,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 //                checkableImageView.setBackgroundDrawable(checked ? getDrawable(R.drawable.eye) : getDrawable(R.drawable.eye_close));
             mBinding.loginCetPassword.setInputType(type);
         });
-        mBinding.llPrivacy.setOnClickListener(v -> {
-            startActivity(new Intent(mContext, PrivacyActivity.class));
-        });
+//        mBinding.llPrivacy.setOnClickListener(v -> {
+//            startActivity(new Intent(mContext, PrivacyActivity.class));
+//        });
         autoLogin();
     }
 
@@ -138,31 +139,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 //        return false;
 //    }
 //
-    @Override
-    protected void dealloc() {
-        //防止内存泄漏
-        mBinding.loginCetPassword.removeTextChangedListener();
-        mBinding.loginCetUsername.removeTextChangedListener();
-        EventBus.getDefault().unregister(this);
-    }
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        Log.d(TAG, "onNewIntent");
-        String userName = intent.getStringExtra("username");
-        String password = intent.getStringExtra("password");
-        if (userName != null && password != null) {
-            login(userName, password);
-        }
-    }
-
+    /**
+     * 自动登录
+     */
     private void autoLogin() {
-        AccountInfo cacheAccount = mViewModel.setCacheAccount(AccountHelper.getCacheAccount());
+        AccountInfo cacheAccount = mViewModel.getCacheAccountInfo().getValue();
         if (cacheAccount != null) {
             mBinding.loginCetUsername.setText(cacheAccount.getUserName());
             mBinding.loginCetPassword.setText("******");
-            login(cacheAccount.getUserName(), cacheAccount.getPassword());
+            apiLogin(cacheAccount.getUserName(), cacheAccount.getPassword());
         } else {
             if (ValidateUtils.isApkInDebug(this)) {
                 mBinding.loginCetUsername.setText("test");// TODO 测试账号
@@ -171,27 +157,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
-    private void login(final String userName, final String password) {
-        mViewModel.getAccountHelper().getValue().Login(this, userName, password, true);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onLogin(AccountEventMsg eventMsg) {
-        if (eventMsg.eventType == AccountEventMsg.EVENT_LOGIN) {
-            if (eventMsg.isSucess()) {
-                AccountHelper.deleteCache();
-                AccountHelper.saveAccount((AccountInfo) eventMsg.getEventMsg());
-//                bindAccount(((AccountInfo) eventMsg.getEventMsg()).getUserName());
-                MainApplication.bindAliCloud(((AccountInfo) eventMsg.getEventMsg()).getUserName());
-                gotoMainActivity();
-            } else {
-                //Toast.makeText(this, "3=", Toast.LENGTH_LONG).show();
-                CustomToast.showCustomErrorToast(LoginActivity.this, getString(R.string.login_fail));
-            }
-        }
-    }
-
-    private void onClickLogin() {
+    /**
+     * 点击登录
+     *
+     * @param view
+     */
+    private void onCheckLogin(View view) {
         String userName = mBinding.loginCetUsername.getEditableText().toString();
         String password = mBinding.loginCetPassword.getEditableText().toString();
         if (userName.isEmpty() || password.isEmpty()) {
@@ -202,40 +173,77 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             autoLogin();
         } else {
             password = EncryptUtils.encryptMD5ToString(password, Core.SALT);
-            login(userName, password);
+            apiLogin(userName, password);
         }
     }
 
-    private void gotoMainActivity() {
-        startActivity(new Intent(this, MainNavigationActivity.class));
-        overridePendingTransition(R.anim.top_in, R.anim.top_out);
-        finish();
+    private void apiLogin(final String userName, final String password) {
+        mViewModel.getAccountHelper().getValue().toLogin(this, userName, password, true);
+    }
+
+//    @Override
+//    public void onClick(View v) {
+////        super.onClick(v);
+//        switch (v.getId()) {
+//            case R.id.login_tv_forget:
+////                Intent intent = new Intent();
+//                startActivity(new Intent(this, ForgetPwdActivity.class));
+//                break;
+//            case R.id.login_tv_login:
+//                onClickLogin();
+//                break;
+//            case R.id.login_tv_regist:
+//                startActivity(new Intent(this, RegisterActivity.class));
+//                break;
+////            case R.id.login_tv_visitor:
+////                gotoMainActivity();
+////                break;
+//            case R.id.iv_weixin_login:
+//                WXHelper.startWxLogin(this);
+//                break;
+//            case R.id.iv_qq_login:
+//                QQLoginHelper.getInstance().qqLogin(this);
+//                break;
+//        }
+//    }
+
+    public class Presenter {
+        public void onForget(View view) {
+            startActivity(new Intent(view.getContext(), ForgetPwdActivity.class));
+        }
+
+        public void onRegister(View view) {
+            startActivity(new Intent(view.getContext(), RegisterActivity.class));
+        }
+
+        public void onLogin(View view) {
+            onCheckLogin(view);
+        }
+
+        public void onWXLogin(View view) {
+            WXHelper.startWxLogin(view.getContext());
+        }
+
+        public void onQQLogin(View view) {
+            QQLoginHelper.getInstance().qqLogin((Activity) view.getContext());
+        }
+
+        public void onPrivacy(View view) {
+            startActivity(new Intent(view.getContext(), PrivacyActivity.class));
+        }
+    }
+
+    private void deleteCache() {
+        AccountInfoRealm accountInfoRealm = new AccountInfoRealm();
+        accountInfoRealm.deleteRealm();
     }
 
     @Override
-    public void onClick(View v) {
-//        super.onClick(v);
-        switch (v.getId()) {
-            case R.id.login_tv_forget:
-//                Intent intent = new Intent();
-                startActivity(new Intent(this, ForgetPwdActivity.class));
-                break;
-            case R.id.login_tv_login:
-                onClickLogin();
-                break;
-            case R.id.login_tv_regist:
-                startActivity(new Intent(this, RegisterActivity.class));
-                break;
-//            case R.id.login_tv_visitor:
-//                gotoMainActivity();
-//                break;
-            case R.id.iv_weixin_login:
-                WXHelper.startWxLogin(this);
-                break;
-            case R.id.iv_qq_login:
-                QQLoginHelper.getInstance().qqLogin(this);
-                break;
-        }
+    protected void dealloc() {
+        //防止内存泄漏
+        mBinding.loginCetPassword.removeTextChangedListener();
+        mBinding.loginCetUsername.removeTextChangedListener();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -244,9 +252,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         QQLoginHelper.getInstance().onActivityResult(requestCode, resultCode, data);
     }
 
-    private void deleteCache() {
-        AccountInfoRealm accountInfoRealm = new AccountInfoRealm();
-        accountInfoRealm.deleteRealm();
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.d(TAG, "onNewIntent");
+        String userName = intent.getStringExtra("username");
+        String password = intent.getStringExtra("password");
+        if (userName != null && password != null) {
+            apiLogin(userName, password);
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -271,6 +285,28 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 }
             });
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLogin(AccountEventMsg eventMsg) {
+        if (eventMsg.eventType == AccountEventMsg.EVENT_LOGIN) {
+            if (eventMsg.isSucess()) {
+                AccountHelper.deleteCache();
+                AccountHelper.saveAccount((AccountInfo) eventMsg.getEventMsg());
+//                bindAccount(((AccountInfo) eventMsg.getEventMsg()).getUserName());
+                MainApplication.bindAliCloud(((AccountInfo) eventMsg.getEventMsg()).getUserName());
+                gotoMainActivity();
+            } else {
+                //Toast.makeText(this, "3=", Toast.LENGTH_LONG).show();
+                CustomToast.showCustomErrorToast(LoginActivity.this, getString(R.string.login_fail));
+            }
+        }
+    }
+
+    private void gotoMainActivity() {
+        startActivity(new Intent(this, MainNavigationActivity.class));
+        overridePendingTransition(R.anim.top_in, R.anim.top_out);
+        finish();
     }
 
     public static class HiddenClickListener implements View.OnTouchListener {

@@ -26,10 +26,9 @@ import java.util.List;
  * 账户操作类， UI <----> helper <----> model
  */
 public class AccountHelper {
-
+    private String TAG = "AccountHelper";
     private LoadingDlg mWaitDialog;
     private boolean isFirstUse = false;//是否新用户第一次使用
-    private String TAG = "AccountHelper";
 
     /**
      * 获取缓存账户信息
@@ -70,7 +69,7 @@ public class AccountHelper {
         accountInfoRealm.close();
     }
 
-    public void Login(Context context, final String account, final String password, boolean showLoading) {
+    public void toLogin(Context context, final String account, final String password, boolean showLoading) {
         showDialogs(context, showLoading);
         String userName = null, phone = null;
         if (Utils.isPhone(account)) {

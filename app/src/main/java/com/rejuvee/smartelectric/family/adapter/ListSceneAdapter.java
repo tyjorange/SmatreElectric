@@ -16,6 +16,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/12/18.
  */
+@Deprecated
 public class ListSceneAdapter extends BaseAdapter {
     private Context context;
     private List<SceneBean> result;
@@ -81,6 +82,7 @@ public class ListSceneAdapter extends BaseAdapter {
         private TextView img_zhixing;
     }
 
+    @Deprecated
     public interface MyListener {
         void onDelItem(String sceneId);
 

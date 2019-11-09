@@ -1,113 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    tools:context=".activity.scene.SceneActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:contentInsetLeft="0dp"
-        app:contentInsetStart="0dp">
+    <data>
 
-        <ImageView
-            android:id="@+id/img_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:padding="16dp"
-            android:src="@drawable/main_fanhui" />
+        <variable
+            name="presenter"
+            type="com.rejuvee.smartelectric.family.activity.scene.SceneActivity.Presenter" />
 
-        <TextView
-            android:id="@+id/type_yaokong"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/vs43"
-            android:textSize="12sp" />
-    </androidx.appcompat.widget.Toolbar>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="0dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:paddingStart="0dp"
-            android:paddingEnd="0dp"
-            android:text="@string/vs113"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
-        <ImageView
-            android:id="@+id/img_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="10dp"
-            android:src="@drawable/timer_add" />
-
-        <ImageView
-            android:id="@+id/img_remove"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="10dp"
-            android:src="@drawable/timer_del" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="15dp"
-        android:paddingStart="0dp"
-        android:paddingEnd="0dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/vs116"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-    </LinearLayout>
+        <variable
+            name="vm"
+            type="com.rejuvee.smartelectric.family.activity.scene.SceneViewModel" />
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        tools:context=".activity.scene.SceneActivity">
 
-        <ListView
-            android:id="@+id/list_scene"
+        <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="@color/backgroud_transparent_20bg"
-            android:dividerHeight="0dp"
-            android:paddingStart="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_pad"
-            android:paddingEnd="@dimen/activity_horizontal_margin"
-            android:paddingBottom="@dimen/activity_pad"
-            android:scrollbars="none" />
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp">
 
-        <include
-            android:id="@+id/empty_layout"
-            layout="@layout/empty_layout"
+            <ImageView
+                android:id="@+id/img_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:onClick="@{presenter::onCancel}"
+                android:padding="16dp"
+                android:src="@drawable/main_fanhui" />
+
+            <TextView
+                android:id="@+id/type_yaokong"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/vs43"
+                android:textSize="12sp" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="0dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
+                android:text="@string/vs113"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/img_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:onClick="@{presenter::onAdd}"
+                android:padding="10dp"
+                android:src="@drawable/timer_add" />
+
+            <ImageView
+                android:id="@+id/img_remove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:onClick="@{presenter::onRemove}"
+                android:padding="10dp"
+                android:src="@drawable/timer_del" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="15dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/vs116"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone" />
+            android:orientation="horizontal">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:padding="8dp" />
+
+<!--            <ListView-->
+<!--                android:id="@+id/list_scene"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:divider="@color/backgroud_transparent_20bg"-->
+<!--                android:dividerHeight="0dp"-->
+<!--                android:paddingStart="@dimen/activity_horizontal_margin"-->
+<!--                android:paddingTop="@dimen/activity_pad"-->
+<!--                android:paddingEnd="@dimen/activity_horizontal_margin"-->
+<!--                android:paddingBottom="@dimen/activity_pad"-->
+<!--                android:scrollbars="none" />-->
+
+            <include
+                android:id="@+id/empty_layout"
+                layout="@layout/empty_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
+</layout>

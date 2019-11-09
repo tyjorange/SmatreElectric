@@ -149,7 +149,7 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
 //        gvBreaker = (GridView) findViewById(R.id.gv_breaker);
 //        initGvAdapter();
 //        gvBreaker.setAdapter(gvAdapter);
-//        gvBreaker.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//        gvBreaker.setOnItemClickListener(new AdapterView.CallBack() {
 //            @Override
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                currentSwitchBean = switchBeanList.get(position);

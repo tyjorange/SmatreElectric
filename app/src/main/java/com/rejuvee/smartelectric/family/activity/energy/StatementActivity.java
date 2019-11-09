@@ -76,7 +76,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
     protected void initView() {
         mContext = this;
         waitDialog = new LoadingDlg(this, -1);
-        NativeLine.init(this);
+//        NativeLine.init(this);
         ImageView img_cancel = findViewById(R.id.img_cancel);
         img_cancel.setOnClickListener(this);
         lvStatement = findViewById(R.id.lv_statement);
@@ -587,7 +587,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
 //        View contentView = View.inflate(this, R.layout.view_dialog_collector, null);
 //        lvCollector = (ListView) contentView.findViewById(R.id.lv_collector);
 //        lvCollector.setAdapter(lvAdapter);
-//        lvCollector.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//        lvCollector.setOnItemClickListener(new AdapterView.CallBack() {
 //            @Override
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                dialog.dismiss();

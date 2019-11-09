@@ -18,15 +18,15 @@ import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GDAdapter extends RecyclerView.Adapter<BindingViewHolder> {
+public class CollectorBeanAdapter extends RecyclerView.Adapter<BindingViewHolder> {
     private static final int ITEM_VIEW_TYPE_NORMAL = 1;
     private static final int ITEM_VIEW_TYPE_ADD = 2;
     private final LayoutInflater mLayoutInflater;
     private List<CollectorBean> collectorBeanList;
 
-    private OnItemClickListener mListener;
+    private CallBack mListener;
 
-    public interface OnItemClickListener {
+    public interface CallBack {
 
         void onCollectorBeanClick(CollectorBean bean);
     }
@@ -36,22 +36,11 @@ public class GDAdapter extends RecyclerView.Adapter<BindingViewHolder> {
      *
      * @param listener
      */
-    public void setListener(OnItemClickListener listener) {
+    public void setCallback(CallBack listener) {
         mListener = listener;
     }
 
-    /**
-     * 刷新整个列表
-     *
-     * @param list
-     */
-    public void addAll(List<CollectorBean> list) {
-        collectorBeanList.clear();
-        collectorBeanList.addAll(list);
-        notifyDataSetChanged();
-    }
-
-    public GDAdapter(Context context) {
+    public CollectorBeanAdapter(Context context) {
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         collectorBeanList = new ArrayList<>();
     }
@@ -69,11 +58,9 @@ public class GDAdapter extends RecyclerView.Adapter<BindingViewHolder> {
     public BindingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ViewDataBinding binding;
         if (viewType == ITEM_VIEW_TYPE_NORMAL) {
-            binding = DataBindingUtil.inflate(mLayoutInflater,
-                    R.layout.item_easy_device, parent, false);
+            binding = DataBindingUtil.inflate(mLayoutInflater, R.layout.item_easy_device, parent, false);
         } else { //if (viewType == ITEM_VIEW_TYPE_ADD)
-            binding = DataBindingUtil.inflate(mLayoutInflater,
-                    R.layout.item_easy_device_add, parent, false);
+            binding = DataBindingUtil.inflate(mLayoutInflater, R.layout.item_easy_device_add, parent, false);
         }
         return new BindingViewHolder<>(binding);
     }
@@ -96,6 +83,17 @@ public class GDAdapter extends RecyclerView.Adapter<BindingViewHolder> {
     @Override
     public int getItemCount() {
         return collectorBeanList.size();
+    }
+
+    /**
+     * 刷新整个列表
+     *
+     * @param list
+     */
+    public void addAll(List<CollectorBean> list) {
+        collectorBeanList.clear();
+        collectorBeanList.addAll(list);
+        notifyDataSetChanged();
     }
 
     /**

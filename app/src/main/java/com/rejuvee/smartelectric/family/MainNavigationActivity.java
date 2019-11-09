@@ -35,7 +35,7 @@ import com.rejuvee.smartelectric.family.activity.mine.PerInfoActivity;
 import com.rejuvee.smartelectric.family.activity.mine.SettingsActivity;
 import com.rejuvee.smartelectric.family.activity.mine.ThridBindActivity;
 import com.rejuvee.smartelectric.family.activity.scene.SceneActivity;
-import com.rejuvee.smartelectric.family.adapter.GDAdapter;
+import com.rejuvee.smartelectric.family.adapter.CollectorBeanAdapter;
 import com.rejuvee.smartelectric.family.adapter.HorizontalListSceneAdapter;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.ActivityFragmentManager;
@@ -82,7 +82,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
     //集中器
 //    private GridView gridViewDevice;
 //    private List<CollectorBean> listDeviceData = new ArrayList<>();
-    private GDAdapter mGDAdapter;
+    private CollectorBeanAdapter mCollectorBeanAdapter;
     //    private TextView tvCollectorCount;//集中器计数
     //用户
     private CircleImageView ivHead;//头像view
@@ -102,7 +102,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
     private DaliBlurDrawerToggle drawerToggle;
 //    private SwipeRefreshLayout refreshLayout;
 
-    ActivityMainNavigationBinding mBinding;
+    private ActivityMainNavigationBinding mBinding;
     //    private Toolbar toolbar;
 //    private ImageView ivUserQCode;
 //    private PopwindowQCode popwindowQCode;
@@ -139,9 +139,9 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
     protected void initView() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main_navigation);
         MainNavigationViewModel mViewModel = ViewModelProviders.of(this).get(MainNavigationViewModel.class);
-        mBinding.setAct(this);
         mBinding.setVm(mViewModel);
         mBinding.setLifecycleOwner(this);
+
         mSceneAdapter = new HorizontalListSceneAdapter(this, listSceneBeanData);
         mBinding.include.include.setHorizontalListSceneAdapter(mSceneAdapter);
 
@@ -188,10 +188,6 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 
             }
         }).hasLocationStorage(this);
-    }
-
-    @Override
-    protected void initData() {
         getUserMsg();
         testWechatPublic();
 //        getScene();
@@ -199,6 +195,11 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         initToolBar();
         AutoUpgrade.getInstacne(this).start();
         EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     /**
@@ -390,23 +391,24 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 
     public class Presenter {
         public void onClickAddItem(View view) {
-//            mGDAdapter.add(new Employee("haha", "1", false));
+//            mCollectorBeanAdapter.add(new Employee("haha", "1", false));
         }
 
         public void onClickRemoveItem(View view) {
-//            mGDAdapter.remove();
+//            mCollectorBeanAdapter.remove();
         }
     }
 
     private void initCollector() {
 //        gridViewDevice = findViewById(R.id.grid_device);
-        mGDAdapter = new GDAdapter(this);
+        mCollectorBeanAdapter = new CollectorBeanAdapter(this);
         mBinding.include.include.recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mBinding.include.include.recyclerView.setAdapter(mGDAdapter);
-        mGDAdapter.setListener(new GDAdapter.OnItemClickListener() {
+        mBinding.include.include.recyclerView.setAdapter(mCollectorBeanAdapter);
+        mCollectorBeanAdapter.setCallback(new CollectorBeanAdapter.CallBack() {
 
             @Override
             public void onCollectorBeanClick(CollectorBean bean) {
+                //TODO sout
                 System.out.println(bean);
             }
         });
@@ -449,7 +451,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 //                listDeviceData.clear();
 //                listDeviceData.addAll(data);
                 data.add(new CollectorBean(Parcel.obtain()));// 加一个空项作为添加按钮事件
-                mGDAdapter.addAll(data);
+                mCollectorBeanAdapter.addAll(data);
 //                mDeviceAdapter.notifyDataSetChanged();
 //                updateRefreshState();
                 mBinding.include.include.refreshlayout.setRefreshing(false);

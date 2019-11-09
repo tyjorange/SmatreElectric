@@ -1,80 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginEnd="10dp"
-    android:background="@drawable/list_item_bg"
-    android:paddingStart="10dp"
-    android:paddingTop="20dp"
-    android:paddingEnd="10dp"
-    android:paddingBottom="20dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageView
-        android:id="@+id/img_item_remove"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:paddingStart="10dp"
-        android:paddingEnd="0dp"
-        android:src="@drawable/timer_del_one" />
+    <data>
 
-    <ImageView
-        android:id="@+id/img_scen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@+id/img_item_remove"
-        android:paddingStart="26dp"
-        android:paddingEnd="15dp"
-        android:src="@drawable/cj_dianying_cj" />
+        <variable
+            name="mSceneBean"
+            type="com.rejuvee.smartelectric.family.model.bean.SceneBean" />
+    </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@+id/img_scen"
-        android:orientation="vertical"
-        android:padding="@dimen/global_base_padding_10"
-        android:weightSum="1">
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/list_item_bg"
+        android:paddingStart="10dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="20dp">
 
-        <TextView
-            android:id="@+id/text_scenname"
+        <ImageView
+            android:id="@+id/img_item_remove"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textColor="@color/backgroud_black_bg"
-            android:textSize="12sp" />
+            android:layout_centerVertical="true"
+            android:paddingStart="10dp"
+            android:paddingEnd="0dp"
+            android:src="@drawable/timer_del_one" />
+
+        <ImageView
+            android:id="@+id/img_scen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/img_item_remove"
+            android:paddingStart="26dp"
+            android:paddingEnd="15dp"
+            android:src="@drawable/cj_dianying_cj" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/img_scen"
+            android:orientation="vertical"
+            android:padding="@dimen/global_base_padding_10"
+            android:weightSum="1">
 
             <TextView
-                android:id="@+id/text_scenline"
+                android:id="@+id/text_scenname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/global_base_padding_10"
-                android:text="@string/vs126"
-                android:textColor="@color/backgroud_transparent_80bg"
-                android:textSize="9sp" />
+                android:text="@string/app_name"
+                android:textColor="@color/backgroud_black_bg"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text_scenline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/global_base_padding_10"
+                    android:text="@string/vs126"
+                    android:textColor="@color/backgroud_transparent_80bg"
+                    android:textSize="9sp" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-    <TextView
-        android:id="@+id/img_zhixing"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_centerInParent="true"
-        android:layout_centerVertical="true"
-        android:drawableTop="@drawable/zhixing"
-        android:gravity="center"
-        android:padding="@dimen/global_base_padding_10"
-        android:paddingEnd="35dp"
-        android:paddingStart="0dp"
-        android:text="@string/execute"
-        android:textSize="9sp" />
+        <TextView
+            android:id="@+id/img_zhixing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:drawableTop="@drawable/zhixing"
+            android:gravity="center"
+            android:padding="@dimen/global_base_padding_10"
+            android:paddingStart="0dp"
+            android:paddingEnd="35dp"
+            android:text="@string/execute"
+            android:textSize="12sp" />
 
-</RelativeLayout>
+    </RelativeLayout>
+</layout>

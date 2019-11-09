@@ -7,36 +7,34 @@ import com.rejuvee.smartelectric.family.common.utils.AccountHelper;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfo;
 
 public class LoginViewModel extends ViewModel {
-    private MutableLiveData<AccountInfo> cacheAccount;
+    private MutableLiveData<AccountInfo> cacheAccountInfo;
     private MutableLiveData<AccountHelper> accountHelper;
 
-    public MutableLiveData<AccountInfo> getCacheAccount() {
-        if (cacheAccount == null) {
-            cacheAccount = new MutableLiveData<>();
+    MutableLiveData<AccountInfo> getCacheAccountInfo() {
+        if (cacheAccountInfo == null) {
+            cacheAccountInfo = new MutableLiveData<>();
         }
-        return cacheAccount;
+        return cacheAccountInfo;
     }
 
-    public AccountInfo setCacheAccount(AccountInfo account) {
-        if (cacheAccount == null) {
-            cacheAccount = new MutableLiveData<>();
+    void setCacheAccountInfo(AccountInfo account) {
+        if (cacheAccountInfo == null) {
+            cacheAccountInfo = new MutableLiveData<>();
         }
-        cacheAccount.setValue(account);
-        return cacheAccount.getValue();
+        cacheAccountInfo.setValue(account);
     }
 
-    public MutableLiveData<AccountHelper> getAccountHelper() {
+    MutableLiveData<AccountHelper> getAccountHelper() {
         if (accountHelper == null) {
             accountHelper = new MutableLiveData<>();
         }
         return accountHelper;
     }
 
-    public AccountHelper setAccountHelper(AccountHelper ah) {
+    void setAccountHelper(AccountHelper ah) {
         if (accountHelper == null) {
             accountHelper = new MutableLiveData<>();
         }
         accountHelper.setValue(ah);
-        return accountHelper.getValue();
     }
 }

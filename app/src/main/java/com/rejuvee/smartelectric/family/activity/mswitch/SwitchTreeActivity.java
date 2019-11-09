@@ -179,7 +179,7 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
     //    @SuppressLint("HandlerLeak")
     @Override
     protected void initData() {
-        NativeLine.init(this);
+//        NativeLine.init(this);
         mHandler = new MyHandler(this);
         getSwitchByCollector();
     }

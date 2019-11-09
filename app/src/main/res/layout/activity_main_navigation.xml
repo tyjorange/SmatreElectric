@@ -6,10 +6,6 @@
     <data>
 
         <variable
-            name="act"
-            type="com.rejuvee.smartelectric.family.MainNavigationActivity" />
-
-        <variable
             name="vm"
             type="com.rejuvee.smartelectric.family.MainNavigationViewModel" />
     </data>

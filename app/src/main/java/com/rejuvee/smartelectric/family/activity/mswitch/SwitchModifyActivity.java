@@ -121,7 +121,7 @@ public class SwitchModifyActivity extends BaseActivity {
             customLineAdapter.reset();
             customLineAdapter.setCurrentSelected(currentSwitchBean.getIconType());
         }
-//        horizontalListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//        horizontalListView.setOnItemClickListener(new AdapterView.CallBack() {
 //            @Override
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                mAdapter2.setCurrentSelected(position);

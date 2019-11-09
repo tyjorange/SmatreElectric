@@ -123,6 +123,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract void initView();
 
+    @Deprecated
     protected abstract void initData();
 
     protected abstract void dealloc();

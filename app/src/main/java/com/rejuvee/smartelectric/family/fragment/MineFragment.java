@@ -71,7 +71,7 @@ public class MineFragment extends AbstractBaseFragment implements View.OnClickLi
         ivHead = v.findViewById(R.id.iv_head);
         ivUserQCode = v.findViewById(R.id.iv_scan_code);
         getUserMsg();
-        /*getCacheAccount();
+        /*getCacheAccountInfo();
         buildUri();
         intiData();*/
 
