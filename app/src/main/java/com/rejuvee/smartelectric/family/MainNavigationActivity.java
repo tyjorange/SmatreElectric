@@ -11,6 +11,7 @@ import android.os.Parcel;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +28,8 @@ import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.rejuvee.smartelectric.family.activity.AddDeviceOrSwitchActivity;
+import com.rejuvee.smartelectric.family.activity.collector.CollectorDetailActivity;
 import com.rejuvee.smartelectric.family.activity.energy.TimePriceActivity;
 import com.rejuvee.smartelectric.family.activity.kefu.CustomerServiceActivity;
 import com.rejuvee.smartelectric.family.activity.mine.AboutActivity;
@@ -49,6 +52,7 @@ import com.rejuvee.smartelectric.family.common.widget.MyBlurDrawerToggle;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTip;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTipWithoutOkCancel;
 import com.rejuvee.smartelectric.family.databinding.ActivityMainNavigationBinding;
+import com.rejuvee.smartelectric.family.databinding.NavHeaderMainNavigationBinding;
 import com.rejuvee.smartelectric.family.model.bean.AutoUpgradeEventMessage;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SceneBean;
@@ -84,17 +88,17 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
     private CollectorBeanAdapter mCollectorBeanAdapter;
     //    private TextView tvCollectorCount;//集中器计数
     //用户
-    private CircleImageView ivHead;//头像view
+//    private CircleImageView ivHead;//头像view
     //    private CircleImageView ivHeadSmall;//头像view
-    private TextView tvNick;//昵称view
+//    private TextView tvNick;//昵称view
     //    private TextView tvUsername;//用户名view
 
-    private String nickname;
-    private String username;
-    private String telephone;
-    private String headImgurl;
-    private String wechatUnionID;
-    private String qqUnionID;
+//    private String nickname;
+//    private String username;
+//    private String telephone;
+    //    private String headImgurl;
+//    private String wechatUnionID;
+//    private String qqUnionID;
 
     //    private NavigationView navigationView;
 //    private DrawerLayout drawerLayout;
@@ -102,6 +106,8 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 //    private SwipeRefreshLayout refreshLayout;
 
     private ActivityMainNavigationBinding mBinding;
+    private NavHeaderMainNavigationBinding navigationBinding;
+    private MainNavigationViewModel mViewModel;
     //    private Toolbar toolbar;
 //    private ImageView ivUserQCode;
 //    private PopwindowQCode popwindowQCode;
@@ -119,21 +125,34 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
     @Override
     protected void initView() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main_navigation);
-        MainNavigationViewModel mViewModel = ViewModelProviders.of(this).get(MainNavigationViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(MainNavigationViewModel.class);
         mBinding.setVm(mViewModel);
         mBinding.setLifecycleOwner(this);
-        tvNick = mBinding.navView.getHeaderView(0).findViewById(R.id.user_nickname);
-        ivHead = mBinding.navView.getHeaderView(0).findViewById(R.id.user_headimg);
-        mBinding.include.userHeadimgSmall.setOnClickListener(v -> mBinding.drawerLayout.openDrawer(GravityCompat.START));
-        mBinding.navView.getHeaderView(0).findViewById(R.id.user_edit).setOnClickListener(v -> {
-            Intent intent = new Intent();
-            intent.putExtra("telephone", telephone);
-            intent.putExtra("nickname", nickname);
-            intent.putExtra("username", username);
-            intent.putExtra("headImgurl", headImgurl);
-            intent.setClass(getBaseContext(), PerInfoActivity.class);
-            startActivityForResult(intent, CommonRequestCode.REQUEST_USER_INFO);
-        });
+
+//        tvNick = mBinding.navView.getHeaderView(0).findViewById(R.id.user_nickname);
+//        ivHead = mBinding.navView.getHeaderView(0).findViewById(R.id.user_headimg);
+//        NavHeaderMainNavigationBinding navigationBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.nav_header_main_navigation, null, false);
+        navigationBinding = DataBindingUtil.bind(mBinding.navView.getHeaderView(0));
+        if (navigationBinding != null) {
+            navigationBinding.setVm(mViewModel);
+            navigationBinding.setPresenter(new Presenter());
+            navigationBinding.setLifecycleOwner(this);
+        }
+//        mBinding.navView.inflateHeaderView(R.layout.nav_header_main_navigation);
+//        mBinding.navView
+        // toolbar header img
+        mBinding.include.setVm(mViewModel);
+        mBinding.include.setPresenter(new Presenter());
+//        mBinding.include.userHeadimgSmall.setOnClickListener(v -> mBinding.drawerLayout.openDrawer(GravityCompat.START));
+//        mBinding.navView.getHeaderView(0).findViewById(R.id.user_edit).setOnClickListener(v -> {
+//            Intent intent = new Intent();
+//            intent.putExtra("telephone", mViewModel.getTelephone().getValue());
+//            intent.putExtra("nickname", mViewModel.getNickname().getValue());
+//            intent.putExtra("username", mViewModel.getUsername().getValue());
+//            intent.putExtra("headImgurl", mViewModel.getHeadImgUrl().getValue());
+//            intent.setClass(getBaseContext(), PerInfoActivity.class);
+//            startActivityForResult(intent, CommonRequestCode.REQUEST_USER_INFO);
+//        });
         mBinding.include.include.refreshlayout.setOnRefreshListener(this::getCollector);
 
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
@@ -199,11 +218,11 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
             @Override
             public void onSuccess(WxSubscribed data) {
                 if (data.getIsSubscribed() == 0) {
-                    Snackbar.make(tvNick, R.string.vs225, Snackbar.LENGTH_INDEFINITE)
+                    Snackbar.make(navigationBinding.getRoot(), R.string.vs225, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.vs248, v -> {
                                 Intent intent = new Intent(getBaseContext(), ThridBindActivity.class);
-                                intent.putExtra("wechatUnionID", wechatUnionID);
-                                intent.putExtra("qqUnionID", qqUnionID);
+                                intent.putExtra("wechatUnionID", mViewModel.getWechatUnionID().getValue());
+                                intent.putExtra("qqUnionID", mViewModel.getQQUnionID().getValue());
                                 startActivityForResult(intent, CommonRequestCode.REQUEST_THIRD_BIND);
                             }).setActionTextColor(getResources().getColor(R.color.blue_light))
                             .setDuration(10000).show();
@@ -217,12 +236,6 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         });
     }
 
-    @Override
-    protected void dealloc() {
-        AutoUpgrade.getInstacne(this).destroyInstance();
-        EventBus.getDefault().unregister(this);
-    }
-
     /**
      * 用户信息
      */
@@ -230,30 +243,36 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         Core.instance(getBaseContext()).getUserMsg(new ActionCallbackListener<UserMsg>() {
             @Override
             public void onSuccess(UserMsg data) {
-                telephone = data.getPhone();
-                nickname = data.getNickName();
-                username = data.getUsername();
-                headImgurl = data.getHeadImg();
-                wechatUnionID = data.getWechatUnionID();
-                qqUnionID = data.getQqUnionID();
-                tvNick.setText(nickname);
+//                telephone = data.getPhone();
+                mViewModel.setTelephone(data.getPhone());
+//                nickname = data.getNickName();
+                mViewModel.setNickname(data.getNickName());
+//                username = data.getUsername();
+                mViewModel.setUsername(data.getUsername());
+//                headImgurl = data.getHeadImg();
+                mViewModel.setHeadImgUrl(data.getHeadImg());
+//                wechatUnionID = data.getWechatUnionID();
+                mViewModel.setWechatUnionID(data.getWechatUnionID());
+//                qqUnionID = data.getQqUnionID();
+                mViewModel.setQQUnionID(data.getQqUnionID());
+//                tvNick.setText(nickname);
 //                tvUsername.setText(username);
-                if (headImgurl.equals("")) {
-                    headImgurl = null;
-                    ivHead.setImageResource(R.drawable.icon_user_default);
-                    mBinding.include.userHeadimgSmall.setImageResource(R.drawable.icon_user_default);
-                } else {
-                    if (!headImgurl.startsWith("https://")) {
-                        headImgurl = "https://" + headImgurl;
-                    }
-                    RequestCreator load = Picasso.with(getBaseContext()).load(headImgurl);
-                    setHeaderIcon(load);
-                }
+//                if (headImgurl.equals("")) {
+//                    headImgurl = null;
+//                    ivHead.setImageResource(R.drawable.icon_user_default);
+//                    mBinding.include.userHeadimgSmall.setImageResource(R.drawable.icon_user_default);
+//                } else {
+//                    if (!headImgurl.startsWith("https://")) {
+//                        headImgurl = "https://" + headImgurl;
+//                    }
+//                    RequestCreator load = Picasso.with(getBaseContext()).load(headImgurl);
+//                    setHeaderIcon(load);
+//                }
             }
 
             @Override
             public void onFailure(int errorEvent, String message) {
-                ivHead.setImageResource(R.drawable.icon_user_default);
+//                ivHead.setImageResource(R.drawable.icon_user_default);
             }
         });
     }
@@ -262,25 +281,25 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
     /**
      * 设置头像
      */
-    private void setHeaderIcon(RequestCreator load) {
-        load.into(new Target() {
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                ivHead.setImageBitmap(bitmap);
-                mBinding.include.userHeadimgSmall.setImageBitmap(bitmap);
-            }
-
-            @Override
-            public void onBitmapFailed(Drawable errorDrawable) {
-                ivHead.setImageResource(R.drawable.icon_user_default);
-                mBinding.include.userHeadimgSmall.setImageResource(R.drawable.icon_user_default);
-            }
-
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
-            }
-        });
-    }
+//    private void setHeaderIcon(RequestCreator load) {
+//        load.into(new Target() {
+//            @Override
+//            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+//                ivHead.setImageBitmap(bitmap);
+//                mBinding.include.userHeadimgSmall.setImageBitmap(bitmap);
+//            }
+//
+//            @Override
+//            public void onBitmapFailed(Drawable errorDrawable) {
+//                ivHead.setImageResource(R.drawable.icon_user_default);
+//                mBinding.include.userHeadimgSmall.setImageResource(R.drawable.icon_user_default);
+//            }
+//
+//            @Override
+//            public void onPrepareLoad(Drawable placeHolderDrawable) {
+//            }
+//        });
+//    }
 
     /**
      * 生成用户名二维码
@@ -293,12 +312,8 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 //        }
 //    }
     private void initToolBar() {
-//        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mBinding.include.toolbar);
         setTitle("");
-//        drawerLayout = findViewById(R.id.drawer_layout);
-//        CircleImageView civ = (CircleImageView) findViewById(R.id.user_headimg_s);
-//        toolbar.setNavigationIcon(new CircleDrawable(BitmapUtil.drawable2Bitmap(ivHead.getDrawable())));
         // 模糊控件Drawer
         drawerToggle = new MyBlurDrawerToggle(this, mBinding.drawerLayout, mBinding.include.toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close, new NavigationDrawerListener() {
@@ -312,27 +327,16 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         });
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-//                this, drawerLayout, toolbar,
-//                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawerToggle.syncState();
-//        drawerToggle.setConfig(1, 2, DaliBlurDrawerToggle.CacheMode.AUTO);
         drawerToggle.setDrawerIndicatorEnabled(true);
         mBinding.drawerLayout.addDrawerListener(drawerToggle);
 
-//        NavigationView navigationView = findViewById(R.id.nav_view);
         mBinding.navView.setNavigationItemSelectedListener(this);
 
         // 隐藏的条目
 //        FloatingActionButton fab = findViewById(R.id.fab);
-        mBinding.include.fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("ActionFab", null).show());
-    }
-
-    public class Presenter {
-        public void onClickAddScene(View view) {
-            startActivity(new Intent(view.getContext(), SceneActivity.class));
-        }
+//        mBinding.include.fab.setOnClickListener(view ->
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                .setAction("ActionFab", null).show());
     }
 
     private void initScene() {
@@ -345,8 +349,6 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 
             @Override
             public void onCollectorBeanClick(SceneBean bean) {
-                //TODO sout
-                System.out.println(bean);
             }
 
             @Override
@@ -356,7 +358,6 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 
             @Override
             public void onDelClick(SceneBean bean) {
-
             }
         });
         mBinding.include.include.setPresenter(new Presenter());
@@ -388,12 +389,13 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         mCollectorBeanAdapter = new CollectorBeanAdapter(this);
         mBinding.include.include.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mBinding.include.include.recyclerView.setAdapter(mCollectorBeanAdapter);
-        mCollectorBeanAdapter.setCallback(new CollectorBeanAdapter.CallBack() {
-
-            @Override
-            public void onCollectorBeanClick(CollectorBean bean) {
-                //TODO sout
-                System.out.println(bean);
+        mCollectorBeanAdapter.setCallback(bean -> {
+            if (bean.getDeviceName() == null) {// 点击的是空项的添加按钮
+                startActivityForResult(new Intent(MainNavigationActivity.this, AddDeviceOrSwitchActivity.class), CommonRequestCode.REQUEST_ADD_COLLECTOR);
+            } else {
+                Intent intent = new Intent(MainNavigationActivity.this, CollectorDetailActivity.class);
+                intent.putExtra("collectorBean", bean);
+                startActivity(intent);
             }
         });
     }
@@ -405,7 +407,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
                 mBinding.include.include.tvCollectorCount.setText(String.format(Locale.getDefault(), "%s%d", getString(R.string.vs13), data.size()));
 //                listDeviceData.clear();
 //                listDeviceData.addAll(data);
-                data.add(new CollectorBean(Parcel.obtain()));// 加一个空项作为添加按钮事件
+                data.add(new CollectorBean(Parcel.obtain()));// 加一个空项作为添加按钮
                 mCollectorBeanAdapter.addAll(data);
 //                mDeviceAdapter.notifyDataSetChanged();
 //                updateRefreshState();
@@ -547,14 +549,14 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         int id = item.getItemId();
         if (id == R.id.me_disanfang) {
             Intent intent = new Intent(this, ThridBindActivity.class);
-            intent.putExtra("wechatUnionID", wechatUnionID);
-            intent.putExtra("qqUnionID", qqUnionID);
+            intent.putExtra("wechatUnionID", mViewModel.getWechatUnionID().getValue());
+            intent.putExtra("qqUnionID", mViewModel.getQQUnionID().getValue());
             startActivityForResult(intent, CommonRequestCode.REQUEST_THIRD_BIND);
         } else if (id == R.id.me_jisuanqi) {
             startActivity(new Intent(this, TimePriceActivity.class));
         } else if (id == R.id.me_kefu) {
             Intent intent = new Intent(this, CustomerServiceActivity.class);
-            intent.putExtra("username", username);
+            intent.putExtra("username", mViewModel.getUsername().getValue());
             startActivity(intent);
         } else if (id == R.id.me_wenti) {
             DialogTipWithoutOkCancel d = new DialogTipWithoutOkCancel(this);
@@ -607,6 +609,37 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
                 Log.e(TAG, "onPermissionDenied");
             }
         }).hasInstall(this);
+    }
+
+    public class Presenter {
+        public void onClickAddScene(View view) {
+            startActivity(new Intent(view.getContext(), SceneActivity.class));
+        }
+
+        public void onClickHeadImg(View view) {
+            mBinding.drawerLayout.openDrawer(GravityCompat.START);
+        }
+
+        public void onEdit(View view) {
+            Intent intent = new Intent();
+            intent.putExtra("telephone", mViewModel.getTelephone().getValue());
+            intent.putExtra("nickname", mViewModel.getNickname().getValue());
+            intent.putExtra("username", mViewModel.getUsername().getValue());
+            intent.putExtra("headImgurl", mViewModel.getHeadImgUrl().getValue());
+            intent.setClass(getBaseContext(), PerInfoActivity.class);
+            startActivityForResult(intent, CommonRequestCode.REQUEST_USER_INFO);
+        }
+
+        public void onFab(View view){
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                    .setAction("ActionFab", null).show();
+        }
+    }
+
+    @Override
+    protected void dealloc() {
+        AutoUpgrade.getInstacne(this).destroyInstance();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

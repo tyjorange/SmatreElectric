@@ -1,167 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    tools:context=".activity.mine.PerInfoActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:contentInsetLeft="0dp"
-        app:contentInsetStart="0dp">
+    <data>
 
-        <ImageView
-            android:id="@+id/img_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:padding="16dp"
-            android:src="@drawable/main_fanhui" />
+        <variable
+            name="presenter"
+            type="com.rejuvee.smartelectric.family.activity.mine.PerInfoActivity.Presenter" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/vs43"
-            android:textSize="12sp" />
-    </androidx.appcompat.widget.Toolbar>
-
-    <!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:orientation="horizontal"-->
-    <!--android:paddingStart="20dp"-->
-    <!--android:paddingTop="20dp"-->
-    <!--android:paddingEnd="20dp"-->
-    <!--android:paddingBottom="20dp">-->
-
-    <!--<TextView-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_weight="1"-->
-    <!--android:text="个人信息"-->
-    <!--android:textColor="@color/black"-->
-    <!--android:textSize="18sp" />-->
-    <!--</LinearLayout>-->
+        <variable
+            name="vm"
+            type="com.rejuvee.smartelectric.family.activity.mine.PerInfoViewModel" />
+    </data>
 
     <LinearLayout
-        android:id="@+id/ll_headimg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/txt_username"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="@dimen/activity_horizontal_margin"
-            android:text="username"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
-        <com.base.library.view.CircleImageView
-            android:id="@+id/img_head"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="@dimen/global_base_padding_10"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:layout_marginBottom="@dimen/global_base_padding_10"
-            android:src="@drawable/icon_user_default" />
-
-    </LinearLayout>
-
-    <!--<LinearLayout-->
-    <!--android:id="@+id/ll_username"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:gravity="center_vertical"-->
-    <!--android:orientation="horizontal">-->
-
-    <!--<TextView-->
-    <!--android:layout_width="1dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_weight="1"-->
-    <!--android:padding="@dimen/activity_horizontal_margin"-->
-    <!--android:text="@string/user_name"-->
-    <!--android:textColor="@color/backgroud_transparent_80bg"-->
-    <!--android:textSize="@dimen/size_content" />-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/txt_username"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginRight="@dimen/activity_horizontal_margin"-->
-    <!--android:textColor="@color/backgroud_transparent_80bg"-->
-    <!--android:textSize="@dimen/size_message" />-->
-    <!--</LinearLayout>-->
-
-    <LinearLayout
-        android:id="@+id/ll_nickname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="@dimen/activity_horizontal_margin"
-            android:text="@string/nick_name"
-            android:textColor="@color/backgroud_transparent_80bg"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/txt_nickname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:textColor="@color/backgroud_transparent_80bg"
-            android:textSize="12sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_getphone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="@dimen/activity_horizontal_margin"
-            android:text="@string/phone_num"
-            android:textColor="@color/backgroud_transparent_80bg"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/txt_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:textColor="@color/backgroud_transparent_80bg"
-            android:textSize="12sp" />
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/iv_qcode"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/saomatianjia" />
-    <!--<ImageView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="0.5dp"-->
-    <!--android:layout_marginLeft="@dimen/activity_horizontal_margin"-->
-    <!--android:layout_marginRight="@dimen/activity_horizontal_margin"-->
-    <!--android:src="@color/backgroud_transparent_20bg" />-->
+        android:background="@color/white"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        tools:context=".activity.mine.PerInfoActivity">
 
-</LinearLayout>
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp">
+
+            <ImageView
+                android:id="@+id/img_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:onClick="@{presenter::onCancel}"
+                android:padding="16dp"
+                android:src="@drawable/main_fanhui" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/vs43"
+                android:textSize="12sp" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:paddingStart="20dp"-->
+        <!--android:paddingTop="20dp"-->
+        <!--android:paddingEnd="20dp"-->
+        <!--android:paddingBottom="20dp">-->
+
+        <!--<TextView-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:text="个人信息"-->
+        <!--android:textColor="@color/black"-->
+        <!--android:textSize="18sp" />-->
+        <!--</LinearLayout>-->
+
+        <LinearLayout
+            android:id="@+id/ll_headimg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:onClick="@{presenter::onChangeHead}"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txt_username"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:text="@{vm.username,default=aaaaa}"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <com.rejuvee.smartelectric.family.common.widget.CircleImageView
+                android:id="@+id/img_head"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="@dimen/global_base_padding_10"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginBottom="@dimen/global_base_padding_10"
+                android:src="@drawable/default_user_profile"
+                app:imageUrl="@{vm.headImgUrl}" />
+
+        </LinearLayout>
+
+        <!--<LinearLayout-->
+        <!--android:id="@+id/ll_username"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<TextView-->
+        <!--android:layout_width="1dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:padding="@dimen/activity_horizontal_margin"-->
+        <!--android:text="@string/user_name"-->
+        <!--android:textColor="@color/backgroud_transparent_80bg"-->
+        <!--android:textSize="@dimen/size_content" />-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/txt_username"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginRight="@dimen/activity_horizontal_margin"-->
+        <!--android:textColor="@color/backgroud_transparent_80bg"-->
+        <!--android:textSize="@dimen/size_message" />-->
+        <!--</LinearLayout>-->
+
+        <LinearLayout
+            android:id="@+id/ll_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:onClick="@{presenter::onChangeNick}"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:text="@string/nick_name"
+                android:textColor="@color/backgroud_transparent_80bg"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/txt_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:text="@{vm.nickname,default=aaa}"
+                android:textColor="@color/backgroud_transparent_80bg"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_getphone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:onClick="@{presenter::onChangePhone}"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:text="@string/phone_num"
+                android:textColor="@color/backgroud_transparent_80bg"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/txt_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:text="@{vm.phone,default=123}"
+                android:textColor="@color/backgroud_transparent_80bg"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_qcode"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/saomatianjia" />
+        <!--<ImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0.5dp"-->
+        <!--android:layout_marginLeft="@dimen/activity_horizontal_margin"-->
+        <!--android:layout_marginRight="@dimen/activity_horizontal_margin"-->
+        <!--android:src="@color/backgroud_transparent_20bg" />-->
+
+    </LinearLayout>
+</layout>

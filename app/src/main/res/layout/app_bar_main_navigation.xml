@@ -4,6 +4,13 @@
 
     <data>
 
+        <variable
+            name="vm"
+            type="com.rejuvee.smartelectric.family.MainNavigationViewModel" />
+
+        <variable
+            name="presenter"
+            type="com.rejuvee.smartelectric.family.MainNavigationActivity.Presenter" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -28,11 +35,12 @@
                 <com.rejuvee.smartelectric.family.common.widget.CircleImageView
                     android:id="@+id/user_headimg_small"
                     android:layout_width="40dp"
+                    android:onClick="@{presenter::onClickHeadImg}"
                     android:layout_height="40dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/icon_user_default">
+                    android:src="@drawable/icon_user_default"
+                    app:imageUrl="@{vm.headImgUrl}" />
 
-                </com.rejuvee.smartelectric.family.common.widget.CircleImageView>
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -65,6 +73,7 @@
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{presenter::onFab}"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
             android:visibility="gone"

@@ -15,9 +15,8 @@ import io.realm.annotations.RealmModule;
 /**
  * Created by liuchengran on 2017/12/22.
  */
-
 public class AccountInfoRealm {
-    private static final String LOGTAG = LogUtil.makeLogTag(AccountInfoRealm.class);
+    private static final String TAG = LogUtil.makeLogTag(AccountInfoRealm.class);
     private final RealmConfiguration realmConfig;
     private Realm realm;
 

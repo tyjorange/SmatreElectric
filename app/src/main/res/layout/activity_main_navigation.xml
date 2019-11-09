@@ -8,6 +8,10 @@
         <variable
             name="vm"
             type="com.rejuvee.smartelectric.family.MainNavigationViewModel" />
+
+        <variable
+            name="presenter"
+            type="com.rejuvee.smartelectric.family.MainNavigationActivity.Presenter" />
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout

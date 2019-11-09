@@ -1,60 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/user_edit"
-    android:layout_width="match_parent"
-    android:layout_height="146dp"
-    android:gravity="center"
-    android:orientation="horizontal"
-    android:paddingStart="@dimen/activity_horizontal_margin"
-    android:paddingTop="50dp"
-    android:paddingEnd="0dp"
-    android:paddingBottom="@dimen/activity_horizontal_margin">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!--<ImageView-->
-    <!--android:id="@+id/imageView"-->
-    <!--android:layout_width="70dp"-->
-    <!--android:layout_height="70dp"-->
-    <!--android:contentDescription="@string/nav_header_desc"-->
-    <!--app:srcCompat="@mipmap/ic_launcher" />-->
+    <data>
 
-    <com.rejuvee.smartelectric.family.common.widget.CircleImageView
-        android:id="@+id/user_headimg"
-        android:layout_width="66dp"
-        android:layout_height="66dp"
-        android:src="@drawable/icon_user_default" />
+        <variable
+            name="presenter"
+            type="com.rejuvee.smartelectric.family.MainNavigationActivity.Presenter" />
 
+        <variable
+            name="vm"
+            type="com.rejuvee.smartelectric.family.MainNavigationViewModel" />
+    </data>
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
+        android:id="@+id/user_edit"
+        android:layout_width="match_parent"
+        android:layout_height="146dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:onClick="@{presenter::onEdit}"
         android:paddingStart="@dimen/activity_horizontal_margin"
-        android:paddingEnd="0dp">
+        android:paddingTop="50dp"
+        android:paddingEnd="0dp"
+        android:paddingBottom="@dimen/activity_horizontal_margin">
 
-        <TextView
-            android:id="@+id/user_nickname"
+        <!--<ImageView-->
+        <!--android:id="@+id/imageView"-->
+        <!--android:layout_width="70dp"-->
+        <!--android:layout_height="70dp"-->
+        <!--android:contentDescription="@string/nav_header_desc"-->
+        <!--app:srcCompat="@mipmap/ic_launcher" />-->
+
+        <com.rejuvee.smartelectric.family.common.widget.CircleImageView
+            android:id="@+id/user_headimg"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            android:src="@drawable/icon_user_default"
+            app:imageUrl="@{vm.headImgUrl}" />
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingEnd="0dp">
+
+            <TextView
+                android:id="@+id/user_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/nav_header_vertical_spacing"
+                android:text="@{vm.nickname,default=aaa}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/white"
+                android:textSize="@dimen/global_base_text_size_16"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/vs134"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/nav_header_vertical_spacing"
-            android:text="Test"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/white"
-            android:textSize="@dimen/global_base_text_size_16"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/vs134"
-            android:textColor="@color/white"
-            android:textSize="9sp" />
-
+            app:srcCompat="@drawable/me_jinru" />
     </LinearLayout>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/me_jinru" />
-</LinearLayout>
+</layout>
