@@ -1,74 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    tools:context=".activity.collector.CollectorAttrSetActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:contentInsetLeft="0dp"
-        app:contentInsetStart="0dp">
+    <data>
 
-        <ImageView
-            android:id="@+id/img_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:padding="16dp"
-            android:src="@drawable/main_fanhui" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/vs112"
-            android:textSize="12sp" />
-    </androidx.appcompat.widget.Toolbar>
+        <variable
+            name="presenter"
+            type="com.rejuvee.smartelectric.family.activity.collector.CollectorAttrSetActivity.Presenter" />
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:layout_weight="1"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        tools:context=".activity.collector.CollectorAttrSetActivity">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:paddingStart="@dimen/activity_horizontal_margin"
-            android:paddingEnd="0dp"
-            android:text="@string/devicename"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/edit_devicename"
+        <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@null"
-            android:hint="@string/sets_miaoshu"
-            android:paddingStart="@dimen/activity_horizontal_margin"
-            android:paddingEnd="0dp"
-            android:textSize="14sp" />
+            android:layout_height="wrap_content"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp">
+
+            <ImageView
+                android:id="@+id/img_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:onClick="@{presenter::onCancel}"
+                android:padding="16dp"
+                android:src="@drawable/main_fanhui" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/vs112"
+                android:textSize="12sp" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingEnd="0dp"
+                android:text="@string/devicename"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edit_devicename"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@null"
+                android:hint="@string/sets_miaoshu"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingEnd="0dp"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <com.base.library.widget.SuperTextView
+            android:id="@+id/bu_wancheng"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_margin="16dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/qd1"
+            android:gravity="center"
+            android:onClick="@{presenter::onComplete}"
+            android:text="@string/sce_wancheng"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:corner="8dp" />
 
     </LinearLayout>
-
-    <com.base.library.widget.SuperTextView
-        android:id="@+id/bu_wancheng"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_margin="16dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/qd1"
-        android:gravity="center"
-        android:text="@string/sce_wancheng"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:corner="8dp" />
-
-</LinearLayout>
+</layout>

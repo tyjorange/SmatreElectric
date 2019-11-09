@@ -5,35 +5,36 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.databinding.DataBindingUtil;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
+import com.rejuvee.smartelectric.family.databinding.ActivitySetupextraBinding;
+import com.rejuvee.smartelectric.family.databinding.ActivitySetupnameBinding;
 
 
 /**
  * 集中器参数设置
  * Created by Administrator on 2018/1/2.
  */
-public class CollectorAttrSetActivity extends BaseActivity implements View.OnClickListener {
-    private String title;
-    private EditText edit_devicename;
-    private TextView tv_attr_title;
+public class CollectorAttrSetActivity extends BaseActivity {
+    //    private EditText edit_devicename;
+//    private TextView tv_attr_title;
+//    private ListView list_count;
+    private CountsAdapter countsadapter;
     private int Acposition;
-    private String settext;
-    private Countsadapter countsadapter;
-    private ListView list_count;
     private int curposition = -1;
     private String collectorID;
+    private String settext;
     private String partext;
-    private Intent intent;
+//    private Intent intent;
 
     private static final String[] setBtlv = {
             "2400", "4800", "9600",
@@ -51,7 +52,7 @@ public class CollectorAttrSetActivity extends BaseActivity implements View.OnCli
             "90", "120", "150",
     };
 
-//    @Override
+    //    @Override
 //    protected int getLayoutResId() {
 //        Acposition = getIntent().getIntExtra("position", 1);
 //        if (Acposition == 0) {
@@ -65,52 +66,54 @@ public class CollectorAttrSetActivity extends BaseActivity implements View.OnCli
 //    protected int getMyTheme() {
 //        return 0;
 //    }
+    private ActivitySetupnameBinding nameBinding;
 
     @Override
     protected void initView() {
-        intent = getIntent();
-        collectorID = intent.getStringExtra("CollectorID");
-        partext = intent.getStringExtra("partext");
-        title = intent.getStringExtra("title");
-
-        edit_devicename = findViewById(R.id.edit_devicename);
-        tv_attr_title = findViewById(R.id.tv_attr_title);
-        if (tv_attr_title != null) {
-            tv_attr_title.setText(title);
-        }
-        if (edit_devicename != null)
-            edit_devicename.setText(partext);
-        if (Acposition != 0) {
-            list_count = findViewById(R.id.list_count);
+        Acposition = getIntent().getIntExtra("position", 1);
+        collectorID = getIntent().getStringExtra("CollectorID");
+        if (Acposition == 0) {
+            nameBinding = DataBindingUtil.setContentView(this, R.layout.activity_setupname);
+            nameBinding.setPresenter(new Presenter());
+//            edit_devicename = findViewById(R.id.edit_devicename);
+            partext = getIntent().getStringExtra("partext");
+            nameBinding.editDevicename.setText(partext);
+        } else {
+            ActivitySetupextraBinding extraBinding = DataBindingUtil.setContentView(this, R.layout.activity_setupextra);
+            extraBinding.setPresenter(new Presenter());
+//            tv_attr_title = findViewById(R.id.tv_attr_title);
+            String title = getIntent().getStringExtra("title");
+            extraBinding.tvAttrTitle.setText(title);
+//            list_count = findViewById(R.id.list_count);
             switch (Acposition) {
                 case 1:
-                    isslecet(setBtlv);
-                    countsadapter = new Countsadapter(setBtlv);
-                    list_count.setAdapter(countsadapter);
+                    isSeleceted(setBtlv);
+                    countsadapter = new CountsAdapter(setBtlv);
+                    extraBinding.listCount.setAdapter(countsadapter);
                     break;
                 case 2:
-                    isslecet(setAcquifrequency);
-                    countsadapter = new Countsadapter(setAcquifrequency);
-                    list_count.setAdapter(countsadapter);
+                    isSeleceted(setAcquifrequency);
+                    countsadapter = new CountsAdapter(setAcquifrequency);
+                    extraBinding.listCount.setAdapter(countsadapter);
                     break;
                 case 3:
-                    isslecet(setAlarmthreshold);
-                    countsadapter = new Countsadapter(setAlarmthreshold);
-                    list_count.setAdapter(countsadapter);
+                    isSeleceted(setAlarmthreshold);
+                    countsadapter = new CountsAdapter(setAlarmthreshold);
+                    extraBinding.listCount.setAdapter(countsadapter);
                     break;
                 case 4:
-                    isslecet(setGuzhangma);
-                    countsadapter = new Countsadapter(setGuzhangma);
-                    list_count.setAdapter(countsadapter);
+                    isSeleceted(setGuzhangma);
+                    countsadapter = new CountsAdapter(setGuzhangma);
+                    extraBinding.listCount.setAdapter(countsadapter);
                     break;
                 case 5:
-                    isslecet(setheartrate);
-                    countsadapter = new Countsadapter(setheartrate);
-                    list_count.setAdapter(countsadapter);
+                    isSeleceted(setheartrate);
+                    countsadapter = new CountsAdapter(setheartrate);
+                    extraBinding.listCount.setAdapter(countsadapter);
                     break;
             }
 
-            list_count.setOnItemClickListener((parent, view, position, id) -> {
+            extraBinding.listCount.setOnItemClickListener((parent, view, position, id) -> {
                 switch (Acposition) {
                     case 1:
                         settext = setBtlv[position];
@@ -132,11 +135,11 @@ public class CollectorAttrSetActivity extends BaseActivity implements View.OnCli
                 countsadapter.notifyDataSetChanged();
             });
         }
-        findViewById(R.id.img_cancel).setOnClickListener(this);
-        findViewById(R.id.bu_wancheng).setOnClickListener(this);
+//        findViewById(R.id.img_cancel).setOnClickListener(this);
+//        findViewById(R.id.bu_wancheng).setOnClickListener(this);
     }
 
-    public void isslecet(String[] setBtlv) {
+    public void isSeleceted(String[] setBtlv) {
         for (int i = 0; i < setBtlv.length; i++) {
             if (setBtlv[i].equals(partext)) {
                 curposition = i;
@@ -149,7 +152,7 @@ public class CollectorAttrSetActivity extends BaseActivity implements View.OnCli
 
     }
 
-//    @Override
+    //    @Override
 //    protected String getToolbarTitle() {
 //
 //        return null;
@@ -159,49 +162,81 @@ public class CollectorAttrSetActivity extends BaseActivity implements View.OnCli
 //    protected boolean isDisplayHomeAsUpEnabled() {
 //        return true;
 //    }
+    public class Presenter {
+        public void onCancel(View view) {
+            finish();
+        }
+
+        public void onComplete(View view) {
+            Log.i("collectorID", collectorID + "");
+            switch (Acposition) {
+                case 0:
+                    settext = nameBinding.editDevicename.getText().toString();
+                    if (settext.isEmpty() | settext.length() > 12) {
+                        CustomToast.showCustomErrorToast(view.getContext(), getString(R.string.vs179));
+                        break;
+                    }
+                    changeCollector(collectorID, settext, null, null, null, null, null);
+                    break;
+                case 1:
+                    changeCollector(collectorID, null, settext, null, null, null, null);
+                    break;
+                case 2:
+                    changeCollector(collectorID, null, null, settext, null, null, null);
+                    break;
+                case 3:
+                    changeCollector(collectorID, null, null, null, settext, null, null);
+                    break;
+                case 4:
+                    changeCollector(collectorID, null, null, null, null, settext, null);
+                    break;
+                case 5:
+                    changeCollector(collectorID, null, null, null, null, null, settext);
+                    break;
+            }
+        }
+    }
 
     @Override
     protected void dealloc() {
-      /*
-       ;*/
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.img_cancel:
-                finish();
-                break;
-            case R.id.bu_wancheng:
-                Log.i("collectorID", collectorID + "");
-                switch (Acposition) {
-                    case 0:
-                        settext = edit_devicename.getText().toString();
-                        if (settext.isEmpty() | settext.length() > 12) {
-                            CustomToast.showCustomErrorToast(this, getString(R.string.vs179));
-                            break;
-                        }
-                        changeCollector(collectorID, settext, null, null, null, null, null);
-                        break;
-                    case 1:
-                        changeCollector(collectorID, null, settext, null, null, null, null);
-                        break;
-                    case 2:
-                        changeCollector(collectorID, null, null, settext, null, null, null);
-                        break;
-                    case 3:
-                        changeCollector(collectorID, null, null, null, settext, null, null);
-                        break;
-                    case 4:
-                        changeCollector(collectorID, null, null, null, null, settext, null);
-                        break;
-                    case 5:
-                        changeCollector(collectorID, null, null, null, null, null, settext);
-                        break;
-                }
-                break;
-        }
-    }
+//    @Override
+//    public void onClick(View v) {
+//        switch (v.getId()) {
+//            case R.id.img_cancel:
+//                finish();
+//                break;
+//            case R.id.bu_wancheng:
+//                Log.i("collectorID", collectorID + "");
+//                switch (Acposition) {
+//                    case 0:
+//                        settext = nameBinding.editDevicename.getText().toString();
+//                        if (settext.isEmpty() | settext.length() > 12) {
+//                            CustomToast.showCustomErrorToast(this, getString(R.string.vs179));
+//                            break;
+//                        }
+//                        changeCollector(collectorID, settext, null, null, null, null, null);
+//                        break;
+//                    case 1:
+//                        changeCollector(collectorID, null, settext, null, null, null, null);
+//                        break;
+//                    case 2:
+//                        changeCollector(collectorID, null, null, settext, null, null, null);
+//                        break;
+//                    case 3:
+//                        changeCollector(collectorID, null, null, null, settext, null, null);
+//                        break;
+//                    case 4:
+//                        changeCollector(collectorID, null, null, null, null, settext, null);
+//                        break;
+//                    case 5:
+//                        changeCollector(collectorID, null, null, null, null, null, settext);
+//                        break;
+//                }
+//                break;
+//        }
+//    }
 
     public void changeCollector(String collectorID, String name, String baud, String freq, String ranges, String faultFreq, String HBFreq) {
         Core.instance(this).updateCollectorParam(collectorID, name, baud, freq, ranges, faultFreq, HBFreq, new ActionCallbackListener<Void>() {
@@ -211,7 +246,6 @@ public class CollectorAttrSetActivity extends BaseActivity implements View.OnCli
                 Intent intent = new Intent();
              /*   intent.putExtra("settext", settext);
                 intent.putExtra("Acposition", Acposition);*/
-
                 setResult(RESULT_OK, intent);
                 CollectorAttrSetActivity.this.finish();
             }
@@ -223,10 +257,10 @@ public class CollectorAttrSetActivity extends BaseActivity implements View.OnCli
         });
     }
 
-    class Countsadapter extends BaseAdapter {
+    class CountsAdapter extends BaseAdapter {
         private String[] counts;
 
-        public Countsadapter(String[] counts) {
+        CountsAdapter(String[] counts) {
             this.counts = counts;
         }
 

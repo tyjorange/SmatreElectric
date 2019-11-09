@@ -1,404 +1,434 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    tools:context=".activity.collector.CollectorDetailActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.Toolbar
+    <data>
+
+        <variable
+            name="vm"
+            type="com.rejuvee.smartelectric.family.model.viewmodel.CollectorDetailViewModel" />
+
+        <variable
+            name="presenter"
+            type="com.rejuvee.smartelectric.family.activity.collector.CollectorDetailActivity.Presenter" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:contentInsetLeft="0dp"
-        app:contentInsetStart="0dp">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        tools:context=".activity.collector.CollectorDetailActivity">
 
-        <ImageView
-            android:id="@+id/img_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:padding="16dp"
-            android:src="@drawable/main_fanhui" />
-
-        <TextView
-            android:id="@+id/type_yaokong"
+        <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/vs43"
-            android:textSize="12sp" />
-    </androidx.appcompat.widget.Toolbar>
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingStart="20dp"
-        android:paddingTop="20dp"
-        android:paddingEnd="20dp"
-        android:paddingBottom="10dp">
+            <ImageView
+                android:id="@+id/img_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:onClick="@{presenter::onCancel}"
+                android:padding="16dp"
+                android:src="@drawable/main_fanhui" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="@integer/tag_1"
-            android:text="@string/vs56"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
-        <ImageView
-            android:id="@+id/img_remove"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="10dp"
-            android:src="@drawable/timer_del" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="20dp"
-        android:paddingEnd="0dp">
-
-        <TextView
-            android:id="@+id/collector_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="@string/vs57"
-            android:textColor="#5A6187"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/txt_share_tip"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="1"
-            android:text="@string/vs3"
-            android:textColor="#757575"
-            android:textSize="12sp" />
-    </LinearLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="@integer/tag_1">
+            <TextView
+                android:id="@+id/type_yaokong"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/vs43"
+                android:textSize="12sp" />
+        </androidx.appcompat.widget.Toolbar>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:contentDescription="ScrollViewRoot"
-            android:orientation="vertical">
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="10dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="20dp"
-                android:orientation="horizontal">
+                android:layout_weight="@integer/tag_1"
+                android:text="@string/vs56"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/txt_kongzhi"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/collector_ykkg"
-                    android:drawablePadding="4dp"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:text="@string/remote_control"
-                    android:textColor="#5A6187"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/txt_shishi"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/collector_ssqk"
-                    android:drawablePadding="4dp"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:text="@string/Retimesituation"
-                    android:textColor="#5A6187"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/txt_baobiao"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/collector_bb"
-                    android:drawablePadding="4dp"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:text="@string/fun_baobiao"
-                    android:textColor="#5A6187"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/txt_dingshi"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/collector_dskg"
-                    android:drawablePadding="4dp"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:text="@string/timed_task"
-                    android:textColor="#5A6187"
-                    android:textSize="12sp" />
-
-                <!--<TextView-->
-                <!--android:id="@+id/txt_quxian"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:drawableTop="@drawable/quxian"-->
-                <!--android:drawablePadding="4dp"-->
-                <!--android:gravity="center"-->
-                <!--android:padding="16dp"-->
-                <!--android:text="@string/fun_quxian" />-->
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/img_remove"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="20dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/txt_jieneng"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/collector_jnxx"
-                    android:drawablePadding="4dp"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:text="@string/energy_saving_info"
-                    android:textColor="#5A6187"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/txt_anquan"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/collector_aqxx"
-                    android:drawablePadding="4dp"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:text="@string/important_info"
-                    android:textColor="#5A6187"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/txt_upgrade"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/collector_upgrade"
-                    android:drawablePadding="4dp"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:text="@string/vs58"
-                    android:textColor="#5A6187"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/txt_zhuanye"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/collector_zygn"
-                    android:drawablePadding="4dp"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:text="@string/vs59"
-                    android:textColor="#5A6187"
-                    android:textSize="12sp" />
-
-                <!--<TextView-->
-                <!--android:id="@+id/txt_config"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:drawableTop="@drawable/shezhi"-->
-                <!--android:drawablePadding="4dp"-->
-                <!--android:gravity="center"-->
-                <!--android:padding="16dp"-->
-                <!--android:text="@string/fun_peizhi" />-->
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="20dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/txt_dianlu"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/collector_dxxl"
-                    android:drawablePadding="4dp"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:text="@string/line_modify"
-                    android:textColor="#5A6187"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/txt_dianbiao"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/collector_wddb"
-                    android:drawablePadding="4dp"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:text="@string/my_electric_meter"
-                    android:textColor="#5A6187"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/txt_dianqi"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/collector_wddq"
-                    android:drawablePadding="4dp"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:text="@string/vs209"
-                    android:textColor="#5A6187"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/txt_share"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/collector_wdfx"
-                    android:drawablePadding="4dp"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:text="@string/vs60"
-                    android:textColor="#5A6187"
-                    android:textSize="12sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="20dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/txt_wifi_set"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/collector_wifi"
-                    android:drawablePadding="4dp"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:text="@string/fun_wifi_set"
-                    android:textColor="#5A6187"
-                    android:textSize="12sp"
-                    android:visibility="invisible" />
-
-                <TextView
-                    android:id="@+id/txt_cha"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/collector_wddq"
-                    android:drawablePadding="4dp"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:text="测试功能"
-                    android:textColor="#5A6187"
-                    android:textSize="12sp"
-                    android:visibility="invisible" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/collector_wddq"
-                    android:drawablePadding="4dp"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:text="@string/vs209"
-                    android:textColor="#5A6187"
-                    android:textSize="12sp"
-                    android:visibility="invisible" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/collector_wdfx"
-                    android:drawablePadding="4dp"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:text="@string/vs60"
-                    android:textColor="#5A6187"
-                    android:textSize="12sp"
-                    android:visibility="invisible" />
-
-            </LinearLayout>
-
+                android:layout_gravity="center"
+                android:onClick="@{presenter::onRemove}"
+                android:padding="10dp"
+                android:src="@drawable/timer_del" />
         </LinearLayout>
 
-    </ScrollView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp">
 
-    <!--    <LinearLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="horizontal">-->
+            <TextView
+                android:id="@+id/collector_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@{String.format(`%s%s`,@string/vs2,vm.collectorBeanCode),default=code}"
+                android:textColor="#5A6187"
+                android:textSize="12sp" />
 
-    <!--        <TextView-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="match_parent"-->
-    <!--            android:layout_weight="@integer/tag_1" />-->
+            <TextView
+                android:id="@+id/txt_share_tip"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:text="@{String.format(`%s%s`,vm.sharedName,@string/vs3),default=share_from_xxx}"
+                android:textColor="#757575"
+                android:textSize="12sp" />
+        </LinearLayout>
 
-    <!--        <TextView-->
-    <!--            android:id="@+id/tv_del_collector"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_gravity="bottom"-->
-    <!--            android:gravity="center"-->
-    <!--            android:paddingTop="40dp"-->
-    <!--            android:paddingBottom="40dp"-->
-    <!--            android:text="解绑电箱"-->
-    <!--            android:textColor="@color/red_light"-->
-    <!--            android:textSize="13sp" />-->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="@integer/tag_1">
 
-    <!--        <TextView-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="match_parent"-->
-    <!--            android:layout_weight="@integer/tag_1" />-->
-    <!--    </LinearLayout>-->
-</LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="ScrollViewRoot"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_kongzhi"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/collector_ykkg"
+                        android:drawablePadding="4dp"
+                        android:gravity="center"
+                        android:onClick="@{presenter::onKongzhi}"
+                        android:padding="16dp"
+                        android:text="@string/remote_control"
+                        android:textColor="#5A6187"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/txt_shishi"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/collector_ssqk"
+                        android:drawablePadding="4dp"
+                        android:gravity="center"
+                        android:onClick="@{presenter::onShishi}"
+                        android:padding="16dp"
+                        android:text="@string/Retimesituation"
+                        android:textColor="#5A6187"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/txt_baobiao"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/collector_bb"
+                        android:drawablePadding="4dp"
+                        android:gravity="center"
+                        android:onClick="@{presenter::onBaoBiao}"
+                        android:padding="16dp"
+                        android:text="@string/fun_baobiao"
+                        android:textColor="#5A6187"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/txt_dingshi"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/collector_dskg"
+                        android:drawablePadding="4dp"
+                        android:gravity="center"
+                        android:onClick="@{presenter::onDingshi}"
+                        android:padding="16dp"
+                        android:text="@string/timed_task"
+                        android:textColor="#5A6187"
+                        android:textSize="12sp" />
+
+                    <!--<TextView-->
+                    <!--android:id="@+id/txt_quxian"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:drawableTop="@drawable/quxian"-->
+                    <!--android:drawablePadding="4dp"-->
+                    <!--android:gravity="center"-->
+                    <!--android:padding="16dp"-->
+                    <!--android:text="@string/fun_quxian" />-->
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_jieneng"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/collector_jnxx"
+                        android:drawablePadding="4dp"
+                        android:gravity="center"
+                        android:onClick="@{presenter::onJieneng}"
+                        android:padding="16dp"
+                        android:text="@string/energy_saving_info"
+                        android:textColor="#5A6187"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/txt_anquan"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/collector_aqxx"
+                        android:drawablePadding="4dp"
+                        android:gravity="center"
+                        android:onClick="@{presenter::onAnquan}"
+                        android:padding="16dp"
+                        android:text="@string/important_info"
+                        android:textColor="#5A6187"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/txt_upgrade"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/collector_upgrade"
+                        android:drawablePadding="4dp"
+                        android:gravity="center"
+                        android:onClick="@{presenter::onUpgrade}"
+                        android:padding="16dp"
+                        android:text="@string/vs58"
+                        android:textColor="#5A6187"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/txt_zhuanye"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/collector_zygn"
+                        android:drawablePadding="4dp"
+                        android:gravity="center"
+                        android:onClick="@{presenter::onZhuanye}"
+                        android:padding="16dp"
+                        android:text="@string/vs59"
+                        android:textColor="#5A6187"
+                        android:textSize="12sp" />
+
+                    <!--<TextView-->
+                    <!--android:id="@+id/txt_config"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:drawableTop="@drawable/shezhi"-->
+                    <!--android:drawablePadding="4dp"-->
+                    <!--android:gravity="center"-->
+                    <!--android:padding="16dp"-->
+                    <!--android:text="@string/fun_peizhi" />-->
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_dianlu"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/collector_dxxl"
+                        android:drawablePadding="4dp"
+                        android:gravity="center"
+                        android:onClick="@{presenter::onDianlu}"
+                        android:padding="16dp"
+                        android:text="@string/line_modify"
+                        android:textColor="#5A6187"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/txt_dianbiao"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/collector_wddb"
+                        android:drawablePadding="4dp"
+                        android:gravity="center"
+                        android:onClick="@{presenter::onDianbiao}"
+                        android:padding="16dp"
+                        android:text="@string/my_electric_meter"
+                        android:textColor="#5A6187"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/txt_dianqi"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/collector_wddq"
+                        android:drawablePadding="4dp"
+                        android:gravity="center"
+                        android:onClick="@{presenter::onDianqi}"
+                        android:padding="16dp"
+                        android:text="@string/vs209"
+                        android:textColor="#5A6187"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/txt_share"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/collector_wdfx"
+                        android:drawablePadding="4dp"
+                        android:gravity="center"
+                        android:onClick="@{presenter::onShare}"
+                        android:padding="16dp"
+                        android:text="@string/vs60"
+                        android:textColor="#5A6187"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_wifi_set"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/collector_wifi"
+                        android:drawablePadding="4dp"
+                        android:gravity="center"
+                        android:onClick="@{presenter::onWifiSet}"
+                        android:padding="16dp"
+                        android:text="@string/fun_wifi_set"
+                        android:textColor="#5A6187"
+                        android:textSize="12sp"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:id="@+id/txt_cha"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/collector_wddq"
+                        android:drawablePadding="4dp"
+                        android:gravity="center"
+                        android:onClick="@{presenter::onCeshi}"
+                        android:padding="16dp"
+                        android:text="测试功能"
+                        android:textColor="#5A6187"
+                        android:textSize="12sp"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/collector_wddq"
+                        android:drawablePadding="4dp"
+                        android:gravity="center"
+                        android:padding="16dp"
+                        android:text="@string/vs209"
+                        android:textColor="#5A6187"
+                        android:textSize="12sp"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/collector_wdfx"
+                        android:drawablePadding="4dp"
+                        android:gravity="center"
+                        android:padding="16dp"
+                        android:text="@string/vs60"
+                        android:textColor="#5A6187"
+                        android:textSize="12sp"
+                        android:visibility="invisible" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <!--    <LinearLayout-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:orientation="horizontal">-->
+
+        <!--        <TextView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:layout_weight="@integer/tag_1" />-->
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/tv_del_collector"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="bottom"-->
+        <!--            android:gravity="center"-->
+        <!--            android:paddingTop="40dp"-->
+        <!--            android:paddingBottom="40dp"-->
+        <!--            android:text="解绑电箱"-->
+        <!--            android:textColor="@color/red_light"-->
+        <!--            android:textSize="13sp" />-->
+
+        <!--        <TextView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:layout_weight="@integer/tag_1" />-->
+        <!--    </LinearLayout>-->
+    </LinearLayout>
+</layout>

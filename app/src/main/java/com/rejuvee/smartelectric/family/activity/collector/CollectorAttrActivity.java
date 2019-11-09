@@ -3,9 +3,9 @@ package com.rejuvee.smartelectric.family.activity.collector;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
@@ -17,32 +17,31 @@ import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTipWithoutOkC
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
 import com.rejuvee.smartelectric.family.databinding.ActivitySetupLayoutBinding;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
-
-import java.util.Locale;
+import com.rejuvee.smartelectric.family.model.viewmodel.CollectorAttrViewModel;
 
 /**
  * 集中器参数
  * Created by Administrator on 2018/1/2.
  */
-public class CollectorAttrActivity extends BaseActivity implements View.OnClickListener {
+public class CollectorAttrActivity extends BaseActivity {
     private String TAG = "CollectorAttrActivity";
-    private TextView text_devicename;
-    private TextView text_botelv;
-    private TextView text_caijilv;
-    private TextView text_gaojin;
-    private TextView text_guzhangma;
-    private TextView text_xintiao;
+    //    private TextView text_devicename;
+//    private TextView text_botelv;
+//    private TextView text_caijilv;
+//    private TextView text_gaojin;
+//    private TextView text_guzhangma;
+//    private TextView text_xintiao;
     private CollectorBean collectorBean;
-    private String Baud;
-    private String Freq;
-    private String Ranges;
-    private String devicename;
-    private String heartrate;
-    private String guzhangma;
+    //    private String devicename;
+//    private String Baud;
+//    private String Freq;
+//    private String Ranges;
+//    private String guzhangma;
+//    private String heartrate;
     private DialogTip mDialogSwitch;
-//    private Context mContext;
-
-
+    //    private Context mContext;
+    ActivitySetupLayoutBinding mBinding;
+    CollectorAttrViewModel mViewModel;
     public static int[] setNames = new int[]{
             R.string.sets_devicename,
             R.string.sets_botelv,
@@ -66,32 +65,34 @@ public class CollectorAttrActivity extends BaseActivity implements View.OnClickL
 
     @Override
     protected void initView() {
-        ActivitySetupLayoutBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_setup_layout);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_setup_layout);
+        mViewModel = ViewModelProviders.of(this).get(CollectorAttrViewModel.class);
+        mBinding.setVm(mViewModel);
 //        mContext = this;
         collectorBean = getIntent().getParcelableExtra("collectorBean");
+//        findViewById(R.id.img_cancel).setOnClickListener(this);
+//        findViewById(R.id.re_setname).setOnClickListener(this);
+//        findViewById(R.id.re_setbotelv).setOnClickListener(this);
+//        findViewById(R.id.re_setcaiji).setOnClickListener(this);
+//        findViewById(R.id.re_setgaojin).setOnClickListener(this);
+//        findViewById(R.id.re_setguzhangma).setOnClickListener(this);
+//        findViewById(R.id.re_setxintiao).setOnClickListener(this);
+//        findViewById(R.id.tv_reboot).setOnClickListener(this);
+//        findViewById(R.id.tv_restore).setOnClickListener(this);
+//        findViewById(R.id.iv_tips_btl).setOnClickListener(this);
+//        findViewById(R.id.iv_tips_cjpl).setOnClickListener(this);
+//        findViewById(R.id.iv_tips_cjfz).setOnClickListener(this);
+//        findViewById(R.id.iv_tips_gzmpl).setOnClickListener(this);
+//        findViewById(R.id.iv_tips_xtjg).setOnClickListener(this);
+//        text_devicename = findViewById(R.id.text_devicename);
+//        text_botelv = findViewById(R.id.text_botelv);
+//        text_caijilv = findViewById(R.id.text_caijilv);
+//        text_gaojin = findViewById(R.id.text_gaojin);
+//        text_guzhangma = findViewById(R.id.text_guzhangma);
+//        text_xintiao = findViewById(R.id.text_xintiao);
+//        TextView tvDeviceId = findViewById(R.id.tv_collect_id);
+//        tvDeviceId.setText(String.format("%s", collectorBean.getCode()));
 
-        findViewById(R.id.img_cancel).setOnClickListener(this);
-        findViewById(R.id.re_setname).setOnClickListener(this);
-        findViewById(R.id.re_setbotelv).setOnClickListener(this);
-        findViewById(R.id.re_setcaiji).setOnClickListener(this);
-        findViewById(R.id.re_setgaojin).setOnClickListener(this);
-        findViewById(R.id.re_setguzhangma).setOnClickListener(this);
-        findViewById(R.id.re_setxintiao).setOnClickListener(this);
-        findViewById(R.id.tv_reboot).setOnClickListener(this);
-        findViewById(R.id.tv_restore).setOnClickListener(this);
-        findViewById(R.id.iv_tips_btl).setOnClickListener(this);
-        findViewById(R.id.iv_tips_cjpl).setOnClickListener(this);
-        findViewById(R.id.iv_tips_cjfz).setOnClickListener(this);
-        findViewById(R.id.iv_tips_gzmpl).setOnClickListener(this);
-        findViewById(R.id.iv_tips_xtjg).setOnClickListener(this);
-        text_devicename = findViewById(R.id.text_devicename);
-        text_botelv = findViewById(R.id.text_botelv);
-        text_caijilv = findViewById(R.id.text_caijilv);
-        text_gaojin = findViewById(R.id.text_gaojin);
-        text_guzhangma = findViewById(R.id.text_guzhangma);
-        text_xintiao = findViewById(R.id.text_xintiao);
-        TextView tvDeviceId = findViewById(R.id.tv_collect_id);
-        tvDeviceId.setText(String.format("%s", collectorBean.getCode()));
         getCollectorByCollectorID(collectorBean.getCollectorID());
 
         loadingDlg = new LoadingDlg(this, -1);
@@ -99,22 +100,28 @@ public class CollectorAttrActivity extends BaseActivity implements View.OnClickL
     }
 
     public void getCollectorByCollectorID(String CollectorID) {
-        Log.i("xintiao", "CollectorID=" + CollectorID);
+        Log.i(TAG, "CollectorID=" + CollectorID);
         Core.instance(this).getCollectorByCollectorID(CollectorID, new ActionCallbackListener<CollectorBean>() {
             @Override
             public void onSuccess(CollectorBean data) {
-                devicename = data.getDeviceName();
-                Baud = data.getBaud() + "";
-                Freq = data.getFreq() + "";
-                Ranges = data.getRanges() + "";
-                guzhangma = data.getFaultFreq() + "";
-                heartrate = data.getHeartrate() + "";
-                text_devicename.setText(String.format("%s", data.getDeviceName()));
-                text_botelv.setText(String.format(Locale.getDefault(), "%dbps", data.getBaud()));
-                text_caijilv.setText(String.format(Locale.getDefault(), "%dmin", data.getFreq()));
-                text_gaojin.setText(String.format(Locale.getDefault(), "%d%%", data.getRanges()));
-                text_guzhangma.setText(String.format(Locale.getDefault(), "%dsec", data.getFaultFreq()));
-                text_xintiao.setText(String.format(Locale.getDefault(), "%ds", data.getHeartrate()));
+//                devicename = data.getDeviceName();
+                mViewModel.setDevicename(data.getDeviceName());
+//                Baud = data.getBaud() + "";
+                mViewModel.setBaud(data.getBaud() + "");
+//                Freq = data.getFreq() + "";
+                mViewModel.setFreq(data.getFreq() + "");
+//                Ranges = data.getRanges() + "";
+                mViewModel.setRanges(data.getRanges() + "");
+//                guzhangma = data.getFaultFreq() + "";
+                mViewModel.setGuzhangma(data.getFaultFreq() + "");
+//                heartrate = data.getHeartrate() + "";
+                mViewModel.setHeartrate(data.getHeartrate() + "");
+//                text_devicename.setText(String.format("%s", data.getDeviceName()));
+//                text_botelv.setText(String.format(Locale.getDefault(), "%dbps", data.getBaud()));
+//                text_caijilv.setText(String.format(Locale.getDefault(), "%dmin", data.getFreq()));
+//                text_gaojin.setText(String.format(Locale.getDefault(), "%d%%", data.getRanges()));
+//                text_guzhangma.setText(String.format(Locale.getDefault(), "%dsec", data.getFaultFreq()));
+//                text_xintiao.setText(String.format(Locale.getDefault(), "%ds", data.getHeartrate()));
             }
 
             @Override
@@ -124,53 +131,53 @@ public class CollectorAttrActivity extends BaseActivity implements View.OnClickL
         });
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.img_cancel:
-                finish();
-                break;
-            case R.id.re_setname:
-                startactivtiy(devicename, 0);
-                break;
-            case R.id.re_setbotelv:
-                startactivtiy(Baud, 1);
-                break;
-            case R.id.re_setcaiji:
-                startactivtiy(Freq, 2);
-                break;
-            case R.id.re_setgaojin:
-                startactivtiy(Ranges, 3);
-                break;
-            case R.id.re_setguzhangma:
-                startactivtiy(guzhangma, 4);
-                break;
-            case R.id.re_setxintiao:
-                startactivtiy(heartrate, 5);
-                break;
-            case R.id.tv_reboot:
-//                collectSet(0);
-                break;
-            case R.id.tv_restore:
-//                collectSet(1);
-                break;
-            case R.id.iv_tips_btl:
-                new DialogTipWithoutOkCancel(this).setTitle(getString(R.string.sets_botelv)).setContent(getString(R.string.tips_btl)).show();
-                break;
-            case R.id.iv_tips_cjpl:
-                new DialogTipWithoutOkCancel(this).setTitle(getString(R.string.sets_caijipl)).setContent(getString(R.string.tips_cjpl)).show();
-                break;
-            case R.id.iv_tips_cjfz:
-                new DialogTipWithoutOkCancel(this).setTitle(getString(R.string.vs87)).setContent(getString(R.string.tips_cjfz)).show();
-                break;
-            case R.id.iv_tips_gzmpl:
-                new DialogTipWithoutOkCancel(this).setTitle(getString(R.string.sets_guzhangma)).setContent(getString(R.string.tips_gzmpl)).show();
-                break;
-            case R.id.iv_tips_xtjg:
-                new DialogTipWithoutOkCancel(this).setTitle(getString(R.string.sets_xintiaopinglv)).setContent(getString(R.string.tips_xtjg)).show();
-                break;
-        }
-    }
+//    @Override
+//    public void onClick(View v) {
+//        switch (v.getId()) {
+//            case R.id.img_cancel:
+//                finish();
+//                break;
+//            case R.id.re_setname:
+//                startactivtiy(devicename, 0);
+//                break;
+//            case R.id.re_setbotelv:
+//                startactivtiy(Baud, 1);
+//                break;
+//            case R.id.re_setcaiji:
+//                startactivtiy(Freq, 2);
+//                break;
+//            case R.id.re_setgaojin:
+//                startactivtiy(Ranges, 3);
+//                break;
+//            case R.id.re_setguzhangma:
+//                startactivtiy(guzhangma, 4);
+//                break;
+//            case R.id.re_setxintiao:
+//                startactivtiy(heartrate, 5);
+//                break;
+//            case R.id.tv_reboot:
+////                collectSet(0);
+//                break;
+//            case R.id.tv_restore:
+////                collectSet(1);
+//                break;
+//            case R.id.iv_tips_btl:
+//                new DialogTipWithoutOkCancel(this).setTitle(getString(R.string.sets_botelv)).setContent(getString(R.string.tips_btl)).show();
+//                break;
+//            case R.id.iv_tips_cjpl:
+//                new DialogTipWithoutOkCancel(this).setTitle(getString(R.string.sets_caijipl)).setContent(getString(R.string.tips_cjpl)).show();
+//                break;
+//            case R.id.iv_tips_cjfz:
+//                new DialogTipWithoutOkCancel(this).setTitle(getString(R.string.vs87)).setContent(getString(R.string.tips_cjfz)).show();
+//                break;
+//            case R.id.iv_tips_gzmpl:
+//                new DialogTipWithoutOkCancel(this).setTitle(getString(R.string.sets_guzhangma)).setContent(getString(R.string.tips_gzmpl)).show();
+//                break;
+//            case R.id.iv_tips_xtjg:
+//                new DialogTipWithoutOkCancel(this).setTitle(getString(R.string.sets_xintiaopinglv)).setContent(getString(R.string.tips_xtjg)).show();
+//                break;
+//        }
+//    }
 
     @Deprecated
     private void collectSet(int type) {
@@ -203,7 +210,7 @@ public class CollectorAttrActivity extends BaseActivity implements View.OnClickL
     }
 
 
-    public void startactivtiy(String partext, int position) {
+    private void startactivtiy(String partext, int position) {
         Intent intent = new Intent();
         intent.putExtra("title", getResources().getString(setNames[position]));
         intent.putExtra("position", position);
@@ -228,7 +235,53 @@ public class CollectorAttrActivity extends BaseActivity implements View.OnClickL
 //        return true;
 //    }
     public class Presenter {
+        public void onCancel(View view) {
+            finish();
+        }
 
+        public void onSetName(View view) {
+            startactivtiy(mViewModel.getDevicename().getValue(), 0);
+        }
+
+        public void onSetbotelv(View view) {
+            startactivtiy(mViewModel.getBaud().getValue(), 1);
+        }
+
+        public void onSetcaiji(View view) {
+            startactivtiy(mViewModel.getFreq().getValue(), 2);
+        }
+
+        public void onSetgaojin(View view) {
+            startactivtiy(mViewModel.getRanges().getValue(), 3);
+        }
+
+        public void onSetguzhangma(View view) {
+            startactivtiy(mViewModel.getGuzhangma().getValue(), 4);
+        }
+
+        public void onSetxintiao(View view) {
+            startactivtiy(mViewModel.getHeartrate().getValue(), 5);
+        }
+
+        public void onTips_btl(View view) {
+            new DialogTipWithoutOkCancel(view.getContext()).setTitle(getString(R.string.sets_botelv)).setContent(getString(R.string.tips_btl)).show();
+        }
+
+        public void onTips_cjpl(View view) {
+            new DialogTipWithoutOkCancel(view.getContext()).setTitle(getString(R.string.sets_caijipl)).setContent(getString(R.string.tips_cjpl)).show();
+        }
+
+        public void onTips_cjfz(View view) {
+            new DialogTipWithoutOkCancel(view.getContext()).setTitle(getString(R.string.vs87)).setContent(getString(R.string.tips_cjfz)).show();
+        }
+
+        public void onTips_gzmpl(View view) {
+            new DialogTipWithoutOkCancel(view.getContext()).setTitle(getString(R.string.sets_guzhangma)).setContent(getString(R.string.tips_gzmpl)).show();
+        }
+
+        public void onTips_xtjg(View view) {
+            new DialogTipWithoutOkCancel(view.getContext()).setTitle(getString(R.string.sets_xintiaopinglv)).setContent(getString(R.string.tips_xtjg)).show();
+        }
     }
 
     @Override
