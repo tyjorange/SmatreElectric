@@ -1,4 +1,4 @@
-package com.rejuvee.smartelectric.family.activity;
+package com.rejuvee.smartelectric.family.model.viewmodel;
 
 import androidx.lifecycle.ViewModel;
 

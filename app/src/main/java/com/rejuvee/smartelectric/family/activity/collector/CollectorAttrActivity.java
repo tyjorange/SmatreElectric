@@ -1,10 +1,11 @@
 package com.rejuvee.smartelectric.family.activity.collector;
 
-import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.databinding.DataBindingUtil;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
@@ -14,6 +15,7 @@ import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTip;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTipWithoutOkCancel;
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
+import com.rejuvee.smartelectric.family.databinding.ActivitySetupLayoutBinding;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 
 import java.util.Locale;
@@ -38,7 +40,7 @@ public class CollectorAttrActivity extends BaseActivity implements View.OnClickL
     private String heartrate;
     private String guzhangma;
     private DialogTip mDialogSwitch;
-    private Context mContext;
+//    private Context mContext;
 
 
     public static int[] setNames = new int[]{
@@ -64,7 +66,8 @@ public class CollectorAttrActivity extends BaseActivity implements View.OnClickL
 
     @Override
     protected void initView() {
-        mContext = this;
+        ActivitySetupLayoutBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_setup_layout);
+//        mContext = this;
         collectorBean = getIntent().getParcelableExtra("collectorBean");
 
         findViewById(R.id.img_cancel).setOnClickListener(this);
@@ -181,7 +184,7 @@ public class CollectorAttrActivity extends BaseActivity implements View.OnClickL
             @Override
             public void onEnsure() {
                 loadingDlg.show();
-                Core.instance(mContext).CollectorReboot(type, collectorBean.getCollectorID(), new ActionCallbackListener<Void>() {
+                Core.instance(getBaseContext()).CollectorReboot(type, collectorBean.getCollectorID(), new ActionCallbackListener<Void>() {
                     @Override
                     public void onSuccess(Void data) {
                         CustomToast.showCustomToast(CollectorAttrActivity.this, getString(R.string.operator_sucess));
@@ -215,7 +218,7 @@ public class CollectorAttrActivity extends BaseActivity implements View.OnClickL
 
     }
 
-//    @Override
+    //    @Override
 //    protected String getToolbarTitle() {
 //        return getResources().getString(R.string.settings_title);
 //    }
@@ -224,6 +227,9 @@ public class CollectorAttrActivity extends BaseActivity implements View.OnClickL
 //    protected boolean isDisplayHomeAsUpEnabled() {
 //        return true;
 //    }
+    public class Presenter {
+
+    }
 
     @Override
     protected void dealloc() {

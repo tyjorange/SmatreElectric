@@ -1,4 +1,4 @@
-package com.rejuvee.smartelectric.family;
+package com.rejuvee.smartelectric.family.model.viewmodel;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;

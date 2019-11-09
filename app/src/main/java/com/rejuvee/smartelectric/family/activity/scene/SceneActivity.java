@@ -21,6 +21,7 @@ import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTip;
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
 import com.rejuvee.smartelectric.family.databinding.ActivitySceneBinding;
 import com.rejuvee.smartelectric.family.model.bean.SceneBean;
+import com.rejuvee.smartelectric.family.model.viewmodel.SceneViewModel;
 
 import java.util.List;
 

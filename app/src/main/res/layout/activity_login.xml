@@ -10,7 +10,7 @@
 
         <variable
             name="vm"
-            type="com.rejuvee.smartelectric.family.activity.login.LoginViewModel" />
+            type="com.rejuvee.smartelectric.family.model.viewmodel.LoginViewModel" />
     </data>
 
     <LinearLayout

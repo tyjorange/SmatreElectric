@@ -11,6 +11,7 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.activity.login.LoginActivity;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.databinding.ActivityLunchBinding;
+import com.rejuvee.smartelectric.family.model.viewmodel.LunchViewModel;
 
 import java.util.Locale;
 

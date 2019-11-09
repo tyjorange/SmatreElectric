@@ -11,7 +11,7 @@
 
         <variable
             name="vm"
-            type="com.rejuvee.smartelectric.family.activity.mine.PerInfoViewModel" />
+            type="com.rejuvee.smartelectric.family.model.viewmodel.PerInfoViewModel" />
     </data>
 
     <LinearLayout

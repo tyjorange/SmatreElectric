@@ -2,8 +2,6 @@ package com.rejuvee.smartelectric.family;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,11 +9,9 @@ import android.os.Parcel;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
@@ -47,7 +43,6 @@ import com.rejuvee.smartelectric.family.common.PermissionManage;
 import com.rejuvee.smartelectric.family.common.constant.CommonRequestCode;
 import com.rejuvee.smartelectric.family.common.utils.ValidateUtils;
 import com.rejuvee.smartelectric.family.common.utils.WifiUtil;
-import com.rejuvee.smartelectric.family.common.widget.CircleImageView;
 import com.rejuvee.smartelectric.family.common.widget.MyBlurDrawerToggle;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTip;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTipWithoutOkCancel;
@@ -58,9 +53,7 @@ import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SceneBean;
 import com.rejuvee.smartelectric.family.model.bean.UserMsg;
 import com.rejuvee.smartelectric.family.model.bean.WxSubscribed;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.RequestCreator;
-import com.squareup.picasso.Target;
+import com.rejuvee.smartelectric.family.model.viewmodel.MainNavigationViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -126,7 +119,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
     protected void initView() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main_navigation);
         mViewModel = ViewModelProviders.of(this).get(MainNavigationViewModel.class);
-        mBinding.setVm(mViewModel);
+//        mBinding.setVm(mViewModel);
         mBinding.setLifecycleOwner(this);
 
 //        tvNick = mBinding.navView.getHeaderView(0).findViewById(R.id.user_nickname);
@@ -315,18 +308,21 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         setSupportActionBar(mBinding.include.toolbar);
         setTitle("");
         // 模糊控件Drawer
-        drawerToggle = new MyBlurDrawerToggle(this, mBinding.drawerLayout, mBinding.include.toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close, new NavigationDrawerListener() {
-            @Override
-            public void onDrawerClosed(View view) {
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
+        drawerToggle = new MyBlurDrawerToggle(this,
+                mBinding.drawerLayout,
+                mBinding.include.toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close,
+                new NavigationDrawerListener() {
+                    @Override
+                    public void onDrawerClosed(View view) {
+                        invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                    }
 
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-        });
+                    @Override
+                    public void onDrawerOpened(View drawerView) {
+                        invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                    }
+                });
         drawerToggle.setDrawerIndicatorEnabled(true);
         mBinding.drawerLayout.addDrawerListener(drawerToggle);
 
@@ -481,7 +477,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         if (mBinding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             mBinding.drawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            mDialogTip = new DialogTip(getBaseContext());
+            mDialogTip = new DialogTip(this);
             mDialogTip.setTitle(getString(R.string.vs67));
             mDialogTip.setContent(getString(R.string.vs68));
             mDialogTip.setDialogListener(new DialogTip.onEnsureDialogListener() {
@@ -630,7 +626,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
             startActivityForResult(intent, CommonRequestCode.REQUEST_USER_INFO);
         }
 
-        public void onFab(View view){
+        public void onFab(View view) {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("ActionFab", null).show();
         }

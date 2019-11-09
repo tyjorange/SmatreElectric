@@ -20,7 +20,6 @@ import com.rejuvee.smartelectric.family.MainNavigationActivity;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
-import com.rejuvee.smartelectric.family.common.LogoVersionManage;
 import com.rejuvee.smartelectric.family.common.custom.AccountEventMsg;
 import com.rejuvee.smartelectric.family.common.utils.AccountHelper;
 import com.rejuvee.smartelectric.family.common.utils.ValidateUtils;
@@ -31,6 +30,7 @@ import com.rejuvee.smartelectric.family.databinding.ActivityLoginBinding;
 import com.rejuvee.smartelectric.family.model.bean.ThirdPartyInfo;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfo;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfoRealm;
+import com.rejuvee.smartelectric.family.model.viewmodel.LoginViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

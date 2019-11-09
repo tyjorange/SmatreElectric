@@ -32,6 +32,7 @@ import com.rejuvee.smartelectric.family.model.bean.Headimg;
 import com.rejuvee.smartelectric.family.model.bean.UserMsg;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfo;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfoRealm;
+import com.rejuvee.smartelectric.family.model.viewmodel.PerInfoViewModel;
 
 import java.io.File;
 import java.util.List;

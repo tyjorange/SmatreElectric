@@ -6,7 +6,7 @@
 
         <variable
             name="vm"
-            type="com.rejuvee.smartelectric.family.MainNavigationViewModel" />
+            type="com.rejuvee.smartelectric.family.model.viewmodel.MainNavigationViewModel" />
 
         <variable
             name="presenter"
