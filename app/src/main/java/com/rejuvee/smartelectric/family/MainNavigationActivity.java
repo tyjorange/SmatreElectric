@@ -1,6 +1,5 @@
 package com.rejuvee.smartelectric.family;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -22,9 +21,9 @@ import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.base.frame.net.ActionCallbackListener;
-import com.base.library.utils.SizeUtils;
 import com.base.library.widget.CustomToast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -36,7 +35,7 @@ import com.rejuvee.smartelectric.family.activity.mine.SettingsActivity;
 import com.rejuvee.smartelectric.family.activity.mine.ThridBindActivity;
 import com.rejuvee.smartelectric.family.activity.scene.SceneActivity;
 import com.rejuvee.smartelectric.family.adapter.CollectorBeanAdapter;
-import com.rejuvee.smartelectric.family.adapter.HorizontalListSceneAdapter;
+import com.rejuvee.smartelectric.family.adapter.SceneBeanAdapter;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.ActivityFragmentManager;
 import com.rejuvee.smartelectric.family.common.AutoUpgrade;
@@ -63,7 +62,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -73,11 +71,12 @@ import at.favre.lib.dali.builder.nav.NavigationDrawerListener;
 public class MainNavigationActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     private String TAG = "MainNavigationActivity";
     private DialogTip mDialogTip;
-    private Context mContext;
+    //    private Context mContext;
     //场景
 //    private HorizontalListView listViewScene;
-    private List<SceneBean> listSceneBeanData = new ArrayList<>();
-    private HorizontalListSceneAdapter mSceneAdapter;
+//    private List<SceneBean> listSceneBeanData = new ArrayList<>();
+    private SceneBeanAdapter mSceneBeanAdapter;
+    //    private HorizontalListSceneAdapter mSceneAdapter;
     //    private LinearLayout ll_add_scene;
     //集中器
 //    private GridView gridViewDevice;
@@ -117,41 +116,14 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 //        return 0;
 //    }
 
-    /**
-     * 获取屏幕参数
-     */
-    private void getDensity() {
-        Log.w(TAG, ValidateUtils.getSystemLanguage());
-        Log.w(TAG, ValidateUtils.getSystemVersion());
-        Log.w(TAG, ValidateUtils.getDeviceBrand());
-        Log.w(TAG, ValidateUtils.getSystemModel());
-        DisplayMetrics outMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getRealMetrics(outMetrics);
-        int widthPixel = outMetrics.widthPixels;
-        int heightPixel = outMetrics.heightPixels;
-        float densityDpi = outMetrics.densityDpi;
-        Log.w(TAG, outMetrics.toString());
-        Log.w(TAG, "widthPixel = " + widthPixel + ",heightPixel = " + heightPixel);
-        Log.w(TAG, "densityDpi = " + densityDpi);
-    }
-
     @Override
     protected void initView() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main_navigation);
         MainNavigationViewModel mViewModel = ViewModelProviders.of(this).get(MainNavigationViewModel.class);
         mBinding.setVm(mViewModel);
         mBinding.setLifecycleOwner(this);
-
-        mSceneAdapter = new HorizontalListSceneAdapter(this, listSceneBeanData);
-        mBinding.include.include.setHorizontalListSceneAdapter(mSceneAdapter);
-
-        getDensity();
-        mContext = this;
-//        navigationView = findViewById(R.id.nav_view);
-//        tvCollectorCount = findViewById(R.id.tv_collector_count);
         tvNick = mBinding.navView.getHeaderView(0).findViewById(R.id.user_nickname);
         ivHead = mBinding.navView.getHeaderView(0).findViewById(R.id.user_headimg);
-//        ivHeadSmall = findViewById(R.id.user_headimg_small);
         mBinding.include.userHeadimgSmall.setOnClickListener(v -> mBinding.drawerLayout.openDrawer(GravityCompat.START));
         mBinding.navView.getHeaderView(0).findViewById(R.id.user_edit).setOnClickListener(v -> {
             Intent intent = new Intent();
@@ -159,13 +131,9 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
             intent.putExtra("nickname", nickname);
             intent.putExtra("username", username);
             intent.putExtra("headImgurl", headImgurl);
-            intent.setClass(mContext, PerInfoActivity.class);
+            intent.setClass(getBaseContext(), PerInfoActivity.class);
             startActivityForResult(intent, CommonRequestCode.REQUEST_USER_INFO);
         });
-//        ll_add_scene = findViewById(R.id.ll_add_scene);
-        initScene();
-        initCollector();
-//        refreshLayout = findViewById(R.id.refreshlayout);
         mBinding.include.include.refreshlayout.setOnRefreshListener(this::getCollector);
 
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
@@ -190,9 +158,12 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         }).hasLocationStorage(this);
         getUserMsg();
         testWechatPublic();
+        initScene();
+        initCollector();
 //        getScene();
 //        getCollector();
         initToolBar();
+        getDensity();
         AutoUpgrade.getInstacne(this).start();
         EventBus.getDefault().register(this);
     }
@@ -200,6 +171,24 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
     @Override
     protected void initData() {
 
+    }
+
+    /**
+     * 获取屏幕参数
+     */
+    private void getDensity() {
+        Log.w(TAG, ValidateUtils.getSystemLanguage());
+        Log.w(TAG, ValidateUtils.getSystemVersion());
+        Log.w(TAG, ValidateUtils.getDeviceBrand());
+        Log.w(TAG, ValidateUtils.getSystemModel());
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getRealMetrics(outMetrics);
+        int widthPixel = outMetrics.widthPixels;
+        int heightPixel = outMetrics.heightPixels;
+        float densityDpi = outMetrics.densityDpi;
+        Log.w(TAG, outMetrics.toString());
+        Log.w(TAG, "widthPixel = " + widthPixel + ",heightPixel = " + heightPixel);
+        Log.w(TAG, "densityDpi = " + densityDpi);
     }
 
     /**
@@ -212,7 +201,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
                 if (data.getIsSubscribed() == 0) {
                     Snackbar.make(tvNick, R.string.vs225, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.vs248, v -> {
-                                Intent intent = new Intent(mContext, ThridBindActivity.class);
+                                Intent intent = new Intent(getBaseContext(), ThridBindActivity.class);
                                 intent.putExtra("wechatUnionID", wechatUnionID);
                                 intent.putExtra("qqUnionID", qqUnionID);
                                 startActivityForResult(intent, CommonRequestCode.REQUEST_THIRD_BIND);
@@ -238,7 +227,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
      * 用户信息
      */
     public void getUserMsg() {
-        Core.instance(mContext).getUserMsg(new ActionCallbackListener<UserMsg>() {
+        Core.instance(getBaseContext()).getUserMsg(new ActionCallbackListener<UserMsg>() {
             @Override
             public void onSuccess(UserMsg data) {
                 telephone = data.getPhone();
@@ -257,7 +246,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
                     if (!headImgurl.startsWith("https://")) {
                         headImgurl = "https://" + headImgurl;
                     }
-                    RequestCreator load = Picasso.with(mContext).load(headImgurl);
+                    RequestCreator load = Picasso.with(getBaseContext()).load(headImgurl);
                     setHeaderIcon(load);
                 }
             }
@@ -307,7 +296,6 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 //        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mBinding.include.toolbar);
         setTitle("");
-
 //        drawerLayout = findViewById(R.id.drawer_layout);
 //        CircleImageView civ = (CircleImageView) findViewById(R.id.user_headimg_s);
 //        toolbar.setNavigationIcon(new CircleDrawable(BitmapUtil.drawable2Bitmap(ivHead.getDrawable())));
@@ -341,66 +329,62 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
                 .setAction("ActionFab", null).show());
     }
 
+    public class Presenter {
+        public void onClickAddScene(View view) {
+            startActivity(new Intent(view.getContext(), SceneActivity.class));
+        }
+    }
+
     private void initScene() {
-//        listViewScene = findViewById(R.id.main_scene);
-        mBinding.include.include.mainScene.setDividerWidth(SizeUtils.dp2px(35));//图标间隔
-//        mSceneAdapter = new HorizontalListSceneAdapter(this, listSceneBeanData);
-//        mBinding.include.include.mainScene.setAdapter(mSceneAdapter);
-        mBinding.include.include.mainScene.setOnItemClickListener((parent, view, position, id) -> {
-            mDialogTip = new DialogTip(mContext);
-            mDialogTip.setTitle(getString(R.string.exceu_sce));
-            mDialogTip.setContent(String.format(getString(R.string.exceu_sce_issure), listSceneBeanData.get(position).getSceneName()));
-            mDialogTip.setDialogListener(new DialogTip.onEnsureDialogListener() {
-                @Override
-                public void onCancel() {
-                    mDialogTip.dismiss();
-                }
+        mSceneBeanAdapter = new SceneBeanAdapter(this, SceneBeanAdapter.ITEM_VIEW_TYPE_HORIZONTAL);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        mBinding.include.include.recyclerView1.setLayoutManager(linearLayoutManager);
+        mBinding.include.include.recyclerView1.setAdapter(mSceneBeanAdapter);
+        mSceneBeanAdapter.setCallback(new SceneBeanAdapter.CallBack() {
 
-                @Override
-                public void onEnsure() {
-                    mDialogTip.dismiss();
-                    doExecute(listSceneBeanData.get(position).getSceneId());
-                }
-            });
-            mDialogTip.show();
+            @Override
+            public void onCollectorBeanClick(SceneBean bean) {
+                //TODO sout
+                System.out.println(bean);
+            }
+
+            @Override
+            public void onExecuteClick(SceneBean bean) {
+                doDialog(bean);
+            }
+
+            @Override
+            public void onDelClick(SceneBean bean) {
+
+            }
         });
-
-        mBinding.include.include.llAddScene.setOnClickListener(v -> startActivity(new Intent(mContext, SceneActivity.class)));
+        mBinding.include.include.setPresenter(new Presenter());
     }
 
     private void getScene() {
         Core.instance(this).findSceneByUser(new ActionCallbackListener<List<SceneBean>>() {
             @Override
             public void onSuccess(List<SceneBean> data) {
-                listSceneBeanData.clear();
-                listSceneBeanData.addAll(data);
-                mSceneAdapter.notifyDataSetChanged();
+//                listSceneBeanData.clear();
+//                listSceneBeanData.addAll(data);
+//                mSceneAdapter.notifyDataSetChanged();
+                mSceneBeanAdapter.addAll(data);
 //                updateRefreshState();
             }
 
             @Override
             public void onFailure(int errorEvent, String message) {
                 if (errorEvent == 12) {//无数据
-                    listSceneBeanData.clear();
-                    mSceneAdapter.notifyDataSetChanged();
+//                    listSceneBeanData.clear();
+//                    mSceneAdapter.notifyDataSetChanged();
                 }
 //                updateRefreshState();
             }
         });
     }
 
-    public class Presenter {
-        public void onClickAddItem(View view) {
-//            mCollectorBeanAdapter.add(new Employee("haha", "1", false));
-        }
-
-        public void onClickRemoveItem(View view) {
-//            mCollectorBeanAdapter.remove();
-        }
-    }
-
     private void initCollector() {
-//        gridViewDevice = findViewById(R.id.grid_device);
         mCollectorBeanAdapter = new CollectorBeanAdapter(this);
         mBinding.include.include.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mBinding.include.include.recyclerView.setAdapter(mCollectorBeanAdapter);
@@ -412,35 +396,6 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
                 System.out.println(bean);
             }
         });
-//        gridViewDevice.setEmptyView(findViewById(R.id.empty_layout));
-//        mBinding.include.include.gridDevice.setOnItemClickListener((parent, view, position, id) -> {
-////            if (mDeviceAdapter.isEditMode()) {
-////                return;
-////            }
-//            if (position == listDeviceData.size()) {
-//                startActivityForResult(new Intent(mContext, AddDeviceOrSwitchActivity.class), CommonRequestCode.REQUEST_ADD_COLLECTOR);
-//            } else {
-//                CollectorBean collectorBean = listDeviceData.get(position);
-//                Intent intent = new Intent(MainNavigationActivity.this, CollectorDetailActivity.class);
-//                intent.putExtra("collectorBean", collectorBean);
-//                startActivity(intent);
-//            }
-//        });
-        //长按删除
-        // Deprecated
-//        mBinding.include.include.gridDevice.setOnItemLongClickListener((parent, view, position, id) -> {
-//                if (position == listDeviceData.size()) {
-//                    return true;
-//                }
-//                if (mDeviceAdapter.isEditMode()) {
-//                    mDeviceAdapter.setEditMode(false);
-//                } else {
-//                    mDeviceAdapter.setEditMode(true);
-//                }
-//                Vibrator vibrator = (Vibrator) mContext.getSystemService(VIBRATOR_SERVICE);
-//                vibrator.vibrate(10000);
-//            return true;
-//        });
     }
 
     private void getCollector() {
@@ -465,66 +420,47 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         });
     }
 
+    private void doDialog(SceneBean bean) {
+        mDialogTip = new DialogTip(this);
+        mDialogTip.setTitle(getString(R.string.exceu_sce));
+        mDialogTip.setContent(String.format(getString(R.string.exceu_sce_issure), bean.getSceneName()));
+        mDialogTip.setDialogListener(new DialogTip.onEnsureDialogListener() {
+            @Override
+            public void onCancel() {
+                mDialogTip.dismiss();
+            }
+
+            @Override
+            public void onEnsure() {
+                mDialogTip.dismiss();
+                doExecute(bean.getSceneId());
+            }
+        });
+        mDialogTip.show();
+    }
+
     /**
      * 执行场景
      *
      * @param sceneId
      */
-    public void doExecute(final String sceneId) {
+    private void doExecute(final String sceneId) {
         Core.instance(this).doExcuteScene(sceneId, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
-                CustomToast.showCustomToast(mContext, getString(R.string.scene_excute_sucess));
+                CustomToast.showCustomToast(getBaseContext(), getString(R.string.scene_excute_sucess));
             }
 
             @Override
             public void onFailure(int errorEvent, String message) {
-                CustomToast.showCustomErrorToast(mContext, getString(R.string.zhixing_fail));
+                CustomToast.showCustomErrorToast(getBaseContext(), getString(R.string.zhixing_fail));
             }
         });
     }
 
-    /**
-     * 长按删除
-     */
-//    @Override
-//    @Deprecated
-//    public void onDel(int position) {
-//        DialogTip dialogTip = new DialogTip(mContext);
-//        dialogTip.setTitle(mContext.getResources().getString(R.string.delete)).setRedBtn()
-//                .setContent(mContext.getResources().getString(R.string.delete_device))
-//                .setDialogListener(new DialogTip.onEnsureDialogListener() {
-//                    @Override
-//                    public void onCancel() {
-//
-//                    }
-//
-//                    @Override
-//                    public void onEnsure() {
-//                        CollectorBean collectorBean = listDeviceData.get(position);
-//                        Core.instance(mContext).unbindDevice(collectorBean.getCode(), new ActionCallbackListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void data) {
-//                                listDeviceData.remove(position);
-//                                mDeviceAdapter.notifyDataSetChanged();
-//                                mDeviceAdapter.setEditMode(false);
-//                                tvCollectorCount.setText(String.format(Locale.getDefault(), "%s%d", getString(R.string.vs13), listDeviceData.size()));
-//                                CustomToast.showCustomToast(mContext, getString(R.string.vs66));
-//                            }
-//
-//                            @Override
-//                            public void onFailure(int errorEvent, String message) {
-//                                CustomToast.showCustomErrorToast(mContext, message);
-//                            }
-//                        });
-//
-//                    }
-//                }).show();
-//    }
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-//        drawerToggle.syncState();
     }
 
     @Override
@@ -535,19 +471,15 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-//        boolean drawerOpen = drawerLayout.isDrawerOpen(mDrawerList);
         return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public void onBackPressed() {
-//        drawerLayout = findViewById(R.id.drawer_layout);
         if (mBinding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             mBinding.drawerLayout.closeDrawer(GravityCompat.START);
-//        } else if (mDeviceAdapter.isEditMode()) {
-//            mDeviceAdapter.setEditMode(false);
         } else {
-            mDialogTip = new DialogTip(mContext);
+            mDialogTip = new DialogTip(getBaseContext());
             mDialogTip.setTitle(getString(R.string.vs67));
             mDialogTip.setContent(getString(R.string.vs68));
             mDialogTip.setDialogListener(new DialogTip.onEnsureDialogListener() {
@@ -603,6 +535,12 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * 侧拉菜单
+     *
+     * @param item
+     * @return
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.

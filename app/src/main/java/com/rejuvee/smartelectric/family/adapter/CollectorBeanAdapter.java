@@ -2,7 +2,6 @@ package com.rejuvee.smartelectric.family.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -70,12 +69,9 @@ public class CollectorBeanAdapter extends RecyclerView.Adapter<BindingViewHolder
         final CollectorBean bean = collectorBeanList.get(position);
         holder.getBinding().setVariable(BR.mCollectorBean, bean);
         holder.getBinding().executePendingBindings();
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mListener != null) {
-                    mListener.onCollectorBeanClick(bean);
-                }
+        holder.itemView.setOnClickListener(v -> {
+            if (mListener != null) {
+                mListener.onCollectorBeanClick(bean);
             }
         });
     }

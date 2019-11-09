@@ -11,11 +11,11 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
         android:background="@drawable/list_item_bg"
-        android:paddingStart="10dp"
+        android:gravity="center"
+        android:paddingStart="20dp"
         android:paddingTop="20dp"
-        android:paddingEnd="10dp"
+        android:paddingEnd="20dp"
         android:paddingBottom="20dp">
 
         <ImageView
@@ -35,7 +35,7 @@
             android:layout_toEndOf="@+id/img_item_remove"
             android:paddingStart="26dp"
             android:paddingEnd="15dp"
-            android:src="@drawable/cj_dianying_cj" />
+            android:src="@{mSceneBean.sceneIconRes,default=@drawable/cj_dianying_cj}" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,7 +50,7 @@
                 android:id="@+id/text_scenname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/app_name"
+                android:text="@{mSceneBean.sceneName,default=22222222}"
                 android:textColor="@color/backgroud_black_bg"
                 android:textSize="12sp" />
 
@@ -65,9 +65,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/global_base_padding_10"
-                    android:text="@string/vs126"
+                    android:text="@{String.format(@string/associated_lines,mSceneBean.count),default=11111111}"
                     android:textColor="@color/backgroud_transparent_80bg"
-                    android:textSize="9sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -79,10 +79,9 @@
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
             android:drawableTop="@drawable/zhixing"
-            android:gravity="center"
             android:padding="@dimen/global_base_padding_10"
-            android:paddingStart="0dp"
-            android:paddingEnd="35dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:text="@string/execute"
             android:textSize="12sp" />
 

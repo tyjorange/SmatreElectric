@@ -19,10 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SceneBeanAdapter extends RecyclerView.Adapter<BindingViewHolder> {
-    private static final int ITEM_VIEW_TYPE_NORMAL = 1;
+    public static final int ITEM_VIEW_TYPE_HORIZONTAL = 1;// 横向
+    public static final int ITEM_VIEW_TYPE_VERTICAL = 2;// 竖向
     private final LayoutInflater mLayoutInflater;
     private List<SceneBean> sceneBeanList;
     private CallBack mListener;
+    private int currentItemType;
 
     public interface CallBack {
 
@@ -42,18 +44,19 @@ public class SceneBeanAdapter extends RecyclerView.Adapter<BindingViewHolder> {
         mListener = listener;
     }
 
-    public SceneBeanAdapter(Context context) {
+    public SceneBeanAdapter(Context context, int type) {
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         sceneBeanList = new ArrayList<>();
+        currentItemType = type;
     }
 
     @NonNull
     @Override
     public BindingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ViewDataBinding binding;
-        if (viewType == ITEM_VIEW_TYPE_NORMAL) {
-            binding = DataBindingUtil.inflate(mLayoutInflater, R.layout.item_scene, parent, false);
-        } else {
+        if (currentItemType == ITEM_VIEW_TYPE_HORIZONTAL) {
+            binding = DataBindingUtil.inflate(mLayoutInflater, R.layout.item_easy_scene, parent, false);
+        } else {// if(currentItemType == ITEM_VIEW_TYPE_VERTICAL)
             binding = DataBindingUtil.inflate(mLayoutInflater, R.layout.item_scene, parent, false);
         }
         return new BindingViewHolder<>(binding);
@@ -62,24 +65,33 @@ public class SceneBeanAdapter extends RecyclerView.Adapter<BindingViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull BindingViewHolder holder, int position) {
         final SceneBean bean = sceneBeanList.get(position);
-        holder.getBinding().setVariable(BR.mCollectorBean, bean);
-        holder.itemView.setOnClickListener(v -> {
-            if (mListener != null) {
-                mListener.onCollectorBeanClick(bean);
-            }
-        });
-        holder.itemView.findViewById(R.id.img_zhixing).setOnClickListener(v -> {
-            if (mListener != null) {
-                mListener.onExecuteClick(bean);
-            }
-        });
-        holder.itemView.findViewById(R.id.img_item_remove).setVisibility(bean.showDelIcon);
-        holder.itemView.findViewById(R.id.img_item_remove).setOnClickListener(v -> {
-            if (mListener != null) {
-                mListener.onDelClick(bean);
-            }
-        });
+        holder.getBinding().setVariable(BR.mSceneBean, bean);
         holder.getBinding().executePendingBindings();
+        if (currentItemType == ITEM_VIEW_TYPE_HORIZONTAL) {
+            holder.itemView.setOnClickListener(v -> {
+                if (mListener != null) {
+                    mListener.onExecuteClick(bean);
+                }
+            });
+        } else if (currentItemType == ITEM_VIEW_TYPE_VERTICAL) {
+            holder.itemView.setOnClickListener(v -> {
+                if (mListener != null) {
+                    mListener.onCollectorBeanClick(bean);
+                }
+            });
+            holder.itemView.findViewById(R.id.img_zhixing).setOnClickListener(v -> {
+                if (mListener != null) {
+                    mListener.onExecuteClick(bean);
+                }
+            });
+            holder.itemView.findViewById(R.id.img_item_remove).setVisibility(bean.showDelIcon);
+            holder.itemView.findViewById(R.id.img_item_remove).setOnClickListener(v -> {
+                if (mListener != null) {
+                    mListener.onDelClick(bean);
+                }
+            });
+        }
+
     }
 
     @Override
@@ -125,11 +137,11 @@ public class SceneBeanAdapter extends RecyclerView.Adapter<BindingViewHolder> {
      * 删除图标显示控制
      */
     public void toggleDelIcon() {
-        for (SceneBean taskBean : sceneBeanList) {
-            if (taskBean.showDelIcon == View.GONE) {
-                taskBean.showDelIcon = View.VISIBLE;
+        for (SceneBean bean : sceneBeanList) {
+            if (bean.showDelIcon == View.GONE) {
+                bean.showDelIcon = View.VISIBLE;
             } else {
-                taskBean.showDelIcon = View.GONE;
+                bean.showDelIcon = View.GONE;
             }
         }
         notifyDataSetChanged();

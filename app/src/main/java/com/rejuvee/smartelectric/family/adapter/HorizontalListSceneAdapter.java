@@ -19,6 +19,7 @@ import java.util.List;
  * main page 场景Adapter
  * Created by liuchengran on 2018/1/2.
  */
+@Deprecated
 public class HorizontalListSceneAdapter extends BaseAdapter {
     private List<SceneBean> mListData;
     private Context mContext;
