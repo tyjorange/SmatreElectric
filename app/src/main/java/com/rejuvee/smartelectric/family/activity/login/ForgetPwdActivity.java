@@ -1,8 +1,12 @@
 package com.rejuvee.smartelectric.family.activity.login;
 
 import android.content.Intent;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.utils.EncryptUtils;
@@ -14,6 +18,8 @@ import com.rejuvee.smartelectric.family.common.custom.AccountEventMsg;
 import com.rejuvee.smartelectric.family.common.utils.AccountHelper;
 import com.rejuvee.smartelectric.family.common.utils.CountDownUtil;
 import com.rejuvee.smartelectric.family.common.widget.ClearEditText;
+import com.rejuvee.smartelectric.family.databinding.ActivityForgetpwdBinding;
+import com.rejuvee.smartelectric.family.model.viewmodel.ForgetPwdViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -43,7 +49,13 @@ public class ForgetPwdActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
+        ActivityForgetpwdBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_forgetpwd);
+        ForgetPwdViewModel mViewModel = ViewModelProviders.of(this).get(ForgetPwdViewModel.class);
+        mBinding.setVm(mViewModel);
+        mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
+
+//        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
         et_phone = findViewById(R.id.et_phone);
         et_code = findViewById(R.id.et_code);
         login_cet_password = findViewById(R.id.login_cet_password);
@@ -193,10 +205,17 @@ public class ForgetPwdActivity extends BaseActivity {
 //        return getString(R.string.forget_password);
 //    }
 
-//    @Override
+    //    @Override
 //    protected boolean isDisplayHomeAsUpEnabled() {
 //        return true;
 //    }
+    public class Presenter {
+        public void onCancel(View view) {
+            finish();
+        }
+
+
+    }
 
     @Override
     protected void dealloc() {

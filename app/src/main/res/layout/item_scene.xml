@@ -50,7 +50,7 @@
                 android:id="@+id/text_scenname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{mSceneBean.sceneName,default=22222222}"
+                android:text="@{mSceneBean.sceneName,default=`22222222`}"
                 android:textColor="@color/backgroud_black_bg"
                 android:textSize="12sp" />
 
@@ -65,7 +65,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/global_base_padding_10"
-                    android:text="@{String.format(@string/associated_lines,mSceneBean.count),default=11111111}"
+                    android:text="@{String.format(@string/associated_lines,mSceneBean.count),default=`11111111`}"
                     android:textColor="@color/backgroud_transparent_80bg"
                     android:textSize="12sp" />
             </LinearLayout>

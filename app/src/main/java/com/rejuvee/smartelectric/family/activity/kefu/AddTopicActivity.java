@@ -1,21 +1,27 @@
 package com.rejuvee.smartelectric.family.activity.kefu;
 
-import android.content.Context;
-import android.widget.EditText;
+import android.view.View;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
+import com.rejuvee.smartelectric.family.databinding.ActivityAddTopicBinding;
+import com.rejuvee.smartelectric.family.model.viewmodel.AddTopicViewModel;
+
+import java.util.Objects;
 
 /**
  * 添加问题
  */
 public class AddTopicActivity extends BaseActivity {
-    private Context mContext;
+//    private Context mContext;
 
-//    @Override
+    //    @Override
 //    protected int getLayoutResId() {
 //        return R.layout.activity_add_topic;
 //    }
@@ -24,17 +30,33 @@ public class AddTopicActivity extends BaseActivity {
 //    protected int getMyTheme() {
 //        return 0;
 //    }
+    private AddTopicViewModel mViewModel;
 
     @Override
     protected void initView() {
-        mContext = this;
-        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
-        findViewById(R.id.stv_commit).setOnClickListener(v -> commitQA());
+        ActivityAddTopicBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_topic);
+        mViewModel = ViewModelProviders.of(this).get(AddTopicViewModel.class);
+        mBinding.setVm(mViewModel);
+        mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
+//        mContext = this;
+//        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
+//        findViewById(R.id.stv_commit).setOnClickListener(v -> commitQA());
     }
 
     @Override
     protected void initData() {
 
+    }
+
+    public class Presenter {
+        public void onCancel(View view) {
+            finish();
+        }
+
+        public void onCommit(View view) {
+            commitQA();
+        }
     }
 
     @Override
@@ -43,19 +65,21 @@ public class AddTopicActivity extends BaseActivity {
     }
 
     private void commitQA() {
-        EditText et_new_topic = findViewById(R.id.et_new_topic);
-        EditText et_new_context = findViewById(R.id.et_new_context);
-        String topic = et_new_topic.getEditableText().toString();
-        String context = et_new_context.getEditableText().toString();
-        if (topic.isEmpty()) {
+//        EditText et_new_topic = findViewById(R.id.et_new_topic);
+//        EditText et_new_context = findViewById(R.id.et_new_context);
+//        String topic = et_new_topic.getEditableText().toString();
+//        String context = et_new_context.getEditableText().toString();
+        String topic = mViewModel.getTopic().getValue();
+        String context = mViewModel.getContext().getValue();
+        if (Objects.requireNonNull(topic).isEmpty()) {
             CustomToast.showCustomErrorToast(AddTopicActivity.this, getString(R.string.vs192));
             return;
         }
-        if (context.isEmpty()) {
+        if (Objects.requireNonNull(context).isEmpty()) {
             CustomToast.showCustomErrorToast(AddTopicActivity.this, getString(R.string.vs193));
             return;
         }
-        Core.instance(mContext).addToUserChatList(topic, context, new ActionCallbackListener<Void>() {
+        Core.instance(this).addToUserChatList(topic, context, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 CustomToast.showCustomToast(AddTopicActivity.this, getString(R.string.vs194));

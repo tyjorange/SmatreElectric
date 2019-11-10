@@ -4,11 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.base.frame.greenandroid.wheel.view.WheelDateTime;
@@ -22,10 +23,12 @@ import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.constant.CommonRequestCode;
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
+import com.rejuvee.smartelectric.family.databinding.ActivityCurveBinding;
 import com.rejuvee.smartelectric.family.fragment.CurveFragment;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SignalType;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
+import com.rejuvee.smartelectric.family.model.viewmodel.CurveViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,14 +36,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import retrofit2.Call;
-
 
 /**
  * 曲线
  */
-public class CurveActivity extends BaseActivity implements CurveFragment.OnShowingListener, View.OnClickListener {
+public class CurveActivity extends BaseActivity implements CurveFragment.OnShowingListener {
     private TabLayout tlCurve;
     private ViewPager vpCurve;
     //    private GridView gvBreaker;
@@ -50,13 +53,13 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
     private List<SwitchBean> switchBeanList = new ArrayList<>();
     private List<SignalType> signalDayTypeList, signalMonthTypeList;
     private WheelDateTime dateSelector;
-    private TextView tvDate;
-    private TextView tvDevice;
-    private TextView cur_line;
+    //    private TextView tvDate;
+    //    private TextView tvDevice;
+    //    private TextView cur_line;
     private SwitchBean currentSwitchBean;
-    private CollectorBean currentCollectorBean;
     private SignalType currentSignalType;
     private CollectorBean collectorBean;
+//    private CollectorBean currentCollectorBean;
 //    private ListView lvCollector;
 //    private BaseAdapter lvAdapter;
 
@@ -68,9 +71,8 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
 
     private LoadingDlg waitDialog;
     private Call<?> currentCall;
-    private TabLayout mTabLayout;
 
-//    @Override
+    //    @Override
 //    protected int getLayoutResId() {
 //        return R.layout.activity_curve;
 //    }
@@ -80,18 +82,26 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
 //        return 0;
 //    }
 
+    private CurveViewModel mViewModel;
+
     @Override
     protected void initView() {
+        ActivityCurveBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_curve);
+        mViewModel = ViewModelProviders.of(this).get(CurveViewModel.class);
+        mBinding.setVm(mViewModel);
+        mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
+
         collectorBean = getIntent().getParcelableExtra("collectorBean");
-        findViewById(R.id.img_cancel).setOnClickListener(this);
-        findViewById(R.id.img_change).setOnClickListener(this);
+//        findViewById(R.id.img_cancel).setOnClickListener(this);
+//        findViewById(R.id.img_change).setOnClickListener(this);
         waitDialog = new LoadingDlg(this, -1);
 
-        cur_line = findViewById(R.id.cur_line);
-        tvDate = findViewById(R.id.tv_date);
-        tvDevice = findViewById(R.id.tv_device);
+//        cur_line = findViewById(R.id.cur_line);
+//        tvDate = findViewById(R.id.tv_date);
+//        tvDevice = findViewById(R.id.tv_device);
 
-        mTabLayout = findViewById(R.id.tab_day_month);
+        TabLayout mTabLayout = mBinding.tabDayMonth;
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.curve_by_day)));
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.curve_by_month)));
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -142,8 +152,8 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
 //            }
 //        });
 
-        vpCurve = findViewById(R.id.vp_curve);
-        tlCurve = findViewById(R.id.tl_curve);
+        vpCurve = mBinding.vpCurve;
+        tlCurve = mBinding.tlCurve;
         tlCurve.setupWithViewPager(vpCurve);
 
 //        gvBreaker = (GridView) findViewById(R.id.gv_breaker);
@@ -157,33 +167,34 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
 //                notifyFpAdapter();
 //            }
 //        });
-
+        initTimeSelect();
+//        currentCollectorBean = getIntent().getParcelableExtra("collectorBean");
+//        tvDevice.setText(currentCollectorBean.getDeviceName());
+        getBreakers();
     }
 
     @Override
     protected void initData() {
-        initTimeSelect();
-        currentCollectorBean = getIntent().getParcelableExtra("collectorBean");
-        tvDevice.setText(currentCollectorBean.getDeviceName());
-        getBreakers();
+
     }
 
     /**
      * 获取断路器
      */
     private void getBreakers() {
-        if (currentCollectorBean == null) {
+        if (collectorBean == null) {
             return;
         }
         waitDialog.show();
-        currentCall = Core.instance(this).getSwitchByCollector(currentCollectorBean.getCode(), "nohierarchy", new ActionCallbackListener<List<SwitchBean>>() {
+        currentCall = Core.instance(this).getSwitchByCollector(collectorBean.getCode(), "nohierarchy", new ActionCallbackListener<List<SwitchBean>>() {
             @Override
             public void onSuccess(List<SwitchBean> data) {
                 waitDialog.dismiss();
                 switchBeanList.clear();
                 switchBeanList.addAll(data);
                 currentSwitchBean = switchBeanList.get(0);
-                cur_line.setText(String.format("%s%s", getString(R.string.vs4), currentSwitchBean.getName()));
+//                cur_line.setText(String.format("%s%s", getString(R.string.vs4), currentSwitchBean.getName()));
+                mViewModel.setCurrentSwitchBeanName(String.format("%s%s", getString(R.string.vs4), currentSwitchBean.getName()));
 //                gvAdapter.notifyDataSetChanged();
                 notifyFpAdapter();
             }
@@ -205,7 +216,7 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
     private void notifyFpAdapter() {
         if (isDay) {
             if (signalDayTypeList != null && signalDayTypeList.size() > 0) {
-                initVpAdapter();
+                initFpAdapter();
                 vpCurve.setAdapter(fpAdapter);
                 fpAdapter.notifyDataSetChanged();
             } else {
@@ -214,7 +225,7 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
             }
         } else {
             if (signalMonthTypeList != null && signalMonthTypeList.size() > 0) {
-                initVpAdapter();
+                initFpAdapter();
                 vpCurve.setAdapter(fpAdapter);
                 fpAdapter.notifyDataSetChanged();
             } else {
@@ -300,7 +311,7 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
         dateSelector.setDateItemVisiable(true, true, true, false, false);
     }
 
-//    @Override
+    //    @Override
 //    protected String getToolbarTitle() {
 //        return null;
 //    }
@@ -309,17 +320,48 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
 //    protected boolean isDisplayHomeAsUpEnabled() {
 //        return false;
 //    }
+    public class Presenter {
+        public void onCancel(View view) {
+            finish();
+        }
+
+        public void onDate(View view) {
+            dateSelector.show(view);
+        }
+
+        public void onMinus(View view) {
+            changeDate(-1);
+        }
+
+        public void onAdd(View view) {
+            changeDate(1);
+        }
+
+        public void onChange(View view) {
+            //                Intent intent = new Intent(CurveActivity.this, SwitchTreeDialog.class);
+//                intent.putExtra("collectorBean", collectorBean);
+//                intent.putExtra("viewType", SwitchTree.QUXIAN);
+//                startActivityForResult(intent, CommonRequestCode.REQUEST_CHOSE_LINE);
+            SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(view.getContext(), SwitchTree.QUXIAN, collectorBean, s -> {
+                //添加后 刷新数据
+                currentSwitchBean = s;
+                mViewModel.setCurrentSwitchBeanName(currentSwitchBean.getName());
+//                gvAdapter.notifyDataSetChanged();
+                notifyFpAdapter();
+            });
+            switchTreeDialog.show();
+        }
+    }
 
     @Override
     protected void dealloc() {
         if (currentCall != null) {
             currentCall.cancel();
         }
-//        System.gc();
     }
 
 
-    private void initVpAdapter() {
+    private void initFpAdapter() {
         tlCurve.setTabMode(isDay ? TabLayout.MODE_SCROLLABLE : TabLayout.MODE_FIXED);
         fpAdapter = new FragmentPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
@@ -357,62 +399,6 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
             }
         };
     }
-
-//    private void initGvAdapter() {
-//        switchBeanList = new ArrayList<>();
-//
-//        gvAdapter = new BaseAdapter() {
-//
-//            @Override
-//            public int getCount() {
-//                return switchBeanList.size();
-//            }
-//
-//            @Override
-//            public Object getItem(int position) {
-//                return switchBeanList.get(position);
-//            }
-//
-//            @Override
-//            public long getItemId(int position) {
-//                return position;
-//            }
-//
-//            @Override
-//            public View getView(int position, View convertView, ViewGroup parent) {
-//
-//                SwitchBean switchBean = switchBeanList.get(position);
-//
-//                ViewHolder viewHolder;
-//                if (convertView == null) {
-//                    viewHolder = new ViewHolder();
-//                    convertView = View.inflate(CurveActivity.this, R.layout.item_gv_breaker, null);
-//                    viewHolder.ivPicture = (ImageView) convertView.findViewById(R.id.iv_picture);
-//                    viewHolder.tvName = (TextView) convertView.findViewById(R.id.tv_name);
-//                    viewHolder.llBreaker = (LinearLayout) convertView.findViewById(R.id.ll_breaker);
-//                    convertView.setTag(viewHolder);
-//                } else {
-//                    viewHolder = (ViewHolder) convertView.getTag();
-//                }
-//
-//                viewHolder.ivPicture.setImageResource(switchBean.getIcon());
-//                viewHolder.tvName.setText(switchBean.getName());
-//                if (switchBean.equals(currentSwitchBean)) {
-//                    viewHolder.llBreaker.setBackgroundResource(R.drawable.fuxuankuang);
-//                } else {
-//                    viewHolder.llBreaker.setBackgroundResource(R.drawable.weixuanzhong);
-//                }
-//                return convertView;
-//            }
-//
-//            class ViewHolder {
-//                ImageView ivPicture;
-//                TextView tvName;
-//                LinearLayout llBreaker;
-//            }
-//        };
-//
-//    }
 
     private void changeDate(int c) {
         Calendar calendar = Calendar.getInstance();
@@ -474,49 +460,49 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
             date = dateFormat.format(calendar.getTime());
             //date = iyear + getResources().getString(DATE_UNITS[0]) + imonth + getResources().getString(DATE_UNITS[1]);
         }
-        tvDate.setText(date);
+        mViewModel.setCurrentDate(date);
 //        tvDate.setText(date);
     }
 
-    @Override
-    public void onClick(View v) {
-
-        switch (v.getId()) {
-            case R.id.img_cancel:
-                finish();
-                break;
-            case R.id.tv_date:
-                dateSelector.show(v);
-                break;
-            case R.id.iv_minus:
-                changeDate(-1);
-                break;
-            case R.id.iv_add:
-                changeDate(1);
-                break;
-            case R.id.iv_device:
-                //dialog.show();
-                break;
-            case R.id.img_change://改变线路
-//                Intent intent = new Intent(CurveActivity.this, SwitchTreeDialog.class);
-//                intent.putExtra("collectorBean", collectorBean);
-//                intent.putExtra("viewType", SwitchTree.QUXIAN);
-//                startActivityForResult(intent, CommonRequestCode.REQUEST_CHOSE_LINE);
-                SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(this, SwitchTree.QUXIAN, collectorBean, s -> {
-                    //添加后 刷新数据
-                    currentSwitchBean = s;
-                    cur_line.setText(String.format("%s%s", getString(R.string.vs4), currentSwitchBean.getName()));
-//                gvAdapter.notifyDataSetChanged();
-                    notifyFpAdapter();
-                });
-                switchTreeDialog.show();
-                break;
-//            case R.id.tv_close:
-//                //dialog.dismiss();
+//    @Override
+//    public void onClick(View v) {
+//
+//        switch (v.getId()) {
+//            case R.id.img_cancel:
+//                finish();
 //                break;
-        }
-//        super.onClick(v);
-    }
+//            case R.id.tv_date:
+//                dateSelector.show(v);
+//                break;
+//            case R.id.iv_minus:
+//                changeDate(-1);
+//                break;
+//            case R.id.iv_add:
+//                changeDate(1);
+////                break;
+////            case R.id.iv_device:
+//                //dialog.show();
+//                break;
+//            case R.id.img_change://改变线路
+////                Intent intent = new Intent(CurveActivity.this, SwitchTreeDialog.class);
+////                intent.putExtra("collectorBean", collectorBean);
+////                intent.putExtra("viewType", SwitchTree.QUXIAN);
+////                startActivityForResult(intent, CommonRequestCode.REQUEST_CHOSE_LINE);
+//                SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(this, SwitchTree.QUXIAN, collectorBean, s -> {
+//                    //添加后 刷新数据
+//                    currentSwitchBean = s;
+//                    mViewModel.setCurrentSwitchBeanName(currentSwitchBean.getName());
+////                gvAdapter.notifyDataSetChanged();
+//                    notifyFpAdapter();
+//                });
+//                switchTreeDialog.show();
+//                break;
+////            case R.id.tv_close:
+////                //dialog.dismiss();
+////                break;
+//        }
+////        super.onClick(v);
+//    }
 
     @Override
     public void onShowing(CurveFragment curveFragment) {
@@ -532,7 +518,7 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
         if (resultCode == RESULT_OK) {
             if (requestCode == CommonRequestCode.REQUEST_CHOSE_LINE) {//添加后 刷新数据 Deprecated
                 currentSwitchBean = data.getParcelableExtra("switchBean");
-                cur_line.setText(String.format("%s%s", getString(R.string.vs4), currentSwitchBean.getName()));
+                mViewModel.setCurrentSwitchBeanName(Objects.requireNonNull(currentSwitchBean).getName());
 //                gvAdapter.notifyDataSetChanged();
                 notifyFpAdapter();
             }

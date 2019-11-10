@@ -60,6 +60,7 @@ public class CollectorDetailActivity extends BaseActivity {
         CollectorDetailViewModel mViewModel = ViewModelProviders.of(this).get(CollectorDetailViewModel.class);
         mBinding.setVm(mViewModel);
         mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
 //        mContext = this;
         collectorBean = getIntent().getParcelableExtra("collectorBean");
 //        ImageView backBtn = findViewById(R.id.img_cancel);
@@ -139,15 +140,15 @@ public class CollectorDetailActivity extends BaseActivity {
 //        } else {
 //            tvUpgrade.setEnabled(false);
 //        }
-        mViewModel.setCollectorBeanCode(Objects.requireNonNull(collectorBean).getCode());
 //        collectorName.setText(String.format("%s%s", getString(R.string.vs2), collectorBean.getCode()));
+        mViewModel.setCollectorBeanCode(String.format("%s%s", getString(R.string.vs2), collectorBean.getCode()));
         if (collectorBean.ownerUser != null) {
             if (collectorBean.ownerUser.getNickName() == null) {
-                mViewModel.setSharedName(collectorBean.ownerUser.getUsername());
 //                txtShareTip.setText(String.format("%s%s", collectorBean.ownerUser.getUsername(), getString(R.string.vs3)));
+                mViewModel.setSharedName(String.format("%s%s", collectorBean.ownerUser.getUsername(), getString(R.string.vs3)));
             } else {
-                mViewModel.setSharedName(collectorBean.ownerUser.getNickName());
 //                txtShareTip.setText(String.format("%s%s", collectorBean.ownerUser.getNickName(), getString(R.string.vs3)));
+                mViewModel.setSharedName(String.format("%s%s", collectorBean.ownerUser.getNickName(), getString(R.string.vs3)));
             }
             mBinding.imgRemove.setVisibility(View.INVISIBLE);
         } else {

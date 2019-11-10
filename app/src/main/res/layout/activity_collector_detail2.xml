@@ -1,121 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    tools:context=".activity.collector.CollectorDetail2Activity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:contentInsetLeft="0dp"
-        app:contentInsetStart="0dp">
+    <data>
 
-        <ImageView
-            android:id="@+id/img_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:padding="16dp"
-            android:src="@drawable/main_fanhui" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/vs50"
-            android:textSize="12sp" />
-    </androidx.appcompat.widget.Toolbar>
+        <variable
+            name="presenter"
+            type="com.rejuvee.smartelectric.family.activity.collector.CollectorDetail2Activity.Presenter" />
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingStart="20dp"
-        android:paddingTop="20dp"
-        android:paddingEnd="0dp"
-        android:paddingBottom="20dp">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        tools:context=".activity.collector.CollectorDetail2Activity">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/vs59"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp">
 
-        <TextView
-            android:id="@+id/txt_share_tip"
-            android:layout_width="0dp"
+            <ImageView
+                android:id="@+id/img_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:onClick="@{presenter::onCancel}"
+                android:padding="16dp"
+                android:src="@drawable/main_fanhui" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/vs50"
+                android:textSize="12sp" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="0dp"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/vs59"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txt_share_tip"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_weight="1"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-    </LinearLayout>
+            android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:orientation="horizontal">
+            <TextView
+                android:id="@+id/txt_quxian"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/collector_bb"
+                android:drawablePadding="4dp"
+                android:gravity="center"
+                android:onClick="@{presenter::onQuxian}"
+                android:padding="16dp"
+                android:text="@string/fun_quxian"
+                android:textColor="#5A6187"
+                android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/txt_quxian"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/collector_bb"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:padding="16dp"
-            android:text="@string/fun_quxian"
-            android:textColor="#5A6187"
-            android:textSize="12sp" />
+            <TextView
+                android:id="@+id/txt_anquan_sz"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/collector_aqxx"
+                android:drawablePadding="4dp"
+                android:gravity="center"
+                android:onClick="@{presenter::onAnquan}"
+                android:padding="16dp"
+                android:text="@string/vs95"
+                android:textColor="#5A6187"
+                android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/txt_anquan_sz"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/collector_aqxx"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:padding="16dp"
-            android:text="@string/vs95"
-            android:textColor="#5A6187"
-            android:textSize="12sp" />
+            <TextView
+                android:id="@+id/txt_dianxiang_sz"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/collector_dxxl"
+                android:drawablePadding="4dp"
+                android:gravity="center"
+                android:onClick="@{presenter::onDianxiang}"
+                android:padding="16dp"
+                android:text="@string/vs86"
+                android:textColor="#5A6187"
+                android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/txt_dianxiang_sz"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/collector_dxxl"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:padding="16dp"
-            android:text="@string/vs86"
-            android:textColor="#5A6187"
-            android:textSize="12sp" />
+            <TextView
+                android:id="@+id/txt_xianlu_wh"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/collector_xlwh"
+                android:drawablePadding="4dp"
+                android:gravity="center"
+                android:onClick="@{presenter::onXianlu}"
+                android:padding="16dp"
+                android:text="@string/vs117"
+                android:textColor="#5A6187"
+                android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/txt_xianlu_wh"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/collector_xlwh"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:padding="16dp"
-            android:text="@string/vs117"
-            android:textColor="#5A6187"
-            android:textSize="12sp" />
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
+</layout>

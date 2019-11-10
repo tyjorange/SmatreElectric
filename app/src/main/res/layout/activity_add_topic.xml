@@ -1,117 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    tools:context="com.rejuvee.smartelectric.family.activity.kefu.AddTopicActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.Toolbar
+    <data>
+
+        <variable
+            name="vm"
+            type="com.rejuvee.smartelectric.family.model.viewmodel.AddTopicViewModel" />
+
+        <variable
+            name="presenter"
+            type="com.rejuvee.smartelectric.family.activity.kefu.AddTopicActivity.Presenter" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:contentInsetLeft="0dp"
-        app:contentInsetStart="0dp">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        tools:context="com.rejuvee.smartelectric.family.activity.kefu.AddTopicActivity">
 
-        <ImageView
-            android:id="@+id/img_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:padding="16dp"
-            android:src="@drawable/main_fanhui" />
-
-        <TextView
+        <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/vs196"
-            android:textSize="12sp" />
-    </androidx.appcompat.widget.Toolbar>
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingStart="20dp"
-        android:paddingTop="20dp"
-        android:paddingEnd="20dp"
-        android:paddingBottom="20dp">
+            <ImageView
+                android:id="@+id/img_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:onClick="@{presenter::onCancel}"
+                android:padding="16dp"
+                android:src="@drawable/main_fanhui" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/vs197"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_weight="@integer/tag_1"
-        android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/vs196"
+                android:textSize="12sp" />
+        </androidx.appcompat.widget.Toolbar>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:gravity="center">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="20dp">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/vs198"
-                android:textSize="12sp" />
-
-            <EditText
-                android:id="@+id/et_new_topic"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="@integer/tag_1"
-                android:background="@color/transparent"
-                android:hint="@string/vs192"
-                android:textSize="12sp" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/vs197"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:gravity="center">
+            android:layout_height="0dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_weight="@integer/tag_1"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/vs199"
-                android:textSize="12sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center">
 
-            <EditText
-                android:id="@+id/et_new_context"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="@integer/tag_1"
-                android:background="@color/transparent"
-                android:hint="@string/vs193"
-                android:textSize="12sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vs198"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/et_new_topic"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@integer/tag_1"
+                    android:background="@color/transparent"
+                    android:hint="@string/vs192"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:text="@={vm.topic}"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vs199"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/et_new_context"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="@integer/tag_1"
+                    android:background="@color/transparent"
+                    android:hint="@string/vs193"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:text="@={vm.context}"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
         </LinearLayout>
 
+        <com.base.library.widget.SuperTextView
+            android:id="@+id/stv_commit"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_margin="16dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/qd1"
+            android:gravity="center"
+            android:onClick="@{presenter::onCommit}"
+            android:text="@string/vs195"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:corner="8dp" />
     </LinearLayout>
-
-    <com.base.library.widget.SuperTextView
-        android:id="@+id/stv_commit"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_margin="16dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/qd1"
-        android:gravity="center"
-        android:text="@string/vs195"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:corner="8dp" />
-</LinearLayout>
+</layout>

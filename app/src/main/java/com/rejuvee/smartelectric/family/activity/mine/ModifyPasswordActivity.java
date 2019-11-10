@@ -27,7 +27,7 @@ public class ModifyPasswordActivity extends AccountBaseActivity {
         super.onCreate(savedInstanceState);
     }
 
-    @Override
+//    @Override
     protected void init() {
         ((TextView) findViewById(R.id.txt_mark_phone)).setText(R.string.original_password);
         findViewById(R.id.ll_phone).setVisibility(View.GONE);
@@ -58,10 +58,10 @@ public class ModifyPasswordActivity extends AccountBaseActivity {
         return checkPwdOrOldOrNew() && checkRePwd();
     }
 
-    @Override
-    protected String codePhone() {
-        return mPhoneOrOld;
-    }
+//    @Override
+//    protected String codePhone() {
+//        return mPhoneOrOld;
+//    }
 
     @Override
     protected void commitOrRegist() {

@@ -8,6 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.utils.EncryptUtils;
 import com.base.library.widget.CustomToast;
@@ -17,11 +20,15 @@ import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.utils.ValidateUtils;
 import com.rejuvee.smartelectric.family.common.widget.ClearEditText;
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
+import com.rejuvee.smartelectric.family.databinding.ActivityAccountBinding;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfo;
 import com.rejuvee.smartelectric.family.model.nativedb.AccountInfoRealm;
+import com.rejuvee.smartelectric.family.model.viewmodel.AccountBaseViewModel;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,7 +36,7 @@ import java.util.TimerTask;
  * Created by Administrator on 2018/3/21.
  */
 
-public class AccountBaseActivity extends BaseActivity implements ClearEditText.OnCheckListener, View.OnClickListener {
+public class AccountBaseActivity extends BaseActivity implements ClearEditText.OnCheckListener {
 
     private final static String TAG = "AccountBaseActivity";
     /**
@@ -48,31 +55,31 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
     /**
      * 确定或注册按钮
      */
-    protected TextView mTvSure;
+//    protected TextView mTvSure;
     /**
      * 标题
      */
-    protected TextView mTvTitle;
+//    protected TextView mTvTitle;
     /**
      * Imei号或原Imei号
      */
-    protected String mImei;
+//    protected String mImei;
     /**
      * 电话号或原手机号
      */
-    protected String mPhoneOrOld;
+//    protected String mPhoneOrOld;
     /**
      * 新电话号
      */
-    protected String mNewPhone;
+//    protected String mNewPhone;
     /**
      * 验证码
      */
-    protected String mCode;
+//    protected String mCode;
     /**
      * 密码、原密码或新密码
      */
-    protected String mPwdOrNewOrOld;
+//    protected String mPwdOrNewOrOld;
     /**
      * 原密码
      */
@@ -85,19 +92,19 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
      */
     protected String mRePwd;
 
-    private TextView mBtCode;// 获取验证码
+    //    private TextView mBtCode;// 获取验证码
     private Handler mHandler;
     private Timer mTimer;
     private TimerTask mTimerTask;
     private int time = 60;
 
-    private ClearEditText mEtImei;
-    private ClearEditText mEtPhone;
-    private ClearEditText mEtNewPhone;
-    private ClearEditText mEtCode;
-    private ClearEditText mEtPwd;
-    private ClearEditText mEtRePwd;
-    private ClearEditText mEtOrgPwd;
+//    private ClearEditText mEtImei;
+//    private ClearEditText mEtPhone;
+//    private ClearEditText mEtNewPhone;
+//    private ClearEditText mEtCode;
+//    private ClearEditText mEtPwd;
+//    private ClearEditText mEtRePwd;
+//    private ClearEditText mEtOrgPwd;
 
     private TextView mTvImei;
     private TextView mTvPhone;
@@ -128,15 +135,66 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
 //    }
 
     //    @SuppressLint("HandlerLeak")
+    private ActivityAccountBinding mBinding;
+    private AccountBaseViewModel mViewModel;
+
     @Override
     protected void initView() {
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_account);
+        mViewModel = ViewModelProviders.of(this).get(AccountBaseViewModel.class);
+        mBinding.setVm(mViewModel);
+        mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
+
         mCore = Core.instance(this);
         mCustomToast = new CustomToast();
         mLoadingDlg = new LoadingDlg(this, -1);
         // 计时重新获取验证码
         mHandler = new MyHandler(this);
         baseInit();
-        init();
+//        init();
+    }
+
+    private void baseInit() {
+//        ImageView iv_back = findViewById(R.id.iv_back);
+//        mEtImei = findViewById(R.id.edit_imei);
+//        mEtPhone = findViewById(R.id.edit_phone);
+//        mEtNewPhone = findViewById(R.id.edit_phone_new);
+//        mEtCode = findViewById(R.id.edit_code);
+//        mEtPwd = findViewById(R.id.edit_pwd);
+//        mEtRePwd = findViewById(R.id.edit_repwd);
+//        mEtOrgPwd = findViewById(R.id.edit_org_pwd);
+
+        //错误提示
+        mTvImei = mBinding.txtWrongImei;//findViewById(R.id.txt_wrong_imei);
+        mTvPhone = mBinding.txtWrongPhone;//findViewById(R.id.txt_wrong_phone);
+        mTvNewPhone = mBinding.txtWrongPhoneNew;//findViewById(R.id.txt_wrong_phone_new);
+        mTvCode = mBinding.txtWrongCode;//findViewById(R.id.txt_wrong_code);
+        mTvPwd = mBinding.txtWrongPwd;//findViewById(R.id.txt_wrong_pwd);
+        mTvRePwd = mBinding.txtWrongRepwd;//findViewById(R.id.txt_wrong_repwd);
+        mTvOrgPwd = mBinding.txtWrongOrgpwd;//findViewById(R.id.txt_wrong_orgpwd);
+        //正确提示
+        mIvImei = mBinding.imgImei;//findViewById(R.id.img_imei);
+        mIvPhone = mBinding.imgPhone;//findViewById(R.id.img_phone);
+        mIvNewPhone = mBinding.imgPhoneNew;//findViewById(R.id.img_phone_new);
+        mIvCode = mBinding.imgCode;//findViewById(R.id.img_code);
+        mIvPwd = mBinding.imgPwd;//findViewById(R.id.img_pwd);
+        mIvRePwd = mBinding.imgRepwd;//findViewById(R.id.img_repwd);
+        mIvOrgPwd = mBinding.imgOrgPwd;//findViewById(R.id.img_org_pwd);
+
+//        mBtCode = findViewById(R.id.txt_code);
+//        mTvSure = findViewById(R.id.txt_sure);
+//        iv_back.setOnClickListener(this);
+//        mBtCode.setOnClickListener(this);
+//        mTvSure.setOnClickListener(this);
+
+        mBinding.editImei.setOnCheckListener(this);
+        mBinding.editPhone.setOnCheckListener(this);
+        mBinding.editPhoneNew.setOnCheckListener(this);
+        mBinding.editCode.setOnCheckListener(this);
+        mBinding.editPwd.setOnCheckListener(this);
+        mBinding.editRepwd.setOnCheckListener(this);
+        mBinding.editOrgPwd.setOnCheckListener(this);
     }
 
     private static class MyHandler extends Handler {
@@ -149,20 +207,21 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
         @Override
         public void handleMessage(Message msg) {
             AccountBaseActivity activity = activityWeakReference.get();
-            activity.mBtCode.setText(msg.what + "s");
+            activity.mBinding.txtCode.setText(String.format(Locale.getDefault(), "%ds", msg.what));
             if (msg.what == 0) {
                 activity.closeTimer();
-                activity.mBtCode.setText(R.string.mark_regetcode);
-                activity.mBtCode.setEnabled(true);
+                activity.mBinding.txtCode.setText(R.string.mark_regetcode);
+                activity.mBinding.txtCode.setEnabled(true);
             }
         }
     }
+
     @Override
     protected void initData() {
 
     }
 
-//    @Override
+    //    @Override
 //    protected String getToolbarTitle() {
 //        return getString(R.string.reset_password);
 //    }
@@ -171,62 +230,35 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
 //    protected boolean isDisplayHomeAsUpEnabled() {
 //        return true;
 //    }
+    public class Presenter {
+        public void onCancel(View view) {
+            finish();
+        }
+
+        public void onGetCode(View view) {
+            getCode();
+        }
+
+        public void onSure(View view) {
+            if (canCommitOrRegist()) {
+                commitOrRegist();
+            } else {
+                Toast.makeText(view.getContext(), R.string.hint_input, Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 
     @Override
     protected void dealloc() {
 
     }
 
-    private void baseInit() {
-
-        ImageView iv_back = findViewById(R.id.iv_back);
-        mEtImei = findViewById(R.id.edit_imei);
-        mEtPhone = findViewById(R.id.edit_phone);
-        mEtNewPhone = findViewById(R.id.edit_phone_new);
-        mEtCode = findViewById(R.id.edit_code);
-        mEtPwd = findViewById(R.id.edit_pwd);
-        mEtRePwd = findViewById(R.id.edit_repwd);
-        mEtOrgPwd = findViewById(R.id.edit_org_pwd);
-
-        mTvImei = findViewById(R.id.txt_wrong_imei);
-        mTvPhone = findViewById(R.id.txt_wrong_phone);
-        mTvNewPhone = findViewById(R.id.txt_wrong_phone_new);
-        mTvCode = findViewById(R.id.txt_wrong_code);
-        mTvPwd = findViewById(R.id.txt_wrong_pwd);
-        mTvRePwd = findViewById(R.id.txt_wrong_repwd);
-        mTvOrgPwd = findViewById(R.id.txt_wrong_orgpwd);
-
-        mIvImei = findViewById(R.id.img_imei);
-        mIvPhone = findViewById(R.id.img_phone);
-        mIvNewPhone = findViewById(R.id.img_phone_new);
-        mIvCode = findViewById(R.id.img_code);
-        mIvPwd = findViewById(R.id.img_pwd);
-        mIvRePwd = findViewById(R.id.img_repwd);
-        mIvOrgPwd = findViewById(R.id.img_org_pwd);
-
-        mBtCode = findViewById(R.id.txt_code);
-        mTvSure = findViewById(R.id.txt_sure);
-
-        iv_back.setOnClickListener(this);
-        mBtCode.setOnClickListener(this);
-        mTvSure.setOnClickListener(this);
-        mEtImei.setOnCheckListener(this);
-        mEtPhone.setOnCheckListener(this);
-        mEtNewPhone.setOnCheckListener(this);
-        mEtCode.setOnCheckListener(this);
-        mEtPwd.setOnCheckListener(this);
-        mEtRePwd.setOnCheckListener(this);
-        mEtOrgPwd.setOnCheckListener(this);
-
-
-    }
-
     /**
      * 根据不同操作初始化更改界面
      */
-    protected void init() {
-
-    }
+//    protected void init() {
+//
+//    }
 
     /**
      * 检查是否可以提交或注册
@@ -252,15 +284,15 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
     /**
      * 获取验证码的手机号
      */
-    protected String codePhone() {
-        return null;
-    }
+//    protected String codePhone() {
+//        return null;
+//    }
 
     /**
      * 获取加密密码
      */
     protected String pwd() {
-        return EncryptUtils.encryptMD5ToString(mPwdOrNewOrOld, Core.SALT);
+        return EncryptUtils.encryptMD5ToString(mViewModel.getPwd().getValue(), Core.SALT);
     }
 
     /**
@@ -268,8 +300,8 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
      */
     protected boolean checkImeiOrOldImei() {
         isOk = false;
-        mImei = mEtImei.getEditableText().toString();
-        if (mImei.length() != 12) {
+        String mImei = mViewModel.getImei().getValue();//mEtImei.getEditableText().toString();
+        if (Objects.requireNonNull(mImei).length() != 12) {
             mTvImei.setVisibility(View.VISIBLE);
             mTvImei.setText(R.string.hint_imei);
             mIvImei.setVisibility(View.GONE);
@@ -286,8 +318,8 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
      */
     protected boolean checkPhoneOrOldPhone() {
         isOk = false;
-        mPhoneOrOld = mEtPhone.getEditableText().toString();
-        if (mPhoneOrOld.length() <= 0) {
+        String mPhoneOrOld = mViewModel.getPhone().getValue();//mEtPhone.getEditableText().toString();
+        if (Objects.requireNonNull(mPhoneOrOld).length() <= 0) {
             mTvPhone.setVisibility(View.VISIBLE);
             mTvPhone.setText(R.string.hint_phone);
             mIvPhone.setVisibility(View.GONE);
@@ -308,8 +340,8 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
      */
     protected boolean checkNewPhone() {
         isOk = false;
-        mNewPhone = mEtNewPhone.getEditableText().toString();
-        if (mNewPhone.length() <= 0) {
+        String mNewPhone = mViewModel.getNewPhone().getValue();    //mEtNewPhone.getEditableText().toString();
+        if (Objects.requireNonNull(mNewPhone).length() <= 0) {
             mTvNewPhone.setVisibility(View.VISIBLE);
             mTvNewPhone.setText(R.string.hint_phone);
             mIvNewPhone.setVisibility(View.GONE);
@@ -330,8 +362,8 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
      */
     protected boolean checkCode() {
         isOk = false;
-        mCode = mEtCode.getEditableText().toString();
-        if (mCode.length() <= 0) {
+        String mCode = mViewModel.getCode().getValue();// mEtCode.getEditableText().toString();
+        if (Objects.requireNonNull(mCode).length() <= 0) {
             mTvCode.setVisibility(View.VISIBLE);
             mTvCode.setText(R.string.hint_code);
             mIvCode.setVisibility(View.GONE);
@@ -348,8 +380,8 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
      */
     protected boolean checkPwdOrOldOrNew() {
         isOk = false;
-        mPwdOrNewOrOld = mEtPwd.getEditableText().toString();
-        if (mPwdOrNewOrOld.length() <= 0) {
+        String mPwdOrNewOrOld = mViewModel.getPwd().getValue();//mEtPwd.getEditableText().toString();
+        if (Objects.requireNonNull(mPwdOrNewOrOld).length() <= 0) {
             mTvPwd.setVisibility(View.VISIBLE);
             mTvPwd.setText(R.string.hint_password);
             mIvPwd.setVisibility(View.GONE);
@@ -383,8 +415,8 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
         getCacheAccount();
         Log.i("old", oLdpassword);
         isOk = false;
-        mPwdOrOld = mEtOrgPwd.getEditableText().toString();
-        if (mPwdOrOld.length() <= 0) {
+        mPwdOrOld = mViewModel.getOrgPwd().getValue();// mEtOrgPwd.getEditableText().toString();
+        if (Objects.requireNonNull(mPwdOrOld).length() <= 0) {
             mTvOrgPwd.setVisibility(View.VISIBLE);
             mTvOrgPwd.setText(R.string.hint_null_password);
             mTvOrgPwd.setVisibility(View.GONE);
@@ -405,12 +437,12 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
      */
     protected boolean checkRePwd() {
         isOk = false;
-        mRePwd = mEtRePwd.getText().toString();
-        if (mRePwd.length() <= 0) {
+        String mRePwd = mViewModel.getRePwd().getValue();//mEtRePwd.getText().toString();
+        if (Objects.requireNonNull(mRePwd).length() <= 0) {
             mTvRePwd.setVisibility(View.VISIBLE);
             mTvRePwd.setText(R.string.hint_repassword);
             mIvRePwd.setVisibility(View.GONE);
-        } else if (!mRePwd.equals(mPwdOrNewOrOld)) {
+        } else if (!mRePwd.equals(mViewModel.getPwd().getValue())) {
             mTvRePwd.setVisibility(View.VISIBLE);
             mTvRePwd.setText(R.string.wrong_repassword);
             mIvRePwd.setVisibility(View.GONE);
@@ -425,7 +457,7 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
     // 获取验证码
     private void getCode() {
         if (checkPhoneOrOldPhone()) {
-            Core.instance(this).isPhoneRegister(mPhoneOrOld, new ActionCallbackListener<Void>() {
+            Core.instance(this).isPhoneRegister(mViewModel.getPhone().getValue(), new ActionCallbackListener<Void>() {
                 @Override
                 public void onSuccess(Void data) {
 
@@ -436,10 +468,10 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
                     if (errorEvent == 7) {
                         CustomToast.showCustomErrorToast(AccountBaseActivity.this, getString(R.string.phone_unregist));
                     } else if (errorEvent == 8) {
-                        Core.instance(AccountBaseActivity.this).getPhoneCode(mPhoneOrOld, new ActionCallbackListener<Void>() {
+                        Core.instance(AccountBaseActivity.this).getPhoneCode(mViewModel.getPhone().getValue(), new ActionCallbackListener<Void>() {
                             @Override
                             public void onSuccess(Void data) {
-                                mBtCode.setEnabled(false);
+                                mBinding.txtCode.setEnabled(false);
                                 openTimer();
                             }
 
@@ -500,22 +532,22 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.txt_code:
-                getCode();
-                break;
-            case R.id.txt_sure:
-                if (canCommitOrRegist()) {
-                    commitOrRegist();
-                } else {
-                    Toast.makeText(this, R.string.hint_input, Toast.LENGTH_LONG).show();
-                }
-                break;
-            case R.id.iv_back:
-                finish();
-                break;
-        }
-    }
+//    @Override
+//    public void onClick(View v) {
+//        switch (v.getId()) {
+//            case R.id.txt_code:
+//                getCode();
+//                break;
+//            case R.id.txt_sure:
+//                if (canCommitOrRegist()) {
+//                    commitOrRegist();
+//                } else {
+//                    Toast.makeText(this, R.string.hint_input, Toast.LENGTH_LONG).show();
+//                }
+//                break;
+//            case R.id.iv_back:
+//                finish();
+//                break;
+//        }
+//    }
 }

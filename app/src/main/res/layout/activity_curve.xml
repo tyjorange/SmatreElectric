@@ -1,247 +1,264 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    tools:context=".activity.curve.CurveActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:contentInsetLeft="0dp"
-        app:contentInsetStart="0dp">
+    <data>
 
-        <ImageView
-            android:id="@+id/img_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:padding="16dp"
-            android:src="@drawable/main_fanhui" />
+        <variable
+            name="vm"
+            type="com.rejuvee.smartelectric.family.model.viewmodel.CurveViewModel" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/vs85"
-            android:textSize="12sp" />
-    </androidx.appcompat.widget.Toolbar>
+        <variable
+            name="presenter"
+            type="com.rejuvee.smartelectric.family.activity.curve.CurveActivity.Presenter" />
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingStart="20dp"
-        android:paddingTop="20dp"
-        android:gravity="center"
-        android:paddingEnd="20dp"
-        android:paddingBottom="10dp">
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        tools:context=".activity.curve.CurveActivity">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/fun_quxian"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_day_month"
-            android:layout_width="wrap_content"
-            android:layout_height="28dp"
-            app:tabGravity="fill"
-            app:tabIndicatorColor="#E3878F"
-            app:tabIndicatorFullWidth="false"
-            app:tabIndicatorHeight="2dp"
-            app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/black"
-            app:tabTextColor="@color/text_base_color_666" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/img_change"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:paddingBottom="10dp">
-
-        <!--<RadioGroup-->
-        <!--android:id="@+id/rg_date"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:visibility="gone">-->
-
-        <!--<RadioButton-->
-        <!--android:id="@+id/rb_date_day"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@drawable/selector_date_day"-->
-        <!--android:button="@null"-->
-        <!--android:checked="true"-->
-        <!--android:paddingLeft="16dp"-->
-        <!--android:paddingTop="8dp"-->
-        <!--android:paddingRight="16dp"-->
-        <!--android:paddingBottom="8dp"-->
-        <!--android:text="@string/curve_by_day"-->
-        <!--android:textColor="@color/black"-->
-        <!--android:textSize="12sp" />-->
-
-        <!--<RadioButton-->
-        <!--android:id="@+id/rb_date_month"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@drawable/selector_date_month"-->
-        <!--android:button="@null"-->
-        <!--android:paddingLeft="16dp"-->
-        <!--android:paddingTop="8dp"-->
-        <!--android:paddingRight="16dp"-->
-        <!--android:paddingBottom="8dp"-->
-        <!--android:text="@string/curve_by_month"-->
-        <!--android:textColor="@color/black"-->
-        <!--android:textSize="12sp" />-->
-        <!--</RadioGroup>-->
-
-        <TextView
-            android:id="@+id/cur_line"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="start|center"
-            android:text="@string/vs14"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="10dp"
-            android:src="@drawable/jinru" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="28dp">
-
-        <ImageView
-            android:id="@+id/iv_minus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
-            android:onClick="onClick"
-            android:paddingLeft="8dp"
-            android:paddingTop="4dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="4dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/date_left" />
-
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
-            android:drawableEnd="@drawable/calendar"
-            android:drawablePadding="4dp"
-            android:gravity="center_vertical"
-            android:onClick="onClick" />
-
-        <ImageView
-            android:id="@+id/iv_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
-            android:onClick="onClick"
-            android:paddingLeft="8dp"
-            android:paddingTop="4dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="4dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/date_right" />
-    </RelativeLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="0dp"
-            android:orientation="vertical">
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tl_curve"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                app:tabIndicatorColor="@color/black"
-                app:tabIndicatorFullWidth="false"
-                app:tabIndicatorHeight="1dp"
-                app:tabMode="scrollable"
-                app:tabSelectedTextColor="@color/black"
-                app:tabTextAppearance="@style/TabLayoutTextStyle2"
-                app:tabTextColor="@color/text_base_color_666" />
-
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/vp_curve"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="@integer/tag_1" />
-
-            <com.rejuvee.smartelectric.family.common.widget.CustomGridView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:horizontalSpacing="8dp"
-                android:listSelector="@color/transparent"
-                android:numColumns="3"
-                android:padding="8dp"
-                android:verticalSpacing="8dp"
-                android:visibility="gone" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_gravity="bottom"
-            android:gravity="center_vertical"
-            android:visibility="gone">
+            android:layout_height="wrap_content"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp">
 
             <ImageView
+                android:id="@+id/img_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/dianxiang_88" />
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:onClick="@{presenter::onCancel}"
+                android:padding="16dp"
+                android:src="@drawable/main_fanhui" />
 
             <TextView
-                android:id="@+id/tv_device"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/vs85"
+                android:textSize="12sp" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="10dp">
+
+            <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingStart="16dp"
-                android:paddingEnd="0dp" />
+                android:text="@string/fun_quxian"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_day_month"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="#E3878F"
+                app:tabIndicatorFullWidth="false"
+                app:tabIndicatorHeight="2dp"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/black"
+                app:tabTextColor="@color/text_base_color_666" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/img_change"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{presenter::onChange}"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="10dp">
+
+            <!--<RadioGroup-->
+            <!--android:id="@+id/rg_date"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:visibility="gone">-->
+
+            <!--<RadioButton-->
+            <!--android:id="@+id/rb_date_day"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@drawable/selector_date_day"-->
+            <!--android:button="@null"-->
+            <!--android:checked="true"-->
+            <!--android:paddingLeft="16dp"-->
+            <!--android:paddingTop="8dp"-->
+            <!--android:paddingRight="16dp"-->
+            <!--android:paddingBottom="8dp"-->
+            <!--android:text="@string/curve_by_day"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:textSize="12sp" />-->
+
+            <!--<RadioButton-->
+            <!--android:id="@+id/rb_date_month"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@drawable/selector_date_month"-->
+            <!--android:button="@null"-->
+            <!--android:paddingLeft="16dp"-->
+            <!--android:paddingTop="8dp"-->
+            <!--android:paddingRight="16dp"-->
+            <!--android:paddingBottom="8dp"-->
+            <!--android:text="@string/curve_by_month"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:textSize="12sp" />-->
+            <!--</RadioGroup>-->
+
+            <TextView
+                android:id="@+id/cur_line"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="start|center"
+                android:text="@{vm.currentSwitchBeanName,default=`aaa`}"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
             <ImageView
-                android:id="@+id/iv_device"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onClick"
-                android:scaleType="centerCrop"
-                android:src="@drawable/qiehuananniu"
-                android:visibility="gone" />
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:src="@drawable/jinru" />
         </LinearLayout>
-    </FrameLayout>
-</LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="28dp">
+
+            <ImageView
+                android:id="@+id/iv_minus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:onClick="@{presenter::onMinus}"
+                android:paddingLeft="8dp"
+                android:paddingTop="4dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="4dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/date_left" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:drawableEnd="@drawable/calendar"
+                android:drawablePadding="4dp"
+                android:gravity="center_vertical"
+                android:onClick="@{presenter::onDate}"
+                android:text="@{vm.currentDate,default=`0000-00-00`}" />
+
+            <ImageView
+                android:id="@+id/iv_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:onClick="@{presenter::onAdd}"
+                android:paddingLeft="8dp"
+                android:paddingTop="4dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="4dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/date_right" />
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="0dp"
+                android:orientation="vertical">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tl_curve"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    app:tabIndicatorColor="@color/black"
+                    app:tabIndicatorFullWidth="false"
+                    app:tabIndicatorHeight="1dp"
+                    app:tabMode="scrollable"
+                    app:tabSelectedTextColor="@color/black"
+                    app:tabTextAppearance="@style/TabLayoutTextStyle2"
+                    app:tabTextColor="@color/text_base_color_666" />
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/vp_curve"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="@integer/tag_1" />
+
+                <com.rejuvee.smartelectric.family.common.widget.CustomGridView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:horizontalSpacing="8dp"
+                    android:listSelector="@color/transparent"
+                    android:numColumns="3"
+                    android:padding="8dp"
+                    android:verticalSpacing="8dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="48dp"-->
+            <!--                android:layout_gravity="bottom"-->
+            <!--                android:gravity="center_vertical"-->
+            <!--                android:visibility="gone">-->
+
+            <!--                <ImageView-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_marginStart="16dp"-->
+            <!--                    android:scaleType="centerCrop"-->
+            <!--                    android:src="@drawable/dianxiang_88" />-->
+
+            <!--                <TextView-->
+            <!--                    android:id="@+id/tv_device"-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_weight="1"-->
+            <!--                    android:paddingStart="16dp"-->
+            <!--                    android:paddingEnd="0dp" />-->
+
+            <!--                <ImageView-->
+            <!--                    android:id="@+id/iv_device"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:onClick="onClick"-->
+            <!--                    android:scaleType="centerCrop"-->
+            <!--                    android:src="@drawable/qiehuananniu"-->
+            <!--                    android:visibility="gone" />-->
+            <!--            </LinearLayout>-->
+        </FrameLayout>
+    </LinearLayout>
+</layout>

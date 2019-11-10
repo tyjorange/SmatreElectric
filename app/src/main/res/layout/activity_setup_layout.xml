@@ -94,7 +94,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:text="@{String.format(`%s`,vm.collectorBeanCode),default=`--`}"
+                android:text="@{vm.collectorBeanCode,default=`--`}"
                 android:textSize="14sp" />
 
             <ImageView
@@ -142,7 +142,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:text="@{String.format(`%s`,vm.devicename),default=`--`}"
+                android:text="@{vm.devicename,default=`--`}"
                 android:textSize="14sp" />
 
             <ImageView
@@ -191,7 +191,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_weight="@integer/tag_1"
                 android:gravity="end"
-                android:text="@{String.format(`%dbps`,vm.baud),default=`--`}"
+                android:text="@{vm.baud,default=`--`}"
                 android:textSize="14sp" />
 
             <ImageView
@@ -241,7 +241,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_weight="@integer/tag_1"
                 android:gravity="end"
-                android:text="@{String.format(`%dmin`,vm.freq),default=`--`}"
+                android:text="@{vm.freq,default=`--`}"
                 android:textSize="14sp" />
 
             <ImageView
@@ -289,7 +289,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_weight="@integer/tag_1"
                 android:gravity="end"
-                android:text="@{String.format(`%d%%`,vm.ranges),default=`--`}"
+                android:text="@{vm.ranges,default=`--`}"
                 android:textSize="14sp" />
 
             <ImageView
@@ -337,7 +337,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_weight="@integer/tag_1"
                 android:gravity="end"
-                android:text="@{String.format(`%dsec`,vm.guzhangma),default=`--`}"
+                android:text="@{vm.guzhangma,default=`--`}"
                 android:textSize="14sp" />
 
             <ImageView
@@ -386,7 +386,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:text="@{String.format(`%ds`,vm.heartrate),default=`--`}"
+                android:text="@{vm.heartrate,default=`--`}"
                 android:textSize="14sp" />
 
             <ImageView

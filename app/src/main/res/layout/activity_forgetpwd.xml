@@ -1,193 +1,208 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/login_beijing"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    tools:context=".activity.login.ForgetPwdActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="presenter"
+            type="com.rejuvee.smartelectric.family.activity.login.ForgetPwdActivity.Presenter" />
+
+        <variable
+            name="vm"
+            type="com.rejuvee.smartelectric.family.model.viewmodel.ForgetPwdViewModel" />
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        tools:ignore="UselessLeaf" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
-
-        <ImageView
-            android:id="@+id/img_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:src="@drawable/main_fanhui_w" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="0dp"
-            android:paddingEnd="32dp"
-            android:text="@string/login_forget_password"
-            android:textColor="@color/text_content"
-            android:textSize="20sp" />
-
-        <ImageView
-            android:id="@+id/iv_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:src="@drawable/login_logo"
-            android:visibility="invisible" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="32dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:background="@drawable/login_beijing"
+        android:fitsSystemWindows="true"
         android:orientation="vertical"
-        android:paddingLeft="16dp"
-        android:paddingTop="32dp"
-        android:paddingRight="16dp"
-        android:paddingBottom="32dp">
+        tools:context=".activity.login.ForgetPwdActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/login_input"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <com.rejuvee.smartelectric.family.common.widget.ClearEditText
-                android:id="@+id/et_phone"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
-                android:layout_weight="1"
-                android:background="@color/transparent"
-                android:gravity="center_vertical"
-                android:hint="@string/reg_hint_input_phone"
-                android:imeOptions="actionNext"
-                android:inputType="phone"
-                android:maxLength="11"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@color/text_content"
-                android:textColorHint="@color/text_content"
-                android:textSize="14sp" />
-        </LinearLayout>
+            android:layout_height="70dp"
+            tools:ignore="UselessLeaf" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/login_input"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
-            <com.rejuvee.smartelectric.family.common.widget.ClearEditText
-                android:id="@+id/et_code"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
-                android:layout_weight="1"
-                android:background="@color/transparent"
-                android:gravity="center_vertical"
-                android:hint="@string/hint_code"
-                android:imeOptions="actionNext"
-                android:inputType="phone"
-                android:maxLength="11"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@color/text_content"
-                android:textColorHint="@color/text_content"
-                android:textSize="14sp" />
-
-            <com.base.library.widget.SuperTextView
-                android:id="@+id/tv_getcode"
+            <ImageView
+                android:id="@+id/img_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="8dp"
+                android:onClick="@{presenter::onCancel}"
+                android:padding="16dp"
+                android:src="@drawable/main_fanhui_w" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="0dp"
+                android:paddingEnd="32dp"
+                android:text="@string/login_forget_password"
+                android:textColor="@color/text_content"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/iv_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@drawable/login_logo"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="32dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingTop="32dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="32dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/login_input"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.rejuvee.smartelectric.family.common.widget.ClearEditText
+                    android:id="@+id/et_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:background="@color/transparent"
+                    android:gravity="center_vertical"
+                    android:hint="@string/reg_hint_input_phone"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone"
+                    android:maxLength="11"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/text_content"
+                    android:textColorHint="@color/text_content"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/login_input"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.rejuvee.smartelectric.family.common.widget.ClearEditText
+                    android:id="@+id/et_code"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:background="@color/transparent"
+                    android:gravity="center_vertical"
+                    android:hint="@string/hint_code"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone"
+                    android:maxLength="11"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/text_content"
+                    android:textColorHint="@color/text_content"
+                    android:textSize="14sp" />
+
+                <com.base.library.widget.SuperTextView
+                    android:id="@+id/tv_getcode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/login_btn"
+                    android:padding="8dp"
+                    android:text="@string/mark_getcode"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/login_input"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.rejuvee.smartelectric.family.common.widget.ClearEditText
+                    android:id="@+id/login_cet_password"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:background="@color/transparent"
+                    android:gravity="center_vertical"
+                    android:hint="@string/login_hint_password"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone"
+                    android:maxLength="11"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/text_content"
+                    android:textColorHint="@color/text_content"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/login_input"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.rejuvee.smartelectric.family.common.widget.ClearEditText
+                    android:id="@+id/login_cet_password_again"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:background="@color/transparent"
+                    android:gravity="center_vertical"
+                    android:hint="@string/input_password_again"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone"
+                    android:maxLength="11"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/text_content"
+                    android:textColorHint="@color/text_content"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/st_getpwdagain"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="32dp"
                 android:background="@drawable/login_btn"
-                android:padding="8dp"
-                android:text="@string/mark_getcode"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:text="@string/ensure"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/login_input"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <com.rejuvee.smartelectric.family.common.widget.ClearEditText
-                android:id="@+id/login_cet_password"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
-                android:layout_weight="1"
-                android:background="@color/transparent"
-                android:gravity="center_vertical"
-                android:hint="@string/login_hint_password"
-                android:imeOptions="actionNext"
-                android:inputType="phone"
-                android:maxLength="11"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@color/text_content"
-                android:textColorHint="@color/text_content"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/login_input"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <com.rejuvee.smartelectric.family.common.widget.ClearEditText
-                android:id="@+id/login_cet_password_again"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
-                android:layout_weight="1"
-                android:background="@color/transparent"
-                android:gravity="center_vertical"
-                android:hint="@string/input_password_again"
-                android:imeOptions="actionNext"
-                android:inputType="phone"
-                android:maxLength="11"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@color/text_content"
-                android:textColorHint="@color/text_content"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/st_getpwdagain"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/login_btn"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:text="@string/ensure"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
     </LinearLayout>
-
-</LinearLayout>
+</layout>

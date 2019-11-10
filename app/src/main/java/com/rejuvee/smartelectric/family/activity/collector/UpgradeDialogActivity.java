@@ -7,8 +7,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.databinding.DataBindingUtil;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
@@ -16,6 +17,7 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTipWithoutOkCancel;
+import com.rejuvee.smartelectric.family.databinding.ActiveUpgradeDialogBinding;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.CollectorUpgradeInfo;
 
@@ -28,18 +30,10 @@ import java.util.Locale;
  * <p>
  * 集中器版本升级确认
  */
-public class UpgradeDialogActivity extends BaseActivity implements View.OnClickListener {
+public class UpgradeDialogActivity extends BaseActivity {
     private String TAG = "UpgradeDialogActivity";
     private final List<Item> items = new ArrayList<>();
     private CollectorBean collectorBean;
-    private CollectorUpgradeInfo collectorUpgradeInfo;
-    //    private Spinner spinner;
-    private Button btnSave;
-    private Button btnCancel;
-    private TextView tvTime;
-    private TextView tvTip;
-    private ImageView tvWenHao;
-    private ImageView iv_version_wenhao;
     private List<CheckBox> mListDataCheckButton = new ArrayList<>();
 
 //    @Override
@@ -54,6 +48,9 @@ public class UpgradeDialogActivity extends BaseActivity implements View.OnClickL
 
     @Override
     protected void initView() {
+        ActiveUpgradeDialogBinding mBinding = DataBindingUtil.setContentView(this, R.layout.active_upgrade_dialog);
+        mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
         //        Resources resources = this.getResources();
 //        DisplayMetrics dm = resources.getDisplayMetrics();
         Window dialogWindow = getWindow();
@@ -63,6 +60,8 @@ public class UpgradeDialogActivity extends BaseActivity implements View.OnClickL
 //        dialogWindow.setAttributes(p);
         dialogWindow.setGravity(Gravity.BOTTOM);
         dialogWindow.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        collectorBean = getIntent().getParcelableExtra("collectorBean");
+        CollectorUpgradeInfo collectorUpgradeInfo = getIntent().getParcelableExtra("collectorUpgradeInfo");
 
         items.add(new Item("00:00-04:00", "1"));
         items.add(new Item("04:00-08:00", "2"));
@@ -70,18 +69,18 @@ public class UpgradeDialogActivity extends BaseActivity implements View.OnClickL
         items.add(new Item("12:00-16:00", "4"));
         items.add(new Item("16:00-20:00", "5"));
         items.add(new Item("20:00-24:00", "6"));
-        CheckBox cb1 = findViewById(R.id.cb_op1);
-        CheckBox cb2 = findViewById(R.id.cb_op2);
-        CheckBox cb3 = findViewById(R.id.cb_op3);
-        CheckBox cb4 = findViewById(R.id.cb_op4);
-        CheckBox cb5 = findViewById(R.id.cb_op5);
-        CheckBox cb6 = findViewById(R.id.cb_op6);
-        cb1.setOnClickListener(this);
-        cb2.setOnClickListener(this);
-        cb3.setOnClickListener(this);
-        cb4.setOnClickListener(this);
-        cb5.setOnClickListener(this);
-        cb6.setOnClickListener(this);
+        CheckBox cb1 = mBinding.cbOp1;
+        CheckBox cb2 = mBinding.cbOp2;
+        CheckBox cb3 = mBinding.cbOp3;
+        CheckBox cb4 = mBinding.cbOp4;
+        CheckBox cb5 = mBinding.cbOp5;
+        CheckBox cb6 = mBinding.cbOp6;
+//        cb1.setOnClickListener(this);
+//        cb2.setOnClickListener(this);
+//        cb3.setOnClickListener(this);
+//        cb4.setOnClickListener(this);
+//        cb5.setOnClickListener(this);
+//        cb6.setOnClickListener(this);
         mListDataCheckButton.add(cb1);
         mListDataCheckButton.add(cb2);
         mListDataCheckButton.add(cb3);
@@ -96,21 +95,14 @@ public class UpgradeDialogActivity extends BaseActivity implements View.OnClickL
 //            params.height = width;
             checkBox.setText(items.get(i).key);
         }
-        collectorBean = getIntent().getParcelableExtra("collectorBean");
-        collectorUpgradeInfo = getIntent().getParcelableExtra("collectorUpgradeInfo");
-//        spinner = findViewById(R.id.spinner_time);
-        btnSave = findViewById(R.id.btn_ok);
-        btnCancel = findViewById(R.id.btn_ignore);
-        tvTime = findViewById(R.id.tv_time);
-        tvTip = findViewById(R.id.tv_tip);
-        tvWenHao = findViewById(R.id.iv_wenhao);
-        iv_version_wenhao = findViewById(R.id.iv_version_wenhao);
-    }
 
-    @Override
-    protected void initData() {
-        tvWenHao.setOnClickListener(v -> new DialogTipWithoutOkCancel(UpgradeDialogActivity.this).setTitle(getString(R.string.vs22)).setContent(getString(R.string.upgrade_tip)).show());
-        iv_version_wenhao.setOnClickListener(v -> new DialogTipWithoutOkCancel(UpgradeDialogActivity.this).setTitle(getString(R.string.vs257)).setContent(collectorBean.getText()).show());
+        Button btnSave = mBinding.btnOk;
+        Button btnCancel = mBinding.btnIgnore;
+        TextView tvTime = mBinding.tvTime;
+        TextView tvTip = mBinding.tvTip;
+
+//        tvWenHao.setOnClickListener(v -> new DialogTipWithoutOkCancel(UpgradeDialogActivity.this).setTitle(getString(R.string.vs22)).setContent(getString(R.string.upgrade_tip)).show());
+//        iv_version_wenhao.setOnClickListener(v -> new DialogTipWithoutOkCancel(UpgradeDialogActivity.this).setTitle(getString(R.string.vs257)).setContent(collectorBean.getText()).show());
 //        ArrayAdapter<Item> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
 //        spinner.setAdapter(adapter);//事件段选择
         if (collectorUpgradeInfo != null) {// 以前确认过
@@ -156,6 +148,27 @@ public class UpgradeDialogActivity extends BaseActivity implements View.OnClickL
     }
 
     @Override
+    protected void initData() {
+    }
+
+    public class Presenter {
+        public void onClickCheckBox(View v) {
+            for (CheckBox c : mListDataCheckButton) {
+                c.setChecked(false);
+            }
+            ((CheckBox) v).setChecked(true);
+        }
+
+        public void onWenhao(View v) {
+            new DialogTipWithoutOkCancel(UpgradeDialogActivity.this).setTitle(getString(R.string.vs22)).setContent(getString(R.string.upgrade_tip)).show();
+        }
+
+        public void onVersionWenhao(View v) {
+            new DialogTipWithoutOkCancel(UpgradeDialogActivity.this).setTitle(getString(R.string.vs257)).setContent(collectorBean.getText()).show();
+        }
+    }
+
+    @Override
     protected void dealloc() {
     }
 
@@ -190,21 +203,13 @@ public class UpgradeDialogActivity extends BaseActivity implements View.OnClickL
                 });
     }
 
-    private Item getSelect(String val) {
-        for (Item i : items) {
-            if (i.getValue().equals(val))
-                return i;
-        }
-        return null;
-    }
-
-    @Override
-    public void onClick(View v) {
-        for (CheckBox c : mListDataCheckButton) {
-            c.setChecked(false);
-        }
-        ((CheckBox) v).setChecked(true);
-    }
+//    private Item getSelect(String val) {
+//        for (Item i : items) {
+//            if (i.getValue().equals(val))
+//                return i;
+//        }
+//        return null;
+//    }
 
     class Item {
         private String key;

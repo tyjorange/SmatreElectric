@@ -19,6 +19,9 @@ import com.rejuvee.smartelectric.family.databinding.ActivitySetupLayoutBinding;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.viewmodel.CollectorAttrViewModel;
 
+import java.util.Locale;
+import java.util.Objects;
+
 /**
  * 集中器参数
  * Created by Administrator on 2018/1/2.
@@ -40,8 +43,8 @@ public class CollectorAttrActivity extends BaseActivity {
 //    private String heartrate;
     private DialogTip mDialogSwitch;
     //    private Context mContext;
-    ActivitySetupLayoutBinding mBinding;
-    CollectorAttrViewModel mViewModel;
+    private ActivitySetupLayoutBinding mBinding;
+    private CollectorAttrViewModel mViewModel;
     public static int[] setNames = new int[]{
             R.string.sets_devicename,
             R.string.sets_botelv,
@@ -68,6 +71,8 @@ public class CollectorAttrActivity extends BaseActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_setup_layout);
         mViewModel = ViewModelProviders.of(this).get(CollectorAttrViewModel.class);
         mBinding.setVm(mViewModel);
+        mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
 //        mContext = this;
         collectorBean = getIntent().getParcelableExtra("collectorBean");
 //        findViewById(R.id.img_cancel).setOnClickListener(this);
@@ -93,7 +98,7 @@ public class CollectorAttrActivity extends BaseActivity {
 //        TextView tvDeviceId = findViewById(R.id.tv_collect_id);
 //        tvDeviceId.setText(String.format("%s", collectorBean.getCode()));
 
-        getCollectorByCollectorID(collectorBean.getCollectorID());
+        getCollectorByCollectorID(Objects.requireNonNull(collectorBean).getCollectorID());
 
         loadingDlg = new LoadingDlg(this, -1);
         mDialogSwitch = new DialogTip(this);
@@ -104,18 +109,19 @@ public class CollectorAttrActivity extends BaseActivity {
         Core.instance(this).getCollectorByCollectorID(CollectorID, new ActionCallbackListener<CollectorBean>() {
             @Override
             public void onSuccess(CollectorBean data) {
+                mViewModel.setCollectorBeanCode(data.getCode());
 //                devicename = data.getDeviceName();
-                mViewModel.setDevicename(data.getDeviceName());
+                mViewModel.setDevicename(String.format("%s", data.getDeviceName()));
 //                Baud = data.getBaud() + "";
-                mViewModel.setBaud(data.getBaud() + "");
+                mViewModel.setBaud(String.format(Locale.getDefault(), "%dbps", data.getBaud()));
 //                Freq = data.getFreq() + "";
-                mViewModel.setFreq(data.getFreq() + "");
+                mViewModel.setFreq(String.format(Locale.getDefault(), "%dmin", data.getFreq()));
 //                Ranges = data.getRanges() + "";
-                mViewModel.setRanges(data.getRanges() + "");
+                mViewModel.setRanges(String.format(Locale.getDefault(), "%d%%", data.getRanges()));
 //                guzhangma = data.getFaultFreq() + "";
-                mViewModel.setGuzhangma(data.getFaultFreq() + "");
+                mViewModel.setGuzhangma(String.format(Locale.getDefault(), "%dsec", data.getFaultFreq()));
 //                heartrate = data.getHeartrate() + "";
-                mViewModel.setHeartrate(data.getHeartrate() + "");
+                mViewModel.setHeartrate(String.format(Locale.getDefault(), "%ds", data.getHeartrate()));
 //                text_devicename.setText(String.format("%s", data.getDeviceName()));
 //                text_botelv.setText(String.format(Locale.getDefault(), "%dbps", data.getBaud()));
 //                text_caijilv.setText(String.format(Locale.getDefault(), "%dmin", data.getFreq()));

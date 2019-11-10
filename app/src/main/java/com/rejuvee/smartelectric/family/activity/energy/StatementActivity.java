@@ -1,12 +1,11 @@
 package com.rejuvee.smartelectric.family.activity.energy;
 
-import android.content.Context;
-import android.content.Intent;
 import android.text.Html;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.base.frame.greenandroid.wheel.view.WheelDateTime;
 import com.base.frame.net.ActionCallbackListener;
@@ -16,10 +15,11 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.adapter.SimpleTreeAdapter;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
-import com.rejuvee.smartelectric.family.common.constant.NativeLine;
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
+import com.rejuvee.smartelectric.family.databinding.ActivityStatementBinding;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchStatementBean;
+import com.rejuvee.smartelectric.family.model.viewmodel.StatementViewModel;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -34,21 +34,21 @@ import java.util.Locale;
  * <p>
  * 报表统计
  */
-public class StatementActivity extends BaseActivity implements View.OnClickListener {
+public class StatementActivity extends BaseActivity {
     //    private RadioGroup rgDate;
-    private Context mContext;
+//    private Context mContext;
     private ListView lvStatement;
     private SimpleTreeAdapter mAdapter;
     private List<SwitchStatementBean> switchStatementBeanList = new ArrayList<>();
     private WheelDateTime dateSelector;
     private WheelDateTime dateSelectorSS;
     private WheelDateTime dateSelectorEE;
-    private TextView tvDate;
-    private TextView tvDateSS;
-    private TextView tvDateEE;
+    //    private TextView tvDate;
+//    private TextView tvDateSS;
+//    private TextView tvDateEE;
     private int selectType;// 0按日 1按月 2按时段
-    private TextView tvEQuantity;
-    private TextView tvECharge;
+    //    private TextView tvEQuantity;
+//    private TextView tvECharge;
     private int iyear;
     private int imonth;
     private int iday;
@@ -62,7 +62,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
 
 //    private static int[] DATE_UNITS = {R.string.date_unit_year, R.string.date_unit_month, R.string.date_unit_day};
 
-//    @Override
+    //    @Override
 //    protected int getLayoutResId() {
 //        return R.layout.activity_statement;
 //    }
@@ -71,22 +71,28 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
 //    protected int getMyTheme() {
 //        return 0;
 //    }
+    private StatementViewModel mViewModel;
 
     @Override
     protected void initView() {
-        mContext = this;
+        ActivityStatementBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_statement);
+        mViewModel = ViewModelProviders.of(this).get(StatementViewModel.class);
+        mBinding.setVm(mViewModel);
+        mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
+//        mContext = this;
         waitDialog = new LoadingDlg(this, -1);
 //        NativeLine.init(this);
-        ImageView img_cancel = findViewById(R.id.img_cancel);
-        img_cancel.setOnClickListener(this);
-        lvStatement = findViewById(R.id.lv_statement);
-        tvDate = findViewById(R.id.tv_date);
-        tvDateSS = findViewById(R.id.tv_date_ss);
-        tvDateEE = findViewById(R.id.tv_date_ee);
-        tvEQuantity = findViewById(R.id.tv_electric_quantity);
-        tvECharge = findViewById(R.id.tv_electric_charge);
+//        ImageView img_cancel = findViewById(R.id.img_cancel);
+//        img_cancel.setOnClickListener(this);
+        lvStatement = mBinding.lvStatement;
+//        tvDate = findViewById(R.id.tv_date);
+//        tvDateSS = findViewById(R.id.tv_date_ss);
+//        tvDateEE = findViewById(R.id.tv_date_ee);
+//        tvEQuantity = findViewById(R.id.tv_electric_quantity);
+//        tvECharge = findViewById(R.id.tv_electric_charge);
 
-        TabLayout mTabLayout = findViewById(R.id.tab_day_month);
+        TabLayout mTabLayout = mBinding.tabDayMonth;
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.curve_by_day)));
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.curve_by_month)));
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.vs266)));
@@ -98,23 +104,23 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                         selectType = 0;
                         dateSelector.setDateItemVisiable(true, true, true, false, false);
                         changeDate(0);
-                        findViewById(R.id.day_month).setVisibility(View.VISIBLE);
-                        findViewById(R.id.hour_hour).setVisibility(View.GONE);
+                        mBinding.hourHour.setVisibility(View.GONE);
+                        mBinding.dayMonth.setVisibility(View.VISIBLE);
                         break;
                     case 1:
                         selectType = 1;
                         dateSelector.setDateItemVisiable(true, true, false, false, false);
                         changeDate(0);
-                        findViewById(R.id.day_month).setVisibility(View.VISIBLE);
-                        findViewById(R.id.hour_hour).setVisibility(View.GONE);
+                        mBinding.hourHour.setVisibility(View.GONE);
+                        mBinding.dayMonth.setVisibility(View.VISIBLE);
                         break;
                     case 2:
                         selectType = 2;
                         changeTextViewSS(true);
                         changeTextViewEE();
                         getBreakerStatement();
-                        findViewById(R.id.hour_hour).setVisibility(View.VISIBLE);
-                        findViewById(R.id.day_month).setVisibility(View.GONE);
+                        mBinding.hourHour.setVisibility(View.VISIBLE);
+                        mBinding.dayMonth.setVisibility(View.GONE);
                         break;
                 }
             }
@@ -155,7 +161,13 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
 //        initAdapter();
         mAdapter = new SimpleTreeAdapter<>(lvStatement, this, switchStatementBeanList, 0);
         lvStatement.setAdapter(mAdapter);
-        findViewById(R.id.img_price).setOnClickListener(v -> startActivity(new Intent(StatementActivity.this, TimePriceActivity.class)));
+//        findViewById(R.id.img_price).setOnClickListener(v -> startActivity(new Intent(StatementActivity.this, TimePriceActivity.class)));
+        switchStatementBeanList = new ArrayList<>();
+        currentCollectorBean = getIntent().getParcelableExtra("collectorBean");
+//        tvDevice.setText(currentCollectorBean.getDeviceName());
+        initTimeSelect();
+//        getBreakerStatement();
+        changeTotal();
     }
 
     /**
@@ -280,7 +292,8 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
             date = dateFormat.format(calendar.getTime());
             //date = iyear + getResources().getString(DATE_UNITS[0]) + imonth + getResources().getString(DATE_UNITS[1]);
         }
-        tvDate.setText(date);
+//        tvDate.setText(date);
+        mViewModel.setCurrentDate(date);
     }
 
     /**
@@ -300,13 +313,15 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
         // 改变显示
         SimpleDateFormat dateFormat = new SimpleDateFormat(getString(R.string.vs269), Locale.getDefault());
         String date = dateFormat.format(calendar.getTime());
-        tvDateSS.setText(date);
+//        tvDateSS.setText(date);
+        mViewModel.setDateStart(date);
         // 准备要提交的值
         SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH", Locale.getDefault());
-        resStart = dateFormat2.format(calendar.getTime());
+//        resStart = dateFormat2.format(calendar.getTime());
+        mViewModel.setResStart(dateFormat2.format(calendar.getTime()));
     }
 
-    private String resStart;
+//    private String resStart;
 
     /**
      * 按时段-结束
@@ -320,13 +335,15 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
         // 改变显示
         SimpleDateFormat dateFormat = new SimpleDateFormat(getString(R.string.vs269), Locale.getDefault());
         String date = dateFormat.format(calendar.getTime());
-        tvDateEE.setText(date);
+//        tvDateEE.setText(date);
+        mViewModel.setDateEnd(date);
         // 准备要提交的值
         SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH", Locale.getDefault());
-        resEnd = dateFormat2.format(calendar.getTime());
+//        resEnd = dateFormat2.format(calendar.getTime());
+        mViewModel.setResEnd(dateFormat2.format(calendar.getTime()));
     }
 
-    private String resEnd;
+//    private String resEnd;
 
     /**
      * 根据selectType调用不同接口
@@ -342,7 +359,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
         } else if (selectType == 1) {
             getTotalPowerByMonth(time);
         } else if (selectType == 2) {
-            getTotalPowerByTime(resStart, resEnd);
+            getTotalPowerByTime(mViewModel.getResStart().getValue(), mViewModel.getResEnd().getValue());
         }
     }
 
@@ -363,8 +380,10 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
 
         totalQuantity = new BigDecimal(totalQuantity).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         totalCharge = new BigDecimal(totalCharge).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-        tvECharge.setText(Html.fromHtml(String.valueOf(totalCharge)));
-        tvEQuantity.setText(Html.fromHtml(String.valueOf(totalQuantity)));
+//        tvECharge.setText(Html.fromHtml(String.valueOf(totalCharge)));
+        mViewModel.setCharge(Html.fromHtml(String.valueOf(totalCharge)).toString());
+//        tvEQuantity.setText(Html.fromHtml(String.valueOf(totalQuantity)));
+        mViewModel.setQuantity(Html.fromHtml(String.valueOf(totalQuantity)).toString());
     }
 
     private void getTotalPowerByDay(String time) {
@@ -380,7 +399,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                 switchStatementBeanList.clear();
                 switchStatementBeanList.addAll(data);
 //                mAdapter.notifyDataSetChanged();
-                mAdapter = new SimpleTreeAdapter<>(lvStatement, mContext, switchStatementBeanList, 0);
+                mAdapter = new SimpleTreeAdapter<>(lvStatement, getBaseContext(), switchStatementBeanList, 0);
                 lvStatement.setAdapter(mAdapter);
                 changeTotal();
             }
@@ -391,7 +410,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                 if (switchStatementBeanList != null) {
                     switchStatementBeanList.clear();
 //                    mAdapter.notifyDataSetChanged();
-                    mAdapter = new SimpleTreeAdapter<>(lvStatement, mContext, switchStatementBeanList, 0);
+                    mAdapter = new SimpleTreeAdapter<>(lvStatement, getBaseContext(), switchStatementBeanList, 0);
                     lvStatement.setAdapter(mAdapter);
                 }
 
@@ -420,7 +439,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                 switchStatementBeanList.clear();
                 switchStatementBeanList.addAll(data);
                 mAdapter.notifyDataSetChanged();
-                mAdapter = new SimpleTreeAdapter<>(lvStatement, mContext, switchStatementBeanList, 0);
+                mAdapter = new SimpleTreeAdapter<>(lvStatement, getBaseContext(), switchStatementBeanList, 0);
                 lvStatement.setAdapter(mAdapter);
                 changeTotal();
             }
@@ -431,7 +450,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                 if (switchStatementBeanList != null) {
                     switchStatementBeanList.clear();
                     mAdapter.notifyDataSetChanged();
-                    mAdapter = new SimpleTreeAdapter<>(lvStatement, mContext, switchStatementBeanList, 0);
+                    mAdapter = new SimpleTreeAdapter<>(lvStatement, getBaseContext(), switchStatementBeanList, 0);
                     lvStatement.setAdapter(mAdapter);
                 }
 //                if (errorEvent == 12) {
@@ -456,7 +475,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                 switchStatementBeanList.clear();
                 switchStatementBeanList.addAll(data);
                 mAdapter.notifyDataSetChanged();
-                mAdapter = new SimpleTreeAdapter<>(lvStatement, mContext, switchStatementBeanList, 0);
+                mAdapter = new SimpleTreeAdapter<>(lvStatement, getBaseContext(), switchStatementBeanList, 0);
                 lvStatement.setAdapter(mAdapter);
                 changeTotal();
             }
@@ -467,7 +486,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
                 if (switchStatementBeanList != null) {
                     switchStatementBeanList.clear();
                     mAdapter.notifyDataSetChanged();
-                    mAdapter = new SimpleTreeAdapter<>(lvStatement, mContext, switchStatementBeanList, 0);
+                    mAdapter = new SimpleTreeAdapter<>(lvStatement, getBaseContext(), switchStatementBeanList, 0);
                     lvStatement.setAdapter(mAdapter);
                 }
 //                if (errorEvent == 12) {
@@ -482,12 +501,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     protected void initData() {
-        switchStatementBeanList = new ArrayList<>();
-        currentCollectorBean = getIntent().getParcelableExtra("collectorBean");
-//        tvDevice.setText(currentCollectorBean.getDeviceName());
-        initTimeSelect();
-//        getBreakerStatement();
-        changeTotal();
+
     }
 
 //    private void initAdapter() {
@@ -543,7 +557,7 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
 //        };
 //    }
 
-//    @Override
+    //    @Override
 //    protected String getToolbarTitle() {
 //        return null;
 //    }
@@ -552,6 +566,31 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
 //    protected boolean isDisplayHomeAsUpEnabled() {
 //        return false;
 //    }
+    public class Presenter {
+        public void onCancel(View view) {
+            finish();
+        }
+
+        public void onAdd(View view) {
+            changeDate(1);
+        }
+
+        public void onMinus(View view) {
+            changeDate(-1);
+        }
+
+        public void onDate(View view) {
+            dateSelector.show(view);
+        }
+
+        public void onDateSS(View view) {
+            dateSelectorSS.show(view);
+        }
+
+        public void onDateEE(View view) {
+            dateSelectorEE.show(view);
+        }
+    }
 
     @Override
     protected void dealloc() {
@@ -663,27 +702,27 @@ public class StatementActivity extends BaseActivity implements View.OnClickListe
 //        };
 //    }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.img_cancel:
-                finish();
-                break;
-            case R.id.iv_add:
-                changeDate(1);
-                break;
-            case R.id.iv_minus:
-                changeDate(-1);
-                break;
-            case R.id.tv_date:
-                dateSelector.show(v);
-                break;
-            case R.id.tv_date_ss:
-                dateSelectorSS.show(v);
-                break;
-            case R.id.tv_date_ee:
-                dateSelectorEE.show(v);
-                break;
-        }
-    }
+//    @Override
+//    public void onClick(View v) {
+//        switch (v.getId()) {
+//            case R.id.img_cancel:
+//                finish();
+//                break;
+//            case R.id.iv_add:
+//                changeDate(1);
+//                break;
+//            case R.id.iv_minus:
+//                changeDate(-1);
+//                break;
+//            case R.id.tv_date:
+//                dateSelector.show(v);
+//                break;
+//            case R.id.tv_date_ss:
+//                dateSelectorSS.show(v);
+//                break;
+//            case R.id.tv_date_ee:
+//                dateSelectorEE.show(v);
+//                break;
+//        }
+//    }
 }

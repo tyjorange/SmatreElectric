@@ -1,10 +1,14 @@
 package com.rejuvee.smartelectric.family.activity.logger;
 
+import android.view.View;
 import android.widget.ListView;
+
+import androidx.databinding.DataBindingUtil;
 
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.adapter.LineOperateRecordAdapter;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
+import com.rejuvee.smartelectric.family.databinding.ActivityLogDetailBinding;
 import com.rejuvee.smartelectric.family.model.bean.RecordBean;
 
 import java.util.List;
@@ -13,9 +17,7 @@ import java.util.List;
  * 日志详情
  */
 public class LogDetailActivity extends BaseActivity {
-    private ListView listView;
-    private LineOperateRecordAdapter mAdapter;
-//    private List<RecordBean> mListData;
+    //    private List<RecordBean> mListData;
 
 //    @Override
 //    protected int getLayoutResId() {
@@ -29,11 +31,14 @@ public class LogDetailActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        listView = findViewById(R.id.list_logs);
-        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
+        ActivityLogDetailBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_log_detail);
+        mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
+        ListView listView = mBinding.listLogs;//findViewById(R.id.list_logs);
+//        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
 
         List<RecordBean> listData = getIntent().getParcelableArrayListExtra("records");
-        mAdapter = new LineOperateRecordAdapter(this, listData);
+        LineOperateRecordAdapter mAdapter = new LineOperateRecordAdapter(this, listData);
         listView.setAdapter(mAdapter);
     }
 
@@ -42,7 +47,7 @@ public class LogDetailActivity extends BaseActivity {
 
     }
 
-//    @Override
+    //    @Override
 //    protected String getToolbarTitle() {
 //        return getIntent().getStringExtra("title");
 //    }
@@ -51,6 +56,12 @@ public class LogDetailActivity extends BaseActivity {
 //    protected boolean isDisplayHomeAsUpEnabled() {
 //        return true;
 //    }
+    public class Presenter {
+        public void onCancel(View view) {
+            finish();
+        }
+
+    }
 
     @Override
     protected void dealloc() {

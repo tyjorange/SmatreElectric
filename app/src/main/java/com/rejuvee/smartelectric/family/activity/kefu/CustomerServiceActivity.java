@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.databinding.DataBindingUtil;
+
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
@@ -15,6 +17,7 @@ import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.constant.CommonRequestCode;
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
+import com.rejuvee.smartelectric.family.databinding.ActivityKeFuBinding;
 import com.rejuvee.smartelectric.family.model.bean.ChartListItemBean;
 
 import java.util.ArrayList;
@@ -24,7 +27,7 @@ import java.util.List;
  * 客服
  */
 public class CustomerServiceActivity extends BaseActivity {
-    private Context mContext;
+    //    private Context mContext;
     private List<ChartListItemBean> mList = new ArrayList<>();
     private ChartListItemBeanAdapter adapter;
     private LoadingDlg loadingDlg;
@@ -42,35 +45,39 @@ public class CustomerServiceActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mContext = this;
+        ActivityKeFuBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_ke_fu);
+        mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
+//        mContext = this;
         username = getIntent().getStringExtra("username");
-        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
+//        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
         loadingDlg = new LoadingDlg(this, -1);
 
-        ListView listView = findViewById(R.id.list_tiwen);
+        ListView listView = mBinding.listTiwen;
         adapter = new ChartListItemBeanAdapter(this, mList);
         listView.setAdapter(adapter);
-        listView.setEmptyView(findViewById(R.id.empty_layout));
+        listView.setEmptyView(mBinding.emptyLayout);
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            Intent intent = new Intent(mContext, CustomerServiceChartActivity.class);
+            Intent intent = new Intent(view.getContext(), CustomerServiceChartActivity.class);
             intent.putExtra("ChartListItemBean", mList.get(position));
             intent.putExtra("username", username);
             startActivity(intent);
         });
-        findViewById(R.id.iv_send_wenti).setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, AddTopicActivity.class);
-            startActivityForResult(intent, CommonRequestCode.REQUEST_ADD_QA);
-        });
+//        findViewById(R.id.iv_send_wenti).setOnClickListener(v -> {
+//            Intent intent = new Intent(listView.getContext(), AddTopicActivity.class);
+//            startActivityForResult(intent, CommonRequestCode.REQUEST_ADD_QA);
+//        });
+        getData();
     }
 
     @Override
     protected void initData() {
-        getData();
+
     }
 
     private void getData() {
         loadingDlg.show();
-        Core.instance(mContext).findChatList(0, 200, new ActionCallbackListener<List<ChartListItemBean>>() {
+        Core.instance(this).findChatList(0, 200, new ActionCallbackListener<List<ChartListItemBean>>() {
             @Override
             public void onSuccess(List<ChartListItemBean> data) {
                 mList.clear();
@@ -85,6 +92,17 @@ public class CustomerServiceActivity extends BaseActivity {
                 loadingDlg.dismiss();
             }
         });
+    }
+
+    public class Presenter {
+        public void onCancel(View view) {
+            finish();
+        }
+
+        public void onSendWenti(View view) {
+            Intent intent = new Intent(view.getContext(), AddTopicActivity.class);
+            startActivityForResult(intent, CommonRequestCode.REQUEST_ADD_QA);
+        }
     }
 
     @Override

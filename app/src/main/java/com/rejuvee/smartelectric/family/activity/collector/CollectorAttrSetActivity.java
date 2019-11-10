@@ -75,12 +75,14 @@ public class CollectorAttrSetActivity extends BaseActivity {
         if (Acposition == 0) {
             nameBinding = DataBindingUtil.setContentView(this, R.layout.activity_setupname);
             nameBinding.setPresenter(new Presenter());
+            nameBinding.setLifecycleOwner(this);
 //            edit_devicename = findViewById(R.id.edit_devicename);
             partext = getIntent().getStringExtra("partext");
             nameBinding.editDevicename.setText(partext);
         } else {
             ActivitySetupextraBinding extraBinding = DataBindingUtil.setContentView(this, R.layout.activity_setupextra);
             extraBinding.setPresenter(new Presenter());
+            extraBinding.setLifecycleOwner(this);
 //            tv_attr_title = findViewById(R.id.tv_attr_title);
             String title = getIntent().getStringExtra("title");
             extraBinding.tvAttrTitle.setText(title);

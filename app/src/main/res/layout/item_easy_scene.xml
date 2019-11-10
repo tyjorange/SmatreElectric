@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:text="@{mSceneBean.sceneName,default=场景11133}"
+            android:text="@{mSceneBean.sceneName,default=`场景11133`}"
             android:textColor="#5A6187"
             android:textSize="12sp" />
     </LinearLayout>
