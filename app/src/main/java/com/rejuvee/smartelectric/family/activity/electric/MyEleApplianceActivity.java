@@ -84,10 +84,6 @@ public class MyEleApplianceActivity extends BaseActivity implements Eleappliance
             intent.putExtra("collectorBean", collectorBean);
             startActivityForResult(intent, CommonRequestCode.REQUEST_ADD_ELES);
         });
-    }
-
-    @Override
-    protected void initData() {
         collectorBean = getIntent().getParcelableExtra("collectorBean");
         //获取电器数据
         getAllEles(this, true);

@@ -158,21 +158,6 @@ public class TimePriceActivity extends BaseActivity {
 //        }
 //    };
 
-    @Override
-    protected void initData() {
-
-
-    }
-
-    //    @Override
-//    protected String getToolbarTitle() {
-//        return getString(R.string.time_price);
-//    }
-//
-//    @Override
-//    protected boolean isDisplayHomeAsUpEnabled() {
-//        return true;
-//    }
     public class Presenter {
         public void onCancel(View view) {
             finish();
@@ -266,8 +251,6 @@ public class TimePriceActivity extends BaseActivity {
                 for (int i = 0; i < data.size(); i++) {
                     timeOfUsePrice[i] = data.get(i).getPrice();
                 }
-                initData();
-
             }
 
             @Override

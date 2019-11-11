@@ -499,11 +499,6 @@ public class StatementActivity extends BaseActivity {
         });
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
 //    private void initAdapter() {
 ////        switchStatementBeanList = new ArrayList<>();
 //        adapter = new BaseAdapter() {

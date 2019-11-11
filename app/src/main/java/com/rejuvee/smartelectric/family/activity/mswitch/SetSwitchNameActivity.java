@@ -64,10 +64,6 @@ public class SetSwitchNameActivity extends BaseActivity {
         });
     }
 
-    @Override
-    protected void initData() {
-    }
-
 //    @Override
 //    protected String getToolbarTitle() {
 //        return getResources().getString(R.string.line_modify);

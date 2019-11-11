@@ -44,11 +44,6 @@ public class PrivacyActivity extends BaseActivity {
         webView.loadUrl("https://rejuvee.net/privacy.html");
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
     public class Presenter {
         public void onCancel(View view) {
             finish();

@@ -121,11 +121,6 @@ public class PerInfoActivity extends BaseActivity implements ImageUtil.CropHandl
         mBinding.ivQcode.setImageBitmap(bmpUserQR);
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
     /**
      * 设置头像
      */

@@ -65,10 +65,6 @@ public class ReportDetailActivity extends BaseActivity {
 //        TextView textViewTitle = findViewById(R.id.tv_report_title);
         String a = reportBean.timeType == 1 ? getString(R.string.vs88) : getString(R.string.vs137);
         mBinding.tvReportTitle.setText(String.format("%s %s - %s", a, reportBean.startDay, reportBean.endDay));
-    }
-
-    @Override
-    protected void initData() {
         getReport();
     }
 

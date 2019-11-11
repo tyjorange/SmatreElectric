@@ -81,11 +81,6 @@ public class TimerActivity extends BaseActivity implements ListTimerAdapter.MyLi
         getSwitchByCollector();
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
     private void getData(SwitchBean switchBean) {
         mBinding.lineName.setText(String.format("%s%s", getString(R.string.vs4), switchBean.getName()));
         mWaitDialog.show();

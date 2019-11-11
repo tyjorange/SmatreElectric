@@ -149,11 +149,6 @@ public class CollectorAttrSetActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
     //    @Override
 //    protected String getToolbarTitle() {
 //

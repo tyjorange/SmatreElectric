@@ -110,11 +110,6 @@ public class SetInfoActivity extends BaseActivity {
 //        }
 //    }
 
-    @Override
-    protected void initData() {
-
-    }
-
 //    @Override
 //    protected String getToolbarTitle() {
 //        return null;

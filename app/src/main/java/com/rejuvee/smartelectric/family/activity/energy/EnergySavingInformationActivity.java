@@ -76,12 +76,6 @@ public class EnergySavingInformationActivity extends BaseActivity {
         getAllSwitchMsg();
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
-
     /**
      * 获取 所有集中器,线路 同比环比数据
      */

@@ -70,11 +70,6 @@ public class CustomerServiceActivity extends BaseActivity {
         getData();
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
     private void getData() {
         loadingDlg.show();
         Core.instance(this).findChatList(0, 200, new ActionCallbackListener<List<ChartListItemBean>>() {

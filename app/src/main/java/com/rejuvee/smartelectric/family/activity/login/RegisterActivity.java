@@ -228,11 +228,6 @@ public class RegisterActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
     //    @Override
 //    protected String getToolbarTitle() {
 //        return getString(R.string.login_regist);

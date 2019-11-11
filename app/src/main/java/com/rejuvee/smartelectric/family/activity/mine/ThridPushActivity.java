@@ -67,10 +67,6 @@ public class ThridPushActivity extends BaseActivity {
         checkBox4 = findViewById(R.id.id_checkbox_4);
         checkBox5 = findViewById(R.id.id_checkbox_5);
         superTextView = findViewById(R.id.st_save);
-    }
-
-    @Override
-    protected void initData() {
         initBox();
         getData();
     }

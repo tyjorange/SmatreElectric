@@ -173,11 +173,6 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
         getBreakers();
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
     /**
      * 获取断路器
      */

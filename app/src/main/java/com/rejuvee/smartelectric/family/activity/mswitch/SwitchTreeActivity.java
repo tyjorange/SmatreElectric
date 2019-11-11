@@ -162,6 +162,9 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
             img_remove.setVisibility(View.VISIBLE);
             img_remove.setOnClickListener(v -> getAllSwitchState(2));
         }
+        //        NativeLine.init(this);
+        getSwitchByCollector();
+        mHandler = new MyHandler(this);
         EventBus.getDefault().register(this);
     }
 
@@ -175,14 +178,6 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
     private static final int MSG_FILLDATA = 3;// 填充tree数据
     private static final int MSG_SWTCH_REFRESH = 5;// 刷新单个线路
     private boolean targetState;//开关操作的目标状态
-
-    //    @SuppressLint("HandlerLeak")
-    @Override
-    protected void initData() {
-//        NativeLine.init(this);
-        mHandler = new MyHandler(this);
-        getSwitchByCollector();
-    }
 
     private static class MyHandler extends Handler {
         WeakReference<SwitchTreeActivity> activityWeakReference;

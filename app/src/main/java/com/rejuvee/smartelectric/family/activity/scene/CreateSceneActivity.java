@@ -137,11 +137,6 @@ public class CreateSceneActivity extends BaseActivity {
 //        });
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
     /**
      * {"scneID":"";"collectorID":"";"name":"";"iconType":"int";"switchs":[{"switchID":"";"cmdData:"int"}]}
      */

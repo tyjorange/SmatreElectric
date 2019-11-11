@@ -179,11 +179,6 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         EventBus.getDefault().register(this);
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
     /**
      * 获取屏幕参数
      */

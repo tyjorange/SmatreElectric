@@ -100,12 +100,6 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
         mBinding.lvProducts.setAdapter(adapter);
     }
 
-
-    @Override
-    protected void initData() {
-//        getSwitchByCollector();
-    }
-
     /**
      * 切换删除按钮
      */

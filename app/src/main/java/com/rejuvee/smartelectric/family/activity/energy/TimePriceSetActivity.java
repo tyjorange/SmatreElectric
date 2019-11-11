@@ -93,11 +93,6 @@ public class TimePriceSetActivity extends BaseActivity {
 
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
     //    @Override
 //    protected String getToolbarTitle() {
 //        return getString(R.string.time_price_edit);

@@ -42,11 +42,6 @@ public class LogDetailActivity extends BaseActivity {
         listView.setAdapter(mAdapter);
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
     //    @Override
 //    protected String getToolbarTitle() {
 //        return getIntent().getStringExtra("title");

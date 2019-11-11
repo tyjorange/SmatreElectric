@@ -20,7 +20,7 @@ import java.util.Locale;
  * 模块扫描到的SSID列表
  */
 public class SsidListActivity extends Activity {
-    private ArrayList<Item> ssids;
+    private ArrayList<SSIDItem> ssids;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class SsidListActivity extends Activity {
         lv.setAdapter(adapter);
 
         lv.setOnItemClickListener((parent, view, position, id) -> {
-            Item ssid = ssids.get(position);
+            SSIDItem ssid = ssids.get(position);
             System.out.println("onClick-------------->ssid:" + ssid.getName() + " dbm:" + ssid.getDbm());
             Intent data = new Intent();
             data.putExtra("ssid", ssid.getName());
@@ -46,10 +46,10 @@ public class SsidListActivity extends Activity {
     }
 
     private class ItemAdapter extends BaseAdapter {
-        private List<Item> list;
+        private List<SSIDItem> list;
         private Context context;
 
-        ItemAdapter(Context context, List<Item> items) {
+        ItemAdapter(Context context, List<SSIDItem> items) {
             this.context = context;
             this.list = items;
         }
@@ -81,7 +81,7 @@ public class SsidListActivity extends Activity {
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
-            Item item = list.get(position);
+            SSIDItem item = list.get(position);
             viewHolder.tvName.setText(item.getName());
             viewHolder.tvDbm.setText(String.format(Locale.getDefault(), context.getString(R.string.vs251), item.getDbm()));
             return convertView;

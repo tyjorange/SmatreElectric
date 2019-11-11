@@ -69,12 +69,9 @@ public class ThridBindActivity extends BaseActivity {
 //        tv_qq = findViewById(R.id.tv_qq);
 //        findViewById(R.id.stv_commit).setOnClickListener(v -> {  });
         EventBus.getDefault().register(this);
-    }
 
-    @Override
-    protected void initData() {
-//        initWX();
-//        initQQ();
+        //        initWX();
+        //        initQQ();
         // 未绑定就去微信绑定
         String wechatUnionID = getIntent().getStringExtra("wechatUnionID");
         if (wechatUnionID == null || wechatUnionID.isEmpty()) {

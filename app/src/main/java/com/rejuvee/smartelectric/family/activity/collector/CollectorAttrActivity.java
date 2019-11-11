@@ -226,20 +226,6 @@ public class CollectorAttrActivity extends BaseActivity {
         startActivityForResult(intent, 100);
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
-    //    @Override
-//    protected String getToolbarTitle() {
-//        return getResources().getString(R.string.settings_title);
-//    }
-//
-//    @Override
-//    protected boolean isDisplayHomeAsUpEnabled() {
-//        return true;
-//    }
     public class Presenter {
         public void onCancel(View view) {
             finish();

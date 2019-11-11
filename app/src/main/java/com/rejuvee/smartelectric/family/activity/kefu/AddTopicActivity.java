@@ -44,11 +44,6 @@ public class AddTopicActivity extends BaseActivity {
 //        findViewById(R.id.stv_commit).setOnClickListener(v -> commitQA());
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
     public class Presenter {
         public void onCancel(View view) {
             finish();

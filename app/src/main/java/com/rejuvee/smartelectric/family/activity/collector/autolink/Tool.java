@@ -29,8 +29,8 @@ public class Tool {
     /**
      * 解析返回SSID列表指令
      */
-    static ArrayList<Item> decode_81_data(byte[] data) {
-        ArrayList<Item> items = new ArrayList<>();
+    static ArrayList<SSIDItem> decode_81_data(byte[] data) {
+        ArrayList<SSIDItem> items = new ArrayList<>();
         byte[] ssidData = new byte[data.length - 6];
         System.arraycopy(data, 5, ssidData, 0, ssidData.length);
         int last = 0;
@@ -41,7 +41,7 @@ public class Tool {
             two[1] = ssidData[i + 1];
             String zdza = new String(two);
             if (zdza.equals("\r\n")) {//如果是0d0a那么根据协议提取出名字和信号强度
-                Item item = new Item(Parcel.obtain());
+                SSIDItem item = new SSIDItem(Parcel.obtain());
                 byte[] name = new byte[i - 2 - last];//跳过信号强度2个字节
                 System.arraycopy(ssidData, last, name, 0, name.length);
                 item.setName(new String(name).trim());

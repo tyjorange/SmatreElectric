@@ -73,10 +73,6 @@ public class CustomerServiceChartActivity extends BaseActivity {
         listView.setAdapter(adapter);
         listView.setEmptyView(mBinding.emptyLayout);
 //        findViewById(R.id.tv_commit).setOnClickListener(v -> commitQA());
-    }
-
-    @Override
-    protected void initData() {
         getData();
     }
 

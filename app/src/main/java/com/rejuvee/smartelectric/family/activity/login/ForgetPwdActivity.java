@@ -192,11 +192,6 @@ public class ForgetPwdActivity extends BaseActivity {
         }*/
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
 //    @Override
 //    protected String getToolbarTitle() {
 //        return getString(R.string.forget_password);

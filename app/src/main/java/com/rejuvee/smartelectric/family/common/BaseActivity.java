@@ -106,7 +106,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         //每创建一个活动，就加入到活动管理器中
         ActivityFragmentManager.addActivity(this);
         initView();
-        initData();
     }
 
     @Override
@@ -123,10 +122,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract void initView();
 
-    @Deprecated
-    protected abstract void initData();
-
     protected abstract void dealloc();
-
 
 }

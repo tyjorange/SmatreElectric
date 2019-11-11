@@ -121,10 +121,6 @@ public class ChartsActivity extends BaseActivity {
             }
         });
         webView.loadUrl(AppGlobalConfig.HTTP_ECHARTES_TEMPLATE_URL + "#/getTemplate");
-    }
-
-    @Override
-    protected void initData() {
         collectorBean = getIntent().getParcelableExtra("collectorBean");
         getSwitchByCollector();
     }

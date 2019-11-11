@@ -69,10 +69,7 @@ public class ModifyorAddEleapplianceActivity extends BaseActivity implements Vie
         findViewById(R.id.re_insetname).setOnClickListener(this);
         findViewById(R.id.re_insetpower).setOnClickListener(this);
         findViewById(R.id.img_cancel).setOnClickListener(this);
-    }
 
-    @Override
-    protected void initData() {
         eleappliance = getIntent().getParcelableExtra("eleappliance");
         collectorBean = getIntent().getParcelableExtra("collectorBean");
 
@@ -85,7 +82,6 @@ public class ModifyorAddEleapplianceActivity extends BaseActivity implements Vie
             Log.i(TAG, eleappliance.getGonglv() + "=gonglv");
             findViewById(R.id.re_addappliance).setVisibility(View.GONE);
         }
-        //else 添加电器信息
     }
 
 //    @Override

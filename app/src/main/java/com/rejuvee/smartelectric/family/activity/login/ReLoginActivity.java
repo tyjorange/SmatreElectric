@@ -30,11 +30,6 @@ public class ReLoginActivity extends BaseActivity {
 //        findViewById(R.id.btn_ok).setOnClickListener(v -> restartApp());
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
     public class Presenter {
         public void onOk(View view) {
             restartApp();

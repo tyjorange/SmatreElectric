@@ -216,11 +216,6 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
         }
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
     //    @Override
 //    protected String getToolbarTitle() {
 //        return getString(R.string.reset_password);

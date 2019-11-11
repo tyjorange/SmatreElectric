@@ -296,7 +296,7 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
         switch (i) {
             case 0x81:// 解析返回列表指令
                 dialog.dismiss();
-                ArrayList<Item> ssids = Tool.decode_81_data(data);
+                ArrayList<SSIDItem> ssids = Tool.decode_81_data(data);
                 if (ssids.size() != 0) {
                     Intent intent = new Intent(AutoLinkActivity.this, SsidListActivity.class);
                     intent.putParcelableArrayListExtra("ssids", ssids);

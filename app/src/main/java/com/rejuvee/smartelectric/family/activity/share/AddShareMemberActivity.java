@@ -93,11 +93,6 @@ public class AddShareMemberActivity extends BaseActivity {
         collectId = getIntent().getStringExtra("collect_id");
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
     private void addShareUser() {
         String userName = mViewModel.getShareName().getValue();//edtScan.getEditableText().toString();
         if (userName == null || userName.isEmpty()) {

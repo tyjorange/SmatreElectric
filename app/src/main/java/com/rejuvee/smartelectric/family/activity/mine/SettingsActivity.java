@@ -63,11 +63,6 @@ public class SettingsActivity extends BaseActivity {
         return code;
     }
 
-    @Override
-    protected void initData() {
-//        permissionCheck();
-    }
-
     //    @Override
 //    protected String getToolbarTitle() {
 //        return null;

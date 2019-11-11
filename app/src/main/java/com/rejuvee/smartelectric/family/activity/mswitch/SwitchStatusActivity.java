@@ -89,11 +89,6 @@ public class SwitchStatusActivity extends BaseActivity {
         getSwitchByCollector();
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
     private static class MyHandler extends Handler {
         WeakReference<SwitchStatusActivity> activityWeakReference;
 

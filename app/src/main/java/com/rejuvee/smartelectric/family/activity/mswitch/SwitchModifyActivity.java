@@ -130,29 +130,6 @@ public class SwitchModifyActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void initData() {
-//        if (switchBean == null) {
-//            return;
-//        }
-//        txtLineName.setText("线路：" + curBreaker.getName());
-//        imgLine.setImageResource(switchBean.getIcon());
-
-//        String strDianliang = String.format(getResources().getString(R.string.cur_dianliang),
-//                "<font color='#0d77ff'>",
-//                dianliang,
-//                "</font>");
-//        txtCurDianliang.setText(Html.fromHtml(strDianliang));
-
-//        String strGonglv = String.format(getResources().getString(R.string.cur_gonglv),
-//                "<font color='#0d77ff'>",
-//                gonglv,
-//                "</font>");
-//        txtCurGonglv.setText(Html.fromHtml(strGonglv));
-
-//        collectId = getIntent().getStringExtra("collect_id");
-    }
-
     /**
      * 获取集中器下的线路 第一个作为默认显示
      */

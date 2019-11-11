@@ -151,11 +151,6 @@ public class YaoKongDetailActivity extends BaseActivity {
             }
         });
         mBinding.lvProducts.setAdapter(adapter);
-    }
-
-    //    @SuppressLint("HandlerLeak")
-    @Override
-    protected void initData() {
         mHandler = new MyHandler(this);
         getSwitchByCollector();
     }

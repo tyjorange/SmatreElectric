@@ -109,11 +109,6 @@ public class SwitchSettingActivity extends BaseActivity implements
         mHandler = new MyHandler(this);
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
     private SettingDL1Fragment dl1_fragment;
     private SettingDYFragment dy_fragment;
     private SettingDL2Fragment dl2_fragment;

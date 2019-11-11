@@ -54,11 +54,6 @@ public class SecurityInformationActivity extends BaseActivity {
         mTabLayout.setupWithViewPager(viewPager, true);
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
     //    @Override
 //    protected String getToolbarTitle() {
 //        return getString(R.string.important_info);

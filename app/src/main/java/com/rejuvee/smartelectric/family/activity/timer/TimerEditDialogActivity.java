@@ -115,30 +115,6 @@ public class TimerEditDialogActivity extends BaseActivity {
 //        imgCaozuo.setOnClickListener(this);
 
         mWaitDialog = new LoadingDlg(this, -1);
-    }
-
-    private boolean isSwicthOn;
-//    private onSwitchCheckListener mSwitchListener = new onSwitchCheckListener();
-
-//    private class onSwitchCheckListener implements View.OnClickListener {
-//
-//        @Override
-//        public void onClick(View v) {
-//            updateSwicthState(v.getId() == R.id.rl_on);
-//        }
-//    }
-
-    private void updateSwicthState(boolean isSwicthOn) {
-        this.isSwicthOn = isSwicthOn;
-        mBinding.ivCheck.setImageResource(isSwicthOn ? R.drawable.yk_hezha : R.drawable.yk_kaizha);
-        mBinding.tvCaozuo.setText(isSwicthOn ? getString(R.string.vs74) : getString(R.string.vs75));
-//        imgSwithOn.setImageResource(isSwicthOn ? R.drawable.timer_check : R.drawable.timer_uncheck);
-//        imgSwitchOff.setImageResource(!isSwicthOn ? R.drawable.timer_check : R.drawable.timer_uncheck);
-        mBinding.txtSwitchState.setText(isSwicthOn ? getString(R.string.switch_on) : getString(R.string.switch_off));
-    }
-
-    @Override
-    protected void initData() {
         mTask = getIntent().getParcelableExtra("task");
         switchBean = getIntent().getParcelableExtra("switchBean");
         if (mTask != null) {
@@ -165,6 +141,26 @@ public class TimerEditDialogActivity extends BaseActivity {
 //            txtTime.setText(time);
         }
         mBinding.ivUpload.setImageResource(uploadToCollect == 1 ? R.drawable.yixuan : R.drawable.weixuan);
+    }
+
+    private boolean isSwicthOn;
+//    private onSwitchCheckListener mSwitchListener = new onSwitchCheckListener();
+
+//    private class onSwitchCheckListener implements View.OnClickListener {
+//
+//        @Override
+//        public void onClick(View v) {
+//            updateSwicthState(v.getId() == R.id.rl_on);
+//        }
+//    }
+
+    private void updateSwicthState(boolean isSwicthOn) {
+        this.isSwicthOn = isSwicthOn;
+        mBinding.ivCheck.setImageResource(isSwicthOn ? R.drawable.yk_hezha : R.drawable.yk_kaizha);
+        mBinding.tvCaozuo.setText(isSwicthOn ? getString(R.string.vs74) : getString(R.string.vs75));
+//        imgSwithOn.setImageResource(isSwicthOn ? R.drawable.timer_check : R.drawable.timer_uncheck);
+//        imgSwitchOff.setImageResource(!isSwicthOn ? R.drawable.timer_check : R.drawable.timer_uncheck);
+        mBinding.txtSwitchState.setText(isSwicthOn ? getString(R.string.switch_on) : getString(R.string.switch_off));
     }
 
     private void initRepeatState() {

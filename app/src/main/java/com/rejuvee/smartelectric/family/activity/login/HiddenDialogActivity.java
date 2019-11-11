@@ -53,26 +53,6 @@ public class HiddenDialogActivity extends BaseActivity {
         mViewModel.setIp("192.168.1.182");
     }
 
-    @Override
-    protected void initData() {
-//        btnReset.setOnClickListener(v -> {
-//            AppGlobalConfig.HTTP_URL = URL_START_SSL + BASE_URL + URL_END_SSL;
-//            etIP.setText(BASE_URL);
-//            CustomToast.showCustomToast(HiddenDialogActivity.this, "已还原，可关闭窗口");
-//        });
-//        btnSave.setOnClickListener(v -> {
-//            String str = etIP.getEditableText().toString();
-//            if (ValidateUtils.isIP(str)) {
-//                AppGlobalConfig.HTTP_URL = URL_START + str + URL_END;
-//                etIP.setText(str);
-//                CustomToast.showCustomToast(HiddenDialogActivity.this, "设置成功，可关闭窗口");
-//            } else {
-//                CustomToast.showCustomErrorToast(HiddenDialogActivity.this, "请输入IP");
-//            }
-//        });
-//        btnCancel.setOnClickListener(v -> finish());
-    }
-
     public class Presenter {
         public void onCancel(View view) {
             finish();

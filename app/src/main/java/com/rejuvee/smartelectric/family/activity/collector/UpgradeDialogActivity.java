@@ -147,10 +147,6 @@ public class UpgradeDialogActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void initData() {
-    }
-
     public class Presenter {
         public void onClickCheckBox(View v) {
             for (CheckBox c : mListDataCheckButton) {

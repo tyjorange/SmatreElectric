@@ -44,11 +44,6 @@ public class AboutActivity extends BaseActivity {
         return code;
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
     public class Presenter {
         public void onCancel(View view) {
             finish();

@@ -92,11 +92,6 @@ public class ChoceSceneimgActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
     //    @Override
 //    protected String getToolbarTitle() {
 //        return null;

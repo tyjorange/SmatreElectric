@@ -61,11 +61,6 @@ public class SceneActivity extends BaseActivity {
         getScene();
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
     private void initScene() {
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         sceneBeanAdapter = new SceneBeanAdapter(this, SceneBeanAdapter.ITEM_VIEW_TYPE_VERTICAL);

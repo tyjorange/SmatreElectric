@@ -167,11 +167,6 @@ public class CollectorDetailActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
     //    @Override
 //    protected String getToolbarTitle() {
 //        collectorBean = getIntent().getParcelableExtra("collectorBean");

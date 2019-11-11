@@ -55,10 +55,6 @@ public class TimerSwitchActivity extends BaseActivity implements ListTimerSwitch
         TextView collectorName = findViewById(R.id.tv_device);
         collectorName.setText(mDevicollectorBeane.getDeviceName());
         mWaitDialog = new LoadingDlg(this, -1);
-    }
-
-    @Override
-    protected void initData() {
         getData();
     }
 

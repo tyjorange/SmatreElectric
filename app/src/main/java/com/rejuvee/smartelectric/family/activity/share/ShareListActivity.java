@@ -199,11 +199,6 @@ public class ShareListActivity extends BaseActivity {
 
     }
 
-    @Override
-    protected void initData() {
-        //doRequest(true);
-    }
-
     //    @Override
 //    protected String getToolbarTitle() {
 //        return getString(R.string.shared_user);

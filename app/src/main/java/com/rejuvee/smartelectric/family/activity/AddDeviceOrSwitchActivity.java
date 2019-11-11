@@ -110,11 +110,6 @@ public class AddDeviceOrSwitchActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
     /**
      * 添加线路
      */

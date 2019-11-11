@@ -129,11 +129,6 @@ public class LoginActivity extends BaseActivity {
         autoLogin();
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
     //    @Override
 //    protected String getToolbarTitle() {
 //        return null;

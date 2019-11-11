@@ -51,10 +51,6 @@ public class ReportActivity extends BaseActivity {
         mBinding.tabReportList.setupWithViewPager(mBinding.vpReportList, true);
     }
 
-    @Override
-    protected void initData() {
-    }
-
     public class Presenter {
         public void onCancel(View view) {
             finish();

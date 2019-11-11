@@ -108,11 +108,6 @@ public class ChoceLineActivity extends BaseActivity {
         return listSelected;
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
     //    @Override
 //    public void onClick(View v) {
 //        switch (v.getId()) {

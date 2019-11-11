@@ -3,25 +3,25 @@ package com.rejuvee.smartelectric.family.activity.collector.autolink;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Item implements Parcelable {
+public class SSIDItem implements Parcelable {
     private String name;
     // 信号强度
     private int dbm;
 
-    Item(Parcel in) {
+    SSIDItem(Parcel in) {
         name = in.readString();
         dbm = in.readInt();
     }
 
-    public static final Creator<Item> CREATOR = new Creator<Item>() {
+    public static final Creator<SSIDItem> CREATOR = new Creator<SSIDItem>() {
         @Override
-        public Item createFromParcel(Parcel in) {
-            return new Item(in);
+        public SSIDItem createFromParcel(Parcel in) {
+            return new SSIDItem(in);
         }
 
         @Override
-        public Item[] newArray(int size) {
-            return new Item[size];
+        public SSIDItem[] newArray(int size) {
+            return new SSIDItem[size];
         }
     };
 
