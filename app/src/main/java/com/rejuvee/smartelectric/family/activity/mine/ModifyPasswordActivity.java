@@ -3,7 +3,6 @@ package com.rejuvee.smartelectric.family.activity.mine;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.utils.EncryptUtils;
@@ -19,7 +18,6 @@ import com.rejuvee.smartelectric.family.model.nativedb.AccountInfoRealm;
  * Created by Administrator on 2018/3/22.
  */
 public class ModifyPasswordActivity extends AccountBaseActivity {
-
     private final static String TAG = "ModifyPasswordActivity";
 
     @Override
@@ -29,11 +27,12 @@ public class ModifyPasswordActivity extends AccountBaseActivity {
 
 //    @Override
     protected void init() {
-        ((TextView) findViewById(R.id.txt_mark_phone)).setText(R.string.original_password);
-        findViewById(R.id.ll_phone).setVisibility(View.GONE);
-        findViewById(R.id.ll_imei).setVisibility(View.GONE);
-        findViewById(R.id.ll_code).setVisibility(View.GONE);
-        findViewById(R.id.ll_newphone).setVisibility(View.GONE);
+//        ((TextView) findViewById(R.id.txt_mark_phone)).setText(R.string.original_password);
+        mBinding.txtMarkPhone.setText(R.string.original_password);
+        mBinding.llPhone.setVisibility(View.GONE);
+        mBinding.llImei.setVisibility(View.GONE);
+        mBinding.llCode.setVisibility(View.GONE);
+        mBinding.llNewphone.setVisibility(View.GONE);
     }
 
 

@@ -124,7 +124,6 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 
 //        tvNick = mBinding.navView.getHeaderView(0).findViewById(R.id.user_nickname);
 //        ivHead = mBinding.navView.getHeaderView(0).findViewById(R.id.user_headimg);
-//        NavHeaderMainNavigationBinding navigationBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.nav_header_main_navigation, null, false);
         navigationBinding = DataBindingUtil.bind(mBinding.navView.getHeaderView(0));
         if (navigationBinding != null) {
             navigationBinding.setVm(mViewModel);
@@ -213,7 +212,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
                 if (data.getIsSubscribed() == 0) {
                     Snackbar.make(navigationBinding.getRoot(), R.string.vs225, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.vs248, v -> {
-                                Intent intent = new Intent(getBaseContext(), ThridBindActivity.class);
+                                Intent intent = new Intent(MainNavigationActivity.this, ThridBindActivity.class);
                                 intent.putExtra("wechatUnionID", mViewModel.getWechatUnionID().getValue());
                                 intent.putExtra("qqUnionID", mViewModel.getQQUnionID().getValue());
                                 startActivityForResult(intent, CommonRequestCode.REQUEST_THIRD_BIND);
@@ -233,7 +232,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
      * 用户信息
      */
     public void getUserMsg() {
-        Core.instance(getBaseContext()).getUserMsg(new ActionCallbackListener<UserMsg>() {
+        Core.instance(this).getUserMsg(new ActionCallbackListener<UserMsg>() {
             @Override
             public void onSuccess(UserMsg data) {
 //                telephone = data.getPhone();
@@ -446,12 +445,12 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         Core.instance(this).doExcuteScene(sceneId, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
-                CustomToast.showCustomToast(getBaseContext(), getString(R.string.scene_excute_sucess));
+                CustomToast.showCustomToast(MainNavigationActivity.this, getString(R.string.scene_excute_sucess));
             }
 
             @Override
             public void onFailure(int errorEvent, String message) {
-                CustomToast.showCustomErrorToast(getBaseContext(), getString(R.string.zhixing_fail));
+                CustomToast.showCustomErrorToast(MainNavigationActivity.this, getString(R.string.zhixing_fail));
             }
         });
     }
@@ -622,7 +621,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
             intent.putExtra("nickname", mViewModel.getNickname().getValue());
             intent.putExtra("username", mViewModel.getUsername().getValue());
             intent.putExtra("headImgurl", mViewModel.getHeadImgUrl().getValue());
-            intent.setClass(getBaseContext(), PerInfoActivity.class);
+            intent.setClass(MainNavigationActivity.this, PerInfoActivity.class);
             startActivityForResult(intent, CommonRequestCode.REQUEST_USER_INFO);
         }
 

@@ -74,8 +74,11 @@ public class SceneActivity extends BaseActivity {
 
             @Override
             public void onCollectorBeanClick(SceneBean bean) {
-                //TODO sout
-                System.out.println(bean);
+                Intent intent = new Intent(SceneActivity.this, CreateSceneActivity.class);
+                intent.putExtra("scene", bean);
+                intent.putExtra("SceneIconRes", bean.getSceneIconRes());
+                Log.i(TAG, bean.getSceneIconRes() + "=sceneid=");
+                startActivityForResult(intent, CommonRequestCode.REQUEST_UPDATE_SCENE);
             }
 
             @Override

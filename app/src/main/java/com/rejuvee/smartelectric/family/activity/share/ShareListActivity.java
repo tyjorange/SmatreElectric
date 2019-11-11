@@ -3,10 +3,8 @@ package com.rejuvee.smartelectric.family.activity.share;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.ListView;
 
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.databinding.DataBindingUtil;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
@@ -17,6 +15,7 @@ import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTip;
 import com.rejuvee.smartelectric.family.common.widget.dialog.WaitDialog;
+import com.rejuvee.smartelectric.family.databinding.ActivityShareListBinding;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.UserMsg;
 
@@ -37,9 +36,9 @@ public class ShareListActivity extends BaseActivity {
     private WaitDialog waitDialog;
     private CollectorBean collectorBean;
 
-    private SwipeRefreshLayout refreshLayout;
+//    private SwipeRefreshLayout refreshLayout;
 
-//    @Override
+    //    @Override
 //    protected int getLayoutResId() {
 //        return R.layout.activity_share_list;
 //    }
@@ -48,22 +47,27 @@ public class ShareListActivity extends BaseActivity {
 //    protected int getMyTheme() {
 //        return 0;
 //    }
+    private ActivityShareListBinding mBinding;
 
     @Override
     protected void initView() {
+        ActivityShareListBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_share_list);
+        mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
+
         mDialogSwitchEnable = new DialogTip(this);
         collectorBean = getIntent().getParcelableExtra("collectorBean");
-        ImageView img_cancel = findViewById(R.id.img_cancel);
-        img_cancel.setOnClickListener(v -> finish());
-        findViewById(R.id.img_remove).setOnClickListener(v -> toggleDelIcon());
-        ImageView img_add = findViewById(R.id.img_add);
-        img_add.setOnClickListener(v -> {
-            Intent intent = new Intent(ShareListActivity.this, AddShareMemberActivity.class);
-            intent.putExtra("collect_id", collectorBean.getCollectorID());
-            startActivity(intent);
-        });
-        ListView listView = findViewById(R.id.list_share_users);
-        refreshLayout = findViewById(R.id.refreshlayout);
+//        ImageView img_cancel = findViewById(R.id.img_cancel);
+//        img_cancel.setOnClickListener(v -> finish());
+//        findViewById(R.id.img_remove).setOnClickListener(v -> toggleDelIcon());
+//        ImageView img_add = findViewById(R.id.img_add);
+//        img_add.setOnClickListener(v -> {
+//            Intent intent = new Intent(ShareListActivity.this, AddShareMemberActivity.class);
+//            intent.putExtra("collect_id", collectorBean.getCollectorID());
+//            startActivity(intent);
+//        });
+//        ListView listView = findViewById(R.id.list_share_users);
+//        refreshLayout = findViewById(R.id.refreshlayout);
         setingAdapter = new SetingAdapter(this, mListData);
         setingAdapter.setSetListener(new SetingAdapter.onSettingClickListener() {
             @Override
@@ -90,12 +94,11 @@ public class ShareListActivity extends BaseActivity {
             }
 
         });
-
-        listView.setAdapter(setingAdapter);
-        listView.setEmptyView(findViewById(R.id.empty_layout));
+        mBinding.listShareUsers.setAdapter(setingAdapter);
+        mBinding.listShareUsers.setEmptyView(mBinding.emptyLayout);
 
         waitDialog = new WaitDialog(this);
-        refreshLayout.setOnRefreshListener(() -> doRequest(false));
+        mBinding.refreshlayout.setOnRefreshListener(() -> doRequest(false));
     }
 
     // 改变用户控制权限
@@ -142,7 +145,7 @@ public class ShareListActivity extends BaseActivity {
         Core.instance(this).getShareList(collectorBean.getCollectorID(), new ActionCallbackListener<List<UserMsg>>() {
             @Override
             public void onSuccess(List<UserMsg> data) {
-                refreshLayout.setRefreshing(false);
+//                mBinding.refreshlayout.setRefreshing(false);
                 if (data != null && data.size() > 0) {
                     listShareUsers.clear();
                     listShareUsers.addAll(data);
@@ -154,7 +157,7 @@ public class ShareListActivity extends BaseActivity {
             @Override
             public void onFailure(int errorEvent, String message) {
                 Log.e(TAG, message);
-                refreshLayout.setRefreshing(false);
+//                mBinding.refreshlayout.setRefreshing(false);
                 waitDialog.dismiss();
             }
         });
@@ -201,7 +204,7 @@ public class ShareListActivity extends BaseActivity {
         //doRequest(true);
     }
 
-//    @Override
+    //    @Override
 //    protected String getToolbarTitle() {
 //        return getString(R.string.shared_user);
 //    }
@@ -210,6 +213,22 @@ public class ShareListActivity extends BaseActivity {
 //    protected boolean isDisplayHomeAsUpEnabled() {
 //        return true;
 //    }
+    public class Presenter {
+        public void onCancel(View view) {
+            finish();
+        }
+
+        public void onToggle(View view) {
+            toggleDelIcon();
+        }
+
+        public void onAdd(View view) {
+            Intent intent = new Intent(view.getContext(), AddShareMemberActivity.class);
+            intent.putExtra("collect_id", collectorBean.getCollectorID());
+            startActivity(intent);
+        }
+
+    }
 
     @Override
     protected void dealloc() {
@@ -248,21 +267,21 @@ public class ShareListActivity extends BaseActivity {
         setingAdapter.notifyDataSetChanged();
     }
 
-    private void addShareUser(final String userName) {
-        waitDialog.show();
-        Core.instance(this).shareCollector(true, userName, collectorBean.getCollectorID(), 0, new ActionCallbackListener<Void>() {
-            @Override
-            public void onSuccess(Void data) {
-                doRequest(false);
-                CustomToast.showCustomToast(ShareListActivity.this, getString(R.string.operator_sucess));
-                waitDialog.dismiss();
-            }
-
-            @Override
-            public void onFailure(int errorEvent, String message) {
-                CustomToast.showCustomErrorToast(ShareListActivity.this, message);
-                waitDialog.dismiss();
-            }
-        });
-    }
+//    private void addShareUser(final String userName) {
+//        waitDialog.show();
+//        Core.instance(this).shareCollector(true, userName, collectorBean.getCollectorID(), 0, new ActionCallbackListener<Void>() {
+//            @Override
+//            public void onSuccess(Void data) {
+//                doRequest(false);
+//                CustomToast.showCustomToast(ShareListActivity.this, getString(R.string.operator_sucess));
+//                waitDialog.dismiss();
+//            }
+//
+//            @Override
+//            public void onFailure(int errorEvent, String message) {
+//                CustomToast.showCustomErrorToast(ShareListActivity.this, message);
+//                waitDialog.dismiss();
+//            }
+//        });
+//    }
 }

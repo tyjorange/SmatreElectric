@@ -1,25 +1,25 @@
 package com.rejuvee.smartelectric.family.activity.mswitch;
 
-import android.content.Context;
 import android.content.Intent;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
-import com.base.library.widget.SuperTextView;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.adapter.CustomLineAdapter;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
+import com.rejuvee.smartelectric.family.databinding.ActivityBreakModifyBinding;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
+import com.rejuvee.smartelectric.family.model.viewmodel.SwitchModifyViewModel;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 线路修改 （名称图片）
@@ -29,13 +29,13 @@ public class SwitchModifyActivity extends BaseActivity {
     private CollectorBean collectorBean;
     private SwitchBean currentSwitchBean;
     //    private float dianliang, gonglv;
-    private TextView txtLineName;//线路名称
+//    private TextView txtLineName;//线路名称
 //    private ImageView imgLine;
-    private EditText editLineName;
+//    private EditText editLineName;
     //    private String collectId;
     private CustomLineAdapter customLineAdapter;
     //    private DialogTip dialogTip;
-    private Context mContext;
+//    private Context mContext;
 
 //    @Override
 //    protected int getLayoutResId() {
@@ -47,15 +47,22 @@ public class SwitchModifyActivity extends BaseActivity {
 //        return 0;
 //    }
 
-//    public static void startModifyBreak(Activity activity, SwitchBean breakerInfoBean) {
+    //    public static void startModifyBreak(Activity activity, SwitchBean breakerInfoBean) {
 //        Intent intent = new Intent(activity, SwitchModifyActivity.class);
 //        intent.putExtra("break", breakerInfoBean);
 //        activity.startActivityForResult(intent, CommonRequestCode.REQUEST_MODIFY_LINE);
 //    }
+    private ActivityBreakModifyBinding mBinding;
+    private SwitchModifyViewModel mViewModel;
 
     @Override
     protected void initView() {
-        mContext = this;
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_break_modify);
+        mViewModel = ViewModelProviders.of(this).get(SwitchModifyViewModel.class);
+        mBinding.setVm(mViewModel);
+        mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
+//        mContext = this;
         collectorBean = getIntent().getParcelableExtra("collectorBean");
 //        switchBean = getIntent().getParcelableExtra("switchBean");
 //        dianliang = getIntent().getFloatExtra("dianliang", 0);
@@ -63,45 +70,34 @@ public class SwitchModifyActivity extends BaseActivity {
 //        if (switchBean == null) {
 //            return;
 //        }
-        ImageView img_cancel = findViewById(R.id.img_cancel);
-        img_cancel.setOnClickListener(v -> finish());
-        SuperTextView superTextView = findViewById(R.id.st_finish);
-        superTextView.setOnClickListener(v -> {
-            if (collectorBean != null) {//修改
-                modify();
-            } else {//添加
-                add();
-            }
-        });
+//        ImageView img_cancel = findViewById(R.id.img_cancel);
+//        img_cancel.setOnClickListener(v -> finish());
+//        SuperTextView superTextView = findViewById(R.id.st_finish);
+//        superTextView.setOnClickListener(v -> {
+//            if (collectorBean != null) {//修改
+//                modify();
+//            } else {//添加
+//                add();
+//            }
+//        });
         // dialog切换线路
-        LinearLayout img_change = findViewById(R.id.img_change);
+//        LinearLayout img_change = findViewById(R.id.img_change);
         if (collectorBean != null) {//修改
-            img_change.setOnClickListener(v -> {
-                SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(mContext, SwitchTree.DINGSHI, collectorBean, s -> {
-                    currentSwitchBean = s;
-//                        getData(switchBean);
-                    txtLineName.setText(String.format("%s%s", mContext.getString(R.string.vs14), currentSwitchBean.getName()));
-                    editLineName.setText(currentSwitchBean.getName());
-                    customLineAdapter.reset();
-                    customLineAdapter.setCurrentSelected(currentSwitchBean.getIconType());
-                });
-                switchTreeDialog.show();
-            });
-            findViewById(R.id.type_rename_switch).setVisibility(View.VISIBLE);
-            findViewById(R.id.type_add_switch).setVisibility(View.GONE);
+            mBinding.typeRenameSwitch.setVisibility(View.VISIBLE);
+            mBinding.typeAddSwitch.setVisibility(View.GONE);
         } else {//添加
-            img_change.setVisibility(View.GONE);
-            findViewById(R.id.type_rename_switch).setVisibility(View.GONE);
-            findViewById(R.id.type_add_switch).setVisibility(View.VISIBLE);
+            mBinding.imgChange.setVisibility(View.GONE);
+            mBinding.typeRenameSwitch.setVisibility(View.GONE);
+            mBinding.typeAddSwitch.setVisibility(View.VISIBLE);
         }
 //        txtCurDianliang = (TextView) findViewById(R.id.txt_dianliang);
 //        txtCurGonglv = (TextView) findViewById(R.id.txt_gonglv);
-        txtLineName = findViewById(R.id.txt_line_name);
-        editLineName = findViewById(R.id.edit_line_name);
+//        txtLineName = findViewById(R.id.txt_line_name);
+//        editLineName = findViewById(R.id.edit_line_name);
 //        imgLine = (ImageView) findViewById(R.id.img_line);
         //    private TextView txtCurDianliang;//当前电量
         //    private TextView txtCurGonglv;//当前功率
-        GridView gridView = findViewById(R.id.grid_default_pic);
+        GridView gridView = mBinding.gridDefaultPic;//findViewById(R.id.grid_default_pic);
         customLineAdapter = new CustomLineAdapter(this);
         gridView.setAdapter(customLineAdapter);
 //        mAdapter2 = new CustomLineAdapter(this);
@@ -113,11 +109,13 @@ public class SwitchModifyActivity extends BaseActivity {
         gridView.setOnItemClickListener((parent, view, position, id) -> {
             customLineAdapter.reset();
             CustomLineAdapter.Item item = customLineAdapter.setCurrentSelected(position);
-            editLineName.setText(item.name);
+//            editLineName.setText(item.name);
+            mViewModel.setEditLineName(item.name);
         });
         // 修改
         if (currentSwitchBean != null) {
-            editLineName.setText(currentSwitchBean.getName());
+//            editLineName.setText(currentSwitchBean.getName());
+            mViewModel.setEditLineName(currentSwitchBean.getName());
             customLineAdapter.reset();
             customLineAdapter.setCurrentSelected(currentSwitchBean.getIconType());
         }
@@ -127,13 +125,13 @@ public class SwitchModifyActivity extends BaseActivity {
 //                mAdapter2.setCurrentSelected(position);
 //            }
 //        });
+        if (collectorBean != null) {
+            getSwitchByCollector();
+        }
     }
 
     @Override
     protected void initData() {
-        if (collectorBean != null) {
-            getSwitchByCollector();
-        }
 //        if (switchBean == null) {
 //            return;
 //        }
@@ -163,8 +161,10 @@ public class SwitchModifyActivity extends BaseActivity {
             @Override
             public void onSuccess(List<SwitchBean> data) {
                 currentSwitchBean = data.get(0);//init bean
-                txtLineName.setText(String.format("%s%s", mContext.getString(R.string.vs14), currentSwitchBean.getName()));
-                editLineName.setText(currentSwitchBean.getName());
+//                txtLineName.setText(String.format("%s%s", getBaseContext().getString(R.string.vs14), currentSwitchBean.getName()));
+                mViewModel.setTxtLineName(String.format("%s%s", SwitchModifyActivity.this.getString(R.string.vs14), currentSwitchBean.getName()));
+//                editLineName.setText(currentSwitchBean.getName());
+                mViewModel.setEditLineName(currentSwitchBean.getName());
                 customLineAdapter.reset();
                 customLineAdapter.setCurrentSelected(currentSwitchBean.getIconType());
 //                getBreakSignalValue(curBreaker);
@@ -179,12 +179,13 @@ public class SwitchModifyActivity extends BaseActivity {
                     CustomToast.showCustomErrorToast(SwitchModifyActivity.this, message);
                 }
 //                finish();
-                findViewById(R.id.csv).setVisibility(View.INVISIBLE);
-                findViewById(R.id.st_finish).setVisibility(View.INVISIBLE);
+                mBinding.csv.setVisibility(View.INVISIBLE);
+                mBinding.stFinish.setVisibility(View.INVISIBLE);
             }
         });
     }
-//    @Override
+
+    //    @Override
 //    protected String getToolbarTitle() {
 //        return getResources().getString(R.string.line_modify);
 //    }
@@ -193,6 +194,33 @@ public class SwitchModifyActivity extends BaseActivity {
 //    protected boolean isDisplayHomeAsUpEnabled() {
 //        return true;
 //    }
+    public class Presenter {
+        public void onCancel(View view) {
+            finish();
+        }
+
+        public void onImgChange(View view) {
+            SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(view.getContext(), SwitchTree.DINGSHI, collectorBean, s -> {
+                currentSwitchBean = s;
+//                        getData(switchBean);
+//                txtLineName.setText(String.format("%s%s", view.getContext().getString(R.string.vs14), currentSwitchBean.getName()));
+                mViewModel.setTxtLineName(String.format("%s%s", view.getContext().getString(R.string.vs14), currentSwitchBean.getName()));
+//                editLineName.setText(currentSwitchBean.getName());
+                mViewModel.setEditLineName(currentSwitchBean.getName());
+                customLineAdapter.reset();
+                customLineAdapter.setCurrentSelected(currentSwitchBean.getIconType());
+            });
+            switchTreeDialog.show();
+        }
+
+        public void onCommit(View view) {
+            if (collectorBean != null) {//修改
+                modify();
+            } else {//添加
+                add();
+            }
+        }
+    }
 
     @Override
     protected void dealloc() {
@@ -214,7 +242,7 @@ public class SwitchModifyActivity extends BaseActivity {
 //    }
     private void add() {
         Intent intent = getIntent();
-        String customName = editLineName.getEditableText().toString();
+        String customName = mViewModel.getEditLineName().getValue();//editLineName.getEditableText().toString();
         intent.putExtra("name", customName);
         intent.putExtra("icontype", customLineAdapter.getSelectedPosition());
         setResult(RESULT_OK, intent);
@@ -222,9 +250,9 @@ public class SwitchModifyActivity extends BaseActivity {
     }
 
     private void modify() {
-        String customName = editLineName.getEditableText().toString();
+        String customName = mViewModel.getEditLineName().getValue();//editLineName.getEditableText().toString();
 //        CustomLineAdapter.Line selected = mAdapter2.getSelected();
-        if (customName.isEmpty()) {
+        if (Objects.requireNonNull(customName).isEmpty()) {
             CustomToast.showCustomErrorToast(this, getResources().getString(R.string.input_custom_name));
             return;
         }
@@ -247,14 +275,16 @@ public class SwitchModifyActivity extends BaseActivity {
                 }
             }
         }*/
-        Core.instance(this).updateBreak(currentSwitchBean.getSwitchID(), currentSwitchBean.getIconType(),
+        Core.instance(this).updateBreak(
+                currentSwitchBean.getSwitchID(),
+                currentSwitchBean.getIconType(),
                 currentSwitchBean.getName(), new ActionCallbackListener<Void>() {
                     @Override
                     public void onSuccess(Void data) {
                         Intent intent = getIntent();
                         intent.putExtra("break", currentSwitchBean);
                         setResult(RESULT_OK, intent);
-                        CustomToast.showCustomToast(mContext, getString(R.string.vs139));
+                        CustomToast.showCustomToast(SwitchModifyActivity.this, getString(R.string.vs139));
                         finish();
                     }
 

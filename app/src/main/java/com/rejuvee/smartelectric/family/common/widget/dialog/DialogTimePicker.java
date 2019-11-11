@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat;
 import com.rejuvee.smartelectric.family.R;
 
 import java.lang.reflect.Field;
+import java.util.Objects;
 
 /**
  * Created by liuchengran on 2018/3/23.
@@ -77,7 +78,7 @@ public class DialogTimePicker implements View.OnClickListener {
         mDialog.setCanceledOnTouchOutside(true);
 
         Window dialogWindow = mDialog.getWindow();
-        dialogWindow.setBackgroundDrawableResource(R.color.transparent);// 设置背景透明
+        Objects.requireNonNull(dialogWindow).setBackgroundDrawableResource(R.color.transparent);// 设置背景透明
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
         DisplayMetrics d = context.getResources().getDisplayMetrics(); // 获取屏幕宽、高用
         lp.width = (d.widthPixels);

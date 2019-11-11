@@ -135,7 +135,7 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
 //    }
 
     //    @SuppressLint("HandlerLeak")
-    private ActivityAccountBinding mBinding;
+    protected ActivityAccountBinding mBinding;
     private AccountBaseViewModel mViewModel;
 
     @Override

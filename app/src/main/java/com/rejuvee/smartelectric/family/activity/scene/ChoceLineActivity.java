@@ -3,14 +3,15 @@ package com.rejuvee.smartelectric.family.activity.scene;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
-import android.widget.GridView;
-import android.widget.TextView;
+
+import androidx.databinding.DataBindingUtil;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.adapter.GridViewAdapter;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
+import com.rejuvee.smartelectric.family.databinding.ActivityChoceLineBinding;
 import com.rejuvee.smartelectric.family.model.bean.SwitchInfoBean;
 
 import java.util.ArrayList;
@@ -20,14 +21,14 @@ import java.util.List;
  * 选择场景下的线路
  * Created by Administrator on 2017/12/15.
  */
-public class ChoceLineActivity extends BaseActivity implements View.OnClickListener {
+public class ChoceLineActivity extends BaseActivity {
     private static final String TAG = "ChoceLineActivity";
-    private GridView grid_device;
+    //    private GridView grid_device;
     private GridViewAdapter gridViewAdapter;
-    private TextView text_choceall;
+    //    private TextView text_choceall;
     private List<SwitchInfoBean> mListAllBreak = new ArrayList<>();//所有线路
     //    private SceneBean scene1;
-    private Intent intent;
+//    private Intent intent;
 //    private String sceneid;
 
 
@@ -41,23 +42,25 @@ public class ChoceLineActivity extends BaseActivity implements View.OnClickListe
 //        return 0;
 //    }
 
+    private ActivityChoceLineBinding mBinding;
     @Override
     protected void initView() {
 //        setToolbarHide(true);
-
-        intent = getIntent();
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_choce_line);
+        mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
         initAllLine();
 
-        grid_device = findViewById(R.id.grid_device);
+//        grid_device = findViewById(R.id.grid_device);
         gridViewAdapter = new GridViewAdapter(ChoceLineActivity.this, mListAllBreak);
-        grid_device.setAdapter(gridViewAdapter);
+        mBinding.gridDevice.setAdapter(gridViewAdapter);
 
-        text_choceall = findViewById(R.id.text_choceall);
-        findViewById(R.id.text_choceall).setOnClickListener(this);
-        findViewById(R.id.bu_wancheng).setOnClickListener(this);
-        findViewById(R.id.img_cancel).setOnClickListener(this);
+//        text_choceall = findViewById(R.id.text_choceall);
+//        findViewById(R.id.text_choceall).setOnClickListener(this);
+//        findViewById(R.id.bu_wancheng).setOnClickListener(this);
+//        findViewById(R.id.img_cancel).setOnClickListener(this);
 
-        grid_device.setOnItemClickListener((parent, view, position, id) -> {
+        mBinding.gridDevice.setOnItemClickListener((parent, view, position, id) -> {
             boolean flag = mListAllBreak.get(position).isFlag();
             mListAllBreak.get(position).setFlag(!flag);
             gridViewAdapter.notifyDataSetChanged();
@@ -80,11 +83,11 @@ public class ChoceLineActivity extends BaseActivity implements View.OnClickListe
     //更新右上角菜单项文字
     private void updateRightMenu(boolean isSelectAll) {
         if (isSelectAll) {
-            text_choceall.setText(R.string.cancel);
-            text_choceall.setCompoundDrawablesRelativeWithIntrinsicBounds(getDrawable(R.drawable.img_chose), null, null, null);
+            mBinding.textChoceall.setText(R.string.cancel);
+            mBinding.textChoceall.setCompoundDrawablesRelativeWithIntrinsicBounds(getDrawable(R.drawable.img_chose), null, null, null);
         } else {
-            text_choceall.setText(R.string.sce_choceall);
-            text_choceall.setCompoundDrawablesRelativeWithIntrinsicBounds(getDrawable(R.drawable.img_unchose), null, null, null);
+            mBinding.textChoceall.setText(R.string.sce_choceall);
+            mBinding.textChoceall.setCompoundDrawablesRelativeWithIntrinsicBounds(getDrawable(R.drawable.img_unchose), null, null, null);
         }
     }
 
@@ -110,27 +113,27 @@ public class ChoceLineActivity extends BaseActivity implements View.OnClickListe
 
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.text_choceall:
-                boolean isAllSelect = isAllSelect();
-                updateBreakSelect(!isAllSelect());
-                updateRightMenu(!isAllSelect);
-                break;
-            case R.id.bu_wancheng:
-                Intent intent = new Intent();
-                intent.putParcelableArrayListExtra("breaks", getSelected());
-                setResult(RESULT_OK, intent);
-                ChoceLineActivity.this.finish();
-                break;
-            case R.id.img_cancel:
-                ChoceLineActivity.this.finish();
-                break;
-        }
-    }
+    //    @Override
+//    public void onClick(View v) {
+//        switch (v.getId()) {
+//            case R.id.text_choceall:
+//                boolean isAllSelect = isAllSelect();
+//                updateBreakSelect(!isAllSelect());
+//                updateRightMenu(!isAllSelect);
+//                break;
+//            case R.id.bu_wancheng:
+//                Intent intent = new Intent();
+//                intent.putParcelableArrayListExtra("breaks", getSelected());
+//                setResult(RESULT_OK, intent);
+//                ChoceLineActivity.this.finish();
+//                break;
+//            case R.id.img_cancel:
+//                ChoceLineActivity.this.finish();
+//                break;
+//        }
+//    }
 
-//    @Override
+    //    @Override
 //    protected String getToolbarTitle() {
 //        return null;
 //    }
@@ -139,6 +142,25 @@ public class ChoceLineActivity extends BaseActivity implements View.OnClickListe
 //    protected boolean isDisplayHomeAsUpEnabled() {
 //        return false;
 //    }
+    public class Presenter {
+        public void onCancel(View view) {
+            finish();
+        }
+
+        public void onCommit(View view) {
+            Intent intent = new Intent();
+            intent.putParcelableArrayListExtra("breaks", getSelected());
+            setResult(RESULT_OK, intent);
+            ChoceLineActivity.this.finish();
+        }
+
+        public void onChoseAll(View view) {
+//            boolean isAllSelect = isAllSelect();
+            updateBreakSelect(!isAllSelect());
+            updateRightMenu(!isAllSelect());
+        }
+
+    }
 
     @Override
     protected void dealloc() {
@@ -164,7 +186,7 @@ public class ChoceLineActivity extends BaseActivity implements View.OnClickListe
     }
 
     public void intidatasours() {
-        List<SwitchInfoBean> listSceneBreak = intent.getParcelableArrayListExtra("breaks");
+        List<SwitchInfoBean> listSceneBreak = getIntent().getParcelableArrayListExtra("breaks");
 
         if (listSceneBreak != null && listSceneBreak.size() > 0) {
 

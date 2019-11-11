@@ -1,192 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    tools:context=".activity.mswitch.SwitchModifyActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:contentInsetLeft="0dp"
-        app:contentInsetStart="0dp">
+    <data>
 
-        <ImageView
-            android:id="@+id/img_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:padding="16dp"
-            android:src="@drawable/main_fanhui" />
+        <variable
+            name="vm"
+            type="com.rejuvee.smartelectric.family.model.viewmodel.SwitchModifyViewModel" />
 
-        <TextView
-            android:id="@+id/type_rename_switch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/vs50"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/type_add_switch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/vs54"
-            android:textSize="12sp"
-            android:visibility="gone" />
-    </androidx.appcompat.widget.Toolbar>
+        <variable
+            name="presenter"
+            type="com.rejuvee.smartelectric.family.activity.mswitch.SwitchModifyActivity.Presenter" />
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingStart="20dp"
-        android:paddingTop="20dp"
-        android:paddingEnd="20dp"
-        android:paddingBottom="20dp">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        tools:context=".activity.mswitch.SwitchModifyActivity">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/line_name"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp">
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/img_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:onClick="@{presenter::onCancel}"
+                android:padding="16dp"
+                android:src="@drawable/main_fanhui" />
 
-    <LinearLayout
-        android:id="@+id/img_change"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="25dp"
-        android:paddingEnd="20dp">
+            <TextView
+                android:id="@+id/type_rename_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/vs50"
+                android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/txt_line_name"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="@integer/tag_1"
-            android:gravity="center_vertical"
-            android:text="@string/vs4"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="10dp"
-            android:src="@drawable/jinru" />
-    </LinearLayout>
-
-    <com.rejuvee.smartelectric.family.common.widget.CustomScrollView
-        android:id="@+id/csv"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_weight="1">
+            <TextView
+                android:id="@+id/type_add_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/vs54"
+                android:textSize="12sp"
+                android:visibility="gone" />
+        </androidx.appcompat.widget.Toolbar>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="20dp">
 
-            <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:padding="16dp"-->
-            <!--android:text="自定义名称与图片"-->
-            <!--android:textSize="9sp" />-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/line_name"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/img_change"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{presenter::onImgChange}"
+            android:paddingStart="25dp"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:id="@+id/txt_line_name"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="@integer/tag_1"
+                android:gravity="center_vertical"
+                android:text="@{vm.editLineName}"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:src="@drawable/jinru" />
+        </LinearLayout>
+
+        <com.rejuvee.smartelectric.family.common.widget.CustomScrollView
+            android:id="@+id/csv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
+
+                <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:padding="16dp"-->
+                <!--android:text="自定义名称与图片"-->
+                <!--android:textSize="9sp" />-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:text="@string/line_custom_name"
+                        android:textColor="@color/text_base_color_333"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/edit_line_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/divider"
+                        android:hint="@string/line_input_name"
+                        android:importantForAutofill="no"
+                        android:text="@={vm.editLineName}"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="25dp"
+                    android:background="@drawable/slices" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
                     android:padding="16dp"
-                    android:text="@string/line_custom_name"
+                    android:paddingBottom="16dp"
+                    android:text="@string/vs55"
                     android:textColor="@color/text_base_color_333"
                     android:textSize="12sp" />
 
-                <EditText
-                    android:id="@+id/edit_line_name"
+                <!--<com.base.library.widget.HorizontalListView-->
+                <!--android:id="@+id/horizontal_listview"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="96dp"-->
+                <!--android:layout_marginStart="10dp"-->
+                <!--android:layout_marginTop="1dp"-->
+                <!--android:layout_marginEnd="10dp"-->
+                <!--android:layout_marginBottom="1dp" />-->
+
+                <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:padding="16dp"-->
+                <!--android:text="@string/line_use_default_pic"-->
+                <!--android:textSize="9sp" />-->
+
+                <com.rejuvee.smartelectric.family.common.widget.NoSCrollGridView
+                    android:id="@+id/grid_default_pic"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/divider"
-                    android:hint="@string/line_input_name"
-                    android:importantForAutofill="no"
-                    android:textSize="12sp" />
+                    android:layout_height="wrap_content"
+                    android:horizontalSpacing="30dp"
+                    android:listSelector="@color/transparent"
+                    android:numColumns="4"
+                    android:padding="10dp"
+                    android:verticalSpacing="30dp" />
+
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="25dp"
-                android:background="@drawable/slices" />
+        </com.rejuvee.smartelectric.family.common.widget.CustomScrollView>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:padding="16dp"
-                android:paddingBottom="16dp"
-                android:text="@string/vs55"
-                android:textColor="@color/text_base_color_333"
-                android:textSize="12sp" />
-
-            <!--<com.base.library.widget.HorizontalListView-->
-            <!--android:id="@+id/horizontal_listview"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="96dp"-->
-            <!--android:layout_marginStart="10dp"-->
-            <!--android:layout_marginTop="1dp"-->
-            <!--android:layout_marginEnd="10dp"-->
-            <!--android:layout_marginBottom="1dp" />-->
-
-            <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:padding="16dp"-->
-            <!--android:text="@string/line_use_default_pic"-->
-            <!--android:textSize="9sp" />-->
-
-            <com.rejuvee.smartelectric.family.common.widget.NoSCrollGridView
-                android:id="@+id/grid_default_pic"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:horizontalSpacing="30dp"
-                android:listSelector="@color/transparent"
-                android:numColumns="4"
-                android:padding="10dp"
-                android:verticalSpacing="30dp" />
-
-        </LinearLayout>
-
-    </com.rejuvee.smartelectric.family.common.widget.CustomScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.base.library.widget.SuperTextView
-            android:id="@+id/st_finish"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_margin="16dp"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/qd1"
-            android:gravity="center"
-            android:text="@string/finish"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
+            android:layout_height="wrap_content">
+
+            <com.base.library.widget.SuperTextView
+                android:id="@+id/st_finish"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_margin="16dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/qd1"
+                android:gravity="center"
+                android:onClick="@{presenter::onCommit}"
+                android:text="@string/finish"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</layout>

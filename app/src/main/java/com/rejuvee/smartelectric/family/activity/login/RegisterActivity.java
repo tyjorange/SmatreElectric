@@ -1,8 +1,11 @@
 package com.rejuvee.smartelectric.family.activity.login;
 
 import android.content.Intent;
-import android.widget.EditText;
+import android.view.View;
 import android.widget.TextView;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.utils.EncryptUtils;
@@ -13,22 +16,25 @@ import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.custom.AccountEventMsg;
 import com.rejuvee.smartelectric.family.common.utils.AccountHelper;
 import com.rejuvee.smartelectric.family.common.utils.CountDownUtil;
+import com.rejuvee.smartelectric.family.databinding.ActivityRegisterBinding;
+import com.rejuvee.smartelectric.family.model.viewmodel.RegisterViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.Objects;
+
 public class RegisterActivity extends BaseActivity {
     private static final String TAG = "RegisterActivity";
-    private EditText edtUserName, edtPhone, edtVerifyCode, edtPassword, edtEnsurePassword;
-    private String userName, password;
-    private TextView txtRegister, tvGetCode;
+    //    private EditText edtUserName, edtPhone, edtVerifyCode, edtPassword, edtEnsurePassword;
+    private String encryptPwd;
     private CountDownUtil countDownUtil;
     private AccountHelper accountHelper;
 //    private boolean usernameFlag = true;
     //    private String uMessage = getResources().getString(R.string.vs143);
 
-//    @Override
+    //    @Override
 //    protected int getLayoutResId() {
 //        return R.layout.activity_register;
 //    }
@@ -37,40 +43,48 @@ public class RegisterActivity extends BaseActivity {
 //    protected int getMyTheme() {
 //        return 0;
 //    }
+    private ActivityRegisterBinding mBinding;
+    private RegisterViewModel mViewModel;
 
     @Override
     protected void initView() {
-        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
-        edtUserName = findViewById(R.id.login_cet_username);
-        edtPassword = findViewById(R.id.login_cet_password);
-        edtEnsurePassword = findViewById(R.id.login_cet_password_again);
-        edtPhone = findViewById(R.id.et_phone);
-        edtVerifyCode = findViewById(R.id.et_code);
-        txtRegister = findViewById(R.id.st_register);
-        txtRegister.setOnClickListener(v -> startRegister());
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_register);
+        mViewModel = ViewModelProviders.of(this).get(RegisterViewModel.class);
+        mBinding.setVm(mViewModel);
+        mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
+
+//        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
+//        edtUserName = findViewById(R.id.login_cet_username);
+//        edtPassword = findViewById(R.id.login_cet_password);
+//        edtEnsurePassword = findViewById(R.id.login_cet_password_again);
+//        edtPhone = findViewById(R.id.et_phone);
+//        edtVerifyCode = findViewById(R.id.et_code);
+//        txtRegister = findViewById(R.id.st_register);
+//        txtRegister.setOnClickListener(v -> startRegister());
         accountHelper = new AccountHelper();
-        initGetCode();
-        edtUserName.setOnFocusChangeListener((v, hasFocus) -> {
+        mBinding.loginCetUsername.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {// 失去焦点
-                EditText e = (EditText) v;
-                usernameVerify(e.getEditableText().toString());
+//                EditText e = (EditText) v;
+                usernameVerify(Objects.requireNonNull(mViewModel.getUsername().getValue()));
             }
         });
+        initGetCode();
         EventBus.getDefault().register(this);
     }
 
     private void initGetCode() {
-        tvGetCode = findViewById(R.id.tv_reget);
+        TextView tvGetCode = mBinding.tvReget;//findViewById(R.id.tv_reget);
         tvGetCode.setSelected(true);
         countDownUtil = new CountDownUtil(60, seconds -> {
             tvGetCode.setText(seconds == 0 ? getString(R.string.mark_getcode) : String.format(getString(R.string.resend_time), seconds));
             tvGetCode.setSelected(seconds == 0);
         });
-        tvGetCode.setOnClickListener(v -> {
-            if (v.isSelected()) {
-                getVerifyCode();
-            }
-        });
+//        tvGetCode.setOnClickListener(v -> {
+//            if (v.isSelected()) {
+//                getVerifyCode();
+//            }
+//        });
     }
 
     private void usernameVerify(String username) {
@@ -100,8 +114,8 @@ public class RegisterActivity extends BaseActivity {
     }
 
     private void getVerifyCode() {
-        final String phone = edtPhone.getEditableText().toString();
-        if (phone.length() != 11) {
+        String phone = mViewModel.getPhone().getValue();//edtPhone.getEditableText().toString();
+        if (Objects.requireNonNull(phone).length() != 11) {
             CustomToast.showCustomErrorToast(this, getString(R.string.input_correct_phone));
             return;
         }
@@ -116,7 +130,7 @@ public class RegisterActivity extends BaseActivity {
             public void onFailure(int errorEvent, String message) {
                 if (errorEvent == 7) {//未注册
                     countDownUtil.start();
-                    accountHelper.getPhoneCode(RegisterActivity.this, edtPhone.getEditableText().toString(), true);
+                    accountHelper.getPhoneCode(RegisterActivity.this, phone, true);
                 } else if (errorEvent == 8) {//已注册
                     CustomToast.showCustomErrorToast(RegisterActivity.this, getString(R.string.phone_registed));
                 } else {
@@ -128,21 +142,20 @@ public class RegisterActivity extends BaseActivity {
     }
 
     private void startRegister() {
-        String userName = edtUserName.getEditableText().toString();
-        String password1 = edtPassword.getEditableText().toString();
-        String password2 = edtEnsurePassword.getEditableText().toString();
-        String phone = edtPhone.getEditableText().toString();
-        String code = edtVerifyCode.getEditableText().toString();
-        if (userName.isEmpty() || password1.isEmpty() || password2.isEmpty()) {
+        String userName = mViewModel.getUsername().getValue();//edtUserName.getEditableText().toString();
+        String password1 = mViewModel.getPwd().getValue();//edtPassword.getEditableText().toString();
+        String password2 = mViewModel.getRePwd().getValue();//edtEnsurePassword.getEditableText().toString();
+        String phone = mViewModel.getPhone().getValue();//edtPhone.getEditableText().toString();
+        String code = mViewModel.getCode().getValue();//edtVerifyCode.getEditableText().toString();
+        if (Objects.requireNonNull(userName).isEmpty() || Objects.requireNonNull(password1).isEmpty() || Objects.requireNonNull(password2).isEmpty()) {
             CustomToast.showCustomErrorToast(this, getString(R.string.name_password_cannot_empty));
             return;
         }
-
-        if (phone.length() != 11) {
+        if (Objects.requireNonNull(phone).length() != 11) {
             CustomToast.showCustomErrorToast(this, getString(R.string.input_correct_phone));
             return;
         }
-        if (code.isEmpty()) {
+        if (Objects.requireNonNull(code).isEmpty()) {
             CustomToast.showCustomErrorToast(this, getString(R.string.reg_hint_input_verify));
             return;
         }
@@ -159,9 +172,9 @@ public class RegisterActivity extends BaseActivity {
             CustomToast.showCustomErrorToast(this, getString(R.string.password_not_same));
             return;
         }
-        password = EncryptUtils.encryptMD5ToString(password1, Core.SALT);
+        encryptPwd = EncryptUtils.encryptMD5ToString(password1, Core.SALT);
         AccountHelper accountHelper = new AccountHelper();
-        Register(userName, phone, password, code);
+        Register(userName, phone, encryptPwd, code);
 //     accountHelper.Register(RegisterActivity.this, userName, phone, password, code);
     }
 
@@ -188,8 +201,8 @@ public class RegisterActivity extends BaseActivity {
         if (eventMsg.eventType == AccountEventMsg.EVENT_REGISTER) {
             if (eventMsg.isSucess()) {
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                intent.putExtra("username", userName);
-                intent.putExtra("password", password);
+                intent.putExtra("username", mViewModel.getUsername().getValue());
+                intent.putExtra("password", encryptPwd);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             } else {
@@ -206,7 +219,7 @@ public class RegisterActivity extends BaseActivity {
             int retCode = (int) eventMsg.eventMsg;
             if (retCode == 7) {//未注册
                 countDownUtil.start();
-                accountHelper.getPhoneCode(this, edtPhone.getEditableText().toString(), true);
+                accountHelper.getPhoneCode(this, mViewModel.getPhone().getValue(), true);
             } else if (retCode == 8) {//已注册
                 CustomToast.showCustomErrorToast(RegisterActivity.this, getString(R.string.phone_registed));
             } else {
@@ -220,7 +233,7 @@ public class RegisterActivity extends BaseActivity {
 
     }
 
-//    @Override
+    //    @Override
 //    protected String getToolbarTitle() {
 //        return getString(R.string.login_regist);
 //    }
@@ -229,6 +242,21 @@ public class RegisterActivity extends BaseActivity {
 //    protected boolean isDisplayHomeAsUpEnabled() {
 //        return true;
 //    }
+    public class Presenter {
+        public void onCancel(View view) {
+            finish();
+        }
+
+        public void onGetCode(View view) {
+            if (view.isSelected()) {
+                getVerifyCode();
+            }
+        }
+
+        public void onRegister(View view) {
+            startRegister();
+        }
+    }
 
     @Override
     protected void dealloc() {

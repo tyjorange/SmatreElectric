@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.rejuvee.smartelectric.family.R;
 
+import java.util.Objects;
+
 /**
  * Created by liuchengran on 2019/1/4.
  */
@@ -43,7 +45,7 @@ public class DialogTipWithoutOkCancel extends Dialog {
         setCanceledOnTouchOutside(true);
 
         Window dialogWindow = getWindow();
-        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+        WindowManager.LayoutParams lp = Objects.requireNonNull(dialogWindow).getAttributes();
         DisplayMetrics d = context.getResources().getDisplayMetrics(); // 获取屏幕宽、高用
         lp.width = (int) (d.widthPixels * 0.9); // 高度设置为屏幕的0.9
         dialogWindow.setAttributes(lp);

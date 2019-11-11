@@ -2,7 +2,6 @@ package com.rejuvee.smartelectric.family.activity.login;
 
 import android.content.Intent;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
@@ -17,7 +16,6 @@ import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.custom.AccountEventMsg;
 import com.rejuvee.smartelectric.family.common.utils.AccountHelper;
 import com.rejuvee.smartelectric.family.common.utils.CountDownUtil;
-import com.rejuvee.smartelectric.family.common.widget.ClearEditText;
 import com.rejuvee.smartelectric.family.databinding.ActivityForgetpwdBinding;
 import com.rejuvee.smartelectric.family.model.viewmodel.ForgetPwdViewModel;
 
@@ -25,19 +23,21 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.Objects;
+
 /**
  * Created by Administrator on 2018/11/22.
  */
 public class ForgetPwdActivity extends BaseActivity {
     private static final String TAG = "ForgetPwdActivity";
-    private EditText et_phone, et_code;
-    private ClearEditText login_cet_password, login_cet_password_again;
+    //    private EditText et_phone, et_code;
+//    private ClearEditText login_cet_password, login_cet_password_again;
     private AccountHelper accountHelper;
     private TextView tvGetCode;
     private CountDownUtil countDownUtil;
 //    private TextView txt_tishi;
 
-//    @Override
+    //    @Override
 //    protected int getLayoutResId() {
 //        return R.layout.activity_forgetpwd;
 //    }
@@ -46,21 +46,22 @@ public class ForgetPwdActivity extends BaseActivity {
 //    protected int getMyTheme() {
 //        return 0;
 //    }
+    private ForgetPwdViewModel mViewModel;
 
     @Override
     protected void initView() {
         ActivityForgetpwdBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_forgetpwd);
-        ForgetPwdViewModel mViewModel = ViewModelProviders.of(this).get(ForgetPwdViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(ForgetPwdViewModel.class);
         mBinding.setVm(mViewModel);
         mBinding.setPresenter(new Presenter());
         mBinding.setLifecycleOwner(this);
 
 //        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
-        et_phone = findViewById(R.id.et_phone);
-        et_code = findViewById(R.id.et_code);
-        login_cet_password = findViewById(R.id.login_cet_password);
-        login_cet_password_again = findViewById(R.id.login_cet_password_again);
-        tvGetCode = findViewById(R.id.tv_getcode);
+//        et_phone = findViewById(R.id.et_phone);
+//        et_code = findViewById(R.id.et_code);
+//        login_cet_password = findViewById(R.id.login_cet_password);
+//        login_cet_password_again = findViewById(R.id.login_cet_password_again);
+        tvGetCode = mBinding.tvGetcode;//findViewById(R.id.tv_getcode);
 //        txt_tishi = (TextView) findViewById(R.id.txt_tishi);
 
 
@@ -68,28 +69,25 @@ public class ForgetPwdActivity extends BaseActivity {
         EventBus.getDefault().register(ForgetPwdActivity.this);
 
         initGetCode();
-        findViewById(R.id.st_getpwdagain).setOnClickListener(view -> setPasswordAgain());
-
-
+//        findViewById(R.id.st_getpwdagain).setOnClickListener(view -> setPasswordAgain());
     }
 
     private void initGetCode() {
-
         tvGetCode.setSelected(true);
         countDownUtil = new CountDownUtil(60, seconds -> {
             tvGetCode.setText(seconds == 0 ? getString(R.string.mark_getcode) : String.format(getString(R.string.resend_time), seconds));
             tvGetCode.setSelected(seconds == 0);
         });
-        tvGetCode.setOnClickListener(v -> {
-            if (v.isSelected()) {
-                getVerifyCode();
-            }
-        });
+//        tvGetCode.setOnClickListener(v -> {
+//            if (v.isSelected()) {
+//                getVerifyCode();
+//            }
+//        });
     }
 
     private void getVerifyCode() {
-        String phone = et_phone.getEditableText().toString();
-        if (phone.length() != 11) {
+        String phone = mViewModel.getPhone().getValue();//et_phone.getEditableText().toString();
+        if (Objects.requireNonNull(phone).length() != 11) {
             CustomToast.showCustomErrorToast(this, getString(R.string.input_correct_phone));
             return;
         }
@@ -105,7 +103,7 @@ public class ForgetPwdActivity extends BaseActivity {
                     CustomToast.showCustomErrorToast(ForgetPwdActivity.this, getString(R.string.phone_unregist));
                 } else if (errorEvent == 8) {//已注册
                     countDownUtil.start();
-                    accountHelper.getPhoneCode(ForgetPwdActivity.this, et_phone.getEditableText().toString(), true);
+                    accountHelper.getPhoneCode(ForgetPwdActivity.this, phone, true);
                 } else {
                     CustomToast.showCustomErrorToast(ForgetPwdActivity.this, getString(R.string.operator_failure));
                 }
@@ -115,20 +113,19 @@ public class ForgetPwdActivity extends BaseActivity {
     }
 
     private void setPasswordAgain() {
-        String password1 = login_cet_password.getEditableText().toString();
-        String password2 = login_cet_password_again.getEditableText().toString();
-        String phone = et_phone.getEditableText().toString();
-        String code = et_code.getEditableText().toString();
-        if (password1.isEmpty() || password2.isEmpty()) {
+        String password1 = mViewModel.getPwd().getValue(); //login_cet_password.getEditableText().toString();
+        String password2 = mViewModel.getRePwd().getValue(); //login_cet_password_again.getEditableText().toString();
+        String phone = mViewModel.getPhone().getValue(); //et_phone.getEditableText().toString();
+        String code = mViewModel.getCode().getValue();  //et_code.getEditableText().toString();
+        if (Objects.requireNonNull(password1).isEmpty() || Objects.requireNonNull(password2).isEmpty()) {
             CustomToast.showCustomErrorToast(this, getString(R.string.name_password_cannot_empty));
             return;
         }
-
-        if (phone.length() != 11) {
+        if (Objects.requireNonNull(phone).length() != 11) {
             CustomToast.showCustomErrorToast(this, getString(R.string.input_correct_phone));
             return;
         }
-        if (code.isEmpty()) {
+        if (Objects.requireNonNull(code).isEmpty()) {
             CustomToast.showCustomErrorToast(this, getString(R.string.reg_hint_input_verify));
             return;
         }
@@ -214,7 +211,15 @@ public class ForgetPwdActivity extends BaseActivity {
             finish();
         }
 
+        public void onGetCode(View view) {
+            if (view.isSelected()) {
+                getVerifyCode();
+            }
+        }
 
+        public void onCommit(View view) {
+            setPasswordAgain();
+        }
     }
 
     @Override

@@ -8,8 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.databinding.DataBindingUtil;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
@@ -21,6 +22,7 @@ import com.rejuvee.smartelectric.family.common.constant.CommonRequestCode;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTip;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTipWithoutOkCancel;
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
+import com.rejuvee.smartelectric.family.databinding.ActivityYaoKongBinding;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 
@@ -32,15 +34,13 @@ import java.util.Locale;
  * 主线路
  */
 public class YaoKongActivity extends BaseActivity implements SwitchTree {
-    private Context mContext;
+    //    private Context mContext;
     // 集中器 collector
     private CollectorBean mCollectorBean;
     private LoadingDlg waitDialog;
     private List<SwitchBean> mListData = new ArrayList<>();
     private MyAdapter adapter;
-    private int viewType;
-    private DialogTipWithoutOkCancel d;
-
+    private DialogTipWithoutOkCancel dialogTipWithoutOkCancel;
     private DialogTip mDialogTip;
 
 //    @Override
@@ -55,45 +55,49 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
 
     @Override
     protected void initView() {
-        mContext = this;
+        ActivityYaoKongBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_yao_kong);
+        mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
+
+//        mContext = this;
         mCollectorBean = getIntent().getParcelableExtra("collectorBean");
-        viewType = getIntent().getIntExtra("viewType", -1);
+        int viewType = getIntent().getIntExtra("viewType", -1);
         waitDialog = new LoadingDlg(this, -1);
-        d = new DialogTipWithoutOkCancel(this);
-        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
-        TextView tv_title = findViewById(R.id.tv_title);
+        dialogTipWithoutOkCancel = new DialogTipWithoutOkCancel(this);
+//        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
+//        TextView tv_title = findViewById(R.id.tv_title);
         switch (viewType) {
             case YaoKongActivity.YAOKONG:
-                tv_title.setText(getString(R.string.remote_control));
-                findViewById(R.id.ll_xianlu_paizhao).setVisibility(View.GONE);
-                findViewById(R.id.type_yaokong).setVisibility(View.VISIBLE);
-                findViewById(R.id.type_xianluweihu).setVisibility(View.GONE);
+                mBinding.tvTitle.setText(getString(R.string.remote_control));
+                mBinding.llXianluPaizhao.setVisibility(View.GONE);
+                mBinding.typeYaokong.setVisibility(View.VISIBLE);
+                mBinding.typeXianluweihu.setVisibility(View.GONE);
                 break;
             case YaoKongActivity.XIANLU_WEIHU:
-                tv_title.setText(getString(R.string.vs117));
-                findViewById(R.id.type_yaokong).setVisibility(View.GONE);
-                findViewById(R.id.type_xianluweihu).setVisibility(View.VISIBLE);
-                View iv_switch_add = findViewById(R.id.iv_add_child_switch);
-                iv_switch_add.setOnClickListener(v -> {
-                    addSwitch(null);//添加至集中器
-                });
-                iv_switch_add.setVisibility(View.VISIBLE);
-                View iv_switch_remove = findViewById(R.id.iv_switch_remove_toggle);
-                iv_switch_remove.setOnClickListener(v -> toggleDelIcon());
-                iv_switch_remove.setVisibility(View.VISIBLE);
-                findViewById(R.id.ll_xianlu_paizhao).setVisibility(View.VISIBLE);
-                findViewById(R.id.ll_xianlu_paizhao).setOnClickListener(v -> {
-                    d.hiddenTitle();
-                    d.showImg();
-                    d.setContent(getString(R.string.vs30));
-                    d.show();
-                });
+                mBinding.tvTitle.setText(getString(R.string.vs117));
+                mBinding.llXianluPaizhao.setVisibility(View.VISIBLE);
+                mBinding.typeYaokong.setVisibility(View.GONE);
+                mBinding.typeXianluweihu.setVisibility(View.VISIBLE);
+//                View iv_switch_add = findViewById(R.id.iv_add_child_switch);
+//                iv_switch_add.setOnClickListener(v -> {
+//                    addSwitch(null);//添加至集中器
+//                });
+                mBinding.ivAddChildSwitch.setVisibility(View.VISIBLE);
+//                View iv_switch_remove = findViewById(R.id.iv_switch_remove_toggle);
+//                iv_switch_remove.setOnClickListener(v -> toggleDelIcon());
+                mBinding.ivSwitchRemoveToggle.setVisibility(View.VISIBLE);
+//                findViewById(R.id.ll_xianlu_paizhao).setOnClickListener(v -> {
+//                    dialogTipWithoutOkCancel.hiddenTitle();
+//                    dialogTipWithoutOkCancel.showImg();
+//                    dialogTipWithoutOkCancel.setContent(getString(R.string.vs30));
+//                    dialogTipWithoutOkCancel.show();
+//                });
                 break;
         }
-        ListView lvProduct = findViewById(R.id.lv_products);
-        lvProduct.setEmptyView(findViewById(R.id.empty_layout));
+//        ListView lvProduct = findViewById(R.id.lv_products);
+        mBinding.lvProducts.setEmptyView(mBinding.emptyLayout);
         adapter = new MyAdapter(this, mCollectorBean, viewType, mListData, s -> deleteSwitch(s.getSwitchID()));
-        lvProduct.setAdapter(adapter);
+        mBinding.lvProducts.setAdapter(adapter);
     }
 
 
@@ -172,7 +176,7 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
      * 删除断路器(switch)
      */
     private void deleteSwitch(int switchId) {
-        mDialogTip = new DialogTip(mContext);
+        mDialogTip = new DialogTip(this);
         mDialogTip.setTitle(getString(R.string.deletexianlu));
         mDialogTip.setContent(getString(R.string.xianlu_issure));
         mDialogTip.setDialogListener(new DialogTip.onEnsureDialogListener() {
@@ -185,7 +189,7 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
             public void onEnsure() {
                 mDialogTip.dismiss();
                 waitDialog.show();
-                Core.instance(mContext).deleteBreak(switchId, new ActionCallbackListener<Void>() {
+                Core.instance(YaoKongActivity.this).deleteBreak(switchId, new ActionCallbackListener<Void>() {
                     @Override
                     public void onSuccess(Void data) {
 //                mListData.remove(position);
@@ -214,7 +218,7 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
      *                notNull 添加至mSwitch
      */
     private void addSwitch(SwitchBean mSwitch) {
-        Intent intent = new Intent(mContext, AddDeviceOrSwitchActivity.class);
+        Intent intent = new Intent(this, AddDeviceOrSwitchActivity.class);
         intent.setExtrasClassLoader(getClass().getClassLoader());
         intent.putExtra("collectorBean", mCollectorBean);
         intent.putExtra("switch", mSwitch);
@@ -222,6 +226,27 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
         startActivityForResult(intent, CommonRequestCode.REQUEST_ADD_LINE_ROOT);
     }
 
+    public class Presenter {
+        public void onCancel(View view) {
+            finish();
+        }
+
+        public void onAdd(View view) {
+            addSwitch(null);//添加至集中器
+        }
+
+        public void onToggle(View view) {
+            toggleDelIcon();
+        }
+
+        public void onPaizhao(View view) {
+            dialogTipWithoutOkCancel.hiddenTitle();
+            dialogTipWithoutOkCancel.showImg();
+            dialogTipWithoutOkCancel.setContent(getString(R.string.vs30));
+            dialogTipWithoutOkCancel.show();
+        }
+
+    }
     @Override
     protected void dealloc() {
 

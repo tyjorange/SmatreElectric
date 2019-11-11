@@ -49,7 +49,7 @@ public class SecurityInformationActivity extends BaseActivity {
 //        img_cancel.setOnClickListener(v -> finish());
         TabLayout mTabLayout = mBinding.tabAlarm;//findViewById(R.id.tab_alarm);
         ViewPager viewPager = mBinding.viweImportInfor;//findViewById(R.id.viwe_import_infor);
-        MyFragmentAdapter mInforAdapter = new MyFragmentAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        MyFragmentAdapter mInforAdapter = new MyFragmentAdapter(getSupportFragmentManager());
         viewPager.setAdapter(mInforAdapter);
         mTabLayout.setupWithViewPager(viewPager, true);
     }
@@ -85,8 +85,8 @@ public class SecurityInformationActivity extends BaseActivity {
         private Bundle bundle;
         private List<Class> listFragments = new ArrayList<>();
 
-        MyFragmentAdapter(FragmentManager fm, int behavior) {
-            super(fm, behavior);
+        MyFragmentAdapter(FragmentManager fm) {
+            super(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
             bundle = new Bundle();
             bundle.putString("CollectorID", mCollectorBean.getCollectorID());
             listFragments.add(LineAlarmFrgament.class);

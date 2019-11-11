@@ -12,6 +12,8 @@ import android.widget.PopupWindow;
 
 import com.rejuvee.smartelectric.family.R;
 
+import java.util.Objects;
+
 /**
  * 二维码弹窗
  * Created by liuchengran on 2018/12/29.
@@ -29,10 +31,10 @@ public class PopwindowQCode extends Dialog {
         setCanceledOnTouchOutside(true);
 
         Window dialogWindow = getWindow();
-        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+        WindowManager.LayoutParams lp = Objects.requireNonNull(dialogWindow).getAttributes();
         DisplayMetrics d = context.getResources().getDisplayMetrics(); // 获取屏幕宽、高用
         lp.width = (int) (d.widthPixels * 0.6); // 高度设置为屏幕的0.6
-        lp.height = lp.width;
+        lp.height = (int) (d.widthPixels * 0.6);
         dialogWindow.setAttributes(lp);
 
 /*

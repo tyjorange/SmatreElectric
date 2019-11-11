@@ -92,10 +92,6 @@ public class PerInfoActivity extends BaseActivity implements ImageUtil.CropHandl
 //        findViewById(R.id.ll_headimg).setOnClickListener(this);
 //        findViewById(R.id.ll_getphone).setOnClickListener(this);
 //        findViewById(R.id.ll_nickname).setOnClickListener(this);
-    }
-
-    @Override
-    protected void initData() {
         Intent intent = getIntent();
 //        nickname = intent.getStringExtra("nickname");
         mViewModel.setNickname(intent.getStringExtra("nickname"));
@@ -123,6 +119,11 @@ public class PerInfoActivity extends BaseActivity implements ImageUtil.CropHandl
         Bitmap bmpUserQR = ValidateUtils.createQRcodeImage(mViewModel.getNickname().getValue(), SizeUtils.dp2px(100), SizeUtils.dp2px(100));
 //        ImageView ivQcode = findViewById(R.id.iv_qcode);
         mBinding.ivQcode.setImageBitmap(bmpUserQR);
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     /**
@@ -270,18 +271,13 @@ public class PerInfoActivity extends BaseActivity implements ImageUtil.CropHandl
         if (window != null) {
             window.setWindowAnimations(R.style.main_menu_animstyle);
         }
-        WindowManager.LayoutParams wl = null;
-        if (window != null) {
-            wl = window.getAttributes();
-        }
-        if (wl != null) {
-            wl.x = 0;
-            wl.y = getWindowManager().getDefaultDisplay().getHeight();
-            // 以下这两句是为了保证按钮可以水平满屏
-            wl.width = ViewGroup.LayoutParams.MATCH_PARENT;
-            wl.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        }
-        dialog.onWindowAttributesChanged(wl);
+        WindowManager.LayoutParams layoutParams = Objects.requireNonNull(window).getAttributes();
+        layoutParams.x = 0;
+        layoutParams.y = getWindowManager().getDefaultDisplay().getHeight();
+        // 以下这两句是为了保证按钮可以水平满屏
+        layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        dialog.onWindowAttributesChanged(layoutParams);
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
     }
@@ -320,13 +316,13 @@ public class PerInfoActivity extends BaseActivity implements ImageUtil.CropHandl
             @Override
             public void onSuccess(Void data) {
                 CustomToast.showCustomToast(PerInfoActivity.this, getString(R.string.vs187));
-//                if (nickName != null) {
-//                    txt_nickname.setText(nickname);
-//                } else if (phone != null) {
-//                    txt_phone.setText(telephone);
-//                } else if (userName != null) {
-//                    txt_username.setText(username);
-//                }
+                if (nickName != null) {
+                    mViewModel.setNickname(nickName);   // txt_nickname.setText(nickName);
+                } else if (phone != null) {
+                    mViewModel.setPhone(phone); //      txt_phone.setText(phone);
+                } else if (userName != null) {
+                    mViewModel.setUsername(userName);  //   txt_username.setText(userName);
+                }
             }
 
             @Override
@@ -423,7 +419,7 @@ public class PerInfoActivity extends BaseActivity implements ImageUtil.CropHandl
             intent.putExtra("phone_num", mViewModel.getPhone().getValue());
             intent.putExtra("position", 0);
             intent.setClass(view.getContext(), SetInfoActivity.class);
-            startActivityForResult(intent, CommonRequestCode.REQUEST_UPDATE_PHONE_NUMBER);
+//            startActivityForResult(intent, CommonRequestCode.REQUEST_UPDATE_PHONE_NUMBER);
         }
 
         public void onChangeNick(View view) {

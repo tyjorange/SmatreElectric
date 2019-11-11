@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.rejuvee.smartelectric.family.R;
 
+import java.util.Objects;
+
 /**
  * 加载提示弹窗
  */
@@ -21,7 +23,7 @@ public class LoadingDlg extends Dialog {
         setContentView(R.layout.layout_toast_loading_data);
 
         Window window = getWindow();
-        window.getAttributes().gravity = Gravity.CENTER;
+        Objects.requireNonNull(window).getAttributes().gravity = Gravity.CENTER;
         WindowManager.LayoutParams lp = window.getAttributes();
         window.setAttributes(lp);
         txtToast = findViewById(R.id.txt_tip);

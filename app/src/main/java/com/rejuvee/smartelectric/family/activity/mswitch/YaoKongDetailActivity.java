@@ -16,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.databinding.DataBindingUtil;
+
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
@@ -30,6 +32,7 @@ import com.rejuvee.smartelectric.family.common.widget.ExpandLayout;
 import com.rejuvee.smartelectric.family.common.widget.SnackbarMessageShow;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTip;
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
+import com.rejuvee.smartelectric.family.databinding.ActivityYaoKongDetailBinding;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.CollectorState;
 import com.rejuvee.smartelectric.family.model.bean.ControllerId;
@@ -63,14 +66,14 @@ public class YaoKongDetailActivity extends BaseActivity {
     private static final int MSG_SWTCH_REFRESH_FLAG = 5;// 刷新单个线路
     private boolean targetState;//开关操作的目标状态
 
-    private Context mContext;
+    //    private Context mContext;
     private Handler mHandler;
     private LoadingDlg mWaitDialog;
-    private ListView lvProduct;
+    //    private ListView  mBinding.lvProducts;
     private DialogTip mDialogTip;
-    private ImageView iv_switch_root;
+//    private ImageView iv_switch_root;
 
-//    @Override
+    //    @Override
 //    protected int getLayoutResId() {
 //        return R.layout.activity_yao_kong_detail;
 //    }
@@ -79,42 +82,46 @@ public class YaoKongDetailActivity extends BaseActivity {
 //    protected int getMyTheme() {
 //        return 0;
 //    }
+    private ActivityYaoKongDetailBinding mBinding;
 
     @Override
     protected void initView() {
-        mContext = this;
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_yao_kong_detail);
+        mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
+//        mContext = this;
         mCollectorBean = getIntent().getParcelableExtra("collectorBean");
         rootSwitchBean = getIntent().getParcelableExtra("SwitchBean");
         viewType = getIntent().getIntExtra("viewType", -1);
         mWaitDialog = new LoadingDlg(this, -1);
-        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
+//        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
         switch (viewType) {
             case SwitchTree.YAOKONG:
-                iv_switch_root = findViewById(R.id.iv_switch_root);
-                iv_switch_root.setImageResource(NativeLine.DrawableToggle[rootSwitchBean.getSwitchState() == -1 ? 2 : rootSwitchBean.getSwitchState()]);
-                iv_switch_root.setVisibility(View.VISIBLE);
-                iv_switch_root.setOnClickListener(v -> {
-                    isRootSwitch = true;
-                    switchBreak(rootSwitchBean);
-                });
-                findViewById(R.id.type_yaokong).setVisibility(View.VISIBLE);
-                findViewById(R.id.type_xianluweihu).setVisibility(View.GONE);
+//                iv_switch_root = findViewById(R.id.iv_switch_root);
+                mBinding.ivSwitchRoot.setImageResource(NativeLine.DrawableToggle[rootSwitchBean.getSwitchState() == -1 ? 2 : rootSwitchBean.getSwitchState()]);
+                mBinding.ivSwitchRoot.setVisibility(View.VISIBLE);
+//                iv_switch_root.setOnClickListener(v -> {
+//                    isRootSwitch = true;
+//                    switchBreak(rootSwitchBean);
+//                });
+                mBinding.typeYaokong.setVisibility(View.VISIBLE);
+                mBinding.typeXianluweihu.setVisibility(View.GONE);
                 break;
             case SwitchTree.XIANLU_WEIHU:
-                ImageView iv_switch_add = findViewById(R.id.iv_add_child_switch);
-                iv_switch_add.setOnClickListener(v -> addSwitch(rootSwitchBean));
-                iv_switch_add.setVisibility(View.VISIBLE);
-                ImageView iv_switch_remove_toggle = findViewById(R.id.iv_switch_remove_toggle);
-                iv_switch_remove_toggle.setOnClickListener(v -> toggleDelIcon());
-                iv_switch_remove_toggle.setVisibility(View.VISIBLE);
-                findViewById(R.id.type_yaokong).setVisibility(View.GONE);
-                findViewById(R.id.type_xianluweihu).setVisibility(View.VISIBLE);
+//                ImageView iv_switch_add = findViewById(R.id.iv_add_child_switch);
+//                iv_switch_add.setOnClickListener(v -> addSwitch(rootSwitchBean));
+                mBinding.ivAddChildSwitch.setVisibility(View.VISIBLE);
+//                ImageView iv_switch_remove_toggle = findViewById(R.id.iv_switch_remove_toggle);
+//                iv_switch_remove_toggle.setOnClickListener(v -> toggleDelIcon());
+                mBinding.ivSwitchRemoveToggle.setVisibility(View.VISIBLE);
+                mBinding.typeYaokong.setVisibility(View.GONE);
+                mBinding.typeXianluweihu.setVisibility(View.VISIBLE);
                 break;
         }
-        TextView tv_root_name = findViewById(R.id.tv_root_name);
-        tv_root_name.setText(String.format("%s%s", mContext.getString(R.string.vs14), rootSwitchBean.getName()));
-        lvProduct = findViewById(R.id.lv_products);
-        lvProduct.setEmptyView(findViewById(R.id.empty_layout));
+//        TextView tv_root_name = findViewById(R.id.tv_root_name);
+        mBinding.tvRootName.setText(String.format("%s%s", getString(R.string.vs14), rootSwitchBean.getName()));
+//         mBinding.lvProducts = findViewById(R.id.lv_products);
+        mBinding.lvProducts.setEmptyView(mBinding.emptyLayout);
         childList = rootSwitchBean.getChild();
         adapter = new OneExpandAdapter(this, mCollectorBean, viewType, childList, new OneExpandAdapter.ISwitchCheckListen() {
             @Override
@@ -143,7 +150,7 @@ public class YaoKongDetailActivity extends BaseActivity {
 
             }
         });
-        lvProduct.setAdapter(adapter);
+        mBinding.lvProducts.setAdapter(adapter);
     }
 
     //    @SuppressLint("HandlerLeak")
@@ -170,11 +177,13 @@ public class YaoKongDetailActivity extends BaseActivity {
                 activity.getAllSwitchState();
             } else if (msg.what == MSG_FILLDATA_FLAG) {
 //                 activity.fillData();
+                System.out.println("MSG_FILLDATA_FLAG");
             } else if (msg.what == MSG_SWTCH_REFRESH_FLAG) {
                 activity.getSwitchStateOne();
             }
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -308,7 +317,7 @@ public class YaoKongDetailActivity extends BaseActivity {
      * 删除断路器(switch)
      */
     private void deleteSwitch(int switchId) {
-        mDialogTip = new DialogTip(mContext);
+        mDialogTip = new DialogTip(this);
         mDialogTip.setTitle(getString(R.string.deletexianlu));
         mDialogTip.setContent(getString(R.string.xianlu_issure));
         mDialogTip.setDialogListener(new DialogTip.onEnsureDialogListener() {
@@ -321,7 +330,7 @@ public class YaoKongDetailActivity extends BaseActivity {
             public void onEnsure() {
                 mDialogTip.dismiss();
                 mWaitDialog.show();
-                Core.instance(mContext).deleteBreak(switchId, new ActionCallbackListener<Void>() {
+                Core.instance(YaoKongDetailActivity.this).deleteBreak(switchId, new ActionCallbackListener<Void>() {
                     @Override
                     public void onSuccess(Void data) {
 //                mListData.remove(position);
@@ -352,7 +361,7 @@ public class YaoKongDetailActivity extends BaseActivity {
      *                notNull 添加至mSwitch
      */
     private void addSwitch(SwitchBean mSwitch) {
-        Intent intent = new Intent(mContext, AddDeviceOrSwitchActivity.class);
+        Intent intent = new Intent(this, AddDeviceOrSwitchActivity.class);
         intent.setExtrasClassLoader(getClass().getClassLoader());
         intent.putExtra("collectorBean", mCollectorBean);
         intent.putExtra("switch", mSwitch);
@@ -362,8 +371,6 @@ public class YaoKongDetailActivity extends BaseActivity {
 
     /**
      * 手动操作断路器[开、关]
-     *
-     * @param cb
      */
     private void switchBreak(SwitchBean cb) {
         DialogTip mDialogSwitch = new DialogTip(this);
@@ -394,7 +401,7 @@ public class YaoKongDetailActivity extends BaseActivity {
                 public void onEnsure() {
                     mWaitDialog.show();
                     runTask = false; //暂停定时刷新任务
-                    Core.instance(mContext).controlBreak(currentSwitchBean.getSwitchID(), targetState, new ActionCallbackListener<ControllerId>() {
+                    Core.instance(YaoKongDetailActivity.this).controlBreak(currentSwitchBean.getSwitchID(), targetState, new ActionCallbackListener<ControllerId>() {
                         @Override
                         public void onSuccess(ControllerId data) {
                             controllerId = data.getControllerID();
@@ -437,7 +444,7 @@ public class YaoKongDetailActivity extends BaseActivity {
                 CustomToast.showCustomErrorToast(YaoKongDetailActivity.this, message);
                 if (currentSearchCount >= MAX_REQUEST_COUNT) {
                     currentSearchCount = 0;
-                    SnackbarMessageShow.getInstance().showError(lvProduct, getString(R.string.vs156));
+                    SnackbarMessageShow.getInstance().showError(mBinding.lvProducts, getString(R.string.vs156));
                     mWaitDialog.dismiss();
                 } else {
                     mHandler.sendEmptyMessageDelayed(MSG_CMD_RESULT_FLAG, 1000);
@@ -465,7 +472,7 @@ public class YaoKongDetailActivity extends BaseActivity {
 //                        findChild(rootNode, currentSwitchBean.getSerialNumber(), cb.getSwitchState(), cb.getFault(), 1);
                         if (isRootSwitch) {
                             //线路
-                            iv_switch_root.setImageResource(NativeLine.DrawableToggle[cb.getSwitchState() == -1 ? 2 : cb.getSwitchState()]);// 更新开关图片
+                            mBinding.ivSwitchRoot.setImageResource(NativeLine.DrawableToggle[cb.getSwitchState() == -1 ? 2 : cb.getSwitchState()]);// 更新开关图片
                             currentSwitchBean.setSwitchState(cb.getSwitchState());
                         } else {
                             //分线
@@ -507,14 +514,14 @@ public class YaoKongDetailActivity extends BaseActivity {
      * 刷新集中器下的所有线路状态
      */
     private void getAllSwitchState() {
-        Core.instance(mContext).getAllSwitchState(mCollectorBean.getCode(), new ActionCallbackListener<CollectorState>() {
+        Core.instance(this).getAllSwitchState(mCollectorBean.getCode(), new ActionCallbackListener<CollectorState>() {
             @Override
             public void onSuccess(CollectorState data) {
                 List<SwitchBean> switchState = data.getSwitchState();
                 //线路
                 for (SwitchBean s : switchState) {
                     if (s.getSerialNumber().equals(rootSwitchBean.getSerialNumber())) {
-                        iv_switch_root.setImageResource(NativeLine.DrawableToggle[s.getSwitchState() == -1 ? 2 : s.getSwitchState()]);// 更新开关图片
+                        mBinding.ivSwitchRoot.setImageResource(NativeLine.DrawableToggle[s.getSwitchState() == -1 ? 2 : s.getSwitchState()]);// 更新开关图片
                     }
                     //分线
                     for (SwitchBean cc : childList) {
@@ -551,12 +558,12 @@ public class YaoKongDetailActivity extends BaseActivity {
                 if (currentSearchCount <= MAX_REQUEST_COUNT) {
                     mHandler.sendEmptyMessageDelayed(MSG_CMD_RESULT_FLAG, 2000);
                 } else {
-                    SnackbarMessageShow.getInstance().showError(lvProduct, getString(R.string.vs156));
+                    SnackbarMessageShow.getInstance().showError(mBinding.lvProducts, getString(R.string.vs156));
                     mWaitDialog.dismiss();
                 }
                 break;
             case "1":
-                SnackbarMessageShow.getInstance().showError(lvProduct, getString(R.string.vs157));
+                SnackbarMessageShow.getInstance().showError(mBinding.lvProducts, getString(R.string.vs157));
                 mWaitDialog.dismiss();
                 break;
             case "2":
@@ -566,21 +573,41 @@ public class YaoKongDetailActivity extends BaseActivity {
                         getSwitchStateOne();
                         break;
                     case "34":
-                        SnackbarMessageShow.getInstance().showError(lvProduct, getString(R.string.terminal_net_error));
+                        SnackbarMessageShow.getInstance().showError(mBinding.lvProducts, getString(R.string.terminal_net_error));
                         mWaitDialog.dismiss();
                         break;
                     default:
-                        SnackbarMessageShow.getInstance().showError(lvProduct, getString(R.string.operator_failure) + cb.getRunResult());
+                        SnackbarMessageShow.getInstance().showError(mBinding.lvProducts, getString(R.string.operator_failure) + cb.getRunResult());
                         currentSearchCount = 0;
                         getSwitchStateOne();
                         break;
                 }
                 break;
             case "3":
-                SnackbarMessageShow.getInstance().showError(lvProduct, getString(R.string.vs158));
+                SnackbarMessageShow.getInstance().showError(mBinding.lvProducts, getString(R.string.vs158));
                 mWaitDialog.dismiss();
                 break;
         }
+    }
+
+    public class Presenter {
+        public void onCancel(View view) {
+            finish();
+        }
+
+        public void onYaoKong(View view) {
+            isRootSwitch = true;
+            switchBreak(rootSwitchBean);
+        }
+
+        public void onAdd(View view) {
+            addSwitch(rootSwitchBean);
+        }
+
+        public void onToggle(View view) {
+            toggleDelIcon();
+        }
+
     }
 
     @Override
@@ -606,10 +633,9 @@ public class YaoKongDetailActivity extends BaseActivity {
 
     /**
      * 分线 数据适配器
-     *
+     * <p>
      * 点击item展开隐藏部分,再次点击收起
      * 只可展开一条记录
-     *
      */
     public static class OneExpandAdapter extends BaseAdapter {
         private Context context;

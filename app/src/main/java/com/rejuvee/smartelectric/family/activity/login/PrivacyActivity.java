@@ -1,12 +1,16 @@
 package com.rejuvee.smartelectric.family.activity.login;
 
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import androidx.databinding.DataBindingUtil;
+
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
+import com.rejuvee.smartelectric.family.databinding.ActivityPrivacyBinding;
 
 public class PrivacyActivity extends BaseActivity {
     private WebView webView;
@@ -23,10 +27,14 @@ public class PrivacyActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        findViewById(R.id.ll_img_cancel).setOnClickListener(v -> {
-            finish();
-        });
-        webView = findViewById(R.id.wv_privacy);
+        ActivityPrivacyBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_privacy);
+        mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
+
+//        findViewById(R.id.ll_img_cancel).setOnClickListener(v -> {
+//            finish();
+//        });
+        webView = mBinding.wvPrivacy;//findViewById(R.id.wv_privacy);
         WebSettings webSettings = webView.getSettings();
         //设置自适应屏幕，两者合用
         webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
@@ -41,6 +49,12 @@ public class PrivacyActivity extends BaseActivity {
 
     }
 
+    public class Presenter {
+        public void onCancel(View view) {
+            finish();
+        }
+    }
+
     @Override
     protected void dealloc() {
         if (webView != null) {
@@ -52,7 +66,7 @@ public class PrivacyActivity extends BaseActivity {
             // 退出时调用此方法，移除绑定的服务，否则某些特定系统会报错
             webView.getSettings().setJavaScriptEnabled(false);
             webView.clearHistory();
-            webView.clearView();
+//            webView.clearView();
             webView.removeAllViews();
             webView.destroy();
         }

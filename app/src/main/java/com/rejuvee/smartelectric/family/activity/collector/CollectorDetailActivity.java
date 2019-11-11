@@ -473,13 +473,13 @@ public class CollectorDetailActivity extends BaseActivity {
 //                                mDeviceAdapter.notifyDataSetChanged();
 //                                mDeviceAdapter.setEditMode(false);
 //                                tv_collector_count.setText(String.format(Locale.getDefault(), "%s%d", getString(R.string.vs13), listDeviceData.size()));
-                CustomToast.showCustomToast(getBaseContext(), getString(R.string.vs66));
+                CustomToast.showCustomToast(CollectorDetailActivity.this, getString(R.string.vs66));
                 finish();
             }
 
             @Override
             public void onFailure(int errorEvent, String message) {
-                CustomToast.showCustomErrorToast(getBaseContext(), message);
+                CustomToast.showCustomErrorToast(CollectorDetailActivity.this, message);
             }
         });
     }

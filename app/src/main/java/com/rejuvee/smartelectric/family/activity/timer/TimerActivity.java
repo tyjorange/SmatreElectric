@@ -3,10 +3,8 @@ package com.rejuvee.smartelectric.family.activity.timer;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
+
+import androidx.databinding.DataBindingUtil;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
@@ -19,6 +17,7 @@ import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.constant.CommonRequestCode;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTip;
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
+import com.rejuvee.smartelectric.family.databinding.ActivityTimerBinding;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.model.bean.TimeTaskBean;
@@ -29,23 +28,23 @@ import java.util.List;
 /**
  * 定时开关
  */
-public class TimerActivity extends BaseActivity implements View.OnClickListener, ListTimerAdapter.MyListener {
+public class TimerActivity extends BaseActivity implements ListTimerAdapter.MyListener {
     private static final String TAG = "TimerActivity";
     private CollectorBean collectorBean;
     private SwitchBean switchBean;
-    private ImageView backBtn;
-    private LinearLayout img_change;
-    private ImageView img_remove;
-    private ImageView img_add;
-    private TextView tv_line_name;
+    //    private ImageView backBtn;
+//    private LinearLayout img_change;
+//    private ImageView img_remove;
+//    private ImageView img_add;
+//    private TextView tv_line_name;
 
     private List<TimeTaskBean.TimeTask> mListTaskData = new ArrayList<>();
     private ListTimerAdapter mListTimerAdapter;
-    private ListView mTimerView;
+    //    private ListView mTimerView;
     private DialogTip dialogTip;
     private LoadingDlg mWaitDialog;
 
-//    @Override
+    //    @Override
 //    protected int getLayoutResId() {
 //        return R.layout.activity_timer;
 //    }
@@ -54,35 +53,41 @@ public class TimerActivity extends BaseActivity implements View.OnClickListener,
 //    protected int getMyTheme() {
 //        return 0;
 //    }
+    private ActivityTimerBinding mBinding;
 
     @Override
     protected void initView() {
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_timer);
+        mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
+
         collectorBean = getIntent().getParcelableExtra("collectorBean");
 //        switchId = getIntent().getStringExtra("switchId");
-        tv_line_name = findViewById(R.id.line_name);
-        mTimerView = findViewById(R.id.lv_timer);
-        img_add = findViewById(R.id.img_add);
-        img_add.setOnClickListener(this);
-        backBtn = findViewById(R.id.img_cancel);
-        backBtn.setOnClickListener(this);
-        img_remove = findViewById(R.id.img_remove);
-        img_remove.setOnClickListener(this);
-        img_change = findViewById(R.id.img_change);
-        img_change.setOnClickListener(this);
+//        tv_line_name = findViewById(R.id.line_name);
+//        mTimerView = findViewById(R.id.lv_timer);
+//        img_add = findViewById(R.id.img_add);
+//        img_add.setOnClickListener(this);
+//        backBtn = findViewById(R.id.img_cancel);
+//        backBtn.setOnClickListener(this);
+//        img_remove = findViewById(R.id.img_remove);
+//        img_remove.setOnClickListener(this);
+//        img_change = findViewById(R.id.img_change);
+//        img_change.setOnClickListener(this);
         mListTimerAdapter = new ListTimerAdapter(TimerActivity.this, mListTaskData, this);
-        mTimerView.setAdapter(mListTimerAdapter);
-        mTimerView.setEmptyView(findViewById(R.id.empty_layout));
-        mTimerView.setOnItemClickListener((parent, view, position, id) -> editTask(mListTaskData.get(position)));
+        mBinding.lvTimer.setAdapter(mListTimerAdapter);
+        mBinding.lvTimer.setEmptyView(mBinding.emptyLayout);
+        mBinding.lvTimer.setOnItemClickListener((parent, view, position, id) -> editTask(mListTaskData.get(position)));
         mWaitDialog = new LoadingDlg(this, -1);
+        getSwitchByCollector();
     }
 
     @Override
     protected void initData() {
-        getSwitchByCollector();
+
     }
 
     private void getData(SwitchBean switchBean) {
-        tv_line_name.setText(String.format("%s%s", getString(R.string.vs4), switchBean.getName()));
+        mBinding.lineName.setText(String.format("%s%s", getString(R.string.vs4), switchBean.getName()));
         mWaitDialog.show();
         Core.instance(this).findTimeControllerBySwitch(switchBean.getSwitchID(), new ActionCallbackListener<List<TimeTaskBean.TimeTask>>() {
             @Override
@@ -228,30 +233,57 @@ public class TimerActivity extends BaseActivity implements View.OnClickListener,
         super.onBackPressed();
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.img_add:
-                editTask(null);
-                break;
-            case R.id.img_cancel:
-                finish();
-                break;
-            case R.id.img_remove:
-                toggleDelIcon();
-                break;
-            case R.id.img_change:
-//                Intent intent = new Intent(TimerActivity.this, SwitchTreeDialog.class);
+//    @Override
+//    public void onClick(View v) {
+//        switch (v.getId()) {
+//            case R.id.img_add:
+//                editTask(null);
+//                break;
+//            case R.id.img_cancel:
+//                finish();
+//                break;
+//            case R.id.img_remove:
+//                toggleDelIcon();
+//                break;
+//            case R.id.img_change:
+////                Intent intent = new Intent(TimerActivity.this, SwitchTreeDialog.class);
+////                intent.putExtra("collectorBean", collectorBean);
+////                intent.putExtra("viewType", SwitchTree.DINGSHI);
+////                startActivityForResult(intent, CommonRequestCode.REQUEST_CHOSE_LINE);
+//                SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(this, SwitchTree.DINGSHI, collectorBean, s -> {
+//                    switchBean = s;
+//                    getData(switchBean);
+//                });
+//                switchTreeDialog.show();
+//                break;
+//        }
+//    }
+
+    public class Presenter {
+        public void onCancel(View view) {
+            finish();
+        }
+
+        public void onAdd(View view) {
+            editTask(null);
+        }
+
+        public void onRemove(View view) {
+            toggleDelIcon();
+        }
+
+        public void onChange(View view) {
+            //                Intent intent = new Intent(TimerActivity.this, SwitchTreeDialog.class);
 //                intent.putExtra("collectorBean", collectorBean);
 //                intent.putExtra("viewType", SwitchTree.DINGSHI);
 //                startActivityForResult(intent, CommonRequestCode.REQUEST_CHOSE_LINE);
-                SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(this, SwitchTree.DINGSHI, collectorBean, s -> {
-                    switchBean = s;
-                    getData(switchBean);
-                });
-                switchTreeDialog.show();
-                break;
+            SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(view.getContext(), SwitchTree.DINGSHI, collectorBean, s -> {
+                switchBean = s;
+                getData(switchBean);
+            });
+            switchTreeDialog.show();
         }
+
     }
 
     @Override

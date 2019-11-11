@@ -1,27 +1,25 @@
 package com.rejuvee.smartelectric.family.activity.mswitch;
 
-import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
-import com.base.library.widget.SuperTextView;
-import com.google.android.material.tabs.TabLayout;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.BaseFragment;
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
+import com.rejuvee.smartelectric.family.databinding.ActivitySwitchSettingBinding;
 import com.rejuvee.smartelectric.family.fragment.SettingDL1Fragment;
 import com.rejuvee.smartelectric.family.fragment.SettingDL2Fragment;
 import com.rejuvee.smartelectric.family.fragment.SettingDYFragment;
@@ -29,10 +27,12 @@ import com.rejuvee.smartelectric.family.fragment.SettingOtherFragment;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.model.bean.VoltageValue;
+import com.rejuvee.smartelectric.family.model.viewmodel.SwitchSettingViewModel;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 安全阀值设置
@@ -43,19 +43,18 @@ public class SwitchSettingActivity extends BaseActivity implements
         SettingOtherFragment.OnShowingListener,
         SettingDYFragment.OnShowingListener {
     private String TAG = "SwitchSettingFragment";
-    private TabLayout mTabLayout;
-    private ViewPager viewPager;
-    private SuperTextView superTextView;
+    //    private TabLayout mTabLayout;
+//    private ViewPager viewPager;
     private Handler mHandler;
     private CollectorBean collectorBean;
     private SwitchBean currentSwitchBean;
     private LoadingDlg waitDialog;
-    private Context mContext;
-    private TextView txtLineName;//线路名称
+    //    private Context SwitchSettingActivity.this;
+//    private TextView txtLineName;//线路名称
 //    private ObservableScrollView scrollView;
 //    private SeekBar seekBar;
 
-//    @Override
+    //    @Override
 //    protected int getLayoutResId() {
 //        return R.layout.activity_switch_setting;
 //    }
@@ -64,13 +63,21 @@ public class SwitchSettingActivity extends BaseActivity implements
 //    protected int getMyTheme() {
 //        return 0;
 //    }
+    private ActivitySwitchSettingBinding mBinding;
+    private SwitchSettingViewModel mViewModel;
 
     @Override
     protected void initView() {
-        mContext = this;
-        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
-        mTabLayout = findViewById(R.id.tab_setting);
-        viewPager = findViewById(R.id.vp_setting);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_switch_setting);
+        mViewModel = ViewModelProviders.of(this).get(SwitchSettingViewModel.class);
+        mBinding.setVm(mViewModel);
+        mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
+
+//        SwitchSettingActivity.this = this;
+//        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
+//        mTabLayout = findViewById(R.id.tab_setting);
+//        viewPager = findViewById(R.id.vp_setting);
         waitDialog = new LoadingDlg(this, -1);
 
 //        seekBar = findViewById(R.id.vrsBar);
@@ -87,32 +94,24 @@ public class SwitchSettingActivity extends BaseActivity implements
 //        ScrollBindHelper.bind(seekBar, scrollView);
 
         //切换线路
-        txtLineName = findViewById(R.id.txt_line_name);
-        LinearLayout img_change = findViewById(R.id.img_change);
-        img_change.setOnClickListener(v -> {
-            SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(mContext, SwitchTree.DINGSHI, collectorBean, s -> {
-                currentSwitchBean = s;
-//                        getData(switchBean);
-                txtLineName.setText(String.format("%s%s", mContext.getString(R.string.vs14), currentSwitchBean.getName()));
-
-                mTabLayout.getTabAt(0).select();// 重置为第一个TAB
-                currentParamID = dl1_fragment.getParamID(currentSwitchBean);
-                mHandler.sendEmptyMessageDelayed(MSG_findSwitchParamBySwitch_FLAG, 100);
-            });
-            switchTreeDialog.show();
-        });
+//        txtLineName = findViewById(R.id.txt_line_name);
+//        LinearLayout img_change = findViewById(R.id.img_change);
+//        img_change.setOnClickListener(v -> {
+//
+//        });
         // 刷新按钮
-        findViewById(R.id.img_flush).setOnClickListener(v -> mHandler.sendEmptyMessageDelayed(MSG_sendGetThreadValueCommand_FLAG, 100));
+//        findViewById(R.id.img_flush).setOnClickListener(v -> mHandler.sendEmptyMessageDelayed(MSG_sendGetThreadValueCommand_FLAG, 100));
         // 提交按钮
-        superTextView = findViewById(R.id.stv_commit);
-        superTextView.setOnClickListener(v -> setValues());
+//        SuperTextView superTextView = findViewById(R.id.stv_commit);
+//        superTextView.setOnClickListener(v -> setValues());
+        collectorBean = getIntent().getParcelableExtra("collectorBean");
+        getSwitchByCollector();
+        mHandler = new MyHandler(this);
     }
 
     @Override
     protected void initData() {
-        collectorBean = getIntent().getParcelableExtra("collectorBean");
-        getSwitchByCollector();
-        mHandler = new MyHandler(this);
+
     }
 
     private SettingDL1Fragment dl1_fragment;
@@ -184,7 +183,8 @@ public class SwitchSettingActivity extends BaseActivity implements
             @Override
             public void onSuccess(List<SwitchBean> data) {
                 currentSwitchBean = data.get(0);//init bean
-                txtLineName.setText(String.format("%s%s", mContext.getString(R.string.vs14), currentSwitchBean.getName()));
+//                txtLineName.setText(String.format("%s%s", SwitchSettingActivity.this.getString(R.string.vs14), currentSwitchBean.getName()));
+                mViewModel.setTxtLineName(String.format("%s%s", SwitchSettingActivity.this.getString(R.string.vs14), currentSwitchBean.getName()));
                 initFragment();
             }
 
@@ -229,7 +229,7 @@ public class SwitchSettingActivity extends BaseActivity implements
             public void onFailure(int errorEvent, String message) {
                 Log.e(TAG, message);
                 waitDialog.dismiss();
-                CustomToast.showCustomErrorToast(mContext, message);
+                CustomToast.showCustomErrorToast(SwitchSettingActivity.this, message);
 //                scrollView.setVisibility(View.INVISIBLE);
 //                superTextView.setVisibility(View.INVISIBLE);
 //                empty_layout.setVisibility(View.VISIBLE);
@@ -255,7 +255,7 @@ public class SwitchSettingActivity extends BaseActivity implements
             @Override
             public void onSuccess(List<VoltageValue> valueList) {
                 if (valueList == null) {
-                    CustomToast.showCustomToast(mContext, getString(R.string.vs142));
+                    CustomToast.showCustomToast(SwitchSettingActivity.this, getString(R.string.vs142));
                     waitDialog.dismiss();
                     return;
                 }
@@ -323,7 +323,7 @@ public class SwitchSettingActivity extends BaseActivity implements
             @Override
             public void onFailure(int errorEvent, String message) {
                 Log.e(TAG, message);
-//                CustomToast.showCustomErrorToast(mContext, message); // 无结果
+//                CustomToast.showCustomErrorToast(SwitchSettingActivity.this, message); // 无结果
 //                        scrollView.setVisibility(View.INVISIBLE);
 //                        superTextView.setVisibility(View.INVISIBLE);
 //                        empty_layout.setVisibility(View.VISIBLE);
@@ -398,11 +398,11 @@ public class SwitchSettingActivity extends BaseActivity implements
 //        String dds = Integer.toHexString(dd);
 //        String hhs = Integer.toHexString(hh);
 //        if (dlsx.isEmpty() || dlxx.isEmpty()) {
-//            CustomToast.showCustomErrorToast(mContext, getString(R.string.vs151));
+//            CustomToast.showCustomErrorToast(SwitchSettingActivity.this, getString(R.string.vs151));
 //            return;
 //        }
 //        if (Double.valueOf(dlsx) <= Double.valueOf(dlxx)) {
-//            CustomToast.showCustomErrorToast(mContext, getString(R.string.vs189));
+//            CustomToast.showCustomErrorToast(SwitchSettingActivity.this, getString(R.string.vs189));
 //            return;
 //        }
 //                "00000011:" + glfz + // 过流阀值(1)
@@ -418,7 +418,7 @@ public class SwitchSettingActivity extends BaseActivity implements
 //                ",0000001F:" + sdpz_val + // 上电配置
 //                ",00000020:" + sxbph.intValue(); // 三项不平衡
         String values = "";
-        int selectedTabPosition = mTabLayout.getSelectedTabPosition();
+        int selectedTabPosition = mBinding.tabSetting.getSelectedTabPosition();
         switch (selectedTabPosition) {
             case 0:
                 values = dl1_fragment.getValString();
@@ -440,20 +440,46 @@ public class SwitchSettingActivity extends BaseActivity implements
         if (values.isEmpty()) {
             return;
         }
-        Core.instance(mContext).sendSetThreadValueCommand(currentSwitchBean.getSerialNumber(), values, new ActionCallbackListener<Void>() {
+        Core.instance(SwitchSettingActivity.this).sendSetThreadValueCommand(currentSwitchBean.getSerialNumber(), values, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
-                CustomToast.showCustomToast(mContext, getString(R.string.vs213));
+                CustomToast.showCustomToast(SwitchSettingActivity.this, getString(R.string.vs213));
                 mHandler.sendEmptyMessageDelayed(MSG_sendGetThreadValueCommand_FLAG, 100);
             }
 
             @Override
             public void onFailure(int errorEvent, String message) {
-                CustomToast.showCustomErrorToast(mContext, message);
+                CustomToast.showCustomErrorToast(SwitchSettingActivity.this, message);
             }
         });
     }
 
+    public class Presenter {
+        public void onCancel(View view) {
+            finish();
+        }
+
+        public void onChange(View view) {
+            SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(SwitchSettingActivity.this, SwitchTree.DINGSHI, collectorBean, s -> {
+                currentSwitchBean = s;
+//                        getData(switchBean);
+//                txtLineName.setText(String.format("%s%s", SwitchSettingActivity.this.getString(R.string.vs14), currentSwitchBean.getName()));
+                mViewModel.setTxtLineName(String.format("%s%s", SwitchSettingActivity.this.getString(R.string.vs14), currentSwitchBean.getName()));
+                Objects.requireNonNull(mBinding.tabSetting.getTabAt(0)).select();// 重置为第一个TAB
+                currentParamID = dl1_fragment.getParamID(currentSwitchBean);
+                mHandler.sendEmptyMessageDelayed(MSG_findSwitchParamBySwitch_FLAG, 100);
+            });
+            switchTreeDialog.show();
+        }
+
+        public void onFlush(View view) {
+            mHandler.sendEmptyMessageDelayed(MSG_sendGetThreadValueCommand_FLAG, 100);
+        }
+
+        public void onCommit(View view) {
+            setValues();
+        }
+    }
 
     @Override
     protected void dealloc() {
@@ -462,17 +488,17 @@ public class SwitchSettingActivity extends BaseActivity implements
     }
 
     private void initFragment() {
-        MyFragmentAdapter mAdapter = new MyFragmentAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        viewPager.setAdapter(mAdapter);
-        mTabLayout.setupWithViewPager(viewPager, true);
+        MyFragmentAdapter mAdapter = new MyFragmentAdapter(getSupportFragmentManager());
+        mBinding.vpSetting.setAdapter(mAdapter);
+        mBinding.tabSetting.setupWithViewPager(mBinding.vpSetting, true);
     }
 
     class MyFragmentAdapter extends FragmentPagerAdapter {
         //        private Bundle bundle;
         private List<BaseFragment> listFragments = new ArrayList<>();
 
-        MyFragmentAdapter(FragmentManager fm, int behavior) {
-            super(fm, behavior);
+        MyFragmentAdapter(FragmentManager fm) {
+            super(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
             dl1_fragment = new SettingDL1Fragment().setOnShowingListener(SwitchSettingActivity.this);
             dy_fragment = new SettingDYFragment().setOnShowingListener(SwitchSettingActivity.this);
             dl2_fragment = new SettingDL2Fragment().setOnShowingListener(SwitchSettingActivity.this);

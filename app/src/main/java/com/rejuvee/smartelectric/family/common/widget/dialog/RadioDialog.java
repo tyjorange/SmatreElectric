@@ -11,6 +11,8 @@ import android.widget.ImageView;
 
 import com.rejuvee.smartelectric.family.R;
 
+import java.util.Objects;
+
 
 /**
  * 单选弹窗 （上电配置0：拉闸；1：合闸，2：不动作）
@@ -102,7 +104,7 @@ public class RadioDialog extends Dialog implements View.OnClickListener {
         setCanceledOnTouchOutside(true);
 
         Window dialogWindow = getWindow();
-        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+        WindowManager.LayoutParams lp = Objects.requireNonNull(dialogWindow).getAttributes();
         DisplayMetrics d = context.getResources().getDisplayMetrics(); // 获取屏幕宽、高用
         lp.width = d.widthPixels;
         dialogWindow.setAttributes(lp);

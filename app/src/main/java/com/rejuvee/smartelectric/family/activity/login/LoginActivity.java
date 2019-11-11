@@ -36,6 +36,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.Objects;
+
 /**
  * Created by SH on 2017/12/19.
  */
@@ -66,13 +68,14 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        current = this;
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         mViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         mViewModel.setAccountHelper(new AccountHelper());
         mViewModel.setCacheAccountInfo(AccountHelper.getCacheAccount());
+        mBinding.setVm(mViewModel);
         mBinding.setPresenter(new Presenter());
         mBinding.setLifecycleOwner(this);
-        mBinding.setVm(mViewModel);
 
 //        mContext = this;
 //        setToolbarHide(true);
@@ -93,10 +96,7 @@ public class LoginActivity extends BaseActivity {
         LanguageUtil.SwitchLang(this);
         EventBus.getDefault().register(this);
         mWaitDialog = new LoadingDlg(this, -1);
-    }
 
-    @Override
-    protected void initData() {
         if (ValidateUtils.isApkInDebug(this)) {
             // 隐藏按钮 事件
             mBinding.hiddenBtn.setOnTouchListener(new HiddenClickListener(new HiddenClickListener.MyClickCallBack() {
@@ -112,7 +112,7 @@ public class LoginActivity extends BaseActivity {
 
                 @Override
                 public void threeClick() {
-                    startActivity(new Intent(getBaseContext(), HiddenDialogActivity.class));
+                    startActivity(new Intent(LoginActivity.this, HiddenDialogActivity.class));
                 }
             }));
         }
@@ -127,6 +127,11 @@ public class LoginActivity extends BaseActivity {
 //            startActivity(new Intent(mContext, PrivacyActivity.class));
 //        });
         autoLogin();
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     //    @Override
@@ -146,13 +151,17 @@ public class LoginActivity extends BaseActivity {
     private void autoLogin() {
         AccountInfo cacheAccount = mViewModel.getCacheAccountInfo().getValue();
         if (cacheAccount != null) {
-            mBinding.loginCetUsername.setText(cacheAccount.getUserName());
-            mBinding.loginCetPassword.setText("******");
+//            mBinding.loginCetUsername.setText(cacheAccount.getUserName());
+            mViewModel.setUsername(cacheAccount.getUserName());
+//            mBinding.loginCetPassword.setText("******");
+            mViewModel.setPwd("******");
             apiLogin(cacheAccount.getUserName(), cacheAccount.getPassword());
         } else {
             if (ValidateUtils.isApkInDebug(this)) {
-                mBinding.loginCetUsername.setText("test");// TODO 测试账号
-                mBinding.loginCetPassword.setText("test");
+//                mBinding.loginCetUsername.setText("test");// TODO 测试账号
+                mViewModel.setUsername("test");
+//                mBinding.loginCetPassword.setText("test");
+                mViewModel.setPwd("test");
             }
         }
     }
@@ -163,9 +172,9 @@ public class LoginActivity extends BaseActivity {
      * @param view
      */
     private void onCheckLogin(View view) {
-        String userName = mBinding.loginCetUsername.getEditableText().toString();
-        String password = mBinding.loginCetPassword.getEditableText().toString();
-        if (userName.isEmpty() || password.isEmpty()) {
+        String userName = mViewModel.getUsername().getValue();//mBinding.loginCetUsername.getEditableText().toString();
+        String password = mViewModel.getPwd().getValue();//mBinding.loginCetPassword.getEditableText().toString();
+        if (Objects.requireNonNull(userName).isEmpty() || Objects.requireNonNull(password).isEmpty()) {
             CustomToast.showCustomErrorToast(this, getString(R.string.name_password_cannot_empty));
             return;
         }
@@ -178,10 +187,11 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void apiLogin(final String userName, final String password) {
-        mViewModel.getAccountHelper().getValue().toLogin(this, userName, password, true);
+        Objects.requireNonNull(mViewModel.getAccountHelper().getValue())
+                .toLogin(this, userName, password, true);
     }
 
-//    @Override
+    //    @Override
 //    public void onClick(View v) {
 ////        super.onClick(v);
 //        switch (v.getId()) {
@@ -206,6 +216,7 @@ public class LoginActivity extends BaseActivity {
 //                break;
 //        }
 //    }
+    private Activity current;
 
     public class Presenter {
         public void onForget(View view) {
@@ -225,7 +236,7 @@ public class LoginActivity extends BaseActivity {
         }
 
         public void onQQLogin(View view) {
-            QQLoginHelper.getInstance().qqLogin((Activity) view.getContext());
+            QQLoginHelper.getInstance().qqLogin(current);
         }
 
         public void onPrivacy(View view) {
@@ -241,8 +252,8 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void dealloc() {
         //防止内存泄漏
-        mBinding.loginCetPassword.removeTextChangedListener();
-        mBinding.loginCetUsername.removeTextChangedListener();
+//        mBinding.loginCetUsername.removeTextChangedListener();
+//        mBinding.loginCetPassword.removeTextChangedListener();
         EventBus.getDefault().unregister(this);
     }
 

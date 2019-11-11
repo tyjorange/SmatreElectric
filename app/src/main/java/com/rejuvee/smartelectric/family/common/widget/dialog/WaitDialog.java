@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.rejuvee.smartelectric.family.R;
 
+import java.util.Objects;
+
 
 public class WaitDialog extends Dialog {
     private Context context = null;
@@ -35,7 +37,7 @@ public class WaitDialog extends Dialog {
 
 
         Window window = customProgressDialog.getWindow();
-        window.getAttributes().gravity = Gravity.CENTER;
+        Objects.requireNonNull(window).getAttributes().gravity = Gravity.CENTER;
         WindowManager.LayoutParams lp = window.getAttributes();
         window.setAttributes(lp);
         TextView tvMsg = customProgressDialog.findViewById(R.id.id_tv_loadingmsg);

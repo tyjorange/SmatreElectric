@@ -1,10 +1,14 @@
 package com.rejuvee.smartelectric.family.activity.login;
 
 import android.content.Intent;
+import android.view.View;
+
+import androidx.databinding.DataBindingUtil;
 
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.ActivityFragmentManager;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
+import com.rejuvee.smartelectric.family.databinding.ActivityReLoginBinding;
 
 public class ReLoginActivity extends BaseActivity {
 
@@ -20,7 +24,10 @@ public class ReLoginActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        findViewById(R.id.btn_ok).setOnClickListener(v -> restartApp());
+        ActivityReLoginBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_re_login);
+        mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
+//        findViewById(R.id.btn_ok).setOnClickListener(v -> restartApp());
     }
 
     @Override
@@ -28,6 +35,12 @@ public class ReLoginActivity extends BaseActivity {
 
     }
 
+    public class Presenter {
+        public void onOk(View view) {
+            restartApp();
+        }
+
+    }
     @Override
     protected void dealloc() {
 
@@ -47,6 +60,5 @@ public class ReLoginActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-
     }
 }

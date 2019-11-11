@@ -7,9 +7,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.TimePicker;
+
+import androidx.databinding.DataBindingUtil;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
@@ -19,6 +18,7 @@ import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.utils.TimePickerUIUtil;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTipWithoutOkCancel;
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
+import com.rejuvee.smartelectric.family.databinding.ActivityTimeTaskEditBinding;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.model.bean.TimeTaskBean;
 
@@ -29,16 +29,15 @@ import java.util.Locale;
 /**
  * 定时开关 编辑
  */
-public class TimerEditDialogActivity extends BaseActivity implements View.OnClickListener {
+public class TimerEditDialogActivity extends BaseActivity {
     private List<CheckBox> mListDataCheckButton = new ArrayList<>();
-    private TimePicker mTimePicker;
-    private TextView txtSwitchState;
-    private ImageView imgUpload;
-    private ImageView imgCaozuo;
-    private TextView txtCaozuo;
+    //    private TimePicker mBinding.timePicker;
+    //    private TextView txtSwitchState;
+    //    private ImageView imgUpload;
+    //    private ImageView imgCaozuo;
+//    private TextView txtCaozuo;
     private TimeTaskBean.TimeTask mTask;
     private SwitchBean switchBean;
-    //    private String time;
     private LoadingDlg mWaitDialog;
 
     private int uploadToCollect = 0;
@@ -53,8 +52,13 @@ public class TimerEditDialogActivity extends BaseActivity implements View.OnClic
 //        return 0;
 //    }
 
+    private ActivityTimeTaskEditBinding mBinding;
+
     @Override
     protected void initView() {
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_time_task_edit);
+        mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
 //        Resources resources = this.getResources();
 //        DisplayMetrics dm = resources.getDisplayMetrics();
         Window dialogWindow = getWindow();
@@ -65,14 +69,14 @@ public class TimerEditDialogActivity extends BaseActivity implements View.OnClic
         dialogWindow.setGravity(Gravity.BOTTOM);
         dialogWindow.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
 
-        mListDataCheckButton.add(findViewById(R.id.cb_day0));
-        mListDataCheckButton.add(findViewById(R.id.cb_day1));
-        mListDataCheckButton.add(findViewById(R.id.cb_day2));
-        mListDataCheckButton.add(findViewById(R.id.cb_day3));
-        mListDataCheckButton.add(findViewById(R.id.cb_day4));
-        mListDataCheckButton.add(findViewById(R.id.cb_day5));
-        mListDataCheckButton.add(findViewById(R.id.cb_day6));
-        mListDataCheckButton.add(findViewById(R.id.cb_day7));
+        mListDataCheckButton.add(mBinding.cbDay0);
+        mListDataCheckButton.add(mBinding.cbDay1);
+        mListDataCheckButton.add(mBinding.cbDay2);
+        mListDataCheckButton.add(mBinding.cbDay3);
+        mListDataCheckButton.add(mBinding.cbDay4);
+        mListDataCheckButton.add(mBinding.cbDay5);
+        mListDataCheckButton.add(mBinding.cbDay6);
+        mListDataCheckButton.add(mBinding.cbDay7);
 
 //        int width = (ScreenUtils.getScreenWidth() - SizeUtils.dp2px(32 + 28)) / mListDataCheckButton.size();
         for (int i = 0; i < mListDataCheckButton.size(); i++) {
@@ -83,11 +87,11 @@ public class TimerEditDialogActivity extends BaseActivity implements View.OnClic
             checkBox.setText(getResources().getStringArray(R.array.week_day)[i]);
         }
 
-        mTimePicker = findViewById(R.id.time_picker);
-        mTimePicker.setIs24HourView(true);
-        TimePickerUIUtil.setTimepickerTextColour(mTimePicker, this);
-//        TimePickerUIUtil.setNumberPickerTextSize(mTimePicker);
-//        mTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+//        mBinding.timePicker = findViewById(R.id.time_picker);
+        mBinding.timePicker.setIs24HourView(true);
+        TimePickerUIUtil.setTimepickerTextColour(mBinding.timePicker, this);
+//        TimePickerUIUtil.setNumberPickerTextSize(mBinding.timePicker);
+//        mBinding.timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
 //            @Override
 //            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
 //                time = String.format("%1$02d:%2$02d", hourOfDay, minute);// hourOfDay + ":" + minute;
@@ -95,20 +99,20 @@ public class TimerEditDialogActivity extends BaseActivity implements View.OnClic
 //        });
 
 //        txtTime = (TextView) findViewById(R.id.txt_time);
-        txtSwitchState = findViewById(R.id.txt_switch_state);
+//        txtSwitchState = findViewById(R.id.txt_switch_state);
 //        imgSwitchOff = (ImageView) findViewById(R.id.img_check_off);
 //        imgSwithOn = (ImageView) findViewById(R.id.img_check_on);
-        imgUpload = findViewById(R.id.iv_upload);
-        imgCaozuo = findViewById(R.id.iv_check);
-        txtCaozuo = findViewById(R.id.tv_caozuo);
+//        imgUpload = findViewById(R.id.iv_upload);
+//        imgCaozuo = findViewById(R.id.iv_check);
+//        txtCaozuo = findViewById(R.id.tv_caozuo);
 
 //        findViewById(R.id.rl_on).setOnClickListener(mSwitchListener);
 //        findViewById(R.id.rl_off).setOnClickListener(mSwitchListener);
-        findViewById(R.id.iv_upload).setOnClickListener(this);
-        findViewById(R.id.iv_tips).setOnClickListener(this);
-        findViewById(R.id.st_quxiao).setOnClickListener(this);
-        findViewById(R.id.st_ok).setOnClickListener(this);
-        imgCaozuo.setOnClickListener(this);
+//        findViewById(R.id.iv_upload).setOnClickListener(this);
+//        findViewById(R.id.iv_tips).setOnClickListener(this);
+//        findViewById(R.id.st_quxiao).setOnClickListener(this);
+//        findViewById(R.id.st_ok).setOnClickListener(this);
+//        imgCaozuo.setOnClickListener(this);
 
         mWaitDialog = new LoadingDlg(this, -1);
     }
@@ -126,11 +130,11 @@ public class TimerEditDialogActivity extends BaseActivity implements View.OnClic
 
     private void updateSwicthState(boolean isSwicthOn) {
         this.isSwicthOn = isSwicthOn;
-        imgCaozuo.setImageResource(isSwicthOn ? R.drawable.yk_hezha : R.drawable.yk_kaizha);
-        txtCaozuo.setText(isSwicthOn ? getString(R.string.vs74) : getString(R.string.vs75));
+        mBinding.ivCheck.setImageResource(isSwicthOn ? R.drawable.yk_hezha : R.drawable.yk_kaizha);
+        mBinding.tvCaozuo.setText(isSwicthOn ? getString(R.string.vs74) : getString(R.string.vs75));
 //        imgSwithOn.setImageResource(isSwicthOn ? R.drawable.timer_check : R.drawable.timer_uncheck);
 //        imgSwitchOff.setImageResource(!isSwicthOn ? R.drawable.timer_check : R.drawable.timer_uncheck);
-        txtSwitchState.setText(isSwicthOn ? getString(R.string.switch_on) : getString(R.string.switch_off));
+        mBinding.txtSwitchState.setText(isSwicthOn ? getString(R.string.switch_on) : getString(R.string.switch_off));
     }
 
     @Override
@@ -142,11 +146,11 @@ public class TimerEditDialogActivity extends BaseActivity implements View.OnClic
             String time = mTask.time;
             String[] split = time.split(":");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                mTimePicker.setHour(Integer.valueOf(split[0]));
-                mTimePicker.setMinute(Integer.valueOf(split[1]));
+                mBinding.timePicker.setHour(Integer.valueOf(split[0]));
+                mBinding.timePicker.setMinute(Integer.valueOf(split[1]));
             } else {
-                mTimePicker.setCurrentHour(Integer.valueOf(split[0]));
-                mTimePicker.setCurrentMinute(Integer.valueOf(split[1]));
+                mBinding.timePicker.setCurrentHour(Integer.valueOf(split[0]));
+                mBinding.timePicker.setCurrentMinute(Integer.valueOf(split[1]));
             }
            /* if (time != null) {
                 time = time.substring(0, time.lastIndexOf(":"));
@@ -157,10 +161,10 @@ public class TimerEditDialogActivity extends BaseActivity implements View.OnClic
         } else {
             uploadToCollect = 0;
             updateSwicthState(true);
-//            String time = String.format("%1$02d:%2$02d", mTimePicker.getCurrentHour(), mTimePicker.getCurrentMinute());
+//            String time = String.format("%1$02d:%2$02d", mBinding.timePicker.getCurrentHour(), mBinding.timePicker.getCurrentMinute());
 //            txtTime.setText(time);
         }
-        imgUpload.setImageResource(uploadToCollect == 1 ? R.drawable.yixuan : R.drawable.weixuan);
+        mBinding.ivUpload.setImageResource(uploadToCollect == 1 ? R.drawable.yixuan : R.drawable.weixuan);
     }
 
     private void initRepeatState() {
@@ -222,9 +226,9 @@ public class TimerEditDialogActivity extends BaseActivity implements View.OnClic
         mWaitDialog.show();
         String runTime = null;// hourOfDay + ":" + minute;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            runTime = String.format(Locale.getDefault(), "%1$02d:%2$02d", mTimePicker.getHour(), mTimePicker.getMinute());
+            runTime = String.format(Locale.getDefault(), "%1$02d:%2$02d", mBinding.timePicker.getHour(), mBinding.timePicker.getMinute());
         } else {
-            runTime = String.format(Locale.getDefault(), "%1$02d:%2$02d", mTimePicker.getCurrentHour(), mTimePicker.getCurrentMinute());
+            runTime = String.format(Locale.getDefault(), "%1$02d:%2$02d", mBinding.timePicker.getCurrentHour(), mBinding.timePicker.getCurrentMinute());
         }
         if (mTask == null) {
             //for New
@@ -267,29 +271,52 @@ public class TimerEditDialogActivity extends BaseActivity implements View.OnClic
         }
     }
 
-//    @Override
+    //    @Override
 //    protected boolean isDisplayHomeAsUpEnabled() {
 //        return true;
 //    }
+    public class Presenter {
+        public void onCancel(View view) {
+            finish();
+        }
+
+        public void onUpload(View view) {
+            uploadToCollect = uploadToCollect == 1 ? 0 : 1;
+            mBinding.ivUpload.setImageResource(uploadToCollect == 1 ? R.drawable.yixuan : R.drawable.weixuan);
+        }
+
+        public void onOk(View view) {
+            finishEdit();
+        }
+
+        public void onCheck(View view) {
+            updateSwicthState(!isSwicthOn);
+        }
+
+        public void onTip(View view) {
+            new DialogTipWithoutOkCancel(TimerEditDialogActivity.this).setTitle(getString(R.string.vs140)).setContent(getString(R.string.upload_tips)).show();
+        }
+
+    }
 
     @Override
     protected void dealloc() {
 
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.st_quxiao) {
-            finish();
-        } else if (v.getId() == R.id.st_ok) {
-            finishEdit();
-        } else if (v.getId() == R.id.iv_upload) {
-            uploadToCollect = uploadToCollect == 1 ? 0 : 1;
-            imgUpload.setImageResource(uploadToCollect == 1 ? R.drawable.yixuan : R.drawable.weixuan);
-        } else if (v.getId() == R.id.iv_tips) {
-            new DialogTipWithoutOkCancel(TimerEditDialogActivity.this).setTitle(getString(R.string.vs140)).setContent(getString(R.string.upload_tips)).show();
-        } else if (v.getId() == R.id.iv_check) {
-            updateSwicthState(!isSwicthOn);
-        }
-    }
+//    @Override
+//    public void onClick(View v) {
+//        if (v.getId() == R.id.st_quxiao) {
+//            finish();
+//        } else if (v.getId() == R.id.st_ok) {
+//            finishEdit();
+//        } else if (v.getId() == R.id.iv_upload) {
+//            uploadToCollect = uploadToCollect == 1 ? 0 : 1;
+//            imgUpload.setImageResource(uploadToCollect == 1 ? R.drawable.yixuan : R.drawable.weixuan);
+//        } else if (v.getId() == R.id.iv_tips) {
+//            new DialogTipWithoutOkCancel(TimerEditDialogActivity.this).setTitle(getString(R.string.vs140)).setContent(getString(R.string.upload_tips)).show();
+//        } else if (v.getId() == R.id.iv_check) {
+//            updateSwicthState(!isSwicthOn);
+//        }
+//    }
 }

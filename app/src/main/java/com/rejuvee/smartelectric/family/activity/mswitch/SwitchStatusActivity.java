@@ -6,9 +6,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
@@ -18,9 +18,11 @@ import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.constant.CommonRequestCode;
 import com.rejuvee.smartelectric.family.common.custom.FlushTimeTask;
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
+import com.rejuvee.smartelectric.family.databinding.ActivitySwitchStatusBinding;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.model.bean.SwitchSignalItem;
+import com.rejuvee.smartelectric.family.model.viewmodel.SwitchStatusViewModel;
 
 import java.lang.ref.WeakReference;
 import java.text.DecimalFormat;
@@ -30,23 +32,23 @@ import java.util.TimerTask;
 /**
  * 实时情况
  */
-public class SwitchStatusActivity extends BaseActivity implements View.OnClickListener {
+public class SwitchStatusActivity extends BaseActivity {
     private static final String TAG = "SwitchStatusActivity";
     private CollectorBean collectorBean;
     private SwitchBean switchBean;
-    private TextView line_name;
-    private ImageView online_icon;
-    private TextView online_text;
-    private TextView dl_val;
-    private TextView dy_val;
-    private TextView ldl_val;
-    private TextView wd_val;
-    private TextView ygdy_val;
-    private TextView switch_ver;
+    //    private TextView line_name;
+//    private ImageView online_icon;
+//    private TextView online_text;
+//    private TextView dl_val;
+//    private TextView dy_val;
+//    private TextView ldl_val;
+//    private TextView wd_val;
+//    private TextView ygdy_val;
+//    private TextView switch_ver;
     private Handler mHandler;
     private LoadingDlg waitDialog;
 
-//    @Override
+    //    @Override
 //    protected int getLayoutResId() {
 //        return R.layout.activity_switch_status;
 //    }
@@ -55,32 +57,41 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
 //    protected int getMyTheme() {
 //        return 0;
 //    }
+    private ActivitySwitchStatusBinding mBinding;
+    private SwitchStatusViewModel mViewModel;
 
     @Override
     protected void initView() {
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_switch_status);
+        mViewModel = ViewModelProviders.of(this).get(SwitchStatusViewModel.class);
+        mBinding.setVm(mViewModel);
+        mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
+
         collectorBean = getIntent().getParcelableExtra("collectorBean");
         waitDialog = new LoadingDlg(this, -1);
-        ImageView backBtn = findViewById(R.id.img_cancel);
-        LinearLayout change = findViewById(R.id.img_change);
-        ImageView imgFlush = findViewById(R.id.img_flush);
-        line_name = findViewById(R.id.line_name);
-        online_icon = findViewById(R.id.online_icon);
-        online_text = findViewById(R.id.online_text);
-        dl_val = findViewById(R.id.dl_val);
-        dy_val = findViewById(R.id.dy_val);
-        ldl_val = findViewById(R.id.ldl_val);
-        wd_val = findViewById(R.id.wd_val);
-        ygdy_val = findViewById(R.id.ygdy_val);
-        switch_ver = findViewById(R.id.switch_ver);
-        backBtn.setOnClickListener(this);
-        change.setOnClickListener(this);
-        imgFlush.setOnClickListener(this);
+//        ImageView backBtn = findViewById(R.id.img_cancel);
+//        LinearLayout change = findViewById(R.id.img_change);
+//        ImageView imgFlush = findViewById(R.id.img_flush);
+//        line_name = findViewById(R.id.line_name);
+//        online_icon = findViewById(R.id.online_icon);
+//        online_text = findViewById(R.id.online_text);
+//        dl_val = findViewById(R.id.dl_val);
+//        dy_val = findViewById(R.id.dy_val);
+//        ldl_val = findViewById(R.id.ldl_val);
+//        wd_val = findViewById(R.id.wd_val);
+//        ygdy_val = findViewById(R.id.ygdy_val);
+//        switch_ver = findViewById(R.id.switch_ver);
+//        backBtn.setOnClickListener(this);
+//        change.setOnClickListener(this);
+//        imgFlush.setOnClickListener(this);
+        mHandler = new MyHandler(this);
+        getSwitchByCollector();
     }
 
     @Override
     protected void initData() {
-        mHandler = new MyHandler(this);
-        getSwitchByCollector();
+
     }
 
     private static class MyHandler extends Handler {
@@ -194,20 +205,24 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
                 for (SwitchSignalItem item : data) {
                     switch (Integer.valueOf(item.getSignalsTypeID())) {
                         case 1://电流
-                            dl_val.setText(String.format("%s%s", item.getValue(), item.getUnit()));
+//                            dl_val.setText(String.format("%s%s", item.getValue(), item.getUnit()));
+                            mViewModel.setDlVal(String.format("%s%s", item.getValue(), item.getUnit()));
                             break;
                         case 3://当前月有功电量
-                            ygdy_val.setText(String.format("%s%s", item.getValue(), item.getUnit()));
+//                            ygdy_val.setText(String.format("%s%s", item.getValue(), item.getUnit()));
+                            mViewModel.setYgdyVal(String.format("%s%s", item.getValue(), item.getUnit()));
                             break;
                         case 4://电压
-                            dy_val.setText(String.format("%s%s", item.getValue(), item.getUnit()));
+//                            dy_val.setText(String.format("%s%s", item.getValue(), item.getUnit()));
+                            mViewModel.setDyVal(String.format("%s%s", item.getValue(), item.getUnit()));
                             break;
                         case 5://功率因数
                             break;
                         case 6://频率
                             break;
                         case 7://温度
-                            wd_val.setText(String.format("%s%s", item.getValue(), item.getUnit()));
+//                            wd_val.setText(String.format("%s%s", item.getValue(), item.getUnit()));
+                            mViewModel.setWdVal(String.format("%s%s", item.getValue(), item.getUnit()));
                             break;
                         case 8://无功电量
                             break;
@@ -218,7 +233,8 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
                         case 11://有功功率
                             break;
                         case 12://漏电流
-                            ldl_val.setText(String.format("%s%s", item.getValue(), item.getUnit()));
+//                            ldl_val.setText(String.format("%s%s", item.getValue(), item.getUnit()));
+                            mViewModel.setLdlVal(String.format("%s%s", item.getValue(), item.getUnit()));
                             break;
                     }
                 }
@@ -227,14 +243,21 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public void onFailure(int errorEvent, String message) {
-                online_icon.setVisibility(View.INVISIBLE);
-                online_text.setText("-");
-                dl_val.setText("-");
-                dy_val.setText("-");
-                wd_val.setText("-");
-                ldl_val.setText("-");
-                ygdy_val.setText("-");
-                switch_ver.setText("-");
+                mBinding.onlineIcon.setVisibility(View.INVISIBLE);
+//                online_text.setText("-");
+                mViewModel.setOnlineText("-");
+//                dl_val.setText("-");
+                mViewModel.setDlVal("-");
+//                dy_val.setText("-");
+                mViewModel.setDyVal("-");
+//                wd_val.setText("-");
+                mViewModel.setWdVal("-");
+//                ldl_val.setText("-");
+                mViewModel.setLdlVal("-");
+//                ygdy_val.setText("-");
+                mViewModel.setYgdyVal("-");
+//                switch_ver.setText("-");
+                mViewModel.setSwitchVer("-");
                 CustomToast.showCustomErrorToast(SwitchStatusActivity.this, message);
                 waitDialog.dismiss();
             }
@@ -247,12 +270,38 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
      * @param switchBean
      */
     private void setSwitchVersion(SwitchBean switchBean) {
-        line_name.setText(String.format("%s%s", getString(R.string.vs4), switchBean.getName()));
+//        line_name.setText(String.format("%s%s", getString(R.string.vs4), switchBean.getName()));
+        mViewModel.setLineName(String.format("%s%s", getString(R.string.vs4), switchBean.getName()));
         String s = df.format(switchBean.getModelMajor()) +
                 df.format(switchBean.getModelMinor()) +
                 df.format(switchBean.getVerMajor()) +
                 df.format(switchBean.getVerMinor());
-        switch_ver.setText(s);
+//        switch_ver.setText(s);
+        mViewModel.setSwitchVer(s);
+    }
+
+    public class Presenter {
+        public void onCancel(View view) {
+            finish();
+        }
+
+        public void onChange(View view) {
+            //                Intent intent = new Intent(SwitchStatusActivity.this, SwitchTreeDialog.class);
+//                intent.putExtra("collectorBean", collectorBean);
+//                intent.putExtra("viewType", SwitchTree.SHISHI);
+//                startActivityForResult(intent, CommonRequestCode.REQUEST_CHOSE_LINE);
+            SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(view.getContext(), SwitchTree.SHISHI, collectorBean, s -> {
+                switchBean = s;
+                mHandler.sendEmptyMessageDelayed(MSG_SEND_REFRESH_FLAG, 100);
+//                        getBreakSignalValue(switchBean);
+            });
+            switchTreeDialog.show();
+        }
+
+        public void onFlush(View view) {
+            mHandler.sendEmptyMessageDelayed(MSG_SEND_REFRESH_FLAG, 100);
+        }
+
     }
 
     @Override
@@ -288,16 +337,19 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
      * 设置线路图标状态
      */
     private void toggleSwitchState(SwitchBean ss) {
-        online_icon.setVisibility(View.VISIBLE);
+        mBinding.onlineIcon.setVisibility(View.VISIBLE);
         if (ss.getSwitchState() == 1) {
-            online_text.setText(getString(R.string.vs74));
-            online_icon.setBackgroundResource(R.drawable.hezha_p);
+//            online_text.setText(getString(R.string.vs74));
+            mViewModel.setOnlineText(getString(R.string.vs74));
+            mBinding.onlineIcon.setBackgroundResource(R.drawable.hezha_p);
         } else if (ss.getSwitchState() == 0) {
-            online_text.setText(getString(R.string.vs75));
-            online_icon.setBackgroundResource(R.drawable.kaizha_p);
+//            online_text.setText(getString(R.string.vs75));
+            mViewModel.setOnlineText(getString(R.string.vs75));
+            mBinding.onlineIcon.setBackgroundResource(R.drawable.kaizha_p);
         } else {
-            online_text.setText(getString(R.string.vs141));
-            online_icon.setBackgroundResource(R.drawable.cuowu_p);
+//            online_text.setText(getString(R.string.vs141));
+            mViewModel.setOnlineText(getString(R.string.vs141));
+            mBinding.onlineIcon.setBackgroundResource(R.drawable.cuowu_p);
         }
     }
 
@@ -315,15 +367,22 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onFailure(int errorEvent, String message) {
                 if (errorEvent == 12) {
-                    online_icon.setVisibility(View.INVISIBLE);
-                    online_text.setText("-");
-                    dl_val.setText("-");
-                    dy_val.setText("-");
-                    ldl_val.setText("-");
-                    wd_val.setText("-");
-                    ygdy_val.setText("-");
-                    switch_ver.setText("-");
                     CustomToast.showCustomErrorToast(SwitchStatusActivity.this, getString(R.string.vs29));
+                    mBinding.onlineIcon.setVisibility(View.INVISIBLE);
+//                online_text.setText("-");
+                    mViewModel.setOnlineText("-");
+//                dl_val.setText("-");
+                    mViewModel.setDlVal("-");
+//                dy_val.setText("-");
+                    mViewModel.setDyVal("-");
+//                wd_val.setText("-");
+                    mViewModel.setWdVal("-");
+//                ldl_val.setText("-");
+                    mViewModel.setLdlVal("-");
+//                ygdy_val.setText("-");
+                    mViewModel.setYgdyVal("-");
+//                switch_ver.setText("-");
+                    mViewModel.setSwitchVer("-");
                 } else {
                     CustomToast.showCustomErrorToast(SwitchStatusActivity.this, message);
                 }
@@ -332,30 +391,30 @@ public class SwitchStatusActivity extends BaseActivity implements View.OnClickLi
         });
     }
 
-    @Override
-    public void onClick(View v) {
-        int id = v.getId();
-        switch (id) {
-            case R.id.img_cancel:// 返回
-                finish();
-                break;
-            case R.id.img_flush:// 刷新
-                mHandler.sendEmptyMessageDelayed(MSG_SEND_REFRESH_FLAG, 100);
-                break;
-            case R.id.img_change:// 改变线路
-//                Intent intent = new Intent(SwitchStatusActivity.this, SwitchTreeDialog.class);
-//                intent.putExtra("collectorBean", collectorBean);
-//                intent.putExtra("viewType", SwitchTree.SHISHI);
-//                startActivityForResult(intent, CommonRequestCode.REQUEST_CHOSE_LINE);
-                SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(this, SwitchTree.SHISHI, collectorBean, s -> {
-                    switchBean = s;
-                    mHandler.sendEmptyMessageDelayed(MSG_SEND_REFRESH_FLAG, 100);
-//                        getBreakSignalValue(switchBean);
-                });
-                switchTreeDialog.show();
-                break;
-        }
-    }
+//    @Override
+//    public void onClick(View v) {
+//        int id = v.getId();
+//        switch (id) {
+//            case R.id.img_cancel:// 返回
+//                finish();
+//                break;
+//            case R.id.img_flush:// 刷新
+//                mHandler.sendEmptyMessageDelayed(MSG_SEND_REFRESH_FLAG, 100);
+//                break;
+//            case R.id.img_change:// 改变线路
+////                Intent intent = new Intent(SwitchStatusActivity.this, SwitchTreeDialog.class);
+////                intent.putExtra("collectorBean", collectorBean);
+////                intent.putExtra("viewType", SwitchTree.SHISHI);
+////                startActivityForResult(intent, CommonRequestCode.REQUEST_CHOSE_LINE);
+//                SwitchTreeDialog switchTreeDialog = new SwitchTreeDialog(this, SwitchTree.SHISHI, collectorBean, s -> {
+//                    switchBean = s;
+//                    mHandler.sendEmptyMessageDelayed(MSG_SEND_REFRESH_FLAG, 100);
+////                        getBreakSignalValue(switchBean);
+//                });
+//                switchTreeDialog.show();
+//                break;
+//        }
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

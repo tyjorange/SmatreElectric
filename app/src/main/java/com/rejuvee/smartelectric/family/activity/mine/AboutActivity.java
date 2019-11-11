@@ -3,13 +3,16 @@ package com.rejuvee.smartelectric.family.activity.mine;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.widget.TextView;
+import android.view.View;
+
+import androidx.databinding.DataBindingUtil;
 
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
+import com.rejuvee.smartelectric.family.databinding.ActivityAboutBinding;
 
 public class AboutActivity extends BaseActivity {
-    private Context mContext;
+//    private Context mContext;
 //    @Override
 //    protected int getLayoutResId() {
 //        return R.layout.activity_about;
@@ -22,9 +25,11 @@ public class AboutActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mContext = this;
-        findViewById(R.id.iv_back).setOnClickListener(v -> finish());
-        ((TextView) findViewById(R.id.txt_current_vision)).setText(String.format("%s%s", getString(R.string.vs20), packageCode(mContext)));
+        ActivityAboutBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_about);
+        mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
+//        findViewById(R.id.iv_back).setOnClickListener(v -> finish());
+        mBinding.txtCurrentVision.setText(String.format("%s%s", getString(R.string.vs20), packageCode(this)));
     }
 
     private String packageCode(Context context) {
@@ -42,6 +47,12 @@ public class AboutActivity extends BaseActivity {
     @Override
     protected void initData() {
 
+    }
+
+    public class Presenter {
+        public void onCancel(View view) {
+            finish();
+        }
     }
 
     @Override

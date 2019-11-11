@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
+
+import androidx.databinding.DataBindingUtil;
 
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
+import com.rejuvee.smartelectric.family.databinding.ActivityChocesceneimgBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +20,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/12/15.
  */
-public class ChoceSceneimgActivity extends BaseActivity implements View.OnClickListener {
+public class ChoceSceneimgActivity extends BaseActivity {
     int[] imageId = new int[]{
             R.drawable.cj_qichuang_cj,
             R.drawable.cj_shuijiao_cj,
@@ -51,17 +53,19 @@ public class ChoceSceneimgActivity extends BaseActivity implements View.OnClickL
 
     @Override
     protected void initView() {
+        ActivityChocesceneimgBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_chocesceneimg);
+        mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
+
 //        setToolbarHide(true);
         initdata();
-        findViewById(R.id.txt_cancel).setOnClickListener(this);
-        findViewById(R.id.st_wancheng).setOnClickListener(this);
+//        findViewById(R.id.txt_cancel).setOnClickListener(this);
+//        findViewById(R.id.st_wancheng).setOnClickListener(this);
 //      MyGridView gride_allscen = (MyGridView) findViewById(R.id.gride_allscen);
-        GridView gride_allscen = findViewById(R.id.gride_allscen);
+//        GridView gride_allscen = findViewById(R.id.gride_allscen);
         gridViewAdapter = new GridViewAdapter(ChoceSceneimgActivity.this, listGrids);
-        if (listGrids.size() > 0) {
-            gride_allscen.setAdapter(gridViewAdapter);
-        }
-        gride_allscen.setOnItemClickListener((parent, view, position, id) -> {
+        mBinding.grideAllscen.setAdapter(gridViewAdapter);
+        mBinding.grideAllscen.setOnItemClickListener((parent, view, position, id) -> {
             reset();
             listGrids.get(position).chose = 1;
             gridViewAdapter.notifyDataSetChanged();
@@ -71,15 +75,14 @@ public class ChoceSceneimgActivity extends BaseActivity implements View.OnClickL
 //                setResult(RESULT_OK, intent);
 //                ChoceSceneimgActivity.this.finish();
         });
-        findViewById(R.id.img_qichuang).setOnClickListener(this);
-        findViewById(R.id.img_shuijiao).setOnClickListener(this);
-        findViewById(R.id.img_huijia).setOnClickListener(this);
-        findViewById(R.id.img_lijia).setOnClickListener(this);
-
-        chk.add(findViewById(R.id.chk_qichuang));
-        chk.add(findViewById(R.id.chk_shuijiao));
-        chk.add(findViewById(R.id.chk_huijia));
-        chk.add(findViewById(R.id.chk_lijia));
+//        findViewById(R.id.img_qichuang).setOnClickListener(this);
+//        findViewById(R.id.img_shuijiao).setOnClickListener(this);
+//        findViewById(R.id.img_huijia).setOnClickListener(this);
+//        findViewById(R.id.img_lijia).setOnClickListener(this);
+        chk.add(mBinding.chkQichuang);
+        chk.add(mBinding.chkShuijiao);
+        chk.add(mBinding.chkHuijia);
+        chk.add(mBinding.chkLijia);
 
     }
 
@@ -94,7 +97,7 @@ public class ChoceSceneimgActivity extends BaseActivity implements View.OnClickL
 
     }
 
-//    @Override
+    //    @Override
 //    protected String getToolbarTitle() {
 //        return null;
 //    }
@@ -103,41 +106,73 @@ public class ChoceSceneimgActivity extends BaseActivity implements View.OnClickL
 //    protected boolean isDisplayHomeAsUpEnabled() {
 //        return false;
 //    }
+    public class Presenter {
+        public void onCancel(View view) {
+            finish();
+        }
+
+        public void onQichuang(View view) {
+            chocescen(0);
+        }
+
+        public void onShuijiao(View view) {
+            chocescen(1);
+        }
+
+        public void onHuijia(View view) {
+            chocescen(2);
+        }
+
+        public void onLijia(View view) {
+            chocescen(3);
+        }
+
+        public void onCommit(View view) {
+            if (currentPos == -1) {
+                return;
+            }
+            Intent intent = new Intent();
+            intent.putExtra("scenimg", currentPos);
+            setResult(RESULT_OK, intent);
+            ChoceSceneimgActivity.this.finish();
+        }
+
+    }
 
     @Override
     protected void dealloc() {
 
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.img_qichuang:
-                chocescen(0);
-                break;
-            case R.id.img_shuijiao:
-                chocescen(1);
-                break;
-            case R.id.img_huijia:
-                chocescen(2);
-                break;
-            case R.id.img_lijia:
-                chocescen(3);
-                break;
-            case R.id.txt_cancel:
-                ChoceSceneimgActivity.this.finish();
-                break;
-            case R.id.st_wancheng:
-                if (currentPos == -1) {
-                    break;
-                }
-                Intent intent = new Intent();
-                intent.putExtra("scenimg", currentPos);
-                setResult(RESULT_OK, intent);
-                ChoceSceneimgActivity.this.finish();
-                break;
-        }
-    }
+//    @Override
+//    public void onClick(View v) {
+//        switch (v.getId()) {
+//            case R.id.img_qichuang:
+//                chocescen(0);
+//                break;
+//            case R.id.img_shuijiao:
+//                chocescen(1);
+//                break;
+//            case R.id.img_huijia:
+//                chocescen(2);
+//                break;
+//            case R.id.img_lijia:
+//                chocescen(3);
+//                break;
+//            case R.id.txt_cancel:
+//                ChoceSceneimgActivity.this.finish();
+//                break;
+//            case R.id.st_wancheng:
+//                if (currentPos == -1) {
+//                    break;
+//                }
+//                Intent intent = new Intent();
+//                intent.putExtra("scenimg", currentPos);
+//                setResult(RESULT_OK, intent);
+//                ChoceSceneimgActivity.this.finish();
+//                break;
+//        }
+//    }
 
     private void chocescen(int position) {
         reset();

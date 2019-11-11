@@ -1,21 +1,21 @@
 package com.rejuvee.smartelectric.family.activity.report;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
-import com.google.android.material.tabs.TabLayout;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
+import com.rejuvee.smartelectric.family.databinding.ActivityReportDetailBinding;
 import com.rejuvee.smartelectric.family.fragment.ReportAlarmFragment;
 import com.rejuvee.smartelectric.family.fragment.ReportPowerFragment;
 import com.rejuvee.smartelectric.family.fragment.ReportWarnFragment;
@@ -32,13 +32,13 @@ import java.util.List;
 public class ReportDetailActivity extends BaseActivity {
     private CollectorBean collectorBean;
     private ReportBean reportBean;
-    private Context mContext;
+    //    private Context mContext;
     private LoadingDlg loadingDlg;
-    private TabLayout mTabLayout;
-    private ViewPager viewPager;
+    //    private TabLayout mTabLayout;
+//    private ViewPager viewPager;
     private ReportDetailBean reportDetailBean;
 
-//    @Override
+    //    @Override
 //    protected int getLayoutResId() {
 //        return R.layout.activity_report_detail;
 //    }
@@ -47,19 +47,24 @@ public class ReportDetailActivity extends BaseActivity {
 //    protected int getMyTheme() {
 //        return 0;
 //    }
+    private ActivityReportDetailBinding mBinding;
 
     @Override
     protected void initView() {
-        mContext = this;
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_report_detail);
+        mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
+
+//        mContext = this;
         collectorBean = getIntent().getParcelableExtra("collectorBean");
         reportBean = getIntent().getParcelableExtra("reportBean");
         loadingDlg = new LoadingDlg(this, -1);
-        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
-        mTabLayout = findViewById(R.id.tab_report);
-        viewPager = findViewById(R.id.vp_report);
-        TextView textViewTitle = findViewById(R.id.tv_report_title);
+//        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
+//        mTabLayout = findViewById(R.id.tab_report);
+//        viewPager = findViewById(R.id.vp_report);
+//        TextView textViewTitle = findViewById(R.id.tv_report_title);
         String a = reportBean.timeType == 1 ? getString(R.string.vs88) : getString(R.string.vs137);
-        textViewTitle.setText(String.format("%s %s - %s", a, reportBean.startDay, reportBean.endDay));
+        mBinding.tvReportTitle.setText(String.format("%s %s - %s", a, reportBean.startDay, reportBean.endDay));
     }
 
     @Override
@@ -82,7 +87,7 @@ public class ReportDetailActivity extends BaseActivity {
 
             @Override
             public void onFailure(int errorEvent, String message) {
-                CustomToast.showCustomErrorToast(mContext, message);
+                CustomToast.showCustomErrorToast(ReportDetailActivity.this, message);
                 fillData();
                 loadingDlg.dismiss();
             }
@@ -91,8 +96,15 @@ public class ReportDetailActivity extends BaseActivity {
 
     private void fillData() {
         MyFragmentAdapter mAdapter = new MyFragmentAdapter(getSupportFragmentManager(), reportDetailBean);
-        viewPager.setAdapter(mAdapter);
-        mTabLayout.setupWithViewPager(viewPager, true);
+        mBinding.vpReport.setAdapter(mAdapter);
+        mBinding.tabReport.setupWithViewPager(mBinding.vpReport, true);
+    }
+
+    public class Presenter {
+        public void onCancel(View view) {
+            finish();
+        }
+
     }
 
     @Override
@@ -106,7 +118,7 @@ public class ReportDetailActivity extends BaseActivity {
         private List<Class> listFragments = new ArrayList<>();
 
         MyFragmentAdapter(FragmentManager fm, ReportDetailBean reportDetailBean) {
-            super(fm);
+            super(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
             bundle = new Bundle();
             bundle.putParcelable("reportDetailBean", reportDetailBean);
             listFragments.add(ReportAlarmFragment.class);
@@ -114,6 +126,7 @@ public class ReportDetailActivity extends BaseActivity {
             listFragments.add(ReportPowerFragment.class);
         }
 
+        @NonNull
         @Override
         public Fragment getItem(int position) {
             Class fragment = listFragments.get(position);

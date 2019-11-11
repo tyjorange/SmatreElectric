@@ -9,21 +9,21 @@ import android.os.Message;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
-import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
-import com.base.library.widget.SuperTextView;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.custom.MyNodeViewHolder;
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
+import com.rejuvee.smartelectric.family.databinding.ActivitySwitchTreeBinding;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.CollectorState;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
@@ -33,6 +33,7 @@ import com.unnamed.b.atv.view.AndroidTreeView;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 线路 树状图
@@ -43,15 +44,14 @@ public class SwitchTreeDialog extends Dialog implements SwitchTree {
     private String TAG = "SwitchTreeActivity";
     private int viewType;// 1 遥控开关 2 实时情况 3 定时开关 4 节能信息 5 线路修改（名称图标） 6 曲线 7 安全设置 8 线路维护
     //    private SwipeRefreshLayout refreshLayout;
-    private LinearLayout linearLayout;
+//    private LinearLayout linearLayout;
     // 集中器 collector
     private CollectorBean mCollectorBean;
-    private Handler mHandler;
     private List<SwitchBean> mListData = new ArrayList<>();
     // 线路
     private SwitchBean currentSwitch;
     // 树状图组件
-    private AndroidTreeView treeView;
+    private AndroidTreeView androidTreeView;
     private MyNodeViewHolder myNodeViewHolder;
     private MyNodeViewHolder.ISwitchCheckListen iSwitchCheckListen = new MyNodeViewHolder.ISwitchCheckListen() {
         @Override
@@ -79,8 +79,10 @@ public class SwitchTreeDialog extends Dialog implements SwitchTree {
             currentSwitch = cb;
         }
     };
+    private Handler mHandler;
     private LoadingDlg waitDialog;
     private ChoseCallBack choseCallBack;
+    private ActivitySwitchTreeBinding dialogBinding;
 
     public SwitchTreeDialog(Context context) {
         super(context);
@@ -100,70 +102,61 @@ public class SwitchTreeDialog extends Dialog implements SwitchTree {
         this.mCollectorBean = mCollectorBean;
         this.choseCallBack = callBack;
         initView(context);
-        initData();
+//        initData();
     }
 
     protected void initView(Context context) {
-        setContentView(R.layout.activity_switch_tree);
+        dialogBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.activity_switch_tree, null, false);
+        dialogBinding.setPresenter(new Presenter());
+        setContentView(dialogBinding.getRoot());
+
         Window dialogWindow = getWindow();
-        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+        WindowManager.LayoutParams lp = Objects.requireNonNull(dialogWindow).getAttributes();
         DisplayMetrics d = context.getResources().getDisplayMetrics(); // 获取屏幕宽、高用
         lp.width = d.widthPixels;
         lp.height = (int) (d.heightPixels * 0.7);
         dialogWindow.setAttributes(lp);
         dialogWindow.setGravity(Gravity.BOTTOM);
 
-        waitDialog = new LoadingDlg(getContext(), -1);
+        androidTreeView = new AndroidTreeView(context, TreeNode.root());
+        androidTreeView.setDefaultAnimation(true);
+        androidTreeView.setDefaultViewHolder(MyNodeViewHolder.class);
 
-        treeView = new AndroidTreeView(getContext(), TreeNode.root());
-        treeView.setDefaultAnimation(true);
-        treeView.setDefaultViewHolder(MyNodeViewHolder.class);
+//        linearLayout = findViewById(R.id.ll_tree_view);
+        dialogBinding.llTreeView.addView(androidTreeView.getView());
 
-        linearLayout = findViewById(R.id.ll_tree_view);
-        linearLayout.addView(treeView.getView());
+        // 确认按钮
+//        SuperTextView superTextView = findViewById(R.id.st_wancheng);
+        dialogBinding.stWancheng.setVisibility(View.VISIBLE);
+//        superTextView.setOnClickListener(v -> {
+//        });
 
-        //选择确认按钮
-        SuperTextView superTextView = findViewById(R.id.st_wancheng);
-        superTextView.setVisibility(View.VISIBLE);
-        superTextView.setOnClickListener(v -> {
-            if (currentSwitch != null) {
-//                    Intent intent = new Intent();
-//                    intent.putExtra("switchBean", currentSwitch);
-//                    setResult(Activity.RESULT_OK, intent);
-//                    finish();
-                if (choseCallBack != null) {
-                    choseCallBack.onChose(currentSwitch);
-                    SwitchTreeDialog.this.dismiss();
-                }
-            }
-        });
+//        LinearLayout title = findViewById(R.id.ll_tree_title);
+        dialogBinding.llTreeTitle.setVisibility(View.GONE);
 
-        LinearLayout title = findViewById(R.id.ll_tree_title);
-        title.setVisibility(View.GONE);
-
-        LinearLayout ll_choce_tip = findViewById(R.id.ll_choce_tip);
-        ll_choce_tip.setVisibility(viewType != SwitchTree.YAOKONG ? View.VISIBLE : View.GONE);
+//        LinearLayout ll_choce_tip = findViewById(R.id.ll_choce_tip);
+        dialogBinding.llChoceTip.setVisibility(viewType != SwitchTree.YAOKONG ? View.VISIBLE : View.GONE);
 
         // 返回
-        Toolbar backBtn = findViewById(R.id.ll_img_cancel);
-        backBtn.setVisibility(View.GONE);
+//        Toolbar backBtn = findViewById(R.id.ll_img_cancel);
+        dialogBinding.llImgCancel.setVisibility(View.GONE);
 
         // 取消
-        ImageView choce_cancel = findViewById(R.id.choce_cancel);
-        choce_cancel.setOnClickListener(v -> {
-//                finish();
-            SwitchTreeDialog.this.dismiss();
-        });
+//        ImageView choce_cancel = findViewById(R.id.choce_cancel);
+//        choce_cancel.setOnClickListener(v -> {
+//            SwitchTreeDialog.this.dismiss();
+//        });
 //        EventBus.getDefault().register(this);
+        waitDialog = new LoadingDlg(context, -1);
+        mHandler = new MyHandler(this);
+        getSwitchByCollector();
     }
 
     private static final int MSG_FILLDATA = 3;// 填充tree数据
 
-    protected void initData() {
-//        NativeLine.init(this);
-        mHandler = new MyHandler(this);
-        getSwitchByCollector();
-    }
+//    protected void initData() {
+////        NativeLine.init(this);
+//    }
 
     private static class MyHandler extends Handler {
         WeakReference<SwitchTreeDialog> activityWeakReference;
@@ -192,8 +185,8 @@ public class SwitchTreeDialog extends Dialog implements SwitchTree {
                 mListData.clear();
                 mListData.addAll(data);
                 // 隐藏空提示界面
-                findViewById(R.id.ll_empty_layout).setVisibility(View.GONE);
-                linearLayout.setVisibility(View.VISIBLE);
+                dialogBinding.llEmptyLayout.setVisibility(View.GONE);
+                dialogBinding.llTreeView.setVisibility(View.VISIBLE);
 
                 mHandler.sendEmptyMessageDelayed(MSG_FILLDATA, 10);
             }
@@ -207,8 +200,8 @@ public class SwitchTreeDialog extends Dialog implements SwitchTree {
                     CustomToast.showCustomErrorToast(getContext(), message);
                 }
                 // 显示空提示界面
-                findViewById(R.id.ll_empty_layout).setVisibility(View.VISIBLE);
-                linearLayout.setVisibility(View.GONE);
+                dialogBinding.llEmptyLayout.setVisibility(View.VISIBLE);
+                dialogBinding.llTreeView.setVisibility(View.GONE);
 
                 waitDialog.dismiss();
 //                refreshLayout.setRefreshing(false);
@@ -236,10 +229,10 @@ public class SwitchTreeDialog extends Dialog implements SwitchTree {
     private void fillData() {
         rootNode = TreeNode.root();
         listToNode(rootNode, mListData, viewType);
-        treeView.setRoot(rootNode);
-        linearLayout.removeAllViews();
-        linearLayout.addView(treeView.getView());
-        treeView.expandAll();
+        androidTreeView.setRoot(rootNode);
+        dialogBinding.llTreeView.removeAllViews();
+        dialogBinding.llTreeView.addView(androidTreeView.getView());
+        androidTreeView.expandAll();
         waitDialog.dismiss();
     }
 
@@ -298,7 +291,8 @@ public class SwitchTreeDialog extends Dialog implements SwitchTree {
         if (parent != null) {
             SwitchBean bb = (SwitchBean) parent.getValue();
             if (bb != null && bb.getSerialNumber().equals(code)) {
-                ImageView delImg = parent.getViewHolder().getView().findViewById(R.id.img_node_chose);
+                ImageView delImg = parent.getViewHolder().getView()
+                        .findViewById(R.id.img_node_chose);//TODO not Binding
                 delImg.setImageDrawable(parent.getViewHolder().getView().getContext().getDrawable(R.drawable.dx_unchose_slices));
             }
             for (TreeNode td : parent.getChildren()) {
@@ -309,5 +303,24 @@ public class SwitchTreeDialog extends Dialog implements SwitchTree {
 
     public interface ChoseCallBack {
         void onChose(SwitchBean switchBean);
+    }
+
+    public class Presenter {
+        public void onCancel(View view) {
+            dismiss();
+        }
+
+        public void onCommit(View view) {
+            if (currentSwitch != null) {
+//                    Intent intent = new Intent();
+//                    intent.putExtra("switchBean", currentSwitch);
+//                    setResult(Activity.RESULT_OK, intent);
+//                    finish();
+                if (choseCallBack != null) {
+                    choseCallBack.onChose(currentSwitch);
+                    SwitchTreeDialog.this.dismiss();
+                }
+            }
+        }
     }
 }

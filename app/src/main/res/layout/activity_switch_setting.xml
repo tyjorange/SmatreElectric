@@ -1,160 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    tools:context=".activity.mswitch.SwitchSettingActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.Toolbar
+    <data>
+
+        <variable
+            name="vm"
+            type="com.rejuvee.smartelectric.family.model.viewmodel.SwitchSettingViewModel" />
+
+        <variable
+            name="presenter"
+            type="com.rejuvee.smartelectric.family.activity.mswitch.SwitchSettingActivity.Presenter" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:contentInsetLeft="0dp"
-        app:contentInsetStart="0dp">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        tools:context=".activity.mswitch.SwitchSettingActivity">
 
-        <ImageView
-            android:id="@+id/img_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:padding="16dp"
-            android:src="@drawable/main_fanhui" />
-
-        <TextView
+        <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/vs61"
-            android:textSize="12sp" />
-    </androidx.appcompat.widget.Toolbar>
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingStart="20dp"
-        android:paddingTop="20dp"
-        android:paddingEnd="20dp"
-        android:paddingBottom="20dp">
+            <ImageView
+                android:id="@+id/img_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:onClick="@{presenter::onCancel}"
+                android:padding="16dp"
+                android:src="@drawable/main_fanhui" />
 
-        <TextView
-            android:layout_width="0dp"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/vs61"
+                android:textSize="12sp" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/vs95"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="20dp">
 
-        <ImageView
-            android:id="@+id/img_flush"
-            android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/vs95"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/img_flush"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:onClick="@{presenter::onFlush}"
+                android:padding="10dp"
+                android:src="@drawable/shuaxin" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/img_change"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="10dp"
-            android:src="@drawable/shuaxin" />
-    </LinearLayout>
+            android:onClick="@{presenter::onChange}"
+            android:paddingStart="30dp"
+            android:paddingEnd="20dp">
 
-    <LinearLayout
-        android:id="@+id/img_change"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="30dp"
-        android:paddingEnd="20dp">
+            <TextView
+                android:id="@+id/txt_line_name"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="@integer/tag_1"
+                android:gravity="center_vertical"
+                android:text="@{vm.txtLineName,default=`xianlu:`}"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/txt_line_name"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:src="@drawable/jinru" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_weight="@integer/tag_1"
-            android:gravity="center_vertical"
-            android:text="@string/vs14"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="10dp"
-            android:src="@drawable/jinru" />
-    </LinearLayout>
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="#E3878F"
+                app:tabIndicatorFullWidth="false"
+                app:tabIndicatorHeight="2dp"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/black"
+                app:tabTextColor="@color/text_base_color_666" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_weight="@integer/tag_1"
-        android:orientation="vertical">
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/vp_setting"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp" />
+        </LinearLayout>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_setting"
+        <!--    TODO-->
+        <!--    <LinearLayout-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="0dp"-->
+        <!--        android:orientation="horizontal">-->
+
+        <!--        &lt;!&ndash;        <include&ndash;&gt;-->
+        <!--        &lt;!&ndash;            android:id="@+id/empty_layout"&ndash;&gt;-->
+        <!--        &lt;!&ndash;            layout="@layout/empty_layout"&ndash;&gt;-->
+        <!--        &lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+        <!--        &lt;!&ndash;            android:layout_height="match_parent"&ndash;&gt;-->
+        <!--        &lt;!&ndash;            android:visibility="gone" />&ndash;&gt;-->
+
+        <!--        <com.rejuvee.smartelectric.family.common.widget.ObservableScrollView-->
+        <!--            android:id="@+id/sv_values"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:layout_weight="@integer/tag_1"-->
+        <!--            android:paddingStart="20dp"-->
+        <!--            android:paddingEnd="0dp"-->
+        <!--            android:scrollbars="none"-->
+        <!--            tools:ignore="NestedWeights">-->
+
+        <!--        </com.rejuvee.smartelectric.family.common.widget.ObservableScrollView>-->
+
+        <!--        <com.rejuvee.smartelectric.family.common.widget.VerticalSeekBar-->
+        <!--            android:id="@+id/vrsBar"-->
+        <!--            android:layout_width="25dp"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:maxHeight="2dp"-->
+        <!--            android:minHeight="2dp"-->
+        <!--            android:progressDrawable="@drawable/seekbar_shape"-->
+        <!--            android:thumb="@drawable/huakuai" />-->
+        <!--    </LinearLayout>-->
+
+        <com.base.library.widget.SuperTextView
+            android:id="@+id/stv_commit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabGravity="fill"
-            app:tabIndicatorColor="#E3878F"
-            app:tabIndicatorFullWidth="false"
-            app:tabIndicatorHeight="2dp"
-            app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/black"
-            app:tabTextColor="@color/text_base_color_666" />
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/vp_setting"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingStart="0dp"
-            android:paddingEnd="0dp" />
+            android:layout_height="48dp"
+            android:layout_margin="16dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/qd1"
+            android:gravity="center"
+            android:onClick="@{presenter::onCommit}"
+            android:text="@string/sce_wancheng"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:corner="8dp" />
     </LinearLayout>
-
-    <!--    TODO-->
-    <!--    <LinearLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:orientation="horizontal">-->
-
-    <!--        &lt;!&ndash;        <include&ndash;&gt;-->
-    <!--        &lt;!&ndash;            android:id="@+id/empty_layout"&ndash;&gt;-->
-    <!--        &lt;!&ndash;            layout="@layout/empty_layout"&ndash;&gt;-->
-    <!--        &lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
-    <!--        &lt;!&ndash;            android:layout_height="match_parent"&ndash;&gt;-->
-    <!--        &lt;!&ndash;            android:visibility="gone" />&ndash;&gt;-->
-
-    <!--        <com.rejuvee.smartelectric.family.common.widget.ObservableScrollView-->
-    <!--            android:id="@+id/sv_values"-->
-    <!--            android:layout_width="0dp"-->
-    <!--            android:layout_height="match_parent"-->
-    <!--            android:layout_weight="@integer/tag_1"-->
-    <!--            android:paddingStart="20dp"-->
-    <!--            android:paddingEnd="0dp"-->
-    <!--            android:scrollbars="none"-->
-    <!--            tools:ignore="NestedWeights">-->
-
-    <!--        </com.rejuvee.smartelectric.family.common.widget.ObservableScrollView>-->
-
-    <!--        <com.rejuvee.smartelectric.family.common.widget.VerticalSeekBar-->
-    <!--            android:id="@+id/vrsBar"-->
-    <!--            android:layout_width="25dp"-->
-    <!--            android:layout_height="match_parent"-->
-    <!--            android:maxHeight="2dp"-->
-    <!--            android:minHeight="2dp"-->
-    <!--            android:progressDrawable="@drawable/seekbar_shape"-->
-    <!--            android:thumb="@drawable/huakuai" />-->
-    <!--    </LinearLayout>-->
-
-    <com.base.library.widget.SuperTextView
-        android:id="@+id/stv_commit"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_margin="16dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/qd1"
-        android:gravity="center"
-        android:text="@string/sce_wancheng"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:corner="8dp" />
-</LinearLayout>
+</layout>

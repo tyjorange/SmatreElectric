@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.rejuvee.smartelectric.family.R;
 
+import java.util.Objects;
+
 /**
  * 确认提示弹出
  * Created by liuchengran on 2017/12/19.
@@ -71,7 +73,7 @@ public class DialogTip extends Dialog implements View.OnClickListener {
         setCanceledOnTouchOutside(true);
 
         Window dialogWindow = getWindow();
-        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+        WindowManager.LayoutParams lp = Objects.requireNonNull(dialogWindow).getAttributes();
         DisplayMetrics d = context.getResources().getDisplayMetrics(); // 获取屏幕宽、高用
         lp.width = d.widthPixels;
         dialogWindow.setAttributes(lp);

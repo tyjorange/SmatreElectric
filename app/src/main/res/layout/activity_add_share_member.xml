@@ -1,182 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    tools:context=".activity.share.AddShareMemberActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/ll_img_cancel"
+    <data>
+
+        <variable
+            name="presenter"
+            type="com.rejuvee.smartelectric.family.activity.share.AddShareMemberActivity.Presenter" />
+
+        <variable
+            name="vm"
+            type="com.rejuvee.smartelectric.family.model.viewmodel.AddShareMemberViewModel" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:contentInsetLeft="0dp"
-        app:contentInsetStart="0dp">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        tools:context=".activity.share.AddShareMemberActivity">
 
-        <ImageView
-            android:id="@+id/img_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:padding="16dp"
-            android:src="@drawable/main_fanhui" />
-
-        <TextView
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/ll_img_cancel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/vs47"
-            android:textSize="12sp" />
-    </androidx.appcompat.widget.Toolbar>
+            android:onClick="@{presenter::onCancel}"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp">
 
-    <LinearLayout
-        android:id="@+id/ll_tree_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingStart="25dp"
-        android:paddingTop="20dp"
-        android:paddingEnd="0dp"
-        android:paddingBottom="20dp">
+            <ImageView
+                android:id="@+id/img_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:padding="16dp"
+                android:src="@drawable/main_fanhui" />
 
-        <TextView
-            android:id="@+id/add_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="@integer/tag_1"
-            android:text="@string/vs48"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/vs47"
+                android:textSize="12sp" />
+        </androidx.appcompat.widget.Toolbar>
 
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl_scan_add"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:clickable="false"
-            android:drawablePadding="8dp"
-            android:gravity="center_vertical"
-            android:padding="16dp"
-            android:text="@string/scan_add"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:padding="10dp"
-            android:src="@drawable/sao" />
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:text="@string/scan_results"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-        <EditText
-            android:id="@+id/edt_input_device"
+        <LinearLayout
+            android:id="@+id/ll_tree_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/divider"
-            android:gravity="center_vertical"
-            android:hint="@string/input_share_username"
-            android:maxLength="19"
-            android:textSize="12sp" />
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="25dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="0dp"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:id="@+id/add_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="@integer/tag_1"
+                android:text="@string/vs48"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_scan_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:onClick="@{presenter::onScanAdd}">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:clickable="false"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:padding="16dp"
+                android:text="@string/scan_add"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:src="@drawable/sao" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@string/scan_results"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/edt_input_share"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/divider"
+                android:gravity="center_vertical"
+                android:hint="@string/input_share_username"
+                android:maxLength="19"
+                android:text="@={vm.shareName}"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="@integer/tag_1" />
+        <!--<LinearLayout-->
+        <!--android:id="@+id/ll_set_line_name"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:visibility="gone">-->
+
+        <!--<TextView-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:padding="16dp"-->
+        <!--android:text="@string/line_name"-->
+        <!--android:textColor="@color/text_base_color_333"-->
+        <!--android:textSize="14sp" />-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/txt_line_name"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:padding="16dp"-->
+        <!--android:textColor="@color/text_base_color_666"-->
+        <!--android:textSize="14sp" />-->
+
+        <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:padding="16dp"-->
+        <!--android:src="@drawable/arrow_right_icon" />-->
+
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:padding="@dimen/activity_horizontal_margin"-->
+        <!--android:visibility="gone">-->
+
+        <!--<ImageView-->
+        <!--android:id="@+id/iv_check"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:clickable="false"-->
+        <!--android:src="@drawable/yixuan" />-->
+
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="@dimen/activity_horizontal_margin"-->
+        <!--android:text="@string/option_prompt" />-->
+
+        <!--</LinearLayout>-->
+
+        <com.base.library.widget.SuperTextView
+            android:id="@+id/st_finish"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_margin="16dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/qd1"
+            android:gravity="center"
+            android:onClick="@{presenter::onCommit}"
+            android:text="@string/finish"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:corner="8dp" />
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="@integer/tag_1" />
-    <!--<LinearLayout-->
-    <!--android:id="@+id/ll_set_line_name"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginTop="16dp"-->
-    <!--android:orientation="horizontal"-->
-    <!--android:visibility="gone">-->
-
-    <!--<TextView-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_weight="1"-->
-    <!--android:padding="16dp"-->
-    <!--android:text="@string/line_name"-->
-    <!--android:textColor="@color/text_base_color_333"-->
-    <!--android:textSize="14sp" />-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/txt_line_name"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:padding="16dp"-->
-    <!--android:textColor="@color/text_base_color_666"-->
-    <!--android:textSize="14sp" />-->
-
-    <!--<ImageView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentRight="true"-->
-    <!--android:layout_centerVertical="true"-->
-    <!--android:padding="16dp"-->
-    <!--android:src="@drawable/arrow_right_icon" />-->
-
-    <!--</LinearLayout>-->
-
-    <!--<LinearLayout-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:gravity="center_vertical"-->
-    <!--android:padding="@dimen/activity_horizontal_margin"-->
-    <!--android:visibility="gone">-->
-
-    <!--<ImageView-->
-    <!--android:id="@+id/iv_check"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:clickable="false"-->
-    <!--android:src="@drawable/yixuan" />-->
-
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginLeft="@dimen/activity_horizontal_margin"-->
-    <!--android:text="@string/option_prompt" />-->
-
-    <!--</LinearLayout>-->
-
-    <com.base.library.widget.SuperTextView
-        android:id="@+id/st_finish"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_margin="16dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/qd1"
-        android:gravity="center"
-        android:text="@string/finish"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:corner="8dp" />
-</LinearLayout>
+</layout>

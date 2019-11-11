@@ -197,7 +197,7 @@ public class CollectorAttrActivity extends BaseActivity {
             @Override
             public void onEnsure() {
                 loadingDlg.show();
-                Core.instance(getBaseContext()).CollectorReboot(type, collectorBean.getCollectorID(), new ActionCallbackListener<Void>() {
+                Core.instance(CollectorAttrActivity.this).CollectorReboot(type, collectorBean.getCollectorID(), new ActionCallbackListener<Void>() {
                     @Override
                     public void onSuccess(Void data) {
                         CustomToast.showCustomToast(CollectorAttrActivity.this, getString(R.string.operator_sucess));

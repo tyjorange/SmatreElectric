@@ -16,18 +16,17 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/12/15.
  */
-
 public class ListViewLineSceneAdapter extends BaseAdapter {
     private Context context;
     private List<SwitchInfoBean> result;
     private int count;
-    private String sceneid;
+//    private String sceneid;
 
 
-    public ListViewLineSceneAdapter(Context context, List<SwitchInfoBean> result, String sceneid) {
+    public ListViewLineSceneAdapter(Context context, List<SwitchInfoBean> result) {
         this.context = context;
         this.result = result;
-        this.sceneid = sceneid;
+//        this.sceneid = sceneid;
     }
 
     @Override

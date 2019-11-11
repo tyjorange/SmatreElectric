@@ -1,391 +1,406 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/shape_bg_dialog_tip"
-    android:orientation="horizontal"
-    tools:context=".activity.timer.TimerEditDialogActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ScrollView
+    <data>
+
+        <variable
+            name="presenter"
+            type="com.rejuvee.smartelectric.family.activity.timer.TimerEditDialogActivity.Presenter" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_bg_dialog_tip"
+        android:orientation="horizontal"
+        tools:context=".activity.timer.TimerEditDialogActivity">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="start"
-                android:orientation="horizontal"
-                android:paddingTop="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:drawablePadding="16dp"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/vs71"
-                    android:textSize="15sp" />
-
-            </LinearLayout>
-
-            <TimePicker
-                android:id="@+id/time_picker"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:layout_gravity="center_horizontal"
-                android:splitMotionEvents="false"
-                android:timePickerMode="spinner" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:padding="16dp"
-                    android:text="@string/timed_task" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="19:54" />
-
-                <TextView
-                    android:id="@+id/txt_switch_state"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/switch_off" />
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="start"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="21dp"
-                    android:src="@drawable/upload_mark" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:drawablePadding="16dp"
-                    android:paddingStart="6dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/vs72"
-                    android:textSize="15sp" />
-
-                <ImageView
-                    android:id="@+id/iv_tips"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/wenhao" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="@integer/tag_1" />
-
-                <ImageView
-                    android:id="@+id/iv_upload"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:padding="15dp"
-                    android:src="@drawable/timer_check" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="@integer/tag_1"
-                android:gravity="end">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingStart="21dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="16dp"
-                    android:paddingBottom="10dp"
-                    android:text="@string/vs73"
-                    android:textSize="15sp"
-                    tools:ignore="NestedWeights" />
-
-                <TextView
-                    android:id="@+id/tv_caozuo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/vs74" />
-
-                <ImageView
-                    android:id="@+id/iv_check"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/yk_hezha" />
-            </LinearLayout>
-
-
-            <!--<LinearLayout-->
-            <!--android:id="@+id/rl_off"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="@integer/tag_1"-->
-            <!--android:gravity="end">-->
-
-            <!--<TextView-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:paddingStart="16dp"-->
-            <!--android:paddingTop="10dp"-->
-            <!--android:paddingEnd="16dp"-->
-            <!--android:paddingBottom="10dp"-->
-            <!--android:text="拉闸"-->
-            <!--android:textSize="15sp" />-->
-
-            <!--<ImageView-->
-            <!--android:id="@+id/img_check_off"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_margin="10dp"-->
-            <!--android:src="@drawable/timer_uncheck" />-->
-            <!--</LinearLayout>-->
-            <!--<RelativeLayout-->
-            <!--android:id="@+id/rl_off"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center_vertical"-->
-            <!--android:background="@color/white"-->
-            <!--android:orientation="horizontal">-->
-
-            <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:padding="16dp"-->
-            <!--android:text="@string/switch_off" />-->
-
-            <!--<ImageView-->
-            <!--android:id="@+id/img_check_off"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_margin="16dp"-->
-            <!--android:src="@drawable/weixuanzhong_timing" />-->
-            <!--</RelativeLayout>-->
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="21dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="10dp"
-                android:text="@string/repeat"
-                android:textSize="15sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
+                    android:layout_gravity="center"
+                    android:gravity="start"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:drawablePadding="16dp"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/vs71"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <TimePicker
+                    android:id="@+id/time_picker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_horizontal"
+                    android:splitMotionEvents="false"
+                    android:timePickerMode="spinner" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:padding="16dp"
+                        android:text="@string/timed_task" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="19:54" />
+
+                    <TextView
+                        android:id="@+id/txt_switch_state"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/switch_off" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="start"
                     android:orientation="horizontal">
 
-                    <CheckBox
-                        android:id="@+id/cb_day0"
-                        android:layout_width="38dp"
-                        android:layout_height="22dp"
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginStart="21dp"
-                        android:layout_marginEnd="0dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/shape_bg_checkbox_theme1"
-                        android:button="@null"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:gravity="center"
-                        android:textColor="@color/text_time_day"
-                        android:textSize="12sp" />
+                        android:src="@drawable/upload_mark" />
 
-                    <CheckBox
-                        android:id="@+id/cb_day1"
-                        android:layout_width="38dp"
-                        android:layout_height="22dp"
-                        android:layout_marginStart="45dp"
-                        android:layout_marginEnd="0dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/shape_bg_checkbox_theme1"
-                        android:button="@null"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:gravity="center"
-                        android:textColor="@color/text_time_day"
-                        android:textSize="12sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:drawablePadding="16dp"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/vs72"
+                        android:textSize="15sp" />
 
-                    <CheckBox
-                        android:id="@+id/cb_day2"
-                        android:layout_width="38dp"
-                        android:layout_height="22dp"
-                        android:layout_marginStart="45dp"
-                        android:layout_marginEnd="0dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/shape_bg_checkbox_theme1"
-                        android:button="@null"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:gravity="center"
-                        android:textColor="@color/text_time_day"
-                        android:textSize="12sp" />
+                    <ImageView
+                        android:id="@+id/iv_tips"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:onClick="@{presenter::onTip}"
+                        android:src="@drawable/wenhao" />
 
-                    <CheckBox
-                        android:id="@+id/cb_day3"
-                        android:layout_width="38dp"
-                        android:layout_height="22dp"
-                        android:layout_marginStart="45dp"
-                        android:layout_marginEnd="21dp"
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="@integer/tag_1" />
+
+                    <ImageView
+                        android:id="@+id/iv_upload"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:onClick="@{presenter::onUpload}"
+                        android:padding="15dp"
+                        android:src="@drawable/timer_check" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="@integer/tag_1"
+                    android:gravity="end">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@drawable/shape_bg_checkbox_theme1"
-                        android:button="@null"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:gravity="center"
-                        android:textColor="@color/text_time_day"
-                        android:textSize="12sp" />
+                        android:paddingStart="21dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="10dp"
+                        android:text="@string/vs73"
+                        android:textSize="15sp"
+                        tools:ignore="NestedWeights" />
+
+                    <TextView
+                        android:id="@+id/tv_caozuo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/vs74" />
+
+                    <ImageView
+                        android:id="@+id/iv_check"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:onClick="@{presenter::onCheck}"
+                        android:src="@drawable/yk_hezha" />
+                </LinearLayout>
+
+
+                <!--<LinearLayout-->
+                <!--android:id="@+id/rl_off"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="@integer/tag_1"-->
+                <!--android:gravity="end">-->
+
+                <!--<TextView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:paddingStart="16dp"-->
+                <!--android:paddingTop="10dp"-->
+                <!--android:paddingEnd="16dp"-->
+                <!--android:paddingBottom="10dp"-->
+                <!--android:text="拉闸"-->
+                <!--android:textSize="15sp" />-->
+
+                <!--<ImageView-->
+                <!--android:id="@+id/img_check_off"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_margin="10dp"-->
+                <!--android:src="@drawable/timer_uncheck" />-->
+                <!--</LinearLayout>-->
+                <!--<RelativeLayout-->
+                <!--android:id="@+id/rl_off"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:background="@color/white"-->
+                <!--android:orientation="horizontal">-->
+
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:padding="16dp"-->
+                <!--android:text="@string/switch_off" />-->
+
+                <!--<ImageView-->
+                <!--android:id="@+id/img_check_off"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_margin="16dp"-->
+                <!--android:src="@drawable/weixuanzhong_timing" />-->
+                <!--</RelativeLayout>-->
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="21dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/repeat"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/cb_day0"
+                            android:layout_width="38dp"
+                            android:layout_height="22dp"
+                            android:layout_marginStart="21dp"
+                            android:layout_marginEnd="0dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/shape_bg_checkbox_theme1"
+                            android:button="@null"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:gravity="center"
+                            android:textColor="@color/text_time_day"
+                            android:textSize="12sp" />
+
+                        <CheckBox
+                            android:id="@+id/cb_day1"
+                            android:layout_width="38dp"
+                            android:layout_height="22dp"
+                            android:layout_marginStart="45dp"
+                            android:layout_marginEnd="0dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/shape_bg_checkbox_theme1"
+                            android:button="@null"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:gravity="center"
+                            android:textColor="@color/text_time_day"
+                            android:textSize="12sp" />
+
+                        <CheckBox
+                            android:id="@+id/cb_day2"
+                            android:layout_width="38dp"
+                            android:layout_height="22dp"
+                            android:layout_marginStart="45dp"
+                            android:layout_marginEnd="0dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/shape_bg_checkbox_theme1"
+                            android:button="@null"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:gravity="center"
+                            android:textColor="@color/text_time_day"
+                            android:textSize="12sp" />
+
+                        <CheckBox
+                            android:id="@+id/cb_day3"
+                            android:layout_width="38dp"
+                            android:layout_height="22dp"
+                            android:layout_marginStart="45dp"
+                            android:layout_marginEnd="21dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/shape_bg_checkbox_theme1"
+                            android:button="@null"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:gravity="center"
+                            android:textColor="@color/text_time_day"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/cb_day4"
+                            android:layout_width="38dp"
+                            android:layout_height="22dp"
+                            android:layout_marginStart="21dp"
+                            android:layout_marginEnd="0dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/shape_bg_checkbox_theme1"
+                            android:button="@null"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:gravity="center"
+                            android:textColor="@color/text_time_day"
+                            android:textSize="12sp" />
+
+                        <CheckBox
+                            android:id="@+id/cb_day5"
+                            android:layout_width="38dp"
+                            android:layout_height="22dp"
+                            android:layout_marginStart="45dp"
+                            android:layout_marginEnd="0dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/shape_bg_checkbox_theme1"
+                            android:button="@null"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:gravity="center"
+                            android:textColor="@color/text_time_day"
+                            android:textSize="12sp" />
+
+                        <CheckBox
+                            android:id="@+id/cb_day6"
+                            android:layout_width="38dp"
+                            android:layout_height="22dp"
+                            android:layout_marginStart="45dp"
+                            android:layout_marginEnd="0dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/shape_bg_checkbox_theme1"
+                            android:button="@null"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:gravity="center"
+                            android:textColor="@color/text_time_day"
+                            android:textSize="12sp" />
+
+                        <CheckBox
+                            android:id="@+id/cb_day7"
+                            android:layout_width="38dp"
+                            android:layout_height="22dp"
+                            android:layout_marginStart="45dp"
+                            android:layout_marginEnd="21dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/shape_bg_checkbox_theme1"
+                            android:button="@null"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:gravity="center"
+                            android:textColor="@color/text_time_day"
+                            android:textSize="12sp"
+                            android:visibility="invisible" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
                     android:orientation="horizontal">
 
-                    <CheckBox
-                        android:id="@+id/cb_day4"
-                        android:layout_width="38dp"
-                        android:layout_height="22dp"
-                        android:layout_marginStart="21dp"
-                        android:layout_marginEnd="0dp"
+                    <com.base.library.widget.SuperTextView
+                        android:id="@+id/st_quxiao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_margin="16dp"
+                        android:layout_marginTop="32dp"
                         android:layout_weight="1"
-                        android:background="@drawable/shape_bg_checkbox_theme1"
-                        android:button="@null"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
+                        android:background="@drawable/btn_white"
                         android:gravity="center"
-                        android:textColor="@color/text_time_day"
+                        android:onClick="@{presenter::onCancel}"
+                        android:text="@string/cancel"
+                        android:textColor="@color/black"
                         android:textSize="12sp" />
 
-                    <CheckBox
-                        android:id="@+id/cb_day5"
-                        android:layout_width="38dp"
-                        android:layout_height="22dp"
-                        android:layout_marginStart="45dp"
-                        android:layout_marginEnd="0dp"
+                    <com.base.library.widget.SuperTextView
+                        android:id="@+id/st_ok"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_margin="16dp"
+                        android:layout_marginTop="32dp"
                         android:layout_weight="1"
-                        android:background="@drawable/shape_bg_checkbox_theme1"
-                        android:button="@null"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
+                        android:background="@drawable/btn_def"
                         android:gravity="center"
-                        android:textColor="@color/text_time_day"
+                        android:onClick="@{presenter::onOk}"
+                        android:text="@string/ensure"
+                        android:textColor="@color/white"
                         android:textSize="12sp" />
-
-                    <CheckBox
-                        android:id="@+id/cb_day6"
-                        android:layout_width="38dp"
-                        android:layout_height="22dp"
-                        android:layout_marginStart="45dp"
-                        android:layout_marginEnd="0dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/shape_bg_checkbox_theme1"
-                        android:button="@null"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:gravity="center"
-                        android:textColor="@color/text_time_day"
-                        android:textSize="12sp" />
-
-                    <CheckBox
-                        android:id="@+id/cb_day7"
-                        android:layout_width="38dp"
-                        android:layout_height="22dp"
-                        android:layout_marginStart="45dp"
-                        android:layout_marginEnd="21dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/shape_bg_checkbox_theme1"
-                        android:button="@null"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:gravity="center"
-                        android:textColor="@color/text_time_day"
-                        android:textSize="12sp"
-                        android:visibility="invisible" />
                 </LinearLayout>
-
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.base.library.widget.SuperTextView
-                    android:id="@+id/st_quxiao"
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:layout_margin="16dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_white"
-                    android:gravity="center"
-                    android:text="@string/cancel"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
-
-                <com.base.library.widget.SuperTextView
-                    android:id="@+id/st_ok"
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:layout_margin="16dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_def"
-                    android:gravity="center"
-                    android:text="@string/ensure"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

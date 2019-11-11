@@ -1,7 +1,10 @@
 package com.rejuvee.smartelectric.family.activity.share;
 
 import android.content.Intent;
-import android.widget.EditText;
+import android.view.View;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
@@ -9,7 +12,10 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.PermissionManage;
+import com.rejuvee.smartelectric.family.common.constant.CommonRequestCode;
 import com.rejuvee.smartelectric.family.common.widget.dialog.WaitDialog;
+import com.rejuvee.smartelectric.family.databinding.ActivityAddShareMemberBinding;
+import com.rejuvee.smartelectric.family.model.viewmodel.AddShareMemberViewModel;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 
 /**
@@ -17,13 +23,10 @@ import com.uuzuche.lib_zxing.activity.CaptureActivity;
  */
 public class AddShareMemberActivity extends BaseActivity {
     private String TAG = "AddShareMemberActivity";
-    private EditText edtScan;
+    //    private EditText edtScan;
     private WaitDialog mWaitDialog;
-    private int request_code_scancode = 1001;
+    //    private int request_code_scancode = 1001;
     private String collectId;
-    //    private ImageView iv_check;
-    private boolean ischeck;
-    private int enable = 1;  //1表示允许  0不允许  默认允许
 
 //    @Override
 //    protected int getLayoutResId() {
@@ -35,8 +38,16 @@ public class AddShareMemberActivity extends BaseActivity {
 //        return 0;
 //    }
 
+    private AddShareMemberViewModel mViewModel;
+
     @Override
     protected void initView() {
+        ActivityAddShareMemberBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_share_member);
+        mViewModel = ViewModelProviders.of(this).get(AddShareMemberViewModel.class);
+        mBinding.setVm(mViewModel);
+        mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
+
         PermissionManage.getInstance().setCallBack(new PermissionManage.PermissionCallBack() {
 
             @Override
@@ -49,18 +60,18 @@ public class AddShareMemberActivity extends BaseActivity {
             }
         }).hasCamera(this);
 
-        findViewById(R.id.ll_img_cancel).setOnClickListener(v -> finish());
-        findViewById(R.id.rl_scan_add).setOnClickListener(v -> {
-            Intent intent = new Intent(AddShareMemberActivity.this, CaptureActivity.class);
-            startActivityForResult(intent, request_code_scancode);
-        });
-        findViewById(R.id.st_finish).setOnClickListener(view -> addShareUser());
+//        findViewById(R.id.ll_img_cancel).setOnClickListener(v -> finish());
+//        findViewById(R.id.rl_scan_add).setOnClickListener(v -> {
+//            Intent intent = new Intent(AddShareMemberActivity.this, CaptureActivity.class);
+//            startActivityForResult(intent, request_code_scancode);
+//        });
+//        findViewById(R.id.st_finish).setOnClickListener(view -> addShareUser());
 //        findViewById(R.id.iv_check).setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //            }
 //        });
-        edtScan = findViewById(R.id.edt_input_device);
+//        edtScan = findViewById(R.id.edt_input_share);
 //        iv_check = (ImageView) findViewById(R.id.iv_check);
 //        ischeck = true;
 //
@@ -79,21 +90,26 @@ public class AddShareMemberActivity extends BaseActivity {
 //            }
 //        });
         mWaitDialog = new WaitDialog(this);
+        collectId = getIntent().getStringExtra("collect_id");
     }
 
     @Override
     protected void initData() {
-        collectId = getIntent().getStringExtra("collect_id");
+
     }
 
     private void addShareUser() {
-        String userName = edtScan.getEditableText().toString();
-        if (userName.isEmpty()) {
-            CustomToast.showCustomToast(this, getString(R.string.input_share_username));
+        String userName = mViewModel.getShareName().getValue();//edtScan.getEditableText().toString();
+        if (userName == null || userName.isEmpty()) {
+            CustomToast.showCustomErrorToast(this, getString(R.string.input_share_username));
             return;
         }
 
         mWaitDialog.show();
+        //    private ImageView iv_check;
+        //    private boolean ischeck;
+        //1表示允许  0不允许  默认允许
+        int enable = 1;
         Core.instance(this).shareCollector(true, userName, collectId, enable, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
@@ -110,7 +126,7 @@ public class AddShareMemberActivity extends BaseActivity {
         });
     }
 
-//    @Override
+    //    @Override
 //    protected String getToolbarTitle() {
 //        return getString(R.string.add_share);
 //    }
@@ -119,6 +135,21 @@ public class AddShareMemberActivity extends BaseActivity {
 //    protected boolean isDisplayHomeAsUpEnabled() {
 //        return true;
 //    }
+    public class Presenter {
+        public void onCancel(View view) {
+            finish();
+        }
+
+        public void onScanAdd(View view) {
+            Intent intent = new Intent(view.getContext(), CaptureActivity.class);
+            startActivityForResult(intent, CommonRequestCode.REQUEST_SCAN_CODE);
+        }
+
+        public void onCommit(View view) {
+            addShareUser();
+        }
+
+    }
 
     @Override
     protected void dealloc() {
@@ -129,9 +160,11 @@ public class AddShareMemberActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            if (requestCode == request_code_scancode) {
+            if (requestCode == CommonRequestCode.REQUEST_SCAN_CODE) {
                 String code = data.getStringExtra("code");
-                edtScan.setText(code);
+//                edtScan.setText(code);
+                mViewModel.setShareName(code);
+
             }
         }
     }

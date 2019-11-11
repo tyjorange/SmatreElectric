@@ -399,7 +399,7 @@ public class StatementActivity extends BaseActivity {
                 switchStatementBeanList.clear();
                 switchStatementBeanList.addAll(data);
 //                mAdapter.notifyDataSetChanged();
-                mAdapter = new SimpleTreeAdapter<>(lvStatement, getBaseContext(), switchStatementBeanList, 0);
+                mAdapter = new SimpleTreeAdapter<>(lvStatement, StatementActivity.this, switchStatementBeanList, 0);
                 lvStatement.setAdapter(mAdapter);
                 changeTotal();
             }
@@ -410,7 +410,7 @@ public class StatementActivity extends BaseActivity {
                 if (switchStatementBeanList != null) {
                     switchStatementBeanList.clear();
 //                    mAdapter.notifyDataSetChanged();
-                    mAdapter = new SimpleTreeAdapter<>(lvStatement, getBaseContext(), switchStatementBeanList, 0);
+                    mAdapter = new SimpleTreeAdapter<>(lvStatement, StatementActivity.this, switchStatementBeanList, 0);
                     lvStatement.setAdapter(mAdapter);
                 }
 
@@ -439,7 +439,7 @@ public class StatementActivity extends BaseActivity {
                 switchStatementBeanList.clear();
                 switchStatementBeanList.addAll(data);
                 mAdapter.notifyDataSetChanged();
-                mAdapter = new SimpleTreeAdapter<>(lvStatement, getBaseContext(), switchStatementBeanList, 0);
+                mAdapter = new SimpleTreeAdapter<>(lvStatement, StatementActivity.this, switchStatementBeanList, 0);
                 lvStatement.setAdapter(mAdapter);
                 changeTotal();
             }
@@ -450,7 +450,7 @@ public class StatementActivity extends BaseActivity {
                 if (switchStatementBeanList != null) {
                     switchStatementBeanList.clear();
                     mAdapter.notifyDataSetChanged();
-                    mAdapter = new SimpleTreeAdapter<>(lvStatement, getBaseContext(), switchStatementBeanList, 0);
+                    mAdapter = new SimpleTreeAdapter<>(lvStatement, StatementActivity.this, switchStatementBeanList, 0);
                     lvStatement.setAdapter(mAdapter);
                 }
 //                if (errorEvent == 12) {
@@ -475,7 +475,7 @@ public class StatementActivity extends BaseActivity {
                 switchStatementBeanList.clear();
                 switchStatementBeanList.addAll(data);
                 mAdapter.notifyDataSetChanged();
-                mAdapter = new SimpleTreeAdapter<>(lvStatement, getBaseContext(), switchStatementBeanList, 0);
+                mAdapter = new SimpleTreeAdapter<>(lvStatement, StatementActivity.this, switchStatementBeanList, 0);
                 lvStatement.setAdapter(mAdapter);
                 changeTotal();
             }
@@ -486,7 +486,7 @@ public class StatementActivity extends BaseActivity {
                 if (switchStatementBeanList != null) {
                     switchStatementBeanList.clear();
                     mAdapter.notifyDataSetChanged();
-                    mAdapter = new SimpleTreeAdapter<>(lvStatement, getBaseContext(), switchStatementBeanList, 0);
+                    mAdapter = new SimpleTreeAdapter<>(lvStatement, StatementActivity.this, switchStatementBeanList, 0);
                     lvStatement.setAdapter(mAdapter);
                 }
 //                if (errorEvent == 12) {
