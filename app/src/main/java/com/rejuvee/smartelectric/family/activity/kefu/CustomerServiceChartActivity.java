@@ -26,7 +26,6 @@ import com.rejuvee.smartelectric.family.model.viewmodel.CustomerServiceChartView
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * 客服聊天
@@ -111,7 +110,7 @@ public class CustomerServiceChartActivity extends BaseActivity {
     private void commitQA() {
 //        ClearEditText ce_context = findViewById(R.id.ce_context);
         String context = mViewModel.getNewContext().getValue();//  ce_context.getEditableText().toString();
-        if (Objects.requireNonNull(context).isEmpty()) {
+        if (context == null || context.isEmpty()) {
             CustomToast.showCustomErrorToast(CustomerServiceChartActivity.this, getString(R.string.vs207));
             return;
         }

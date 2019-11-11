@@ -3,8 +3,11 @@ package com.rejuvee.smartelectric.family.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
+
+import androidx.databinding.DataBindingUtil;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.rejuvee.smartelectric.family.R;
@@ -12,6 +15,7 @@ import com.rejuvee.smartelectric.family.activity.logger.LogDetailActivity;
 import com.rejuvee.smartelectric.family.adapter.LineOperateRecordAdapter;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseFragment;
+import com.rejuvee.smartelectric.family.databinding.FragmentMessageLogBinding;
 import com.rejuvee.smartelectric.family.model.bean.RecordBean;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -29,22 +33,23 @@ public class LineOperateRecordFragment extends BaseFragment {
     private int curPage = 0, pageSize = 20;
     private String CollectorID;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.fragment_message_log;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.fragment_message_log;
+//    }
 
 //    public static LineOperateRecordFragment newInstance() {
 //        return new LineOperateRecordFragment();
 //    }
 
     @Override
-    protected void initView(View v) {
-        ListView listView = v.findViewById(R.id.list_logs);
+    protected View initView() {
+        FragmentMessageLogBinding mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.fragment_message_log, null, false);
+        ListView listView = mBinding.listLogs;//v.findViewById(R.id.list_logs);
         mAdapter = new LineOperateRecordAdapter(getContext(), mListData);
         listView.setAdapter(mAdapter);
-        listView.setEmptyView(v.findViewById(R.id.empty_layout));
-        smartRefreshLayout = v.findViewById(R.id.smart_refreshLayout);
+        listView.setEmptyView(mBinding.emptyLayout);
+        smartRefreshLayout = mBinding.smartRefreshLayout;//v.findViewById(R.id.smart_refreshLayout);
         smartRefreshLayout.setOnLoadMoreListener(refreshLayout -> doRequest());
         smartRefreshLayout.setOnRefreshListener(refreshLayout -> {
             curPage = 0;
@@ -66,15 +71,12 @@ public class LineOperateRecordFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
-    }
-
-    @Override
-    protected void initData() {
         Bundle arguments = getArguments();
         if (arguments != null) {
             CollectorID = arguments.getString("CollectorID");
         }
         doRequest();
+        return mBinding.getRoot();
     }
 
     private void doRequest() {

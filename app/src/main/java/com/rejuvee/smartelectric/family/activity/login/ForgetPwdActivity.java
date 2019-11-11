@@ -23,8 +23,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.Objects;
-
 /**
  * Created by Administrator on 2018/11/22.
  */
@@ -87,7 +85,7 @@ public class ForgetPwdActivity extends BaseActivity {
 
     private void getVerifyCode() {
         String phone = mViewModel.getPhone().getValue();//et_phone.getEditableText().toString();
-        if (Objects.requireNonNull(phone).length() != 11) {
+        if (phone == null || phone.length() != 11) {
             CustomToast.showCustomErrorToast(this, getString(R.string.input_correct_phone));
             return;
         }
@@ -117,15 +115,19 @@ public class ForgetPwdActivity extends BaseActivity {
         String password2 = mViewModel.getRePwd().getValue(); //login_cet_password_again.getEditableText().toString();
         String phone = mViewModel.getPhone().getValue(); //et_phone.getEditableText().toString();
         String code = mViewModel.getCode().getValue();  //et_code.getEditableText().toString();
-        if (Objects.requireNonNull(password1).isEmpty() || Objects.requireNonNull(password2).isEmpty()) {
+        if (password1 == null || password1.isEmpty()) {
             CustomToast.showCustomErrorToast(this, getString(R.string.name_password_cannot_empty));
             return;
         }
-        if (Objects.requireNonNull(phone).length() != 11) {
+        if (password2 == null || password2.isEmpty()) {
+            CustomToast.showCustomErrorToast(this, getString(R.string.name_password_cannot_empty));
+            return;
+        }
+        if (phone == null || phone.length() != 11) {
             CustomToast.showCustomErrorToast(this, getString(R.string.input_correct_phone));
             return;
         }
-        if (Objects.requireNonNull(code).isEmpty()) {
+        if (code == null || code.isEmpty()) {
             CustomToast.showCustomErrorToast(this, getString(R.string.reg_hint_input_verify));
             return;
         }

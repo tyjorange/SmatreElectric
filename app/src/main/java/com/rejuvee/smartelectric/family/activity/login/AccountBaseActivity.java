@@ -36,8 +36,7 @@ import java.util.TimerTask;
  * Created by Administrator on 2018/3/21.
  */
 
-public class AccountBaseActivity extends BaseActivity implements ClearEditText.OnCheckListener {
-
+public abstract class AccountBaseActivity extends BaseActivity implements ClearEditText.OnCheckListener {
     private final static String TAG = "AccountBaseActivity";
     /**
      * api接口
@@ -51,35 +50,6 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
      * 提示信息
      */
     protected CustomToast mCustomToast;
-
-    /**
-     * 确定或注册按钮
-     */
-//    protected TextView mTvSure;
-    /**
-     * 标题
-     */
-//    protected TextView mTvTitle;
-    /**
-     * Imei号或原Imei号
-     */
-//    protected String mImei;
-    /**
-     * 电话号或原手机号
-     */
-//    protected String mPhoneOrOld;
-    /**
-     * 新电话号
-     */
-//    protected String mNewPhone;
-    /**
-     * 验证码
-     */
-//    protected String mCode;
-    /**
-     * 密码、原密码或新密码
-     */
-//    protected String mPwdOrNewOrOld;
     /**
      * 原密码
      */
@@ -152,8 +122,10 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
         // 计时重新获取验证码
         mHandler = new MyHandler(this);
         baseInit();
-//        init();
+        init();
     }
+
+    public abstract void init();
 
     private void baseInit() {
 //        ImageView iv_back = findViewById(R.id.iv_back);
@@ -216,15 +188,6 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
         }
     }
 
-    //    @Override
-//    protected String getToolbarTitle() {
-//        return getString(R.string.reset_password);
-//    }
-//
-//    @Override
-//    protected boolean isDisplayHomeAsUpEnabled() {
-//        return true;
-//    }
     public class Presenter {
         public void onCancel(View view) {
             finish();
@@ -249,13 +212,6 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
     }
 
     /**
-     * 根据不同操作初始化更改界面
-     */
-//    protected void init() {
-//
-//    }
-
-    /**
      * 检查是否可以提交或注册
      */
     protected boolean canCommitOrRegist() {
@@ -277,13 +233,6 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
     }
 
     /**
-     * 获取验证码的手机号
-     */
-//    protected String codePhone() {
-//        return null;
-//    }
-
-    /**
      * 获取加密密码
      */
     protected String pwd() {
@@ -293,10 +242,10 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
     /**
      * 检查Imei号或原Imei号是否正确
      */
-    protected boolean checkImeiOrOldImei() {
+    protected void checkImeiOrOldImei() {
         isOk = false;
         String mImei = mViewModel.getImei().getValue();//mEtImei.getEditableText().toString();
-        if (Objects.requireNonNull(mImei).length() != 12) {
+        if (mImei == null || mImei.length() != 12) {
             mTvImei.setVisibility(View.VISIBLE);
             mTvImei.setText(R.string.hint_imei);
             mIvImei.setVisibility(View.GONE);
@@ -305,7 +254,7 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
             mTvImei.setVisibility(View.GONE);
             mIvImei.setVisibility(View.VISIBLE);
         }
-        return isOk;
+//        return isOk;
     }
 
     /**
@@ -314,7 +263,7 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
     protected boolean checkPhoneOrOldPhone() {
         isOk = false;
         String mPhoneOrOld = mViewModel.getPhone().getValue();//mEtPhone.getEditableText().toString();
-        if (Objects.requireNonNull(mPhoneOrOld).length() <= 0) {
+        if (mPhoneOrOld == null || mPhoneOrOld.length() <= 0) {
             mTvPhone.setVisibility(View.VISIBLE);
             mTvPhone.setText(R.string.hint_phone);
             mIvPhone.setVisibility(View.GONE);
@@ -333,10 +282,10 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
     /**
      * 检查新手机号是否正确
      */
-    protected boolean checkNewPhone() {
+    protected void checkNewPhone() {
         isOk = false;
         String mNewPhone = mViewModel.getNewPhone().getValue();    //mEtNewPhone.getEditableText().toString();
-        if (Objects.requireNonNull(mNewPhone).length() <= 0) {
+        if (mNewPhone == null || mNewPhone.length() <= 0) {
             mTvNewPhone.setVisibility(View.VISIBLE);
             mTvNewPhone.setText(R.string.hint_phone);
             mIvNewPhone.setVisibility(View.GONE);
@@ -349,16 +298,16 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
             mTvNewPhone.setVisibility(View.GONE);
             mIvNewPhone.setVisibility(View.VISIBLE);
         }
-        return isOk;
+//        return isOk;
     }
 
     /**
      * 检查验证码是否正确
      */
-    protected boolean checkCode() {
+    protected void checkCode() {
         isOk = false;
         String mCode = mViewModel.getCode().getValue();// mEtCode.getEditableText().toString();
-        if (Objects.requireNonNull(mCode).length() <= 0) {
+        if (mCode == null || mCode.length() <= 0) {
             mTvCode.setVisibility(View.VISIBLE);
             mTvCode.setText(R.string.hint_code);
             mIvCode.setVisibility(View.GONE);
@@ -367,7 +316,7 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
             mTvCode.setVisibility(View.GONE);
             mIvCode.setVisibility(View.VISIBLE);
         }
-        return isOk;
+//        return isOk;
     }
 
     /**
@@ -376,7 +325,7 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
     protected boolean checkPwdOrOldOrNew() {
         isOk = false;
         String mPwdOrNewOrOld = mViewModel.getPwd().getValue();//mEtPwd.getEditableText().toString();
-        if (Objects.requireNonNull(mPwdOrNewOrOld).length() <= 0) {
+        if (mPwdOrNewOrOld == null || Objects.requireNonNull(mPwdOrNewOrOld).length() <= 0) {
             mTvPwd.setVisibility(View.VISIBLE);
             mTvPwd.setText(R.string.hint_password);
             mIvPwd.setVisibility(View.GONE);
@@ -406,12 +355,12 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
     /**
      * 检查原始密码是否正确
      */
-    protected boolean checkPwdOrOld() {
+    protected void checkPwdOrOld() {
         getCacheAccount();
         Log.i("old", oLdpassword);
         isOk = false;
         mPwdOrOld = mViewModel.getOrgPwd().getValue();// mEtOrgPwd.getEditableText().toString();
-        if (Objects.requireNonNull(mPwdOrOld).length() <= 0) {
+        if (mPwdOrOld == null || mPwdOrOld.length() <= 0) {
             mTvOrgPwd.setVisibility(View.VISIBLE);
             mTvOrgPwd.setText(R.string.hint_null_password);
             mTvOrgPwd.setVisibility(View.GONE);
@@ -424,7 +373,7 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
             mTvOrgPwd.setVisibility(View.GONE);
             mIvOrgPwd.setVisibility(View.VISIBLE);
         }
-        return isOk;
+//        return isOk;
     }
 
     /**
@@ -433,7 +382,7 @@ public class AccountBaseActivity extends BaseActivity implements ClearEditText.O
     protected boolean checkRePwd() {
         isOk = false;
         String mRePwd = mViewModel.getRePwd().getValue();//mEtRePwd.getText().toString();
-        if (Objects.requireNonNull(mRePwd).length() <= 0) {
+        if (mRePwd == null || mRePwd.length() <= 0) {
             mTvRePwd.setVisibility(View.VISIBLE);
             mTvRePwd.setText(R.string.hint_repassword);
             mIvRePwd.setVisibility(View.GONE);

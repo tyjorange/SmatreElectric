@@ -61,7 +61,6 @@ public interface Api {
      *
      * @return
      */
-
     @POST("PowerManager/AppClientAction_login.do")
     Call<ApiResponse<AccountInfo>> login(@Header("Cookie") String session,
                                          @Body Param param);

@@ -77,7 +77,7 @@ public class ChartsActivity extends BaseActivity {
         webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
         //localStorage  允许存储
         webSettings.setDomStorageEnabled(true);
-        webSettings.setAppCacheMaxSize(1024 * 1024 * 8);//存储的最大容量
+//        webSettings.setAppCacheMaxSize(1024 * 1024 * 8);//存储的最大容量
         webSettings.setAppCachePath(getApplicationContext().getCacheDir().getAbsolutePath());
         webSettings.setAllowFileAccess(true);
         webSettings.setAppCacheEnabled(true);

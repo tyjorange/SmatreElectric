@@ -19,7 +19,6 @@ import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.model.viewmodel.SwitchModifyViewModel;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * 线路修改 （名称图片）
@@ -229,7 +228,7 @@ public class SwitchModifyActivity extends BaseActivity {
     private void modify() {
         String customName = mViewModel.getEditLineName().getValue();//editLineName.getEditableText().toString();
 //        CustomLineAdapter.Line selected = mAdapter2.getSelected();
-        if (Objects.requireNonNull(customName).isEmpty()) {
+        if (customName == null || customName.isEmpty()) {
             CustomToast.showCustomErrorToast(this, getResources().getString(R.string.input_custom_name));
             return;
         }

@@ -1,5 +1,6 @@
 package com.rejuvee.smartelectric.family.fragment;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -7,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.ListPopupWindow;
+import androidx.databinding.DataBindingUtil;
 
 import com.base.frame.greenandroid.wheel.view.WheelDateTime;
 import com.jaygoo.widget.OnRangeChangedListener;
@@ -14,18 +16,20 @@ import com.jaygoo.widget.RangeSeekBar;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.BaseFragment;
 import com.rejuvee.smartelectric.family.common.custom.AmountViewInt;
+import com.rejuvee.smartelectric.family.databinding.FragmentSettingDl1Binding;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * 电流类设置
  */
 public class SettingDL1Fragment extends BaseFragment implements View.OnFocusChangeListener {
-    private View view;
+    //    private View view;
     private final String[] listVal = {"1", "6", "10", "16", "20", "25", "32", "40", "50", "63"};//要填充的数据
     private ListPopupWindow listPopupWindow;
     private EditText et_GL1;
@@ -44,50 +48,53 @@ public class SettingDL1Fragment extends BaseFragment implements View.OnFocusChan
     //    private Handler mHandler;
 //    private boolean isShowing = false;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.fragment_setting_dl1;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.fragment_setting_dl1;
+//    }
+
+    private FragmentSettingDl1Binding mBinding;
 
     @Override
-    protected void initView(View v) {
-        view = v;
+    protected View initView() {
+        mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.fragment_setting_dl1, null, false);
+//        view = v;
         // 过流1 过流2
-        listPopupWindow = new ListPopupWindow(v.getContext());
-        et_GL1 = v.findViewById(R.id.et_gl1);
+        listPopupWindow = new ListPopupWindow(Objects.requireNonNull(getContext()));
+        et_GL1 = mBinding.etGl1;//v.findViewById(R.id.et_gl1);
         et_GL1.setOnFocusChangeListener(this);
-        et_GL2 = v.findViewById(R.id.et_gl2);
+        et_GL2 = mBinding.etGl2;//v.findViewById(R.id.et_gl2);
         // et_GL2.setOnFocusChangeListener(this);
         // 漏电保护、自检使能
-        iv_bhsn = v.findViewById(R.id.iv_bhsn);
+        iv_bhsn = mBinding.ivBhsn;//v.findViewById(R.id.iv_bhsn);
         iv_bhsn.setOnClickListener(v12 -> {
             if (bhsn == 0) {
                 bhsn = 1;
             } else {
                 bhsn = 0;
             }
-            updateSwitchStatus(v12);
+            updateSwitchStatus();
         });
-        iv_zjsn = v.findViewById(R.id.iv_zjsn);
+        iv_zjsn = mBinding.ivZjsn;//v.findViewById(R.id.iv_zjsn);
         iv_zjsn.setOnClickListener(v13 -> {
             if (zjsn == 0) {
                 zjsn = 1;
             } else {
                 zjsn = 0;
             }
-            updateSwitchStatus(v13);
+            updateSwitchStatus();
         });
         // 漏电自检时间
-        tv_zj_time = v.findViewById(R.id.tv_zj_time);
-        v.findViewById(R.id.ll_zj_time).setOnClickListener(v14 -> dateSelector.show(v14));
+        tv_zj_time = mBinding.tvZjTime;//v.findViewById(R.id.tv_zj_time);
+        mBinding.llZjTime.setOnClickListener(v14 -> dateSelector.show(v14));
         // 漏电流阀值
 //        v.findViewById(R.id.ll_ldl).setVisibility(View.VISIBLE);
-        amountLDL = v.findViewById(R.id.amount_view_ldl);
+        amountLDL = mBinding.amountViewLdl;// v.findViewById(R.id.amount_view_ldl);
         amountLDL.setVal_min(0);
         amountLDL.setVal_max(999);
         amountLDL.setAmountInt(30);
         amountLDL.setOnAmountChangeListener((view, amount) -> rangeSeekBarLDL.setProgress((int) amount));
-        rangeSeekBarLDL = v.findViewById(R.id.seek_bar_ldl);
+        rangeSeekBarLDL = mBinding.seekBarLdl;// v.findViewById(R.id.seek_bar_ldl);
         rangeSeekBarLDL.setRange(0, 999);//范围
         rangeSeekBarLDL.setTickMarkTextArray(new String[]{"0", "999"});//刻度
         rangeSeekBarLDL.setIndicatorTextDecimalFormat("###");//格式化小数位数
@@ -110,7 +117,7 @@ public class SettingDL1Fragment extends BaseFragment implements View.OnFocusChan
             }
         });
         // 日期选择器
-        dateSelector = new WheelDateTime(v.getContext(),
+        dateSelector = new WheelDateTime(getContext(),
                 (isSubmit, year, month, day, hour, minute) -> {
 //                        iyear = Integer.parseInt(year);
 //                        imonth = Integer.parseInt(month);
@@ -127,22 +134,16 @@ public class SettingDL1Fragment extends BaseFragment implements View.OnFocusChan
                 new SimpleDateFormat("dd", Locale.getDefault()).format(new Date()),
                 getString(R.string.vs191), getString(R.string.cancel), getString(R.string.ensure));
         dateSelector.setDateItemVisiable(false, false, true, true, false);
-
+        return mBinding.getRoot();
     }
 
     /**
      * 00 01 10 11
      * BIT0=漏电自检使能 BIT1=漏电保护使能
      */
-    private void updateSwitchStatus(View v) {
-        iv_bhsn.setImageDrawable(v.getResources().getDrawable(bhsn == 0 ? R.drawable.icon_switch_off : R.drawable.icon_switch_on));
-        iv_zjsn.setImageDrawable(v.getResources().getDrawable(zjsn == 0 ? R.drawable.icon_switch_off : R.drawable.icon_switch_on));
-    }
-
-    @Override
-    protected void initData() {
-//        isShowing = true;
-//        listener.onDL1Show();// 第一个TAB
+    private void updateSwitchStatus() {
+        iv_bhsn.setImageDrawable(getResources().getDrawable(bhsn == 0 ? R.drawable.icon_switch_off : R.drawable.icon_switch_on));
+        iv_zjsn.setImageDrawable(getResources().getDrawable(zjsn == 0 ? R.drawable.icon_switch_off : R.drawable.icon_switch_on));
     }
 
     @Override
@@ -172,14 +173,14 @@ public class SettingDL1Fragment extends BaseFragment implements View.OnFocusChan
     public String getParamID(SwitchBean currentSwitchBean) {
         // 判断漏电类是否显示
         if (currentSwitchBean.getModelMajor() == 1 && currentSwitchBean.getModelMinor() == 5) {
-            view.findViewById(R.id.ll_ldl).setVisibility(View.VISIBLE);
+            mBinding.llLdl.setVisibility(View.VISIBLE);
             return "0000001C," + // 漏电自检/保护使能
                     "0000001D," + // 漏电自检时间 xxxx(ddhh) 0000
                     "0000001B," + // 漏电阀值
                     "00000011," + // 过流阀值(1)
                     "0000001A,"; // 瞬时过流阀值(2)
         } else {
-            view.findViewById(R.id.ll_ldl).setVisibility(View.GONE);
+            mBinding.llLdl.setVisibility(View.GONE);
             return "00000011," + // 过流阀值(1)
                     "0000001A,"; // 瞬时过流阀值(2)
         }
@@ -230,7 +231,7 @@ public class SettingDL1Fragment extends BaseFragment implements View.OnFocusChan
                 zjsn = 1;
                 break;
         }
-        updateSwitchStatus(view);
+        updateSwitchStatus();
     }
 
     /**
@@ -264,7 +265,7 @@ public class SettingDL1Fragment extends BaseFragment implements View.OnFocusChan
         String ssglfz = et_GL2.getEditableText().toString();
         res += "00000011:" + glfz; // 过流阀值(1)
         res += ",0000001A:" + ssglfz;// 瞬时过流阀值(2)
-        if (view.findViewById(R.id.ll_ldl).getVisibility() == View.VISIBLE) {
+        if (mBinding.llLdl.getVisibility() == View.VISIBLE) {
             res += ",0000001C:" + Integer.valueOf(bhsn + "" + zjsn, 2); // 漏电自检/保护使能
             res += ",0000001D:" + (dd * 256 + hh); // 漏电自检时间
             rangeSeekBarLDL.setProgress(amountLDL.getAmountInt());

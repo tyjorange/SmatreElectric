@@ -2,8 +2,11 @@ package com.rejuvee.smartelectric.family.fragment;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
+
+import androidx.databinding.DataBindingUtil;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.rejuvee.smartelectric.family.R;
@@ -11,6 +14,7 @@ import com.rejuvee.smartelectric.family.adapter.LineWarnAdapter;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseFragment;
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
+import com.rejuvee.smartelectric.family.databinding.FragmentLineAlarmBinding;
 import com.rejuvee.smartelectric.family.model.bean.WarnBean;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -29,34 +33,32 @@ public class LineWarnFrgament extends BaseFragment {
     private LoadingDlg loadingDlg;
     private String CollectorID;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.fragment_line_alarm;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.fragment_line_alarm;
+//    }
 
     @Override
-    protected void initView(View v) {
+    protected View initView() {
+        FragmentLineAlarmBinding mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.fragment_line_alarm, null, false);
         loadingDlg = new LoadingDlg(getContext(), -1);
-        ListView listView = v.findViewById(R.id.list_alarms);
+        ListView listView = mBinding.listAlarms;//v.findViewById(R.id.list_alarms);
         mAdapter = new LineWarnAdapter(getContext(), mListData);
         listView.setAdapter(mAdapter);
-        listView.setEmptyView(v.findViewById(R.id.empty_layout));
+        listView.setEmptyView(mBinding.emptyLayout);
 
-        smartRefreshLayout = v.findViewById(R.id.smart_refreshLayout);
+        smartRefreshLayout = mBinding.smartRefreshLayout;//v.findViewById(R.id.smart_refreshLayout);
         smartRefreshLayout.setOnLoadMoreListener(refreshLayout -> doRequest(false));
         smartRefreshLayout.setOnRefreshListener(refreshLayout -> {
             curPage = 0;
             doRequest(false);
         });
-    }
-
-    @Override
-    protected void initData() {
         Bundle arguments = getArguments();
         if (arguments != null) {
             CollectorID = arguments.getString("CollectorID");
         }
         doRequest(true);
+        return mBinding.getRoot();
     }
 
     private void doRequest(boolean showDlg) {

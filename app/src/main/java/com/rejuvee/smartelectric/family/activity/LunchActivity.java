@@ -3,6 +3,8 @@ package com.rejuvee.smartelectric.family.activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
+import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
@@ -16,7 +18,8 @@ import com.rejuvee.smartelectric.family.model.viewmodel.LunchViewModel;
 import java.util.Locale;
 
 public class LunchActivity extends BaseActivity {
-    private String TAG = "LunchActivity";
+    private static final String TAG = "LunchActivity";
+    private static final int countDownFlag = 1502;
     //    private Button mBtnSkip;
     private int count = 3;
     private ActivityLunchBinding mBinding;
@@ -47,9 +50,11 @@ public class LunchActivity extends BaseActivity {
         @Override
         public void handleMessage(Message msg) {
 //            LunchActivity theActivity = activitySoftReference.get();
-            if (msg.what == 101) {
-                lunchActivity.mBinding.btnSkip.setText(String.format(Locale.getDefault(), "%s(%d)", lunchActivity.getString(R.string.vs11), lunchActivity.getCount()));
-                lunchActivity.handler.sendEmptyMessageDelayed(101, 1000);
+            if (msg.what == countDownFlag) {
+                int count = lunchActivity.getCount();
+                Log.i(TAG, String.valueOf(count));
+                lunchActivity.mBinding.btnSkip.setText(String.format(Locale.getDefault(), "%s(%d)", lunchActivity.getString(R.string.vs11), count));
+                lunchActivity.handler.sendEmptyMessageDelayed(countDownFlag, 1000);
             }
         }
     }
@@ -69,19 +74,29 @@ public class LunchActivity extends BaseActivity {
     protected void initView() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_lunch);
         LunchViewModel mViewModel = ViewModelProviders.of(this).get(LunchViewModel.class);
-        mBinding.setAct(this);
         mBinding.setVm(mViewModel);
+        mBinding.setPresenter(new Presenter());
         mBinding.setLifecycleOwner(this);
 
 //        mBtnSkip = findViewById(R.id.btn_skip);
-        mBinding.btnSkip.setOnClickListener(view -> {
-            startActivity(new Intent(LunchActivity.this, LoginActivity.class));
-            overridePendingTransition(R.anim.top_in, R.anim.top_out);
-            handler.removeMessages(101);
-            finish();
-        });
+//        mBinding.btnSkip.setOnClickListener(view -> {
+//            startActivity(new Intent(LunchActivity.this, LoginActivity.class));
+//            overridePendingTransition(R.anim.top_in, R.anim.top_out);
+//            handler.removeMessages(countDownFlag);
+//            finish();
+//        });
         handler = new MyHandler(this);
-        handler.sendEmptyMessageDelayed(101, 1000);
+        handler.sendEmptyMessageDelayed(countDownFlag, 1000);
+    }
+
+    public class Presenter {
+        public void onSkip(View view) {
+            Log.i(TAG, "onSkip");
+            startActivity(new Intent(view.getContext(), LoginActivity.class));
+            overridePendingTransition(R.anim.top_in, R.anim.top_out);
+            handler.removeMessages(countDownFlag);
+            finish();
+        }
     }
 
     @Override

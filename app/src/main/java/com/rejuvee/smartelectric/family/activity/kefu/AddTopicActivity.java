@@ -13,8 +13,6 @@ import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.databinding.ActivityAddTopicBinding;
 import com.rejuvee.smartelectric.family.model.viewmodel.AddTopicViewModel;
 
-import java.util.Objects;
-
 /**
  * 添加问题
  */
@@ -66,11 +64,11 @@ public class AddTopicActivity extends BaseActivity {
 //        String context = et_new_context.getEditableText().toString();
         String topic = mViewModel.getTopic().getValue();
         String context = mViewModel.getContext().getValue();
-        if (Objects.requireNonNull(topic).isEmpty()) {
+        if (topic == null || topic.isEmpty()) {
             CustomToast.showCustomErrorToast(AddTopicActivity.this, getString(R.string.vs192));
             return;
         }
-        if (Objects.requireNonNull(context).isEmpty()) {
+        if (context == null || context.isEmpty()) {
             CustomToast.showCustomErrorToast(AddTopicActivity.this, getString(R.string.vs193));
             return;
         }

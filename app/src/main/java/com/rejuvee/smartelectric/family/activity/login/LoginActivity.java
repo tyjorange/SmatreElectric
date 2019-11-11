@@ -168,16 +168,17 @@ public class LoginActivity extends BaseActivity {
      */
     private void onCheckLogin(View view) {
         String userName = mViewModel.getUsername().getValue();//mBinding.loginCetUsername.getEditableText().toString();
-        String password = mViewModel.getPwd().getValue();//mBinding.loginCetPassword.getEditableText().toString();
-        if (Objects.requireNonNull(userName).isEmpty() || Objects.requireNonNull(password).isEmpty()) {
-            CustomToast.showCustomErrorToast(this, getString(R.string.name_password_cannot_empty));
+        String passWord = mViewModel.getPwd().getValue();//mBinding.loginCetPassword.getEditableText().toString();
+        if (userName == null || userName.isEmpty()
+                || passWord == null || passWord.isEmpty()) {
+            CustomToast.showCustomErrorToast(view.getContext(), getString(R.string.name_password_cannot_empty));
             return;
         }
-        if (password.equals("******")) {
+        if (passWord.equals("******")) {
             autoLogin();
         } else {
-            password = EncryptUtils.encryptMD5ToString(password, Core.SALT);
-            apiLogin(userName, password);
+            passWord = EncryptUtils.encryptMD5ToString(passWord, Core.SALT);
+            apiLogin(userName, passWord);
         }
     }
 

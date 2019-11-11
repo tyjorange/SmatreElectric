@@ -369,7 +369,7 @@
                             <com.rejuvee.smartelectric.family.common.widget.ClearEditText
                                 android:id="@+id/edit_imei"
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:background="@null"
                                 android:digits="@string/input_digits"
@@ -443,7 +443,7 @@
                             <com.rejuvee.smartelectric.family.common.widget.ClearEditText
                                 android:id="@+id/edit_phone"
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:background="@null"
                                 android:inputType="number"
@@ -516,7 +516,7 @@
                             <com.rejuvee.smartelectric.family.common.widget.ClearEditText
                                 android:id="@+id/edit_phone_new"
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:background="@null"
                                 android:inputType="number"
@@ -590,7 +590,7 @@
                             <com.rejuvee.smartelectric.family.common.widget.ClearEditText
                                 android:id="@+id/edit_code"
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:background="@null"
                                 android:inputType="number"
@@ -677,7 +677,7 @@
                             <com.rejuvee.smartelectric.family.common.widget.ClearEditText
                                 android:id="@+id/edit_org_pwd"
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:background="@null"
                                 android:digits="@string/input_digits"
@@ -749,7 +749,7 @@
                             <com.rejuvee.smartelectric.family.common.widget.ClearEditText
                                 android:id="@+id/edit_pwd"
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:background="@null"
                                 android:digits="@string/input_digits"
@@ -822,7 +822,7 @@
                             <com.rejuvee.smartelectric.family.common.widget.ClearEditText
                                 android:id="@+id/edit_repwd"
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:background="@null"
                                 android:digits="@string/input_digits"

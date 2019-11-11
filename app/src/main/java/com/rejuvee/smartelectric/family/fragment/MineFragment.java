@@ -152,11 +152,6 @@ public class MineFragment extends AbstractBaseFragment implements View.OnClickLi
     }
 
     @Override
-    protected void initData() {
-
-    }
-
-    @Override
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {

@@ -23,8 +23,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.Objects;
-
 public class RegisterActivity extends BaseActivity {
     private static final String TAG = "RegisterActivity";
     //    private EditText edtUserName, edtPhone, edtVerifyCode, edtPassword, edtEnsurePassword;
@@ -66,7 +64,10 @@ public class RegisterActivity extends BaseActivity {
         mBinding.loginCetUsername.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {// 失去焦点
 //                EditText e = (EditText) v;
-                usernameVerify(Objects.requireNonNull(mViewModel.getUsername().getValue()));
+                String value = mViewModel.getUsername().getValue();
+                if (value != null) {
+                    usernameVerify(value);
+                }
             }
         });
         initGetCode();
@@ -115,7 +116,7 @@ public class RegisterActivity extends BaseActivity {
 
     private void getVerifyCode() {
         String phone = mViewModel.getPhone().getValue();//edtPhone.getEditableText().toString();
-        if (Objects.requireNonNull(phone).length() != 11) {
+        if (phone == null || phone.length() != 11) {
             CustomToast.showCustomErrorToast(this, getString(R.string.input_correct_phone));
             return;
         }
@@ -147,15 +148,17 @@ public class RegisterActivity extends BaseActivity {
         String password2 = mViewModel.getRePwd().getValue();//edtEnsurePassword.getEditableText().toString();
         String phone = mViewModel.getPhone().getValue();//edtPhone.getEditableText().toString();
         String code = mViewModel.getCode().getValue();//edtVerifyCode.getEditableText().toString();
-        if (Objects.requireNonNull(userName).isEmpty() || Objects.requireNonNull(password1).isEmpty() || Objects.requireNonNull(password2).isEmpty()) {
+        if (userName == null || userName.isEmpty() ||
+                password1 == null || password1.isEmpty() ||
+                password2 == null || password2.isEmpty()) {
             CustomToast.showCustomErrorToast(this, getString(R.string.name_password_cannot_empty));
             return;
         }
-        if (Objects.requireNonNull(phone).length() != 11) {
+        if (phone == null || phone.length() != 11) {
             CustomToast.showCustomErrorToast(this, getString(R.string.input_correct_phone));
             return;
         }
-        if (Objects.requireNonNull(code).isEmpty()) {
+        if (code == null || code.isEmpty()) {
             CustomToast.showCustomErrorToast(this, getString(R.string.reg_hint_input_verify));
             return;
         }

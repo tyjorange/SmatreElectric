@@ -2,16 +2,20 @@ package com.rejuvee.smartelectric.family.fragment;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.databinding.DataBindingUtil;
+
 import com.base.frame.net.ActionCallbackListener;
-import com.base.library.core.AbstractBaseFragment;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
+import com.rejuvee.smartelectric.family.common.BaseFragment;
 import com.rejuvee.smartelectric.family.common.widget.MonitorDataChartView;
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
+import com.rejuvee.smartelectric.family.databinding.FragmentCurveBinding;
 import com.rejuvee.smartelectric.family.model.bean.SignalPeakValleyValue;
 import com.rejuvee.smartelectric.family.model.bean.SignalValue;
 
@@ -20,12 +24,8 @@ import java.util.List;
 
 import retrofit2.Call;
 
-import static com.rejuvee.smartelectric.family.api.Core.instance;
-
-public class CurveFragment extends AbstractBaseFragment {
-
+public class CurveFragment extends BaseFragment {
     private TextView tvUnit;
-
     private String signalTypeId;
     private int switchId;
     private String time;
@@ -48,38 +48,35 @@ public class CurveFragment extends AbstractBaseFragment {
 
     private int position;
 
-    private String tag;
+    //    private String tag;
     private Call<?> currentCall = null;
 
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.fragment_curve;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.fragment_curve;
+//    }
 
     @Override
-    protected void initView(View v) {
+    protected View initView() {
+        FragmentCurveBinding mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.fragment_curve, null, false);
         Log.e("VpAdapter", "initView: " + position);
-        tvUnit = v.findViewById(R.id.tv_unit);
-        monitorDataChartView = v.findViewById(R.id.mdcv);
+        tvUnit = mBinding.tvUnit;//v.findViewById(R.id.tv_unit);
+        monitorDataChartView = mBinding.mdcv;//v.findViewById(R.id.mdcv);
         loadingDlg = new LoadingDlg(getContext(), -1);
-    }
-
-    @Override
-    protected void initData() {
         Log.e("VpAdapter", "initData: " + position);
         signalValueList = new ArrayList<>();
         change(getArguments());
-//        isShowing = true;
+        //        isShowing = true;
+        return mBinding.getRoot();
     }
-
 
     public void change(Bundle bundle) {
         if (bundle == null) {
             return;
         }
         Log.e("VpAdapter", "changeData: " + position);
-        tag = bundle.getCharSequence("tag").toString();
+//        tag = bundle.getCharSequence("tag").toString();
         String signalTypeIdNew = bundle.getCharSequence("signalTypeId").toString();
         int switchIdNew = bundle.getInt("switchId");
         String timeNew = bundle.getCharSequence("time").toString();
@@ -188,7 +185,7 @@ public class CurveFragment extends AbstractBaseFragment {
     }
 
     private void getAverageValueByDay() {
-        currentCall = instance(getContext()).getAverageValueByDay(switchId, signalTypeId, time, new ActionCallbackListener<List<SignalValue>>() {
+        currentCall = Core.instance(getContext()).getAverageValueByDay(switchId, signalTypeId, time, new ActionCallbackListener<List<SignalValue>>() {
             @Override
             public void onSuccess(List<SignalValue> data) {
                 signalValueList.clear();

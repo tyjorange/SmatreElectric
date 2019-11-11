@@ -1,12 +1,16 @@
 package com.rejuvee.smartelectric.family.fragment;
 
+import android.view.LayoutInflater;
 import android.view.View;
+
+import androidx.databinding.DataBindingUtil;
 
 import com.jaygoo.widget.OnRangeChangedListener;
 import com.jaygoo.widget.RangeSeekBar;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.BaseFragment;
 import com.rejuvee.smartelectric.family.common.custom.AmountView;
+import com.rejuvee.smartelectric.family.databinding.FragmentSettingDyBinding;
 
 import java.math.BigDecimal;
 
@@ -20,20 +24,21 @@ public class SettingDYFragment extends BaseFragment {
     private AmountView amountQY;
 //    private boolean isShowing = false;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.fragment_setting_dy;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.fragment_setting_dy;
+//    }
 
     @Override
-    protected void initView(View v) {
+    protected View initView() {
+        FragmentSettingDyBinding mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.fragment_setting_dy, null, false);
         // 过压
-        amountGY = v.findViewById(R.id.amount_view_gy);
+        amountGY = mBinding.amountViewGy;//v.findViewById(R.id.amount_view_gy);
         amountGY.setVal_min(100);
         amountGY.setVal_max(480);
 //        amountQY.setAmount(275);
         amountGY.setOnAmountChangeListener((view, amount) -> rangeSeekBarGY.setProgress(amount));
-        rangeSeekBarGY = v.findViewById(R.id.seek_bar_gy);
+        rangeSeekBarGY = mBinding.seekBarGy;//v.findViewById(R.id.seek_bar_gy);
         rangeSeekBarGY.setRange(100, 480);//范围
         rangeSeekBarGY.setTickMarkTextArray(new String[]{"100", "480"});//刻度
 //        rangeSeekBarQY.setProgress(275);
@@ -56,12 +61,12 @@ public class SettingDYFragment extends BaseFragment {
             }
         });
         // 欠压
-        amountQY = v.findViewById(R.id.amount_view_qy);
+        amountQY = mBinding.amountViewQy;//v.findViewById(R.id.amount_view_qy);
         amountQY.setVal_min(50);
         amountQY.setVal_max(320);
 //        amountQY.setAmount(160);
         amountQY.setOnAmountChangeListener((view, amount) -> rangeSeekBarQY.setProgress(amount));
-        rangeSeekBarQY = v.findViewById(R.id.seek_bar_qy);
+        rangeSeekBarQY = mBinding.seekBarQy;//v.findViewById(R.id.seek_bar_qy);
         rangeSeekBarQY.setRange(50, 320);//范围
         rangeSeekBarQY.setTickMarkTextArray(new String[]{"50", "320"});//刻度
 //        rangeSeekBarQY.setProgress(160);
@@ -83,11 +88,7 @@ public class SettingDYFragment extends BaseFragment {
 
             }
         });
-    }
-
-    @Override
-    protected void initData() {
-//        isShowing = true;
+        return mBinding.getRoot();
     }
 
     public String getParamID() {

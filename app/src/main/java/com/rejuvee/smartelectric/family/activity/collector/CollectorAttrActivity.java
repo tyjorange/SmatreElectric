@@ -42,8 +42,6 @@ public class CollectorAttrActivity extends BaseActivity {
 //    private String guzhangma;
 //    private String heartrate;
     private DialogTip mDialogSwitch;
-    //    private Context mContext;
-    private ActivitySetupLayoutBinding mBinding;
     private CollectorAttrViewModel mViewModel;
     public static int[] setNames = new int[]{
             R.string.sets_devicename,
@@ -68,7 +66,8 @@ public class CollectorAttrActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_setup_layout);
+        //    private Context mContext;
+        ActivitySetupLayoutBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_setup_layout);
         mViewModel = ViewModelProviders.of(this).get(CollectorAttrViewModel.class);
         mBinding.setVm(mViewModel);
         mBinding.setPresenter(new Presenter());

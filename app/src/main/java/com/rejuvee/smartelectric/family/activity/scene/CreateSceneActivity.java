@@ -68,6 +68,7 @@ public class CreateSceneActivity extends BaseActivity {
 
     private ActivityCreatesceneBinding mBinding;
     private CreateSceneViewModel mViewModel;
+
     @Override
     protected void initView() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_createscene);
@@ -285,7 +286,7 @@ public class CreateSceneActivity extends BaseActivity {
         }
 
         public void onAdd(View view) {
-            Intent intent = new Intent(CreateSceneActivity.this, ChoceLineActivity.class);
+            Intent intent = new Intent(view.getContext(), ChoceLineActivity.class);
             intent.putExtra("sceneid", sceneBean.getSceneId());
             intent.putParcelableArrayListExtra("breaks", listBreak);
             startActivityForResult(intent, CommonRequestCode.REQUEST_CHOSE_LINE);
@@ -297,7 +298,7 @@ public class CreateSceneActivity extends BaseActivity {
 
         public void onCommit(View view) {
             String _sceneName = mViewModel.getSceneName().getValue();//edit_name.getEditableText();
-            if (Objects.requireNonNull(_sceneName).length() == 0) {
+            if (_sceneName == null || _sceneName.length() == 0) {
                 CustomToast.showCustomErrorToast(view.getContext(), getString(R.string.sce_miaoshu));
                 return;
             }

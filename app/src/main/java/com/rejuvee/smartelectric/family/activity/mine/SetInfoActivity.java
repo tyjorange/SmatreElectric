@@ -12,8 +12,6 @@ import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.databinding.ActivitySetnicknameBinding;
 import com.rejuvee.smartelectric.family.model.viewmodel.SetInfoViewModel;
 
-import java.util.Objects;
-
 /**
  * 设置用户信息
  */
@@ -144,7 +142,7 @@ public class SetInfoActivity extends BaseActivity {
 
         public void onOk(View view) {
             String value = mViewModel.getTxtString().getValue();
-            if (Objects.requireNonNull(value).isEmpty()) {
+            if (value == null || value.isEmpty()) {
                 Toast.makeText(view.getContext(), R.string.prompt, Toast.LENGTH_LONG).show();
             } else {
                 setResultChange();

@@ -1,21 +1,31 @@
 package com.rejuvee.smartelectric.family.common;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
-import com.base.library.core.AbstractBaseFragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 /**
  * 所有活动的基类
  *
  * @author tyj
  */
-public class BaseFragment extends AbstractBaseFragment {
+public abstract class BaseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //每创建一个活动，就加入到活动管理器中
         ActivityFragmentManager.addFragment(this);
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        return super.onCreateView(inflater, container, savedInstanceState);
+        return initView();
     }
 
     @Override
@@ -25,18 +35,10 @@ public class BaseFragment extends AbstractBaseFragment {
         ActivityFragmentManager.removeFragment(this);
     }
 
-    @Override
-    protected int getLayoutResId() {
-        return 0;
-    }
+    protected abstract View initView();
 
-    @Override
-    protected void initView(View v) {
-
-    }
-
-    @Override
-    protected void initData() {
-
-    }
+//    @Override
+//    protected void initData() {
+//
+//    }
 }

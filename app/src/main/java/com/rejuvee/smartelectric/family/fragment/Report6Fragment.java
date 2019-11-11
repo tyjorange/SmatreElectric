@@ -1,8 +1,11 @@
 package com.rejuvee.smartelectric.family.fragment;
 
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
+
+import androidx.databinding.DataBindingUtil;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
@@ -11,6 +14,7 @@ import com.rejuvee.smartelectric.family.activity.report.ReportDetailActivity;
 import com.rejuvee.smartelectric.family.adapter.ReportAdapter;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseFragment;
+import com.rejuvee.smartelectric.family.databinding.FragmentReport6monthBinding;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.ReportBean;
 
@@ -21,29 +25,27 @@ public class Report6Fragment extends BaseFragment {
     private ReportAdapter adapter;
     private List<ReportBean> mListData = new ArrayList<>();
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.fragment_report_6month;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.fragment_report_6month;
+//    }
 
     @Override
-    protected void initView(View v) {
+    protected View initView() {
+        FragmentReport6monthBinding mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.fragment_report_6month, null, false);
         CollectorBean collectorBean = getArguments().getParcelable("collectorBean");
-        ListView listView = v.findViewById(R.id.report_list_6);
-        adapter = new ReportAdapter(v.getContext(), mListData);
+        ListView listView = mBinding.reportList6;//v.findViewById(R.id.report_list_6);
+        adapter = new ReportAdapter(getContext(), mListData);
         listView.setAdapter(adapter);
-        listView.setEmptyView(v.findViewById(R.id.empty_layout));
+        listView.setEmptyView(mBinding.emptyLayout);
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            Intent intent = new Intent(v.getContext(), ReportDetailActivity.class);
+            Intent intent = new Intent(getContext(), ReportDetailActivity.class);
             intent.putExtra("collectorBean", collectorBean);
             intent.putExtra("reportBean", mListData.get(position));
             startActivity(intent);
         });
-    }
-
-    @Override
-    protected void initData() {
         getReportList();
+        return mBinding.getRoot();
     }
 
     private void getReportList() {

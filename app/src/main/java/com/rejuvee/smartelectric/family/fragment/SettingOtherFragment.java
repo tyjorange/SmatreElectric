@@ -1,7 +1,10 @@
 package com.rejuvee.smartelectric.family.fragment;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.databinding.DataBindingUtil;
 
 import com.jaygoo.widget.OnRangeChangedListener;
 import com.jaygoo.widget.RangeSeekBar;
@@ -9,6 +12,7 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.BaseFragment;
 import com.rejuvee.smartelectric.family.common.custom.AmountView;
 import com.rejuvee.smartelectric.family.common.widget.dialog.RadioDialog;
+import com.rejuvee.smartelectric.family.databinding.FragmentSettingOtherBinding;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 
 import java.math.BigDecimal;
@@ -17,7 +21,7 @@ import java.math.BigDecimal;
  * 其他类设置
  */
 public class SettingOtherFragment extends BaseFragment {
-    private View view;
+    //    private View view;
     private RangeSeekBar rangeSeekBarWDFZ;
     private AmountView amountWDFZ;
     private RangeSeekBar rangeSeekBarSXBPH;
@@ -27,21 +31,24 @@ public class SettingOtherFragment extends BaseFragment {
     private RadioDialog radioDialog;
 //    private boolean isShowing = false;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.fragment_setting_other;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.fragment_setting_other;
+//    }
+
+    private FragmentSettingOtherBinding mBinding;
 
     @Override
-    protected void initView(View v) {
-        view = v;
+    protected View initView() {
+        mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.fragment_setting_other, null, false);
+//        view = v;
         // 温度阀值
-        amountWDFZ = v.findViewById(R.id.amount_view_gwfz);
+        amountWDFZ = mBinding.amountViewGwfz;//v.findViewById(R.id.amount_view_gwfz);
         amountWDFZ.setVal_min(0);
         amountWDFZ.setVal_max(85);
         amountWDFZ.setAmount(84);
         amountWDFZ.setOnAmountChangeListener((view, amount) -> rangeSeekBarWDFZ.setProgress(amount));
-        rangeSeekBarWDFZ = v.findViewById(R.id.seek_bar_gwfz);
+        rangeSeekBarWDFZ = mBinding.seekBarGwfz;//v.findViewById(R.id.seek_bar_gwfz);
         rangeSeekBarWDFZ.setRange(0, 85);//范围
         rangeSeekBarWDFZ.setTickMarkTextArray(new String[]{"0", "85"});//刻度
         rangeSeekBarWDFZ.setIndicatorTextDecimalFormat("000.0");//格式化小数位数
@@ -64,22 +71,22 @@ public class SettingOtherFragment extends BaseFragment {
             }
         });
         // 上电配置
-        radioDialog = new RadioDialog(v.getContext());
+        radioDialog = new RadioDialog(getContext());
         setSDPZ(2);
-        radioDialog.setDialogListener(val -> setSDPZ(val));
-        tv_sdpz = v.findViewById(R.id.tv_sdpz);
-        v.findViewById(R.id.ll_sdpz).setOnClickListener(v12 -> {
+        radioDialog.setDialogListener(this::setSDPZ);
+        tv_sdpz = mBinding.tvSdpz;//v.findViewById(R.id.tv_sdpz);
+        mBinding.llSdpz.setOnClickListener(v12 -> {
             radioDialog.setVal(sdpz_val);
             radioDialog.show();
         });
         //三项不平衡
-        v.findViewById(R.id.ll_sxbph).setVisibility(View.VISIBLE);
-        amountSXBPH = v.findViewById(R.id.amount_view_sxbph);
+        mBinding.llSxbph.setVisibility(View.VISIBLE);
+        amountSXBPH = mBinding.amountViewSxbph;//v.findViewById(R.id.amount_view_sxbph);
         amountSXBPH.setVal_min(10);
         amountSXBPH.setVal_max(100);
         amountSXBPH.setAmount(10);
         amountSXBPH.setOnAmountChangeListener((view, amount) -> rangeSeekBarSXBPH.setProgress(amount));
-        rangeSeekBarSXBPH = v.findViewById(R.id.seek_bar_sxbph);
+        rangeSeekBarSXBPH = mBinding.seekBarSxbph;//v.findViewById(R.id.seek_bar_sxbph);
         rangeSeekBarSXBPH.setRange(10, 100);//范围
         rangeSeekBarSXBPH.setTickMarkTextArray(new String[]{"10", "100"});//刻度
         rangeSeekBarSXBPH.setIndicatorTextDecimalFormat("###.0");//格式化小数位数
@@ -101,22 +108,18 @@ public class SettingOtherFragment extends BaseFragment {
 
             }
         });
-    }
-
-    @Override
-    protected void initData() {
-//        isShowing = true;
+        return mBinding.getRoot();
     }
 
     public String getParamID(SwitchBean currentSwitchBean) {
         // 判断三项不平衡是否显示
         if (currentSwitchBean.getModelMajor() == 2 && currentSwitchBean.getModelMinor() == 1) {
-            view.findViewById(R.id.ll_sxbph).setVisibility(View.VISIBLE);
+            mBinding.llSxbph.setVisibility(View.VISIBLE);
             return "0000001E," + // 温度阀值
                     "00000020," + // 三相不平衡
                     "0000001F,"; // 上电配置
         } else {
-            view.findViewById(R.id.ll_sxbph).setVisibility(View.GONE);
+            mBinding.llSxbph.setVisibility(View.GONE);
             return "0000001E," + // 温度阀值
                     "0000001F,"; // 上电配置
         }
@@ -185,7 +188,7 @@ public class SettingOtherFragment extends BaseFragment {
         BigDecimal wdfz = BigDecimal.valueOf(rangeSeekBarWDFZ.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
         res += "0000001E:" + wdfz + // 温度阀值
                 ",0000001F:" + sdpz_val; // 上电配置
-        if (view.findViewById(R.id.ll_sxbph).getVisibility() == View.VISIBLE) {
+        if (mBinding.llSxbph.getVisibility() == View.VISIBLE) {
             rangeSeekBarSXBPH.setProgress(amountSXBPH.getAmount());
             BigDecimal sxbph = BigDecimal.valueOf(rangeSeekBarSXBPH.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
             res += ",00000020:" + sxbph.intValue(); // 三项不平衡

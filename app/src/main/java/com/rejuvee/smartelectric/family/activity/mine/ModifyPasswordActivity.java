@@ -1,7 +1,6 @@
 package com.rejuvee.smartelectric.family.activity.mine;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 
 import com.base.frame.net.ActionCallbackListener;
@@ -20,13 +19,13 @@ import com.rejuvee.smartelectric.family.model.nativedb.AccountInfoRealm;
 public class ModifyPasswordActivity extends AccountBaseActivity {
     private final static String TAG = "ModifyPasswordActivity";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
 //    @Override
-    protected void init() {
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//    }
+
+    @Override
+    public void init() {
 //        ((TextView) findViewById(R.id.txt_mark_phone)).setText(R.string.original_password);
         mBinding.txtMarkPhone.setText(R.string.original_password);
         mBinding.llPhone.setVisibility(View.GONE);
@@ -79,16 +78,16 @@ public class ModifyPasswordActivity extends AccountBaseActivity {
                 accountInfoRealm.close();
 
                 startActivity(new Intent(ModifyPasswordActivity.this, LoginActivity.class)
-                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                | Intent.FLAG_ACTIVITY_NEW_TASK
                                 | Intent.FLAG_ACTIVITY_CLEAR_TASK));
-
                 CustomToast.showCustomToast(ModifyPasswordActivity.this, getString(R.string.forgetpwd_success));
             }
 
             @Override
             public void onFailure(int errorEvent, String message) {
                 mLoadingDlg.dismiss();
-                CustomToast.showCustomToast(ModifyPasswordActivity.this, getString(R.string.forgetpwd_fail));
+                CustomToast.showCustomToast(ModifyPasswordActivity.this, message);
             }
         });
     }

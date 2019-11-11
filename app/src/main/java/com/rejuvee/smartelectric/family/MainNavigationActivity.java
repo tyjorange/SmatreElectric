@@ -98,45 +98,36 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
     private DaliBlurDrawerToggle drawerToggle;
 //    private SwipeRefreshLayout refreshLayout;
 
-    private ActivityMainNavigationBinding mBinding;
+    private ActivityMainNavigationBinding mainBinding;
     private NavHeaderMainNavigationBinding navigationBinding;
     private MainNavigationViewModel mViewModel;
     //    private Toolbar toolbar;
 //    private ImageView ivUserQCode;
 //    private PopwindowQCode popwindowQCode;
 
-//    @Override
-//    protected int getLayoutResId() {
-//        return R.layout.activity_main_navigation;
-//    }
-//
-//    @Override
-//    protected int getMyTheme() {
-//        return 0;
-//    }
-
     @Override
     protected void initView() {
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main_navigation);
+        mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main_navigation);
         mViewModel = ViewModelProviders.of(this).get(MainNavigationViewModel.class);
-//        mBinding.setVm(mViewModel);
-        mBinding.setLifecycleOwner(this);
+//        mainBinding.setVm(mViewModel);
+        mainBinding.setLifecycleOwner(this);
 
-//        tvNick = mBinding.navView.getHeaderView(0).findViewById(R.id.user_nickname);
-//        ivHead = mBinding.navView.getHeaderView(0).findViewById(R.id.user_headimg);
-        navigationBinding = DataBindingUtil.bind(mBinding.navView.getHeaderView(0));
+//        tvNick = mainBinding.navView.getHeaderView(0).findViewById(R.id.user_nickname);
+//        ivHead = mainBinding.navView.getHeaderView(0).findViewById(R.id.user_headimg);
+        navigationBinding = DataBindingUtil.bind(mainBinding.navView.getHeaderView(0));
         if (navigationBinding != null) {
             navigationBinding.setVm(mViewModel);
             navigationBinding.setPresenter(new Presenter());
             navigationBinding.setLifecycleOwner(this);
         }
-//        mBinding.navView.inflateHeaderView(R.layout.nav_header_main_navigation);
-//        mBinding.navView
+//        mainBinding.navView.inflateHeaderView(R.layout.nav_header_main_navigation);
+//        mainBinding.navView
         // toolbar header img
-        mBinding.include.setVm(mViewModel);
-        mBinding.include.setPresenter(new Presenter());
-//        mBinding.include.userHeadimgSmall.setOnClickListener(v -> mBinding.drawerLayout.openDrawer(GravityCompat.START));
-//        mBinding.navView.getHeaderView(0).findViewById(R.id.user_edit).setOnClickListener(v -> {
+        mainBinding.include.setVm(mViewModel);
+        mainBinding.include.setPresenter(new Presenter());
+        mainBinding.include.include.setPresenter(new Presenter());
+//        mainBinding.include.userHeadimgSmall.setOnClickListener(v -> mainBinding.drawerLayout.openDrawer(GravityCompat.START));
+//        mainBinding.navView.getHeaderView(0).findViewById(R.id.user_edit).setOnClickListener(v -> {
 //            Intent intent = new Intent();
 //            intent.putExtra("telephone", mViewModel.getTelephone().getValue());
 //            intent.putExtra("nickname", mViewModel.getNickname().getValue());
@@ -145,7 +136,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 //            intent.setClass(getBaseContext(), PerInfoActivity.class);
 //            startActivityForResult(intent, CommonRequestCode.REQUEST_USER_INFO);
 //        });
-        mBinding.include.include.refreshlayout.setOnRefreshListener(this::getCollector);
+        mainBinding.include.include.refreshlayout.setOnRefreshListener(this::getCollector);
 
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
             //问题出在6.0 && 6.0.1版本中，这个权限默认是被拒绝，无法获取这个权限。所以，在需要个权限的时候会出现权限问题导致应用因为权限问题崩溃
@@ -247,7 +238,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 //                if (headImgurl.equals("")) {
 //                    headImgurl = null;
 //                    ivHead.setImageResource(R.drawable.icon_user_default);
-//                    mBinding.include.userHeadimgSmall.setImageResource(R.drawable.icon_user_default);
+//                    mainBinding.include.userHeadimgSmall.setImageResource(R.drawable.icon_user_default);
 //                } else {
 //                    if (!headImgurl.startsWith("https://")) {
 //                        headImgurl = "https://" + headImgurl;
@@ -273,13 +264,13 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 //            @Override
 //            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
 //                ivHead.setImageBitmap(bitmap);
-//                mBinding.include.userHeadimgSmall.setImageBitmap(bitmap);
+//                mainBinding.include.userHeadimgSmall.setImageBitmap(bitmap);
 //            }
 //
 //            @Override
 //            public void onBitmapFailed(Drawable errorDrawable) {
 //                ivHead.setImageResource(R.drawable.icon_user_default);
-//                mBinding.include.userHeadimgSmall.setImageResource(R.drawable.icon_user_default);
+//                mainBinding.include.userHeadimgSmall.setImageResource(R.drawable.icon_user_default);
 //            }
 //
 //            @Override
@@ -299,12 +290,12 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 //        }
 //    }
     private void initToolBar() {
-        setSupportActionBar(mBinding.include.toolbar);
+        setSupportActionBar(mainBinding.include.toolbar);
         setTitle("");
         // 模糊控件Drawer
         drawerToggle = new MyBlurDrawerToggle(this,
-                mBinding.drawerLayout,
-                mBinding.include.toolbar,
+                mainBinding.drawerLayout,
+                mainBinding.include.toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close,
                 new NavigationDrawerListener() {
                     @Override
@@ -318,13 +309,13 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
                     }
                 });
         drawerToggle.setDrawerIndicatorEnabled(true);
-        mBinding.drawerLayout.addDrawerListener(drawerToggle);
+        mainBinding.drawerLayout.addDrawerListener(drawerToggle);
 
-        mBinding.navView.setNavigationItemSelectedListener(this);
+        mainBinding.navView.setNavigationItemSelectedListener(this);
 
         // 隐藏的条目
 //        FloatingActionButton fab = findViewById(R.id.fab);
-//        mBinding.include.fab.setOnClickListener(view ->
+//        mainBinding.include.fab.setOnClickListener(view ->
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                .setAction("ActionFab", null).show());
     }
@@ -333,8 +324,8 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         mSceneBeanAdapter = new SceneBeanAdapter(this, SceneBeanAdapter.ITEM_VIEW_TYPE_HORIZONTAL);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        mBinding.include.include.recyclerView1.setLayoutManager(linearLayoutManager);
-        mBinding.include.include.recyclerView1.setAdapter(mSceneBeanAdapter);
+        mainBinding.include.include.recyclerView1.setLayoutManager(linearLayoutManager);
+        mainBinding.include.include.recyclerView1.setAdapter(mSceneBeanAdapter);
         mSceneBeanAdapter.setCallback(new SceneBeanAdapter.CallBack() {
 
             @Override
@@ -350,7 +341,6 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
             public void onDelClick(SceneBean bean) {
             }
         });
-        mBinding.include.include.setPresenter(new Presenter());
     }
 
     private void getScene() {
@@ -377,8 +367,8 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 
     private void initCollector() {
         mCollectorBeanAdapter = new CollectorBeanAdapter(this);
-        mBinding.include.include.recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mBinding.include.include.recyclerView.setAdapter(mCollectorBeanAdapter);
+        mainBinding.include.include.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mainBinding.include.include.recyclerView.setAdapter(mCollectorBeanAdapter);
         mCollectorBeanAdapter.setCallback(bean -> {
             if (bean.getDeviceName() == null) {// 点击的是空项的添加按钮
                 startActivityForResult(new Intent(MainNavigationActivity.this, AddDeviceOrSwitchActivity.class), CommonRequestCode.REQUEST_ADD_COLLECTOR);
@@ -394,20 +384,20 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         Core.instance(this).getCollector(new ActionCallbackListener<List<CollectorBean>>() {
             @Override
             public void onSuccess(List<CollectorBean> data) {
-                mBinding.include.include.tvCollectorCount.setText(String.format(Locale.getDefault(), "%s%d", getString(R.string.vs13), data.size()));
+                mainBinding.include.include.tvCollectorCount.setText(String.format(Locale.getDefault(), "%s%d", getString(R.string.vs13), data.size()));
 //                listDeviceData.clear();
 //                listDeviceData.addAll(data);
                 data.add(new CollectorBean(Parcel.obtain()));// 加一个空项作为添加按钮
                 mCollectorBeanAdapter.addAll(data);
 //                mDeviceAdapter.notifyDataSetChanged();
 //                updateRefreshState();
-                mBinding.include.include.refreshlayout.setRefreshing(false);
+                mainBinding.include.include.refreshlayout.setRefreshing(false);
             }
 
             @Override
             public void onFailure(int errorEvent, String message) {
 //                updateRefreshState();
-                mBinding.include.include.refreshlayout.setRefreshing(false);
+                mainBinding.include.include.refreshlayout.setRefreshing(false);
             }
         });
     }
@@ -468,8 +458,8 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 
     @Override
     public void onBackPressed() {
-        if (mBinding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            mBinding.drawerLayout.closeDrawer(GravityCompat.START);
+        if (mainBinding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mainBinding.drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             mDialogTip = new DialogTip(this);
             mDialogTip.setTitle(getString(R.string.vs67));
@@ -607,7 +597,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         }
 
         public void onClickHeadImg(View view) {
-            mBinding.drawerLayout.openDrawer(GravityCompat.START);
+            mainBinding.drawerLayout.openDrawer(GravityCompat.START);
         }
 
         public void onEdit(View view) {

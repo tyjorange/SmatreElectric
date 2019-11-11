@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="act"
-            type="com.rejuvee.smartelectric.family.activity.LunchActivity" />
+            name="presenter"
+            type="com.rejuvee.smartelectric.family.activity.LunchActivity.Presenter" />
 
         <variable
             name="vm"
@@ -30,6 +30,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
             android:background="@drawable/lunch_btn_bg"
+            android:onClick="@{presenter::onSkip}"
             android:text="@string/vs11"
             android:textColor="@color/text_base_color_fff" />
 

@@ -1,13 +1,17 @@
 package com.rejuvee.smartelectric.family.fragment;
 
 import android.text.InputFilter;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+
+import androidx.databinding.DataBindingUtil;
 
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.BaseFragment;
 import com.rejuvee.smartelectric.family.common.custom.MyTextWatcher;
+import com.rejuvee.smartelectric.family.databinding.FragmentSettingDl2Binding;
 
 import java.text.DecimalFormat;
 
@@ -19,30 +23,27 @@ public class SettingDL2Fragment extends BaseFragment {
     private EditText dl_xiaxian;
 //    private boolean isShowing = false;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.fragment_setting_dl2;
-    }
+//    @Override
+//    protected int getLayoutResId() {
+//        return R.layout.fragment_setting_dl2;
+//    }
 
     @Override
-    protected void initView(View v) {
+    protected View initView() {
+        FragmentSettingDl2Binding mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.fragment_setting_dl2, null, false);
         // 电量上限
-        dl_shangxian = v.findViewById(R.id.et_dl1);
+        dl_shangxian = mBinding.etDl1;//v.findViewById(R.id.et_dl1);
         MyTextWatcher myTextWatcher1 = new MyTextWatcher(dl_shangxian, "000000.00");
         dl_shangxian.addTextChangedListener(myTextWatcher1);
         dl_shangxian.setOnFocusChangeListener(myTextWatcher1);
         dl_shangxian.setFilters(new InputFilter[]{new InputFilter.LengthFilter(9)});
         // 电量下限
-        dl_xiaxian = v.findViewById(R.id.et_dl2);
+        dl_xiaxian = mBinding.etDl2;//v.findViewById(R.id.et_dl2);
         MyTextWatcher myTextWatcher2 = new MyTextWatcher(dl_xiaxian, "000000.00");
         dl_xiaxian.addTextChangedListener(myTextWatcher2);
         dl_xiaxian.setOnFocusChangeListener(myTextWatcher2);
         dl_xiaxian.setFilters(new InputFilter[]{new InputFilter.LengthFilter(9)});
-    }
-
-    @Override
-    protected void initData() {
-//        isShowing = true;
+        return mBinding.getRoot();
     }
 
     public String getParamID() {
