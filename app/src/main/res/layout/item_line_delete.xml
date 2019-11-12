@@ -1,59 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/list_share_bg"
-    android:gravity="center_vertical"
-    android:orientation="horizontal">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageView
-        android:id="@+id/iv_delete"
-        android:layout_width="wrap_content"
+    <data>
+
+        <variable
+            name="vmItem"
+            type="com.rejuvee.smartelectric.family.adapter.ListSetingItem" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginStart="10dp"
-        android:paddingStart="16dp"
-        android:paddingTop="16dp"
-        android:paddingEnd="0dp"
-        android:paddingBottom="16dp"
-        android:src="@drawable/timer_del_one" />
+        android:background="@drawable/list_share_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-    <com.rejuvee.smartelectric.family.common.widget.CircleImageView
-        android:id="@+id/user_headimg"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="23dp"
-        android:layout_marginEnd="19dp"
-        android:src="@drawable/icon_user_default" />
+        <ImageView
+            android:id="@+id/iv_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:paddingStart="16dp"
+            android:paddingTop="16dp"
+            android:paddingEnd="0dp"
+            android:paddingBottom="16dp"
+            android:src="@drawable/timer_del_one"
+            android:visibility="@{vmItem.showDelIcon}" />
 
-    <TextView
-        android:id="@+id/txt_content"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="1"
-        android:text="1234567"
-        android:textColor="@color/text_base_color_333"
-        android:textSize="12sp" />
+        <com.rejuvee.smartelectric.family.common.widget.CircleImageView
+            android:id="@+id/user_headimg"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="23dp"
+            android:layout_marginEnd="19dp"
+            android:src="@drawable/icon_user_default" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginTop="1dp"
-        android:contentDescription="占位置"
-        android:padding="16dp"
-        android:src="@drawable/timer_del_one"
-        android:visibility="invisible" />
+        <TextView
+            android:id="@+id/txt_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@{vmItem.content,default=`user001`}"
+            android:textColor="@color/text_base_color_333"
+            android:textSize="12sp" />
 
-    <ImageView
-        android:id="@+id/iv_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="17dp"
-        android:padding="8dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/yk_hezha" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="1dp"
+            android:padding="16dp"
+            android:src="@drawable/timer_del_one"
+            android:visibility="invisible" />
 
-
-</LinearLayout>
+        <ImageView
+            android:id="@+id/iv_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="17dp"
+            android:padding="8dp"
+            android:scaleType="centerCrop"
+            android:src="@{vmItem.swithchResId(),default=@drawable/yk_hezha}" />
+        <!--            android:src="@drawable/yk_hezha"-->
+    </LinearLayout>
+</layout>

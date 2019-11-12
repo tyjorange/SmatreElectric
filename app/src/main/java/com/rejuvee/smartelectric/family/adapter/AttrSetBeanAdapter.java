@@ -20,9 +20,12 @@ import java.util.List;
 public class AttrSetBeanAdapter extends RecyclerView.Adapter<BindingViewHolder> {
     private List<CollectorAttrSetActivity.AttrItem> counts;
     private final LayoutInflater mLayoutInflater;
-    private CallBack mListener;
     private int currentPosition;
+    private CallBack mListener;
 
+    /**
+     * 回调声明
+     */
     public interface CallBack {
 
         void onCollectorBeanClick(int pos);

@@ -113,7 +113,7 @@
             <EditText
                 android:id="@+id/edt_input_share"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@drawable/divider"
                 android:gravity="center_vertical"
                 android:hint="@string/input_share_username"

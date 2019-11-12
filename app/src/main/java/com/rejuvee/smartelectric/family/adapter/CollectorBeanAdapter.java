@@ -25,6 +25,9 @@ public class CollectorBeanAdapter extends RecyclerView.Adapter<BindingViewHolder
 
     private CallBack mListener;
 
+    /**
+     * 回调声明
+     */
     public interface CallBack {
 
         void onCollectorBeanClick(CollectorBean bean);

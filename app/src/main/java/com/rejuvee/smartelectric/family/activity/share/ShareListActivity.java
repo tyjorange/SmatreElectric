@@ -5,12 +5,13 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.adapter.ListSetingItem;
-import com.rejuvee.smartelectric.family.adapter.SetingAdapter;
+import com.rejuvee.smartelectric.family.adapter.SettingAdapter;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTip;
@@ -27,10 +28,10 @@ import java.util.List;
  */
 public class ShareListActivity extends BaseActivity {
     private String TAG = "ShareListActivity";
-    private List<UserMsg> listShareUsers = new ArrayList<>();
-    private List<ListSetingItem> mListData = new ArrayList<>();
+    private List<UserMsg> listShareUsers = new ArrayList<>();// 分享的用户
+    private List<ListSetingItem> mListItem = new ArrayList<>();// 转换后的items
     private UserMsg currentUser;
-    private SetingAdapter setingAdapter;
+    private SettingAdapter mAdapter;
 
     private DialogTip mDialogSwitchEnable;
     private WaitDialog waitDialog;
@@ -51,11 +52,11 @@ public class ShareListActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        ActivityShareListBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_share_list);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_share_list);
         mBinding.setPresenter(new Presenter());
         mBinding.setLifecycleOwner(this);
 
-        mDialogSwitchEnable = new DialogTip(this);
+
         collectorBean = getIntent().getParcelableExtra("collectorBean");
 //        ImageView img_cancel = findViewById(R.id.img_cancel);
 //        img_cancel.setOnClickListener(v -> finish());
@@ -68,13 +69,15 @@ public class ShareListActivity extends BaseActivity {
 //        });
 //        ListView listView = findViewById(R.id.list_share_users);
 //        refreshLayout = findViewById(R.id.refreshlayout);
-        setingAdapter = new SetingAdapter(this, mListData);
-        setingAdapter.setSetListener(new SetingAdapter.onSettingClickListener() {
+        mBinding.refreshlayout.setOnRefreshListener(this::onRefresh);
+        mAdapter = new SettingAdapter(this);
+        mAdapter.setSetListener(new SettingAdapter.onSettingClickListener() {
             @Override
             public void onRemove(final int position) {
                 new DialogTip(ShareListActivity.this).setTitle(getString(R.string.delete))
                         .setContent(getString(R.string.cancel_share))
                         .setDialogListener(new DialogTip.onEnsureDialogListener() {
+
                             @Override
                             public void onCancel() {
                             }
@@ -93,17 +96,26 @@ public class ShareListActivity extends BaseActivity {
                 changeEnable(isEnable);
             }
 
-        });
-        mBinding.listShareUsers.setAdapter(setingAdapter);
-        mBinding.listShareUsers.setEmptyView(mBinding.emptyLayout);
+            @Override
+            public void onBeanClick(int position) {
+                //nothing
+            }
 
+        });
+        mBinding.listShareUsers.setLayoutManager(new LinearLayoutManager(this));
+        mBinding.listShareUsers.setAdapter(mAdapter);
+//        mBinding.listShareUsers.setEmptyView(mBinding.emptyLayout);
+        mDialogSwitchEnable = new DialogTip(this);
         waitDialog = new WaitDialog(this);
-        mBinding.refreshlayout.setOnRefreshListener(() -> doRequest(false));
     }
 
-    // 改变用户控制权限
+    /**
+     * 改变用户控制权限
+     *
+     * @param isEnable
+     */
     private void changeEnable(final int isEnable) {
-        String title = isEnable == 1 ? getString(R.string.vs147) : getString(R.string.vs148);
+        String title = (isEnable == 1) ? getString(R.string.vs147) : getString(R.string.vs148);
         mDialogSwitchEnable.setTitle(title);
         mDialogSwitchEnable.setContent(currentUser.getUsername());
         mDialogSwitchEnable.setDialogListener(new DialogTip.onEnsureDialogListener() {
@@ -120,6 +132,7 @@ public class ShareListActivity extends BaseActivity {
                     public void onSuccess(Void data) {
                         CustomToast.showCustomToast(ShareListActivity.this, getString(R.string.operator_sucess));
                         doRequest(false);
+                        waitDialog.dismiss();
                     }
 
                     @Override
@@ -145,47 +158,51 @@ public class ShareListActivity extends BaseActivity {
         Core.instance(this).getShareList(collectorBean.getCollectorID(), new ActionCallbackListener<List<UserMsg>>() {
             @Override
             public void onSuccess(List<UserMsg> data) {
-//                mBinding.refreshlayout.setRefreshing(false);
                 if (data != null && data.size() > 0) {
                     listShareUsers.clear();
                     listShareUsers.addAll(data);
-                    resetData();
+                    setDataType();
                 }
                 waitDialog.dismiss();
+                mBinding.refreshlayout.setRefreshing(false);
             }
 
             @Override
             public void onFailure(int errorEvent, String message) {
                 Log.e(TAG, message);
-//                mBinding.refreshlayout.setRefreshing(false);
                 waitDialog.dismiss();
+                mBinding.refreshlayout.setRefreshing(false);
             }
         });
     }
 
-    private void resetData() {
-        mListData.clear();
-        if (listShareUsers != null && listShareUsers.size() > 0) {
-            for (UserMsg userMsg : listShareUsers) {
-                ListSetingItem setingItem = new ListSetingItem();
-                setingItem.setContent(userMsg.getUsername());
-                setingItem.setIsEnable(userMsg.getEnable());
-                setingItem.setViewType(ListSetingItem.ITEM_VIEW_TYPE_DELETE);
-                mListData.add(setingItem);
-            }
+    private void setDataType() {
+        mListItem.clear();
+        for (UserMsg userMsg : listShareUsers) {
+            ListSetingItem setingItem = new ListSetingItem();
+            setingItem.setContent(userMsg.getUsername());
+            setingItem.setIsEnable(userMsg.getEnable());
+            setingItem.setViewType(ListSetingItem.ITEM_VIEW_TYPE_DELETE);
+            mListItem.add(setingItem);
         }
-        setingAdapter.notifyDataSetChanged();
+        mAdapter.addAll(mListItem);
+//        mAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * 取消分享
+     *
+     * @param position
+     */
     private void removeShare(final int position) {
         UserMsg userMsg = listShareUsers.get(position);
         waitDialog.show();
         Core.instance(this).shareCollector(false, userMsg.getUsername(), collectorBean.getCollectorID(), 0, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
-                mListData.remove(position);
+                mListItem.remove(position);
                 listShareUsers.remove(position);
-                setingAdapter.notifyDataSetChanged();
+                mAdapter.remove(position);
                 waitDialog.dismiss();
             }
 
@@ -197,6 +214,10 @@ public class ShareListActivity extends BaseActivity {
         });
 
 
+    }
+
+    private void onRefresh() {
+        doRequest(false);
     }
 
     //    @Override
@@ -214,7 +235,7 @@ public class ShareListActivity extends BaseActivity {
         }
 
         public void onToggle(View view) {
-            toggleDelIcon();
+            mAdapter.toggleDelIcon();
         }
 
         public void onAdd(View view) {
@@ -251,16 +272,7 @@ public class ShareListActivity extends BaseActivity {
 //        });
 //        return true;
 //    }
-    private void toggleDelIcon() {
-        for (ListSetingItem taskBean : mListData) {
-            if (taskBean.showDelIcon == View.GONE) {
-                taskBean.showDelIcon = View.VISIBLE;
-            } else {
-                taskBean.showDelIcon = View.GONE;
-            }
-        }
-        setingAdapter.notifyDataSetChanged();
-    }
+
 
 //    private void addShareUser(final String userName) {
 //        waitDialog.show();

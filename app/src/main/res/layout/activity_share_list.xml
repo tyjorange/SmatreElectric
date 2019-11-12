@@ -87,7 +87,7 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <ListView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/list_share_users"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

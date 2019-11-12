@@ -2,13 +2,16 @@ package com.rejuvee.smartelectric.family.adapter;
 
 import android.view.View;
 
+import androidx.lifecycle.ViewModel;
+
+import com.rejuvee.smartelectric.family.common.constant.NativeLine;
+
 import io.realm.annotations.Ignore;
 
 /**
  * Created by liuchengran on 2017/8/30.
  */
-
-public class ListSetingItem {
+public class ListSetingItem extends ViewModel {
     public static final int ITEM_VIEW_TYPE_NORMAL = 0;
     public static final int ITEM_VIEW_TYPE_SELECT_1 = 1;
     public static final int ITEM_VIEW_TYPE_SELECT_2 = 2;
@@ -92,5 +95,9 @@ public class ListSetingItem {
 
     public void setIsEnable(int isEnable) {
         this.isEnable = isEnable;
+    }
+
+    public int swithchResId() {
+        return NativeLine.DrawableToggle[isEnable];
     }
 }

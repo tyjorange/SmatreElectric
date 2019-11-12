@@ -7,12 +7,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
 import androidx.databinding.library.baseAdapters.BR;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.BindingViewHolder;
+import com.rejuvee.smartelectric.family.databinding.ItemEasySceneBinding;
+import com.rejuvee.smartelectric.family.databinding.ItemSceneBinding;
 import com.rejuvee.smartelectric.family.model.bean.SceneBean;
 
 import java.util.ArrayList;
@@ -50,16 +51,21 @@ public class SceneBeanAdapter extends RecyclerView.Adapter<BindingViewHolder> {
         currentItemType = type;
     }
 
+    private ItemEasySceneBinding binding1;
+    private ItemSceneBinding binding2;
+
     @NonNull
     @Override
     public BindingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ViewDataBinding binding;
+//        ViewDataBinding binding;
         if (currentItemType == ITEM_VIEW_TYPE_HORIZONTAL) {
-            binding = DataBindingUtil.inflate(mLayoutInflater, R.layout.item_easy_scene, parent, false);
+            binding1 = DataBindingUtil.inflate(mLayoutInflater, R.layout.item_easy_scene, parent, false);
+            return new BindingViewHolder<>(binding1);
         } else {// if(currentItemType == ITEM_VIEW_TYPE_VERTICAL)
-            binding = DataBindingUtil.inflate(mLayoutInflater, R.layout.item_scene, parent, false);
+            binding2 = DataBindingUtil.inflate(mLayoutInflater, R.layout.item_scene, parent, false);
+            return new BindingViewHolder<>(binding2);
         }
-        return new BindingViewHolder<>(binding);
+//        return new BindingViewHolder<>(binding);
     }
 
     @Override
@@ -84,8 +90,8 @@ public class SceneBeanAdapter extends RecyclerView.Adapter<BindingViewHolder> {
                     mListener.onExecuteClick(bean);
                 }
             });
-            holder.itemView.findViewById(R.id.img_item_remove).setVisibility(bean.showDelIcon);
-            holder.itemView.findViewById(R.id.img_item_remove).setOnClickListener(v -> {
+            binding2.imgItemRemove.setVisibility(bean.showDelIcon);
+            binding2.imgItemRemove.setOnClickListener(v -> {
                 if (mListener != null) {
                     mListener.onDelClick(bean);
                 }

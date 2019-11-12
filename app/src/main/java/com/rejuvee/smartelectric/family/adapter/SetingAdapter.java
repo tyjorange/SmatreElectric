@@ -19,10 +19,10 @@ import static com.rejuvee.smartelectric.family.adapter.ListSetingItem.ITEM_VIEW_
 import static com.rejuvee.smartelectric.family.adapter.ListSetingItem.ITEM_VIEW_TYPE_LINEDETAIL2;
 import static com.rejuvee.smartelectric.family.adapter.ListSetingItem.ITEM_VIEW_TYPE_NORMAL;
 
-
 /**
  * Created by liuchengran on 2017/8/30.
  */
+@Deprecated
 public class SetingAdapter extends BaseAdapter {
     private List<ListSetingItem> listDatas;
     private Context context;

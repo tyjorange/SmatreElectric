@@ -6,15 +6,15 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.adapter.ListSetingItem;
-import com.rejuvee.smartelectric.family.adapter.SetingAdapter;
+import com.rejuvee.smartelectric.family.adapter.SettingAdapter;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
@@ -32,8 +32,8 @@ import java.util.Locale;
  */
 public class TimePriceActivity extends BaseActivity {
     private String TAG = "TimePriceActivity";
-    private ListView mListView;
-    private SetingAdapter mAdapter;
+    //    private ListView mListView;
+    private SettingAdapter mAdapter;
     //    private EditText mEditText;
     private List<ListSetingItem> mListData = new ArrayList<>();
     private static Handler mHandler;
@@ -41,8 +41,7 @@ public class TimePriceActivity extends BaseActivity {
     private static int MESSAGE_UPDATE_PRICE = 100;
     private String[] timeOfUsePrice = null;
     private String currencySymbol;// 货币符号
-//    private String defaultPrice;
-
+    //    private String defaultPrice;
     private LoadingDlg mWaitDialog;
 
 //    @Override
@@ -66,17 +65,17 @@ public class TimePriceActivity extends BaseActivity {
 //        txtSymbol.setText(currency.getSymbol());
         currencySymbol = Currency.getInstance(Locale.getDefault()).getSymbol();
 //        mEditText = findViewById(R.id.edt_default_price);
-        mListView = mBinding.listSections;
-        mListView.setOnItemClickListener((parent, view, position, id) -> {
-            Intent intent = new Intent(TimePriceActivity.this, TimePriceSetActivity.class);
-            intent.putExtra("s_price", timeOfUsePrice[position]);
-            String[] split = mListData.get(position).getContent().split(" - ");
-            intent.putExtra("s_start", split[0]);
-            intent.putExtra("s_end", split[1]);
-            intent.putExtra("i_start", position);
-            intent.putExtra("i_end", position + 1);
-            startActivityForResult(intent, 1000);
-        });
+//        mListView = mBinding.listSections;
+//        mListView.setOnItemClickListener((parent, view, position, id) -> {
+//            Intent intent = new Intent(TimePriceActivity.this, TimePriceSetActivity.class);
+//            intent.putExtra("s_price", timeOfUsePrice[position]);
+//            String[] split = mListData.get(position).getContent().split(" - ");
+//            intent.putExtra("s_start", split[0]);
+//            intent.putExtra("s_end", split[1]);
+//            intent.putExtra("i_start", position);
+//            intent.putExtra("i_end", position + 1);
+//            startActivityForResult(intent, 1000);
+//        });
         readPriceFromShared();//读取本地的
 //        mEditText.setText(defaultPrice);
 //        mEditText.addTextChangedListener(textWatcher);
@@ -87,20 +86,50 @@ public class TimePriceActivity extends BaseActivity {
         mWaitDialog = new LoadingDlg(this, -1);
         getPrice();//读取服务器的数据
 
+
+//        if (mAdapter == null) {
+        mAdapter = new SettingAdapter(this);
+        mBinding.listSections.setLayoutManager(new LinearLayoutManager(this));
+        mBinding.listSections.setAdapter(mAdapter);
+        mAdapter.setSetListener(new SettingAdapter.onSettingClickListener() {
+            @Override
+            public void onRemove(int position) {
+                //nothing
+            }
+
+            @Override
+            public void onSwitch(int position, int isEnable) {
+                //nothing
+            }
+
+            @Override
+            public void onBeanClick(int position) {
+                Intent intent = new Intent(TimePriceActivity.this, TimePriceSetActivity.class);
+                intent.putExtra("s_price", timeOfUsePrice[position]);
+                String[] split = mListData.get(position).getContent().split(" - ");
+                intent.putExtra("s_start", split[0]);
+                intent.putExtra("s_end", split[1]);
+                intent.putExtra("i_start", position);
+                intent.putExtra("i_end", position + 1);
+                startActivityForResult(intent, 1000);
+            }
+        });
+//        } else {
+//            mAdapter.notifyDataSetChanged();
+//        }
+        setDataType();
+    }
+
+    private void setDataType() {
         mListData.clear();
         for (int i = 0; i < timeOfUsePrice.length; i++) {
             ListSetingItem listSetingItem = new ListSetingItem();
-            listSetingItem.setViewType(ListSetingItem.ITEM_VIEW_TYPE_LINEDETAIL1);
             listSetingItem.setContent(String.format(Locale.getDefault(), "%02d", i) + ":00 - " + String.format(Locale.getDefault(), "%02d", i + 1) + ":00");
             listSetingItem.setDesc(currencySymbol + timeOfUsePrice[i]);
+            listSetingItem.setViewType(ListSetingItem.ITEM_VIEW_TYPE_LINEDETAIL1);
             mListData.add(listSetingItem);
         }
-        if (mAdapter == null) {
-            mAdapter = new SetingAdapter(this, mListData);
-            mListView.setAdapter(mAdapter);
-        } else {
-            mAdapter.notifyDataSetChanged();
-        }
+        mAdapter.addAll(mListData);
     }
 
     private static class MyHandler extends Handler {
@@ -135,8 +164,7 @@ public class TimePriceActivity extends BaseActivity {
                 timeOfUsePrice[i] = price;
             }
         }
-
-        mAdapter.notifyDataSetChanged();
+        mAdapter.addAll(mListData);
     }
 
 
