@@ -5,7 +5,7 @@ import android.os.Parcel;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
-public class Tool {
+public class SSIDTool {
     static final int REC_DATA = 0x01;
     static final int REC_WIFI = 0x02;
 

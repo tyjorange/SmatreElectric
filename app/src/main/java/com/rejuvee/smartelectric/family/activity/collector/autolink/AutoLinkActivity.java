@@ -71,12 +71,12 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
         public void handleMessage(Message msg) {
             AutoLinkActivity theActivity = activityWeakReference.get();
             switch (msg.what) {
-                case Tool.REC_DATA:// 解析接收到的数据
+                case SSIDTool.REC_DATA:// 解析接收到的数据
                     byte[] data = (byte[]) msg.obj;
-                    Tool.bytesToHexString(data);
+                    SSIDTool.bytesToHexString(data);
                     theActivity.decodeData(data);
                     break;
-                case Tool.REC_WIFI:// wifi状态改变
+                case SSIDTool.REC_WIFI:// wifi状态改变
                     theActivity.toggleTip(msg.arg1);
                     break;
                 default:
@@ -169,7 +169,7 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
             @Override
             public void onEnsure() {
                 searchSSIDThread.setTargetPort(port);
-                byte[] data = Tool.generate_02_data(ssid, pwd, 0);
+                byte[] data = SSIDTool.generate_02_data(ssid, pwd, 0);
                 smt.putMsg(data);
                 mDialogTip.dismiss();
             }
@@ -266,7 +266,7 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
 
     @Override
     public void onLost() {
-        Message msg = handler.obtainMessage(Tool.REC_WIFI, LINKING, 0);
+        Message msg = handler.obtainMessage(SSIDTool.REC_WIFI, LINKING, 0);
         handler.sendMessage(msg);
     }
 
@@ -275,10 +275,10 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
 //        String code = collectorBean != null ? collectorBean.getCode() : "";
         boolean connectedWifi = mWifiUtil.isConnectedWifi(this, collectorBean.getCode());
         if (connectedWifi) {
-            Message msg = handler.obtainMessage(Tool.REC_WIFI, LINK_OK, 0);
+            Message msg = handler.obtainMessage(SSIDTool.REC_WIFI, LINK_OK, 0);
             handler.sendMessage(msg);
         } else {
-            Message msg = handler.obtainMessage(Tool.REC_WIFI, LINK_FAILED, 0);
+            Message msg = handler.obtainMessage(SSIDTool.REC_WIFI, LINK_FAILED, 0);
             handler.sendMessage(msg);
         }
     }
@@ -296,7 +296,7 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
         switch (i) {
             case 0x81:// 解析返回列表指令
                 dialog.dismiss();
-                ArrayList<SSIDItem> ssids = Tool.decode_81_data(data);
+                ArrayList<SSIDItem> ssids = SSIDTool.decode_81_data(data);
                 if (ssids.size() != 0) {
                     Intent intent = new Intent(AutoLinkActivity.this, SsidListActivity.class);
                     intent.putParcelableArrayListExtra("ssids", ssids);
@@ -306,7 +306,7 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
                 }
                 break;
             case 0x82://  返回校验结果
-                int[] values = Tool.decode_82_data(data);
+                int[] values = SSIDTool.decode_82_data(data);
                 if (values[0] == 0) {
                     CustomToast.showCustomErrorToast(this, getResources().getString(R.string.vs237));
                 } else if (values[1] == 0) {

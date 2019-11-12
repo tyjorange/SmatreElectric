@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/activity_horizontal_margin">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/text_counts"
-        android:layout_width="wrap_content"
+    <data>
+
+        <variable
+            name="attrItem"
+            type="com.rejuvee.smartelectric.family.activity.collector.CollectorAttrSetActivity.AttrItem" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/maxelectric" />
+        android:padding="@dimen/activity_horizontal_margin">
 
-    <ImageView
-        android:id="@+id/img_slecte"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/selected"
-        android:visibility="visible" />
+        <TextView
+            android:id="@+id/text_counts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{attrItem.attr,default=`000`}" />
 
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/img_slecte"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:src="@{attrItem.selected?@drawable/dx_unchose_slices:@drawable/dx_chose_slices,default=@drawable/dx_unchose_slices}"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+</layout>

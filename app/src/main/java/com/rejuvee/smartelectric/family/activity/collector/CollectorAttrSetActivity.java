@@ -10,14 +10,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
+import com.rejuvee.smartelectric.family.adapter.AttrSetBeanAdapter;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.databinding.ActivitySetupextraBinding;
 import com.rejuvee.smartelectric.family.databinding.ActivitySetupnameBinding;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -28,11 +33,12 @@ public class CollectorAttrSetActivity extends BaseActivity {
     //    private EditText edit_devicename;
 //    private TextView tv_attr_title;
 //    private ListView list_count;
-    private CountsAdapter countsadapter;
+//    private CountsAdapter countsadapter;
+    private AttrSetBeanAdapter countsadapter;
     private int Acposition;
-    private int curposition = -1;
+    private int currentPosition = -1;
     private String collectorID;
-    private String settext;
+    private String setText;
     private String partext;
 //    private Intent intent;
 
@@ -51,6 +57,11 @@ public class CollectorAttrSetActivity extends BaseActivity {
     private static final String[] setheartrate = {
             "90", "120", "150",
     };
+    private static final List<AttrItem> listBtlv = new ArrayList<>();
+    private static final List<AttrItem> listAcquifrequency = new ArrayList<>();
+    private static final List<AttrItem> listAlarmthreshold = new ArrayList<>();
+    private static final List<AttrItem> listGuzhangma = new ArrayList<>();
+    private static final List<AttrItem> listheartrate = new ArrayList<>();
 
     //    @Override
 //    protected int getLayoutResId() {
@@ -71,14 +82,34 @@ public class CollectorAttrSetActivity extends BaseActivity {
     @Override
     protected void initView() {
         Acposition = getIntent().getIntExtra("position", 1);
+        listBtlv.clear();
+        for (String s : setBtlv) {
+            listBtlv.add(new AttrItem(format(s)));
+        }
+        listAcquifrequency.clear();
+        for (String s : setAcquifrequency) {
+            listAcquifrequency.add(new AttrItem(format(s)));
+        }
+        listAlarmthreshold.clear();
+        for (String s : setAlarmthreshold) {
+            listAlarmthreshold.add(new AttrItem(format(s)));
+        }
+        listGuzhangma.clear();
+        for (String s : setGuzhangma) {
+            listGuzhangma.add(new AttrItem(format(s)));
+        }
+        listheartrate.clear();
+        for (String s : setheartrate) {
+            listheartrate.add(new AttrItem(format(s)));
+        }
         collectorID = getIntent().getStringExtra("CollectorID");
+        partext = getIntent().getStringExtra("partext");
         if (Acposition == 0) {
             nameBinding = DataBindingUtil.setContentView(this, R.layout.activity_setupname);
             nameBinding.setPresenter(new Presenter());
             nameBinding.setLifecycleOwner(this);
-//            edit_devicename = findViewById(R.id.edit_devicename);
-            partext = getIntent().getStringExtra("partext");
             nameBinding.editDevicename.setText(partext);
+//            edit_devicename = findViewById(R.id.edit_devicename);
         } else {
             ActivitySetupextraBinding extraBinding = DataBindingUtil.setContentView(this, R.layout.activity_setupextra);
             extraBinding.setPresenter(new Presenter());
@@ -87,66 +118,118 @@ public class CollectorAttrSetActivity extends BaseActivity {
             String title = getIntent().getStringExtra("title");
             extraBinding.tvAttrTitle.setText(title);
 //            list_count = findViewById(R.id.list_count);
+            extraBinding.listCount.setLayoutManager(new LinearLayoutManager(this));
             switch (Acposition) {
                 case 1:
-                    isSeleceted(setBtlv);
-                    countsadapter = new CountsAdapter(setBtlv);
+                    isSeleceted(listBtlv);
+//                    countsadapter = new CountsAdapter(setBtlv);
+                    countsadapter = new AttrSetBeanAdapter(this, currentPosition);
                     extraBinding.listCount.setAdapter(countsadapter);
+                    countsadapter.addAll(listBtlv);
                     break;
                 case 2:
-                    isSeleceted(setAcquifrequency);
-                    countsadapter = new CountsAdapter(setAcquifrequency);
+                    isSeleceted(listAcquifrequency);
+//                    countsadapter = new CountsAdapter(setAcquifrequency);
+                    countsadapter = new AttrSetBeanAdapter(this, currentPosition);
                     extraBinding.listCount.setAdapter(countsadapter);
+                    countsadapter.addAll(listAcquifrequency);
                     break;
                 case 3:
-                    isSeleceted(setAlarmthreshold);
-                    countsadapter = new CountsAdapter(setAlarmthreshold);
+                    isSeleceted(listAlarmthreshold);
+//                    countsadapter = new CountsAdapter(setAlarmthreshold);
+                    countsadapter = new AttrSetBeanAdapter(this, currentPosition);
                     extraBinding.listCount.setAdapter(countsadapter);
+                    countsadapter.addAll(listAlarmthreshold);
                     break;
                 case 4:
-                    isSeleceted(setGuzhangma);
-                    countsadapter = new CountsAdapter(setGuzhangma);
+                    isSeleceted(listGuzhangma);
+//                    countsadapter = new CountsAdapter(setGuzhangma);
+                    countsadapter = new AttrSetBeanAdapter(this, currentPosition);
                     extraBinding.listCount.setAdapter(countsadapter);
+                    countsadapter.addAll(listGuzhangma);
                     break;
                 case 5:
-                    isSeleceted(setheartrate);
-                    countsadapter = new CountsAdapter(setheartrate);
+                    isSeleceted(listheartrate);
+//                    countsadapter = new CountsAdapter(setheartrate);
+                    countsadapter = new AttrSetBeanAdapter(this, currentPosition);
                     extraBinding.listCount.setAdapter(countsadapter);
+                    countsadapter.addAll(listheartrate);
                     break;
             }
-
-            extraBinding.listCount.setOnItemClickListener((parent, view, position, id) -> {
+            countsadapter.setCallback(position -> {
                 switch (Acposition) {
                     case 1:
-                        settext = setBtlv[position];
+                        setText = setBtlv[position];
                         break;
                     case 2:
-                        settext = setAcquifrequency[position];
+                        setText = setAcquifrequency[position];
                         break;
                     case 3:
-                        settext = setAlarmthreshold[position];
+                        setText = setAlarmthreshold[position];
                         break;
                     case 4:
-                        settext = setGuzhangma[position];
+                        setText = setGuzhangma[position];
                         break;
                     case 5:
-                        settext = setheartrate[position];
+                        setText = setheartrate[position];
                         break;
                 }
-                curposition = position;
+                countsadapter.setCurrentPosition(position);
                 countsadapter.notifyDataSetChanged();
             });
+//            extraBinding.listCount.setOnItemClickListener((parent, view, position, id) -> {
+//                switch (Acposition) {
+//                    case 1:
+//                        setText = setBtlv[position];
+//                        break;
+//                    case 2:
+//                        setText = setAcquifrequency[position];
+//                        break;
+//                    case 3:
+//                        setText = setAlarmthreshold[position];
+//                        break;
+//                    case 4:
+//                        setText = setGuzhangma[position];
+//                        break;
+//                    case 5:
+//                        setText = setheartrate[position];
+//                        break;
+//                }
+//                curposition = position;
+//                countsadapter.notifyDataSetChanged();
+//            });
         }
 //        findViewById(R.id.img_cancel).setOnClickListener(this);
 //        findViewById(R.id.bu_wancheng).setOnClickListener(this);
     }
 
-    public void isSeleceted(String[] setBtlv) {
-        for (int i = 0; i < setBtlv.length; i++) {
-            if (setBtlv[i].equals(partext)) {
-                curposition = i;
+    public void isSeleceted(List<AttrItem> items) {
+        for (int i = 0; i < items.size(); i++) {
+            if (partext.contains(items.get(i).getAttr())) {
+                currentPosition = i;
             }
         }
+//        for (int i = 0; i < setBtlv.length; i++) {
+//            if (setBtlv[i].equals(partext)) {
+//                currentPosition = i;
+//            }
+//        }
+    }
+
+    private String format(String s) {
+        switch (Acposition) {
+            case 1:
+                return (String.format("%sbps", s));
+            case 2:
+                return (String.format("%smin", s));
+            case 3:
+                return (String.format("%s%%", s));
+            case 4:
+                return (String.format("%ssec", s));
+            case 5:
+                return (String.format("%ss", s));
+        }
+        return s;
     }
 
     //    @Override
@@ -168,27 +251,27 @@ public class CollectorAttrSetActivity extends BaseActivity {
             Log.i("collectorID", collectorID + "");
             switch (Acposition) {
                 case 0:
-                    settext = nameBinding.editDevicename.getText().toString();
-                    if (settext.isEmpty() | settext.length() > 12) {
+                    setText = nameBinding.editDevicename.getText().toString();
+                    if (setText.isEmpty() | setText.length() > 12) {
                         CustomToast.showCustomErrorToast(view.getContext(), getString(R.string.vs179));
                         break;
                     }
-                    changeCollector(collectorID, settext, null, null, null, null, null);
+                    changeCollector(collectorID, setText, null, null, null, null, null);
                     break;
                 case 1:
-                    changeCollector(collectorID, null, settext, null, null, null, null);
+                    changeCollector(collectorID, null, setText, null, null, null, null);
                     break;
                 case 2:
-                    changeCollector(collectorID, null, null, settext, null, null, null);
+                    changeCollector(collectorID, null, null, setText, null, null, null);
                     break;
                 case 3:
-                    changeCollector(collectorID, null, null, null, settext, null, null);
+                    changeCollector(collectorID, null, null, null, setText, null, null);
                     break;
                 case 4:
-                    changeCollector(collectorID, null, null, null, null, settext, null);
+                    changeCollector(collectorID, null, null, null, null, setText, null);
                     break;
                 case 5:
-                    changeCollector(collectorID, null, null, null, null, null, settext);
+                    changeCollector(collectorID, null, null, null, null, null, setText);
                     break;
             }
         }
@@ -208,27 +291,27 @@ public class CollectorAttrSetActivity extends BaseActivity {
 //                Log.i("collectorID", collectorID + "");
 //                switch (Acposition) {
 //                    case 0:
-//                        settext = nameBinding.editDevicename.getText().toString();
-//                        if (settext.isEmpty() | settext.length() > 12) {
+//                        setText = nameBinding.editDevicename.getText().toString();
+//                        if (setText.isEmpty() | setText.length() > 12) {
 //                            CustomToast.showCustomErrorToast(this, getString(R.string.vs179));
 //                            break;
 //                        }
-//                        changeCollector(collectorID, settext, null, null, null, null, null);
+//                        changeCollector(collectorID, setText, null, null, null, null, null);
 //                        break;
 //                    case 1:
-//                        changeCollector(collectorID, null, settext, null, null, null, null);
+//                        changeCollector(collectorID, null, setText, null, null, null, null);
 //                        break;
 //                    case 2:
-//                        changeCollector(collectorID, null, null, settext, null, null, null);
+//                        changeCollector(collectorID, null, null, setText, null, null, null);
 //                        break;
 //                    case 3:
-//                        changeCollector(collectorID, null, null, null, settext, null, null);
+//                        changeCollector(collectorID, null, null, null, setText, null, null);
 //                        break;
 //                    case 4:
-//                        changeCollector(collectorID, null, null, null, null, settext, null);
+//                        changeCollector(collectorID, null, null, null, null, setText, null);
 //                        break;
 //                    case 5:
-//                        changeCollector(collectorID, null, null, null, null, null, settext);
+//                        changeCollector(collectorID, null, null, null, null, null, setText);
 //                        break;
 //                }
 //                break;
@@ -241,7 +324,7 @@ public class CollectorAttrSetActivity extends BaseActivity {
             public void onSuccess(Void data) {
                 Toast.makeText(CollectorAttrSetActivity.this, R.string.modify_succe, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent();
-             /*   intent.putExtra("settext", settext);
+             /*   intent.putExtra("setText", setText);
                 intent.putExtra("Acposition", Acposition);*/
                 setResult(RESULT_OK, intent);
                 CollectorAttrSetActivity.this.finish();
@@ -254,6 +337,32 @@ public class CollectorAttrSetActivity extends BaseActivity {
         });
     }
 
+    public static class AttrItem {
+        private String attr;
+        private boolean selected;
+
+        AttrItem(String attr) {
+            this.attr = attr;
+        }
+
+        public String getAttr() {
+            return attr;
+        }
+
+        public void setAttr(String attr) {
+            this.attr = attr;
+        }
+
+        public boolean isSelected() {
+            return selected;
+        }
+
+        public void setSelected(boolean selected) {
+            this.selected = selected;
+        }
+    }
+
+    @Deprecated
     class CountsAdapter extends BaseAdapter {
         private String[] counts;
 
@@ -310,7 +419,7 @@ public class CollectorAttrSetActivity extends BaseActivity {
                     break;
             }
 //            holder.img_slecte.setVisibility(curposition != position ? View.INVISIBLE : View.VISIBLE);
-            holder.img_slecte.setImageDrawable(curposition != position ? getDrawable(R.drawable.dx_unchose_slices) : getDrawable(R.drawable.dx_chose_slices));
+            holder.img_slecte.setImageDrawable(currentPosition != position ? getDrawable(R.drawable.dx_unchose_slices) : getDrawable(R.drawable.dx_chose_slices));
             return convertView;
         }
 

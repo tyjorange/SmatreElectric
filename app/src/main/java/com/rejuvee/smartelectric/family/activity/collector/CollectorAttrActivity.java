@@ -143,22 +143,22 @@ public class CollectorAttrActivity extends BaseActivity {
 //                finish();
 //                break;
 //            case R.id.re_setname:
-//                startactivtiy(devicename, 0);
+//                startActivtiy(devicename, 0);
 //                break;
 //            case R.id.re_setbotelv:
-//                startactivtiy(Baud, 1);
+//                startActivtiy(Baud, 1);
 //                break;
 //            case R.id.re_setcaiji:
-//                startactivtiy(Freq, 2);
+//                startActivtiy(Freq, 2);
 //                break;
 //            case R.id.re_setgaojin:
-//                startactivtiy(Ranges, 3);
+//                startActivtiy(Ranges, 3);
 //                break;
 //            case R.id.re_setguzhangma:
-//                startactivtiy(guzhangma, 4);
+//                startActivtiy(guzhangma, 4);
 //                break;
 //            case R.id.re_setxintiao:
-//                startactivtiy(heartrate, 5);
+//                startActivtiy(heartrate, 5);
 //                break;
 //            case R.id.tv_reboot:
 ////                collectSet(0);
@@ -215,7 +215,7 @@ public class CollectorAttrActivity extends BaseActivity {
     }
 
 
-    private void startactivtiy(String partext, int position) {
+    private void startActivtiy(String partext, int position) {
         Intent intent = new Intent();
         intent.putExtra("title", getResources().getString(setNames[position]));
         intent.putExtra("position", position);
@@ -231,27 +231,27 @@ public class CollectorAttrActivity extends BaseActivity {
         }
 
         public void onSetName(View view) {
-            startactivtiy(mViewModel.getDevicename().getValue(), 0);
+            startActivtiy(mViewModel.getDevicename().getValue(), 0);
         }
 
         public void onSetbotelv(View view) {
-            startactivtiy(mViewModel.getBaud().getValue(), 1);
+            startActivtiy(mViewModel.getBaud().getValue(), 1);
         }
 
         public void onSetcaiji(View view) {
-            startactivtiy(mViewModel.getFreq().getValue(), 2);
+            startActivtiy(mViewModel.getFreq().getValue(), 2);
         }
 
         public void onSetgaojin(View view) {
-            startactivtiy(mViewModel.getRanges().getValue(), 3);
+            startActivtiy(mViewModel.getRanges().getValue(), 3);
         }
 
         public void onSetguzhangma(View view) {
-            startactivtiy(mViewModel.getGuzhangma().getValue(), 4);
+            startActivtiy(mViewModel.getGuzhangma().getValue(), 4);
         }
 
         public void onSetxintiao(View view) {
-            startactivtiy(mViewModel.getHeartrate().getValue(), 5);
+            startActivtiy(mViewModel.getHeartrate().getValue(), 5);
         }
 
         public void onTips_btl(View view) {

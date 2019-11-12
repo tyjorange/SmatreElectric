@@ -60,7 +60,7 @@ public class SearchSSIDThread extends Thread {
                 if (null != handler) {
                     byte[] realData = new byte[revPacket.getLength()];
                     System.arraycopy(data, 0, realData, 0, realData.length);
-                    Message msg = handler.obtainMessage(Tool.REC_DATA, realData);
+                    Message msg = handler.obtainMessage(SSIDTool.REC_DATA, realData);
                     handler.sendMessage(msg);
                 } else {
                     System.out.println("handler = null");

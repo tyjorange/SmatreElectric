@@ -52,9 +52,11 @@ public class LunchActivity extends BaseActivity {
 //            LunchActivity theActivity = activitySoftReference.get();
             if (msg.what == countDownFlag) {
                 int count = lunchActivity.getCount();
-                Log.i(TAG, String.valueOf(count));
-                lunchActivity.mBinding.btnSkip.setText(String.format(Locale.getDefault(), "%s(%d)", lunchActivity.getString(R.string.vs11), count));
-                lunchActivity.handler.sendEmptyMessageDelayed(countDownFlag, 1000);
+                if (count != 0) {
+                    Log.i(TAG, String.valueOf(count));
+                    lunchActivity.mBinding.btnSkip.setText(String.format(Locale.getDefault(), "%s(%d)", lunchActivity.getString(R.string.vs11), count));
+                    lunchActivity.handler.sendEmptyMessageDelayed(countDownFlag, 1000);
+                }
             }
         }
     }

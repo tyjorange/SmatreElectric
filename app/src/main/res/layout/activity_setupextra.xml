@@ -60,16 +60,23 @@
 
         </LinearLayout>
 
-        <ListView
+        <!--        <ListView-->
+        <!--            android:id="@+id/list_count"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            android:layout_marginStart="25dp"-->
+        <!--            android:layout_marginEnd="25dp"-->
+        <!--            android:layout_weight="@integer/tag_1"-->
+        <!--            android:divider="#fff6f7fc"-->
+        <!--            android:dividerHeight="1dp" />-->
+
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_count"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
-            android:layout_weight="@integer/tag_1"
-            android:divider="#fff6f7fc"
-            android:dividerHeight="1dp" />
-
+            android:layout_weight="@integer/tag_1" />
         <!--<ImageView-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="0.5dp"-->
