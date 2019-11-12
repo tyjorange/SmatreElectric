@@ -1,7 +1,6 @@
 package com.rejuvee.smartelectric.family.adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -18,7 +17,7 @@ public abstract class TreeListViewAdapter<T> extends BaseAdapter {
      * 存储所有可见的Node
      */
     private List<Node> mNodes;
-    LayoutInflater mInflater;
+//    private LayoutInflater mInflater;
     /**
      * 存储所有的Node
      */
@@ -43,8 +42,6 @@ public abstract class TreeListViewAdapter<T> extends BaseAdapter {
      * @param context
      * @param datas
      * @param defaultExpandLevel 默认展开几级树
-     * @throws IllegalArgumentException
-     * @throws IllegalAccessException
      */
     TreeListViewAdapter(ListView mTree, Context context, List<T> datas, int defaultExpandLevel) {
         mContext = context;
@@ -56,20 +53,29 @@ public abstract class TreeListViewAdapter<T> extends BaseAdapter {
          * 过滤出可见的Node
          */
         mNodes = TreeHelper.filterVisibleNode(mAllNodes);
-        mInflater = LayoutInflater.from(context);
+//        mInflater = LayoutInflater.from(context);
 
         //设置节点点击时，可以展开以及关闭；并且将ItemClick事件继续往外公布
         mTree.setOnItemClickListener((parent, view, position, id) -> {
             expandOrCollapse(position);
 
             if (onTreeNodeClickListener != null) {
-                onTreeNodeClickListener.onClick(mNodes.get(position),
-                        position);
+                onTreeNodeClickListener.onClick(mNodes.get(position), position);
             }
         });
 
     }
 
+    /**
+     * 更新数据
+     *
+     * @param datas
+     */
+    public void setDataAndFlush(List<T> datas) {
+        mAllNodes = TreeHelper.getSortedNodes(datas, 0);
+        mNodes = TreeHelper.filterVisibleNode(mAllNodes);
+        notifyDataSetChanged();// 刷新视图
+    }
     /**
      * 相应ListView的点击事件 展开或关闭某节点
      *

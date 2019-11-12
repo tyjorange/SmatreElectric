@@ -5,9 +5,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 
@@ -36,7 +34,7 @@ public class UpgradeDialogActivity extends BaseActivity {
     private CollectorBean collectorBean;
     private List<CheckBox> mListDataCheckButton = new ArrayList<>();
 
-//    @Override
+    //    @Override
 //    protected int getLayoutResId() {
 //        return R.layout.active_upgrade_dialog;
 //    }
@@ -45,6 +43,7 @@ public class UpgradeDialogActivity extends BaseActivity {
 //    protected int getMyTheme() {
 //        return 0;
 //    }
+    private CollectorUpgradeInfo collectorUpgradeInfo;
 
     @Override
     protected void initView() {
@@ -60,8 +59,9 @@ public class UpgradeDialogActivity extends BaseActivity {
 //        dialogWindow.setAttributes(p);
         dialogWindow.setGravity(Gravity.BOTTOM);
         dialogWindow.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+
         collectorBean = getIntent().getParcelableExtra("collectorBean");
-        CollectorUpgradeInfo collectorUpgradeInfo = getIntent().getParcelableExtra("collectorUpgradeInfo");
+        collectorUpgradeInfo = getIntent().getParcelableExtra("collectorUpgradeInfo");
 
         items.add(new Item("00:00-04:00", "1"));
         items.add(new Item("04:00-08:00", "2"));
@@ -69,24 +69,18 @@ public class UpgradeDialogActivity extends BaseActivity {
         items.add(new Item("12:00-16:00", "4"));
         items.add(new Item("16:00-20:00", "5"));
         items.add(new Item("20:00-24:00", "6"));
-        CheckBox cb1 = mBinding.cbOp1;
-        CheckBox cb2 = mBinding.cbOp2;
-        CheckBox cb3 = mBinding.cbOp3;
-        CheckBox cb4 = mBinding.cbOp4;
-        CheckBox cb5 = mBinding.cbOp5;
-        CheckBox cb6 = mBinding.cbOp6;
 //        cb1.setOnClickListener(this);
 //        cb2.setOnClickListener(this);
 //        cb3.setOnClickListener(this);
 //        cb4.setOnClickListener(this);
 //        cb5.setOnClickListener(this);
 //        cb6.setOnClickListener(this);
-        mListDataCheckButton.add(cb1);
-        mListDataCheckButton.add(cb2);
-        mListDataCheckButton.add(cb3);
-        mListDataCheckButton.add(cb4);
-        mListDataCheckButton.add(cb5);
-        mListDataCheckButton.add(cb6);
+        mListDataCheckButton.add(mBinding.cbOp1);
+        mListDataCheckButton.add(mBinding.cbOp2);
+        mListDataCheckButton.add(mBinding.cbOp3);
+        mListDataCheckButton.add(mBinding.cbOp4);
+        mListDataCheckButton.add(mBinding.cbOp5);
+        mListDataCheckButton.add(mBinding.cbOp6);
 //        int width = (ScreenUtils.getScreenWidth() - SizeUtils.dp2px(32 + 28)) / mListDataCheckButton.size();
         for (int i = 0; i < mListDataCheckButton.size(); i++) {
             CheckBox checkBox = mListDataCheckButton.get(i);
@@ -96,18 +90,20 @@ public class UpgradeDialogActivity extends BaseActivity {
             checkBox.setText(items.get(i).key);
         }
 
-        Button btnSave = mBinding.btnOk;
-        Button btnCancel = mBinding.btnIgnore;
-        TextView tvTime = mBinding.tvTime;
-        TextView tvTip = mBinding.tvTip;
+//        Button btnSave = mBinding.btnOk;
+//        Button btnCancel = mBinding.btnIgnore;
+//        TextView tvTime = mBinding.tvTime;
+//        TextView tvTip = mBinding.tvTip;
 
 //        tvWenHao.setOnClickListener(v -> new DialogTipWithoutOkCancel(UpgradeDialogActivity.this).setTitle(getString(R.string.vs22)).setContent(getString(R.string.upgrade_tip)).show());
 //        iv_version_wenhao.setOnClickListener(v -> new DialogTipWithoutOkCancel(UpgradeDialogActivity.this).setTitle(getString(R.string.vs257)).setContent(collectorBean.getText()).show());
 //        ArrayAdapter<Item> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
 //        spinner.setAdapter(adapter);//事件段选择
         if (collectorUpgradeInfo != null) {// 以前确认过
-            tvTime.setText(String.format(Locale.getDefault(), "%s%d.%d %s%d.%d", getString(R.string.vs20), collectorBean.getVerMajor(), collectorBean.getVerMinor(), getString(R.string.vs21), collectorBean.getVerMajorNew(), collectorBean.getVerMinorNew()));
-            tvTip.setText(String.format("%s%s ", collectorUpgradeInfo.getTime(), collectorUpgradeInfo.getOk() == 1 ? getString(R.string.vs23) : getString(R.string.vs24)));
+            mBinding.tvTime.setText(String.format(Locale.getDefault(), "%s%d.%d %s%d.%d",
+                    getString(R.string.vs20), collectorBean.getVerMajor(), collectorBean.getVerMinor(),
+                    getString(R.string.vs21), collectorBean.getVerMajorNew(), collectorBean.getVerMinorNew()));
+            mBinding.tvTip.setText(String.format("%s%s ", collectorUpgradeInfo.getTime(), collectorUpgradeInfo.getOk() == 1 ? getString(R.string.vs23) : getString(R.string.vs24)));
 //            spinner.setVisibility(collectorUpgradeInfo.getOk() == 1 ? View.VISIBLE : View.INVISIBLE);
 //            spinner.setSelection(collectorUpgradeInfo.getDoTime() - 1);// array [index-1]
 //            spinner.setEnabled(collectorUpgradeInfo.getOk() != 1);
@@ -118,20 +114,45 @@ public class UpgradeDialogActivity extends BaseActivity {
             for (CheckBox c : mListDataCheckButton) {
                 c.setEnabled(false);
             }
-            btnCancel.setVisibility(View.INVISIBLE);
-            btnSave.setText(getString(R.string.vs27));
-            btnSave.setOnClickListener(v -> {
-                setResult(RESULT_CANCELED);
-                finish();
-            });
+            mBinding.btnIgnore.setVisibility(View.INVISIBLE);
+            mBinding.btnOk.setText(getString(R.string.vs27));
+//            btnSave.setOnClickListener(v -> {
+//                setResult(RESULT_CANCELED);
+//                finish();
+//            });
         } else {// 让用户选择：同意升级/忽略此版本
-            tvTime.setText(String.format(Locale.getDefault(), "%s%d.%d%s%d.%d",
+            mBinding.tvTime.setText(String.format(Locale.getDefault(), "%s%d.%d%s%d.%d",
                     getString(R.string.vs20), collectorBean.getVerMajor(), collectorBean.getVerMinor(),
                     getString(R.string.vs21), collectorBean.getVerMajorNew(), collectorBean.getVerMinorNew()));
-            tvTip.setText(getString(R.string.vs25));
-            btnCancel.setVisibility(View.VISIBLE);
-            btnSave.setText(getString(R.string.vs26));
-            btnSave.setOnClickListener(v -> {
+            mBinding.tvTip.setText(getString(R.string.vs25));
+            mBinding.btnIgnore.setVisibility(View.VISIBLE);
+            mBinding.btnOk.setText(getString(R.string.vs26));
+//            btnSave.setOnClickListener(v -> {
+//                for (int i = 0; i < mListDataCheckButton.size(); i++) {
+//                    if (mListDataCheckButton.get(i).isChecked()) {
+//                        setCollectorUpgrade(1, items.get(i).getValue());
+//                        return;
+//                    }
+//                }
+//                CustomToast.showCustomErrorToast(UpgradeDialogActivity.this, getString(R.string.vs25));
+//            });
+//            btnCancel.setOnClickListener(v -> {
+//                    setCollectorUpgrade(0, "0");
+//                finish();
+//            });
+        }
+    }
+
+    public class Presenter {
+        public void onCancel(View v) {
+            finish();
+        }
+
+        public void onOk(View v) {
+            if (collectorUpgradeInfo != null) {// 以前确认过
+                setResult(RESULT_CANCELED);
+                finish();
+            } else {// 让用户选择：同意升级/忽略此版本
                 for (int i = 0; i < mListDataCheckButton.size(); i++) {
                     if (mListDataCheckButton.get(i).isChecked()) {
                         setCollectorUpgrade(1, items.get(i).getValue());
@@ -139,15 +160,9 @@ public class UpgradeDialogActivity extends BaseActivity {
                     }
                 }
                 CustomToast.showCustomErrorToast(UpgradeDialogActivity.this, getString(R.string.vs25));
-            });
-            btnCancel.setOnClickListener(v -> {
-//                    setCollectorUpgrade(0, "0");
-                finish();
-            });
+            }
         }
-    }
 
-    public class Presenter {
         public void onClickCheckBox(View v) {
             for (CheckBox c : mListDataCheckButton) {
                 c.setChecked(false);

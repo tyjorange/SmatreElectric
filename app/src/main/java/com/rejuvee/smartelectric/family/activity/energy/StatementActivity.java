@@ -2,7 +2,6 @@ package com.rejuvee.smartelectric.family.activity.energy;
 
 import android.text.Html;
 import android.view.View;
-import android.widget.ListView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
@@ -37,8 +36,8 @@ import java.util.Locale;
 public class StatementActivity extends BaseActivity {
     //    private RadioGroup rgDate;
 //    private Context mContext;
-    private ListView lvStatement;
-    private SimpleTreeAdapter mAdapter;
+//    private ListView lvStatement;
+    private SimpleTreeAdapter<SwitchStatementBean> mAdapter;
     private List<SwitchStatementBean> switchStatementBeanList = new ArrayList<>();
     private WheelDateTime dateSelector;
     private WheelDateTime dateSelectorSS;
@@ -85,7 +84,7 @@ public class StatementActivity extends BaseActivity {
 //        NativeLine.init(this);
 //        ImageView img_cancel = findViewById(R.id.img_cancel);
 //        img_cancel.setOnClickListener(this);
-        lvStatement = mBinding.lvStatement;
+//        lvStatement = mBinding.lvStatement;
 //        tvDate = findViewById(R.id.tv_date);
 //        tvDateSS = findViewById(R.id.tv_date_ss);
 //        tvDateEE = findViewById(R.id.tv_date_ee);
@@ -159,8 +158,8 @@ public class StatementActivity extends BaseActivity {
         //initDialog();
 
 //        initAdapter();
-        mAdapter = new SimpleTreeAdapter<>(lvStatement, this, switchStatementBeanList, 0);
-        lvStatement.setAdapter(mAdapter);
+        mAdapter = new SimpleTreeAdapter<>(mBinding.lvStatement, this, switchStatementBeanList, 0);
+        mBinding.lvStatement.setAdapter(mAdapter);
 //        findViewById(R.id.img_price).setOnClickListener(v -> startActivity(new Intent(StatementActivity.this, TimePriceActivity.class)));
         switchStatementBeanList = new ArrayList<>();
         currentCollectorBean = getIntent().getParcelableExtra("collectorBean");
@@ -398,9 +397,10 @@ public class StatementActivity extends BaseActivity {
                 waitDialog.dismiss();
                 switchStatementBeanList.clear();
                 switchStatementBeanList.addAll(data);
+                mAdapter.setDataAndFlush(switchStatementBeanList);
 //                mAdapter.notifyDataSetChanged();
-                mAdapter = new SimpleTreeAdapter<>(lvStatement, StatementActivity.this, switchStatementBeanList, 0);
-                lvStatement.setAdapter(mAdapter);
+//                mAdapter = new SimpleTreeAdapter<>(lvStatement, StatementActivity.this, switchStatementBeanList, 0);
+//                lvStatement.setAdapter(mAdapter);
                 changeTotal();
             }
 
@@ -409,9 +409,10 @@ public class StatementActivity extends BaseActivity {
                 waitDialog.dismiss();
                 if (switchStatementBeanList != null) {
                     switchStatementBeanList.clear();
+                    mAdapter.setDataAndFlush(switchStatementBeanList);
 //                    mAdapter.notifyDataSetChanged();
-                    mAdapter = new SimpleTreeAdapter<>(lvStatement, StatementActivity.this, switchStatementBeanList, 0);
-                    lvStatement.setAdapter(mAdapter);
+//                    mAdapter = new SimpleTreeAdapter<>(lvStatement, StatementActivity.this, switchStatementBeanList, 0);
+//                    lvStatement.setAdapter(mAdapter);
                 }
 
 //                if (errorEvent == 12) {
@@ -438,9 +439,10 @@ public class StatementActivity extends BaseActivity {
                 waitDialog.dismiss();
                 switchStatementBeanList.clear();
                 switchStatementBeanList.addAll(data);
-                mAdapter.notifyDataSetChanged();
-                mAdapter = new SimpleTreeAdapter<>(lvStatement, StatementActivity.this, switchStatementBeanList, 0);
-                lvStatement.setAdapter(mAdapter);
+                mAdapter.setDataAndFlush(switchStatementBeanList);
+//                mAdapter.notifyDataSetChanged();
+//                mAdapter = new SimpleTreeAdapter<>(lvStatement, StatementActivity.this, switchStatementBeanList, 0);
+//                lvStatement.setAdapter(mAdapter);
                 changeTotal();
             }
 
@@ -449,9 +451,10 @@ public class StatementActivity extends BaseActivity {
                 waitDialog.dismiss();
                 if (switchStatementBeanList != null) {
                     switchStatementBeanList.clear();
-                    mAdapter.notifyDataSetChanged();
-                    mAdapter = new SimpleTreeAdapter<>(lvStatement, StatementActivity.this, switchStatementBeanList, 0);
-                    lvStatement.setAdapter(mAdapter);
+                    mAdapter.setDataAndFlush(switchStatementBeanList);
+//                    mAdapter.notifyDataSetChanged();
+//                    mAdapter = new SimpleTreeAdapter<>(lvStatement, StatementActivity.this, switchStatementBeanList, 0);
+//                    lvStatement.setAdapter(mAdapter);
                 }
 //                if (errorEvent == 12) {
 ////                    message = getString(R.string.local_error_message_no_data);
@@ -474,9 +477,10 @@ public class StatementActivity extends BaseActivity {
                 waitDialog.dismiss();
                 switchStatementBeanList.clear();
                 switchStatementBeanList.addAll(data);
-                mAdapter.notifyDataSetChanged();
-                mAdapter = new SimpleTreeAdapter<>(lvStatement, StatementActivity.this, switchStatementBeanList, 0);
-                lvStatement.setAdapter(mAdapter);
+                mAdapter.setDataAndFlush(switchStatementBeanList);
+//                mAdapter.notifyDataSetChanged();
+//                mAdapter = new SimpleTreeAdapter<>(lvStatement, StatementActivity.this, switchStatementBeanList, 0);
+//                lvStatement.setAdapter(mAdapter);
                 changeTotal();
             }
 
@@ -485,9 +489,10 @@ public class StatementActivity extends BaseActivity {
                 waitDialog.dismiss();
                 if (switchStatementBeanList != null) {
                     switchStatementBeanList.clear();
-                    mAdapter.notifyDataSetChanged();
-                    mAdapter = new SimpleTreeAdapter<>(lvStatement, StatementActivity.this, switchStatementBeanList, 0);
-                    lvStatement.setAdapter(mAdapter);
+                    mAdapter.setDataAndFlush(switchStatementBeanList);
+//                    mAdapter.notifyDataSetChanged();
+//                    mAdapter = new SimpleTreeAdapter<>(lvStatement, StatementActivity.this, switchStatementBeanList, 0);
+//                    lvStatement.setAdapter(mAdapter);
                 }
 //                if (errorEvent == 12) {
 ////                    message = getString(R.string.local_error_message_no_data);

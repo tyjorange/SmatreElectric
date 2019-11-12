@@ -59,7 +59,7 @@ public class MainApplication extends Application {
 //                .build());
 //        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
 //            Intent goToSettings = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
-//            goToSettings.setData(Uri.parse("package:" + getPackageName()));
+//            goToSettings.setDataAndFlush(Uri.parse("package:" + getPackageName()));
 //            startActivity(goToSettings);
 //        }
         CrashHandler.getInstance().init(this);

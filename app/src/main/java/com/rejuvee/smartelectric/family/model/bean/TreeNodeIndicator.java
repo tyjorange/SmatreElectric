@@ -13,6 +13,9 @@ import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.rejuvee.smartelectric.family.R;
 
+/**
+ * 节点指示器
+ */
 public class TreeNodeIndicator extends RelativeLayout {
     public static final int STATE_EXPAND = 0x01;
     public static final int STATE_COLLAPSE = 0x02;
@@ -108,8 +111,7 @@ public class TreeNodeIndicator extends RelativeLayout {
 
     // 设置展开关闭状态
     public void setState(Node node) {
-        int state = node.isExpand() ? TreeNodeIndicator.STATE_EXPAND : TreeNodeIndicator.STATE_COLLAPSE;
-        mState = state;
+        mState = node.isExpand() ? TreeNodeIndicator.STATE_EXPAND : TreeNodeIndicator.STATE_COLLAPSE;
         switch (mState) {
             case STATE_EXPAND:
                 mBottomLine.setVisibility(View.VISIBLE);
