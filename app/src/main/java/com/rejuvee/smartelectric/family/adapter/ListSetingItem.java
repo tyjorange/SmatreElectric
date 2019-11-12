@@ -2,6 +2,7 @@ package com.rejuvee.smartelectric.family.adapter;
 
 import android.view.View;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.rejuvee.smartelectric.family.common.constant.NativeLine;
@@ -30,7 +31,7 @@ public class ListSetingItem extends ViewModel {
 
     public static final int VIEW_TYPE_COUNT = 14;
 
-    private String content;
+    private MutableLiveData<String> content;
     private boolean isSwitch;
     private int viewType;
     private int isEnable;// switch控制权限
@@ -41,12 +42,18 @@ public class ListSetingItem extends ViewModel {
     @Ignore
     public int showDelIcon = View.GONE;
 
-    public String getContent() {
+    public MutableLiveData<String> getContent() {
+        if (content == null) {
+            content = new MutableLiveData<>();
+        }
         return content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setContent(String _content) {
+        if (content == null) {
+            content = new MutableLiveData<>();
+        }
+        content.setValue(_content);
     }
 
     public boolean isSwitch() {

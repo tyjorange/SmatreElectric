@@ -1,7 +1,6 @@
 package com.rejuvee.smartelectric.family.adapter;
 
 import android.content.Context;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,7 +102,7 @@ public class SettingAdapter extends RecyclerView.Adapter<BindingViewHolder> {
         switch (bean.getViewType()) {
             case ITEM_VIEW_TYPE_LINEDETAIL1:  //分时计价
                 binding1.txtContent.setTextColor(context.getResources().getColor(R.color.contents_text));
-                binding1.txtContent.setText(Html.fromHtml(bean.getContent()));
+//                binding1.txtContent.setText(Html.fromHtml(bean.getContent()));
                 binding1.txtState.setTextColor(context.getResources().getColor(R.color.text_content));
                 binding1.txtState.setText(bean.getDesc());
                 holder.itemView.setOnClickListener(v -> {
@@ -114,17 +113,17 @@ public class SettingAdapter extends RecyclerView.Adapter<BindingViewHolder> {
                 break;
             case ITEM_VIEW_TYPE_LINEDETAIL2:
                 binding2.txtContent.setTextColor(context.getResources().getColor(R.color.contents_text));
-                binding2.txtContent.setText(Html.fromHtml(bean.getContent()));
+//                binding2.txtContent.setText(Html.fromHtml(bean.getContent()));
                 binding2.txtState.setTextColor(context.getResources().getColor(R.color.text_content));
                 binding2.txtState.setText(bean.getDesc());
                 break;
             case ITEM_VIEW_TYPE_EMPTY:
                 break;
             case ITEM_VIEW_TYPE_NORMAL:
-                binding4.txtContent.setText(bean.getContent());
+//                binding4.txtContent.setText(bean.getContent());
                 break;
             case ITEM_VIEW_TYPE_DELETE:// 分享用户
-                binding5.txtContent.setText(bean.getContent());
+//                binding5.txtContent.setText(bean.getContent());
 //                binding5.ivDelete.setVisibility(bean.showDelIcon);
                 binding5.ivDelete.setOnClickListener(v -> {
                     if (mListener != null) {

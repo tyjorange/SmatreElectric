@@ -109,15 +109,15 @@ public class SetingAdapter extends BaseAdapter {
     private void initData(SetViewHolder holder, final ListSetingItem setingItem, final int position) {
         if (setingItem.getViewType() == ITEM_VIEW_TYPE_LINEDETAIL1 || setingItem.getViewType() == ITEM_VIEW_TYPE_LINEDETAIL2) {
             holder.txtContent.setTextColor(context.getResources().getColor(R.color.contents_text));
-            holder.txtContent.setText(Html.fromHtml(setingItem.getContent()));
+            holder.txtContent.setText(Html.fromHtml(setingItem.getContent().getValue()));
             holder.txtDesc.setTextColor(context.getResources().getColor(R.color.text_content));
             holder.txtDesc.setText(setingItem.getDesc());
         }
         if (setingItem.getViewType() == ITEM_VIEW_TYPE_NORMAL) {
-            holder.txtContent.setText(setingItem.getContent());
+            holder.txtContent.setText(setingItem.getContent().getValue());
         }
         if (setingItem.getViewType() == ITEM_VIEW_TYPE_DELETE) {
-            holder.txtContent.setText(setingItem.getContent());
+            holder.txtContent.setText(setingItem.getContent().getValue());
             holder.ivDelete.setOnClickListener(v -> {
                 if (mListener != null) {
                     mListener.onRemove(position);

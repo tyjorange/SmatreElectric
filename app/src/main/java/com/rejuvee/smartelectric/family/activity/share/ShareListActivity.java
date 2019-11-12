@@ -20,7 +20,7 @@ import com.rejuvee.smartelectric.family.databinding.ActivityShareListBinding;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.UserMsg;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -28,8 +28,8 @@ import java.util.List;
  */
 public class ShareListActivity extends BaseActivity {
     private String TAG = "ShareListActivity";
-    private List<UserMsg> listShareUsers = new ArrayList<>();// 分享的用户
-    private List<ListSetingItem> mListItem = new ArrayList<>();// 转换后的items
+    private List<UserMsg> listShareUsers = new LinkedList<>();// 分享的用户
+    private List<ListSetingItem> mListItem = new LinkedList<>();// 转换后的items ViewModel
     private UserMsg currentUser;
     private SettingAdapter mAdapter;
 
