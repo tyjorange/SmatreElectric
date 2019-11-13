@@ -29,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
+                android:onClick="@{presenter::onCancel}"
                 android:padding="16dp"
                 android:src="@drawable/main_fanhui" />
 

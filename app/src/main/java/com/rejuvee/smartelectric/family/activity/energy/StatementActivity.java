@@ -371,7 +371,7 @@ public class StatementActivity extends BaseActivity {
 
         // 计算电量电费和
         for (SwitchStatementBean switchStatementBean : switchStatementBeanList) {
-            if (switchStatementBean.getPid() == 0) {// 只计算根节点
+            if (switchStatementBean.getPid() == 0) {// 只计算根节点电费
                 totalQuantity += switchStatementBean.getShowValue();
                 totalCharge += switchStatementBean.getShowPrice();
             }

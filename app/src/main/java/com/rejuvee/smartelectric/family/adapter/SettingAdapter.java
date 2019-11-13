@@ -42,9 +42,9 @@ public class SettingAdapter extends RecyclerView.Adapter<BindingViewHolder> {
      * 回调声明
      */
     public interface onSettingClickListener {
-        void onRemove(int position);
+        void onRemove(ListSetingItem item, int position);
 
-        void onSwitch(int position, int isEnable);
+        void onSwitch(ListSetingItem item, int isEnable);
 
         void onBeanClick(int position);
     }
@@ -127,13 +127,13 @@ public class SettingAdapter extends RecyclerView.Adapter<BindingViewHolder> {
 //                binding5.ivDelete.setVisibility(bean.showDelIcon);
                 binding5.ivDelete.setOnClickListener(v -> {
                     if (mListener != null) {
-                        mListener.onRemove(position);
+                        mListener.onRemove(bean, position);
                     }
                 });
 //                binding5.ivSwitch.setImageResource(NativeLine.DrawableToggle[listDatas.get(position).getIsEnable()]);
                 binding5.ivSwitch.setOnClickListener(v -> {
                     if (mListener != null) {
-                        mListener.onSwitch(position, (listDatas.get(position).getIsEnable() == 1 ? 0 : 1));
+                        mListener.onSwitch(bean, (listDatas.get(position).getIsEnable() == 1 ? 0 : 1));
                     }
                 });
                 break;
@@ -166,6 +166,7 @@ public class SettingAdapter extends RecyclerView.Adapter<BindingViewHolder> {
     public void add(ListSetingItem bean) {
         listDatas.add(bean);
         notifyItemInserted(listDatas.size());
+        notifyDataSetChanged();
     }
 
     /**
@@ -179,6 +180,7 @@ public class SettingAdapter extends RecyclerView.Adapter<BindingViewHolder> {
         }
         listDatas.remove(position);
         notifyItemRemoved(position);
+        notifyDataSetChanged();
     }
 
     /**

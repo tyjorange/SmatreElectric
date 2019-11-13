@@ -29,11 +29,11 @@ public class SceneBeanAdapter extends RecyclerView.Adapter<BindingViewHolder> {
 
     public interface CallBack {
 
-        void onCollectorBeanClick(SceneBean bean);
+        void onCollectorBeanClick(SceneBean bean);//点击
 
-        void onExecuteClick(SceneBean bean);
+        void onExecuteClick(SceneBean bean);//执行场景
 
-        void onDelClick(SceneBean bean);
+        void onRemove(SceneBean bean, int position);//移除场景
     }
 
     /**
@@ -90,10 +90,10 @@ public class SceneBeanAdapter extends RecyclerView.Adapter<BindingViewHolder> {
                     mListener.onExecuteClick(bean);
                 }
             });
-            binding2.imgItemRemove.setVisibility(bean.showDelIcon);
+//            binding2.imgItemRemove.setVisibility(bean.showDelIcon);
             binding2.imgItemRemove.setOnClickListener(v -> {
                 if (mListener != null) {
-                    mListener.onDelClick(bean);
+                    mListener.onRemove(bean, position);
                 }
             });
         }
@@ -124,6 +124,7 @@ public class SceneBeanAdapter extends RecyclerView.Adapter<BindingViewHolder> {
     public void add(SceneBean bean) {
         sceneBeanList.add(bean);
         notifyItemInserted(sceneBeanList.size());
+        notifyDataSetChanged();
     }
 
     /**
@@ -137,6 +138,7 @@ public class SceneBeanAdapter extends RecyclerView.Adapter<BindingViewHolder> {
         }
         sceneBeanList.remove(position);
         notifyItemRemoved(position);
+        notifyDataSetChanged();
     }
 
     /**

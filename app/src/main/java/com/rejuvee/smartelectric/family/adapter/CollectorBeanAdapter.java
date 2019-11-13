@@ -103,6 +103,7 @@ public class CollectorBeanAdapter extends RecyclerView.Adapter<BindingViewHolder
     public void add(CollectorBean bean) {
         collectorBeanList.add(bean);
         notifyItemInserted(collectorBeanList.size());
+        notifyDataSetChanged();
     }
 
     /**
@@ -116,5 +117,6 @@ public class CollectorBeanAdapter extends RecyclerView.Adapter<BindingViewHolder
         }
         collectorBeanList.remove(position);
         notifyItemRemoved(position);
+        notifyDataSetChanged();
     }
 }

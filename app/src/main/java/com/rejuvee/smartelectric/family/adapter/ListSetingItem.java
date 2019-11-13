@@ -35,6 +35,7 @@ public class ListSetingItem extends ViewModel {
     private boolean isSwitch;
     private int viewType;
     private int isEnable;// switch控制权限
+    private String collectorShareID;// 分享ID
     private String id;
     private boolean isConnect = false;
     private boolean isChecked = false;
@@ -106,5 +107,13 @@ public class ListSetingItem extends ViewModel {
 
     public int swithchResId() {
         return NativeLine.DrawableToggle[isEnable];
+    }
+
+    public String getCollectorShareID() {
+        return collectorShareID;
+    }
+
+    public void setCollectorShareID(String collectorShareID) {
+        this.collectorShareID = collectorShareID;
     }
 }

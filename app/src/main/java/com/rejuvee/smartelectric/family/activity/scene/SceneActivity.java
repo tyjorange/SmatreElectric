@@ -82,8 +82,8 @@ public class SceneActivity extends BaseActivity {
             }
 
             @Override
-            public void onDelClick(SceneBean bean) {
-                onDelItem(bean.getSceneId());
+            public void onRemove(SceneBean bean, int postion) {
+                onDelItem(bean.getSceneId(), postion);
             }
         });
 
@@ -137,7 +137,7 @@ public class SceneActivity extends BaseActivity {
 //        listSceneAdapter.notifyDataSetChanged();
 //    }
 
-    private void onDelItem(String sceneId) {
+    private void onDelItem(String sceneId, int position) {
         dialogTip = new DialogTip(this);
         dialogTip.setTitle(getString(R.string.deletescen));
         dialogTip.setContent(getResources().getString(R.string.sce_issure));
@@ -150,22 +150,23 @@ public class SceneActivity extends BaseActivity {
 
             @Override
             public void onEnsure() {
-                deleteScene(sceneId);
+                deleteScene(sceneId, position);
                 dialogTip.dismiss();
             }
         });
         dialogTip.show();
     }
 
-    private void deleteScene(String sceneID) {
+    private void deleteScene(String sceneID, int position) {
         mWaitDialog.show();
         Core.instance(this).deleteScene(sceneID, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 Toast.makeText(SceneActivity.this, R.string.deletescene_succe, Toast.LENGTH_LONG).show();
-                getScene();
 //                MainPageNewFragment.NEED_REFRESH = true;
                 mWaitDialog.dismiss();
+//                getScene();
+                sceneBeanAdapter.remove(position);
             }
 
             @Override

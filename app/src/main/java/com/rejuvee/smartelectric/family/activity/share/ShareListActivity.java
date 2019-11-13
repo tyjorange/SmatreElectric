@@ -28,9 +28,9 @@ import java.util.List;
  */
 public class ShareListActivity extends BaseActivity {
     private String TAG = "ShareListActivity";
-    private List<UserMsg> listShareUsers = new LinkedList<>();// 分享的用户
+    //        private List<UserMsg> listShareUsers = new LinkedList<>();// 分享的用户
     private List<ListSetingItem> mListItem = new LinkedList<>();// 转换后的items ViewModel
-    private UserMsg currentUser;
+    //    private UserMsg currentUser;
     private SettingAdapter mAdapter;
 
     private DialogTip mDialogSwitchEnable;
@@ -73,7 +73,7 @@ public class ShareListActivity extends BaseActivity {
         mAdapter = new SettingAdapter(this);
         mAdapter.setSetListener(new SettingAdapter.onSettingClickListener() {
             @Override
-            public void onRemove(final int position) {
+            public void onRemove(ListSetingItem item, int position) {
                 new DialogTip(ShareListActivity.this).setTitle(getString(R.string.delete))
                         .setContent(getString(R.string.cancel_share))
                         .setDialogListener(new DialogTip.onEnsureDialogListener() {
@@ -84,16 +84,16 @@ public class ShareListActivity extends BaseActivity {
 
                             @Override
                             public void onEnsure() {
-                                removeShare(position);
+                                removeShare(item, position);
                             }
                         }).show();
 
             }
 
             @Override
-            public void onSwitch(int position, int isEnable) {
-                currentUser = listShareUsers.get(position);
-                changeEnable(isEnable);
+            public void onSwitch(ListSetingItem item, int isEnable) {
+//                currentUser = listShareUsers.get(position);
+                changeEnable(item, isEnable);
             }
 
             @Override
@@ -114,10 +114,10 @@ public class ShareListActivity extends BaseActivity {
      *
      * @param isEnable
      */
-    private void changeEnable(final int isEnable) {
+    private void changeEnable(ListSetingItem item, final int isEnable) {
         String title = (isEnable == 1) ? getString(R.string.vs147) : getString(R.string.vs148);
         mDialogSwitchEnable.setTitle(title);
-        mDialogSwitchEnable.setContent(currentUser.getUsername());
+        mDialogSwitchEnable.setContent(item.getContent().getValue());// 用户名
         mDialogSwitchEnable.setDialogListener(new DialogTip.onEnsureDialogListener() {
             @Override
             public void onCancel() {
@@ -127,7 +127,8 @@ public class ShareListActivity extends BaseActivity {
             @Override
             public void onEnsure() {
                 waitDialog.show();
-                Core.instance(ShareListActivity.this).updateShareCollector(currentUser.getCollectorShareID(), isEnable, new ActionCallbackListener<Void>() {
+                Core.instance(ShareListActivity.this).updateShareCollector(item.getCollectorShareID(), //分享ID
+                        isEnable, new ActionCallbackListener<Void>() {
                     @Override
                     public void onSuccess(Void data) {
                         CustomToast.showCustomToast(ShareListActivity.this, getString(R.string.operator_sucess));
@@ -159,9 +160,9 @@ public class ShareListActivity extends BaseActivity {
             @Override
             public void onSuccess(List<UserMsg> data) {
                 if (data != null && data.size() > 0) {
-                    listShareUsers.clear();
-                    listShareUsers.addAll(data);
-                    setDataType();
+//                    listShareUsers.clear();
+//                    listShareUsers.addAll(data);
+                    setDataType(data);
                 }
                 waitDialog.dismiss();
                 mBinding.refreshlayout.setRefreshing(false);
@@ -176,12 +177,18 @@ public class ShareListActivity extends BaseActivity {
         });
     }
 
-    private void setDataType() {
+    /**
+     * 转换对象
+     *
+     * @param data
+     */
+    private void setDataType(List<UserMsg> data) {
         mListItem.clear();
-        for (UserMsg userMsg : listShareUsers) {
+        for (UserMsg userMsg : data) {
             ListSetingItem setingItem = new ListSetingItem();
             setingItem.setContent(userMsg.getUsername());
             setingItem.setIsEnable(userMsg.getEnable());
+            setingItem.setCollectorShareID(userMsg.getCollectorShareID());
             setingItem.setViewType(ListSetingItem.ITEM_VIEW_TYPE_DELETE);
             mListItem.add(setingItem);
         }
@@ -194,14 +201,14 @@ public class ShareListActivity extends BaseActivity {
      *
      * @param position
      */
-    private void removeShare(final int position) {
-        UserMsg userMsg = listShareUsers.get(position);
+    private void removeShare(ListSetingItem item, int position) {
+//        UserMsg userMsg = listShareUsers.get(position);
         waitDialog.show();
-        Core.instance(this).shareCollector(false, userMsg.getUsername(), collectorBean.getCollectorID(), 0, new ActionCallbackListener<Void>() {
+        Core.instance(this).shareCollector(false, item.getContent().getValue(), collectorBean.getCollectorID(), 0, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 mListItem.remove(position);
-                listShareUsers.remove(position);
+//                listShareUsers.remove(position);
                 mAdapter.remove(position);
                 waitDialog.dismiss();
             }

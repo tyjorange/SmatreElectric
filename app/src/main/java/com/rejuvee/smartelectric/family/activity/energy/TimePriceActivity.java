@@ -93,12 +93,12 @@ public class TimePriceActivity extends BaseActivity {
         mBinding.listSections.setAdapter(mAdapter);
         mAdapter.setSetListener(new SettingAdapter.onSettingClickListener() {
             @Override
-            public void onRemove(int position) {
+            public void onRemove(ListSetingItem item, int position) {
                 //nothing
             }
 
             @Override
-            public void onSwitch(int position, int isEnable) {
+            public void onSwitch(ListSetingItem item, int isEnable) {
                 //nothing
             }
 

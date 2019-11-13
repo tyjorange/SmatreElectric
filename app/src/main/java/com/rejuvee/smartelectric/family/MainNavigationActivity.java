@@ -338,7 +338,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
             }
 
             @Override
-            public void onDelClick(SceneBean bean) {
+            public void onRemove(SceneBean bean, int pos) {
             }
         });
     }
