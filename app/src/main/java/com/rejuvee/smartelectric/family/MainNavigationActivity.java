@@ -59,6 +59,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -396,6 +397,12 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 
             @Override
             public void onFailure(int errorEvent, String message) {
+                if (errorEvent == 12) {
+                    mainBinding.include.include.tvCollectorCount.setText(String.format(Locale.getDefault(), "%s%d", getString(R.string.vs13), 0));
+                    List<CollectorBean> list = new ArrayList<>();
+                    list.add(new CollectorBean(Parcel.obtain()));// 加一个空项作为添加按钮
+                    mCollectorBeanAdapter.addAll(list);
+                }
 //                updateRefreshState();
                 mainBinding.include.include.refreshlayout.setRefreshing(false);
             }
