@@ -481,14 +481,14 @@ public class AutoUpgrade {
                     return;
                 }
                 //自动安装apk
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 //                    if (isHasInstallPermissionWithO(mContext)) {
-                    AutoUpgradeEventMessage eventMessage = new AutoUpgradeEventMessage();
-                    eventMessage.upGradeUri = uriForDownloadedFile;
-                    EventBus.getDefault().post(eventMessage);
+                AutoUpgradeEventMessage eventMessage = new AutoUpgradeEventMessage();
+                eventMessage.upGradeUri = uriForDownloadedFile;
+                EventBus.getDefault().post(eventMessage);
 //                        return;
 //                    }
-                }
+//                }
 //                installApkNew(uriForDownloadedFile);
             }
         }
@@ -510,9 +510,9 @@ public class AutoUpgrade {
         } else {
             File file = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), mVersionInfo.getApkName());
             uri = FileProvider.getUriForFile(mContext, LogoVersionManage.getInstance().getFileAuthor(), file);//在AndroidManifest中的android:authorities值
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);//添加这一句表示对目标应用临时授权该Uri所代表的文件
-            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);//添加这一句表示对目标应用临时授权该Uri所代表的文件
         }
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);//添加这一句表示对目标应用临时授权该Uri所代表的文件
+        intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);//添加这一句表示对目标应用临时授权该Uri所代表的文件
         intent.setAction(Intent.ACTION_VIEW);
         intent.setDataAndType(uri, "application/vnd.android.package-archive");
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
