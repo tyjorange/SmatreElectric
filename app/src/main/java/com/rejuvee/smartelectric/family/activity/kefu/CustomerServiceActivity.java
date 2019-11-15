@@ -1,18 +1,15 @@
 package com.rejuvee.smartelectric.family.activity.kefu;
 
-import android.content.Context;
 import android.content.Intent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
+import com.rejuvee.smartelectric.family.adapter.ChartListItemBeanAdapter;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.constant.CommonRequestCode;
@@ -20,7 +17,6 @@ import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
 import com.rejuvee.smartelectric.family.databinding.ActivityKeFuBinding;
 import com.rejuvee.smartelectric.family.model.bean.ChartListItemBean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +24,7 @@ import java.util.List;
  */
 public class CustomerServiceActivity extends BaseActivity {
     //    private Context mContext;
-    private List<ChartListItemBean> mList = new ArrayList<>();
+//    private List<ChartListItemBean> mList = new ArrayList<>();
     private ChartListItemBeanAdapter adapter;
     private LoadingDlg loadingDlg;
     private String username;
@@ -53,16 +49,23 @@ public class CustomerServiceActivity extends BaseActivity {
 //        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
         loadingDlg = new LoadingDlg(this, -1);
 
-        ListView listView = mBinding.listTiwen;
-        adapter = new ChartListItemBeanAdapter(this, mList);
-        listView.setAdapter(adapter);
-        listView.setEmptyView(mBinding.emptyLayout);
-        listView.setOnItemClickListener((parent, view, position, id) -> {
-            Intent intent = new Intent(view.getContext(), CustomerServiceChartActivity.class);
-            intent.putExtra("ChartListItemBean", mList.get(position));
+//        ListView listView = mBinding.listTiwen;
+        adapter = new ChartListItemBeanAdapter(this);
+        mBinding.listTiwen.setAdapter(adapter);
+        mBinding.listTiwen.setLayoutManager(new LinearLayoutManager(this));
+        adapter.setCallback(bean -> {
+            Intent intent = new Intent(CustomerServiceActivity.this, CustomerServiceChartActivity.class);
+            intent.putExtra("ChartListItemBean", bean);
             intent.putExtra("username", username);
             startActivity(intent);
         });
+//        mBinding.listTiwen.setEmptyView(mBinding.emptyLayout);
+//        mBinding.listTiwen.setOnItemClickListener((parent, view, position, id) -> {
+//            Intent intent = new Intent(view.getContext(), CustomerServiceChartActivity.class);
+//            intent.putExtra("ChartListItemBean", mList.get(position));
+//            intent.putExtra("username", username);
+//            startActivity(intent);
+//        });
 //        findViewById(R.id.iv_send_wenti).setOnClickListener(v -> {
 //            Intent intent = new Intent(listView.getContext(), AddTopicActivity.class);
 //            startActivityForResult(intent, CommonRequestCode.REQUEST_ADD_QA);
@@ -75,9 +78,9 @@ public class CustomerServiceActivity extends BaseActivity {
         Core.instance(this).findChatList(0, 200, new ActionCallbackListener<List<ChartListItemBean>>() {
             @Override
             public void onSuccess(List<ChartListItemBean> data) {
-                mList.clear();
-                mList.addAll(data);
-                adapter.notifyDataSetChanged();
+//                mList.clear();
+//                mList.addAll(data);
+                adapter.addAll(data);
                 loadingDlg.dismiss();
             }
 
@@ -94,7 +97,7 @@ public class CustomerServiceActivity extends BaseActivity {
             finish();
         }
 
-        public void onSendWenti(View view) {
+        public void onSendQA(View view) {
             Intent intent = new Intent(view.getContext(), AddTopicActivity.class);
             startActivityForResult(intent, CommonRequestCode.REQUEST_ADD_QA);
         }
@@ -113,53 +116,53 @@ public class CustomerServiceActivity extends BaseActivity {
         }
     }
 
-    class ChartListItemBeanAdapter extends BaseAdapter {
-        private Context mContext;
-        private List<ChartListItemBean> mListData;
-
-        ChartListItemBeanAdapter(Context context, List<ChartListItemBean> listData) {
-            mContext = context;
-            mListData = listData;
-        }
-
-        @Override
-        public int getCount() {
-            return mListData.size();
-        }
-
-        @Override
-        public ChartListItemBean getItem(int position) {
-            return mListData.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder = null;
-            if (convertView == null) {
-                convertView = View.inflate(mContext, R.layout.item_line_chart, null);
-                holder = new ViewHolder();
-                holder.tv_topic = convertView.findViewById(R.id.tv_topic);
-                holder.tv_time = convertView.findViewById(R.id.tv_time);
-                holder.tv_updateTime = convertView.findViewById(R.id.tv_updateTime);
-                convertView.setTag(holder);
-            } else {
-                holder = (ViewHolder) convertView.getTag();
-            }
-            holder.tv_topic.setText(String.format("%s%s", getResources().getString(R.string.vs198), getItem(position).getTopic()));
-            holder.tv_time.setText(String.format("%s%s", getString(R.string.vs200), getItem(position).getTime()));
-            holder.tv_updateTime.setText(String.format("%s%s", getString(R.string.vs201), getItem(position).getUpdateTime()));
-            return convertView;
-        }
-
-        class ViewHolder {
-            TextView tv_topic;
-            TextView tv_time;
-            TextView tv_updateTime;
-        }
-    }
+//    class ChartListItemBeanAdapter extends BaseAdapter {
+//        private Context mContext;
+//        private List<ChartListItemBean> mListData;
+//
+//        ChartListItemBeanAdapter(Context context, List<ChartListItemBean> listData) {
+//            mContext = context;
+//            mListData = listData;
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            return mListData.size();
+//        }
+//
+//        @Override
+//        public ChartListItemBean getItem(int position) {
+//            return mListData.get(position);
+//        }
+//
+//        @Override
+//        public long getItemId(int position) {
+//            return position;
+//        }
+//
+//        @Override
+//        public View getView(int position, View convertView, ViewGroup parent) {
+//            ViewHolder holder = null;
+//            if (convertView == null) {
+//                convertView = View.inflate(mContext, R.layout.item_line_chart, null);
+//                holder = new ViewHolder();
+//                holder.tv_topic = convertView.findViewById(R.id.tv_topic);
+//                holder.tv_time = convertView.findViewById(R.id.tv_time);
+//                holder.tv_updateTime = convertView.findViewById(R.id.tv_updateTime);
+//                convertView.setTag(holder);
+//            } else {
+//                holder = (ViewHolder) convertView.getTag();
+//            }
+//            holder.tv_topic.setText(String.format("%s%s", getResources().getString(R.string.vs198), getItem(position).getTopic()));
+//            holder.tv_time.setText(String.format("%s%s", getString(R.string.vs200), getItem(position).getTime()));
+//            holder.tv_updateTime.setText(String.format("%s%s", getString(R.string.vs201), getItem(position).getUpdateTime()));
+//            return convertView;
+//        }
+//
+//        class ViewHolder {
+//            TextView tv_topic;
+//            TextView tv_time;
+//            TextView tv_updateTime;
+//        }
+//    }
 }

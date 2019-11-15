@@ -3,7 +3,9 @@ package com.rejuvee.smartelectric.family.model.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class ChartListItemBean implements Parcelable {
+import androidx.lifecycle.ViewModel;
+
+public class ChartListItemBean extends ViewModel implements Parcelable {
     private int id;
     private String topic;
     private String content;
