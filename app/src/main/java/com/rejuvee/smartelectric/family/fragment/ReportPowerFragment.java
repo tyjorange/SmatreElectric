@@ -33,7 +33,7 @@ public class ReportPowerFragment extends BaseFragment {
         ListView listView = mBinding.listPower;//v.findViewById(R.id.list_power);
         ReportPowerAdapter adapter = new ReportPowerAdapter(getContext(), mListData);
         listView.setAdapter(adapter);
-        listView.setEmptyView(mBinding.emptyLayout);
+//        listView.setEmptyView(mBinding.emptyLayout);
         Bundle arguments = getArguments();
         if (arguments != null) {
             ReportDetailBean parcelable = arguments.getParcelable("reportDetailBean");

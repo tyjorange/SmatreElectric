@@ -121,7 +121,7 @@ public class YaoKongDetailActivity extends BaseActivity {
 //        TextView tv_root_name = findViewById(R.id.tv_root_name);
         mBinding.tvRootName.setText(String.format("%s%s", getString(R.string.vs14), rootSwitchBean.getName()));
 //         mBinding.lvProducts = findViewById(R.id.lv_products);
-        mBinding.lvProducts.setEmptyView(mBinding.emptyLayout);
+//        mBinding.lvProducts.setEmptyView(mBinding.emptyLayout);
         childList = rootSwitchBean.getChild();
         adapter = new OneExpandAdapter(this, mCollectorBean, viewType, childList, new OneExpandAdapter.ISwitchCheckListen() {
             @Override

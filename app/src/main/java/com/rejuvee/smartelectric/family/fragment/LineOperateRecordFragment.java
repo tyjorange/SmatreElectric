@@ -48,7 +48,7 @@ public class LineOperateRecordFragment extends BaseFragment {
         ListView listView = mBinding.listLogs;//v.findViewById(R.id.list_logs);
         mAdapter = new LineOperateRecordAdapter(getContext(), mListData);
         listView.setAdapter(mAdapter);
-        listView.setEmptyView(mBinding.emptyLayout);
+//        listView.setEmptyView(mBinding.emptyLayout);
         smartRefreshLayout = mBinding.smartRefreshLayout;//v.findViewById(R.id.smart_refreshLayout);
         smartRefreshLayout.setOnLoadMoreListener(refreshLayout -> doRequest());
         smartRefreshLayout.setOnRefreshListener(refreshLayout -> {

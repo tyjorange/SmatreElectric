@@ -49,7 +49,7 @@ public class LineAlarmFrgament extends BaseFragment {
         ListView listView = mBinding.listAlarms;//v.findViewById(R.id.list_alarms);
         mAdapter = new LineAlarmAdapter(getContext(), mListData);
         listView.setAdapter(mAdapter);
-        listView.setEmptyView(mBinding.emptyLayout);
+//        listView.setEmptyView(mBinding.emptyLayout);
 
         smartRefreshLayout = mBinding.smartRefreshLayout;//v.findViewById(R.id.smart_refreshLayout);
         smartRefreshLayout.setOnLoadMoreListener(refreshLayout -> doRequest(false));

@@ -37,7 +37,7 @@ public class Report6Fragment extends BaseFragment {
         ListView listView = mBinding.reportList6;//v.findViewById(R.id.report_list_6);
         adapter = new ReportAdapter(getContext(), mListData);
         listView.setAdapter(adapter);
-        listView.setEmptyView(mBinding.emptyLayout);
+//        listView.setEmptyView(mBinding.emptyLayout);
         listView.setOnItemClickListener((parent, view, position, id) -> {
             Intent intent = new Intent(getContext(), ReportDetailActivity.class);
             intent.putExtra("collectorBean", collectorBean);

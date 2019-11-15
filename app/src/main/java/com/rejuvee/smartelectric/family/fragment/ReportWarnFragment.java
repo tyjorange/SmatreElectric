@@ -34,7 +34,7 @@ public class ReportWarnFragment extends BaseFragment {
         ListView listView = mBinding.listWarn;//v.findViewById(R.id.list_warn);
         adapter = new ReportWarnAdapter(getContext(), mListData);
         listView.setAdapter(adapter);
-        listView.setEmptyView(mBinding.emptyLayout);
+//        listView.setEmptyView(mBinding.emptyLayout);
 
         Bundle arguments = getArguments();
         if (arguments != null) {

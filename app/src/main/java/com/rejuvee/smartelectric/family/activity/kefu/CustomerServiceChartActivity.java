@@ -70,7 +70,7 @@ public class CustomerServiceChartActivity extends BaseActivity {
         listView.setSelector(new ColorDrawable(Color.TRANSPARENT));//List view 点击水纹效果取消
         adapter = new ChartItemBeanAdapter(this, mList);
         listView.setAdapter(adapter);
-        listView.setEmptyView(mBinding.emptyLayout);
+//        listView.setEmptyView(mBinding.emptyLayout);
 //        findViewById(R.id.tv_commit).setOnClickListener(v -> commitQA());
         getData();
     }

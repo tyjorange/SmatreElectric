@@ -75,7 +75,7 @@ public class TimerActivity extends BaseActivity implements ListTimerAdapter.MyLi
 //        img_change.setOnClickListener(this);
         mListTimerAdapter = new ListTimerAdapter(TimerActivity.this, mListTaskData, this);
         mBinding.lvTimer.setAdapter(mListTimerAdapter);
-        mBinding.lvTimer.setEmptyView(mBinding.emptyLayout);
+//        mBinding.lvTimer.setEmptyView(mBinding.emptyLayout);
         mBinding.lvTimer.setOnItemClickListener((parent, view, position, id) -> editTask(mListTaskData.get(position)));
         mWaitDialog = new LoadingDlg(this, -1);
         getSwitchByCollector();

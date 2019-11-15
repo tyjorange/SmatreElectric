@@ -33,7 +33,7 @@ public class ReportAlarmFragment extends BaseFragment {
         ListView listView = mBinding.listAlarm;//v.findViewById(R.id.list_alarm);
         ReportAlarmAdapter adapter = new ReportAlarmAdapter(getContext(), mListData);
         listView.setAdapter(adapter);
-        listView.setEmptyView(mBinding.emptyLayout);
+//        listView.setEmptyView(mBinding.emptyLayout);
 
         Bundle arguments = getArguments();
         if (arguments != null) {
