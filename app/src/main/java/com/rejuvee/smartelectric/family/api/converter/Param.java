@@ -26,7 +26,7 @@ public class Param {
     private String collectorCode;
     private String setupCode;
     //
-    private int switchID;
+    private Integer switchID;
     private String switchIDs;
     private String switchCode;
     private String switchs;
@@ -60,7 +60,7 @@ public class Param {
     private String faultFreq;
     private String HBFreq;
     //
-    private int pid;
+    private Integer pid;
     // 电费
     private String prices;
     private String signalsTypeID;
@@ -94,6 +94,8 @@ public class Param {
     //
     private String startTime;
     private String endTime;
+    // 批量查询、设置阀值的JSONG数据
+    private String jdata;
 
     public Integer getDateListID() {
         return dateListID;
@@ -599,5 +601,13 @@ public class Param {
     public Param setEndTime(String endTime) {
         this.endTime = endTime;
         return this;
+    }
+
+    public String getJdata() {
+        return jdata;
+    }
+
+    public void setJdata(String jdata) {
+        this.jdata = jdata;
     }
 }

@@ -1,5 +1,6 @@
 package com.rejuvee.smartelectric.family.activity.mswitch;
 
+import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
+import com.google.gson.Gson;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
@@ -25,6 +27,7 @@ import com.rejuvee.smartelectric.family.fragment.SettingDL2Fragment;
 import com.rejuvee.smartelectric.family.fragment.SettingDYFragment;
 import com.rejuvee.smartelectric.family.fragment.SettingOtherFragment;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
+import com.rejuvee.smartelectric.family.model.bean.PP;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.model.bean.VoltageValue;
 import com.rejuvee.smartelectric.family.model.viewmodel.SwitchSettingViewModel;
@@ -49,6 +52,7 @@ public class SwitchSettingActivity extends BaseActivity implements
     private CollectorBean collectorBean;
     private SwitchBean currentSwitchBean;
     private LoadingDlg waitDialog;
+    private Gson gson;
     //    private Context SwitchSettingActivity.this;
 //    private TextView txtLineName;//线路名称
 //    private ObservableScrollView scrollView;
@@ -79,7 +83,7 @@ public class SwitchSettingActivity extends BaseActivity implements
 //        mTabLayout = findViewById(R.id.tab_setting);
 //        viewPager = findViewById(R.id.vp_setting);
         waitDialog = new LoadingDlg(this, -1);
-
+        gson = new Gson();
 //        seekBar = findViewById(R.id.vrsBar);
 //        scrollView = (ObservableScrollView) findViewById(R.id.sv_values);
         // 禁止用户手动垂直滚动
@@ -113,32 +117,45 @@ public class SwitchSettingActivity extends BaseActivity implements
     private SettingDYFragment dy_fragment;
     private SettingDL2Fragment dl2_fragment;
     private SettingOtherFragment other_fragment;
+    private JData _JData;
 
     @Override
     public void onDL1Show() {
+        _JData = new JData();
 //        dl1_fragment = fragment;
-        currentParamID = dl1_fragment.getParamID(currentSwitchBean);
+//        currentParamID = dl1_fragment.getParamID(currentSwitchBean);
+        _JData.switchCode = currentSwitchBean.getSerialNumber();
+        _JData.paramIDs = dl1_fragment.getParamID(currentSwitchBean);
         mHandler.sendEmptyMessageDelayed(MSG_findSwitchParamBySwitch_FLAG, 100);
     }
 
     @Override
     public void onDYShow() {
+        _JData = new JData();
 //        dy_fragment = fragment;
-        currentParamID = dy_fragment.getParamID();
+//        currentParamID = dy_fragment.getParamID();
+        _JData.switchCode = currentSwitchBean.getSerialNumber();
+        _JData.paramIDs = dy_fragment.getParamID();
         mHandler.sendEmptyMessageDelayed(MSG_findSwitchParamBySwitch_FLAG, 100);
     }
 
     @Override
     public void onDL2Show() {
+        _JData = new JData();
 //        dl2_fragment = fragment;
-        currentParamID = dl2_fragment.getParamID();
+//        currentParamID = dl2_fragment.getParamID();
+        _JData.switchCode = currentSwitchBean.getSerialNumber();
+        _JData.paramIDs = dl2_fragment.getParamID();
         mHandler.sendEmptyMessageDelayed(MSG_findSwitchParamBySwitch_FLAG, 100);
     }
 
     @Override
     public void onOtherShow() {
+        _JData = new JData();
 //        other_fragment = fragment;
-        currentParamID = other_fragment.getParamID(currentSwitchBean);
+//        currentParamID = other_fragment.getParamID(currentSwitchBean);
+        _JData.switchCode = currentSwitchBean.getSerialNumber();
+        _JData.paramIDs = other_fragment.getParamID(currentSwitchBean);
         mHandler.sendEmptyMessageDelayed(MSG_findSwitchParamBySwitch_FLAG, 100);
     }
 
@@ -209,7 +226,9 @@ public class SwitchSettingActivity extends BaseActivity implements
         }
 //        listPopupWindow.dismiss();
         waitDialog.show();
-        Core.instance(this).sendGetThreadValueCommand(currentSwitchBean.getSerialNumber(), currentParamID, new ActionCallbackListener<Void>() {
+        String content = gson.toJson(_JData);// 转JSON字符串
+//        String substring = content.substring(1, content.length() - 1);// 去掉首位引号
+        Core.instance(this).sendGetThreadValueCommand(content, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 Log.d(TAG, getString(R.string.vs153) + " threadId = " + Thread.currentThread().getId());
@@ -245,7 +264,9 @@ public class SwitchSettingActivity extends BaseActivity implements
         if (!waitDialog.isShowing()) {
             waitDialog.show();
         }
-        Core.instance(this).findSwitchParamBySwitch(currentSwitchBean.getSwitchID(), currentParamID, new ActionCallbackListener<List<VoltageValue>>() {
+        String content = gson.toJson(_JData);// 转JSON字符串
+//        String substring = content.substring(1, content.length() - 1);// 去掉首位引号
+        Core.instance(this).findSwitchParamBySwitch(content, new ActionCallbackListener<List<VoltageValue>>() {
 
             @Override
             public void onSuccess(List<VoltageValue> valueList) {
@@ -359,18 +380,18 @@ public class SwitchSettingActivity extends BaseActivity implements
         other_fragment.setSXBPH(10);
     }
 
-    private String currentParamID = "00000011," + // 过流阀值(1)
-            "00000005," + // 过压阀值
-            "0000000D," + // 欠压阀值
-            "00000018," + // 电量下限
-            "00000019," + // 电量上限
-            "0000001A," + // 瞬时过流阀值(2)
-            "0000001B," + // 漏电阀值
-            "0000001C," + // 漏电自检/保护使能 [0000 0001 0100 0101] 对应 [0 1 2 3]
-            "0000001D," + // 漏电自检时间 xxxx(ddhh) 0000
-            "0000001E," + // 温度阀值
-            "0000001F," + // 上电配置 0：拉闸；1：合闸，2：不动作
-            "00000020"; // 三相不平衡阀值
+//    private String currentParamID = "00000011," + // 过流阀值(1)
+//            "00000005," + // 过压阀值
+//            "0000000D," + // 欠压阀值
+//            "00000018," + // 电量下限
+//            "00000019," + // 电量上限
+//            "0000001A," + // 瞬时过流阀值(2)
+//            "0000001B," + // 漏电阀值
+//            "0000001C," + // 漏电自检/保护使能 [0000 0001 0100 0101] 对应 [0 1 2 3]
+//            "0000001D," + // 漏电自检时间 xxxx(ddhh) 0000
+//            "0000001E," + // 温度阀值
+//            "0000001F," + // 上电配置 0：拉闸；1：合闸，2：不动作
+//            "00000020"; // 三相不平衡阀值
 
     /**
      * 设置阀值 批量提交
@@ -412,30 +433,32 @@ public class SwitchSettingActivity extends BaseActivity implements
 //                ",0000001E:" + wdfz + // 温度阀值
 //                ",0000001F:" + sdpz_val + // 上电配置
 //                ",00000020:" + sxbph.intValue(); // 三项不平衡
-        String values = "";
-        int selectedTabPosition = mBinding.tabSetting.getSelectedTabPosition();
-        switch (selectedTabPosition) {
-            case 0:
-                values = dl1_fragment.getValString();
-                break;
-            case 1:
-                values = dy_fragment.getValString();
-                break;
-            case 2:
-                values = dl2_fragment.getValString();
-                break;
-            case 3:
-                values = other_fragment.getValString();
-                break;
-        }
-
         if (currentSwitchBean == null) {
             return;
         }
-        if (values.isEmpty()) {
-            return;
+        _JData = new JData();
+        _JData.switchCode = currentSwitchBean.getSerialNumber();
+//        String jdata = "";
+        int selectedTabPosition = mBinding.tabSetting.getSelectedTabPosition();
+        switch (selectedTabPosition) {
+            case 0:
+                _JData.params = (dl1_fragment.getValList());
+                break;
+            case 1:
+                _JData.params = (dy_fragment.getValString());
+                break;
+            case 2:
+                _JData.params = (dl2_fragment.getValString());
+                break;
+            case 3:
+                _JData.params = (other_fragment.getValString());
+                break;
         }
-        Core.instance(SwitchSettingActivity.this).sendSetThreadValueCommand(currentSwitchBean.getSerialNumber(), values, new ActionCallbackListener<Void>() {
+//        if (jdata.isEmpty()) {
+//            return;
+//        }
+        String content = gson.toJson(_JData);// 转JSON字符串
+        Core.instance(SwitchSettingActivity.this).sendSetThreadValueCommand(content, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 CustomToast.showCustomToast(SwitchSettingActivity.this, getString(R.string.vs213));
@@ -461,7 +484,9 @@ public class SwitchSettingActivity extends BaseActivity implements
 //                txtLineName.setText(String.format("%s%s", SwitchSettingActivity.this.getString(R.string.vs14), currentSwitchBean.getName()));
                 mViewModel.setTxtLineName(String.format("%s%s", SwitchSettingActivity.this.getString(R.string.vs14), currentSwitchBean.getName()));
                 Objects.requireNonNull(mBinding.tabSetting.getTabAt(0)).select();// 重置为第一个TAB
-                currentParamID = dl1_fragment.getParamID(currentSwitchBean);
+//                currentParamID = dl1_fragment.getParamID(currentSwitchBean);
+                _JData.switchCode = currentSwitchBean.getSerialNumber();
+                _JData.paramIDs = dl1_fragment.getParamID(currentSwitchBean);
                 mHandler.sendEmptyMessageDelayed(MSG_findSwitchParamBySwitch_FLAG, 100);
             });
             switchTreeDialog.show();
@@ -492,6 +517,7 @@ public class SwitchSettingActivity extends BaseActivity implements
         //        private Bundle bundle;
         private List<BaseFragment> listFragments = new ArrayList<>();
 
+        @SuppressLint("WrongConstant")
         MyFragmentAdapter(FragmentManager fm) {
             super(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
             dl1_fragment = new SettingDL1Fragment().setOnShowingListener(SwitchSettingActivity.this);
@@ -528,5 +554,16 @@ public class SwitchSettingActivity extends BaseActivity implements
             }
             return super.getPageTitle(position);
         }
+    }
+
+    /**
+     * 查询参数:{"switchCode":1,"paramIDs":[1,2,3,4]}
+     * <p>
+     * 设置参数:{"switchCode":1,"params":[{"id":1,"value":1},{"id":2,"value":4},{"id":3,"value":9},{"id":4,"value":16}]}
+     */
+    public class JData {
+        String switchCode;
+        List<String> paramIDs;
+        List<PP> params;
     }
 }

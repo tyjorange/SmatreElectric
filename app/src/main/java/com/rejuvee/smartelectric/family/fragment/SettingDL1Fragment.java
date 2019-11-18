@@ -17,11 +17,14 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.BaseFragment;
 import com.rejuvee.smartelectric.family.common.custom.AmountViewInt;
 import com.rejuvee.smartelectric.family.databinding.FragmentSettingDl1Binding;
+import com.rejuvee.smartelectric.family.model.bean.PP;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -170,19 +173,29 @@ public class SettingDL1Fragment extends BaseFragment implements View.OnFocusChan
     }
 
 
-    public String getParamID(SwitchBean currentSwitchBean) {
+    public List<String> getParamID(SwitchBean currentSwitchBean) {
+        List<String> list = new ArrayList<>();
         // 判断漏电类是否显示
         if (currentSwitchBean.getModelMajor() == 1 && currentSwitchBean.getModelMinor() == 5) {
             mBinding.llLdl.setVisibility(View.VISIBLE);
-            return "0000001C," + // 漏电自检/保护使能
-                    "0000001D," + // 漏电自检时间 xxxx(ddhh) 0000
-                    "0000001B," + // 漏电阀值
-                    "00000011," + // 过流阀值(1)
-                    "0000001A,"; // 瞬时过流阀值(2)
+//            return "0000001C," + // 漏电自检/保护使能
+//                    "0000001D," + // 漏电自检时间 xxxx(ddhh) 0000
+//                    "0000001B," + // 漏电阀值
+//                    "00000011," + // 过流阀值(1)
+//                    "0000001A,"; // 瞬时过流阀值(2)
+            list.add("0000001C");
+            list.add("0000001D");
+            list.add("0000001B");
+            list.add("00000011");
+            list.add("0000001A");
+            return list;
         } else {
             mBinding.llLdl.setVisibility(View.GONE);
-            return "00000011," + // 过流阀值(1)
-                    "0000001A,"; // 瞬时过流阀值(2)
+//            return "00000011," + // 过流阀值(1)
+//                    "0000001A,"; // 瞬时过流阀值(2)
+            list.add("00000011");
+            list.add("0000001A");
+            return list;
         }
     }
 
@@ -259,20 +272,26 @@ public class SettingDL1Fragment extends BaseFragment implements View.OnFocusChan
     /**
      * @return
      */
-    public String getValString() {
-        String res = "";
+    public List<PP> getValList() {
+        List<PP> list = new ArrayList<>();
+//        String res = "";
         String glfz = et_GL1.getEditableText().toString();
         String ssglfz = et_GL2.getEditableText().toString();
-        res += "00000011:" + glfz; // 过流阀值(1)
-        res += ",0000001A:" + ssglfz;// 瞬时过流阀值(2)
+//        res += "00000011:" + glfz; // 过流阀值(1)
+        list.add(new PP("00000011", glfz + ""));
+//        res += ",0000001A:" + ssglfz;// 瞬时过流阀值(2)
+        list.add(new PP("0000001A", ssglfz + ""));
         if (mBinding.llLdl.getVisibility() == View.VISIBLE) {
-            res += ",0000001C:" + Integer.valueOf(bhsn + "" + zjsn, 2); // 漏电自检/保护使能
-            res += ",0000001D:" + (dd * 256 + hh); // 漏电自检时间
+//            res += ",0000001C:" + Integer.valueOf(bhsn + "" + zjsn, 2); // 漏电自检/保护使能
+            list.add(new PP("0000001C", Integer.valueOf(bhsn + "" + zjsn, 2) + ""));
+//            res += ",0000001D:" + (dd * 256 + hh); // 漏电自检时间
+            list.add(new PP("0000001D", (dd * 256 + hh) + ""));
             rangeSeekBarLDL.setProgress(amountLDL.getAmountInt());
             BigDecimal ldfz = BigDecimal.valueOf(rangeSeekBarLDL.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
-            res += ",0000001B:" + ldfz.intValue(); // 漏电阀值
+//            res += ",0000001B:" + ldfz.intValue(); // 漏电阀值
+            list.add(new PP("0000001B", ldfz.intValue() + ""));
         }
-        return res;
+        return list;
     }
 
     @Override

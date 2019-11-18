@@ -42,6 +42,7 @@ public class HiddenDialogActivity extends BaseActivity {
     protected void initView() {
         ActiveHiddenDialogBinding mBinding = DataBindingUtil.setContentView(this, R.layout.active_hidden_dialog);
         mViewModel = ViewModelProviders.of(this).get(HiddenDialogViewModel.class);
+        mBinding.setVm(mViewModel);
         mBinding.setPresenter(new Presenter());
         mBinding.setLifecycleOwner(this);
 //        setToolbarHide(true);
@@ -70,7 +71,7 @@ public class HiddenDialogActivity extends BaseActivity {
             if (ValidateUtils.isIP(str)) {
                 AppGlobalConfig.HTTP_URL = URL_START + str + URL_END;
 //                etIP.setText(str);
-                mViewModel.setIp(BASE_URL);
+                mViewModel.setIp(str);
                 CustomToast.showCustomToast(HiddenDialogActivity.this, "设置成功，可关闭窗口");
             } else {
                 CustomToast.showCustomErrorToast(HiddenDialogActivity.this, "请输入IP");

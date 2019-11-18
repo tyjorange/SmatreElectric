@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChartListItemBeanAdapter extends RecyclerView.Adapter<BindingViewHolder> {
-    public static final int VIEW_TYPE_ITEM = 1;
-    public static final int VIEW_TYPE_EMPTY = 0;
+    private static final int VIEW_TYPE_ITEM = 1;
+    private static final int VIEW_TYPE_EMPTY = 0;
     private final LayoutInflater mLayoutInflater;
     private List<ChartListItemBean> mListData;
 
@@ -49,12 +49,12 @@ public class ChartListItemBeanAdapter extends RecyclerView.Adapter<BindingViewHo
 
     @Override
     public int getItemViewType(int position) {
-        //在这里进行判断，如果我们的集合的长度为0时，我们就使用emptyView的布局
         if (mListData.size() != 0) {
+            //如果有数据，则使用ITEM的布局
             return VIEW_TYPE_ITEM;
         }
+        //在这里进行判断，如果我们的集合的长度为0时，我们就使用emptyView的布局
         return VIEW_TYPE_EMPTY;
-        //如果有数据，则使用ITEM的布局
     }
     @NonNull
     @Override
@@ -85,11 +85,11 @@ public class ChartListItemBeanAdapter extends RecyclerView.Adapter<BindingViewHo
 
     @Override
     public int getItemCount() {
-        //同时这里也需要添加判断，如果mData.size()为0的话，只引入一个布局，就是emptyView
-        // 那么，这个recyclerView的itemCount为1
         if (mListData.size() != 0) {
+            //同时这里也需要添加判断，如果mData.size()为0的话，只引入一个布局，就是emptyView
             return mListData.size();
         }
+        // 那么，这个recyclerView的itemCount为1
         return 1;
     }
 

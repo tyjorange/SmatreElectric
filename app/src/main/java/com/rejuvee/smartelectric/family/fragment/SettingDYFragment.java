@@ -11,8 +11,11 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.BaseFragment;
 import com.rejuvee.smartelectric.family.common.custom.AmountView;
 import com.rejuvee.smartelectric.family.databinding.FragmentSettingDyBinding;
+import com.rejuvee.smartelectric.family.model.bean.PP;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 电压类设置
@@ -91,9 +94,13 @@ public class SettingDYFragment extends BaseFragment {
         return mBinding.getRoot();
     }
 
-    public String getParamID() {
-        return "00000005," + // 过压阀值
-                "0000000D,"; // 欠压阀值
+    public List<String> getParamID() {
+        List<String> list = new ArrayList<>();
+//        return "00000005," + // 过压阀值
+//                "0000000D,"; // 欠压阀值
+        list.add("00000005");
+        list.add("0000000D");
+        return list;
     }
 
     /**
@@ -120,15 +127,18 @@ public class SettingDYFragment extends BaseFragment {
             amountQY.setAmount(paramValue);
     }
 
-    public String getValString() {
-        String res = "";
+    public List<PP> getValString() {
+        List<PP> list = new ArrayList<>();
+//        String res = "";
         rangeSeekBarGY.setProgress(amountGY.getAmount());
         BigDecimal gyfz = BigDecimal.valueOf(rangeSeekBarGY.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
         rangeSeekBarQY.setProgress(amountQY.getAmount());
         BigDecimal qyfz = BigDecimal.valueOf(rangeSeekBarQY.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
-        res += "00000005:" + gyfz + // 过压阀值
-                ",0000000D:" + qyfz; // 欠压阀值
-        return res;
+//        res += "00000005:" + gyfz + // 过压阀值
+        list.add(new PP("00000005", gyfz + ""));
+//                ",0000000D:" + qyfz; // 欠压阀值
+        list.add(new PP("0000000D", qyfz + ""));
+        return list;
     }
 
     @Override

@@ -18,6 +18,7 @@ public class EncodeRequestBodyConverter<T> implements Converter<T, RequestBody> 
 
     public EncodeRequestBodyConverter(T p0, TypeAdapter<T> adapter) {
 //        this.adapter = adapter;
+        Log.d(TAG, adapter.toString());
     }
 
     EncodeRequestBodyConverter(Gson gson) {

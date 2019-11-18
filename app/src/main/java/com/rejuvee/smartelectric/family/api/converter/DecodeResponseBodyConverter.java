@@ -18,6 +18,7 @@ public class DecodeResponseBodyConverter<T> implements Converter<ResponseBody, T
 
     DecodeResponseBodyConverter(TypeAdapter<T> adapter) {
         this.adapter = adapter;
+        Log.d(TAG, adapter.toString());
     }
 
     public DecodeResponseBodyConverter(Gson gson, TypeAdapter<T> adapter) {
@@ -32,8 +33,8 @@ public class DecodeResponseBodyConverter<T> implements Converter<ResponseBody, T
             String decrypt = AesEncryptUtils.aesDecrypt(result, "abcdef0123456789");
             String res;
             if (decrypt.startsWith("\"")) {// String
-                res = decrypt.replace("\\", "");
-                res = res.substring(1, res.length() - 1);
+                res = decrypt.replace("\\", "");// 去除转义符
+                res = res.substring(1, res.length() - 1);// 去掉首位引号
             } else {// Object
                 res = decrypt;
             }

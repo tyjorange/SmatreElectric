@@ -593,26 +593,25 @@ public class Core {
      *
      * @return
      */
-    public Call<?> sendGetThreadValueCommand(String switchCode,
-                                             String paramID,
-                                             ActionCallbackListener<Void> listener) {
+    public Call<?> sendGetThreadValueCommand(String jdata, ActionCallbackListener<Void> listener) {
         Param param = new Param();
-        param.setSwitchCode(switchCode);
-        param.setParamID(paramID);
+//        param.setSwitchCode(switchCode);
+//        param.setParamID(paramID);
+        param.setJdata(jdata);
         Call<ApiResponse<Void>> call = api.sendGetThreadValueCommand(mJSessionId, param);
         enqueue(call, listener);
         return call;
     }
 
     /**
-     * @param switchCode
      * @param listener
      * @return
      */
-    public Call<?> sendSetThreadValueCommand(String switchCode, String values, ActionCallbackListener<Void> listener) {
+    public Call<?> sendSetThreadValueCommand(String jdata, ActionCallbackListener<Void> listener) {
         Param param = new Param();
-        param.setSwitchCode(switchCode);
-        param.setValue(values);
+//        param.setSwitchCode(switchCode);
+//        param.setValue(values);
+        param.setJdata(jdata);
         Call<ApiResponse<Void>> call = api.sendSetThreadValueCommand(mJSessionId, param);
         enqueue(call, listener);
         return call;
@@ -621,15 +620,14 @@ public class Core {
     /**
      * 获取过压、欠压当前值
      *
-     * @param paramID
-     * @param switchID
      * @param listener
      * @return
      */
-    public Call<?> findSwitchParamBySwitch(int switchID, String paramID, ActionCallbackListener<List<VoltageValue>> listener) {
+    public Call<?> findSwitchParamBySwitch(String jdata, ActionCallbackListener<List<VoltageValue>> listener) {
         Param param = new Param();
-        param.setSwitchID(switchID);
-        param.setParamID(paramID);
+//        param.setSwitchID(switchID);
+//        param.setParamID(paramID);
+        param.setJdata(jdata);
         Call<ApiResponse<List<VoltageValue>>> call = api.findSwitchParamBySwitch(mJSessionId, param);
         enqueue(call, listener);
         return call;

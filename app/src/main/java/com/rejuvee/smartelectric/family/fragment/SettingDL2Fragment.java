@@ -12,8 +12,11 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.BaseFragment;
 import com.rejuvee.smartelectric.family.common.custom.MyTextWatcher;
 import com.rejuvee.smartelectric.family.databinding.FragmentSettingDl2Binding;
+import com.rejuvee.smartelectric.family.model.bean.PP;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 电量类设置
@@ -46,9 +49,13 @@ public class SettingDL2Fragment extends BaseFragment {
         return mBinding.getRoot();
     }
 
-    public String getParamID() {
-        return "00000018," + // 电量下限
-                "00000019,"; // 电量上限
+    public List<String> getParamID() {
+        List<String> list = new ArrayList<>();
+//        return "00000018," + // 电量下限
+//                "00000019,"; // 电量上限
+        list.add("00000018");
+        list.add("00000019");
+        return list;
     }
 
     public void setXX(float paramValue) {
@@ -64,21 +71,24 @@ public class SettingDL2Fragment extends BaseFragment {
     /**
      * @return
      */
-    public String getValString() {
-        String res = "";
+    public List<PP> getValString() {
+        List<PP> list = new ArrayList<>();
+//        String res = "";
         String dlsx = dl_shangxian.getEditableText().toString();
         String dlxx = dl_xiaxian.getEditableText().toString();
         if (dlsx.isEmpty() || dlxx.isEmpty()) {
             CustomToast.showCustomErrorToast(getContext(), getString(R.string.vs151));
-            return res;
+            return list;
         }
         if (Double.valueOf(dlsx) <= Double.valueOf(dlxx)) {
             CustomToast.showCustomErrorToast(getContext(), getString(R.string.vs189));
-            return res;
+            return list;
         }
-        res += "00000018:" + dlxx + // 电量下限
-                ",00000019:" + dlsx; // 电量上限
-        return res;
+//        res += "00000018:" + dlxx + // 电量下限
+        list.add(new PP("00000018", dlxx + ""));
+//                ",00000019:" + dlsx; // 电量上限
+        list.add(new PP("00000019", dlsx + ""));
+        return list;
     }
 
     @Override

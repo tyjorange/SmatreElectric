@@ -13,9 +13,12 @@ import com.rejuvee.smartelectric.family.common.BaseFragment;
 import com.rejuvee.smartelectric.family.common.custom.AmountView;
 import com.rejuvee.smartelectric.family.common.widget.dialog.RadioDialog;
 import com.rejuvee.smartelectric.family.databinding.FragmentSettingOtherBinding;
+import com.rejuvee.smartelectric.family.model.bean.PP;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 其他类设置
@@ -111,17 +114,25 @@ public class SettingOtherFragment extends BaseFragment {
         return mBinding.getRoot();
     }
 
-    public String getParamID(SwitchBean currentSwitchBean) {
+    public List<String> getParamID(SwitchBean currentSwitchBean) {
+        List<String> list = new ArrayList<>();
         // 判断三项不平衡是否显示
         if (currentSwitchBean.getModelMajor() == 2 && currentSwitchBean.getModelMinor() == 1) {
             mBinding.llSxbph.setVisibility(View.VISIBLE);
-            return "0000001E," + // 温度阀值
-                    "00000020," + // 三相不平衡
-                    "0000001F,"; // 上电配置
+//            return "0000001E," + // 温度阀值
+//                    "00000020," + // 三相不平衡
+//                    "0000001F,"; // 上电配置
+            list.add("0000001E");
+            list.add("00000020");
+            list.add("0000001F");
+            return list;
         } else {
             mBinding.llSxbph.setVisibility(View.GONE);
-            return "0000001E," + // 温度阀值
-                    "0000001F,"; // 上电配置
+//            return "0000001E," + // 温度阀值
+//                    "0000001F,"; // 上电配置
+            list.add("0000001E");
+            list.add("0000001F");
+            return list;
         }
     }
 
@@ -182,18 +193,22 @@ public class SettingOtherFragment extends BaseFragment {
     /**
      * @return
      */
-    public String getValString() {
+    public List<PP> getValString() {
+        List<PP> list = new ArrayList<>();
         String res = "";
         rangeSeekBarWDFZ.setProgress(amountWDFZ.getAmount());
         BigDecimal wdfz = BigDecimal.valueOf(rangeSeekBarWDFZ.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
-        res += "0000001E:" + wdfz + // 温度阀值
-                ",0000001F:" + sdpz_val; // 上电配置
+//        res += "0000001E:" + wdfz + // 温度阀值
+        list.add(new PP("0000001E", wdfz + ""));
+//                ",0000001F:" + sdpz_val; // 上电配置
+        list.add(new PP("0000001F", sdpz_val + ""));
         if (mBinding.llSxbph.getVisibility() == View.VISIBLE) {
             rangeSeekBarSXBPH.setProgress(amountSXBPH.getAmount());
             BigDecimal sxbph = BigDecimal.valueOf(rangeSeekBarSXBPH.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
-            res += ",00000020:" + sxbph.intValue(); // 三项不平衡
+//            res += ",00000020:" + sxbph.intValue(); // 三项不平衡
+            list.add(new PP("00000020", sxbph.intValue() + ""));
         }
-        return res;
+        return list;
     }
 
     @Override
