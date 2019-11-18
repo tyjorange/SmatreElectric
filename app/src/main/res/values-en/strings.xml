@@ -146,7 +146,7 @@
     <string name="local_error_message_no_data">No data</string>
     <string name="get_data_fail">Data loading fail</string>
     <string name="mine_subtitle_about">About</string>
-    <string name="mine_subtitle_question">Frequent asked questions (FAQ)</string>
+    <string name="mine_subtitle_question">Home/ FAQ</string>
     <string name="mine_subtitle_bind">Third party binding</string>
     <string name="mine_subtitle_push">Push settings</string>
     <string name="mine_binding_wx">Relate to your WeChat account</string>

@@ -152,7 +152,7 @@
     <string name="local_error_message_no_data">暂无数据</string>
     <string name="get_data_fail">获取数据失败</string>
     <string name="mine_subtitle_about">关于</string>
-    <string name="mine_subtitle_question">常见问题</string>
+    <string name="mine_subtitle_question">首页 / 常见问题</string>
     <string name="mine_subtitle_bind">第三方绑定</string>
     <string name="mine_subtitle_push">推送设置</string>
     <string name="mine_binding_wx">绑定微信</string>

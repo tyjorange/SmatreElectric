@@ -34,6 +34,7 @@ public class VideoListActivity extends BaseActivity {
             intent.putExtra("videoUrl", bean.getVideoURL());
             startActivity(intent);
         });
+
         getData();
     }
 

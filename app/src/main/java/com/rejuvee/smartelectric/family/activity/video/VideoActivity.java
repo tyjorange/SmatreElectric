@@ -1,6 +1,5 @@
 package com.rejuvee.smartelectric.family.activity.video;
 
-import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.View;
 import android.widget.MediaController;
@@ -12,11 +11,11 @@ import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.databinding.ActivityVideoBinding;
 
 public class VideoActivity extends BaseActivity {
-
+    private ActivityVideoBinding mBinding;
 
     @Override
     protected void initView() {
-        ActivityVideoBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_video);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_video);
         mBinding.setPresenter(new Presenter());
         mBinding.setLifecycleOwner(this);
 
@@ -32,19 +31,11 @@ public class VideoActivity extends BaseActivity {
         mBinding.video.setMediaController(new MediaController(this));
 
         // 视频准备完成时回调
-        mBinding.video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                Log.i("tag", "--------------视频准备完毕,可以进行播放.......");
-            }
-        });
+        mBinding.video.setOnPreparedListener(mp -> Log.i("tag", "--------------视频准备完毕,可以进行播放......."));
         // 视频播放发送错误时回调
-        mBinding.video.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-            @Override
-            public boolean onError(MediaPlayer mp, int what, int extra) {
-                Log.i("tag", "---------------------视频播放失败...........");
-                return false;
-            }
+        mBinding.video.setOnErrorListener((mp, what, extra) -> {
+            Log.i("tag", "---------------------视频播放失败...........");
+            return false;
         });
 
         // 开始播放视频
@@ -54,7 +45,7 @@ public class VideoActivity extends BaseActivity {
 
     @Override
     protected void dealloc() {
-
+        mBinding.video.suspend();
     }
 
     public class Presenter {

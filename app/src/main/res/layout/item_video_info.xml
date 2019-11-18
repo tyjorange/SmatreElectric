@@ -29,9 +29,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ellipsize="middle"
-                android:text="@{mVideoInfo.title}"
+                android:text="@{mVideoInfo.title,default=`标题`}"
                 android:textColor="@color/text_base_color_333"
-                android:textSize="12sp" />
+                android:textSize="15sp" />
 
         </LinearLayout>
 
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ellipsize="middle"
-                android:text="@{mVideoInfo.desc}"
+                android:text="@{mVideoInfo.desc,default=`描述`}"
                 android:textColor="@color/text_base_color_666"
                 android:textSize="12sp" />
 
@@ -62,7 +62,7 @@
                 android:layout_weight="1"
                 android:ellipsize="middle"
                 android:gravity="end"
-                android:text="@{mVideoInfo.time}"
+                android:text="@{mVideoInfo.time,default=`2019-05-05 00:00:00`}"
                 android:textColor="@color/text_base_color_666"
                 android:textSize="12sp" />
 
