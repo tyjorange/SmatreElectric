@@ -71,7 +71,7 @@ public class SettingDL2Fragment extends BaseFragment {
     /**
      * @return
      */
-    public List<PP> getValString() {
+    public List<PP> getValList() {
         List<PP> list = new ArrayList<>();
 //        String res = "";
         String dlsx = dl_shangxian.getEditableText().toString();

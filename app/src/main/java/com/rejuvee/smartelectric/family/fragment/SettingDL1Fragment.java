@@ -277,6 +277,10 @@ public class SettingDL1Fragment extends BaseFragment implements View.OnFocusChan
 //        String res = "";
         String glfz = et_GL1.getEditableText().toString();
         String ssglfz = et_GL2.getEditableText().toString();
+        if (glfz.isEmpty() || ssglfz.isEmpty()) {
+//            CustomToast.showCustomErrorToast(getContext(), getString(R.string.vs151));
+            return list;
+        }
 //        res += "00000011:" + glfz; // 过流阀值(1)
         list.add(new PP("00000011", glfz + ""));
 //        res += ",0000001A:" + ssglfz;// 瞬时过流阀值(2)

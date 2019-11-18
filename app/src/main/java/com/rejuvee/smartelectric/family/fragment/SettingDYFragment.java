@@ -127,7 +127,7 @@ public class SettingDYFragment extends BaseFragment {
             amountQY.setAmount(paramValue);
     }
 
-    public List<PP> getValString() {
+    public List<PP> getValList() {
         List<PP> list = new ArrayList<>();
 //        String res = "";
         rangeSeekBarGY.setProgress(amountGY.getAmount());

@@ -125,15 +125,14 @@ public class SettingOtherFragment extends BaseFragment {
             list.add("0000001E");
             list.add("00000020");
             list.add("0000001F");
-            return list;
         } else {
             mBinding.llSxbph.setVisibility(View.GONE);
 //            return "0000001E," + // 温度阀值
 //                    "0000001F,"; // 上电配置
             list.add("0000001E");
             list.add("0000001F");
-            return list;
         }
+        return list;
     }
 
     /**
@@ -193,9 +192,9 @@ public class SettingOtherFragment extends BaseFragment {
     /**
      * @return
      */
-    public List<PP> getValString() {
+    public List<PP> getValList() {
         List<PP> list = new ArrayList<>();
-        String res = "";
+//        String res = "";
         rangeSeekBarWDFZ.setProgress(amountWDFZ.getAmount());
         BigDecimal wdfz = BigDecimal.valueOf(rangeSeekBarWDFZ.getLeftSeekBar().getProgress()).setScale(1, BigDecimal.ROUND_HALF_UP);
 //        res += "0000001E:" + wdfz + // 温度阀值

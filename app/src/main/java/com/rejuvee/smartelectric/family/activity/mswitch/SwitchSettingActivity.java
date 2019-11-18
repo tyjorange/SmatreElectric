@@ -443,18 +443,18 @@ public class SwitchSettingActivity extends BaseActivity implements
                 _JDataSet.params = (dl1_fragment.getValList());
                 break;
             case 1:
-                _JDataSet.params = (dy_fragment.getValString());
+                _JDataSet.params = (dy_fragment.getValList());
                 break;
             case 2:
-                _JDataSet.params = (dl2_fragment.getValString());
+                _JDataSet.params = (dl2_fragment.getValList());
                 break;
             case 3:
-                _JDataSet.params = (other_fragment.getValString());
+                _JDataSet.params = (other_fragment.getValList());
                 break;
         }
-//        if (jdata.isEmpty()) {
-//            return;
-//        }
+        if (_JDataSet.params.isEmpty()) {
+            return;
+        }
         String content = gson.toJson(_JDataSet);// 转JSON字符串
         Core.instance(SwitchSettingActivity.this).sendSetThreadValueCommand(content, new ActionCallbackListener<Void>() {
             @Override
