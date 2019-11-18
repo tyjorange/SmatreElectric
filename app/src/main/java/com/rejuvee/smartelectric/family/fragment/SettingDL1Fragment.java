@@ -11,6 +11,7 @@ import androidx.appcompat.widget.ListPopupWindow;
 import androidx.databinding.DataBindingUtil;
 
 import com.base.frame.greenandroid.wheel.view.WheelDateTime;
+import com.base.library.widget.CustomToast;
 import com.jaygoo.widget.OnRangeChangedListener;
 import com.jaygoo.widget.RangeSeekBar;
 import com.rejuvee.smartelectric.family.R;
@@ -278,7 +279,7 @@ public class SettingDL1Fragment extends BaseFragment implements View.OnFocusChan
         String glfz = et_GL1.getEditableText().toString();
         String ssglfz = et_GL2.getEditableText().toString();
         if (glfz.isEmpty() || ssglfz.isEmpty()) {
-//            CustomToast.showCustomErrorToast(getContext(), getString(R.string.vs151));
+            CustomToast.showCustomErrorToast(getContext(), getString(R.string.prompt));
             return list;
         }
 //        res += "00000011:" + glfz; // 过流阀值(1)

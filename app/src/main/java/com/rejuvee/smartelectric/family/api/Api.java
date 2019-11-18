@@ -29,6 +29,7 @@ import com.rejuvee.smartelectric.family.model.bean.TimePrice;
 import com.rejuvee.smartelectric.family.model.bean.TimeTaskBean;
 import com.rejuvee.smartelectric.family.model.bean.UserMsg;
 import com.rejuvee.smartelectric.family.model.bean.UserPushSetting;
+import com.rejuvee.smartelectric.family.model.bean.VideoInfo;
 import com.rejuvee.smartelectric.family.model.bean.VoltageValue;
 import com.rejuvee.smartelectric.family.model.bean.WXAccessTokenRet;
 import com.rejuvee.smartelectric.family.model.bean.WarnBean;
@@ -854,12 +855,10 @@ public interface Api {
      * 判断是否关注了公众号
      *
      * @param session
-     * @param param
      * @return
      */
     @POST("PowerManager/AppClientAction_validateWechatPublic.do")
-    Call<ApiResponse<WxSubscribed>> validateWechatPublic(@Header("Cookie") String session,
-                                                         @Body Param param);
+    Call<ApiResponse<WxSubscribed>> validateWechatPublic(@Header("Cookie") String session);
 
     /**
      * 上传日志
@@ -870,11 +869,18 @@ public interface Api {
      */
     @Multipart
     @POST("PowerManager/AppClientAction_uploadLogFile.do")
-    Call<ApiResponse<Void>> AppClientAction_uploadLogFile(
+    Call<ApiResponse<Void>> uploadLogFile(
             @Header("Cookie") String session,
             @Part MultipartBody.Part log
     );
 
-
+    /**
+     * 获取所有帮助视频
+     *
+     * @param session
+     * @return
+     */
+    @POST("PowerManager/AppClientAction_getAllVideo.do")
+    Call<ApiResponse<List<VideoInfo>>> getAllVideo(@Header("Cookie") String session);
 }
 

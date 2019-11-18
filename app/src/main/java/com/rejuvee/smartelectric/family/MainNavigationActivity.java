@@ -33,6 +33,7 @@ import com.rejuvee.smartelectric.family.activity.mine.PerInfoActivity;
 import com.rejuvee.smartelectric.family.activity.mine.SettingsActivity;
 import com.rejuvee.smartelectric.family.activity.mine.ThridBindActivity;
 import com.rejuvee.smartelectric.family.activity.scene.SceneActivity;
+import com.rejuvee.smartelectric.family.activity.video.VideoListActivity;
 import com.rejuvee.smartelectric.family.adapter.CollectorBeanAdapter;
 import com.rejuvee.smartelectric.family.adapter.SceneBeanAdapter;
 import com.rejuvee.smartelectric.family.api.Core;
@@ -45,7 +46,6 @@ import com.rejuvee.smartelectric.family.common.utils.ValidateUtils;
 import com.rejuvee.smartelectric.family.common.utils.WifiUtil;
 import com.rejuvee.smartelectric.family.common.widget.MyBlurDrawerToggle;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTip;
-import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTipWithoutOkCancel;
 import com.rejuvee.smartelectric.family.databinding.ActivityMainNavigationBinding;
 import com.rejuvee.smartelectric.family.databinding.NavHeaderMainNavigationBinding;
 import com.rejuvee.smartelectric.family.model.bean.AutoUpgradeEventMessage;
@@ -546,11 +546,12 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
             intent.putExtra("username", mViewModel.getUsername().getValue());
             startActivity(intent);
         } else if (id == R.id.me_wenti) {
-            DialogTipWithoutOkCancel d = new DialogTipWithoutOkCancel(this);
-            d.hiddenTitle();
-            d.showImg();
-            d.setContent(getString(R.string.vs30));
-            d.show();
+//            DialogTipWithoutOkCancel d = new DialogTipWithoutOkCancel(this);
+//            d.hiddenTitle();
+//            d.showImg();
+//            d.setContent(getString(R.string.vs30));
+//            d.show();
+            startActivity(new Intent(this, VideoListActivity.class));
         } else if (id == R.id.me_guanyu) {
             startActivity(new Intent(this, AboutActivity.class));
         } else if (id == R.id.me_shezhi) {

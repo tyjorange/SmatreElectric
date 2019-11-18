@@ -2,13 +2,15 @@
 <network-security-config>
     <!--  只允许了指定域名的http请求。-->
     <domain-config cleartextTrafficPermitted="true">
+        <!--  测试-->
         <domain includeSubdomains="true">192.168.1.182</domain>
         <domain includeSubdomains="true">192.168.1.162</domain>
         <domain includeSubdomains="true">192.168.1.83</domain>
-
+        <domain includeSubdomains="true">116.62.38.203</domain>
+        <!--  腾讯-->
         <domain includeSubdomains="true">cgi.connect.qq.com</domain>
         <domain includeSubdomains="true">pingma.qq.com</domain>
-
+        <!--  阿里推送-->
         <domain includeSubdomains="true">mpush-api.aliyun.com</domain>
         <domain includeSubdomains="true">amdcopen.m.taobao.com</domain>
         <domain includeSubdomains="true">203.119.217.116</domain>

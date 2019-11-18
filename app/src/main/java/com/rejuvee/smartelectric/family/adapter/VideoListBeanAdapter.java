@@ -12,16 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.BindingViewHolder;
-import com.rejuvee.smartelectric.family.model.bean.ChartListItemBean;
+import com.rejuvee.smartelectric.family.model.bean.VideoInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChartListItemBeanAdapter extends RecyclerView.Adapter<BindingViewHolder> {
+public class VideoListBeanAdapter extends RecyclerView.Adapter<BindingViewHolder> {
     private static final int VIEW_TYPE_EMPTY = 0;
     private static final int VIEW_TYPE_ITEM = 1;
     private final LayoutInflater mLayoutInflater;
-    private List<ChartListItemBean> mListData;
+    private List<VideoInfo> videoInfoBeanList;
 
     private CallBack mListener;
 
@@ -30,7 +30,7 @@ public class ChartListItemBeanAdapter extends RecyclerView.Adapter<BindingViewHo
      */
     public interface CallBack {
 
-        void onCollectorBeanClick(ChartListItemBean bean);
+        void onCollectorBeanClick(VideoInfo bean);
     }
 
     /**
@@ -42,19 +42,19 @@ public class ChartListItemBeanAdapter extends RecyclerView.Adapter<BindingViewHo
         mListener = listener;
     }
 
-    public ChartListItemBeanAdapter(Context context) {
-        mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mListData = new ArrayList<>();
-    }
-
     @Override
     public int getItemViewType(int position) {
-        if (mListData.size() != 0) {
+        if (videoInfoBeanList.size() != 0) {
             //如果有数据，则使用ITEM的布局
             return VIEW_TYPE_ITEM;
         }
         //在这里进行判断，如果我们的集合的长度为0时，我们就使用emptyView的布局
         return VIEW_TYPE_EMPTY;
+    }
+
+    public VideoListBeanAdapter(Context context) {
+        mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        videoInfoBeanList = new ArrayList<>();
     }
 
     @NonNull
@@ -65,16 +65,16 @@ public class ChartListItemBeanAdapter extends RecyclerView.Adapter<BindingViewHo
         if (viewType == VIEW_TYPE_EMPTY) {
             binding = DataBindingUtil.inflate(mLayoutInflater, R.layout.empty_layout, parent, false);
         } else {
-            binding = DataBindingUtil.inflate(mLayoutInflater, R.layout.item_line_chart, parent, false);
+            binding = DataBindingUtil.inflate(mLayoutInflater, R.layout.item_video_info, parent, false);
         }
         return new BindingViewHolder<>(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull BindingViewHolder holder, int position) {
-        if (mListData.size() != 0) {
-            final ChartListItemBean bean = mListData.get(position);
-            holder.getBinding().setVariable(BR.mChartListItemBean, bean);
+        if (videoInfoBeanList.size() != 0) {
+            final VideoInfo bean = videoInfoBeanList.get(position);
+            holder.getBinding().setVariable(BR.mVideoInfo, bean);
             holder.getBinding().executePendingBindings();
             holder.itemView.setOnClickListener(v -> {
                 if (mListener != null) {
@@ -86,9 +86,9 @@ public class ChartListItemBeanAdapter extends RecyclerView.Adapter<BindingViewHo
 
     @Override
     public int getItemCount() {
-        if (mListData.size() != 0) {
+        if (videoInfoBeanList.size() != 0) {
             //同时这里也需要添加判断，如果mData.size()为0的话，只引入一个布局，就是emptyView
-            return mListData.size();
+            return videoInfoBeanList.size();
         }
         // 那么，这个recyclerView的itemCount为1
         return 1;
@@ -99,9 +99,9 @@ public class ChartListItemBeanAdapter extends RecyclerView.Adapter<BindingViewHo
      *
      * @param list
      */
-    public void addAll(List<ChartListItemBean> list) {
-        mListData.clear();
-        mListData.addAll(list);
+    public void addAll(List<VideoInfo> list) {
+        videoInfoBeanList.clear();
+        videoInfoBeanList.addAll(list);
         notifyDataSetChanged();
     }
 }

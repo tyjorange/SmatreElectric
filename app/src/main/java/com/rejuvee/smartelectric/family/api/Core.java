@@ -43,6 +43,7 @@ import com.rejuvee.smartelectric.family.model.bean.TimePrice;
 import com.rejuvee.smartelectric.family.model.bean.TimeTaskBean;
 import com.rejuvee.smartelectric.family.model.bean.UserMsg;
 import com.rejuvee.smartelectric.family.model.bean.UserPushSetting;
+import com.rejuvee.smartelectric.family.model.bean.VideoInfo;
 import com.rejuvee.smartelectric.family.model.bean.VoltageValue;
 import com.rejuvee.smartelectric.family.model.bean.WXAccessTokenRet;
 import com.rejuvee.smartelectric.family.model.bean.WarnBean;
@@ -1306,8 +1307,7 @@ public class Core {
      * @return
      */
     public Call<?> validateWechatPublic(ActionCallbackListener<WxSubscribed> listener) {
-        Param param = new Param();
-        Call<ApiResponse<WxSubscribed>> call = api.validateWechatPublic(mJSessionId, param);
+        Call<ApiResponse<WxSubscribed>> call = api.validateWechatPublic(mJSessionId);
         enqueue(call, listener);
         return call;
     }
@@ -1320,7 +1320,19 @@ public class Core {
      * @return
      */
     public Call<?> uploadLogFile(MultipartBody.Part log, ActionCallbackListener<Void> listener) {
-        Call<ApiResponse<Void>> call = api.AppClientAction_uploadLogFile(mJSessionId, log);
+        Call<ApiResponse<Void>> call = api.uploadLogFile(mJSessionId, log);
+        enqueue(call, listener);
+        return call;
+    }
+
+    /**
+     * 获取所有帮助视频
+     *
+     * @param listener
+     * @return
+     */
+    public Call<?> getAllVideo(ActionCallbackListener<List<VideoInfo>> listener) {
+        Call<ApiResponse<List<VideoInfo>>> call = api.getAllVideo(mJSessionId);
         enqueue(call, listener);
         return call;
     }
