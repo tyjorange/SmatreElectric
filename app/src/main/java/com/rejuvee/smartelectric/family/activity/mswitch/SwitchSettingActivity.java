@@ -117,45 +117,45 @@ public class SwitchSettingActivity extends BaseActivity implements
     private SettingDYFragment dy_fragment;
     private SettingDL2Fragment dl2_fragment;
     private SettingOtherFragment other_fragment;
-    private JData _JData;
+    private JData _JDataGet;
 
     @Override
     public void onDL1Show() {
-        _JData = new JData();
+        _JDataGet = new JData();
 //        dl1_fragment = fragment;
 //        currentParamID = dl1_fragment.getParamID(currentSwitchBean);
-        _JData.switchCode = currentSwitchBean.getSerialNumber();
-        _JData.paramIDs = dl1_fragment.getParamID(currentSwitchBean);
+        _JDataGet.switchCode = currentSwitchBean.getSerialNumber();
+        _JDataGet.paramIDs = dl1_fragment.getParamID(currentSwitchBean);
         mHandler.sendEmptyMessageDelayed(MSG_findSwitchParamBySwitch_FLAG, 100);
     }
 
     @Override
     public void onDYShow() {
-        _JData = new JData();
+        _JDataGet = new JData();
 //        dy_fragment = fragment;
 //        currentParamID = dy_fragment.getParamID();
-        _JData.switchCode = currentSwitchBean.getSerialNumber();
-        _JData.paramIDs = dy_fragment.getParamID();
+        _JDataGet.switchCode = currentSwitchBean.getSerialNumber();
+        _JDataGet.paramIDs = dy_fragment.getParamID();
         mHandler.sendEmptyMessageDelayed(MSG_findSwitchParamBySwitch_FLAG, 100);
     }
 
     @Override
     public void onDL2Show() {
-        _JData = new JData();
+        _JDataGet = new JData();
 //        dl2_fragment = fragment;
 //        currentParamID = dl2_fragment.getParamID();
-        _JData.switchCode = currentSwitchBean.getSerialNumber();
-        _JData.paramIDs = dl2_fragment.getParamID();
+        _JDataGet.switchCode = currentSwitchBean.getSerialNumber();
+        _JDataGet.paramIDs = dl2_fragment.getParamID();
         mHandler.sendEmptyMessageDelayed(MSG_findSwitchParamBySwitch_FLAG, 100);
     }
 
     @Override
     public void onOtherShow() {
-        _JData = new JData();
+        _JDataGet = new JData();
 //        other_fragment = fragment;
 //        currentParamID = other_fragment.getParamID(currentSwitchBean);
-        _JData.switchCode = currentSwitchBean.getSerialNumber();
-        _JData.paramIDs = other_fragment.getParamID(currentSwitchBean);
+        _JDataGet.switchCode = currentSwitchBean.getSerialNumber();
+        _JDataGet.paramIDs = other_fragment.getParamID(currentSwitchBean);
         mHandler.sendEmptyMessageDelayed(MSG_findSwitchParamBySwitch_FLAG, 100);
     }
 
@@ -226,8 +226,7 @@ public class SwitchSettingActivity extends BaseActivity implements
         }
 //        listPopupWindow.dismiss();
         waitDialog.show();
-        String content = gson.toJson(_JData);// 转JSON字符串
-//        String substring = content.substring(1, content.length() - 1);// 去掉首位引号
+        String content = gson.toJson(_JDataGet);// 转JSON字符串
         Core.instance(this).sendGetThreadValueCommand(content, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
@@ -264,8 +263,7 @@ public class SwitchSettingActivity extends BaseActivity implements
         if (!waitDialog.isShowing()) {
             waitDialog.show();
         }
-        String content = gson.toJson(_JData);// 转JSON字符串
-//        String substring = content.substring(1, content.length() - 1);// 去掉首位引号
+        String content = gson.toJson(_JDataGet);// 转JSON字符串
         Core.instance(this).findSwitchParamBySwitch(content, new ActionCallbackListener<List<VoltageValue>>() {
 
             @Override
@@ -436,28 +434,28 @@ public class SwitchSettingActivity extends BaseActivity implements
         if (currentSwitchBean == null) {
             return;
         }
-        _JData = new JData();
-        _JData.switchCode = currentSwitchBean.getSerialNumber();
+        JData _JDataSet = new JData();
+        _JDataSet.switchCode = currentSwitchBean.getSerialNumber();
 //        String jdata = "";
         int selectedTabPosition = mBinding.tabSetting.getSelectedTabPosition();
         switch (selectedTabPosition) {
             case 0:
-                _JData.params = (dl1_fragment.getValList());
+                _JDataSet.params = (dl1_fragment.getValList());
                 break;
             case 1:
-                _JData.params = (dy_fragment.getValString());
+                _JDataSet.params = (dy_fragment.getValString());
                 break;
             case 2:
-                _JData.params = (dl2_fragment.getValString());
+                _JDataSet.params = (dl2_fragment.getValString());
                 break;
             case 3:
-                _JData.params = (other_fragment.getValString());
+                _JDataSet.params = (other_fragment.getValString());
                 break;
         }
 //        if (jdata.isEmpty()) {
 //            return;
 //        }
-        String content = gson.toJson(_JData);// 转JSON字符串
+        String content = gson.toJson(_JDataSet);// 转JSON字符串
         Core.instance(SwitchSettingActivity.this).sendSetThreadValueCommand(content, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
@@ -485,8 +483,8 @@ public class SwitchSettingActivity extends BaseActivity implements
                 mViewModel.setTxtLineName(String.format("%s%s", SwitchSettingActivity.this.getString(R.string.vs14), currentSwitchBean.getName()));
                 Objects.requireNonNull(mBinding.tabSetting.getTabAt(0)).select();// 重置为第一个TAB
 //                currentParamID = dl1_fragment.getParamID(currentSwitchBean);
-                _JData.switchCode = currentSwitchBean.getSerialNumber();
-                _JData.paramIDs = dl1_fragment.getParamID(currentSwitchBean);
+                _JDataGet.switchCode = currentSwitchBean.getSerialNumber();
+                _JDataGet.paramIDs = dl1_fragment.getParamID(currentSwitchBean);
                 mHandler.sendEmptyMessageDelayed(MSG_findSwitchParamBySwitch_FLAG, 100);
             });
             switchTreeDialog.show();
