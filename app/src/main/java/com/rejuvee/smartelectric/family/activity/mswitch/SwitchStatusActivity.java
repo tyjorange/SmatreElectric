@@ -29,6 +29,8 @@ import java.text.DecimalFormat;
 import java.util.List;
 import java.util.TimerTask;
 
+import retrofit2.Call;
+
 /**
  * 实时情况
  */
@@ -176,7 +178,7 @@ public class SwitchStatusActivity extends BaseActivity {
             return;
         }
         waitDialog.show();
-        Core.instance(this).refreshSignal(switchBean.getSerialNumber(), new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(this).refreshSignal(switchBean.getSerialNumber(), new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 Log.d(TAG, getString(R.string.vs153) + " threadId = " + Thread.currentThread().getId());
@@ -197,7 +199,7 @@ public class SwitchStatusActivity extends BaseActivity {
      */
     private void getBreakSignalValue(SwitchBean switchBean) {
         setSwitchVersion(switchBean);
-        Core.instance(this).getSignals(switchBean.getSwitchID(), new ActionCallbackListener<List<SwitchSignalItem>>() {
+        currentCall = Core.instance(this).getSignals(switchBean.getSwitchID(), new ActionCallbackListener<List<SwitchSignalItem>>() {
             @Override
             public void onSuccess(List<SwitchSignalItem> data) {
                 for (SwitchSignalItem item : data) {
@@ -302,8 +304,13 @@ public class SwitchStatusActivity extends BaseActivity {
 
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
         mHandler.removeMessages(MSG_SWTCH_REFRESH_TASK_FLAG);
     }
 
@@ -314,7 +321,7 @@ public class SwitchStatusActivity extends BaseActivity {
         if (switchBean == null) {
             return;
         }
-        Core.instance(this).getSwitchState(switchBean.getSerialNumber(), new ActionCallbackListener<SwitchBean>() {
+        currentCall = Core.instance(this).getSwitchState(switchBean.getSerialNumber(), new ActionCallbackListener<SwitchBean>() {
 
             @Override
             public void onSuccess(SwitchBean cb) {
@@ -355,7 +362,7 @@ public class SwitchStatusActivity extends BaseActivity {
      * 获取集中器下的线路 第一个作为默认显示
      */
     private void getSwitchByCollector() {
-        Core.instance(this).getSwitchByCollector(collectorBean.getCode(), "nohierarchy", new ActionCallbackListener<List<SwitchBean>>() {
+        currentCall = Core.instance(this).getSwitchByCollector(collectorBean.getCode(), "nohierarchy", new ActionCallbackListener<List<SwitchBean>>() {
             @Override
             public void onSuccess(List<SwitchBean> data) {
                 switchBean = data.get(0);//init bean

@@ -70,7 +70,6 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
 //    private static int[] DATE_UNITS = {R.string.date_unit_year, R.string.date_unit_month, R.string.date_unit_day};
 
     private LoadingDlg waitDialog;
-    private Call<?> currentCall;
 
     //    @Override
 //    protected int getLayoutResId() {
@@ -369,6 +368,8 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
         }
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
         if (currentCall != null) {
@@ -457,8 +458,6 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
                 break;
         }
     }
-
-    private Calendar today = Calendar.getInstance();
 
     private void changeTvDate() {
         Calendar calendar = Calendar.getInstance();

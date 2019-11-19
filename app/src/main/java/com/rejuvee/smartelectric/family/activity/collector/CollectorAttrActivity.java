@@ -22,6 +22,8 @@ import com.rejuvee.smartelectric.family.model.viewmodel.CollectorAttrViewModel;
 import java.util.Locale;
 import java.util.Objects;
 
+import retrofit2.Call;
+
 /**
  * 集中器参数
  * Created by Administrator on 2018/1/2.
@@ -105,7 +107,7 @@ public class CollectorAttrActivity extends BaseActivity {
 
     public void getCollectorByCollectorID(String CollectorID) {
         Log.i(TAG, "CollectorID=" + CollectorID);
-        Core.instance(this).getCollectorByCollectorID(CollectorID, new ActionCallbackListener<CollectorBean>() {
+        currentCall = Core.instance(this).getCollectorByCollectorID(CollectorID, new ActionCallbackListener<CollectorBean>() {
             @Override
             public void onSuccess(CollectorBean data) {
                 mViewModel.setCollectorBeanCode(data.getCode());
@@ -196,7 +198,7 @@ public class CollectorAttrActivity extends BaseActivity {
             @Override
             public void onEnsure() {
                 loadingDlg.show();
-                Core.instance(CollectorAttrActivity.this).CollectorReboot(type, collectorBean.getCollectorID(), new ActionCallbackListener<Void>() {
+                currentCall = Core.instance(CollectorAttrActivity.this).CollectorReboot(type, collectorBean.getCollectorID(), new ActionCallbackListener<Void>() {
                     @Override
                     public void onSuccess(Void data) {
                         CustomToast.showCustomToast(CollectorAttrActivity.this, getString(R.string.operator_sucess));
@@ -275,9 +277,13 @@ public class CollectorAttrActivity extends BaseActivity {
         }
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
-
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 
     @Override

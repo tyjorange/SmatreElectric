@@ -19,6 +19,8 @@ import com.rejuvee.smartelectric.family.model.viewmodel.SwitchModifyViewModel;
 
 import java.util.List;
 
+import retrofit2.Call;
+
 /**
  * 线路修改 （名称图片）
  */
@@ -132,7 +134,7 @@ public class SwitchModifyActivity extends BaseActivity {
      * 获取集中器下的线路 第一个作为默认显示
      */
     private void getSwitchByCollector() {
-        Core.instance(this).getSwitchByCollector(collectorBean.getCode(), "nohierarchy", new ActionCallbackListener<List<SwitchBean>>() {
+        currentCall = Core.instance(this).getSwitchByCollector(collectorBean.getCode(), "nohierarchy", new ActionCallbackListener<List<SwitchBean>>() {
             @Override
             public void onSuccess(List<SwitchBean> data) {
                 currentSwitchBean = data.get(0);//init bean
@@ -197,9 +199,13 @@ public class SwitchModifyActivity extends BaseActivity {
         }
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
-
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 
     //    @Override
@@ -250,7 +256,7 @@ public class SwitchModifyActivity extends BaseActivity {
                 }
             }
         }*/
-        Core.instance(this).updateBreak(
+        currentCall = Core.instance(this).updateBreak(
                 currentSwitchBean.getSwitchID(),
                 currentSwitchBean.getIconType(),
                 currentSwitchBean.getName(), new ActionCallbackListener<Void>() {

@@ -22,6 +22,8 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+
 /**
  * 操作记录
  */
@@ -80,7 +82,7 @@ public class LineOperateRecordFragment extends BaseFragment {
     }
 
     private void doRequest() {
-        Core.instance(getContext()).getOperateRecordByCollector(curPage, pageSize, CollectorID, new ActionCallbackListener<List<RecordBean>>() {
+        currentCall = Core.instance(getContext()).getOperateRecordByCollector(curPage, pageSize, CollectorID, new ActionCallbackListener<List<RecordBean>>() {
             @Override
             public void onSuccess(List<RecordBean> data) {
                 if (data != null && data.size() > 0) {
@@ -104,4 +106,13 @@ public class LineOperateRecordFragment extends BaseFragment {
         });
     }
 
+    private Call<?> currentCall;
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
+    }
 }

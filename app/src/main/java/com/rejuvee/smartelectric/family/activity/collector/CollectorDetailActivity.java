@@ -35,6 +35,8 @@ import com.rejuvee.smartelectric.family.model.viewmodel.CollectorDetailViewModel
 
 import java.util.Objects;
 
+import retrofit2.Call;
+
 /**
  * 集中器设备详情
  */
@@ -283,9 +285,13 @@ public class CollectorDetailActivity extends BaseActivity {
 
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
-
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 
 //    private boolean isAuthorized(int id) {
@@ -402,7 +408,7 @@ public class CollectorDetailActivity extends BaseActivity {
      * 查询集中器版本升级情况
      */
     private void getCollectorUpgrade() {
-        Core.instance(CollectorDetailActivity.this).getCollectorUpgrade(
+        currentCall = Core.instance(CollectorDetailActivity.this).getCollectorUpgrade(
                 collectorBean.getCollectorID(),
                 collectorBean.getVerMajorNew(),
                 collectorBean.getVerMinorNew(),
@@ -461,7 +467,7 @@ public class CollectorDetailActivity extends BaseActivity {
     }
 
     public void onApi() {
-        Core.instance(this).unbindDevice(collectorBean.getCode(), new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(this).unbindDevice(collectorBean.getCode(), new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
 //                                listDeviceData.remove(position);

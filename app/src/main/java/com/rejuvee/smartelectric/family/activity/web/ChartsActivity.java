@@ -41,6 +41,8 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
+import retrofit2.Call;
+
 public class ChartsActivity extends BaseActivity {
     private static final String TAG = "ChartsActivity";
     private Context context;
@@ -129,7 +131,7 @@ public class ChartsActivity extends BaseActivity {
      * 获取集中器下的线路
      */
     private void getSwitchByCollector() {
-        Core.instance(this).getSwitchByCollector(collectorBean.getCode(), "nohierarchy", new ActionCallbackListener<List<SwitchBean>>() {
+        currentCall = Core.instance(this).getSwitchByCollector(collectorBean.getCode(), "nohierarchy", new ActionCallbackListener<List<SwitchBean>>() {
             @Override
             public void onSuccess(List<SwitchBean> data) {
                 result = data;
@@ -166,8 +168,13 @@ public class ChartsActivity extends BaseActivity {
         waitDialog.dismiss();
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
         if (webView != null) {
             ViewParent parent = webView.getParent();
             if (parent != null) {

@@ -175,7 +175,7 @@ public class AccountHelper {
      */
     public static void setUserFirstUse(boolean firstUse, Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(AppGlobalConfig.BASIC_CONFIG, Context.MODE_PRIVATE);
-        sharedPreferences.edit().putBoolean("first_use", firstUse).commit();
+        sharedPreferences.edit().putBoolean("first_use", firstUse).apply();
     }
 
     /**

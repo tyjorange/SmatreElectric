@@ -13,6 +13,8 @@ import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.databinding.ActivityAddTopicBinding;
 import com.rejuvee.smartelectric.family.model.viewmodel.AddTopicViewModel;
 
+import retrofit2.Call;
+
 /**
  * 添加问题
  */
@@ -52,9 +54,13 @@ public class AddTopicActivity extends BaseActivity {
         }
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
-
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 
     private void commitQA() {
@@ -72,7 +78,7 @@ public class AddTopicActivity extends BaseActivity {
             CustomToast.showCustomErrorToast(AddTopicActivity.this, getString(R.string.vs193));
             return;
         }
-        Core.instance(this).addToUserChatList(topic, context, new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(this).addToUserChatList(topic, context, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 CustomToast.showCustomToast(AddTopicActivity.this, getString(R.string.vs194));

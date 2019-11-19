@@ -16,6 +16,8 @@ import com.rejuvee.smartelectric.family.model.bean.VideoInfo;
 
 import java.util.List;
 
+import retrofit2.Call;
+
 /**
  * 常见问题列表
  */
@@ -41,13 +43,17 @@ public class VideoListActivity extends BaseActivity {
         getData();
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
-
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 
     private void getData() {
-        Core.instance(this).getAllVideo(new ActionCallbackListener<List<VideoInfo>>() {
+        currentCall = Core.instance(this).getAllVideo(new ActionCallbackListener<List<VideoInfo>>() {
             @Override
             public void onSuccess(List<VideoInfo> data) {
                 adapter.addAll(data);

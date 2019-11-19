@@ -28,6 +28,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import retrofit2.Call;
+
 /**
  * 我的电表
  * <p>
@@ -391,7 +393,7 @@ public class StatementActivity extends BaseActivity {
         }
         waitDialog.show();
 
-        Core.instance(this).getTotalPowerByDay("nohierarchy", currentCollectorBean.getCode(), time, new ActionCallbackListener<List<SwitchStatementBean>>() {
+        currentCall = Core.instance(this).getTotalPowerByDay("nohierarchy", currentCollectorBean.getCode(), time, new ActionCallbackListener<List<SwitchStatementBean>>() {
             @Override
             public void onSuccess(List<SwitchStatementBean> data) {
                 waitDialog.dismiss();
@@ -433,7 +435,7 @@ public class StatementActivity extends BaseActivity {
             return;
         }
         waitDialog.show();
-        Core.instance(this).getTotalPowerByMonth("nohierarchy", currentCollectorBean.getCode(), time, new ActionCallbackListener<List<SwitchStatementBean>>() {
+        currentCall = Core.instance(this).getTotalPowerByMonth("nohierarchy", currentCollectorBean.getCode(), time, new ActionCallbackListener<List<SwitchStatementBean>>() {
             @Override
             public void onSuccess(List<SwitchStatementBean> data) {
                 waitDialog.dismiss();
@@ -471,7 +473,7 @@ public class StatementActivity extends BaseActivity {
             return;
         }
         waitDialog.show();
-        Core.instance(this).getTotalPowerByTime("nohierarchy", currentCollectorBean.getCode(), startStr, endStr, new ActionCallbackListener<List<SwitchStatementBean>>() {
+        currentCall = Core.instance(this).getTotalPowerByTime("nohierarchy", currentCollectorBean.getCode(), startStr, endStr, new ActionCallbackListener<List<SwitchStatementBean>>() {
             @Override
             public void onSuccess(List<SwitchStatementBean> data) {
                 waitDialog.dismiss();
@@ -592,12 +594,16 @@ public class StatementActivity extends BaseActivity {
         }
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
-
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 //    private void getCollector() {
-//        Core.instance(this).getCollector(ValidateUtils.USER_KRY, new ActionCallbackListener<List<CollectorBean>>() {
+//        currentCall =  Core.instance(this).getCollector(ValidateUtils.USER_KRY, new ActionCallbackListener<List<CollectorBean>>() {
 //            @Override
 //            public void onSuccess(List<CollectorBean> data) {
 //                collectorBeanList = new ArrayList<>();

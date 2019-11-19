@@ -20,6 +20,8 @@ import com.rejuvee.smartelectric.family.model.viewmodel.CustomerServiceChartView
 
 import java.util.List;
 
+import retrofit2.Call;
+
 /**
  * 客服聊天
  */
@@ -72,7 +74,7 @@ public class CustomerServiceChartActivity extends BaseActivity {
     }
 
     private void getData() {
-        Core.instance(this).getUserChatContent(0, 200, chartListItemBean.getId(), new ActionCallbackListener<List<ChartItemBean>>() {
+        currentCall = Core.instance(this).getUserChatContent(0, 200, chartListItemBean.getId(), new ActionCallbackListener<List<ChartItemBean>>() {
             @Override
             public void onSuccess(List<ChartItemBean> data) {
 //                mList.clear();
@@ -100,9 +102,13 @@ public class CustomerServiceChartActivity extends BaseActivity {
 
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
-
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 
     private void commitQA() {
@@ -112,7 +118,7 @@ public class CustomerServiceChartActivity extends BaseActivity {
             CustomToast.showCustomErrorToast(CustomerServiceChartActivity.this, getString(R.string.vs207));
             return;
         }
-        Core.instance(this).addToUserChatContent(chartListItemBean.getId(), context, new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(this).addToUserChatContent(chartListItemBean.getId(), context, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
 //                CustomToast.showCustomToast(CustomerServiceChartActivity.this, "提交问题成功");

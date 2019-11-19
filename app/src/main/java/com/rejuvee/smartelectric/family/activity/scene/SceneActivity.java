@@ -25,6 +25,8 @@ import com.rejuvee.smartelectric.family.model.viewmodel.SceneViewModel;
 
 import java.util.List;
 
+import retrofit2.Call;
+
 /**
  * Created by Administrator on 2017/12/15.
  */
@@ -105,7 +107,7 @@ public class SceneActivity extends BaseActivity {
 
     private void getScene() {
         mWaitDialog.show();
-        Core.instance(this).findSceneByUser(new ActionCallbackListener<List<SceneBean>>() {
+        currentCall = Core.instance(this).findSceneByUser(new ActionCallbackListener<List<SceneBean>>() {
             @Override
             public void onSuccess(List<SceneBean> data) {
 //                sceneBeanList.clear();
@@ -159,7 +161,7 @@ public class SceneActivity extends BaseActivity {
 
     private void deleteScene(String sceneID, int position) {
         mWaitDialog.show();
-        Core.instance(this).deleteScene(sceneID, new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(this).deleteScene(sceneID, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 Toast.makeText(SceneActivity.this, R.string.deletescene_succe, Toast.LENGTH_LONG).show();
@@ -199,7 +201,7 @@ public class SceneActivity extends BaseActivity {
 
     private void doScene(String sceneId) {
         mWaitDialog.show();
-        Core.instance(this).doExcuteScene(sceneId, new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(this).doExcuteScene(sceneId, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 CustomToast.showCustomToast(SceneActivity.this, getString(R.string.zhixing_sucess));
@@ -245,8 +247,13 @@ public class SceneActivity extends BaseActivity {
 //        }
 //    }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

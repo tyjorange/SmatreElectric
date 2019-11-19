@@ -41,6 +41,7 @@ import java.util.Objects;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit2.Call;
 
 /**
  * 个人信息
@@ -154,7 +155,7 @@ public class PerInfoActivity extends BaseActivity implements ImageUtil.CropHandl
     }
 
     private void getUserMsg() {
-        Core.instance(this).getUserMsg(new ActionCallbackListener<UserMsg>() {
+        currentCall = Core.instance(this).getUserMsg(new ActionCallbackListener<UserMsg>() {
             @Override
             public void onSuccess(UserMsg data) {
 //                nickname = data.getNickName();
@@ -307,7 +308,7 @@ public class PerInfoActivity extends BaseActivity implements ImageUtil.CropHandl
 
     //更新数据
     private void updateUserMes(final String userName, final String nickName, String headImg, final String phone) {
-        Core.instance(this).updateUserMsg(userName, nickName, headImg, phone, new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(this).updateUserMsg(userName, nickName, headImg, phone, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 CustomToast.showCustomToast(PerInfoActivity.this, getString(R.string.vs187));
@@ -341,7 +342,7 @@ public class PerInfoActivity extends BaseActivity implements ImageUtil.CropHandl
 
     //添加图片
     private void addHeadimg(final Bitmap imgUrl) {
-        Core.instance(this).uploadHeadImg(getPhotoPart(), new ActionCallbackListener<Headimg>() {
+        currentCall = Core.instance(this).uploadHeadImg(getPhotoPart(), new ActionCallbackListener<Headimg>() {
             @Override
             public void onSuccess(Headimg data) {
 //                String oldheadImgurl = data.getHeadImg();
@@ -439,8 +440,13 @@ public class PerInfoActivity extends BaseActivity implements ImageUtil.CropHandl
         }
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 
 }

@@ -23,6 +23,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import retrofit2.Call;
+
 /**
  * Created by Administrator on 2018/11/22.
  */
@@ -90,7 +92,7 @@ public class ForgetPwdActivity extends BaseActivity {
             return;
         }
 
-        Core.instance(this).isPhoneRegister(phone, new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(this).isPhoneRegister(phone, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
             }
@@ -154,7 +156,7 @@ public class ForgetPwdActivity extends BaseActivity {
     }
 
     private void onsetPwdAgain(final String phone, String code, final String password) {
-        Core.instance(this).resetPwd(phone, code, password, new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(this).resetPwd(phone, code, password, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 Intent intent = new Intent(ForgetPwdActivity.this, LoginActivity.class);
@@ -219,8 +221,13 @@ public class ForgetPwdActivity extends BaseActivity {
         }
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
         EventBus.getDefault().unregister(ForgetPwdActivity.this);
     }
 }

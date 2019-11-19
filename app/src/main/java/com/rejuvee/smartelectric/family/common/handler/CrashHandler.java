@@ -30,6 +30,7 @@ import java.util.Map;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit2.Call;
 
 /**
  * 全局异常捕获
@@ -210,7 +211,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
      */
     private void upLoadFile(String path) {
         Log.i(TAG, "upLoadFile...");
-        Core.instance(mContext).uploadLogFile(getLogPart(path), new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(mContext).uploadLogFile(getLogPart(path), new ActionCallbackListener<Void>() {
 
             @Override
             public void onSuccess(Void data) {
@@ -237,5 +238,13 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         RequestBody requestFile = RequestBody.create(MediaType.parse("text/plain"), tempFile);
         // MultipartBody.Part  和后端约定好Key，这里的partName是用log
         return MultipartBody.Part.createFormData("log", tempFile.getName(), requestFile);
+    }
+
+    private Call<?> currentCall;
+
+    protected void dealloc() {
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 }

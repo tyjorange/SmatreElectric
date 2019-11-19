@@ -21,6 +21,8 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import java.util.List;
 import java.util.Objects;
 
+import retrofit2.Call;
+
 /**
  * 告警记录
  */
@@ -73,7 +75,7 @@ public class LineAlarmFrgament extends BaseFragment {
         if (showDlg) {
             loadingDlg.show();
         }
-        Core.instance(getContext()).getAlarmListByCollector(curPage, pageSize, CollectorID, new ActionCallbackListener<List<RecordBean>>() {
+        currentCall = Core.instance(getContext()).getAlarmListByCollector(curPage, pageSize, CollectorID, new ActionCallbackListener<List<RecordBean>>() {
             @Override
             public void onSuccess(List<RecordBean> data) {
                 if (data != null && data.size() > 0) {
@@ -109,5 +111,14 @@ public class LineAlarmFrgament extends BaseFragment {
         });
     }
 
+    private Call<?> currentCall;
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
+    }
 
 }

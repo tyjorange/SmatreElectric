@@ -25,6 +25,8 @@ import com.rejuvee.smartelectric.family.model.bean.TimeTaskBean;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+
 /**
  * 定时开关
  */
@@ -84,7 +86,7 @@ public class TimerActivity extends BaseActivity implements ListTimerAdapter.MyLi
     private void getData(SwitchBean switchBean) {
         mBinding.lineName.setText(String.format("%s%s", getString(R.string.vs4), switchBean.getName()));
         mWaitDialog.show();
-        Core.instance(this).findTimeControllerBySwitch(switchBean.getSwitchID(), new ActionCallbackListener<List<TimeTaskBean.TimeTask>>() {
+        currentCall = Core.instance(this).findTimeControllerBySwitch(switchBean.getSwitchID(), new ActionCallbackListener<List<TimeTaskBean.TimeTask>>() {
             @Override
             public void onSuccess(List<TimeTaskBean.TimeTask> data) {
                 mListTaskData.clear();
@@ -120,7 +122,7 @@ public class TimerActivity extends BaseActivity implements ListTimerAdapter.MyLi
     @Override
     public void onEnable(int position, final boolean enable) {
         final TimeTaskBean.TimeTask task = mListTaskData.get(position);
-        Core.instance(this).updateOrInsertTask(task.taskId,
+        currentCall = Core.instance(this).updateOrInsertTask(task.taskId,
                 switchBean.getSwitchID(),
                 task.time,
                 task.repeatState,
@@ -143,7 +145,7 @@ public class TimerActivity extends BaseActivity implements ListTimerAdapter.MyLi
 
     private void deleteTask(String timerId) {
         mWaitDialog.show();
-        Core.instance(this).deleteTimeTask(timerId, new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(this).deleteTimeTask(timerId, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 mWaitDialog.dismiss();
@@ -204,7 +206,7 @@ public class TimerActivity extends BaseActivity implements ListTimerAdapter.MyLi
      * 获取集中器下的线路 第一个作为默认显示
      */
     private void getSwitchByCollector() {
-        Core.instance(this).getSwitchByCollector(collectorBean.getCode(), "hierarchy", new ActionCallbackListener<List<SwitchBean>>() {
+        currentCall = Core.instance(this).getSwitchByCollector(collectorBean.getCode(), "hierarchy", new ActionCallbackListener<List<SwitchBean>>() {
             @Override
             public void onSuccess(List<SwitchBean> data) {
                 switchBean = data.get(0);//init bean
@@ -281,9 +283,13 @@ public class TimerActivity extends BaseActivity implements ListTimerAdapter.MyLi
 
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
-
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 
     @Override

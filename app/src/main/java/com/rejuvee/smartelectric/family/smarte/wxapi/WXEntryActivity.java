@@ -25,6 +25,8 @@ import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 
 import org.greenrobot.eventbus.EventBus;
 
+import retrofit2.Call;
+
 
 /**
  * Created by liuchengran on 2018/11/26.
@@ -112,7 +114,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         secret	是	应用密钥AppSecret，在微信开放平台提交应用审核通过后获得
         code	是	填写第一步获取的code参数
         grant_type	是	填authorization_code*/
-        Core.instance(this).getWXAccessToken(LogoVersionManage.getInstance().getWXAppId(),
+        currentCall = Core.instance(this).getWXAccessToken(LogoVersionManage.getInstance().getWXAppId(),
                 LogoVersionManage.getInstance().getWXSecret(),
                 code,
                 "authorization_code",
@@ -137,7 +139,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
    /* private void getWXUserInfo(String openId, String accessToken) {
         Log.d(TAG, " openId=" + openId + "  accessToken=" + accessToken);
-        Core.instance(this).getWXUserInfo(openId, accessToken, new ActionCallbackListener<WXUserInfoRetBean>() {
+         currentCall =  Core.instance(this).getWXUserInfo(openId, accessToken, new ActionCallbackListener<WXUserInfoRetBean>() {
             @Override
             public void onSuccess(WXUserInfoRetBean data) {
                 if (data.nickname != null) {
@@ -179,5 +181,15 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
         EventBus.getDefault().post(thirdPartyInfo);
         finish();
+    }
+
+    private Call<?> currentCall;
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 }

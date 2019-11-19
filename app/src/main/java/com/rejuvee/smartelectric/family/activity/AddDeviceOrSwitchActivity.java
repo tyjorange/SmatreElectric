@@ -29,6 +29,8 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.Objects;
 
+import retrofit2.Call;
+
 /**
  * 添加电箱 或 线路
  */
@@ -128,7 +130,7 @@ public class AddDeviceOrSwitchActivity extends BaseActivity {
             return;
         }
         mWaitDialog.show();
-        Core.instance(this).addSwitch(collectorBean.getCollectorID(), lineName, switchCode, iconType, mSwitch == null ? 0 : mSwitch.getSwitchID(), new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(this).addSwitch(collectorBean.getCollectorID(), lineName, switchCode, iconType, mSwitch == null ? 0 : mSwitch.getSwitchID(), new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 CustomToast.showCustomToast(AddDeviceOrSwitchActivity.this, getString(R.string.operator_sucess));
@@ -165,7 +167,7 @@ public class AddDeviceOrSwitchActivity extends BaseActivity {
             return;
         }
         mWaitDialog.show();
-        Core.instance(this).bindDevice(setupCode, new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(this).bindDevice(setupCode, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 CustomToast.showCustomToast(AddDeviceOrSwitchActivity.this, getString(R.string.operator_sucess));
@@ -219,9 +221,13 @@ public class AddDeviceOrSwitchActivity extends BaseActivity {
         }
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
-
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 
     private String lineName;

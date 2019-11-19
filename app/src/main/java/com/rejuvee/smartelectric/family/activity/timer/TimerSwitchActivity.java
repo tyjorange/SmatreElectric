@@ -18,6 +18,8 @@ import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+
 @Deprecated
 public class TimerSwitchActivity extends BaseActivity implements ListTimerSwitchAdapter.MyListener {
     private String TAG = "TimerSwitchActivity";
@@ -63,14 +65,18 @@ public class TimerSwitchActivity extends BaseActivity implements ListTimerSwitch
         mListTimeTaskView.setAdapter(mListTimerSwitchAdapter);
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
-
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 
     private void getData() {
         mWaitDialog.show();
-        Core.instance(this).getSwitchByCollector(mDevicollectorBeane.getCode(), "no", new ActionCallbackListener<List<SwitchBean>>() {
+        currentCall = Core.instance(this).getSwitchByCollector(mDevicollectorBeane.getCode(), "no", new ActionCallbackListener<List<SwitchBean>>() {
             @Override
             public void onSuccess(List<SwitchBean> data) {
                 mListData.clear();

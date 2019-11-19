@@ -32,6 +32,8 @@ import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import retrofit2.Call;
+
 /**
  * Created by Administrator on 2018/3/21.
  */
@@ -41,7 +43,7 @@ public abstract class AccountBaseActivity extends BaseActivity implements ClearE
     /**
      * api接口
      */
-    protected Core mCore;
+//    protected Core mCore;
     /**
      * 等待提示
      */
@@ -116,7 +118,7 @@ public abstract class AccountBaseActivity extends BaseActivity implements ClearE
         mBinding.setPresenter(new Presenter());
         mBinding.setLifecycleOwner(this);
 
-        mCore = Core.instance(this);
+//        mCore = Core.instance(this);
         mCustomToast = new CustomToast();
         mLoadingDlg = new LoadingDlg(this, -1);
         // 计时重新获取验证码
@@ -206,9 +208,13 @@ public abstract class AccountBaseActivity extends BaseActivity implements ClearE
         }
     }
 
+    protected Call<?> currentCall;
+
     @Override
     protected void dealloc() {
-
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 
     /**
@@ -401,7 +407,7 @@ public abstract class AccountBaseActivity extends BaseActivity implements ClearE
     // 获取验证码
     private void getCode() {
         if (checkPhoneOrOldPhone()) {
-            Core.instance(this).isPhoneRegister(mViewModel.getPhone().getValue(), new ActionCallbackListener<Void>() {
+            currentCall = Core.instance(this).isPhoneRegister(mViewModel.getPhone().getValue(), new ActionCallbackListener<Void>() {
                 @Override
                 public void onSuccess(Void data) {
 
@@ -412,7 +418,7 @@ public abstract class AccountBaseActivity extends BaseActivity implements ClearE
                     if (errorEvent == 7) {
                         CustomToast.showCustomErrorToast(AccountBaseActivity.this, getString(R.string.phone_unregist));
                     } else if (errorEvent == 8) {
-                        Core.instance(AccountBaseActivity.this).getPhoneCode(mViewModel.getPhone().getValue(), new ActionCallbackListener<Void>() {
+                        currentCall = Core.instance(AccountBaseActivity.this).getPhoneCode(mViewModel.getPhone().getValue(), new ActionCallbackListener<Void>() {
                             @Override
                             public void onSuccess(Void data) {
                                 mBinding.txtCode.setEnabled(false);

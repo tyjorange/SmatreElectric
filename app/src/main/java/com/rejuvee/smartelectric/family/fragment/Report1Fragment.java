@@ -21,6 +21,8 @@ import com.rejuvee.smartelectric.family.model.bean.ReportBean;
 import java.util.List;
 import java.util.Objects;
 
+import retrofit2.Call;
+
 public class Report1Fragment extends BaseFragment {
     private ReportAdapter adapter;
 //    private List<ReportBean> mListData = new ArrayList<>();
@@ -57,7 +59,7 @@ public class Report1Fragment extends BaseFragment {
 
     private void getReportList() {
 //        loadingDlg.show();
-        Core.instance(getContext()).getReportList(1, new ActionCallbackListener<List<ReportBean>>() {
+        currentCall = Core.instance(getContext()).getReportList(1, new ActionCallbackListener<List<ReportBean>>() {
 
             @Override
             public void onSuccess(List<ReportBean> data) {
@@ -74,5 +76,15 @@ public class Report1Fragment extends BaseFragment {
 //                loadingDlg.dismiss();
             }
         });
+    }
+
+    private Call<?> currentCall;
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 }

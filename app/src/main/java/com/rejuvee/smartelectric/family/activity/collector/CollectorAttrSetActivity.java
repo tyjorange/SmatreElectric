@@ -24,6 +24,8 @@ import com.rejuvee.smartelectric.family.databinding.ActivitySetupnameBinding;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+
 
 /**
  * 集中器参数设置
@@ -277,8 +279,13 @@ public class CollectorAttrSetActivity extends BaseActivity {
         }
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 
 //    @Override
@@ -319,7 +326,7 @@ public class CollectorAttrSetActivity extends BaseActivity {
 //    }
 
     public void changeCollector(String collectorID, String name, String baud, String freq, String ranges, String faultFreq, String HBFreq) {
-        Core.instance(this).updateCollectorParam(collectorID, name, baud, freq, ranges, faultFreq, HBFreq, new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(this).updateCollectorParam(collectorID, name, baud, freq, ranges, faultFreq, HBFreq, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 Toast.makeText(CollectorAttrSetActivity.this, R.string.modify_succe, Toast.LENGTH_LONG).show();

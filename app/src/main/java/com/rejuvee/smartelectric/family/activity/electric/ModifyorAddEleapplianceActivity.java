@@ -24,6 +24,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import retrofit2.Call;
+
 
 /**
  * 电器 添加修改
@@ -84,7 +86,7 @@ public class ModifyorAddEleapplianceActivity extends BaseActivity implements Vie
         }
     }
 
-//    @Override
+    //    @Override
 //    protected String getToolbarTitle() {
 //        return null;
 //    }
@@ -93,9 +95,13 @@ public class ModifyorAddEleapplianceActivity extends BaseActivity implements Vie
 //    protected boolean isDisplayHomeAsUpEnabled() {
 //        return false;
 //    }
+    private Call<?> currentCall;
 
     @Override
     protected void dealloc() {
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
         org.greenrobot.eventbus.EventBus.getDefault().unregister(this);
     }
 
@@ -171,7 +177,7 @@ public class ModifyorAddEleapplianceActivity extends BaseActivity implements Vie
             mWaitDialog = new LoadingDlg(context, -1);
             mWaitDialog.show();
         }
-        Core.instance(context).addOrUpdateEE(electricalEquipmentID, switchID, name, gonglv, new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(context).addOrUpdateEE(electricalEquipmentID, switchID, name, gonglv, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 postResult(DeviceEventMsg.EVENT_ADD_UPDATEELET, data, "ok", true);

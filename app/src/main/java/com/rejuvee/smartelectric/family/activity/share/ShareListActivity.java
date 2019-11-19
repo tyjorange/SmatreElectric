@@ -23,6 +23,8 @@ import com.rejuvee.smartelectric.family.model.bean.UserMsg;
 import java.util.LinkedList;
 import java.util.List;
 
+import retrofit2.Call;
+
 /**
  * 我的分享
  */
@@ -127,21 +129,21 @@ public class ShareListActivity extends BaseActivity {
             @Override
             public void onEnsure() {
                 waitDialog.show();
-                Core.instance(ShareListActivity.this).updateShareCollector(item.getCollectorShareID(), //分享ID
+                currentCall = Core.instance(ShareListActivity.this).updateShareCollector(item.getCollectorShareID(), //分享ID
                         isEnable, new ActionCallbackListener<Void>() {
-                    @Override
-                    public void onSuccess(Void data) {
-                        CustomToast.showCustomToast(ShareListActivity.this, getString(R.string.operator_sucess));
-                        doRequest(false);
-                        waitDialog.dismiss();
-                    }
+                            @Override
+                            public void onSuccess(Void data) {
+                                CustomToast.showCustomToast(ShareListActivity.this, getString(R.string.operator_sucess));
+                                doRequest(false);
+                                waitDialog.dismiss();
+                            }
 
-                    @Override
-                    public void onFailure(int errorEvent, String message) {
-                        CustomToast.showCustomToast(ShareListActivity.this, message);
-                        waitDialog.dismiss();
-                    }
-                });
+                            @Override
+                            public void onFailure(int errorEvent, String message) {
+                                CustomToast.showCustomToast(ShareListActivity.this, message);
+                                waitDialog.dismiss();
+                            }
+                        });
             }
         });
         mDialogSwitchEnable.show();
@@ -156,7 +158,7 @@ public class ShareListActivity extends BaseActivity {
         if (showLoading) {
             waitDialog.show();
         }
-        Core.instance(this).getShareList(collectorBean.getCollectorID(), new ActionCallbackListener<List<UserMsg>>() {
+        currentCall = Core.instance(this).getShareList(collectorBean.getCollectorID(), new ActionCallbackListener<List<UserMsg>>() {
             @Override
             public void onSuccess(List<UserMsg> data) {
                 if (data != null && data.size() > 0) {
@@ -204,7 +206,7 @@ public class ShareListActivity extends BaseActivity {
     private void removeShare(ListSetingItem item, int position) {
 //        UserMsg userMsg = listShareUsers.get(position);
         waitDialog.show();
-        Core.instance(this).shareCollector(false, item.getContent().getValue(), collectorBean.getCollectorID(), 0, new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(this).shareCollector(false, item.getContent().getValue(), collectorBean.getCollectorID(), 0, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 mListItem.remove(position);
@@ -253,9 +255,13 @@ public class ShareListActivity extends BaseActivity {
 
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
-
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 
     @Override
@@ -283,7 +289,7 @@ public class ShareListActivity extends BaseActivity {
 
 //    private void addShareUser(final String userName) {
 //        waitDialog.show();
-//        Core.instance(this).shareCollector(true, userName, collectorBean.getCollectorID(), 0, new ActionCallbackListener<Void>() {
+//        currentCall = Core.instance(this).shareCollector(true, userName, collectorBean.getCollectorID(), 0, new ActionCallbackListener<Void>() {
 //            @Override
 //            public void onSuccess(Void data) {
 //                doRequest(false);

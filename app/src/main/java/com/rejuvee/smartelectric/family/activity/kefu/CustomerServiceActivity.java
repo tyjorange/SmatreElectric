@@ -19,6 +19,8 @@ import com.rejuvee.smartelectric.family.model.bean.ChartListItemBean;
 
 import java.util.List;
 
+import retrofit2.Call;
+
 /**
  * 客服
  */
@@ -75,7 +77,7 @@ public class CustomerServiceActivity extends BaseActivity {
 
     private void getData() {
         loadingDlg.show();
-        Core.instance(this).findChatList(0, 200, new ActionCallbackListener<List<ChartListItemBean>>() {
+        currentCall = Core.instance(this).findChatList(0, 200, new ActionCallbackListener<List<ChartListItemBean>>() {
             @Override
             public void onSuccess(List<ChartListItemBean> data) {
 //                mList.clear();
@@ -103,9 +105,13 @@ public class CustomerServiceActivity extends BaseActivity {
         }
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
-
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 
     @Override

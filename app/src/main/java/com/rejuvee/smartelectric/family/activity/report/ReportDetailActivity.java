@@ -28,6 +28,8 @@ import com.rejuvee.smartelectric.family.model.bean.ReportDetailBean;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+
 /**
  * 报表详情
  */
@@ -75,7 +77,7 @@ public class ReportDetailActivity extends BaseActivity {
      */
     private void getReport() {
         loadingDlg.show();
-        Core.instance(this).getReport(reportBean.id, collectorBean.getCollectorID(), new ActionCallbackListener<ReportDetailBean>() {
+        currentCall = Core.instance(this).getReport(reportBean.id, collectorBean.getCollectorID(), new ActionCallbackListener<ReportDetailBean>() {
             @Override
             public void onSuccess(ReportDetailBean data) {
                 reportDetailBean = data;
@@ -105,9 +107,13 @@ public class ReportDetailActivity extends BaseActivity {
 
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
-
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 
     class MyFragmentAdapter extends FragmentStatePagerAdapter {

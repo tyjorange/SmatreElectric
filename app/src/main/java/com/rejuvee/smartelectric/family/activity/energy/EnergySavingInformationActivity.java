@@ -24,6 +24,8 @@ import com.rejuvee.smartelectric.family.model.viewmodel.EnergySavingInformationV
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+
 /**
  * 节能信息
  */
@@ -80,7 +82,7 @@ public class EnergySavingInformationActivity extends BaseActivity {
      * 获取 所有集中器,线路 同比环比数据
      */
     public void getAllSwitchMsg() {
-        Core.instance(this).getAllswitchMsg("nohierarchy", new ActionCallbackListener<List<ElequantityBean>>() {
+        currentCall = Core.instance(this).getAllswitchMsg("nohierarchy", new ActionCallbackListener<List<ElequantityBean>>() {
             @Override
             public void onSuccess(List<ElequantityBean> data) {
                 res.clear();
@@ -99,7 +101,7 @@ public class EnergySavingInformationActivity extends BaseActivity {
      * 获取集中器下的线路 第一个作为默认显示
      */
     private void getSwitchByCollector() {
-        Core.instance(this).getSwitchByCollector(collectorBean.getCode(), "nohierarchy", new ActionCallbackListener<List<SwitchBean>>() {
+        currentCall = Core.instance(this).getSwitchByCollector(collectorBean.getCode(), "nohierarchy", new ActionCallbackListener<List<SwitchBean>>() {
             @Override
             public void onSuccess(List<SwitchBean> data) {
                 switchBean = data.get(0);//init bean
@@ -174,9 +176,13 @@ public class EnergySavingInformationActivity extends BaseActivity {
         }
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
-
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 
     @Override

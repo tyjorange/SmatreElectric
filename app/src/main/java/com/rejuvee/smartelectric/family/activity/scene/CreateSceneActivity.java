@@ -32,6 +32,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import retrofit2.Call;
+
 
 /**
  * Created by Administrator on 2017/12/15.
@@ -201,7 +203,7 @@ public class CreateSceneActivity extends BaseActivity {
 //    }
 
     private void addScene1(String scene) {
-        Core.instance(this).AddOrUpdateScene(scene, new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(this).AddOrUpdateScene(scene, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 setResult(RESULT_OK);
@@ -217,7 +219,7 @@ public class CreateSceneActivity extends BaseActivity {
     }
 
     /* public void removeCircuitBreak(String sceneSwitchID) {
-         Core.instance(this).deleteSceneSwitch(sceneSwitchID, new ActionCallbackListener<Void>() {
+         currentCall = Core.instance(this).deleteSceneSwitch(sceneSwitchID, new ActionCallbackListener<Void>() {
              @Override
              public void onSuccess(Void data) {
 
@@ -232,7 +234,7 @@ public class CreateSceneActivity extends BaseActivity {
          });
      }*/
     private void findAllBreakByscene(final String sceneid) {
-        Core.instance(this).findSceneSwitchByScene(sceneid, new ActionCallbackListener<List<SceneItemBean>>() {
+        currentCall = Core.instance(this).findSceneSwitchByScene(sceneid, new ActionCallbackListener<List<SceneItemBean>>() {
             @Override
             public void onSuccess(List<SceneItemBean> data) {
                 listBreak.clear();
@@ -316,8 +318,12 @@ public class CreateSceneActivity extends BaseActivity {
 
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
-
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 }

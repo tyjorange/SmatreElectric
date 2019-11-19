@@ -17,6 +17,8 @@ import com.rejuvee.smartelectric.family.model.bean.SwitchInfoBean;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+
 /**
  * 选择场景下的线路
  * Created by Administrator on 2017/12/15.
@@ -43,6 +45,7 @@ public class ChoceLineActivity extends BaseActivity {
 //    }
 
     private ActivityChoceLineBinding mBinding;
+
     @Override
     protected void initView() {
 //        setToolbarHide(true);
@@ -157,13 +160,17 @@ public class ChoceLineActivity extends BaseActivity {
 
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
-
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 
     private void initAllLine() {
-        Core.instance(this).getAllBreakersByUser(new ActionCallbackListener<List<SwitchInfoBean>>() {
+        currentCall = Core.instance(this).getAllBreakersByUser(new ActionCallbackListener<List<SwitchInfoBean>>() {
             @Override
             public void onSuccess(List<SwitchInfoBean> data) {
                 mListAllBreak.clear();

@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import retrofit2.Call;
+
 /**
  * 透明DialogActivity
  * <p>
@@ -179,8 +181,13 @@ public class UpgradeDialogActivity extends BaseActivity {
         }
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 
     /**
@@ -189,7 +196,7 @@ public class UpgradeDialogActivity extends BaseActivity {
      * @param ok 确认结果 0=不同意 1=同意
      */
     private void setCollectorUpgrade(Integer ok, String execTime) {
-        Core.instance(UpgradeDialogActivity.this).setCollectorUpgrade(
+        currentCall = Core.instance(UpgradeDialogActivity.this).setCollectorUpgrade(
                 collectorBean.getCollectorID(),
                 collectorBean.getVerMajorNew(),
                 collectorBean.getVerMinorNew(),

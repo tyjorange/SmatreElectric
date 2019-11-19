@@ -21,6 +21,8 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import java.util.List;
 import java.util.Objects;
 
+import retrofit2.Call;
+
 /**
  * 预警记录
  */
@@ -67,7 +69,7 @@ public class LineWarnFrgament extends BaseFragment {
         if (showDlg) {
             loadingDlg.show();
         }
-        Core.instance(getContext()).getWarnListByCollector(curPage, pageSize, CollectorID, new ActionCallbackListener<List<WarnBean>>() {
+        currentCall = Core.instance(getContext()).getWarnListByCollector(curPage, pageSize, CollectorID, new ActionCallbackListener<List<WarnBean>>() {
             @Override
             public void onSuccess(List<WarnBean> data) {
                 if (data != null && data.size() > 0) {
@@ -101,5 +103,15 @@ public class LineWarnFrgament extends BaseFragment {
                 loadingDlg.dismiss();
             }
         });
+    }
+
+    private Call<?> currentCall;
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 }

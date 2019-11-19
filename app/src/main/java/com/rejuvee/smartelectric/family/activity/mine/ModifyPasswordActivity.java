@@ -64,7 +64,7 @@ public class ModifyPasswordActivity extends AccountBaseActivity {
     @Override
     protected void commitOrRegist() {
         mLoadingDlg.show();
-        mCore.resetPassword(EncryptUtils.encryptMD5ToString(mPwdOrOld, Core.SALT), pwd(), new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(this).resetPassword(EncryptUtils.encryptMD5ToString(mPwdOrOld, Core.SALT), pwd(), new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 mLoadingDlg.dismiss();

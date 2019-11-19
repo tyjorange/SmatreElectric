@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import retrofit2.Call;
+
 /**
  * 定时开关 编辑
  */
@@ -228,7 +230,7 @@ public class TimerEditDialogActivity extends BaseActivity {
         }
         if (mTask == null) {
             //for New
-            Core.instance(this).updateOrInsertTask(null, switchBean.getSwitchID(), runTime, weekDay, 1, cmdData, uploadToCollect, new ActionCallbackListener<Void>() {
+            currentCall = Core.instance(this).updateOrInsertTask(null, switchBean.getSwitchID(), runTime, weekDay, 1, cmdData, uploadToCollect, new ActionCallbackListener<Void>() {
                 @Override
                 public void onSuccess(Void data) {
                     Intent intent = new Intent();
@@ -247,7 +249,7 @@ public class TimerEditDialogActivity extends BaseActivity {
             });
         } else {
             //for update
-            Core.instance(this).updateOrInsertTask(mTask.taskId, switchBean.getSwitchID(), runTime, weekDay, mTask.enable, cmdData, uploadToCollect, new ActionCallbackListener<Void>() {
+            currentCall = Core.instance(this).updateOrInsertTask(mTask.taskId, switchBean.getSwitchID(), runTime, weekDay, mTask.enable, cmdData, uploadToCollect, new ActionCallbackListener<Void>() {
                 @Override
                 public void onSuccess(Void data) {
                     Intent intent = new Intent();
@@ -295,9 +297,13 @@ public class TimerEditDialogActivity extends BaseActivity {
 
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
-
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 
 //    @Override

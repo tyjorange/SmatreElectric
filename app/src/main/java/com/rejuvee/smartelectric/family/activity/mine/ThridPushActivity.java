@@ -15,6 +15,8 @@ import com.rejuvee.smartelectric.family.model.bean.UserPushSetting;
 
 import java.util.List;
 
+import retrofit2.Call;
+
 /**
  * 推送 设置 界面
  * <p>
@@ -73,7 +75,7 @@ public class ThridPushActivity extends BaseActivity {
 
     private void getData() {
         mWaitDialog.show();
-        Core.instance(context).getPushSetting(new ActionCallbackListener<List<UserPushSetting>>() {
+        currentCall = Core.instance(context).getPushSetting(new ActionCallbackListener<List<UserPushSetting>>() {
             @Override
             public void onSuccess(List<UserPushSetting> data) {
                 for (UserPushSetting ups : data) {
@@ -135,7 +137,7 @@ public class ThridPushActivity extends BaseActivity {
             if (checkBox5.isChecked()) {
                 remind += opt[4];
             }
-            Core.instance(context).updatePushSetting(remind, new ActionCallbackListener<Void>() {
+            currentCall = Core.instance(context).updatePushSetting(remind, new ActionCallbackListener<Void>() {
                 @Override
                 public void onSuccess(Void data) {
                     CustomToast.showCustomToast(ThridPushActivity.this, getString(R.string.operator_sucess));
@@ -159,8 +161,12 @@ public class ThridPushActivity extends BaseActivity {
 //        return true;
 //    }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
-
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 }

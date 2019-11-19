@@ -65,6 +65,7 @@ import java.util.Locale;
 
 import at.favre.lib.dali.builder.nav.DaliBlurDrawerToggle;
 import at.favre.lib.dali.builder.nav.NavigationDrawerListener;
+import retrofit2.Call;
 
 public class MainNavigationActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     private String TAG = "MainNavigationActivity";
@@ -194,7 +195,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
      * 检查公众号是否关注
      */
     private void testWechatPublic() {
-        Core.instance(this).validateWechatPublic(new ActionCallbackListener<WxSubscribed>() {
+        currentCall = Core.instance(this).validateWechatPublic(new ActionCallbackListener<WxSubscribed>() {
             @Override
             public void onSuccess(WxSubscribed data) {
                 if (data.getIsSubscribed() == 0) {
@@ -220,7 +221,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
      * 用户信息
      */
     public void getUserMsg() {
-        Core.instance(this).getUserMsg(new ActionCallbackListener<UserMsg>() {
+        currentCall = Core.instance(this).getUserMsg(new ActionCallbackListener<UserMsg>() {
             @Override
             public void onSuccess(UserMsg data) {
 //                telephone = data.getPhone();
@@ -346,7 +347,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
     }
 
     private void getScene() {
-        Core.instance(this).findSceneByUser(new ActionCallbackListener<List<SceneBean>>() {
+        currentCall = Core.instance(this).findSceneByUser(new ActionCallbackListener<List<SceneBean>>() {
             @Override
             public void onSuccess(List<SceneBean> data) {
 //                listSceneBeanData.clear();
@@ -383,7 +384,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
     }
 
     private void getCollector() {
-        Core.instance(this).getCollector(new ActionCallbackListener<List<CollectorBean>>() {
+        currentCall = Core.instance(this).getCollector(new ActionCallbackListener<List<CollectorBean>>() {
             @Override
             public void onSuccess(List<CollectorBean> data) {
                 mainBinding.include.include.tvCollectorCount.setText(String.format(Locale.getDefault(), "%s%d", getString(R.string.vs13), data.size()));
@@ -435,7 +436,7 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
      * @param sceneId
      */
     private void doExecute(final String sceneId) {
-        Core.instance(this).doExcuteScene(sceneId, new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(this).doExcuteScene(sceneId, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 CustomToast.showCustomToast(MainNavigationActivity.this, getString(R.string.scene_excute_sucess));
@@ -625,8 +626,13 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         }
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
         AutoUpgrade.getInstacne(this).destroyInstance();
         EventBus.getDefault().unregister(this);
     }

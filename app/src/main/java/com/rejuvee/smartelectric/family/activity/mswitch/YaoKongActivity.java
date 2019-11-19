@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import retrofit2.Call;
+
 /**
  * 主线路
  */
@@ -120,7 +122,7 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
      */
     private void getSwitchByCollector(boolean showTip) {
         waitDialog.show();
-        Core.instance(this).getSwitchByCollector(mCollectorBean.getCode(), "hierarchy", new ActionCallbackListener<List<SwitchBean>>() {
+        currentCall = Core.instance(this).getSwitchByCollector(mCollectorBean.getCode(), "hierarchy", new ActionCallbackListener<List<SwitchBean>>() {
             @Override
             public void onSuccess(List<SwitchBean> data) {
                 mListData.clear();
@@ -241,9 +243,14 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
         }
 
     }
+
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
-
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 
     @Override

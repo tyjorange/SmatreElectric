@@ -1,6 +1,5 @@
 package com.rejuvee.smartelectric.family.activity.mswitch;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -42,6 +41,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TimerTask;
 
+import retrofit2.Call;
+
 /**
  * 线路 树状图
  */
@@ -54,7 +55,7 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
     // 集中器 collector
     private CollectorBean mCollectorBean;
     private Handler mHandler;
-    private Context mContext;
+    //    private Context mContext;
     private List<SwitchBean> mListData = new ArrayList<>();
     // 树状图组件
     private AndroidTreeView treeView;
@@ -80,7 +81,7 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
 
         @Override
         public void onDelete(SwitchBean cb) {
-            mDialogTip = new DialogTip(mContext);
+            mDialogTip = new DialogTip(SwitchTreeActivity.this);
             mDialogTip.setTitle(getString(R.string.deletexianlu));
             mDialogTip.setContent(getString(R.string.xianlu_issure));
             mDialogTip.setDialogListener(new DialogTip.onEnsureDialogListener() {
@@ -131,7 +132,7 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
 
     @Override
     protected void initView() {
-        mContext = this;
+//        mContext = this;
         viewType = getIntent().getIntExtra("viewType", -1);
         mCollectorBean = getIntent().getParcelableExtra("collectorBean");
         mDialogSwitch = new DialogTip(this);
@@ -201,6 +202,7 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
             }
         }
     }
+
     private String getViewTitle() {
         switch (viewType) {
             case SwitchTree.YAOKONG:
@@ -369,7 +371,7 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
                 @Override
                 public void onEnsure() {
                     waitDialog.show();
-                    Core.instance(mContext).controlBreak(currentSwitchBean.getSwitchID(), targetState, new ActionCallbackListener<ControllerId>() {
+                    currentCall = Core.instance(SwitchTreeActivity.this).controlBreak(currentSwitchBean.getSwitchID(), targetState, new ActionCallbackListener<ControllerId>() {
                         @Override
                         public void onSuccess(ControllerId data) {
                             controllerId = data.getControllerID();
@@ -398,7 +400,7 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
         if (TextUtils.isEmpty(controllerId)) {
             return;
         }
-        Core.instance(this).getControllerState(controllerId, new ActionCallbackListener<SwitchBean>() {
+        currentCall = Core.instance(this).getControllerState(controllerId, new ActionCallbackListener<SwitchBean>() {
             @Override
             public void onSuccess(SwitchBean data) {
                 currentSearchCount = 0;
@@ -468,7 +470,7 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
      * 刷新单条线路状态
      */
     private void getSwitchState() {
-        Core.instance(this).getSwitchState(currentSwitchBean.getSerialNumber(), new ActionCallbackListener<SwitchBean>() {
+        currentCall = Core.instance(this).getSwitchState(currentSwitchBean.getSerialNumber(), new ActionCallbackListener<SwitchBean>() {
 
             @Override
             public void onSuccess(SwitchBean cb) {
@@ -508,7 +510,7 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
             return;
         }
         if (type == 1) {
-            Core.instance(mContext).getAllSwitchState(mCollectorBean.getCode(), new ActionCallbackListener<CollectorState>() {
+            currentCall = Core.instance(this).getAllSwitchState(mCollectorBean.getCode(), new ActionCallbackListener<CollectorState>() {
                 @Override
                 public void onSuccess(CollectorState data) {
                     switchState = data.getSwitchState();
@@ -535,7 +537,7 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
      */
     private void getSwitchByCollector() {
         waitDialog.show();
-        Core.instance(this).getSwitchByCollector(mCollectorBean.getCode(), "hierarchy", new ActionCallbackListener<List<SwitchBean>>() {
+        currentCall = Core.instance(this).getSwitchByCollector(mCollectorBean.getCode(), "hierarchy", new ActionCallbackListener<List<SwitchBean>>() {
             @Override
             public void onSuccess(List<SwitchBean> data) {
                 mListData.clear();
@@ -569,7 +571,7 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
             }
         });
         // 初始化线路状态
-        Core.instance(mContext).getAllSwitchState(mCollectorBean.getCode(), new ActionCallbackListener<CollectorState>() {
+        currentCall = Core.instance(this).getAllSwitchState(mCollectorBean.getCode(), new ActionCallbackListener<CollectorState>() {
             @Override
             public void onSuccess(CollectorState data) {
                 switchState = data.getSwitchState();
@@ -605,7 +607,7 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
      * @param viewType
      */
     private void listToNode(TreeNode parent, List<SwitchBean> mListData, int viewType) {
-        myNodeViewHolder = new MyNodeViewHolder(mContext, mCollectorBean, iSwitchCheckListen, viewType);
+        myNodeViewHolder = new MyNodeViewHolder(this, mCollectorBean, iSwitchCheckListen, viewType);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             mListData.forEach(c -> {
                 TreeNode treeNode = new TreeNode(c).setViewHolder(myNodeViewHolder);
@@ -645,7 +647,7 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
                     imageView.setImageResource(NativeLine.DrawableToggle[currentState == -1 ? 2 : currentState]);// 更新开关图片
                     TextView textView = parent.getViewHolder().getView().findViewById(R.id.tv_state);
                     textView.setVisibility(currentState == 0 ? View.VISIBLE : View.GONE);// 更新状态文字
-                    textView.setText(SwitchBean.getSwitchFaultState(mContext, fault));// 更新状态文字
+                    textView.setText(SwitchBean.getSwitchFaultState(this, fault));// 更新状态文字
                     bb.setSwitchState(currentState == -1 ? 2 : currentState);// 更新状态值
                 } else if (type == 2) {
                     ImageView delImg = parent.getViewHolder().getView().findViewById(R.id.iv_del_switch);
@@ -711,7 +713,7 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
      */
     private void deleteBreak(int switchId) {
         waitDialog.show();
-        Core.instance(this).deleteBreak(switchId, new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(this).deleteBreak(switchId, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
 //                mListData.remove(position);
@@ -738,8 +740,13 @@ public class SwitchTreeActivity extends BaseActivity implements SwitchTree {
 //    protected boolean isDisplayHomeAsUpEnabled() {
 //        return true;
 //    }
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
         EventBus.getDefault().unregister(this);
     }
 

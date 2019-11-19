@@ -43,6 +43,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimerTask;
 
+import retrofit2.Call;
+
 /**
  * 1 分线 -> n 支线
  */
@@ -259,7 +261,7 @@ public class YaoKongDetailActivity extends BaseActivity {
      */
     private void getSwitchByCollector() {
         mWaitDialog.show();
-        Core.instance(this).getSwitchByCollector(mCollectorBean.getCode(), "hierarchy", new ActionCallbackListener<List<SwitchBean>>() {
+        currentCall = Core.instance(this).getSwitchByCollector(mCollectorBean.getCode(), "hierarchy", new ActionCallbackListener<List<SwitchBean>>() {
             @Override
             public void onSuccess(List<SwitchBean> data) {
                 for (SwitchBean ss : data) {
@@ -425,7 +427,7 @@ public class YaoKongDetailActivity extends BaseActivity {
         if (TextUtils.isEmpty(controllerId)) {
             return;
         }
-        Core.instance(this).getControllerState(controllerId, new ActionCallbackListener<SwitchBean>() {
+        currentCall = Core.instance(this).getControllerState(controllerId, new ActionCallbackListener<SwitchBean>() {
             @Override
             public void onSuccess(SwitchBean data) {
                 currentSearchCount = 0;
@@ -454,7 +456,7 @@ public class YaoKongDetailActivity extends BaseActivity {
      * 刷新单条线路状态
      */
     private void getSwitchStateOne() {
-        Core.instance(this).getSwitchState(currentSwitchBean.getSerialNumber(), new ActionCallbackListener<SwitchBean>() {
+        currentCall = Core.instance(this).getSwitchState(currentSwitchBean.getSerialNumber(), new ActionCallbackListener<SwitchBean>() {
 
             @Override
             public void onSuccess(SwitchBean cb) {
@@ -509,7 +511,7 @@ public class YaoKongDetailActivity extends BaseActivity {
      * 刷新集中器下的所有线路状态
      */
     private void getAllSwitchState() {
-        Core.instance(this).getAllSwitchState(mCollectorBean.getCode(), new ActionCallbackListener<CollectorState>() {
+        currentCall = Core.instance(this).getAllSwitchState(mCollectorBean.getCode(), new ActionCallbackListener<CollectorState>() {
             @Override
             public void onSuccess(CollectorState data) {
                 List<SwitchBean> switchState = data.getSwitchState();
@@ -605,8 +607,13 @@ public class YaoKongDetailActivity extends BaseActivity {
 
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
         mHandler.removeMessages(MSG_CMD_RESULT_FLAG);
         mHandler.removeMessages(MSG_FILLDATA_FLAG);
         mHandler.removeMessages(MSG_TIMER_FLAG);

@@ -30,6 +30,8 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Objects;
 
+import retrofit2.Call;
+
 /**
  * 第三方绑定
  */
@@ -124,7 +126,7 @@ public class ThridBindActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onThirdPartBind(final ThirdPartyInfo thirdPartyBind) {
         if (thirdPartyBind.isSucess) {
-            Core.instance(this).ThirdPartBind(thirdPartyBind, new ActionCallbackListener<Void>() {
+            currentCall = Core.instance(this).ThirdPartBind(thirdPartyBind, new ActionCallbackListener<Void>() {
                 @Override
                 public void onSuccess(Void data) {
                     if (thirdPartyBind.bindType == ThirdPartyInfo.BIND_WEIXIN) {
@@ -185,7 +187,7 @@ public class ThridBindActivity extends BaseActivity {
     private void unBind(String popType) {
         waitDialog.show();
         if (popType.equals("WX")) {
-            Core.instance(this).unBindWX(new ActionCallbackListener<Void>() {
+            currentCall = Core.instance(this).unBindWX(new ActionCallbackListener<Void>() {
 
                 @Override
                 public void onSuccess(Void data) {
@@ -201,7 +203,7 @@ public class ThridBindActivity extends BaseActivity {
                 }
             });
         } else if (popType.equals("QQ")) {
-            Core.instance(this).unBindQQ(new ActionCallbackListener<Void>() {
+            currentCall = Core.instance(this).unBindQQ(new ActionCallbackListener<Void>() {
 
                 @Override
                 public void onSuccess(Void data) {
@@ -238,8 +240,13 @@ public class ThridBindActivity extends BaseActivity {
         }
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
         EventBus.getDefault().unregister(this);
     }
 

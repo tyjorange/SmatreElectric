@@ -27,6 +27,8 @@ import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 
+import retrofit2.Call;
+
 /**
  * 分时计价
  */
@@ -197,9 +199,14 @@ public class TimePriceActivity extends BaseActivity {
 
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
-//        mEditText.removeTextChangedListener(textWatcher);
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
+        //        mEditText.removeTextChangedListener(textWatcher);
         savePriceToShared();
         mHandler.removeMessages(MESSAGE_UPDATE_PRICE);
         mHandler = null;
@@ -252,7 +259,7 @@ public class TimePriceActivity extends BaseActivity {
         }
         Log.d(TAG, "upload price = " + price);
         mWaitDialog.show();
-        Core.instance(this).addTimeOfUsePrice(price.toString(), new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(this).addTimeOfUsePrice(price.toString(), new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 mWaitDialog.dismiss();
@@ -269,7 +276,7 @@ public class TimePriceActivity extends BaseActivity {
 
     private void getPrice() {
         mWaitDialog.show();
-        Core.instance(this).getTimeOfUsePrice(new ActionCallbackListener<List<TimePrice>>() {
+        currentCall = Core.instance(this).getTimeOfUsePrice(new ActionCallbackListener<List<TimePrice>>() {
             @Override
             public void onSuccess(List<TimePrice> data) {
                 mWaitDialog.dismiss();

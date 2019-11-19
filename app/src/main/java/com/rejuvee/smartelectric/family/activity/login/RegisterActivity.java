@@ -23,6 +23,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import retrofit2.Call;
+
 public class RegisterActivity extends BaseActivity {
     private static final String TAG = "RegisterActivity";
     //    private EditText edtUserName, edtPhone, edtVerifyCode, edtPassword, edtEnsurePassword;
@@ -91,7 +93,7 @@ public class RegisterActivity extends BaseActivity {
     private void usernameVerify(String username) {
         if (username.isEmpty())
             return;
-        Core.instance(this).validateUsername(username, new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(this).validateUsername(username, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
 
@@ -121,7 +123,7 @@ public class RegisterActivity extends BaseActivity {
             return;
         }
 
-        Core.instance(this).isPhoneRegister(phone, new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(this).isPhoneRegister(phone, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
 
@@ -182,7 +184,7 @@ public class RegisterActivity extends BaseActivity {
     }
 
     public void Register(final String userName, final String phone, final String password, String vcode) {
-        Core.instance(this).RegisterByPhone(phone, userName, vcode, password, new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(this).RegisterByPhone(phone, userName, vcode, password, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
@@ -256,8 +258,13 @@ public class RegisterActivity extends BaseActivity {
         }
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
         EventBus.getDefault().unregister(this);
     }
 

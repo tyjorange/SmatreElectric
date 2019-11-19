@@ -54,6 +54,7 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -116,11 +117,11 @@ public class Core {
         return api;
     }
 
-    public Retrofit getRetrofit() {
+    Retrofit getRetrofit() {
         return retrofit;
     }
 
-    public Call<?> Login(String userName, String phone, String version, String password, ActionCallbackListener<AccountInfo> listener) {
+    public void Login(String userName, String phone, String version, String password, ActionCallbackListener<AccountInfo> listener) {
         Param param = new Param();
         param.setUsername(userName);
         param.setPhone(phone);
@@ -128,7 +129,6 @@ public class Core {
         param.setVersion(Integer.valueOf(version));
         Call<ApiResponse<AccountInfo>> call = api.login(mJSessionId, param);
         enqueue(call, listener);
-        return call;
     }
 
     public Call<?> ThirdPartLogin(ThirdPartyInfo thirdPartyInfo, ActionCallbackListener<AccountInfo> listener) {
@@ -148,7 +148,7 @@ public class Core {
             param.setUnionid(thirdPartyInfo.unionid);
             call = api.loginQQ(mJSessionId, param);
         }
-        enqueue(call, listener);
+        enqueue(Objects.requireNonNull(call), listener);
         return call;
     }
 
@@ -169,7 +169,7 @@ public class Core {
             param.setUnionid(thirdPartyInfo.unionid);
             call = api.bindQQ(mJSessionId, param);
         }
-        enqueue(call, listener);
+        enqueue(Objects.requireNonNull(call), listener);
         return call;
     }
 
@@ -221,13 +221,12 @@ public class Core {
         return call;
     }
 
-    public Call<?> updatePwd(String newPwd, String password, ActionCallbackListener<Void> listener) {
+    public void updatePwd(String newPwd, String password, ActionCallbackListener<Void> listener) {
         Param param = new Param();
         param.setPassword(password);
         param.setNewPwd(newPwd);
         Call<ApiResponse<Void>> call = api.updatePwd(mJSessionId, param);
         enqueue(call, listener);
-        return call;
     }
 
     public Call<?> resetPwd(String phone, String code, String password, ActionCallbackListener<Void> listener) {
@@ -300,9 +299,6 @@ public class Core {
     /**
      * 获取控制器
      *
-     * @param
-     * @param listener
-     * @return
      */
     public Call<?> getCollector(ActionCallbackListener<List<CollectorBean>> listener) {
         Call<ApiResponse<List<CollectorBean>>> call = api.getCollector(mJSessionId);
@@ -328,10 +324,8 @@ public class Core {
     /**
      * 获取断路器
      *
-     * @param collectorCode
+     * @param collectorCode code
      * @param hierarchy     是否排序成树状图
-     * @param listener
-     * @return
      */
     public Call<?> getSwitchByCollector(String collectorCode, String hierarchy, ActionCallbackListener<List<SwitchBean>> listener) {
         Param param = new Param();
@@ -1014,8 +1008,8 @@ public class Core {
         Call<WXAccessTokenRet> call = api.getWXAccessToken(mJSessionId, appId, secret, code, grant_type);
         call.enqueue(new Callback<WXAccessTokenRet>() {
             @Override
-            public void onResponse(Call<WXAccessTokenRet> call, Response<WXAccessTokenRet> response) {
-                Log.d(TAG, response.raw().networkResponse().request().url().toString());
+            public void onResponse(@NonNull Call<WXAccessTokenRet> call, @NonNull Response<WXAccessTokenRet> response) {
+                Log.d(TAG, Objects.requireNonNull(response.raw().networkResponse()).request().url().toString());
                 if (response.isSuccessful()) {
                     listener.onSuccess(response.body());
                 } else {
@@ -1024,7 +1018,7 @@ public class Core {
             }
 
             @Override
-            public void onFailure(Call<WXAccessTokenRet> call, Throwable t) {
+            public void onFailure(@NonNull Call<WXAccessTokenRet> call, @NonNull Throwable t) {
                 listener.onFailure(0, "");
             }
         });

@@ -37,6 +37,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import retrofit2.Call;
+
 /**
  * 安全阀值设置
  */
@@ -191,7 +193,7 @@ public class SwitchSettingActivity extends BaseActivity implements
      */
     private void getSwitchByCollector() {
         waitDialog.show();
-        Core.instance(this).getSwitchByCollector(collectorBean.getCode(), "nohierarchy", new ActionCallbackListener<List<SwitchBean>>() {
+        currentCall = Core.instance(this).getSwitchByCollector(collectorBean.getCode(), "nohierarchy", new ActionCallbackListener<List<SwitchBean>>() {
             @Override
             public void onSuccess(List<SwitchBean> data) {
                 currentSwitchBean = data.get(0);//init bean
@@ -227,7 +229,7 @@ public class SwitchSettingActivity extends BaseActivity implements
 //        listPopupWindow.dismiss();
         waitDialog.show();
         String content = gson.toJson(_JDataGet);// 转JSON字符串
-        Core.instance(this).sendGetThreadValueCommand(content, new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(this).sendGetThreadValueCommand(content, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 Log.d(TAG, getString(R.string.vs153) + " threadId = " + Thread.currentThread().getId());
@@ -264,7 +266,7 @@ public class SwitchSettingActivity extends BaseActivity implements
             waitDialog.show();
         }
         String content = gson.toJson(_JDataGet);// 转JSON字符串
-        Core.instance(this).findSwitchParamBySwitch(content, new ActionCallbackListener<List<VoltageValue>>() {
+        currentCall = Core.instance(this).findSwitchParamBySwitch(content, new ActionCallbackListener<List<VoltageValue>>() {
 
             @Override
             public void onSuccess(List<VoltageValue> valueList) {
@@ -456,7 +458,7 @@ public class SwitchSettingActivity extends BaseActivity implements
             return;
         }
         String content = gson.toJson(_JDataSet);// 转JSON字符串
-        Core.instance(SwitchSettingActivity.this).sendSetThreadValueCommand(content, new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(SwitchSettingActivity.this).sendSetThreadValueCommand(content, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 CustomToast.showCustomToast(SwitchSettingActivity.this, getString(R.string.vs213));
@@ -499,8 +501,13 @@ public class SwitchSettingActivity extends BaseActivity implements
         }
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
         mHandler.removeMessages(MSG_sendGetThreadValueCommand_FLAG);
         mHandler.removeMessages(MSG_findSwitchParamBySwitch_FLAG);
     }

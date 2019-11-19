@@ -18,6 +18,8 @@ import com.rejuvee.smartelectric.family.databinding.ActivityAddShareMemberBindin
 import com.rejuvee.smartelectric.family.model.viewmodel.AddShareMemberViewModel;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 
+import retrofit2.Call;
+
 /**
  * 添加分享用户
  */
@@ -105,7 +107,7 @@ public class AddShareMemberActivity extends BaseActivity {
         //    private boolean ischeck;
         //1表示允许  0不允许  默认允许
         int enable = 1;
-        Core.instance(this).shareCollector(true, userName, collectId, enable, new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(this).shareCollector(true, userName, collectId, enable, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 CustomToast.showCustomToast(AddShareMemberActivity.this, getString(R.string.operator_sucess));
@@ -146,9 +148,13 @@ public class AddShareMemberActivity extends BaseActivity {
 
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
-
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
     }
 
     @Override

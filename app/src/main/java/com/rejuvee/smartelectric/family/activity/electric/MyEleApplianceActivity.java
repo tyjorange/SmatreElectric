@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import retrofit2.Call;
+
 /**
  * 电器
  * Created by Administrator on 2018/11/5.
@@ -95,7 +97,7 @@ public class MyEleApplianceActivity extends BaseActivity implements Eleappliance
             mWaitDialog = new LoadingDlg(context, -1);
             mWaitDialog.show();
         }
-        Core.instance(context).getEEsByCollector(collectorBean.getCollectorID(), new ActionCallbackListener<List<EleBean>>() {
+        currentCall = Core.instance(context).getEEsByCollector(collectorBean.getCollectorID(), new ActionCallbackListener<List<EleBean>>() {
             @Override
             public void onSuccess(List<EleBean> data) {
                 postResult(DeviceEventMsg.EVENT_GET_ALLELES, data, "ok", true);
@@ -112,7 +114,7 @@ public class MyEleApplianceActivity extends BaseActivity implements Eleappliance
 
     //删除电器
     public void DeleteEle(Context context, String eleId, boolean showLoading) {
-        Core.instance(context).deleteEE(eleId, new ActionCallbackListener<Void>() {
+        currentCall = Core.instance(context).deleteEE(eleId, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
                 postResult(DeviceEventMsg.EVENT_DELET_ELES, data, "ok", true);
@@ -192,8 +194,13 @@ public class MyEleApplianceActivity extends BaseActivity implements Eleappliance
         eleapplianceAdapter.notifyDataSetChanged();
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
         EventBus.getDefault().unregister(this);
     }
 

@@ -38,6 +38,8 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Objects;
 
+import retrofit2.Call;
+
 /**
  * Created by SH on 2017/12/19.
  */
@@ -245,8 +247,13 @@ public class LoginActivity extends BaseActivity {
         accountInfoRealm.deleteRealm();
     }
 
+    private Call<?> currentCall;
+
     @Override
     protected void dealloc() {
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
         //防止内存泄漏
 //        mBinding.loginCetUsername.removeTextChangedListener();
 //        mBinding.loginCetPassword.removeTextChangedListener();
@@ -274,7 +281,7 @@ public class LoginActivity extends BaseActivity {
     public void onThirdPartLogin(ThirdPartyInfo thirdPartyInfo) {
         if (thirdPartyInfo.isSucess) {
             mWaitDialog.show();
-            Core.instance(this).ThirdPartLogin(thirdPartyInfo, new ActionCallbackListener<AccountInfo>() {
+            currentCall = Core.instance(this).ThirdPartLogin(thirdPartyInfo, new ActionCallbackListener<AccountInfo>() {
                 @Override
                 public void onSuccess(AccountInfo data) {
                     mWaitDialog.dismiss();
