@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.rejuvee.smartelectric.family.common.manager.ActivityFragmentManager;
+
 /**
  * 所有活动的基类
  *

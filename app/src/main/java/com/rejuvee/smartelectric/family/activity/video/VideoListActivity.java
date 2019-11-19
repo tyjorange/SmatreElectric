@@ -16,6 +16,9 @@ import com.rejuvee.smartelectric.family.model.bean.VideoInfo;
 
 import java.util.List;
 
+/**
+ * 常见问题列表
+ */
 public class VideoListActivity extends BaseActivity {
 
     private VideoListBeanAdapter adapter;

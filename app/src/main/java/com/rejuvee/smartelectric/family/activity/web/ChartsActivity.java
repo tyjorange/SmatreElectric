@@ -177,7 +177,7 @@ public class ChartsActivity extends BaseActivity {
             // 退出时调用此方法，移除绑定的服务，否则某些特定系统会报错
             webView.getSettings().setJavaScriptEnabled(false);
             webView.clearHistory();
-            webView.clearView();
+//            webView.clearView();
             webView.removeAllViews();
             webView.destroy();
         }

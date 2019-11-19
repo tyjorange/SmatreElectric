@@ -11,7 +11,7 @@ import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.MainApplication;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
-import com.rejuvee.smartelectric.family.common.LogoVersionManage;
+import com.rejuvee.smartelectric.family.common.manager.LogoVersionManage;
 import com.rejuvee.smartelectric.family.common.utils.thrid.WXHelper;
 import com.rejuvee.smartelectric.family.model.bean.ThirdPartyInfo;
 import com.rejuvee.smartelectric.family.model.bean.WXAccessTokenRet;

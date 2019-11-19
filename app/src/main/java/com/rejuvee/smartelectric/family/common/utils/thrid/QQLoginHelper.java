@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.rejuvee.smartelectric.family.common.LogoVersionManage;
+import com.rejuvee.smartelectric.family.common.manager.LogoVersionManage;
 import com.rejuvee.smartelectric.family.model.bean.ThirdPartyInfo;
 import com.tencent.connect.UnionInfo;
 import com.tencent.connect.UserInfo;

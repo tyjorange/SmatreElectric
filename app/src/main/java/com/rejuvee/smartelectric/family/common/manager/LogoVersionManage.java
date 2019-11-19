@@ -1,4 +1,4 @@
-package com.rejuvee.smartelectric.family.common;
+package com.rejuvee.smartelectric.family.common.manager;
 
 import android.app.Application;
 import android.content.pm.ApplicationInfo;
@@ -77,7 +77,7 @@ public class LogoVersionManage {
         return R.drawable.main_page_top;
     }
 
-    String getVersionInfoUrl() {
+    public String getVersionInfoUrl() {
         switch (companyName) {
             case "solarstem":
                 return AppGlobalConfig.HTTP_URL_VERSION_CONTROL + "null1.xml";
@@ -91,7 +91,7 @@ public class LogoVersionManage {
         return AppGlobalConfig.HTTP_URL_VERSION_CONTROL + "null.xml";
     }
 
-    String getFileAuthor() {
+    public String getFileAuthor() {
         switch (companyName) {
             case "solarstem":
                 return "com.rejuvee.smartelectric.family.slst";

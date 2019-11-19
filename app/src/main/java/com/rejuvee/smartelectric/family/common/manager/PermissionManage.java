@@ -1,4 +1,4 @@
-package com.rejuvee.smartelectric.family.common;
+package com.rejuvee.smartelectric.family.common.manager;
 
 import android.Manifest;
 import android.annotation.SuppressLint;

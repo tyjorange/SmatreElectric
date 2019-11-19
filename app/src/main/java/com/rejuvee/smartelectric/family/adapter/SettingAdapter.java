@@ -11,7 +11,7 @@ import androidx.databinding.library.baseAdapters.BR;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rejuvee.smartelectric.family.R;
-import com.rejuvee.smartelectric.family.common.BindingViewHolder;
+import com.rejuvee.smartelectric.family.common.custom.BindingViewHolder;
 import com.rejuvee.smartelectric.family.databinding.ItemEmptyBinding;
 import com.rejuvee.smartelectric.family.databinding.ItemLineDeleteBinding;
 import com.rejuvee.smartelectric.family.databinding.ItemLineDetail1Binding;

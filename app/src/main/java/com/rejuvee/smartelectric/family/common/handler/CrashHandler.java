@@ -1,4 +1,4 @@
-package com.rejuvee.smartelectric.family.common;
+package com.rejuvee.smartelectric.family.common.handler;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.base.frame.net.ActionCallbackListener;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.api.Core;
+import com.rejuvee.smartelectric.family.common.manager.ActivityFragmentManager;
 
 import java.io.File;
 import java.io.FileOutputStream;

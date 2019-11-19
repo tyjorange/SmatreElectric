@@ -6,8 +6,8 @@ import android.view.View;
 import androidx.databinding.DataBindingUtil;
 
 import com.rejuvee.smartelectric.family.R;
-import com.rejuvee.smartelectric.family.common.ActivityFragmentManager;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
+import com.rejuvee.smartelectric.family.common.manager.ActivityFragmentManager;
 import com.rejuvee.smartelectric.family.databinding.ActivityReLoginBinding;
 
 public class ReLoginActivity extends BaseActivity {

@@ -10,6 +10,9 @@ import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.databinding.ActivityVideoBinding;
 
+/**
+ * 视频播放
+ */
 public class VideoActivity extends BaseActivity {
     private ActivityVideoBinding mBinding;
 

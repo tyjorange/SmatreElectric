@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.activity.collector.CollectorAttrSetActivity;
-import com.rejuvee.smartelectric.family.common.BindingViewHolder;
+import com.rejuvee.smartelectric.family.common.custom.BindingViewHolder;
 import com.rejuvee.smartelectric.family.databinding.SetcountsItemsBinding;
 
 import java.util.ArrayList;

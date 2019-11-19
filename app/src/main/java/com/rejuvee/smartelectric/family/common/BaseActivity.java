@@ -7,6 +7,8 @@ import android.os.SystemClock;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.rejuvee.smartelectric.family.common.manager.ActivityFragmentManager;
+
 //import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
