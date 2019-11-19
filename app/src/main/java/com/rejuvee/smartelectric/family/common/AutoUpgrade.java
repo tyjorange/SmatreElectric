@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -22,6 +23,7 @@ import androidx.core.content.FileProvider;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.constant.AppGlobalConfig;
+import com.rejuvee.smartelectric.family.common.utils.WifiUtil;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTip;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DownloadProgressDialog;
 import com.rejuvee.smartelectric.family.model.bean.AutoUpgradeEventMessage;
@@ -80,15 +82,17 @@ public class AutoUpgrade {
         }
     };
     private Context mContext;
-    private DialogTip mDialogTip;
+    private SharedPreferences sharedPreferences;
+    //    private DialogTip mDialogTip;
     private Handler mHandler;
     private boolean showTip = false;
 
     private AutoUpgrade(Context context) {
         mContext = context;
+        sharedPreferences = mContext.getSharedPreferences(AppGlobalConfig.BASIC_CONFIG, MODE_PRIVATE);
         mHandler = new MyHandler(this);
-
         receiver = new DownloadCompleteReceiver();
+
         IntentFilter intentFilter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
         intentFilter.setPriority(2147483647);
         mContext.registerReceiver(receiver, intentFilter);
@@ -111,7 +115,7 @@ public class AutoUpgrade {
                     autoUpgrade.progressDialog.setProgress(msg.arg1);
                     autoUpgrade.progressDialog.setMax(msg.arg2);
                 }
-            } else if (msg.what == 1002) {
+            } else if (msg.what == 1022) {
                 if (autoUpgrade.showTip) {
                     CustomToast.showCustomErrorToast(autoUpgrade.mContext, autoUpgrade.mContext.getString(R.string.vs219));
                 }
@@ -187,7 +191,7 @@ public class AutoUpgrade {
                 } else {
                     Log.e(TAG, "xml ResponseCode=" + urlConnection.getResponseCode());
                     Message msg = Message.obtain();
-                    msg.what = 1002;
+                    msg.what = 1022;
                     mHandler.sendMessage(msg);
                 }
             } catch (IOException e) {
@@ -242,12 +246,12 @@ public class AutoUpgrade {
         for (String s : mVersionInfo.upgradeItems) {
             res = res.append(s);
         }
-        mDialogTip = new DialogTip(mContext, false);
+        DialogTip mDialogTip = new DialogTip(mContext, false);
         mDialogTip.setCanceledOnTouchOutside(false);// 设置为点击窗口外部不可关闭
         mDialogTip.setTitle(mContext.getString(R.string.new_version) + mVersionInfo.versionName)
+                .setContent(res.toString().replace("\\n", "\n"))
                 .setOkTxt(mContext.getString(R.string.intall_now))
                 .setCancelTxt(mContext.getString(R.string.vs215))
-                .setContent(res.toString().replace("\\n", "\n"))
                 .setDialogListener(new DialogTip.onEnsureDialogListener() {
                     @Override
                     public void onEnsure() {
@@ -259,8 +263,7 @@ public class AutoUpgrade {
                     public void onCancel() {
                         mDialogTip.dismiss();
                     }
-                })
-                .show();
+                }).show();
     }
 
     /**
@@ -272,8 +275,8 @@ public class AutoUpgrade {
         Uri parse = Uri.parse(downloadUrl + mVersionInfo.getApkName());
         DownloadManager.Request dmr = new DownloadManager.Request(parse);
         // 设置允许使用的网络类型，这里是移动网络和wifi都可以
-//        dmr.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
-        dmr.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
+        dmr.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
+//        dmr.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
         // 下载时，通知栏显示途中
         dmr.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
         // 显示下载界面
@@ -288,12 +291,41 @@ public class AutoUpgrade {
             boolean delete = file.delete();
             Log.d(TAG, "file[" + file.getPath() + "]isDelete=" + delete);
         }
-        // 将下载请求放入队列
-        long downloadId = downloadManager.enqueue(dmr);
-        mContext.getSharedPreferences(AppGlobalConfig.BASIC_CONFIG, MODE_PRIVATE).edit().putLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, downloadId).apply();
-        startQuery();
+        //确认网络类型
+        if (WifiUtil.getInstance(mContext).isWifiConnect()) {
+            startDownload(dmr);
+        } else {
+            DialogTip _DialogTip = new DialogTip(mContext, false);
+            _DialogTip.setCanceledOnTouchOutside(false);// 设置为点击窗口外部不可关闭
+            _DialogTip.setTitle("")
+                    .setContent(mContext.getString(R.string.vs273))
+                    .setOkTxt(mContext.getString(R.string.vs274))
+                    .setCancelTxt(mContext.getString(R.string.cancel))
+                    .setDialogListener(new DialogTip.onEnsureDialogListener() {
+                        @Override
+                        public void onEnsure() {
+                            startDownload(dmr);
+                            _DialogTip.dismiss();
+                        }
+
+                        @Override
+                        public void onCancel() {
+                            _DialogTip.dismiss();
+                        }
+                    }).show();
+        }
     }
 
+    /**
+     * 将下载请求放入队列
+     *
+     * @param dmr
+     */
+    private void startDownload(DownloadManager.Request dmr) {
+        long downloadId = downloadManager.enqueue(dmr);
+        sharedPreferences.edit().putLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, downloadId).apply();
+        startQuery();
+    }
     /**
      * 查询下载进度，文件总大小多少，已经下载多少？
      *
@@ -305,7 +337,7 @@ public class AutoUpgrade {
             CustomToast.showCustomErrorToast(mContext, mContext.getString(R.string.vs217));
             return false;
         }
-        long downLoadId = mContext.getSharedPreferences(AppGlobalConfig.BASIC_CONFIG, MODE_PRIVATE).getLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, -1);
+        long downLoadId = sharedPreferences.getLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, -1);
         // 通过ID向下载管理查询下载情况，返回一个cursor
         Cursor c = downloadManager.query(new DownloadManager.Query().setFilterById(downLoadId));
         if (c != null) {
@@ -333,7 +365,7 @@ public class AutoUpgrade {
      * @return
      */
     private int getDownloadStatus() {
-        long downLoadId = mContext.getSharedPreferences(AppGlobalConfig.BASIC_CONFIG, MODE_PRIVATE).getLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, -1);
+        long downLoadId = sharedPreferences.getLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, -1);
         DownloadManager.Query query = new DownloadManager.Query().setFilterById(downLoadId);
         Cursor c = downloadManager.query(query);
         if (c != null) {
@@ -405,7 +437,7 @@ public class AutoUpgrade {
 
     //更新下载进度
     private void startQuery() {
-        long downLoadId = mContext.getSharedPreferences(AppGlobalConfig.BASIC_CONFIG, MODE_PRIVATE).getLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, -1);
+        long downLoadId = sharedPreferences.getLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, -1);
         if (downLoadId > 0) {
             displayProgressDialog();
             mHandler.post(mQueryProgressRunnable);
@@ -448,7 +480,7 @@ public class AutoUpgrade {
     //下载停止同时删除下载文件
     private void removeDownload() {
         if (downloadManager != null) {
-            long downLoadId = mContext.getSharedPreferences(AppGlobalConfig.BASIC_CONFIG, MODE_PRIVATE).getLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, -1);
+            long downLoadId = sharedPreferences.getLong(AppGlobalConfig.CONFIG_UPGRADE_DOWNLOAD_ID, -1);
             downloadManager.remove(downLoadId);
         }
     }

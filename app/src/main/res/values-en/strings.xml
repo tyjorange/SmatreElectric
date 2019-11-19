@@ -621,4 +621,6 @@
     <string name="vs270">Break name/icon</string>
     <string name="vs271">By logging in, you agree to the user agreement and privacy policy</string>
     <string name="vs272">Empty</string>
+    <string name="vs273">Will download using traffic, continue?</string>
+    <string name="vs274">yes</string>
 </resources>

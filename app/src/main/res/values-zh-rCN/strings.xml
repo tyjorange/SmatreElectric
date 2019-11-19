@@ -633,4 +633,6 @@
     <string name="vs270">线路名称/图片</string>
     <string name="vs271">登陆即代表同意 用户协议 和 隐私政策</string>
     <string name="vs272">这里空空如也，什么也没有</string>
+    <string name="vs273">将使用流量下载，是否继续</string>
+    <string name="vs274">下载</string>
 </resources>

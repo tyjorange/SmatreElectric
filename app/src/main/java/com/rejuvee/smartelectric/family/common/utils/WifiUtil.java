@@ -33,6 +33,7 @@ public class WifiUtil {
     //    private Context context;
     // 扫描出的网络连接列表
     private List<ScanResult> mWifiList;
+    private ConnectivityManager mConnectivityManager;
 
     // 私有构造器
     private WifiUtil(Context context) {
@@ -46,7 +47,7 @@ public class WifiUtil {
             dhcpInfo = mWifiManager.getDhcpInfo();
         }
 //        List<WifiConfiguration> mWifiConfigurations = mWifiManager.getConfiguredNetworks();
-        ConnectivityManager mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         // 网络状态改变监听
         NetworkRequest build = new NetworkRequest.Builder().build();
         ConnectivityManager.NetworkCallback networkCallback = new ConnectivityManager.NetworkCallback() {
@@ -136,13 +137,16 @@ public class WifiUtil {
         }
     }
 
-    //判断wifi是否连接
-    @Deprecated
-    private static boolean isWifiConnect(Context context) {
-        ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+    /**
+     * 判断wifi是否连接
+     *
+     * @return
+     */
+    public boolean isWifiConnect() {
         NetworkInfo mWifi = null;
-        if (connManager != null) {
-            mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if (mConnectivityManager != null) {
+            mWifi = mConnectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         }
         if (mWifi != null) {
             return mWifi.getState() == NetworkInfo.State.CONNECTED;
