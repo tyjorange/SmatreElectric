@@ -7,8 +7,9 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -76,14 +77,14 @@ public class SecurityInformationActivity extends BaseActivity {
     }
 
 
-    class MyFragmentAdapter extends FragmentPagerAdapter {
-
+    class MyFragmentAdapter extends FragmentStatePagerAdapter {
+        private FragmentFactory fragmentFactory = new FragmentFactory();
         private Bundle bundle;
         private List<Class> listFragments = new ArrayList<>();
 
         @SuppressLint("WrongConstant")
         MyFragmentAdapter(FragmentManager fm) {
-            super(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+            super(fm, FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
             bundle = new Bundle();
             bundle.putString("CollectorID", mCollectorBean.getCollectorID());
             listFragments.add(LineAlarmFrgament.class);
@@ -94,8 +95,9 @@ public class SecurityInformationActivity extends BaseActivity {
         @NonNull
         @Override
         public Fragment getItem(int position) {
-            Class fragment = listFragments.get(position);
-            return Fragment.instantiate(SecurityInformationActivity.this, fragment.getName(), bundle);
+            Fragment instantiate = fragmentFactory.instantiate(getClassLoader(), listFragments.get(position).getName());
+            instantiate.setArguments(bundle);
+            return instantiate;
         }
 
         @Override

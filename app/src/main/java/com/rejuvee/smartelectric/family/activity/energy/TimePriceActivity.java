@@ -14,7 +14,7 @@ import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.adapter.ListSetingItem;
-import com.rejuvee.smartelectric.family.adapter.SettingAdapter;
+import com.rejuvee.smartelectric.family.adapter.SettingBeanAdapter;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
@@ -33,7 +33,7 @@ import java.util.Locale;
 public class TimePriceActivity extends BaseActivity {
     private String TAG = "TimePriceActivity";
     //    private ListView mListView;
-    private SettingAdapter mAdapter;
+    private SettingBeanAdapter mAdapter;
     //    private EditText mEditText;
     private List<ListSetingItem> mListData = new ArrayList<>();
     private static Handler mHandler;
@@ -88,10 +88,10 @@ public class TimePriceActivity extends BaseActivity {
 
 
 //        if (mAdapter == null) {
-        mAdapter = new SettingAdapter(this);
+        mAdapter = new SettingBeanAdapter(this);
         mBinding.listSections.setLayoutManager(new LinearLayoutManager(this));
         mBinding.listSections.setAdapter(mAdapter);
-        mAdapter.setSetListener(new SettingAdapter.onSettingClickListener() {
+        mAdapter.setSetListener(new SettingBeanAdapter.onSettingClickListener() {
             @Override
             public void onRemove(ListSetingItem item, int position) {
                 //nothing

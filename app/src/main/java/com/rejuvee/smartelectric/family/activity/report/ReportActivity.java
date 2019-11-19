@@ -1,13 +1,15 @@
 package com.rejuvee.smartelectric.family.activity.report;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
@@ -21,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 报表
+ * 报表列表
  */
 public class ReportActivity extends BaseActivity {
     private CollectorBean collectorBean;
@@ -46,9 +48,9 @@ public class ReportActivity extends BaseActivity {
 //        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
 //        TabLayout mTabLayout = findViewById(R.id.tab_report_list);
 //        ViewPager viewPager = findViewById(R.id.vp_report_list);
+        mBinding.tabReportList.setupWithViewPager(mBinding.vpReportList, true);
         MyFragmentAdapter mAdapter = new MyFragmentAdapter(getSupportFragmentManager());
         mBinding.vpReportList.setAdapter(mAdapter);
-        mBinding.tabReportList.setupWithViewPager(mBinding.vpReportList, true);
     }
 
     public class Presenter {
@@ -57,18 +59,20 @@ public class ReportActivity extends BaseActivity {
         }
 
     }
+
     @Override
     protected void dealloc() {
 
     }
 
-    class MyFragmentAdapter extends FragmentPagerAdapter {
-
+    class MyFragmentAdapter extends FragmentStatePagerAdapter {
+        private FragmentFactory fragmentFactory = new FragmentFactory();
         private Bundle bundle;
         private List<Class> listFragments = new ArrayList<>();
 
+        @SuppressLint("WrongConstant")
         MyFragmentAdapter(FragmentManager fm) {
-            super(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+            super(fm, FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
             bundle = new Bundle();
             bundle.putParcelable("collectorBean", collectorBean);
             listFragments.add(Report1Fragment.class);
@@ -79,8 +83,9 @@ public class ReportActivity extends BaseActivity {
         @NonNull
         @Override
         public Fragment getItem(int position) {
-            Class fragment = listFragments.get(position);
-            return Fragment.instantiate(ReportActivity.this, fragment.getName(), bundle);
+            Fragment instantiate = fragmentFactory.instantiate(getClassLoader(), listFragments.get(position).getName());
+            instantiate.setArguments(bundle);
+            return instantiate;
         }
 
         @Override

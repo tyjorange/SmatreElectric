@@ -11,7 +11,7 @@ import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.adapter.ListSetingItem;
-import com.rejuvee.smartelectric.family.adapter.SettingAdapter;
+import com.rejuvee.smartelectric.family.adapter.SettingBeanAdapter;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTip;
@@ -31,7 +31,7 @@ public class ShareListActivity extends BaseActivity {
     //        private List<UserMsg> listShareUsers = new LinkedList<>();// 分享的用户
     private List<ListSetingItem> mListItem = new LinkedList<>();// 转换后的items ViewModel
     //    private UserMsg currentUser;
-    private SettingAdapter mAdapter;
+    private SettingBeanAdapter mAdapter;
 
     private DialogTip mDialogSwitchEnable;
     private WaitDialog waitDialog;
@@ -70,8 +70,8 @@ public class ShareListActivity extends BaseActivity {
 //        ListView listView = findViewById(R.id.list_share_users);
 //        refreshLayout = findViewById(R.id.refreshlayout);
         mBinding.refreshlayout.setOnRefreshListener(this::onRefresh);
-        mAdapter = new SettingAdapter(this);
-        mAdapter.setSetListener(new SettingAdapter.onSettingClickListener() {
+        mAdapter = new SettingBeanAdapter(this);
+        mAdapter.setSetListener(new SettingBeanAdapter.onSettingClickListener() {
             @Override
             public void onRemove(ListSetingItem item, int position) {
                 new DialogTip(ShareListActivity.this).setTitle(getString(R.string.delete))

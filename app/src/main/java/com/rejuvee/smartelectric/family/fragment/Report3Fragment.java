@@ -3,9 +3,9 @@ package com.rejuvee.smartelectric.family.fragment;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ListView;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
@@ -18,12 +18,12 @@ import com.rejuvee.smartelectric.family.databinding.FragmentReport3monthBinding;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
 import com.rejuvee.smartelectric.family.model.bean.ReportBean;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Report3Fragment extends BaseFragment {
     private ReportAdapter adapter;
-    private List<ReportBean> mListData = new ArrayList<>();
+//    private List<ReportBean> mListData = new ArrayList<>();
 
 //    @Override
 //    protected int getLayoutResId() {
@@ -33,17 +33,27 @@ public class Report3Fragment extends BaseFragment {
     @Override
     protected View initView() {
         FragmentReport3monthBinding mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.fragment_report_3month, null, false);
-        CollectorBean collectorBean = getArguments().getParcelable("collectorBean");
-        ListView listView = mBinding.reportList3;// v.findViewById(R.id.report_list_3);
-        adapter = new ReportAdapter(getContext(), mListData);
-        listView.setAdapter(adapter);
+        CollectorBean collectorBean = Objects.requireNonNull(getArguments()).getParcelable("collectorBean");
+//        ListView listView = mBinding.reportList3;// v.findViewById(R.id.report_list_3);
+        adapter = new ReportAdapter(Objects.requireNonNull(getContext()));
+        mBinding.reportList3.setAdapter(adapter);
+        mBinding.reportList3.setLayoutManager(new LinearLayoutManager(getContext()));
 //        listView.setEmptyView(mBinding.emptyLayout);
-        listView.setOnItemClickListener((parent, view, position, id) -> {
-            Intent intent = new Intent(getContext(), ReportDetailActivity.class);
-            intent.putExtra("collectorBean", collectorBean);
-            intent.putExtra("reportBean", mListData.get(position));
-            startActivity(intent);
+        adapter.setCallback(new ReportAdapter.CallBack() {
+            @Override
+            public void onClick(ReportBean bean) {
+                Intent intent = new Intent(getContext(), ReportDetailActivity.class);
+                intent.putExtra("collectorBean", collectorBean);
+                intent.putExtra("reportBean", bean);
+                startActivity(intent);
+            }
         });
+//        mBinding.reportList3.setOnItemClickListener((parent, view, position, id) -> {
+//            Intent intent = new Intent(getContext(), ReportDetailActivity.class);
+//            intent.putExtra("collectorBean", collectorBean);
+//            intent.putExtra("reportBean", mListData.get(position));
+//            startActivity(intent);
+//        });
         getReportList();
         return mBinding.getRoot();
     }
@@ -54,9 +64,10 @@ public class Report3Fragment extends BaseFragment {
 
             @Override
             public void onSuccess(List<ReportBean> data) {
-                mListData.clear();
-                mListData.addAll(data);
-                adapter.notifyDataSetChanged();
+//                mListData.clear();
+//                mListData.addAll(data);
+                adapter.addAll(data);
+//                adapter.notifyDataSetChanged();
 //                loadingDlg.dismiss();
             }
 

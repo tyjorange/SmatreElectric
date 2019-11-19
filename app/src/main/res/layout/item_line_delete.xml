@@ -63,6 +63,5 @@
             android:padding="8dp"
             android:scaleType="centerCrop"
             android:src="@{vmItem.swithchResId(),default=@drawable/yk_hezha}" />
-        <!--            android:src="@drawable/yk_hezha"-->
     </LinearLayout>
 </layout>

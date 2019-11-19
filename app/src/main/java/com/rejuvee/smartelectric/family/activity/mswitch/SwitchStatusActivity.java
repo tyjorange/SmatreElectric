@@ -172,6 +172,9 @@ public class SwitchStatusActivity extends BaseActivity {
      * @param switchBean
      */
     private void sendRefreshSwitch(SwitchBean switchBean) {
+        if (switchBean == null) {
+            return;
+        }
         waitDialog.show();
         Core.instance(this).refreshSignal(switchBean.getSerialNumber(), new ActionCallbackListener<Void>() {
             @Override

@@ -10,7 +10,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.viewpager.widget.ViewPager;
 
 import com.base.frame.greenandroid.wheel.view.WheelDateTime;
 import com.base.frame.net.ActionCallbackListener;
@@ -44,8 +43,8 @@ import retrofit2.Call;
  * 曲线
  */
 public class CurveActivity extends BaseActivity implements CurveFragment.OnShowingListener {
-    private TabLayout tlCurve;
-    private ViewPager vpCurve;
+    //    private TabLayout tabCurve;
+//    private ViewPager vpCurve;
     //    private GridView gvBreaker;
     private FragmentPagerAdapter fpAdapter;
     //    private BaseAdapter gvAdapter;
@@ -67,6 +66,7 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
     private int iyear;
     private int imonth;
     private int iday;
+    private int lastPos;// 切换日期前最后的tab页面
 //    private static int[] DATE_UNITS = {R.string.date_unit_year, R.string.date_unit_month, R.string.date_unit_day};
 
     private LoadingDlg waitDialog;
@@ -81,12 +81,12 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
 //    protected int getMyTheme() {
 //        return 0;
 //    }
-
+    private ActivityCurveBinding mBinding;
     private CurveViewModel mViewModel;
 
     @Override
     protected void initView() {
-        ActivityCurveBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_curve);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_curve);
         mViewModel = ViewModelProviders.of(this).get(CurveViewModel.class);
         mBinding.setVm(mViewModel);
         mBinding.setPresenter(new Presenter());
@@ -152,10 +152,28 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
 //            }
 //        });
 
-        vpCurve = mBinding.vpCurve;
-        tlCurve = mBinding.tlCurve;
-        tlCurve.setupWithViewPager(vpCurve);
 
+//        vpCurve = mBinding.vpCurve;
+//        tabCurve = mBinding.tlCurve;
+        mBinding.tlCurve.setupWithViewPager(mBinding.vpCurve);
+//        mBinding.tlCurve.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                lastPos = tab.getPosition();
+//                System.out.println("lastPos --" + lastPos);
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
 //        gvBreaker = (GridView) findViewById(R.id.gv_breaker);
 //        initGvAdapter();
 //        gvBreaker.setAdapter(gvAdapter);
@@ -168,6 +186,7 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
 //            }
 //        });
         initTimeSelect();
+        initFpAdapter();
 //        currentCollectorBean = getIntent().getParcelableExtra("collectorBean");
 //        tvDevice.setText(currentCollectorBean.getDeviceName());
         getBreakers();
@@ -211,17 +230,19 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
     private void notifyFpAdapter() {
         if (isDay) {
             if (signalDayTypeList != null && signalDayTypeList.size() > 0) {
-                initFpAdapter();
-                vpCurve.setAdapter(fpAdapter);
+//                initFpAdapter();
+                mBinding.vpCurve.setAdapter(fpAdapter);
+                mBinding.vpCurve.setCurrentItem(lastPos);
                 fpAdapter.notifyDataSetChanged();
             } else {
-                signalDayTypeList = new ArrayList<>();
                 getSignalsType("day");
             }
         } else {
             if (signalMonthTypeList != null && signalMonthTypeList.size() > 0) {
-                initFpAdapter();
-                vpCurve.setAdapter(fpAdapter);
+                System.out.println("lastPos  " + lastPos);
+//                initFpAdapter();
+                mBinding.vpCurve.setAdapter(fpAdapter);
+                mBinding.vpCurve.setCurrentItem(lastPos);
                 fpAdapter.notifyDataSetChanged();
             } else {
                 getSignalsType("month");
@@ -357,13 +378,13 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
 
 
     private void initFpAdapter() {
-        tlCurve.setTabMode(isDay ? TabLayout.MODE_SCROLLABLE : TabLayout.MODE_FIXED);
+        mBinding.tlCurve.setTabMode(isDay ? TabLayout.MODE_SCROLLABLE : TabLayout.MODE_FIXED);
         fpAdapter = new FragmentPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
             @NonNull
             @Override
             public Fragment getItem(int position) {
-                Log.e("VpAdapter", "getItem: " + position);
+                Log.i("VpAdapter", "getItem: " + position);
                 List<SignalType> signalTypeList = isDay ? signalDayTypeList : signalMonthTypeList;
                 CurveFragment curveFragment = new CurveFragment();
                 curveFragment.setPosition(position);
@@ -400,19 +421,21 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
         int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DATE);
         int year = calendar.get(Calendar.YEAR);
+        lastPos = mBinding.tlCurve.getSelectedTabPosition();
         boolean canChange = true;
         switch (c) {
-            case 1:
+            case 1:// +1
                 if (isDay) {
                     if (iyear == year && imonth == month && iday == day) {
-                        canChange = false;
+                        canChange = false;//不能超过当天
                     }
                 } else {
                     if (iyear == year && imonth == month) {
-                        canChange = false;
+                        canChange = false;//不能超过当月
                     }
                 }
-            case -1:
+//                break;
+            case -1:// -1
                 if (canChange) {
                     calendar.set(iyear, imonth - 1, iday);
                     if (isDay) {
@@ -423,28 +446,26 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
                     imonth = calendar.get(Calendar.MONTH) + 1;
                     iday = calendar.get(Calendar.DATE);
                     iyear = calendar.get(Calendar.YEAR);
+                    changeTvDate();
                 }
                 break;
             case 0:
                 iyear = year;
                 imonth = month;
                 iday = day;
+                changeTvDate();
                 break;
         }
-        changeTvDate();
     }
 
+    private Calendar today = Calendar.getInstance();
+
     private void changeTvDate() {
-        notifyFpAdapter();
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.MONTH, imonth - 1);
         calendar.set(Calendar.YEAR, iyear);
         calendar.set(Calendar.DATE, iday);
         SimpleDateFormat dateFormat;
-//        Locale locale = Locale.getDefault();
-//        if (LanguageUtil.getLangType(this) == 1) {
-//            locale = Locale.ENGLISH;
-//        }
         String date;
         if (isDay) {
             dateFormat = new SimpleDateFormat(getString(R.string.daily_date_format), Locale.getDefault());
@@ -457,6 +478,7 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
         }
         mViewModel.setCurrentDate(date);
 //        tvDate.setText(date);
+        notifyFpAdapter();
     }
 
 //    @Override

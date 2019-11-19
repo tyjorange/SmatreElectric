@@ -142,7 +142,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="28dp">
+            android:layout_height="38dp">
 
             <ImageView
                 android:id="@+id/iv_minus"

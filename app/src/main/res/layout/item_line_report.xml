@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="mReportBean"
+            type="com.rejuvee.smartelectric.family.model.bean.ReportBean" />
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingLeft="16dp"
-        android:paddingTop="8dp"
+        android:paddingTop="16dp"
         android:paddingRight="16dp"
-        android:paddingBottom="8dp">
+        android:paddingBottom="16dp">
 
         <TextView
             android:id="@+id/tv_type"
@@ -40,5 +45,4 @@
             android:scaleType="centerCrop"
             android:src="@drawable/jinru" />
     </LinearLayout>
-
-</LinearLayout>
+</layout>

@@ -3,7 +3,9 @@ package com.rejuvee.smartelectric.family.model.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class ReportBean implements Parcelable {
+import androidx.lifecycle.ViewModel;
+
+public class ReportBean extends ViewModel implements Parcelable {
     public int id;
     public String startDay;
     public String endDay;
