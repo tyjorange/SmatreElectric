@@ -12,7 +12,6 @@ import com.tencent.mm.opensdk.modelmsg.SendAuth;
 /**
  * Created by liuchengran on 2018/11/26.
  */
-
 public class WXHelper {
     public static final String state_login = "smarte_wx_login";
     public static final String state_bind = "smarte_wx_bind";

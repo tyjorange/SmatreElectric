@@ -86,14 +86,12 @@ public class ThridBindActivity extends BaseActivity {
         if (wechatUnionID == null || wechatUnionID.isEmpty()) {
             mBinding.tvWx.setText(R.string.mine_unbound);
             mBinding.llWx.setOnClickListener(v -> {
-//                    Snackbar.make(v, wechatUnionID, Snackbar.LENGTH_SHORT).show();
                 //TODO 拉起第三方
                 WXHelper.startWxBind(v.getContext());
             });
         } else {
             mBinding.tvWx.setText(R.string.mine_isbound);
             mBinding.llWx.setOnClickListener(v -> {
-//                    Snackbar.make(v, wechatUnionID, Snackbar.LENGTH_SHORT).show();
                 //TODO 提示解绑
                 popDialog(getString(R.string.vs167), getString(R.string.vs168), "WX");
             });
@@ -106,18 +104,23 @@ public class ThridBindActivity extends BaseActivity {
         if (qqUnionID == null || qqUnionID.isEmpty()) {
             mBinding.tvQq.setText(R.string.mine_unbound);
             mBinding.llQq.setOnClickListener(v -> {
+                //TODO 拉起第三方
                 QQLoginHelper.getInstance().qqBind((Activity) v.getContext());
             });
         } else {
             mBinding.tvQq.setText(R.string.mine_isbound);
             mBinding.llQq.setOnClickListener(v -> {
-//                    Snackbar.make(v, qqOpenID, Snackbar.LENGTH_SHORT).show();
                 //TODO 提示解绑
                 popDialog(getString(R.string.vs167), getString(R.string.vs169), "QQ");
             });
         }
     }
 
+    /**
+     * 绑定后的回调
+     *
+     * @param thirdPartyBind
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onThirdPartBind(final ThirdPartyInfo thirdPartyBind) {
         if (thirdPartyBind.isSucess) {
@@ -135,9 +138,9 @@ public class ThridBindActivity extends BaseActivity {
 
                 @Override
                 public void onFailure(int errorEvent, String message) {
-                    if (errorEvent != 15) {// 此微信已注册登录或已被其他账号绑定
-                        CustomToast.showCustomErrorToast(ThridBindActivity.this, message);
-                    }
+//                    if (errorEvent != 15) {// 此微信已注册登录或已被其他账号绑定 忽略
+                    CustomToast.showCustomErrorToast(ThridBindActivity.this, message);
+//                    }
                 }
             });
         }

@@ -2,7 +2,6 @@ package com.rejuvee.smartelectric.family.activity.mswitch;
 
 import android.content.Intent;
 import android.view.View;
-import android.widget.GridView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
@@ -96,16 +95,16 @@ public class SwitchModifyActivity extends BaseActivity {
 //        imgLine = (ImageView) findViewById(R.id.img_line);
         //    private TextView txtCurDianliang;//当前电量
         //    private TextView txtCurGonglv;//当前功率
-        GridView gridView = mBinding.gridDefaultPic;//findViewById(R.id.grid_default_pic);
+//        GridView gridView = mBinding.gridDefaultPic;//findViewById(R.id.grid_default_pic);
         customLineAdapter = new CustomLineAdapter(this);
-        gridView.setAdapter(customLineAdapter);
+        mBinding.gridDefaultPic.setAdapter(customLineAdapter);
 //        mAdapter2 = new CustomLineAdapter(this);
 //        mAdapter2.setShowName(false);
 //        HorizontalListView horizontalListView = (HorizontalListView) findViewById(R.id.horizontal_listview);
 //        horizontalListView.setAdapter(mAdapter2);
 //        horizontalListView.setDividerWidth(SizeUtils.dp2px(8));
 
-        gridView.setOnItemClickListener((parent, view, position, id) -> {
+        mBinding.gridDefaultPic.setOnItemClickListener((parent, view, position, id) -> {
             customLineAdapter.reset();
             CustomLineAdapter.Item item = customLineAdapter.setCurrentSelected(position);
 //            editLineName.setText(item.name);

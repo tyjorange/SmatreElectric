@@ -1,7 +1,6 @@
 package com.rejuvee.smartelectric.family.activity.logger;
 
 import android.view.View;
-import android.widget.ListView;
 
 import androidx.databinding.DataBindingUtil;
 
@@ -34,12 +33,12 @@ public class LogDetailActivity extends BaseActivity {
         ActivityLogDetailBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_log_detail);
         mBinding.setPresenter(new Presenter());
         mBinding.setLifecycleOwner(this);
-        ListView listView = mBinding.listLogs;//findViewById(R.id.list_logs);
+//        ListView listView = mBinding.listLogs;//findViewById(R.id.list_logs);
 //        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
 
         List<RecordBean> listData = getIntent().getParcelableArrayListExtra("records");
         LineOperateRecordAdapter mAdapter = new LineOperateRecordAdapter(this, listData);
-        listView.setAdapter(mAdapter);
+        mBinding.listLogs.setAdapter(mAdapter);
     }
 
     //    @Override
