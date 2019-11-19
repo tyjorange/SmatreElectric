@@ -18,7 +18,7 @@ import java.util.Locale;
 /**
  * Created by liuchengran on 2018/12/4.
  */
-
+@Deprecated
 public class LineOperateRecordAdapter extends BaseAdapter {
     private Context mContext;
     private List<RecordBean> mListData;

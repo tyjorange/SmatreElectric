@@ -1,6 +1,8 @@
 package com.rejuvee.smartelectric.family.model.bean;
 
-public class ChartItemBean {
+import androidx.lifecycle.ViewModel;
+
+public class ChartItemBean extends ViewModel {
     private String time;
     private String userID;
     private String username;

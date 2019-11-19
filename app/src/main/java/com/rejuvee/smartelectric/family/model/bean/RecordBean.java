@@ -3,12 +3,14 @@ package com.rejuvee.smartelectric.family.model.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.lifecycle.ViewModel;
+
 import java.util.List;
 
 /**
  * Created by liuchengran on 2018/12/4.
  */
-public class RecordBean implements Parcelable {
+public class RecordBean extends ViewModel implements Parcelable {
     public int state;// 告警TYPE ID
     public String desc;// 告警描述
     public int type;//0 :开关操作  1：场景操作
@@ -72,4 +74,5 @@ public class RecordBean implements Parcelable {
             return new RecordBean[size];
         }
     };
+
 }

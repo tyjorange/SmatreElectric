@@ -15,6 +15,7 @@ import java.util.List;
 /**
  * Created by liuchengran on 2018/12/4.
  */
+@Deprecated
 public class LineWarnAdapter extends BaseAdapter {
     private Context mContext;
     private List<WarnBean> mListData;

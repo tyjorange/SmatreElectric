@@ -1,22 +1,16 @@
 package com.rejuvee.smartelectric.family.activity.kefu;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
+import com.rejuvee.smartelectric.family.adapter.ChartItemBeanAdapter;
 import com.rejuvee.smartelectric.family.api.Core;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.databinding.ActivityCustomerServiceChartBinding;
@@ -24,7 +18,6 @@ import com.rejuvee.smartelectric.family.model.bean.ChartItemBean;
 import com.rejuvee.smartelectric.family.model.bean.ChartListItemBean;
 import com.rejuvee.smartelectric.family.model.viewmodel.CustomerServiceChartViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,11 +26,11 @@ import java.util.List;
 public class CustomerServiceChartActivity extends BaseActivity {
     private String TAG = "CustomerServiceChartActivity";
     //    private Context mContext;
-    private List<ChartItemBean> mList = new ArrayList<>();
+//    private List<ChartItemBean> mList = new ArrayList<>();
     private ChartItemBeanAdapter adapter;
-    private String username;
+    //    private String username;
     private ChartListItemBean chartListItemBean;
-
+    private ActivityCustomerServiceChartBinding mBinding;
     private CustomerServiceChartViewModel mViewModel;
 
     @Override
@@ -51,13 +44,13 @@ public class CustomerServiceChartActivity extends BaseActivity {
         //    protected int getMyTheme() {
         //        return 0;
         //    }
-        ActivityCustomerServiceChartBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_customer_service_chart);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_customer_service_chart);
         mViewModel = ViewModelProviders.of(this).get(CustomerServiceChartViewModel.class);
         mBinding.setVm(mViewModel);
         mBinding.setPresenter(new Presenter());
         mBinding.setLifecycleOwner(this);
 //        mContext = this;
-        username = getIntent().getStringExtra("username");
+        String username = getIntent().getStringExtra("username");
         chartListItemBean = getIntent().getParcelableExtra("ChartListItemBean");
 //        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
 //        TextView tv_topic = findViewById(R.id.tv_topic);
@@ -66,10 +59,13 @@ public class CustomerServiceChartActivity extends BaseActivity {
         mViewModel.setTopic(String.format(getString(R.string.vs203), chartListItemBean.getTopic()));
 //        tv_content.setText(String.format(getString(R.string.vs204), chartListItemBean.getContent()));
         mViewModel.setContext(String.format(getString(R.string.vs204), chartListItemBean.getContent()));
-        ListView listView = mBinding.listChart;// findViewById(R.id.list_chart);
-        listView.setSelector(new ColorDrawable(Color.TRANSPARENT));//List view 点击水纹效果取消
-        adapter = new ChartItemBeanAdapter(this, mList);
-        listView.setAdapter(adapter);
+//        ListView listView = mBinding.listChart;// findViewById(R.id.list_chart);
+//        listView.setSelector(new ColorDrawable(Color.TRANSPARENT));//List view 点击水纹效果取消
+        adapter = new ChartItemBeanAdapter(this, username);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setStackFromEnd(true);
+        mBinding.listChart.setLayoutManager(linearLayoutManager);
+        mBinding.listChart.setAdapter(adapter);
 //        listView.setEmptyView(mBinding.emptyLayout);
 //        findViewById(R.id.tv_commit).setOnClickListener(v -> commitQA());
         getData();
@@ -79,9 +75,11 @@ public class CustomerServiceChartActivity extends BaseActivity {
         Core.instance(this).getUserChatContent(0, 200, chartListItemBean.getId(), new ActionCallbackListener<List<ChartItemBean>>() {
             @Override
             public void onSuccess(List<ChartItemBean> data) {
-                mList.clear();
-                mList.addAll(data);
-                adapter.notifyDataSetChanged();
+//                mList.clear();
+//                mList.addAll(data);
+                adapter.addAll(data);
+                mBinding.listChart.scrollToPosition(adapter.getItemCount() - 1);// 滑动到底部
+//                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -131,56 +129,56 @@ public class CustomerServiceChartActivity extends BaseActivity {
         });
     }
 
-    class ChartItemBeanAdapter extends BaseAdapter {
-        private Context mContext;
-        private List<ChartItemBean> mListData;
-
-        ChartItemBeanAdapter(Context context, List<ChartItemBean> listData) {
-            mContext = context;
-            mListData = listData;
-        }
-
-        @Override
-        public int getCount() {
-            return mListData.size();
-        }
-
-        @Override
-        public ChartItemBean getItem(int position) {
-            return mListData.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder = null;
-//            if (convertView == null) {
-            if (username.equals(getItem(position).getUsername())) {
-                convertView = View.inflate(mContext, R.layout.item_chat_right, null);
-            } else {
-                convertView = View.inflate(mContext, R.layout.item_chat_left, null);
-            }
-            holder = new ViewHolder();
-            holder.tvContent = convertView.findViewById(R.id.tvContent);
-            holder.tv_chat_time = convertView.findViewById(R.id.tv_chat_time);
-            holder.ivAvatar = convertView.findViewById(R.id.ivAvatar);
-//                convertView.setTag(holder);
+//    class ChartItemBeanAdapter extends BaseAdapter {
+//        private Context mContext;
+//        private List<ChartItemBean> mListData;
+//
+//        ChartItemBeanAdapter(Context context, List<ChartItemBean> listData) {
+//            mContext = context;
+//            mListData = listData;
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            return mListData.size();
+//        }
+//
+//        @Override
+//        public ChartItemBean getItem(int position) {
+//            return mListData.get(position);
+//        }
+//
+//        @Override
+//        public long getItemId(int position) {
+//            return position;
+//        }
+//
+//        @Override
+//        public View getView(int position, View convertView, ViewGroup parent) {
+//            ViewHolder holder = null;
+////            if (convertView == null) {
+//            if (username.equals(getItem(position).getUsername())) {
+//                convertView = View.inflate(mContext, R.layout.item_chat_right, null);
 //            } else {
-//                holder = (ViewHolder) convertView.getTag();
+//                convertView = View.inflate(mContext, R.layout.item_chat_left, null);
 //            }
-            holder.tvContent.setText(String.format("%s", getItem(position).getContent()));
-            holder.tv_chat_time.setText(String.format("%s", getItem(position).getTime()));
-            return convertView;
-        }
-
-        class ViewHolder {
-            TextView tvContent;
-            TextView tv_chat_time;
-            ImageView ivAvatar;
-        }
-    }
+//            holder = new ViewHolder();
+//            holder.tvContent = convertView.findViewById(R.id.tvContent);
+//            holder.tv_chat_time = convertView.findViewById(R.id.tv_chat_time);
+//            holder.ivAvatar = convertView.findViewById(R.id.ivAvatar);
+////                convertView.setTag(holder);
+////            } else {
+////                holder = (ViewHolder) convertView.getTag();
+////            }
+//            holder.tvContent.setText(String.format("%s", getItem(position).getContent()));
+//            holder.tv_chat_time.setText(String.format("%s", getItem(position).getTime()));
+//            return convertView;
+//        }
+//
+//        class ViewHolder {
+//            TextView tvContent;
+//            TextView tv_chat_time;
+//            ImageView ivAvatar;
+//        }
+//    }
 }

@@ -116,17 +116,18 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
 //        tvNick = mainBinding.navView.getHeaderView(0).findViewById(R.id.user_nickname);
 //        ivHead = mainBinding.navView.getHeaderView(0).findViewById(R.id.user_headimg);
         navigationBinding = DataBindingUtil.bind(mainBinding.navView.getHeaderView(0));
+        Presenter presenter = new Presenter();
         if (navigationBinding != null) {
             navigationBinding.setVm(mViewModel);
-            navigationBinding.setPresenter(new Presenter());
+            navigationBinding.setPresenter(presenter);
             navigationBinding.setLifecycleOwner(this);
         }
 //        mainBinding.navView.inflateHeaderView(R.layout.nav_header_main_navigation);
 //        mainBinding.navView
         // toolbar header img
         mainBinding.include.setVm(mViewModel);
-        mainBinding.include.setPresenter(new Presenter());
-        mainBinding.include.include.setPresenter(new Presenter());
+        mainBinding.include.setPresenter(presenter);
+        mainBinding.include.include.setPresenter(presenter);
 //        mainBinding.include.userHeadimgSmall.setOnClickListener(v -> mainBinding.drawerLayout.openDrawer(GravityCompat.START));
 //        mainBinding.navView.getHeaderView(0).findViewById(R.id.user_edit).setOnClickListener(v -> {
 //            Intent intent = new Intent();

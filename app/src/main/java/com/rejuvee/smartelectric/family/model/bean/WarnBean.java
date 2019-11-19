@@ -1,5 +1,7 @@
 package com.rejuvee.smartelectric.family.model.bean;
 
+import androidx.lifecycle.ViewModel;
+
 /**
  * {
  * "code":1,
@@ -18,7 +20,7 @@ package com.rejuvee.smartelectric.family.model.bean;
  * ]
  * }
  */
-public class WarnBean {
+public class WarnBean extends ViewModel {
     private int id;
     private int switchID;
     private String name;

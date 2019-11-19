@@ -1,5 +1,6 @@
 package com.rejuvee.smartelectric.family.activity.logger;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 
@@ -80,6 +81,7 @@ public class SecurityInformationActivity extends BaseActivity {
         private Bundle bundle;
         private List<Class> listFragments = new ArrayList<>();
 
+        @SuppressLint("WrongConstant")
         MyFragmentAdapter(FragmentManager fm) {
             super(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
             bundle = new Bundle();

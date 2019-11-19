@@ -1,25 +1,25 @@
 package com.rejuvee.smartelectric.family.activity.collector.autolink;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.EditText;
-import android.widget.TextView;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.base.library.widget.CustomToast;
-import com.base.library.widget.SuperTextView;
 import com.rejuvee.smartelectric.family.R;
+import com.rejuvee.smartelectric.family.common.BaseActivity;
 import com.rejuvee.smartelectric.family.common.utils.WifiUtil;
 import com.rejuvee.smartelectric.family.common.widget.dialog.DialogTip;
+import com.rejuvee.smartelectric.family.databinding.ActivityAutoLinkBinding;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
+import com.rejuvee.smartelectric.family.model.viewmodel.AutoLinkViewModel;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -37,26 +37,27 @@ import java.util.Queue;
  *
  * @author usr_liujinqi
  */
-public class AutoLinkActivity extends Activity implements OnClickListener, WifiUtil.IWifi {
+public class AutoLinkActivity extends BaseActivity implements WifiUtil.IWifi {
     private final String TAG = "AutoLinkActivity";
-    private EditText etSsid;
-    private EditText etPasd;
-    private EditText etPort;
+    private final int RESQEST_SSID_LIST = 1;
+    // 获得ssid列表指令
+    private final byte[] searchCode = new byte[]{(byte) 0xff, 0x00, 0x01, 0x01, 0x02};
+    //    private EditText etSsid;
+    //    private EditText etPasd;
+    //    private EditText etPort;
     private WifiUtil mWifiUtil;
     private WifiManager.MulticastLock lock;
     private SearchSSIDThread searchSSIDThread;
-    private SendMsgThread smt;
+    private SendMsgThread sendMsgThread;
     private CollectorBean collectorBean;
     private ProgressDialog dialog;
     private DialogTip mDialogTip;
-    private TextView tv_change;
-    private TextView btn_search;
-    private SuperTextView btn_ok;
+    //    private TextView tv_change;
+    //    private TextView btn_search;
+    //    private SuperTextView btn_ok;
     private boolean canSearch = true;
-    public final int RESQEST_SSID_LIST = 1;
-
-    // 获得ssid列表指令
-    private final byte[] searchCode = new byte[]{(byte) 0xff, 0x00, 0x01, 0x01, 0x02};
+    private ActivityAutoLinkBinding mainBinding;
+    private AutoLinkViewModel mViewModel;
 
     private Handler handler = new MyHandler(this);
 
@@ -84,28 +85,40 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
                     break;
             }
         }
+
     }
 
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_auto_link);
+//    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_auto_link);
+    protected void initView() {
+        mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_auto_link);
+        mViewModel = ViewModelProviders.of(this).get(AutoLinkViewModel.class);
+        mainBinding.setVm(mViewModel);
+        mainBinding.setPresenter(new Presenter());
+        mainBinding.setLifecycleOwner(this);
+
+        mViewModel.setPort("48899");
         collectorBean = getIntent().getParcelableExtra("collectorBean");
-        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
+//        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
         mDialogTip = new DialogTip(this);
 
-        btn_ok = findViewById(R.id.btn_ok);
-        tv_change = findViewById(R.id.tv_change);
-        btn_search = findViewById(R.id.btn_search);
+//        btn_ok = findViewById(R.id.btn_ok);
+//        tv_change = findViewById(R.id.tv_change);
+//        btn_search = findViewById(R.id.btn_search);
 
         mWifiUtil = WifiUtil.getInstance(this).setCallback(this);
         WifiManager manager = mWifiUtil.getWifiManager();
 
         lock = manager.createMulticastLock("fa_wifi");
         lock.acquire();
-        etSsid = findViewById(R.id.et_ssid);
-        etPasd = findViewById(R.id.et_pasd);
-        etPort = findViewById(R.id.et_port);
+//        etSsid = findViewById(R.id.et_ssid);
+//        etPasd = findViewById(R.id.et_pasd);
+//        etPort = findViewById(R.id.et_port);
 
         dialog = new ProgressDialog(this);
         dialog.setMessage(getString(R.string.vs226));
@@ -113,49 +126,49 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
         searchSSIDThread = new SearchSSIDThread(handler);
         searchSSIDThread.start();
 
-        smt = new SendMsgThread(searchSSIDThread);
-        smt.start();
+        sendMsgThread = new SendMsgThread(searchSSIDThread);
+        sendMsgThread.start();
     }
 
-    @Override
-    public void onClick(View v) {
-        String port = etPort.getText().toString();
-        if (TextUtils.isEmpty(port)) {
-            CustomToast.showCustomErrorToast(this, getResources().getString(R.string.vs227));
-
-            return;
-        }
-        int targetPort = Integer.parseInt(port);
-        if (targetPort < 0 || targetPort > 65535) {
-            CustomToast.showCustomErrorToast(this, getResources().getString(R.string.vs228));
-            return;
-        }
-        searchSSIDThread.setTargetPort(Integer.parseInt(port));
-        if (v.getId() == R.id.btn_search) {
-            dialog.show();
-            // 发送收索SSID指令
-            smt.putMsg(searchCode);
-            dismiss();
-        } else if (v.getId() == R.id.btn_link) {
-            if (canSearch) {
-                linkCollectorAP(collectorBean.getCode(), collectorBean.getCode());
-            } else {
-                Log.w(TAG, "不要点太快");
-            }
-        } else if (v.getId() == R.id.btn_ok) {
-            String ssid = etSsid.getText().toString();
-            String pwd = etPasd.getText().toString();
-            if (TextUtils.isEmpty(ssid)) {
-                CustomToast.showCustomErrorToast(this, getResources().getString(R.string.vs229));
-                return;
-            }
-            if (TextUtils.isEmpty(pwd)) {
-                CustomToast.showCustomErrorToast(this, getResources().getString(R.string.vs230));
-                return;
-            }
-            ensure(ssid, pwd, targetPort);
-        }
-    }
+//    @Override
+//    public void onClick(View v) {
+//        if (v.getId() == R.id.btn_search) {
+//            dialog.show();
+//            // 发送收索SSID指令
+//            sendMsgThread.putMsg(searchCode);
+//            dismiss();
+//        } else if (v.getId() == R.id.btn_link) {
+//            if (canSearch) {
+//                linkCollectorAP(collectorBean.getCode(), collectorBean.getCode());
+//            } else {
+//                Log.w(TAG, "不要点太快");
+//            }
+//        } else if (v.getId() == R.id.btn_ok) {
+//            String port = etPort.getText().toString();
+//            if (TextUtils.isEmpty(port)) {
+//                CustomToast.showCustomErrorToast(this, getResources().getString(R.string.vs227));
+//
+//                return;
+//            }
+//            int targetPort = Integer.parseInt(port);
+//            if (targetPort < 0 || targetPort > 65535) {
+//                CustomToast.showCustomErrorToast(this, getResources().getString(R.string.vs228));
+//                return;
+//            }
+//            searchSSIDThread.setTargetPort(Integer.parseInt(port));
+//            String ssid = mViewModel.getSsid().getValue();//etSsid.getText().toString();
+//            String pwd = etPasd.getText().toString();
+//            if (TextUtils.isEmpty(ssid)) {
+//                CustomToast.showCustomErrorToast(this, getResources().getString(R.string.vs229));
+//                return;
+//            }
+//            if (TextUtils.isEmpty(pwd)) {
+//                CustomToast.showCustomErrorToast(this, getResources().getString(R.string.vs230));
+//                return;
+//            }
+//            ensure(ssid, pwd, targetPort);
+//        }
+//    }
 
     private void ensure(String ssid, String pwd, int port) {
         mDialogTip.setTitle(getString(R.string.vs231));
@@ -170,7 +183,7 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
             public void onEnsure() {
                 searchSSIDThread.setTargetPort(port);
                 byte[] data = SSIDTool.generate_02_data(ssid, pwd, 0);
-                smt.putMsg(data);
+                sendMsgThread.putMsg(data);
                 mDialogTip.dismiss();
             }
         });
@@ -201,25 +214,25 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
         String code = collectorBean.getCode();
         switch (isCon) {
             case LINK_OK:
-                tv_change.setText(String.format(getString(R.string.vs233), code));
-                tv_change.setTextColor(getResources().getColor(R.color.green_light));
-                btn_search.setEnabled(true);
-                btn_search.setTextColor(getResources().getColor(R.color.white));
-                btn_ok.setOnClickListener(this);
+                mainBinding.tvChange.setText(String.format(getString(R.string.vs233), code));
+                mainBinding.tvChange.setTextColor(getResources().getColor(R.color.green_light));
+                mainBinding.btnSearch.setEnabled(true);
+                mainBinding.btnSearch.setTextColor(getResources().getColor(R.color.white));
+//                btn_ok.setOnClickListener(this);
                 break;
             case LINK_FAILED:
-                tv_change.setText(String.format(getString(R.string.vs234), code));
-                tv_change.setTextColor(getResources().getColor(R.color.red_light));
-                btn_search.setEnabled(false);
-                btn_search.setTextColor(getResources().getColor(R.color.grey));
-                btn_ok.setOnClickListener(null);
+                mainBinding.tvChange.setText(String.format(getString(R.string.vs234), code));
+                mainBinding.tvChange.setTextColor(getResources().getColor(R.color.red_light));
+                mainBinding.btnSearch.setEnabled(false);
+                mainBinding.btnSearch.setTextColor(getResources().getColor(R.color.grey));
+//                btn_ok.setOnClickListener(null);
                 break;
             case LINKING:
-                tv_change.setText(getString(R.string.vs235));
-                tv_change.setTextColor(getResources().getColor(R.color.gray));
-                btn_search.setEnabled(false);
-                btn_search.setTextColor(getResources().getColor(R.color.grey));
-                btn_ok.setOnClickListener(null);
+                mainBinding.tvChange.setText(getString(R.string.vs235));
+                mainBinding.tvChange.setTextColor(getResources().getColor(R.color.gray));
+                mainBinding.btnSearch.setEnabled(false);
+                mainBinding.btnSearch.setTextColor(getResources().getColor(R.color.grey));
+//                btn_ok.setOnClickListener(null);
                 break;
         }
         canSearch = true;
@@ -230,7 +243,8 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESQEST_SSID_LIST && data != null) {
             String ssid = data.getStringExtra("ssid");
-            etSsid.setText(ssid);
+//            etSsid.setText(ssid);
+            mViewModel.setSsid(ssid);
         }
     }
 
@@ -243,13 +257,74 @@ public class AutoLinkActivity extends Activity implements OnClickListener, WifiU
         }, 3000);
     }
 
+    public class Presenter {
+
+        public void onCancel(View view) {
+            finish();
+        }
+
+        public void onSubmit(View view) {
+            String port = mViewModel.getPort().getValue();//etPort.getText().toString();
+            if (TextUtils.isEmpty(port)) {
+                CustomToast.showCustomErrorToast(AutoLinkActivity.this, getResources().getString(R.string.vs227));
+                return;
+            }
+            String ssid = mViewModel.getSsid().getValue();//etSsid.getText().toString();
+            if (TextUtils.isEmpty(ssid)) {
+                CustomToast.showCustomErrorToast(AutoLinkActivity.this, getResources().getString(R.string.vs229));
+                return;
+            }
+            String pwd = mViewModel.getPasd().getValue();//etPasd.getText().toString();
+            if (TextUtils.isEmpty(pwd)) {
+                CustomToast.showCustomErrorToast(AutoLinkActivity.this, getResources().getString(R.string.vs230));
+                return;
+            }
+            int targetPort = Integer.parseInt(port);
+            if (targetPort < 0 || targetPort > 65535) {
+                CustomToast.showCustomErrorToast(AutoLinkActivity.this, getResources().getString(R.string.vs228));
+                return;
+            }
+            searchSSIDThread.setTargetPort(Integer.parseInt(port));
+            ensure(ssid, pwd, targetPort);
+        }
+
+        public void onLink(View view) {
+            if (canSearch) {
+                linkCollectorAP(collectorBean.getCode(), collectorBean.getCode());
+            } else {
+                Log.w(TAG, "不要点太快");
+            }
+        }
+
+        public void onSearch(View view) {
+            dialog.show();
+            // 发送收索SSID指令
+            sendMsgThread.putMsg(searchCode);
+            dismiss();
+        }
+    }
+
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+    // 退出处理
+//        lock.release();
+//        sendMsgThread.setSend(false);
+//        searchSSIDThread.setReceive(false);
+//        searchSSIDThread.close();
+//        String code = collectorBean.getCode();
+//        if (mWifiUtil.forgetWifi(code)) {
+//            Log.i(TAG, "forgetWifi[" + code + "] true");
+//        } else {
+//            Log.i(TAG, "forgetWifi[" + code + "] false");
+//        }
+//    }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void dealloc() {
         // 退出处理
         lock.release();
-        smt.setSend(false);
+        sendMsgThread.setSend(false);
         searchSSIDThread.setReceive(false);
         searchSSIDThread.close();
         String code = collectorBean.getCode();
