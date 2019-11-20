@@ -115,13 +115,13 @@
         <RelativeLayout
             android:id="@+id/day_month"
             android:layout_width="match_parent"
-            android:layout_height="28dp"
+            android:layout_height="38dp"
             android:layout_marginBottom="8dp">
 
             <ImageView
                 android:id="@+id/iv_minus"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="16dp"
@@ -130,7 +130,7 @@
                 android:paddingTop="4dp"
                 android:paddingRight="8dp"
                 android:paddingBottom="4dp"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 android:src="@drawable/date_left" />
 
             <TextView
@@ -148,7 +148,7 @@
             <ImageView
                 android:id="@+id/iv_add"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="16dp"
@@ -157,14 +157,14 @@
                 android:paddingTop="4dp"
                 android:paddingRight="8dp"
                 android:paddingBottom="4dp"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 android:src="@drawable/date_right" />
         </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/hour_hour"
             android:layout_width="match_parent"
-            android:layout_height="28dp"
+            android:layout_height="38dp"
             android:layout_marginBottom="8dp"
             android:gravity="center"
             android:visibility="gone">

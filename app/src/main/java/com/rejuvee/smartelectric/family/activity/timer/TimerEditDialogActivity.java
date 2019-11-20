@@ -215,19 +215,22 @@ public class TimerEditDialogActivity extends BaseActivity {
 //    }
 
     private void finishEdit() {
+        if (switchBean == null) {
+            return;
+        }
         int weekDay = getRepeatState();
         if (weekDay == 0 & uploadToCollect != 0) {
             CustomToast.showCustomErrorToast(TimerEditDialogActivity.this, getString(R.string.vs265));
             return;
         }
         int cmdData = isSwicthOn ? 1 : 0;
-        mWaitDialog.show();
-        String runTime = null;// hourOfDay + ":" + minute;
+        String runTime;// hourOfDay + ":" + minute;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             runTime = String.format(Locale.getDefault(), "%1$02d:%2$02d", mBinding.timePicker.getHour(), mBinding.timePicker.getMinute());
         } else {
             runTime = String.format(Locale.getDefault(), "%1$02d:%2$02d", mBinding.timePicker.getCurrentHour(), mBinding.timePicker.getCurrentMinute());
         }
+        mWaitDialog.show();
         if (mTask == null) {
             //for New
             currentCall = Core.instance(this).updateOrInsertTask(null, switchBean.getSwitchID(), runTime, weekDay, 1, cmdData, uploadToCollect, new ActionCallbackListener<Void>() {

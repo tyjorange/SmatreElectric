@@ -74,6 +74,7 @@ public class SceneBeanAdapter extends RecyclerView.Adapter<BindingViewHolder> {
         holder.getBinding().setVariable(BR.mSceneBean, bean);
         holder.getBinding().executePendingBindings();
         if (currentItemType == ITEM_VIEW_TYPE_HORIZONTAL) {
+            binding1.getRoot();
             holder.itemView.setOnClickListener(v -> {
                 if (mListener != null) {
                     mListener.onExecuteClick(bean);

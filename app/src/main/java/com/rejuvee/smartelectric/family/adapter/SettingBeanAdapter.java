@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.custom.BindingViewHolder;
-import com.rejuvee.smartelectric.family.databinding.ItemEmptyBinding;
+import com.rejuvee.smartelectric.family.databinding.EmptyLayoutBinding;
 import com.rejuvee.smartelectric.family.databinding.ItemLineDeleteBinding;
 import com.rejuvee.smartelectric.family.databinding.ItemLineDetail1Binding;
 import com.rejuvee.smartelectric.family.databinding.ItemLineDetail2Binding;
@@ -35,7 +35,7 @@ import static com.rejuvee.smartelectric.family.adapter.ListSetingItem.ITEM_VIEW_
 public class SettingBeanAdapter extends RecyclerView.Adapter<BindingViewHolder> {
     //    private Context context;
     private final LayoutInflater mLayoutInflater;
-    private List<ListSetingItem> listDatas;
+    private List<ListSetingItem> mListData;
 
     private onSettingClickListener mListener;
 
@@ -59,17 +59,21 @@ public class SettingBeanAdapter extends RecyclerView.Adapter<BindingViewHolder> 
 
     public SettingBeanAdapter(Context context) {
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.listDatas = new ArrayList<>();
+        this.mListData = new ArrayList<>();
     }
 
     @Override
     public int getItemViewType(int position) {
-        return listDatas.get(position).getViewType();
+        if (mListData.size() != 0) {
+            return mListData.get(position).getViewType();
+        }
+        //在这里进行判断，如果我们的集合的长度为0时，我们就使用emptyView的布局
+        return ITEM_VIEW_TYPE_EMPTY;
+
     }
 
     private ItemLineDetail1Binding binding1;
     private ItemLineDetail2Binding binding2;
-    private ItemEmptyBinding binding3;
     private ItemLineNormalBinding binding4;
     private ItemLineDeleteBinding binding5;
 
@@ -84,7 +88,7 @@ public class SettingBeanAdapter extends RecyclerView.Adapter<BindingViewHolder> 
                 binding2 = DataBindingUtil.inflate(mLayoutInflater, R.layout.item_line_detail2, parent, false);
                 return new BindingViewHolder<>(binding2);
             case ITEM_VIEW_TYPE_EMPTY:
-                binding3 = DataBindingUtil.inflate(mLayoutInflater, R.layout.item_empty, parent, false);
+                EmptyLayoutBinding binding3 = DataBindingUtil.inflate(mLayoutInflater, R.layout.empty_layout, parent, false);
                 return new BindingViewHolder<>(binding3);
             case ITEM_VIEW_TYPE_NORMAL:
                 binding4 = DataBindingUtil.inflate(mLayoutInflater, R.layout.item_line_normal, parent, false);
@@ -98,55 +102,62 @@ public class SettingBeanAdapter extends RecyclerView.Adapter<BindingViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull BindingViewHolder holder, int position) {
-        final ListSetingItem bean = listDatas.get(position);
-        Context context = holder.getBinding().getRoot().getContext();
-        switch (bean.getViewType()) {
-            case ITEM_VIEW_TYPE_LINEDETAIL1:  //分时计价
-                binding1.txtContent.setTextColor(context.getResources().getColor(R.color.contents_text));
-                binding1.txtContent.setText(Html.fromHtml(bean.getContent().getValue()));
-                binding1.txtState.setTextColor(context.getResources().getColor(R.color.text_content));
-                binding1.txtState.setText(bean.getDesc());
-                holder.itemView.setOnClickListener(v -> {
-                    if (mListener != null) {
-                        mListener.onBeanClick(position);
-                    }
-                });
-                break;
-            case ITEM_VIEW_TYPE_LINEDETAIL2:
-                binding2.txtContent.setTextColor(context.getResources().getColor(R.color.contents_text));
-                binding2.txtContent.setText(Html.fromHtml(bean.getContent().getValue()));
-                binding2.txtState.setTextColor(context.getResources().getColor(R.color.text_content));
-                binding2.txtState.setText(bean.getDesc());
-                break;
-            case ITEM_VIEW_TYPE_EMPTY:
-                binding3.getVmItem();
-                break;
-            case ITEM_VIEW_TYPE_NORMAL:
-                binding4.txtContent.setText(bean.getContent().getValue());
-                break;
-            case ITEM_VIEW_TYPE_DELETE:// 分享用户
-                binding5.txtContent.setText(bean.getContent().getValue());
+        if (mListData.size() != 0) {
+            final ListSetingItem bean = mListData.get(position);
+            Context context = holder.getBinding().getRoot().getContext();
+            switch (bean.getViewType()) {
+                case ITEM_VIEW_TYPE_LINEDETAIL1:  //分时计价
+                    binding1.txtContent.setTextColor(context.getResources().getColor(R.color.contents_text));
+                    binding1.txtContent.setText(Html.fromHtml(bean.getContent().getValue()));
+                    binding1.txtState.setTextColor(context.getResources().getColor(R.color.text_content));
+                    binding1.txtState.setText(bean.getDesc());
+                    holder.itemView.setOnClickListener(v -> {
+                        if (mListener != null) {
+                            mListener.onBeanClick(position);
+                        }
+                    });
+                    break;
+                case ITEM_VIEW_TYPE_LINEDETAIL2:
+                    binding2.txtContent.setTextColor(context.getResources().getColor(R.color.contents_text));
+                    binding2.txtContent.setText(Html.fromHtml(bean.getContent().getValue()));
+                    binding2.txtState.setTextColor(context.getResources().getColor(R.color.text_content));
+                    binding2.txtState.setText(bean.getDesc());
+                    break;
+                case ITEM_VIEW_TYPE_EMPTY:
+//                binding3.hashCode();
+                    break;
+                case ITEM_VIEW_TYPE_NORMAL:
+                    binding4.txtContent.setText(bean.getContent().getValue());
+                    break;
+                case ITEM_VIEW_TYPE_DELETE:// 分享用户
+                    binding5.txtContent.setText(bean.getContent().getValue());
 //                binding5.ivDelete.setVisibility(bean.showDelIcon);
-                binding5.ivDelete.setOnClickListener(v -> {
-                    if (mListener != null) {
-                        mListener.onRemove(bean, position);
-                    }
-                });
+                    binding5.ivDelete.setOnClickListener(v -> {
+                        if (mListener != null) {
+                            mListener.onRemove(bean, position);
+                        }
+                    });
 //                binding5.ivSwitch.setImageResource(NativeLine.DrawableToggle[listDatas.get(position).getIsEnable()]);
-                binding5.ivSwitch.setOnClickListener(v -> {
-                    if (mListener != null) {
-                        mListener.onSwitch(bean, (listDatas.get(position).getIsEnable() == 1 ? 0 : 1));
-                    }
-                });
-                break;
+                    binding5.ivSwitch.setOnClickListener(v -> {
+                        if (mListener != null) {
+                            mListener.onSwitch(bean, (mListData.get(position).getIsEnable() == 1 ? 0 : 1));
+                        }
+                    });
+                    break;
+            }
+            holder.getBinding().setVariable(BR.vmItem, bean);
+            holder.getBinding().executePendingBindings();
         }
-        holder.getBinding().setVariable(BR.vmItem, bean);
-        holder.getBinding().executePendingBindings();
     }
 
     @Override
     public int getItemCount() {
-        return listDatas.size();
+        if (mListData.size() != 0) {
+            //同时这里也需要添加判断，如果mData.size()为0的话，只引入一个布局，就是emptyView
+            return mListData.size();
+        }
+        // 那么，这个recyclerView的itemCount为1
+        return 1;
     }
 
     /**
@@ -155,8 +166,8 @@ public class SettingBeanAdapter extends RecyclerView.Adapter<BindingViewHolder> 
      * @param list
      */
     public void addAll(List<ListSetingItem> list) {
-        listDatas.clear();
-        listDatas.addAll(list);
+        mListData.clear();
+        mListData.addAll(list);
         notifyDataSetChanged();
     }
 
@@ -166,8 +177,8 @@ public class SettingBeanAdapter extends RecyclerView.Adapter<BindingViewHolder> 
      * @param bean
      */
     public void add(ListSetingItem bean) {
-        listDatas.add(bean);
-        notifyItemInserted(listDatas.size());
+        mListData.add(bean);
+        notifyItemInserted(mListData.size());
         notifyDataSetChanged();
     }
 
@@ -177,10 +188,10 @@ public class SettingBeanAdapter extends RecyclerView.Adapter<BindingViewHolder> 
      * @param position
      */
     public void remove(int position) {
-        if (listDatas.size() == 0) {
+        if (mListData.size() == 0) {
             return;
         }
-        listDatas.remove(position);
+        mListData.remove(position);
         notifyItemRemoved(position);
         notifyDataSetChanged();
     }
@@ -189,7 +200,7 @@ public class SettingBeanAdapter extends RecyclerView.Adapter<BindingViewHolder> 
      * 删除图标显示控制
      */
     public void toggleDelIcon() {
-        for (ListSetingItem taskBean : listDatas) {
+        for (ListSetingItem taskBean : mListData) {
             if (taskBean.showDelIcon == View.GONE) {
                 taskBean.showDelIcon = View.VISIBLE;
             } else {

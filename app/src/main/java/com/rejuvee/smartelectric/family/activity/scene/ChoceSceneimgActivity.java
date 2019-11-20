@@ -129,7 +129,7 @@ public class ChoceSceneimgActivity extends BaseActivity {
             Intent intent = new Intent();
             intent.putExtra("scenimg", currentPos);
             setResult(RESULT_OK, intent);
-            ChoceSceneimgActivity.this.finish();
+            finish();
         }
 
     }

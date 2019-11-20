@@ -97,7 +97,7 @@ public class YaoKongActivity extends BaseActivity implements SwitchTree {
                 break;
         }
 //        ListView lvProduct = findViewById(R.id.lv_products);
-//        mBinding.lvProducts.setEmptyView(mBinding.emptyLayout);
+        mBinding.lvProducts.setEmptyView(mBinding.emptyLayout.getRoot());
         adapter = new MyAdapter(this, mCollectorBean, viewType, mListData, s -> deleteSwitch(s.getSwitchID()));
         mBinding.lvProducts.setAdapter(adapter);
     }

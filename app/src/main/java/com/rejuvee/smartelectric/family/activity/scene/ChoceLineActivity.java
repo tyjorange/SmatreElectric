@@ -191,7 +191,6 @@ public class ChoceLineActivity extends BaseActivity {
         List<SwitchInfoBean> listSceneBreak = getIntent().getParcelableArrayListExtra("breaks");
 
         if (listSceneBreak != null && listSceneBreak.size() > 0) {
-
             for (int i = 0; i < listSceneBreak.size(); i++) {
                 for (int j = 0; j < mListAllBreak.size(); j++) {
                     if (mListAllBreak.get(j).getSwitchID().equals(listSceneBreak.get(i).getSwitchID())) {

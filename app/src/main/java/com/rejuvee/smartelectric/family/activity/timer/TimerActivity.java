@@ -24,6 +24,7 @@ import com.rejuvee.smartelectric.family.model.bean.TimeTaskBean;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 
@@ -77,7 +78,7 @@ public class TimerActivity extends BaseActivity implements ListTimerAdapter.MyLi
 //        img_change.setOnClickListener(this);
         mListTimerAdapter = new ListTimerAdapter(TimerActivity.this, mListTaskData, this);
         mBinding.lvTimer.setAdapter(mListTimerAdapter);
-//        mBinding.lvTimer.setEmptyView(mBinding.emptyLayout);
+        mBinding.lvTimer.setEmptyView(mBinding.emptyLayout.getRoot());
         mBinding.lvTimer.setOnItemClickListener((parent, view, position, id) -> editTask(mListTaskData.get(position)));
         mWaitDialog = new LoadingDlg(this, -1);
         getSwitchByCollector();
@@ -222,6 +223,10 @@ public class TimerActivity extends BaseActivity implements ListTimerAdapter.MyLi
                 }
             }
         });
+        if (switchBean == null) {// 没有线路
+            mBinding.imgAdd.setVisibility(View.INVISIBLE);
+            mBinding.imgRemove.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
@@ -298,10 +303,10 @@ public class TimerActivity extends BaseActivity implements ListTimerAdapter.MyLi
         if (resultCode == RESULT_OK) {
             if (requestCode == CommonRequestCode.REQUEST_CHOSE_LINE) {//线路选择 Deprecated
                 switchBean = data.getParcelableExtra("switchBean");
-                getData(switchBean);
+                getData(Objects.requireNonNull(switchBean));
             } else if (requestCode == CommonRequestCode.REQUEST_ADD_TIMER) {//添加 修改
                 SwitchBean s = data.getParcelableExtra("switchBean");
-                getData(s);
+                getData(Objects.requireNonNull(s));
             }
         }
     }

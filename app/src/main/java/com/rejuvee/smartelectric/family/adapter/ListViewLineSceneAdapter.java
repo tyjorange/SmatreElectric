@@ -19,7 +19,7 @@ import java.util.List;
 public class ListViewLineSceneAdapter extends BaseAdapter {
     private Context context;
     private List<SwitchInfoBean> result;
-    private int count;
+//    private int count;
 //    private String sceneid;
 
 
@@ -64,9 +64,9 @@ public class ListViewLineSceneAdapter extends BaseAdapter {
         holder.txt_room.setText(String.format("%s%s", context.getString(R.string.vs4), result.get(position).getName()));
         if (result.get(position).getState() == 1) {
             holder.img_kaiguang.setImageResource(R.drawable.yk_hezha);
-        } else
+        } else {
             holder.img_kaiguang.setImageResource(R.drawable.yk_kaizha);
-
+        }
         holder.img_kaiguang.setOnClickListener(v -> {
             int state = result.get(position).getState();
             result.get(position).setState(state == 0 ? 1 : 0);

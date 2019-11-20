@@ -186,11 +186,11 @@ public class CreateSceneActivity extends BaseActivity {
 //                if (sceneBean == null) {//新建场景
 //                    jsonContent = getJsonContent(null, _sceneName, scenimg, listBreak);
 //                    Log.d(TAG, "add scene=" + jsonContent);
-//                    addScene1(jsonContent);
+//                    addScene(jsonContent);
 //                } else {//编辑场景
 //                    jsonContent = getJsonContent(sceneBean.getSceneId(), _sceneName, scenimg, listBreak);
 //                    Log.d(TAG, "edit scene=" + jsonContent);
-//                    addScene1(jsonContent);
+//                    addScene(jsonContent);
 //                }
 //                break;
 //            case R.id.ll_choseImg://选择场景的图标
@@ -202,7 +202,7 @@ public class CreateSceneActivity extends BaseActivity {
 //        }
 //    }
 
-    private void addScene1(String scene) {
+    private void addScene(String scene) {
         currentCall = Core.instance(this).AddOrUpdateScene(scene, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
@@ -289,7 +289,7 @@ public class CreateSceneActivity extends BaseActivity {
 
         public void onAdd(View view) {
             Intent intent = new Intent(view.getContext(), ChoceLineActivity.class);
-            intent.putExtra("sceneid", sceneBean.getSceneId());
+//            intent.putExtra("sceneid", sceneBean.getSceneId());
             intent.putParcelableArrayListExtra("breaks", listBreak);
             startActivityForResult(intent, CommonRequestCode.REQUEST_CHOSE_LINE);
         }
@@ -308,11 +308,11 @@ public class CreateSceneActivity extends BaseActivity {
             if (sceneBean == null) {//新建场景
                 jsonContent = getJsonContent(null, _sceneName, scenimg, listBreak);
                 Log.d(TAG, "add scene=" + jsonContent);
-                addScene1(jsonContent);
+                addScene(jsonContent);
             } else {//编辑场景
                 jsonContent = getJsonContent(sceneBean.getSceneId(), _sceneName, scenimg, listBreak);
                 Log.d(TAG, "edit scene=" + jsonContent);
-                addScene1(jsonContent);
+                addScene(jsonContent);
             }
         }
 

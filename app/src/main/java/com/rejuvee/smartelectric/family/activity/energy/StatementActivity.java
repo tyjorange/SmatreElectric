@@ -245,6 +245,7 @@ public class StatementActivity extends BaseActivity {
                         canChange = false;
                     }
                 }
+//                break;;
             case -1:
                 if (canChange) {
                     calendar.set(iyear, imonth - 1, iday);
@@ -256,16 +257,18 @@ public class StatementActivity extends BaseActivity {
                     imonth = calendar.get(Calendar.MONTH) + 1;
                     iday = calendar.get(Calendar.DATE);
                     iyear = calendar.get(Calendar.YEAR);
+                    changeTextView();
+                    getBreakerStatement();
                 }
                 break;
             case 0:
                 iyear = year;
                 imonth = month;
                 iday = day;
+                changeTextView();
+                getBreakerStatement();
                 break;
         }
-        changeTextView();
-        getBreakerStatement();
     }
 
     /**
