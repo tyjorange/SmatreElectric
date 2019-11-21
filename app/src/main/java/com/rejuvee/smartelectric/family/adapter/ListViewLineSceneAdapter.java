@@ -64,9 +64,13 @@ public class ListViewLineSceneAdapter extends BaseAdapter {
         holder.txt_room.setText(String.format("%s%s", context.getString(R.string.vs4), result.get(position).getName()));
         if (result.get(position).getState() == 1) {
             holder.img_kaiguang.setImageResource(R.drawable.yk_hezha);
-        } else {
+        } else if (result.get(position).getState() == 0) {
+            holder.img_kaiguang.setImageResource(R.drawable.yk_kaizha);
+        } else {// if (State == -1)
             holder.img_kaiguang.setImageResource(R.drawable.yk_kaizha);
         }
+        result.get(position).setState(0);// 添加的时候 默认开闸
+
         holder.img_kaiguang.setOnClickListener(v -> {
             int state = result.get(position).getState();
             result.get(position).setState(state == 0 ? 1 : 0);

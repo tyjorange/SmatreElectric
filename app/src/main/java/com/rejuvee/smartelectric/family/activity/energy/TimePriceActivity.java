@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import retrofit2.Call;
 
@@ -107,7 +108,7 @@ public class TimePriceActivity extends BaseActivity {
             public void onBeanClick(int position) {
                 Intent intent = new Intent(TimePriceActivity.this, TimePriceSetActivity.class);
                 intent.putExtra("s_price", timeOfUsePrice[position]);
-                String[] split = mListData.get(position).getContent().getValue().split(" - ");
+                String[] split = Objects.requireNonNull(mListData.get(position).getContent().getValue()).split(" - ");
                 intent.putExtra("s_start", split[0]);
                 intent.putExtra("s_end", split[1]);
                 intent.putExtra("i_start", position);
