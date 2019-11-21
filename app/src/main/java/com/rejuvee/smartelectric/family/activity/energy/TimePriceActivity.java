@@ -1,7 +1,6 @@
 package com.rejuvee.smartelectric.family.activity.energy;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -42,7 +41,7 @@ public class TimePriceActivity extends BaseActivity {
     private static Handler mHandler;
 
     private static int MESSAGE_UPDATE_PRICE = 100;
-    private String[] timeOfUsePrice = null;
+    private String[] timeOfUsePrice = new String[24];
     private String currencySymbol;// 货币符号
     //    private String defaultPrice;
     private LoadingDlg mWaitDialog;
@@ -79,7 +78,10 @@ public class TimePriceActivity extends BaseActivity {
 //            intent.putExtra("i_end", position + 1);
 //            startActivityForResult(intent, 1000);
 //        });
-        readPriceFromShared();//读取本地的
+//        readPriceFromShared();//读取本地的
+        for (int i = 0; i < 24; i++) {
+            timeOfUsePrice[i] = "0.0";
+        }
 //        mEditText.setText(defaultPrice);
 //        mEditText.addTextChangedListener(textWatcher);
 
@@ -203,36 +205,36 @@ public class TimePriceActivity extends BaseActivity {
             currentCall.cancel();
         }
         //        mEditText.removeTextChangedListener(textWatcher);
-        savePriceToShared();
+//        savePriceToShared();
         mHandler.removeMessages(MESSAGE_UPDATE_PRICE);
         mHandler = null;
     }
 
-    private void savePriceToShared() {
-        SharedPreferences sharedPreferences = getSharedPreferences("time-of-use pricing", MODE_PRIVATE);
-        StringBuilder price = new StringBuilder();
-        for (String s : timeOfUsePrice) {
-            price.append(s).append(",");
-        }
-        sharedPreferences.edit().putString("prices", price.toString()).apply();
-//        sharedPreferences.edit().putString("default", mEditText.getText().toString()).apply();
-    }
+//    private void savePriceToShared() {
+//        SharedPreferences sharedPreferences = getSharedPreferences("time-of-use pricing", MODE_PRIVATE);
+//        StringBuilder price = new StringBuilder();
+//        for (String s : timeOfUsePrice) {
+//            price.append(s).append(",");
+//        }
+//        sharedPreferences.edit().putString("prices", price.toString()).apply();
+////        sharedPreferences.edit().putString("default", mEditText.getText().toString()).apply();
+//    }
 
-    private void readPriceFromShared() {
-        SharedPreferences sharedPreferences = getSharedPreferences("time-of-use pricing", MODE_PRIVATE);
-        String price = sharedPreferences.getString("prices", null);
-//        defaultPrice = sharedPreferences.getString("default", "");
-        if (price == null) {
-            timeOfUsePrice = new String[24];
-            for (int i = 0; i < 24; i++) {
-                timeOfUsePrice[i] = "0.0";
-            }
-            return;
-        }
-
-        timeOfUsePrice = price.split(",");
-
-    }
+//    private void readPriceFromShared() {
+//        SharedPreferences sharedPreferences = getSharedPreferences("time-of-use pricing", MODE_PRIVATE);
+//        String price = sharedPreferences.getString("prices", null);
+////        defaultPrice = sharedPreferences.getString("default", "");
+//        if (price == null) {
+//            timeOfUsePrice = new String[24];
+//            for (int i = 0; i < 24; i++) {
+//                timeOfUsePrice[i] = "0.0";
+//            }
+//            return;
+//        }
+//
+//        timeOfUsePrice = price.split(",");
+//
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -283,9 +285,9 @@ public class TimePriceActivity extends BaseActivity {
             @Override
             public void onSuccess(List<TimePrice> data) {
                 mWaitDialog.dismiss();
-                if (timeOfUsePrice == null) {
-                    timeOfUsePrice = new String[24];
-                }
+//                if (timeOfUsePrice == null) {
+//                    timeOfUsePrice = new String[24];
+//                }
                 for (int i = 0; i < data.size(); i++) {
                     timeOfUsePrice[i] = data.get(i).getPrice();
                 }
