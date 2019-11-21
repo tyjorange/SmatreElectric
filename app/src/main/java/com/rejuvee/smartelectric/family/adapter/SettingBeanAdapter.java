@@ -105,12 +105,13 @@ public class SettingBeanAdapter extends RecyclerView.Adapter<BindingViewHolder> 
         if (mListData.size() != 0) {
             final ListSetingItem bean = mListData.get(position);
             Context context = holder.getBinding().getRoot().getContext();
+            holder.getBinding().setVariable(BR.vmItem, bean);
             switch (bean.getViewType()) {
                 case ITEM_VIEW_TYPE_LINEDETAIL1:  //分时计价
                     binding1.txtContent.setTextColor(context.getResources().getColor(R.color.contents_text));
-                    binding1.txtContent.setText(Html.fromHtml(bean.getContent().getValue()));
+//                    binding1.txtContent.setText(Html.fromHtml(bean.getContent().getValue()));
                     binding1.txtState.setTextColor(context.getResources().getColor(R.color.text_content));
-                    binding1.txtState.setText(bean.getDesc());
+//                    binding1.txtState.setText(bean.getDesc());
                     holder.itemView.setOnClickListener(v -> {
                         if (mListener != null) {
                             mListener.onBeanClick(position);

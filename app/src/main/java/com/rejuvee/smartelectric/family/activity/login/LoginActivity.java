@@ -146,6 +146,7 @@ public class LoginActivity extends BaseActivity {
      * 自动登录
      */
     private void autoLogin() {
+        Log.d(TAG, "autoLogin");
         AccountInfo cacheAccount = mViewModel.getCacheAccountInfo().getValue();
         if (cacheAccount != null) {
 //            mBinding.loginCetUsername.setText(cacheAccount.getUserName());

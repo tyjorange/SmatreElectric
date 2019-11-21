@@ -21,7 +21,7 @@ public class LunchActivity extends BaseActivity {
     private static final String TAG = "LunchActivity";
     private static final int countDownFlag = 1502;
     //    private Button mBtnSkip;
-    private int count = 3;
+    private int countDown = 3;
     private ActivityLunchBinding mBinding;
 
 //    @Override
@@ -51,7 +51,7 @@ public class LunchActivity extends BaseActivity {
         public void handleMessage(Message msg) {
 //            LunchActivity theActivity = activitySoftReference.get();
             if (msg.what == countDownFlag) {
-                int count = lunchActivity.getCount();
+                int count = lunchActivity.getCountDown();
                 if (count != 0) {
                     Log.i(TAG, String.valueOf(count));
                     lunchActivity.mBinding.btnSkip.setText(String.format(Locale.getDefault(), "%s(%d)", lunchActivity.getString(R.string.vs11), count));
@@ -61,15 +61,15 @@ public class LunchActivity extends BaseActivity {
         }
     }
 
-    private int getCount() {
-        count--;
-        if (count == 0) {
+    private int getCountDown() {
+        countDown--;
+        if (countDown == 0) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.top_in, R.anim.top_out);
             finish();
         }
-        return count;
+        return countDown;
     }
 
     @Override
@@ -103,6 +103,6 @@ public class LunchActivity extends BaseActivity {
 
     @Override
     protected void dealloc() {
-
+        Log.i(TAG, "dealloc");
     }
 }

@@ -86,7 +86,6 @@ public class TimePriceActivity extends BaseActivity {
         mHandler = new MyHandler(this);
 
         mWaitDialog = new LoadingDlg(this, -1);
-        getPrice();//读取服务器的数据
 
 
 //        if (mAdapter == null) {
@@ -119,19 +118,8 @@ public class TimePriceActivity extends BaseActivity {
 //        } else {
 //            mAdapter.notifyDataSetChanged();
 //        }
-        setDataType();
-    }
-
-    private void setDataType() {
-        mListData.clear();
-        for (int i = 0; i < timeOfUsePrice.length; i++) {
-            ListSetingItem listSetingItem = new ListSetingItem();
-            listSetingItem.setContent(String.format(Locale.getDefault(), "%02d", i) + ":00 - " + String.format(Locale.getDefault(), "%02d", i + 1) + ":00");
-            listSetingItem.setDesc(currencySymbol + timeOfUsePrice[i]);
-            listSetingItem.setViewType(ListSetingItem.ITEM_VIEW_TYPE_LINEDETAIL1);
-            mListData.add(listSetingItem);
-        }
-        mAdapter.addAll(mListData);
+        getPrice();
+//        setDataType();
     }
 
     private static class MyHandler extends Handler {
@@ -150,23 +138,30 @@ public class TimePriceActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 修改本地数据
+     *
+     * @param start
+     * @param end
+     * @param price
+     */
     private void updatePrice(int start, int end, String price) {
         if (end < start) {
             for (int i = 0; i <= end; i++) {
-                mListData.get(i).setDesc(currencySymbol + price);
+//                mListData.get(i).setDesc(currencySymbol + price);
                 timeOfUsePrice[i] = price;
             }
             for (int i = start; i < 24; i++) {
-                mListData.get(i).setDesc(currencySymbol + price);
+//                mListData.get(i).setDesc(currencySymbol + price);
                 timeOfUsePrice[i] = price;
             }
         } else {
             for (int i = start; i <= end; i++) {
-                mListData.get(i).setDesc(currencySymbol + price);
+//                mListData.get(i).setDesc(currencySymbol + price);
                 timeOfUsePrice[i] = price;
             }
         }
-        mAdapter.addAll(mListData);
+//        mAdapter.addAll(mListData);
     }
 
 
@@ -252,6 +247,9 @@ public class TimePriceActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 修改计价
+     */
     private void uploadPrice() {
         StringBuilder price = new StringBuilder();
         for (int i = 0; i < 24; i++) {
@@ -264,6 +262,7 @@ public class TimePriceActivity extends BaseActivity {
             public void onSuccess(Void data) {
                 mWaitDialog.dismiss();
                 CustomToast.showCustomToast(TimePriceActivity.this, getString(R.string.operator_sucess));
+                getPrice();
             }
 
             @Override
@@ -274,6 +273,9 @@ public class TimePriceActivity extends BaseActivity {
         });
     }
 
+    /**
+     * 读取服务器的数据
+     */
     private void getPrice() {
         mWaitDialog.show();
         currentCall = Core.instance(this).getTimeOfUsePrice(new ActionCallbackListener<List<TimePrice>>() {
@@ -286,6 +288,7 @@ public class TimePriceActivity extends BaseActivity {
                 for (int i = 0; i < data.size(); i++) {
                     timeOfUsePrice[i] = data.get(i).getPrice();
                 }
+                setDataType();
             }
 
             @Override
@@ -293,5 +296,20 @@ public class TimePriceActivity extends BaseActivity {
                 mWaitDialog.dismiss();
             }
         });
+    }
+
+    /**
+     * 更改VIEW
+     */
+    private void setDataType() {
+        mListData.clear();
+        for (int i = 0; i < timeOfUsePrice.length; i++) {
+            ListSetingItem listSetingItem = new ListSetingItem();
+            listSetingItem.setContent(String.format(Locale.getDefault(), "%02d", i) + ":00 - " + String.format(Locale.getDefault(), "%02d", i + 1) + ":00");
+            listSetingItem.setDesc(currencySymbol + timeOfUsePrice[i]);
+            listSetingItem.setViewType(ListSetingItem.ITEM_VIEW_TYPE_LINEDETAIL1);
+            mListData.add(listSetingItem);
+        }
+        mAdapter.addAll(mListData);
     }
 }

@@ -6,6 +6,7 @@ import android.view.View;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.alibaba.sdk.android.ams.common.util.StringUtil;
 import com.base.library.widget.CustomToast;
 import com.rejuvee.smartelectric.family.R;
 import com.rejuvee.smartelectric.family.common.BaseActivity;
@@ -36,11 +37,12 @@ public class TimePriceSetActivity extends BaseActivity {
 //        return 0;
 //    }
     private ActivityTimePriceSetBinding mBinding;
+    private TimePriceSetViewModel mViewModel;
 
     @Override
     protected void initView() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_time_price_set);
-        TimePriceSetViewModel mViewModel = ViewModelProviders.of(this).get(TimePriceSetViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(TimePriceSetViewModel.class);
         mBinding.setVm(mViewModel);
         mBinding.setPresenter(new Presenter());
         mBinding.setLifecycleOwner(this);
@@ -150,8 +152,8 @@ public class TimePriceSetActivity extends BaseActivity {
             }
         }
 
-        String price = mBinding.edtPrice.getText().toString();
-        if (price.length() == 0) {
+        String price = mViewModel.getPrice().getValue();//mBinding.edtPrice.getText().toString();
+        if (StringUtil.isEmpty(price)) {
             CustomToast.showCustomErrorToast(this, getString(R.string.please_input_price));
             return;
         }

@@ -1,6 +1,7 @@
 package com.rejuvee.smartelectric.family.activity.login;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -91,8 +92,9 @@ public class RegisterActivity extends BaseActivity {
     }
 
     private void usernameVerify(String username) {
-        if (username.isEmpty())
+        if (username.isEmpty()) {
             return;
+        }
         currentCall = Core.instance(this).validateUsername(username, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
@@ -126,7 +128,7 @@ public class RegisterActivity extends BaseActivity {
         currentCall = Core.instance(this).isPhoneRegister(phone, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
-
+                Log.d(TAG, "getVerifyCode onSuccess");
             }
 
             @Override
@@ -178,7 +180,7 @@ public class RegisterActivity extends BaseActivity {
             return;
         }
         encryptPwd = EncryptUtils.encryptMD5ToString(password1, Core.SALT);
-        AccountHelper accountHelper = new AccountHelper();
+//        AccountHelper accountHelper = new AccountHelper();
         Register(userName, phone, encryptPwd, code);
 //     accountHelper.Register(RegisterActivity.this, userName, phone, password, code);
     }
@@ -215,7 +217,7 @@ public class RegisterActivity extends BaseActivity {
             }
         } else if (eventMsg.eventType == AccountEventMsg.EVENT_GET_CODE) {
             if (eventMsg.isSucess()) {
-
+                Log.d(TAG, "eventMsg.isSuccess");
             } else {
                 CustomToast.showCustomErrorToast(RegisterActivity.this, getString(R.string.op_fail));
             }
