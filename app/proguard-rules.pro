@@ -59,13 +59,13 @@
         public static **[] values();
         public static ** valueOf(java.lang.String);
     }
-#EventBus
+# EventBus
     -keepattributes *Annotation*
     -keepclassmembers class ** {
         @org.greenrobot.eventbus.Subscribe <methods>;
     }
     -keep enum org.greenrobot.eventbus.ThreadMode { *; }
-#RxJava
+# RxJava
     -dontwarn rx.**
     -keepclassmembers class rx.** { *; }
 # retrolambda
@@ -85,6 +85,8 @@
 #QQLogin
    -keep class * extends android.app.Dialog
    -keep class com.rejuvee.smartelectric.family.wxapi.** { *; }
+   -keep class com.rejuvee.smartelectric.family.smarte.wxapi.** { *; }
+   -keep class com.rejuvee.smartelectric.family.common.utils.thrid.** { *; }
    #-keep class com.rejuvee.smartelectric.family.MainMessageReceiverer
 
 #ali push

@@ -137,6 +137,8 @@ public class QQLoginHelper {
         }
     }
 
+    private Gson gson = new Gson();
+
     private void getUserInfo(final Activity activity) {
         if (mTencent != null && mTencent.isSessionValid()) {
             IUiListener listener = new IUiListener() {
@@ -149,9 +151,7 @@ public class QQLoginHelper {
                 @Override
                 public void onComplete(final Object response) {
                     if (response != null) {
-                        Gson gson = new Gson();
                         QQUserInfo qqUserInfo = gson.fromJson(response.toString(), QQUserInfo.class);
-
                         if (qqUserInfo != null) {
                             //Log.d(TAG, qqUserInfo.nickname);
                             thirdPartyInfo = new ThirdPartyInfo();
@@ -240,6 +240,16 @@ public class QQLoginHelper {
         public String figureurl_qq_2;// "http://q.qlogo.cn/qqapp/222222/8C75BBE3DC6B0E9A64BD31449A3C8CB0/100",
         public String nickname;//
 
+        @Override
+        public String toString() {
+            return "QQUserInfo{" +
+                    "is_yellow_year_vip=" + is_yellow_year_vip +
+                    ", ret=" + ret +
+                    ", figureurl_qq_1='" + figureurl_qq_1 + '\'' +
+                    ", figureurl_qq_2='" + figureurl_qq_2 + '\'' +
+                    ", nickname='" + nickname + '\'' +
+                    '}';
+        }
     }
 
 

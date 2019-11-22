@@ -70,6 +70,27 @@ public class PermissionManage {
     }
 
     /**
+     * 获取读写系统权限
+     *
+     * @param context
+     */
+    @SuppressLint("WrongConstant")
+    public void hasWriteSetting(Context context) {
+        AndPermission.with(context)
+                .runtime()
+                .permission(Manifest.permission.WRITE_SETTINGS)
+                .onGranted(permissions -> {
+                    callBack.onGranted();
+                    // Storage permission are allowed.
+                })
+                .onDenied(permissions -> {
+                    // Storage permission are not allowed.
+                    callBack.onDenied();
+                })
+                .start();
+    }
+
+    /**
      * 获取安装权限
      *
      * @param context

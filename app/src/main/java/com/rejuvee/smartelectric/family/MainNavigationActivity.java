@@ -142,25 +142,31 @@ public class MainNavigationActivity extends BaseActivity implements NavigationVi
         mainBinding.include.include.refreshlayout.setOnRefreshListener(this::getCollector);
 
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
-            //问题出在6.0 && 6.0.1版本中，这个权限默认是被拒绝，无法获取这个权限。所以，在需要个权限的时候会出现权限问题导致应用因为权限问题崩溃
+            // 问题出在6.0 && 6.0.1版本中，这个权限默认是被拒绝，无法获取这个权限。
+            // 所以，在需要个权限的时候会出现权限问题导致应用因为权限问题崩溃
             if (!Settings.System.canWrite(this)) {
                 Intent goToSettings = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
                 goToSettings.setData(Uri.parse("package:" + getPackageName()));
                 startActivity(goToSettings);
-            }
-        }
-        PermissionManage.getInstance().setCallBack(new PermissionManage.PermissionCallBack() {
-
-            @Override
-            public void onGranted() {
+                CustomToast.showCustomErrorToast(this, "请允许修改系统设置，否则无法使用WIFI版电箱");
+            } else {
                 WifiUtil.getInstance(getApplicationContext());
             }
+        } else {
+            PermissionManage.getInstance().setCallBack(new PermissionManage.PermissionCallBack() {
 
-            @Override
-            public void onDenied() {
+                @Override
+                public void onGranted() {
+                    WifiUtil.getInstance(getApplicationContext());
+                }
 
-            }
-        }).hasLocationStorage(this);
+                @Override
+                public void onDenied() {
+
+                }
+            }).hasLocationStorage(this);
+        }
+
         getUserMsg();
         testWechatPublic();
         initScene();

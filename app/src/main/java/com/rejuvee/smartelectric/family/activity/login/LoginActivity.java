@@ -99,7 +99,7 @@ public class LoginActivity extends BaseActivity {
         EventBus.getDefault().register(this);
         mWaitDialog = new LoadingDlg(this, -1);
 
-        if (ValidateUtils.isApkInDebug(this)) {
+//        if (ValidateUtils.isApkInDebug(this)) {
             // 隐藏按钮 事件
             mBinding.hiddenBtn.setOnTouchListener(new HiddenClickListener(new HiddenClickListener.MyClickCallBack() {
                 @Override
@@ -117,7 +117,7 @@ public class LoginActivity extends BaseActivity {
                     startActivity(new Intent(LoginActivity.this, HiddenDialogActivity.class));
                 }
             }));
-        }
+//        }
         // 查看密码 事件
 //        CheckableImageView checkableImageView = findViewById(R.id.login_civ_eye);
         mBinding.loginCivEye.setOnCheckChangeListener(checked -> {

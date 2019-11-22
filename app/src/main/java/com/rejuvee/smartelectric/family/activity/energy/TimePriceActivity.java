@@ -1,8 +1,6 @@
 package com.rejuvee.smartelectric.family.activity.energy;
 
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 
@@ -20,7 +18,6 @@ import com.rejuvee.smartelectric.family.common.widget.dialog.LoadingDlg;
 import com.rejuvee.smartelectric.family.databinding.ActivityCostCalculationBinding;
 import com.rejuvee.smartelectric.family.model.bean.TimePrice;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
@@ -38,10 +35,10 @@ public class TimePriceActivity extends BaseActivity {
     private SettingBeanAdapter mAdapter;
     //    private EditText mEditText;
     private List<ListSetingItem> mListData = new ArrayList<>();
-    private static Handler mHandler;
+//    private static Handler mHandler;
 
-    private static int MESSAGE_UPDATE_PRICE = 100;
-    private String[] timeOfUsePrice = new String[24];
+    //    private static int MESSAGE_UPDATE_PRICE = 100;
+    private String[] timeOfUsePrice;
     private String currencySymbol;// 货币符号
     //    private String defaultPrice;
     private LoadingDlg mWaitDialog;
@@ -79,6 +76,8 @@ public class TimePriceActivity extends BaseActivity {
 //            startActivityForResult(intent, 1000);
 //        });
 //        readPriceFromShared();//读取本地的
+
+        timeOfUsePrice = new String[24];
         for (int i = 0; i < 24; i++) {
             timeOfUsePrice[i] = "0.0";
         }
@@ -86,7 +85,7 @@ public class TimePriceActivity extends BaseActivity {
 //        mEditText.addTextChangedListener(textWatcher);
 
 //        findViewById(R.id.img_edit_section).setOnClickListener(v -> startActivityForResult(new Intent(TimePriceActivity.this, TimePriceSetActivity.class), 1000));
-        mHandler = new MyHandler(this);
+//        mHandler = new MyHandler(this);
 
         mWaitDialog = new LoadingDlg(this, -1);
 
@@ -125,21 +124,21 @@ public class TimePriceActivity extends BaseActivity {
 //        setDataType();
     }
 
-    private static class MyHandler extends Handler {
-        WeakReference<TimePriceActivity> activityWeakReference;
-
-        MyHandler(TimePriceActivity activity) {
-            activityWeakReference = new WeakReference<>(activity);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            TimePriceActivity theActivity = activityWeakReference.get();
-            if (msg.what == MESSAGE_UPDATE_PRICE) {
+//    private static class MyHandler extends Handler {
+//        WeakReference<TimePriceActivity> activityWeakReference;
+//
+//        MyHandler(TimePriceActivity activity) {
+//            activityWeakReference = new WeakReference<>(activity);
+//        }
+//
+//        @Override
+//        public void handleMessage(Message msg) {
+//            TimePriceActivity theActivity = activityWeakReference.get();
+//            if (msg.what == MESSAGE_UPDATE_PRICE) {
 //                theActivity.updatePrice(0, 23, theActivity.mEditText.getText().toString());
-            }
-        }
-    }
+//            }
+//        }
+//    }
 
     /**
      * 修改本地数据
@@ -206,8 +205,8 @@ public class TimePriceActivity extends BaseActivity {
         }
         //        mEditText.removeTextChangedListener(textWatcher);
 //        savePriceToShared();
-        mHandler.removeMessages(MESSAGE_UPDATE_PRICE);
-        mHandler = null;
+//        mHandler.removeMessages(MESSAGE_UPDATE_PRICE);
+//        mHandler = null;
     }
 
 //    private void savePriceToShared() {

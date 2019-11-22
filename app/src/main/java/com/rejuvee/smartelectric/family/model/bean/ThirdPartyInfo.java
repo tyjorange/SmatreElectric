@@ -23,4 +23,19 @@ public class ThirdPartyInfo {
 
     public boolean isSucess;
 
+    @Override
+    public String toString() {
+        return "ThirdPartyInfo{" +
+                "loginType=" + loginType +
+                ", bindType=" + bindType +
+                ", code='" + code + '\'' +
+                ", type='" + type + '\'' +
+                ", openId='" + openId + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", headImgUrl1='" + headImgUrl1 + '\'' +
+                ", headImgUrl2='" + headImgUrl2 + '\'' +
+                ", unionid='" + unionid + '\'' +
+                ", isSucess=" + isSucess +
+                '}';
+    }
 }
