@@ -29,7 +29,8 @@ public class AboutActivity extends BaseActivity {
         mBinding.setPresenter(new Presenter());
         mBinding.setLifecycleOwner(this);
 //        findViewById(R.id.iv_back).setOnClickListener(v -> finish());
-        mBinding.txtCurrentVision.setText(String.format("%s%s", getString(R.string.vs20), packageCode(this)));
+//        mBinding.txtCurrentVision.setText(String.format("%s%s", getString(R.string.vs20), packageCode(this)));
+        mBinding.txtCurrentVision.setText(String.format("%s", packageCode(this)));
     }
 
     private String packageCode(Context context) {
