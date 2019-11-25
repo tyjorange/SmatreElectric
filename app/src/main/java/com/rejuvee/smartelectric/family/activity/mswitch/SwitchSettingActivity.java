@@ -27,7 +27,7 @@ import com.rejuvee.smartelectric.family.fragment.SettingDL2Fragment;
 import com.rejuvee.smartelectric.family.fragment.SettingDYFragment;
 import com.rejuvee.smartelectric.family.fragment.SettingOtherFragment;
 import com.rejuvee.smartelectric.family.model.bean.CollectorBean;
-import com.rejuvee.smartelectric.family.model.bean.PP;
+import com.rejuvee.smartelectric.family.model.bean.JData;
 import com.rejuvee.smartelectric.family.model.bean.SwitchBean;
 import com.rejuvee.smartelectric.family.model.bean.VoltageValue;
 import com.rejuvee.smartelectric.family.model.viewmodel.SwitchSettingViewModel;
@@ -458,6 +458,7 @@ public class SwitchSettingActivity extends BaseActivity implements
             return;
         }
         String content = gson.toJson(_JDataSet);// 转JSON字符串
+        System.out.println(content);
         currentCall = Core.instance(SwitchSettingActivity.this).sendSetThreadValueCommand(content, new ActionCallbackListener<Void>() {
             @Override
             public void onSuccess(Void data) {
@@ -559,16 +560,5 @@ public class SwitchSettingActivity extends BaseActivity implements
             }
             return super.getPageTitle(position);
         }
-    }
-
-    /**
-     * 查询参数:{"switchCode":1,"paramIDs":[1,2,3,4]}
-     * <p>
-     * 设置参数:{"switchCode":1,"params":[{"id":1,"value":1},{"id":2,"value":4},{"id":3,"value":9},{"id":4,"value":16}]}
-     */
-    public class JData {
-        String switchCode;
-        List<String> paramIDs;
-        List<PP> params;
     }
 }
