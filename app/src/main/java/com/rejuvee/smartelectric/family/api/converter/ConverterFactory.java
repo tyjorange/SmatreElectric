@@ -41,7 +41,7 @@ public final class ConverterFactory extends Converter.Factory {
     @Override
     public Converter<?, RequestBody> requestBodyConverter(Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
 //        TypeAdapter<?> adapter = gson.getAdapter(TypeToken.get(type));
-        return new EncodeRequestBodyConverter(gson);
+        return new EncodeRequestBodyConverter<>(gson);
     }
 
 

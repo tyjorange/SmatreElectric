@@ -117,7 +117,7 @@ public class PerInfoActivity extends BaseActivity implements ImageUtil.CropHandl
         getCacheAccount();
         buildUri();
 
-        Bitmap bmpUserQR = ValidateUtils.createQRcodeImage(mViewModel.getNickname().getValue(), SizeUtils.dp2px(100), SizeUtils.dp2px(100));
+        Bitmap bmpUserQR = ValidateUtils.createQRcodeImage(mViewModel.getUsername().getValue(), SizeUtils.dp2px(100), SizeUtils.dp2px(100));
 //        ImageView ivQcode = findViewById(R.id.iv_qcode);
         mBinding.ivQcode.setImageBitmap(bmpUserQR);
     }

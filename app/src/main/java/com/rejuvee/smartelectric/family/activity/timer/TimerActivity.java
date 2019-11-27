@@ -114,6 +114,10 @@ public class TimerActivity extends BaseActivity implements ListTimerAdapter.MyLi
      * @param task
      */
     private void editTask(TimeTaskBean.TimeTask task) {
+        if (switchBean == null) {
+            CustomToast.showCustomErrorToast(this, getResources().getString(R.string.vs29));
+            return;
+        }
         Intent intent = new Intent(TimerActivity.this, TimerEditDialogActivity.class);
         intent.putExtra("task", task);
         intent.putExtra("switchBean", switchBean);
@@ -223,10 +227,13 @@ public class TimerActivity extends BaseActivity implements ListTimerAdapter.MyLi
                 }
             }
         });
-        if (switchBean == null) {// 没有线路
-            mBinding.imgAdd.setVisibility(View.INVISIBLE);
-            mBinding.imgRemove.setVisibility(View.INVISIBLE);
-        }
+//        if (switchBean == null) {// 没有线路
+//            mBinding.imgAdd.setVisibility(View.INVISIBLE);
+//            mBinding.imgRemove.setVisibility(View.INVISIBLE);
+//        } else {
+//            mBinding.imgAdd.setVisibility(View.VISIBLE);
+//            mBinding.imgRemove.setVisibility(View.VISIBLE);
+//        }
     }
 
     @Override
