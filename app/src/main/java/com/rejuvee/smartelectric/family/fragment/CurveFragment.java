@@ -35,7 +35,7 @@ public class CurveFragment extends BaseFragment {
     private LoadingDlg loadingDlg;
     private List<SignalValue> signalValueList;
     private List<SignalValue> signalValueListExtral = new ArrayList<>();//用于月查询时，谷值跟峰值
-    private OnShowingListener listener;
+//    private OnShowingListener listener;
 //    private boolean isShowing;
 
     public void setPosition(int position) {
@@ -71,43 +71,44 @@ public class CurveFragment extends BaseFragment {
         return mBinding.getRoot();
     }
 
-    public void change(Bundle bundle) {
+    private void change(Bundle bundle) {
         if (bundle == null) {
             return;
         }
         Log.e("VpAdapter", "changeData: " + position);
 //        tag = bundle.getCharSequence("tag").toString();
-        String signalTypeIdNew = bundle.getCharSequence("signalTypeId").toString();
-        int switchIdNew = bundle.getInt("switchId");
-        String timeNew = bundle.getCharSequence("time").toString();
-        boolean isDayNew = bundle.getBoolean("isDay");
-        String unitNew = bundle.getCharSequence("unit").toString();
-        if (signalValueList.size() == 0
-                || (!isDayNew && signalValueListExtral.size() == 0)
-                || !signalTypeIdNew.equals(signalTypeId)
-                || switchIdNew != (switchId)
-                || !timeNew.equals(time)
-                || !(isDayNew == isDay)
-                || !unitNew.equals(unit)) {
-            signalTypeId = signalTypeIdNew;
-            switchId = switchIdNew;
-            time = timeNew;
-            isDay = isDayNew;
-            unit = unitNew;
-            loadingDlg.show();
-            tvUnit.setText(unit);
-            if (isDay) {
-                getAverageValueByDay();
-            } else {
-                getValueByMonth();
-            }
+        signalTypeId = bundle.getCharSequence("signalTypeId").toString();
+        switchId = bundle.getInt("switchId");
+        time = bundle.getCharSequence("time").toString();
+        isDay = bundle.getBoolean("isDay");
+        unit = bundle.getCharSequence("unit").toString();
+
+//        if (signalValueList.size() == 0
+//                || (!isDayNew && signalValueListExtral.size() == 0)
+//                || !signalTypeIdNew.equals(signalTypeId)
+//                || switchIdNew != (switchId)
+//                || !timeNew.equals(time)
+//                || !(isDayNew == isDay)
+//                || !unitNew.equals(unit)) {
+//            signalTypeId = signalTypeIdNew;
+//            switchId = switchIdNew;
+//            time = timeNew;
+//            isDay = isDayNew;
+//            unit = unitNew;
+//        }
+        loadingDlg.show();
+        tvUnit.setText(unit);
+        if (isDay) {
+            getAverageValueByDay();
+        } else {
+            getValueByMonth();
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        listener.onShowing(this);
+//        listener.onShowing(this);
     }
 
 //    @Override
@@ -283,13 +284,13 @@ public class CurveFragment extends BaseFragment {
         });
     }
 */
-    public void setOnShowingListener(OnShowingListener onShowingListener) {
-        listener = onShowingListener;
-    }
+//    public void setOnShowingListener(OnShowingListener onShowingListener) {
+//        listener = onShowingListener;
+//    }
 
-    public interface OnShowingListener {
-        void onShowing(CurveFragment curveFragment);
-    }
+//    public interface OnShowingListener {
+//        void onShowing(CurveFragment curveFragment);
+//    }
 
     @Override
     public void onDestroyView() {

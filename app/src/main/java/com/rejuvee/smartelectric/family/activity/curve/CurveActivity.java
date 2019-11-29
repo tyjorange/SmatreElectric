@@ -9,7 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.viewpager.widget.PagerAdapter;
 
 import com.base.frame.greenandroid.wheel.view.WheelDateTime;
 import com.base.frame.net.ActionCallbackListener;
@@ -42,11 +44,11 @@ import retrofit2.Call;
 /**
  * 曲线
  */
-public class CurveActivity extends BaseActivity implements CurveFragment.OnShowingListener {
+public class CurveActivity extends BaseActivity {
     //    private TabLayout tabCurve;
 //    private ViewPager vpCurve;
     //    private GridView gvBreaker;
-    private FragmentPagerAdapter fpAdapter;
+    private FragmentStatePagerAdapter fpAdapter;
     //    private BaseAdapter gvAdapter;
 //    private List<CollectorBean> collectorBeanList;
     private List<SwitchBean> switchBeanList = new ArrayList<>();
@@ -227,6 +229,7 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
     }
 
     private void notifyFpAdapter() {
+        System.out.println("lastPos  " + lastPos);
         if (isDay) {
             if (signalDayTypeList != null && signalDayTypeList.size() > 0) {
 //                initFpAdapter();
@@ -238,7 +241,6 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
             }
         } else {
             if (signalMonthTypeList != null && signalMonthTypeList.size() > 0) {
-                System.out.println("lastPos  " + lastPos);
 //                initFpAdapter();
                 mBinding.vpCurve.setAdapter(fpAdapter);
                 mBinding.vpCurve.setCurrentItem(lastPos);
@@ -380,7 +382,7 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
 
     private void initFpAdapter() {
         mBinding.tlCurve.setTabMode(isDay ? TabLayout.MODE_SCROLLABLE : TabLayout.MODE_FIXED);
-        fpAdapter = new FragmentPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+        fpAdapter = new FragmentStatePagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
             @NonNull
             @Override
@@ -389,7 +391,7 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
                 List<SignalType> signalTypeList = isDay ? signalDayTypeList : signalMonthTypeList;
                 CurveFragment curveFragment = new CurveFragment();
                 curveFragment.setPosition(position);
-                curveFragment.setOnShowingListener(CurveActivity.this);
+//                curveFragment.setOnShowingListener(CurveActivity.this);
                 if (getCount() > 0) {
                     currentSignalType = signalTypeList.get(position);
                     curveFragment.setArguments(getBundle());
@@ -413,6 +415,17 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
                 currentSignalType = signalTypeList.get(position);
                 title = getResources().getString(currentSignalType.getTabTitle());
                 return title;
+            }
+
+            /**
+             * 使用这个方式，让页面不缓存，能够在清除fragment的时候对其做了删除
+             *
+             * @param object
+             * @return
+             */
+            @Override
+            public int getItemPosition(Object object) {
+                return PagerAdapter.POSITION_NONE;
             }
         };
     }
@@ -520,12 +533,12 @@ public class CurveActivity extends BaseActivity implements CurveFragment.OnShowi
 ////        super.onClick(v);
 //    }
 
-    @Override
+    //    @Override
     public void onShowing(CurveFragment curveFragment) {
         Log.e("VpAdapter", "onShowing");
         List<SignalType> signalTypeList = isDay ? signalDayTypeList : signalMonthTypeList;
         currentSignalType = signalTypeList.get(curveFragment.getPosition());
-        curveFragment.change(getBundle());
+//        curveFragment.change(getBundle());
     }
 
     @Override

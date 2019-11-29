@@ -281,6 +281,12 @@
         <item>定时合闸</item>
         <item>漏电自检失败</item>
         <item>开关故障</item>
+        <item>过压恢复合闸</item>
+        <item>欠压恢复合闸</item>
+        <item>上电合闸</item>
+        <item>上电拉闸</item>
+        <item>电弧拉闸</item>
+        <item>漏电自检恢复合闸</item>
     </string-array>
     <string-array name="switch_param_code">
         <item>设置终端与断路器IO互通</item>

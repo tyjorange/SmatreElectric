@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.base.frame.net.ActionCallbackListener;
 import com.base.library.widget.CustomToast;
@@ -48,7 +49,6 @@ public class CreateSceneActivity extends BaseActivity {
     private int scenimg;// 返回的iconType
     private SceneBean sceneBean;
     private ArrayList<SwitchInfoBean> listBreak = new ArrayList<>();
-    private ArrayList<SwitchInfoBean> addBreakList = new ArrayList<>();
     private ArrayList<String> sceneswitchid = new ArrayList<>();
     private ListViewLineSceneAdapter listViewlineSceneAdapter;
     //    private TextView text_title;
@@ -93,7 +93,9 @@ public class CreateSceneActivity extends BaseActivity {
 //        Intent intent = getIntent();
         sceneBean = getIntent().getParcelableExtra("scene");
 //        sceneiconres = intent.getIntExtra("SceneIconRes", 11);
-        listViewlineSceneAdapter = new ListViewLineSceneAdapter(CreateSceneActivity.this, listBreak);
+        listViewlineSceneAdapter = new ListViewLineSceneAdapter(CreateSceneActivity.this);
+        listViewlineSceneAdapter.setHasStableIds(true);
+        mBinding.listLine.setLayoutManager(new LinearLayoutManager(this));
         mBinding.listLine.setAdapter(listViewlineSceneAdapter);
         if (sceneBean != null) {
 //            sceneid = sceneBean.getSceneId();
@@ -125,11 +127,12 @@ public class CreateSceneActivity extends BaseActivity {
             }
         });
 
-        mBinding.listLine.setOnItemClickListener((parent, view, position, id) -> {
-            lineposition = position;
-            dialogTip.show();
-        });
-//        mPopWindow = new PopupWindow();
+        // 移除一条线路 TODO
+//        mBinding.listLine.setOnItemClickListener((parent, view, position, id) -> {
+//            lineposition = position;
+//            dialogTip.show();
+//        });
+
 //         mBinding.listLine.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 //            @Override
 //            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -143,7 +146,7 @@ public class CreateSceneActivity extends BaseActivity {
     /**
      * {"scneID":"";"collectorID":"";"name":"";"iconType":"int";"switchs":[{"switchID":"";"cmdData:"int"}]}
      */
-    private String getJsonContent(String scneID, String name, int iconType, ArrayList<SwitchInfoBean> listBreak) {
+    private String getJsonContent(String scneID, String name, int iconType, List<SwitchInfoBean> listBreak) {
         try {
             JSONObject scenes = new JSONObject();
 //            scenes.put("userkey", ValidateUtils.USER_KRY);
@@ -233,18 +236,25 @@ public class CreateSceneActivity extends BaseActivity {
              }
          });
      }*/
+
+    /**
+     * 获取场景下管理的线路
+     *
+     * @param sceneid
+     */
     private void findAllBreakByscene(final String sceneid) {
         currentCall = Core.instance(this).findSceneSwitchByScene(sceneid, new ActionCallbackListener<List<SceneItemBean>>() {
             @Override
             public void onSuccess(List<SceneItemBean> data) {
                 listBreak.clear();
                 for (SceneItemBean itemBean : data) {
-                    SwitchInfoBean switchInfoBean = itemBean.getSwitchs();
-                    switchInfoBean.setState(itemBean.getCmdData());
-                    listBreak.add(switchInfoBean);
+                    SwitchInfoBean bean = itemBean.getSwitchs();
+                    bean.setState(itemBean.getCmdData());
+                    listBreak.add(bean);
                 }
-                listViewlineSceneAdapter = new ListViewLineSceneAdapter(CreateSceneActivity.this, listBreak);
-                mBinding.listLine.setAdapter(listViewlineSceneAdapter);
+                listViewlineSceneAdapter.addAll(listBreak);
+//                listViewlineSceneAdapter = new ListViewLineSceneAdapter(CreateSceneActivity.this, listBreak);
+//                mBinding.listLine.setAdapter(listViewlineSceneAdapter);
             }
 
             @Override
@@ -260,7 +270,7 @@ public class CreateSceneActivity extends BaseActivity {
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case CommonRequestCode.REQUEST_CHOSE_LINE:
-                    addBreakList = data.getParcelableArrayListExtra("breaks");
+                    ArrayList<SwitchInfoBean> addBreakList = data.getParcelableArrayListExtra("breaks");
 //                    scecount = addBreakList.size() + "";
                     listBreak.addAll(Objects.requireNonNull(addBreakList));  //添加已选中的线路
                     listViewlineSceneAdapter.notifyDataSetChanged();
@@ -306,11 +316,11 @@ public class CreateSceneActivity extends BaseActivity {
             }
             String jsonContent;
             if (sceneBean == null) {//新建场景
-                jsonContent = getJsonContent(null, _sceneName, scenimg, listBreak);
+                jsonContent = getJsonContent(null, _sceneName, scenimg, listViewlineSceneAdapter.getResult());
                 Log.d(TAG, "add scene=" + jsonContent);
                 addScene(jsonContent);
             } else {//编辑场景
-                jsonContent = getJsonContent(sceneBean.getSceneId(), _sceneName, scenimg, listBreak);
+                jsonContent = getJsonContent(sceneBean.getSceneId(), _sceneName, scenimg, listViewlineSceneAdapter.getResult());
                 Log.d(TAG, "edit scene=" + jsonContent);
                 addScene(jsonContent);
             }

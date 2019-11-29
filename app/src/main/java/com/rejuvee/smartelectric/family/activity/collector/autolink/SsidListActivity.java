@@ -1,16 +1,18 @@
 package com.rejuvee.smartelectric.family.activity.collector.autolink;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.databinding.DataBindingUtil;
+
 import com.rejuvee.smartelectric.family.R;
+import com.rejuvee.smartelectric.family.common.BaseActivity;
+import com.rejuvee.smartelectric.family.databinding.LayoutSsidListBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,16 +21,23 @@ import java.util.Locale;
 /**
  * 模块扫描到的SSID列表
  */
-public class SsidListActivity extends Activity {
+public class SsidListActivity extends BaseActivity {
     private ArrayList<SSIDItem> ssids;
 
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.layout_ssid_list);
+//    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_ssid_list);
-        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
+    protected void initView() {
+        LayoutSsidListBinding mBinding = DataBindingUtil.setContentView(this, R.layout.layout_ssid_list);
+        mBinding.setPresenter(new Presenter());
+        mBinding.setLifecycleOwner(this);
+//        findViewById(R.id.img_cancel).setOnClickListener(v -> finish());
         ssids = getIntent().getParcelableArrayListExtra("ssids");
-        ListView lv = findViewById(R.id.lv_ssid);
+        ListView lv = mBinding.lvSsid;// findViewById(R.id.lv_ssid);
         if (ssids == null) {
             ssids = new ArrayList<>();
         }
@@ -43,6 +52,17 @@ public class SsidListActivity extends Activity {
             setResult(RESULT_OK, data);
             finish();
         });
+    }
+
+    public class Presenter {
+        public void onCancel(View view) {
+            finish();
+        }
+    }
+
+    @Override
+    protected void dealloc() {
+
     }
 
     private class ItemAdapter extends BaseAdapter {

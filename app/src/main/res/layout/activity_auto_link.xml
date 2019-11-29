@@ -88,8 +88,9 @@
                 <TextView
                     android:id="@+id/tv_change"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="@integer/tag_1"
+                    android:gravity="start|center"
                     android:text="@string/vs241"
                     android:textColor="@color/gray"
                     android:textSize="14sp" />
@@ -122,10 +123,10 @@
                 <EditText
                     android:id="@+id/et_ssid"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="@integer/tag_1"
                     android:background="@color/transparent"
-                    android:enabled="false"
+                    android:enabled="true"
                     android:hint="@string/vs244"
                     android:singleLine="true"
                     android:text="@={vm.ssid}"
@@ -136,6 +137,8 @@
                     android:id="@+id/btn_search"
                     android:layout_width="80dp"
                     android:layout_height="30dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
                     android:background="@drawable/btn_def"
                     android:enabled="false"
                     android:onClick="@{presenter::onSearch}"
@@ -153,12 +156,12 @@
                 <EditText
                     android:id="@+id/et_pasd"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@color/transparent"
                     android:hint="@string/vs246"
                     android:singleLine="true"
-                    android:text="@{vm.pasd}"
+                    android:text="@={vm.pasd}"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 

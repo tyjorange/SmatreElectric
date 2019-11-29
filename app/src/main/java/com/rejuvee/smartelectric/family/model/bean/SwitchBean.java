@@ -123,6 +123,24 @@ public class SwitchBean implements Parcelable {
         } else if ((faultCode & (0x01 << 18)) > 0) {
             // 第18位:开关故障
             return context.getResources().getStringArray(R.array.switch_fault_code)[18];
+        } else if ((faultCode & (0x01 << 19)) > 0) {
+            // 第19位:过压恢复合闸
+            return context.getResources().getStringArray(R.array.switch_fault_code)[19];
+        } else if ((faultCode & (0x01 << 20)) > 0) {
+            // 第20位:欠压恢复合闸
+            return context.getResources().getStringArray(R.array.switch_fault_code)[20];
+        } else if ((faultCode & (0x01 << 21)) > 0) {
+            // 第21位:上电合闸
+            return context.getResources().getStringArray(R.array.switch_fault_code)[21];
+        } else if ((faultCode & (0x01 << 22)) > 0) {
+            // 第22位:上电拉闸
+            return context.getResources().getStringArray(R.array.switch_fault_code)[22];
+        } else if ((faultCode & (0x01 << 23)) > 0) {
+            // 第23位:电弧拉闸
+            return context.getResources().getStringArray(R.array.switch_fault_code)[23];
+        } else if ((faultCode & (0x01 << 24)) > 0) {
+            // 第24位:漏电自检恢复合闸
+            return context.getResources().getStringArray(R.array.switch_fault_code)[24];
         }
         return "unknow";
     }
